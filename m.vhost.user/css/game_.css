@@ -1,0 +1,240 @@
+@charset "utf-8";
+
+.league {width: 100%; height: 17px; padding: 2px 0px 0px 2px; background-color: #161a24; text-align: left; margin-bottom: 4px; margin-top: 4px; }
+.league_text_1 {color: #7dacf4; font-size: 11px;}
+.league_text_2 {color: #b6fe99; font-size: 11px;}
+.league_text_3 {color: #f65555; font-size: 11px;}
+.league_text_4 {color: #fc9ed1; font-size: 11px;}
+
+.game_data {width: 100%; display:table; height: 35px; margin: 3px 0 3px 0; overflow:hidden; }
+.game_data li { padding-top: 4px; padding-bottom: 5px; list-style:none; word-break:break-all; font-size: 11px; }
+.day {width: 10%; display:table-cell; vertical-align:middle; color: #666;}
+.day1 {width: 16%; padding-top: 4px;display: block; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.home_box { float:left;width:43%; display:table; height: 35px;}
+.home_box .home {width: 100%; border: 1px solid #25405b; display: block; cursor:pointer; display:table-cell; vertical-align:middle; 
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #11161b 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#11161b)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#11161b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#11161b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#11161b 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#11161b 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#11161b',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.home_box1 { float:left;width:43%; display:table; height: 35px;}
+.home_box1 .home {width: 100%; border: 1px solid #25405b; display: block; cursor:pointer; display:table-cell; vertical-align:middle; 
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #11161b 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#11161b)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#11161b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#11161b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#11161b 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#11161b 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#11161b',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.odd_box { float:left; width: 12%; display:table; height: 35px; margin-left:1px;}
+.odd_box .odd {width: 100%; border: 1px solid #25405b; display: block; cursor:pointer; display:table-cell; vertical-align:middle; 
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #11161b 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#11161b)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#11161b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#11161b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#11161b 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#11161b 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#11161b',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.away_box { float:left; width:43%; display:table; height: 35px; margin-left:1px;}
+.away_box .away {width: 100%; border: 1px solid #25405b; display: block; cursor:pointer; display:table-cell; vertical-align:middle;
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #11161b 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#11161b)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#11161b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#11161b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#11161b 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#11161b 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#11161b',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.away_box1 {width: 30%; float:left; overflow: hidden; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.away_box1 .away {width: 100%; border: 1px solid #25405b; display: block;  padding-left: 3px; padding-right: 2px; cursor:pointer; float:left;
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #11161b 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#11161b)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#11161b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#11161b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#11161b 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#11161b 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#11161b',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.g_notice_1 {color: #45e0e3; font-size: 11px; display:inline-block;}
+.g_notice_2 {color: #b6fe99; font-size: 11px; }
+.home_n {color: #dfdfdf; font-size: 11px; float: left; max-width: 80%; text-align: left; overflow:hidden;}
+.home_odd_n {color: #7dacf4; font-size: 11px; float: right; max-width: 20%;}
+.odd_n {color: #7dacf4; font-size: 11px; display:inline-block;}
+.away_odd_n {color: #7dacf4; font-size: 11px; float: left; max-width: 20%;}
+.away_n {color: #dfdfdf; font-size: 11px; float: right; max-width: 80%; text-align:right; overflow:hidden; }
+.home_over_box { float:left; width:43%; display:table; height: 35px;}
+.home_over_box .home_over {width: 100%; border: 1px solid #25405b; display: block; cursor:pointer; display:table-cell; vertical-align:middle; background-color: #28435e;}
+.odd_over_box { float:left; width: 12%; display:table; height: 35px; margin-left:1px;}
+.odd_over_box .odd_over {width: 100%; border: 1px solid #25405b; display: block; cursor:pointer; display:table-cell; vertical-align:middle; background-color: #28435e;}
+.away_over_box  {float:left; width:43%; display:table; height: 35px; margin-left:1px;}
+.away_over_box .away_over {width: 200px; border: 1px solid #25405b; display: block; cursor:pointer; display:table-cell; vertical-align:middle; background-color: #28435e;}
+.home_o {color: #fff44b; font-size: 11px; float: left; max-width: 80%; text-align: left; display:inline-block;}
+.home_odd_o {color: #fff44b; font-size: 11px; float: right; max-width: 20%;}
+.odd_o {color: #fff44b; font-size: 11px; height:24px; display:inline-block; overflow:hidden;}
+.away_odd_o {color: #fff44b; font-size: 11px; float: left; max-width: 20%;}
+.away_o {color: #fff44b; font-size: 11px; float: right; max-width: 80%; text-align:right; overflow:hidden;}
+.home_d {color: #565b65; font-size: 11px; float: left; max-width: 80%; text-align: left; overflow:hidden;}
+.home_odd_d {color: #565b65; font-size: 11px; float: right; max-width: 20%;}
+.odd_d {color: #565b65; font-size: 11px; display:inline-block; height:24px; overflow:hidden;}
+.away_odd_d {color: #565b65; font-size: 11px; float: left; max-width: 20%;}
+.away_d {color: #565b65; font-size: 11px; float: right; max-width: 80%; text-align:right; overflow:hidden;}
+.home_under_icon {color: #3380ee; }
+.away_over_icon {color: #ff4a57; }
+.d_icon {color: #565b65; }
+.page_navi {width: 100%; height: 30px; display: block; margin: 10px 0 50px 0;}
+.page_navi_l {width: 30%; height: 30px; display: block; float: left; margin-left: 10px;}
+.page_navi_r {width: 30%; height: 30px; display: block; float: right; margin-right: 10px;}
+.bt_l {width: 100%; display: inline-block; border: 1px solid #32475c; color: #f5f6f8 !important;  background-color: #202e3c; line-height:25px; box-shadow:inset 0 0 2px rgba(16, 22, 29, 1); -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+.bt_r {width: 100%; display: inline-block; border: 1px solid #32475c; color: #f5f6f8 !important;  background-color: #202e3c; line-height:25px; box-shadow:inset 0 0 2px rgba(16, 22, 29, 1); -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+
+.game_data_end {width: 100%; margin: 3px 0 3px 0; overflow:hidden;}
+.game_data_end li {list-style:none; word-break:break-all; font-size: 11px; padding-top: 6px;  padding-bottom: 5px; line-height: 26px;}
+.day_end { width: 10%; color: #57606a; font-size: 11px; border: 1px solid #191d24; padding-top: 6px;display: block; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.home_box_end {width: 34%; padding-right: 2px; overflow: hidden; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.home_box_end .home_end {width: 100%; border: 1px solid #25405b; display: block; padding-left: 2px; padding-right: 3px; cursor:pointer; float:left;
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #11161b 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#11161b)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#11161b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#11161b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#11161b 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#11161b 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#11161b',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.odd_box_end {width: 12%; padding-right: 2px;  overflow: hidden; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.odd_box_end .odd_end {width: 100%; border: 1px solid #25405b; display: block; cursor:pointer;
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #11161b 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#11161b)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#11161b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#11161b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#11161b 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#11161b 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#11161b',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.away_box_end {width: 34%; padding-right: 2px; float:left; overflow: hidden; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.away_box_end .away_end {width: 100%; border: 1px solid #25405b; display: block;  padding-left: 3px; padding-right: 2px; cursor:pointer; float:left;
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #11161b 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#11161b)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#11161b 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#11161b 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#11161b 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#11161b 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#11161b',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.score {width: 10%; display: block; float:left; font-size: 11px; word-break:break-all; line-height: 14px; padding-top: 1px; text-align: center;}
+.score_1 {color: #f4aa22; }
+.score_2 {font-weight: 600; color:#78d057; }
+.home_end_n {color: #dfdfdf; font-size: 11px; float: left; max-width: 80%; text-align: left; height:28px; overflow:hidden;}
+.home_end_odd_n {color: #7dacf4; font-size: 11px; float: right; max-width: 20%;}
+.odd_end_n {color: #7dacf4; font-size: 11px; height:28px; display:inline-block;}
+.away_end_odd_n {color: #7dacf4; font-size: 11px; float: left; max-width: 20%;}
+.away_end_n {color: #dfdfdf; font-size: 11px; float: right; max-width: 80%; text-align:right; height:28px; overflow:hidden;}
+.home_over_box_end {width: 34%; padding-right: 2px; overflow: hidden; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.home_over_box_end .home_over_end {width: 100%; border: 1px solid #334251; display: block;  padding-left: 2px; padding-right: 3px; background-color: #28435e; float:left; 
+                           -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.odd_over_box_end {width: 12%; padding-right: 2px;  overflow: hidden; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.odd_over_box_end .odd_over_end {width: 100%; border: 1px solid #334251; display: block; background-color: #28435e; float:left;
+                         -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.away_over_box_end {width: 34%; padding-right: 2px; overflow: hidden; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.away_over_box_end .away_over_end {width: 100%; border: 1px solid #334251; display: block;  padding-left: 3px; padding-right: 2px; background-color: #28435e; float:left;
+                           -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.home_end_o {color: #fff44b; font-size: 11px; float: left; max-width: 80%; text-align: left; height:28px; overflow: hidden;}
+.home_end_odd_o {color: #fff44b; font-size: 11px; float: right; max-width: 20%;}
+.odd_end_o {color: #fff44b; font-size: 11px; height:23px; overflow: hidden; display:inline-block;}
+.away_end_odd_o {color: #fff44b; font-size: 11px; float: left; max-width: 20%;}
+.away_end_o {color: #fff44b; font-size: 11px; float: right; max-width: 80%; text-align:right; height:28px;  overflow:hidden;}
+.home_end_d {color: #565b65; font-size: 11px; float: left; max-width: 80%; text-align: left;}
+.home_odd_end_d {color: #565b65; font-size: 11px; float: right; max-width: 20%;}
+.odd_end_d {color: #565b65; font-size: 11px;}
+.away_odd_end_d {color: #565b65; font-size: 11px; float: left; max-width: 20%;}
+.away_end_d {color: #565b65; font-size: 11px; float: right; max-width: 80%; text-align:right;}
+.my_bet_league {width: 100%; height: 17px; padding: 2px 0 0 2px; background-color: #161a24; margin-bottom: 4px; margin-top: 4px; font-size: 11px; }
+.my_bet_league_day {width: 20%; text-align: left; float: left;}
+.my_bet_league_name {width: 63%; text-align: left; float: left; color:#78d057;}
+.my_bet_league_result {width: 12%;  text-align: center; float: left;}
+.my_bet_league_result_text_o {color:#fff44b;}
+.my_bet_league_result_text_x {color:#fa1313;}
+.my_bet_league_result_text_c {color:#3686ef;}
+.my_bet_game_data {width: 100%; margin: 3px 0 3px 0; overflow:hidden; line-height: 14px;}
+.my_bet_game_data li { padding-top: 4px; padding-bottom: 5px; list-style:none; word-break:break-all; font-size: 11px; }
+.my_bet_home_box {width: 38%; padding-right: 2px; overflow: hidden; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_home_box .my_bet_home {width: 100%; border: 1px solid #25405b; display: block; padding-left: 2px; padding-right: 3px; cursor:pointer; float:left; 
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #191919 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#191919)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#191919 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#191919 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#191919 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#191919 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#191919',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_odd_box {width: 13%; padding-right: 2px;  overflow: hidden; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_odd_box .my_bet_odd {width: 100%; border: 1px solid #25405b; display: block; cursor:pointer;
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #191919 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#191919)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#191919 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#191919 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#191919 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#191919 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#191919',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_away_box {width: 38%; float:left; overflow: hidden; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_away_box .my_bet_away {width: 100%; border: 1px solid #25405b; display: block;  padding-left: 3px; padding-right: 2px; cursor:pointer; float:left; 
+    background: #25303b; /* Old browsers */
+    background: -moz-linear-gradient(top, #25303b 2%, #191919 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#25303b), color-stop(100%,#191919)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #25303b 2%,#191919 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #25303b 2%,#191919 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #25303b 2%,#191919 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #25303b 2%,#191919 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#25303b', endColorstr='#191919',GradientType=0 );
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_score {width: 11%; display: block; float:left; font-size: 11px; word-break:break-all; padding-top: 7px; text-align: center; color: #868686}
+.my_bet_home_n {color: #dfdfdf; font-size: 11px; float: left; max-width: 80%; text-align: left;  height:28px; overflow:hidden;}
+.my_bet_home_odd_n {color: #7dacf4; font-size: 11px; float: right; max-width: 20%;}
+.my_bet_odd_n {color: #7dacf4; font-size: 11px; height:28px; display:inline-block;}
+.my_bet_away_odd_n {color: #7dacf4; font-size: 11px; float: left; max-width: 20%;}
+.my_bet_away_n {color: #dfdfdf; font-size: 11px; float: right; max-width: 80%; text-align:right; height:28px; overflow:hidden;}
+.my_bet_home_over_box {width: 38%; padding-right: 2px; overflow: hidden; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_home_over_box .my_bet_home_over {width: 100%; border: 1px solid #334251; display: block; padding-left: 2px; padding-right: 3px; background-color: #28435e; float:left; 
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_odd_over_box {width: 13%; padding-right: 2px;  overflow: hidden; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_odd_over_box .my_bet_odd_over {width: 100%; border: 1px solid #334251; display: block; background-color: #28435e; float:left;
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_away_over_box {width: 38%; overflow: hidden; float:left; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_away_over_box .my_bet_away_over {width: 100%; border: 1px solid #334251; display: block;  padding-left: 3px; padding-right: 2px; background-color: #28435e; float:left;
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_home_o {color: #fff44b; font-size: 11px; float: left; max-width: 80%; text-align: left; height:28px; overflow:hidden;}
+.my_bet_home_odd_o {color: #fff44b; font-size: 11px; float: right; max-width: 20%;}
+.my_bet_odd_o {color: #fff44b; font-size: 11px; display:inline-block; height:28px;}
+.my_bet_away_odd_o {color: #fff44b; font-size: 11px; float: left; max-width: 20%;}
+.my_bet_away_o {color: #fff44b; font-size: 11px; float: right; max-width: 80%; text-align:right; height:28px; overflow:hidden;}
+.my_bet_home_d {color: #565b65; font-size: 11px; float: left; max-width: 80%; text-align: left;}
+.my_bet_home_odd_d {color: #565b65; font-size: 11px; float: right; max-width: 20%;}
+.my_bet_odd_d {color: #565b65; font-size: 11px;}
+.my_bet_away_odd_d {color: #565b65; font-size: 11px; float: left; max-width: 20%;}
+.my_bet_away_d {color: #565b65; font-size: 11px; float: right; max-width: 80%; text-align:right;}
+.my_bet_game_result_head {width: 100%; display: block; color: #7c7c7c; overflow: hidden; font-size: 11px; text-align: left; background-color: #181f26; border: 1px solid #23303b; line-height: 14px; padding: 4px 0 3px 3px; margin: 5px 0 3px 0; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_game_result_head li {float: left;}
+.my_bet_game_result_head_box {width: 40%; height:15px;}
+.my_bet_game_result_foot {width: 100%; overflow: hidden; display: block; margin: 5px 0 5px 0;}
+.my_bet_game_result_foot_l {width: 50%; float: left; text-align: left; padding-left: 5px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_game_result_foot_r {width: 50%; float: left; text-align: right; padding-right: 5px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.bt_my_bet_del {display: inline-block; font-size: 11px; padding: 0 10px; border: 1px solid #981d28; color: #fcacac !important;  background-color: #690a0a; line-height:18px; padding-top: 1px; box-shadow:inset 0 0 2px rgba(16, 22, 29, 1); -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.bt_my_bet_bottom {display: inline-block; font-size: 11px; padding: 0 10px; border: 1px solid #28435e; color: #ccc !important;  background-color: #25405b; line-height:18px; padding-top: 1px; box-shadow:inset 0 0 2px rgba(16, 22, 29, 1); -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}
+.my_bet_game_result_foot_x {color: #fa1313; font-size: 11px; padding-top: 2px;}
+.my_bet_bt_box {width: 100%; overflow: hidden; text-align: right; margin-bottom: 9px; margin-top: 9px;}
+.my_bet_bt {display: inline-block; font-size: 11px; padding: 0 10px; border: 1px solid #32475c; color: #f5f6f8 !important;  background-color: #202e3c; line-height:18px; padding-top: 2px; margin-right: 5px; box-shadow:inset 0 0 2px rgba(16, 22, 29, 1); -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing: border-box;}

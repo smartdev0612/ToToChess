@@ -1,0 +1,126 @@
+body,table,tr,td {font-family: "돋움", "arial", "Verdana", "helvetica"; font-size: 9pt; line-height: 18px; color:675B57;
+scrollbar-3dlight-color:595959;
+scrollbar-arrow-color:7F7F7F;
+scrollbar-face-color:DFDFDF;
+scrollbar-highlight-color:FFFFF;
+scrollbar-shadow-color:595959
+scrollbar-base-color:CFCFCF;
+scrollbar-darkshadow-color:FFFFFF;
+}
+
+a:link { text-decoration: none; color:585858; }
+a:visited { text-decoration: none; color:585858; }
+a:active { text-decoration: none; color:585858; }
+a:hover { text-decoration:none; color:000000; }
+
+.input_hidden {border-width:0; border-color:'#cccccc'; border-style:solid; height:30px; width:50px; font-size:15pt; font-weight:bold; color:FF8106; text-align:center;}
+
+#box1 {width:400px;height:119px;overflow:auto;}
+
+body {
+	/*margin-left: 0px;*/
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style1 {font-family: "굴림"}
+.style2 {
+	font-size: 9pt;
+	color: #0078b7;
+	font-weight: bold;
+}
+.style3 {
+	font-size: 9pt;
+	color: #ffffff;
+	font-weight: bold;
+}
+.stylepr3 {
+	font-family: "굴림"
+	font-size: 9pt;
+	color: #0078b7;
+}
+.style9 {font-family: "굴림"; font-size: 9pt; color: #f2f2f2; }
+.white {font-family: "굴림"; font-size: 9pt; color: #ffffff; }
+.hotnews {
+	PADDING-LEFT: 40px; BACKGROUND: url(/images/bar_2.gif); WIDTH: 609px; COLOR: #a1deee; HEIGHT: 26px
+}
+.tableborder {
+	BORDER-COLLAPSE: collapse
+}
+.box_2 {
+	BORDER-RIGHT: #cccccc 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #cccccc 1px solid; PADDING-LEFT: 2px; FONT-SIZE: 9pt; PADDING-BOTTOM: 2px; BORDER-LEFT: #cccccc 1px solid; WIDTH: 585px; COLOR: #666666; PADDING-TOP: 2px; BORDER-BOTTOM: #cccccc 1px solid; FONT-FAMILY: "굴림"; LETTER-SPACING: 0px; HEIGHT: 130px; TEXT-ALIGN: justify
+}
+.box {
+	FONT-SIZE: 9pt; COLOR: #666666; FONT-FAMILY: "굴림"; BACKGROUND-COLOR: #ebf6fa
+}
+.proto_box {
+	font-family: "굴림";
+	font-size: 9pt;
+	color: #666666;
+	height: 22px;
+	width: 100px;
+	border: 1px solid #CCCCCC;
+}
+.proto_box_2 {
+	font-family: "굴림";
+	font-size: 9pt;
+	color: #666666;
+	height: 15px;
+	width: 70px;
+	border: 1px solid #CCCCCC;
+	
+}
+.title {FONT-WEIGHT: bold; ;font-family: "굴림"; font-size: 10pt; color: #333333; }
+.w9 {font-family: "굴림"; font-size: 10pt; color: #f2f2f2; }
+.w9_b {font-family:"굴림"; FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #ffffff; }
+.w10 {font-family:돋움; color: #ffffff; font-size: 14px;}
+.wblue9 {font-family: "굴림"; font-size: 9pt; color: #ffffff; }
+.bro9 {
+	FONT-SIZE: 9pt; COLOR: #440000; FONT-FAMILY: ""
+}
+.bro8 {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #440000; FONT-FAMILY: ""
+}
+TEXTAREA {
+	BORDER-RIGHT: rgb(181,181,181) 1pt solid; PADDING-RIGHT: 5px; BORDER-TOP: rgb(181,181,181) 1pt solid; PADDING-LEFT: 5px; FONT-WEIGHT: normal; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; BORDER-LEFT: rgb(181,181,181) 1pt solid; COLOR: rgb(102,102,102); LINE-HEIGHT: 22px; PADDING-TOP: 5px; BORDER-BOTTOM: rgb(181,181,181) 1pt solid; FONT-STYLE: normal; FONT-FAMILY: 돋움; BACKGROUND-COLOR: white
+}
+.bettingMoney {
+	BORDER-RIGHT: #cdcdcd 1px solid; BORDER-TOP: #cdcdcd 1px solid; FONT-WEIGHT: bold; FONT-SIZE: 9pt; BORDER-LEFT: #cdcdcd 1px solid; WIDTH: 120px; COLOR: #000000; BORDER-BOTTOM: #cdcdcd 1px solid; FONT-FAMILY: "굴림"; HEIGHT: 16px; BACKGROUND-COLOR: #ffde00
+}
+.toto_team_1 {
+	FONT-SIZE: 9pt; COLOR: #000000; FONT-FAMILY: "굴림"; TEXT-DECORATION: underline
+}
+.org9_b {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #ff5400; FONT-FAMILY: ""
+}
+.org9 {
+	FONT-SIZE: 9pt; COLOR: #ff5400; FONT-FAMILY: ""
+}
+A.location:link {
+	FONT-SIZE: 9pt; COLOR: #ffcc00; FONT-FAMILY: ""; TEXT-DECORATION: none
+}
+.toto_point {
+	FONT-SIZE: 9pt; COLOR: #ff5400; FONT-FAMILY: "굴림"
+}
+.box3 {
+	BORDER-RIGHT: #d1d1d1 1px solid; BORDER-TOP: #d1d1d1 1px solid; FONT-SIZE: 8pt; BORDER-LEFT: #d1d1d1 1px solid; WIDTH: 15px; BORDER-BOTTOM: #d1d1d1 1px solid; FONT-FAMILY: "굴림"; HEIGHT: 15px
+}
+	.png24 {
+  		tmp:expression(setPng24(this));
+	}       
+.input { font-family: "돋움"; font-size: 10pt; color: #333333; background-color: ffffff; border: 1px #CFCFCF solid}
+.login_input {font : 8pt Verdana ;border-width:1px;border-color:#80B7C5;height:18px;border-style:solid;background-color:#0094B4;}
+.join_input {font : 8pt Verdana ;border-width:1px;border-color:#BABABA;height:20px;border-style:solid;background-color:#FFFFFF;}
+.charge_style {
+	FONT-SIZE: 9pt; COLOR: #666666; LINE-HEIGHT: 16px; FONT-FAMILY: "굴림"
+}
+.charge_style_1 {
+	FONT-SIZE: 9pt; COLOR: #000000; LINE-HEIGHT: 16px; FONT-FAMILY: "굴림"
+}
+.charge_style_2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #ff0000; LINE-HEIGHT: 16px; FONT-FAMILY: "굴림"; TEXT-DECORATION: underline
+}
+.hotnews {
+	PADDING-LEFT: 70px;PADDING-TOP: 10px; BACKGROUND: url(/images/bar_2.gif); WIDTH: 450px; COLOR: #a1deee; HEIGHT: 26px
+}
+

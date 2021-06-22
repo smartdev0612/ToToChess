@@ -1,0 +1,1949 @@
+﻿
+.blind 
+{position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px;overflow:hidden;visibility:hidden;}
+
+.btnmargin
+{margin:0;padding:0;vertical-align:middle;margin:0 0 0 2px}
+.radiomargin
+{margin:0;padding:0;vertical-align:middle;margin:0 2px 0 4px}
+.nomargin
+{margin:0 !important;padding:0;vertical-align:middle;}
+
+.inputstyle_whole
+{width:99%;height:20px;line-height:20px;color:#ffffff;
+border:1px solid #666666;background-color:#000000;}
+.inputstyle_20
+{width:20%;height:20px;line-height:20px;color:#ffffff;
+border:1px solid #666666;background-color:#000000;}
+.inputstyle_normal
+{width:30%;height:20px;line-height:20px;color:#ffffff;
+border:1px solid #666666;background-color:#000000;}
+.inputstyle_number
+{width:50px;height:20px;line-height:20px;color:#ffffff;
+border:1px solid #666666;background-color:#000000;}
+.inputstyle_date
+{width:80px;height:20px;line-height:20px;
+vertical-align:middle;color:#ffffff;
+border:1px solid #666666;background-color:#000000;}
+.inputstyle_member
+{width:200px;height:20px;line-height:20px;color:#ffffff;
+border:1px solid #666666;background-color:#000000;}
+.inputstyle_contents
+{width:99%;height:200px;
+color:#ffffff;
+border:1px solid #666666;background-color:#000000;}
+select
+{padding:2px 0 2px 0;
+border:1px solid #666666;background-color:#000000;}
+
+
+fieldset
+{width:99%;overflow:hidden;margin:0 auto;margin-top:5px;
+padding-bottom:8px;text-align:center;}
+fieldset h4
+{width:100%;height:30px;line-height:30px;overflow:hidden;margin-bottom:10px;
+color:#757575;font-size:13px;text-shadow:1px 1px 2px #000000;text-align:left;}
+fieldset h4 span
+{margin:0 0 0 10px;color:#ffffff;font-size:13px;text-shadow:1px 1px 2px #000000;
+padding:0 0 0 16px;
+background:url("../img/icon_title.png") left 50% no-repeat;}
+
+.information
+{width:100%;overflow:hidden;list-style-type:circle !important;}
+.information li
+{margin:0 0 6px 0;padding:0 0 0 10px;list-style-type:circle !important;
+text-align:left;color:#ffffff}
+.information li b
+{color:#ffff00}
+
+
+.btnstyle_s
+{width:40px;overflow:hidden;
+padding:0px 4px 4px 4px;font-size:11px;letter-spacing:-1px;color:#ffffff !important;text-align:center;font-weight:bold;
+background:url(../img/btnstyle1.gif) left top repeat-x;border:1px solid #075a40}
+.btnstyle_s:hover,
+.btnstyle_s:active
+{color:#ffff00 !important;}
+
+.btnstyle_s2
+{width:40px;height:20px;line-height:20px;overflow:hidden;
+padding:4px;font-size:11px;letter-spacing:-1px;color:#28b488 !important;text-align:center;font-weight:bold;
+background-color:#0d674b;border:1px solid #075a40}
+.btnstyle_s2:hover,
+.btnstyle_s2:active
+{color:#ffff00 !important;}
+
+
+/*********************************************************************
+*	DEFAULT layout 레이아웃 및 페이지 고정을 위한 CLASS
+*********************************************************************/
+
+#wrap_body
+{width:100%;overflow:visible;margin:0 auto;margin-bottom:40px;}
+#body
+{width:100%;}
+
+
+#subbody
+{width:100%;height:1px;overflow:visible;position:fixed;top:auto;top:0px;margin-bottom:0 auto;z-index:800;}
+.livebg
+{}
+#footer
+{clear:both;width:100%;height:40px;overflow:hidden;
+text-align:center;background-color:#111111}
+#footer h2
+{position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px;overflow:hidden;visibility:hidden;}
+#footer p
+{margin:0 auto;margin-top:10px}
+#footer p a
+{margin:0 2px 0 2px}
+
+/* 상단 */
+#wrap_header
+{width:100%;overflow:hidden;margin:0 auto;
+background-color:#14805e;border-bottom:1px solid #116c50}
+
+#wrap_header h1
+{width:175px;height:36px;overflow:hidden;float:left;display:inline;margin:4px 0 0 4px}
+#wrap_header h1 span
+{position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px;overflow:hidden;visibility:hidden;}
+#wrap_header h1 a
+{width:100%;height:36px;overflow:hidden;display:block;
+background:url(../img/logo.gif) left top no-repeat;}
+
+
+#wrap_header #wrap_fixtop
+{width:100%;height:1px;overflow:visible;position:fixed;top:auto;top:0px;margin-bottom:0 auto;z-index:900;
+text-align:right;}
+#wrap_fixtop p
+{float:right;display:inline;overflow:hidden;padding-bottom:10px;}
+#wrap_fixtop p:hover
+{cursor:pointer}
+#wrap_fixtop #menu_off,
+#wrap_fixtop #slip_off
+{border-left:2px solid #0d674b;border-right:2px solid #0d674b;border-bottom:2px solid #0d674b;
+background:url(../img/icon_arrow2.png) center bottom no-repeat;background-color:#0d674b}
+#wrap_fixtop #menu_off span,
+#wrap_fixtop #slip_off span,
+#wrap_fixtop #menu_on span,
+#wrap_fixtop #slip_on span
+{font-family:"돋움";color:#ffffff;}
+#wrap_fixtop #menu_off:hover span,
+#wrap_fixtop #slip_off:hover span,
+#wrap_fixtop #menu_on:hover span,
+#wrap_fixtop #slip_on:hover span
+{font-family:"돋움";color:#fffd00;}
+
+#wrap_fixtop #menu_on,
+#wrap_fixtop #slip_on
+{border-left:2px solid #0d674b;border-right:2px solid #0d674b;border-bottom:2px solid #0d674b;
+background:url(../img/icon_arrow1.png) center bottom no-repeat;background-color:#02ad77}
+
+#userinfo
+{width:100%;overflow:hidden;float:left;display:inline;
+background:url(../img/hd_uline.gif) left top repeat-x;}
+#userinfo .user li
+{height:29px;line-height:29px;float:left;display:inline;color:#ffffff}
+#userinfo .user .name
+{}
+#userinfo .user .name b
+{color:#ffffff;margin:0 0 0 6px;}
+#userinfo .user .name img
+{vertical-align:middle}
+#userinfo .user .memo
+{margin:0 0px 0 6px;padding:0 0 0 20px;
+background:url(../img/icon_memo.gif) left 50% no-repeat;}
+#userinfo .user .memo a
+{color:#ffff00;font-weight:bold;margin:0 0 0 4px}
+#userinfo .user .memo a:hover
+{color:#ffffff}
+
+#userinfo .cash
+{padding:0 0 0 16px;margin:0 0px 0 6px;
+background:url(../img/icon_money.gif) left 50% no-repeat;}
+#userinfo .point
+{padding:0 0 0 16px;margin:0 0px 0 6px;
+background:url(../img/icon_point.gif) left 50% no-repeat;}
+#userinfo .cash span,
+#userinfo .point span
+{margin:0 2px 0 4px;color:#ffff00;}
+
+#userinfo .cash a
+{}
+#userinfo .point a
+{}
+
+#userinfo p
+{float:right;display:inline;margin:5px 3px 0 0;}
+
+#wrap_cashpop,
+#top_jackpot
+{display:none}
+
+
+#smenu
+{height:31px;overflow:hidden;float:right;display:inline;
+background:url(../img/gmenu_bg_divide.gif) left top no-repeat;background-color:#0c5d44}
+#smenu li
+{height:30px;line-height:26px;width:76px;float:left;display:inline;
+color:#7fbfac;text-align:center;border-top:1px solid #279975;
+background:url(../img/gmenu_bg_divide.gif) right top no-repeat;}
+#smenu li a
+{width:70px;display:block;border:none;margin:0 auto;
+font-size:11px;font-family:"돋움";color:#b4d2ed;letter-spacing:-1px;text-shadow:1px 1px 2px #333;}
+#smenu li a span
+{font-weight:bold;color:#ffffff;}
+#smenu li a:hover
+{text-decoration:none;}
+#smenu li a:hover span
+{color:#ffff00 !important;border-bottom:1px solid #ffde1b}
+
+
+#wrap_menu
+{width:100%;overflow:visible;position:fixed;top:auto;top:0px;margin-bottom:0 auto;z-index:800;background-color:#14805e;}
+#mmenu
+{width:100%;height:28px;overflow:visible;
+background:url(../img/hd_uline.gif) left top repeat-x;}
+#mmenu li
+{height:28px;float:left;display:inline;overflow:hidden;border-bottom:1px solid #116d50}
+#mmenu li a
+{height:25px;line-height:25px;display:block;overflow:hidden;margin-top:2px;
+text-align:center;padding:0 6px 0 6px;color:#fffd00;
+border-top:1px solid #14805e;border-left:1px solid #14805e;border-right:1px solid #14805e}
+#mmenu li .on,
+#mmenu li a:hover
+{background-color:#116c50;border-top:1px solid #10634a;border-left:1px solid #10634a;border-right:1px solid #10634a}
+#mmenu span
+{font-weight:bold;color:#9dedd4;text-shadow:1px 1px 2px #000000}
+#mmenu li:hover span,
+#mmenu .on span
+{color:#fffd00 !important;}
+#mmenu .on
+{background-color:#116c50}
+
+#mmenu .game span
+{color:#ffffff}
+#mmenu b
+{color:#fffd00;font-size:11px;margin:0 0 0 4px;font-family:"돋움"}
+
+
+
+#information
+{width:100%;height:31px;line-height:31px;overflow:hidden;margin:0 auto;
+background:url(../img/icon_alert.png) left 50% no-repeat;background-color:#12654b;border-bottom:2px solid #000000}
+#information h2
+{position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px;overflow:hidden;visibility:hidden;}
+#information span
+{float:left;display:inline;color:#ffff00;margin:0 6px 0 20px;font-weight:bold}
+
+
+/* 페이지 상단 */
+
+#subvisual
+{width:100%;overflow:hidden;display:none}
+#subvisual h3
+{width:100%;height:36px;line-height:36px;overflow:hidden;
+background-color:#2d2d2d;border-bottom:2px solid #000000}
+#subvisual h3 img
+{margin:10px 0 0 10px}
+
+/* 라이트 */
+
+#livescore
+{width:100%;overflow:hidden;margin:0 auto;margin-top:5px;padding-bottom:5px;
+background:url("../img/score_bg.gif") left bottom no-repeat;}
+#livescore h3
+{width:100%;height:34px;overflow:hidden;margin-bottom:5px;
+background:url("../img/score_title.gif") left top no-repeat;}
+#livescore h3 span,
+#livescore li span
+{position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px;overflow:hidden;visibility:hidden;}
+#livescore ul
+{width:196px;overflow:hidden;margin:0 auto;}
+#livescore li
+{width:196px;;height:32px;overflow:hidden;margin:0 auto;margin-bottom:3px;
+border:1px solid #6d6d6d;background-color:#000000}
+#livescore .afreeca
+{display:none}
+#livescore .naver a
+{width:194px;height:30px;overflow:hidden;display:block;
+background:url("../img/score_naver.gif") left top no-repeat;}
+#livescore .daum a
+{width:194px;height:30px;overflow:hidden;display:block;
+background:url("../img/score_daum.gif") left top no-repeat;}
+#livescore .livescore a
+{width:194px;height:30px;overflow:hidden;display:block;
+background:url("../img/score_named.gif") left top no-repeat;}
+#livescore .naver a:hover,
+#livescore .daum a:hover,
+#livescore .livescore a:hover
+{border-top:1px solid #999999;border-left:1px solid #8399b1;border-right:1px solid #8399b1;border-bottom:1px solid #8399b1;
+background-position:0px -30px}
+
+#banner
+{width:100%;height:135px;overflow:hidden;margin:0 auto;margin-top:10px;
+background:url("../img/banner_mobile.jpg") left top no-repeat;}
+
+
+/* 공통 */
+
+.wrap_btn
+{width:99%;text-align:center;margin:0 auto;overflow:hidden;margin-top:5px;padding:5px 0 5px 0;}
+.wrap_btn p
+{width:40%;float:left;display:inline;text-align:left;}
+.wrap_btn .left
+{float:left;}
+.wrap_btn .right
+{width:40%;float:right;display:inline;text-align:right;}
+.wrap_btn img, input
+{margin:0 1px 0 1px;vertical-align:middle;}
+.wrap_btn img,
+.wrap_btn input
+{cursor:pointer}
+.wrap_btn .left img,
+.wrap_btn .left input
+{margin:0 2px 0 0}
+.wrap_btn .right img,
+.wrap_btn .right input
+{margin:0 0px 0 2px}
+.wrap_page
+{width:100%;text-align:center;margin-top:5px;margin-bottom:40px;
+font-size:10px;color:#cccccc}
+.wrap_page a
+{margin:0 2px 0 2px;}
+.wrap_page a:hover
+{text-decoration:underline}
+.wrap_page .on
+{font-weight:bold;color:#2f6cb5}
+
+
+.gamesort_list
+{width:100%;overflow:hidden;margin:0 auto;padding:10px 0 10px 0;}
+.gamesort_list ul
+{width:98%;overflow:hidden;margin:0 auto;margin-top:5px;margin-bottom:5px;}
+.gamesort_list li
+{width:25%;overflow:hidden;float:left;display:inline;margin-bottom:4px}
+.gamesort_list li input
+{margin-right:3px}
+.gamesort_list label
+{width:97%;overflow:hidden;margin:0 auto;margin-top:5px;margin-bottom:10px;display:block;
+padding:0px 0 0 16px;font-weight:bold;
+background:url("../img/icon_title.png") 2px 50% no-repeat;}
+
+.gamesort_list p
+{width:99%;height:32px;margin:0 auto;background-color:#111111;text-align:right}
+.gamesort_list p img
+{margin:2px 1px 0 1px}
+
+.gamesort_list .inputstyle_normal
+{padding:0 0 0 18px;background:url("../img/icon_zoom.gif") 2px 50% no-repeat;background-color:#000000}
+
+
+#subtab
+{width:100%;height:36px;overflow:hidden;margin-bottom:5px;
+color:#cccccc;font-size:11px;letter-spacing:-1px;border-bottom:1px solid #116b4f;
+background-color:#2d2d2d}
+#subtab ul
+{overflow:hidden;float:left;display:inline;margin-top:9px}
+#subtab li
+{width:90px;height:27px;line-height:27px;overflow:hidden;margin:0 0px 0 8px;float:left;display:inline;
+text-align:center;background:url(../img/table_thead_divide.gif) right 50% no-repeat;}
+#subtab li a
+{width:100%;display:block;background:url(../img/subtab_bg.gif) left top no-repeat;}
+#subtab li:hover a,
+#subtab .on a
+{background:url(../img/subtab_bg.gif) left -27px no-repeat;}
+#subtab li:hover a span,
+#subtab .on span
+{color:#fde11c;font-weight:bold;text-shadow:2px 2px 2px #333333}
+#subtab li a span
+{color:#999999;}
+
+#subtab .wrap_btn
+{overflow:hidden;width:20%;float:right;display:inline;margin:0;padding:0;
+text-align:right;}
+#subtab .wrap_btn img
+{margin:4px 4px 0 0}
+
+/*********************************************************************
+*	SUB PAGE용 CLASS
+*********************************************************************/
+
+
+
+/* 게임 리스트 */
+
+.tablestyle_gamelist
+{width:100%;margin:0 auto; margin-bottom:40px;}
+.tablestyle_gamelist thead
+{background-color:#2a2a2a;}
+.tablestyle_gamelist thead th
+{color:#bebebe;text-shadow:1px -2px 1px #000000;
+background-color:#232323;border-top:1px solid #373737;border-bottom:1px solid #0c0c0c;}
+.tablestyle_gamelist tbody td
+{padding:5px 0 5px 0;text-align:center;font-size:11px;color:#d4d4d4;
+background-color:#3d3e43;
+border-left:1px solid #4a4e4f;border-top:1px solid #4a4e4f;border-bottom:1px solid #17181a;border-right:1px solid #17181a;}
+.tablestyle_gamelist thead .home,
+.tablestyle_gamelist thead .away
+{width:35%;}
+.tablestyle_gamelist thead .draw
+{width:15%}
+.tablestyle_gamelist thead .info
+{}
+
+
+.tablestyle_gamelist tbody .home:hover,
+.tablestyle_gamelist tbody .away:hover,
+.tablestyle_gamelist tbody .draw:hover
+{cursor:pointer}
+
+.tablestyle_gamelist tbody .homepick,
+.tablestyle_gamelist tbody .awaypick,
+.tablestyle_gamelist tbody .drawpick
+{border-top:1px solid #d23131;border-left:1px solid #d23131;border-right:1px solid #d23131;border-bottom:1px solid #d23131;
+background-image:none;background-color:#d23131;}
+.tablestyle_gamelist tbody .homepick .name,
+.tablestyle_gamelist tbody .homepick .rate,
+.tablestyle_gamelist tbody .awaypick .name,
+.tablestyle_gamelist tbody .awaypick .rate,
+.tablestyle_gamelist tbody .drawpick .name,
+.tablestyle_gamelist tbody .drawpick .rate,
+.tablestyle_gamelist tbody .homepick .name font,
+.tablestyle_gamelist tbody .homepick .name span,
+.tablestyle_gamelist tbody .awaypick .name font,
+.tablestyle_gamelist tbody .awaypick .name span
+{color:#ffffff !important}
+
+.tablestyle_gamelist tbody .home .name
+{width:70%;height:16px;overflow:hidden;float:left;display:inline;margin:0 0 0 4px;
+text-align:left;color:#ffffff;}
+.tablestyle_gamelist tbody .home .rate
+{float:right;display:inline;overflow:hidden;margin:0 4px 0 0px;
+text-align:right;color:#ffff00;}
+.tablestyle_gamelist tbody .away .name
+{width:70%;height:16px;overflow:hidden;float:right;display:inline;margin:0 4px 0 0px;
+text-align:right;color:#ffffff;}
+.tablestyle_gamelist tbody .away .rate
+{float:left;display:inline;overflow:hidden;margin:0 0px 0 4px;
+text-align:left;color:#ffff00;}
+.tablestyle_gamelist tbody .draw .rate
+{margin:0 0 0 0;font-size:12px;
+text-align:center;color:#ffff00;}
+.tablestyle_gamelist tbody .draw b
+{margin:0 0 0 0;font-weight:normal}
+
+.tablestyle_gamelist tbody .homepick .name
+{width:70%;height:16px;overflow:hidden;float:left;display:inline;margin:0 0 0 4px;
+text-align:left;color:#000000;}
+.tablestyle_gamelist tbody .homepick .rate
+{float:right;display:inline;margin:0 4px 0 0px;
+text-align:right;color:#000000}
+.tablestyle_gamelist tbody .awaypick .name
+{width:70%;height:16px;overflow:hidden;float:right;display:inline;margin:0 4px 0 0px;
+text-align:right;color:#000000;}
+.tablestyle_gamelist tbody .awaypick .rate
+{float:left;display:inline;margin:0 0px 0 4px;
+text-align:left;color:#000000}
+.tablestyle_gamelist tbody .drawpick .name,
+.tablestyle_gamelist tbody .drawpick .rate
+{margin:0 0px 0 0px;font-size:12px;
+text-align:left;color:#000000}
+
+
+.tablestyle_gamelist .type
+{color:#d7e6b0;font-size:12px}
+.tablestyle_gamelist .score
+{color:#00ffff !important;font-weight:bold}
+.tablestyle_gamelist .result
+{width:6%}
+.tablestyle_gamelist .result .win
+{color:#5aaeff !important;border:none !important}
+.tablestyle_gamelist .result .lose
+{color:#ff5a5a !important}
+.tablestyle_gamelist .result .draw
+{color:#deb22b !important}
+.tablestyle_gamelist .result .cancel
+{color:#bebebf !important}
+
+.tablestyle_gamelist .league
+{text-align:left;color:#ffffff;font-weight:bold;font-size:12px;text-shadow:2px 2px 2px #333;
+border-top:1px solid #488078;border-bottom:1px solid #191a1b;
+background-color:#376e67 !important;background:none;}
+.tablestyle_gamelist .league .leaguename img
+{width:20px;height:16px;margin:0 6px 0 6px}
+.tablestyle_gamelist .league .leaguename span
+{color:#ffffff;font-weight:bold}
+.tablestyle_gamelist .league a
+{margin:0 0 0 4px;color:#ffffff;font-size:11px;padding:0 0 0 22px;
+background:url("../img/icon_title.png") 5px 50% no-repeat;}
+
+.tablestyle_gamelist .league .leaguename
+{display:inline;float:left;}
+.tablestyle_gamelist .league .gameinfo
+{float:right;display:inline;text-align:right}
+.tablestyle_gamelist .league .gameinfo .score
+{margin:0 0 0 6px;padding:3px;background-color:#000000;}
+.tablestyle_gamelist .league .gameinfo b
+{color:#ffffff;margin:0 0 0 6px}
+
+.tablestyle_gamelist tbody #baseball
+{border-top:1px solid #718048;border-bottom:1px solid #475522;
+background-color:#5f6e37 !important;}
+.tablestyle_gamelist tbody #basketball
+{border-top:1px solid #486780;border-bottom:1px solid #223e55;
+background-color:#37556e !important;}
+.tablestyle_gamelist tbody #volley
+{border-top:1px solid #957650;border-bottom:1px solid #70532f;
+background-color:#906941 !important;}
+.tablestyle_gamelist tbody #hockey
+{border-top:1px solid #827463;border-bottom:1px solid #5d5040;
+background-color:#6d5e4d !important;}
+.tablestyle_gamelist tbody #star
+{border-top:1px solid #55a0c3;border-bottom:1px solid #337290;
+background-color:#4489a9 !important;}
+
+
+.tablestyle_gamelist .homewin .name
+{margin:0 0px 0 5px;float:left;text-align:left;}
+.tablestyle_gamelist .awaywin .name
+{margin:0 5px 0 0px;float:right;text-align:right;}
+.tablestyle_gamelist .homewin .rate
+{padding:0 5px 0 0px;margin:0 0 0 5px;float:right;
+text-align:right;}
+.tablestyle_gamelist .awaywin .rate
+{padding:0 0px 0 5px;float:left;text-align:left;}
+
+.tablestyle_gamelist .home .icon,
+.tablestyle_gamelist .home:hover .icon,
+.tablestyle_gamelist .homepick .icon,
+.tablestyle_gamelist .homepick:hover .icon,
+.tablestyle_gamelist .homewin .icon,
+.tablestyle_gamelist .homewin:hover .icon,
+.tablestyle_gamelist .homewin_nopick .icon,
+.tablestyle_gamelist .homewin_nopick:hover .icon
+{overflow:hidden;width:9px;height:10px;padding:2px;margin:0 2px 0 2px;
+background:url("../img/icon_up.png") center 50% no-repeat;}
+.tablestyle_gamelist .away .icon,
+.tablestyle_gamelist .away:hover .icon,
+.tablestyle_gamelist .awaypick .icon,
+.tablestyle_gamelist .awaypick:hover .icon,
+.tablestyle_gamelist .gameend:hover .away .icon
+{overflow:hidden;width:9px;height:10px;padding:2px;margin:0 2px 0 2px;
+background:url("../img/icon_down.png") center 50% no-repeat;}
+
+.tablestyle_gamelist tbody .v
+{color:#d799b0;}
+.tablestyle_gamelist tbody .hd
+{color:#66e6b0;;}
+.tablestyle_gamelist tbody .uo
+{color:#d7e611;}
+
+
+.tablestyle_gamelist tbody .gameend td
+{color:#666666;background:none;
+border-left:1px solid #000000;border-top:1px solid #000000;border-bottom:1px solid #333333;border-right:1px solid #333333;}
+.tablestyle_gamelist tbody .gameend .home,
+.tablestyle_gamelist tbody .gameend .away,
+.tablestyle_gamelist tbody .gameend .draw,
+.tablestyle_gamelist tbody .gameend .game,
+.tablestyle_gamelist tbody .gameend .home:hover,
+.tablestyle_gamelist tbody .gameend .away:hover,
+.tablestyle_gamelist tbody .gameend .draw:hover,
+.tablestyle_gamelist tbody .gameend .game:hover
+{color:#666666 !important;background:none;
+border-left:1px solid #000000;border-top:1px solid #000000;border-bottom:1px solid #333333;border-right:1px solid #333333;}
+.tablestyle_gamelist tbody .gameend .home .name,
+.tablestyle_gamelist tbody .gameend .home .rate,
+.tablestyle_gamelist tbody .gameend .away .name,
+.tablestyle_gamelist tbody .gameend .away .rate,
+.tablestyle_gamelist tbody .gameend .draw,
+.tablestyle_gamelist tbody .gameend .draw .name,
+.tablestyle_gamelist tbody .gameend .draw .rate,
+.tablestyle_gamelist tbody .gameend .draw b,
+.tablestyle_gamelist tbody .gameend .home:hover .name,
+.tablestyle_gamelist tbody .gameend .home:hover .rate,
+.tablestyle_gamelist tbody .gameend .away:hover .name,
+.tablestyle_gamelist tbody .gameend .away:hover .rate,
+.tablestyle_gamelist tbody .gameend .draw:hover .name,
+.tablestyle_gamelist tbody .gameend .draw:hover .rate
+{color:#666666 !important;}
+
+.gamesort
+{width:100%;line-height:32px;overflow:hidden;margin:0 auto;margin-bottom:4px;}
+.gamesort label
+{overflow:hidden;float:left;display:inline;margin:5px 0 0 5px;
+padding:0 0 0 16px;font-weight:bold;
+background:url("../img/icon_title.png") 2px 50% no-repeat;}
+.gamesort p
+{overflow:hidden;float:left;display:inline;margin:5px 0 0 10px;
+font-size:11px;}
+
+.gamesort .inputstyle_normal
+{width:100px;padding:0 0 0 18px;background:url("../img/icon_zoom.gif") 2px 50% no-repeat;background-color:#000000}
+
+
+#gamelist_tab
+{width:100%;height:34px;overflow:hidden;margin:0 auto;
+background-color:#2d2d2d;border-top:1px solid #3f3f3f}
+#gamelist_tab li
+{float:left;display:inline;overflow:hidden;margin-right:6px;}
+#gamelist_tab li span
+{position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px;overflow:hidden;visibility:hidden;}
+#gamelist_tab .all a
+{width:135px;height:28px;display:block;
+background:url("../img/gametab_all.gif") left top no-repeat;}
+#gamelist_tab .soccer a
+{width:111px;height:28px;display:block;
+background:url("../img/gametab_soccer.gif") left top no-repeat;}
+#gamelist_tab .baseball a
+{width:121px;height:28px;display:block;
+background:url("../img/gametab_baseball.gif") left top no-repeat;}
+#gamelist_tab .basketball a
+{width:134px;height:28px;display:block;
+background:url("../img/gametab_basketball.gif") left top no-repeat;}
+#gamelist_tab .hockey a
+{width:136px;height:28px;display:block;
+background:url("../img/gametab_hockey.gif") left top no-repeat;}
+#gamelist_tab .volley a
+{width:141px;height:28px;display:block;
+background:url("../img/gametab_volley.gif") left top no-repeat;}
+#gamelist_tab .star a
+{width:98px;height:28px;display:block;
+background:url("../img/gametab_starcraft.gif") left top no-repeat;}
+
+#gamelist_tab a:hover,
+#gamelist_tab .all .on,
+#gamelist_tab .soccer .on,
+#gamelist_tab .baseball .on,
+#gamelist_tab .hockey .on,
+#gamelist_tab .volley .on,
+#gamelist_tab .star .on
+{background-position:0px -28px}
+#gamelist_tab .basketball a:hover,
+#gamelist_tab .basketball .on
+{background-position:0px -27px}
+
+
+
+
+
+
+/* 베팅슬립 */
+#wrap_betslip
+{width:100%;overflow:hidden;
+background-color:#2d2d2d}
+
+
+#wrap_betslip .wrap
+{width:100%;overflow:hidden;}
+#wrap_betslip .title
+{width:100%;height:26px;overflow:hidden;}
+#wrap_betslip h3
+{overflow:hidden;display:inline;float:left}
+#wrap_betslip h3 span
+{margin:0 0 0 6px;line-height:26px;color:#ffffff;font-size:14px;text-shadow:1px 1px 2px #000}
+#wrap_betslip .fixed
+{display:inline;float:left;height:22px;line-height:22px;overflow:hidden;margin:4px 0 0 4px;
+text-align:right}
+#wrap_betslip .fixed a
+{color:#cccccc;font-size:11px;font-weight:normal;letter-spacing:-1px;cursor:pointer;font-family:"돋움"}
+#wrap_betslip .fixed a:hover
+{color:#fffd00;}
+
+#wrap_betslip .bet
+{width:100%;overflow:hidden;}
+#wrap_betslip .nobet
+{width:96%;height:50px;line-height:50px;font-size:11px;font-weight:bold;color:#dcb41e;
+text-align:center;}
+#wrap_betslip #tb_list
+{width:99%;overflow:hidden;margin:0 auto;background-color:#000000;}
+#wrap_betslip #tb_list tr
+{}
+#wrap_betslip #tb_list td
+{font-family:"돋움";color:#ffffff;border-bottom:1px solid #303335;}
+#wrap_betslip #tb_list input
+{margin:0 3px 0 0;display:none}
+#wrap_betslip #tb_list span
+{display:block}
+#wrap_betslip #tb_list .name
+{width:100%;}
+
+#wrap_betslip #tb_list .pick
+{color:#ffff00}
+#wrap_betslip #tb_list .rate
+{color:#ff0000;}
+#wrap_betslip #tb_list .rate a
+{float:right;text-align:right;}
+
+#wrap_betslip .betinfo
+{width:100%;overflow:hidden;margin:0 auto;padding:5px 0 5px 0;
+background-color:#2d2d2d}
+#wrap_betslip .betinfo p
+{width:100%;height:31px;line-height:31px;overflow:hidden;margin:0 auto;
+background-color:#3e4244;border-top:1px solid #4a4e4f;border-right:1px solid #4a4e4f;border-bottom:1px solid #222222;border-right:1px solid #222222}
+#wrap_betslip .betinfo label
+{height:31px;line-height:31px;overflow:hidden;margin:0 0 0 8px;float:left;display:inline;
+color:#ffffff;font-weight:bold;text-shadow:2px 2px 2px #333333}
+
+#wrap_betslip .betinfo span
+{width:148px;height:20px;line-height:20px;overflow:hidden;float:right;display:inline;margin-top:6px;
+color:#ffffff;text-align:right;padding:0 12px 0 0px;
+background:url("../img/betslip_bg_money.gif") right top no-repeat}
+#wrap_betslip .betinfo .betmoney
+{width:100px;height:20px;line-height:20px;display:inline;margin:0 0px 0 0;
+color:#ff0000;font-weight:bold;text-align:right;vertical-align:baseline;
+background:none;border:none}
+#wrap_betslip .betinfo .money label
+{color:#ffdf1b}
+#wrap_betslip .betinfo .money span
+{background:url("../img/betslip_bg_money.gif") right -20px no-repeat}
+#wrap_betslip .betinfo .money a
+{display:none}
+#wrap_betslip .betinfo #sp_total
+{color:#41ebfa;}
+
+#wrap_betslip .betguide
+{width:99%;overflow:hidden;margin:0 auto;padding:5px 0 5px 0;
+background-color:#2d2d2d}
+#wrap_betslip .betguide dt
+{height:18px;line-height:18px;overflow:hidden;float:left;display:inline;
+margin:0 0 0 0px;font-size:11px;font-family:"돋움";color:#999999}
+#wrap_betslip .betguide dd
+{height:18px;line-height:18px;float:left;display:inline;margin:0 8px 0 4px;
+text-align:right;color:#999999;font-size:11px}
+#wrap_betslip .btn
+{width:100%;overflow:hidden;margin:0px 0 2px 0;
+text-align:right;}
+#wrap_betslip .btn img
+{margin:2px 0px 2px 2px}
+#wrap_betslip .btn .end
+{margin:9px 2px 9px 0;}
+#wrap_betslip .btn span
+{display:block;margin:8px 0 0 6px;
+font-size:11px;font-family:"돋움";color:#ffffff;text-align:left}
+#wrap_betslip .btn .radiomargin
+{margin:0 2px 0 10px}
+#wrap_betslip .btn input
+{margin:0 2px 0 0}
+
+
+#wrap_banner
+{width:100%;overflow:hidden;}
+#wrap_banner li
+{margin-bottom:4px}
+
+
+/* 라이브 */
+
+#body_livegame_sub
+{width:100%;overflow:hidden;margin:2px 0 0 0px;}
+#body_livegame
+{width:100%;overflow:hidden;
+background-color:#010201}
+
+
+#wrap_favorite
+{width:100%;overflow:hidden;}
+#wrap_favorite dt
+{width:100%;height:30px;line-height:30px;overflow:hidden;
+background:url("../img/favorite_thead.gif") left top repeat-x;border-bottom:1px solid #000000}
+#wrap_favorite dt h4
+{width:90%;margin:0px 0 0 14px;
+background:url("../img/icon_favorite.png") right 50% no-repeat}
+#wrap_favorite dd
+{width:100%;overflow:hidden;
+color:#9f9f9f;font-size:11px;
+background:url("../img/live_gamelist_bg.gif") left top repeat-y;
+border-top:1px solid #494f4f;border-bottom:1px solid #000000}
+#wrap_favorite .empty
+{line-height:18px;padding:10px 0 10px 0}
+#wrap_favorite ul
+{width:100%;overflow:hidden;}
+#wrap_favorite .league
+{width:100%;height:26px;line-height:26px;overflow:hidden;display:block;
+background-color:#212224;border-top:1px solid #2d2d2d;border-bottom:1px solid #111111}
+#wrap_favorite .league a
+{width:17px;height:17px;overflow:hidden;float:right;margin:3px 3px 0 0;
+font-size:0px;padding:6px;
+background:url("../img/icon_favorite.png") right top no-repeat}
+#wrap_favorite .league a:hover
+{background:url("../img/icon_favorite_off.png") right top no-repeat}
+#wrap_favorite .home,
+#wrap_favorite .away
+{width:35%;height:22px;line-height:22px;float:left;display:inline;
+color:#e3cb23;font-size:11px;}
+#wrap_favorite .home a,
+#wrap_favorite .away a
+{color:#e3cb23;font-size:11px;}
+#wrap_favorite .home a:hover,
+#wrap_favorite .away a:hover
+{text-decoration:underline}
+#wrap_favorite .away
+{text-align:right}
+#wrap_favorite .score
+{width:30%;height:22px;line-height:22px;float:left;display:inline;
+color:#ffffff;text-align:center}
+
+
+#live_game_table
+{width:100%;overflow:hidden;}
+
+#live_game_table th
+{height:30px;text-align:left;padding:0 0 0 0px;
+text-shadow:1px 1px 2px #000000;color:#ffdb00;
+background-color:#111111}
+#live_game_table th span
+{color:#ffdb00;font-size:11px;float:right;margin:0px 20px 0 0}
+
+.nonlive th
+{height:30px;text-align:left;padding:0 0 0 0px;
+text-shadow:1px 1px 2px #000000;color:#ffdb00;
+background-color:#111111}
+.nonlive td
+{height:30px;text-align:center;border-bottom:1px solid #0f1109}
+
+
+#live_game_table .league,
+#live_game_table .league:hover
+{height:26px;line-height:26px;overflow:hidden;padding:0px 0 0px 0 !important;
+background:none;background-color:#30381b;border-top:1px solid #3b4326;border-bottom:1px solid #111111}
+#live_game_table .league img
+{width:20px;height:14px;margin:0 0 0 4px}
+#live_game_table .league span,
+#live_game_table .league:hover span
+{color:#ffffff;text-shadow:1px 1px 2px #000000;}
+#live_game_table .league a
+{width:17px;height:17px;overflow:hidden;float:right;margin:3px 3px 0 0;
+font-size:0px;padding:6px;display:none;
+background:url("../img/icon_favorite_off.png") right top no-repeat}
+#live_game_table .league a:hover,
+#live_game_table .league .on
+{background:url("../img/icon_favorite.png") right top no-repeat}
+
+#live_game_table tbody td
+{}
+#live_game_table tbody .gamelist_enable td
+{height:19px;line-height:19px;color:#ffffff;background:url("../img/live_gamlist_name.gif") left top repeat-x}
+#live_game_table tbody .gamelist_enable:hover td,
+#live_game_table tbody .on td
+{height:19px;line-height:19px;color:#ffd000;background:url("../img/live_gamlist_name.gif") left -38px repeat-x}
+#live_game_table tbody .on .home
+{border-top:1px solid #ffd000;border-left:1px solid #ffd000;border-bottom:1px solid #ffd000}
+#live_game_table tbody .on .draw
+{border-top:1px solid #ffd000;border-bottom:1px solid #ffd000}
+#live_game_table tbody .on .away
+{border-top:1px solid #ffd000;border-right:1px solid #ffd000;border-bottom:1px solid #ffd000}
+
+#live_game_table tbody .home,
+#live_game_table tbody .away
+{line-height:19px;width:33%;line-height:19px;color:#e3cb23;}
+
+#live_game_table tbody .on span,
+#live_game_table tbody .on .draw,
+#live_game_table tbody .on:hover .draw,
+#live_game_table tbody .on:hover .home,
+#live_game_table tbody .on:hover .away
+{text-align:ffd000 !important}
+#live_game_table tbody .away
+{text-align:ffd000;text-align:right}
+#live_game_table tbody .draw
+{line-height:19px;color:#e3cb23;text-align:center}
+#live_game_table tbody .score
+{color:#e3cb23;text-align:center}
+#live_game_table tbody .home:hover,
+#live_game_table tbody .away:hover,
+#live_game_table tbody .draw:hover,
+#live_game_table tbody .score:hover
+{cursor:pointer}
+
+
+#live_game_table .date td
+{padding:2px 0 2px 2px;color:#999999;font-size:11px;
+background:none;background-color:#222222;}
+#live_game_table .date span,
+#live_game_table .date span span
+{width:150px !important;color:#fffd00;font-size:10px}
+#live_game_table .data tr
+{background:url("../img/live_gamelist_bg.gif") left top repeat-y;}
+#live_game_table .data td
+{padding:0px 0 2px 0;font-size:11px;
+border-bottom:1px solid #333333;}
+
+#live_game_table .data .timer
+{text-align:center}
+#live_game_table .data .score
+{}
+#live_game_table .data .score span
+{display:block;color:#ff0000;font-weight:bold;
+background:url("../img/live_gamlist_score.png") center top no-repeat;}
+
+#live_game_table .data .gameamount
+{text-align:center;color:#a4c4ff;font-weight:bold;
+background-color:#555555;background:none}
+#live_game_table .data .gameamount a
+{color:#a4c4ff;font-weight:bold;}
+
+
+
+
+#livegame_bg
+{position:relative;width:100%;min-height:600px;overflow:hidden;margin:0 auto;}
+
+#wrap_livescore
+{width:100%;overflow:hidden;margin:0 auto;margin-top:10px;
+background-color:#111111}
+#wrap_livescore div
+{width:99%;overflow:hidden;margin:0 auto;margin-bottom:10px}
+#wrap_livegameinfo
+{width:100% !important;height:20px !important;overflow:hidden;margin:0 auto;margin-top:10px;
+background-color:#000000}
+
+#wrap_livescore .timeinfo
+{overflow:hidden;margin-left:10px;font-size:11px}
+#wrap_livescore .timeinfo span
+{}
+
+#wrap_livescore .gameinfo_home
+{width:100%;overflow:hidden;padding:5px 0 5px 14px;margin-bottom:4px;
+background:url("../img/icon_title.png") left 50% no-repeat;background-color:#222222;}
+#wrap_livescore .gameinfo_away
+{width:100%;overflow:hidden;padding:5px 0 5px 14px;margin-bottom:4px;
+background:url("../img/icon_title.png") left 50% no-repeat;background-color:#222222;}
+#wrap_livescore .gameinfo_home li,
+#wrap_livescore .gameinfo_away li
+{display:inline;float:left;margin:0 6px 0 6px;
+text-align:center;line-height:14px;font-size:11px;letter-spacing:-1px}
+#wrap_livescore .gameinfo_home .goal,
+#wrap_livescore .gameinfo_away .goal
+{color:#ffffff;}
+#wrap_livescore .gameinfo_home .red,
+#wrap_livescore .gameinfo_away .red
+{color:#ff0000;}
+#wrap_livescore .gameinfo_home .yell,
+#wrap_livescore .gameinfo_away .yell
+{color:#ffff00;}
+#wrap_livescore .gameinfo_home .gameinfo_home .title
+{color:#0000ff}
+#wrap_livescore .gameinfo_home .gameinfo_away .title
+{color:#ff0000}
+
+
+#wrap_livescore div .league
+{width:99;height:18px;line-height:18x;overflow:hidden;margin:0 auto;margin-top:4px;display:block;
+text-align:center;color:#cccccc;font-weight:bold;border:2px dashed #333333}
+#wrap_livescore div ul
+{width:100%;overflow:hidden;}
+#wrap_livescore div li
+{width:35%;display:inline;float:left;overflow:hidden;
+text-align:center;}
+
+#wrap_livescore div .home
+{margin-top:10px}
+#wrap_livescore div .away
+{margin-top:10px;float:right}
+#wrap_livescore div .home b
+{width:98%;overflow:hidden;
+font-size:14px;color:#0000ff;text-align:center;}
+#wrap_livescore div .away b
+{width:98%;overflow:hidden;
+font-size:14px;color:#ff0000;text-align:center;}
+#wrap_livescore div .home b span,
+#wrap_livescore div .away b span
+{margin-top:20px;line-height:20px}
+#wrap_livescore div .score
+{width:30% !important;}
+#wrap_livescore div .score p
+{margin:0 auto;margin-bottom:2px;
+text-align:center;font-size:16px;}
+#wrap_livescore div .score p span,
+#wrap_livescore div .score p span span
+{color:#ffffff;font-size:16px;
+vertical-align:middle}
+#wrap_livescore div .score .harf
+{color:#00deff;font-size:12px;}
+#wrap_livescore div .score .harf span
+{color:#00deff;font-size:12px;}
+
+
+#wrap_livegameinfo div
+{width:100% !important;height:20px;overflow:auto;margin-top:-1px;float:left;display:inline;
+color:#ffffff;
+scrollbar-face-color:#000000;
+scrollbar-shadow-color:#000000;
+scrollbar-highlight-color:#000000;
+scrollbar-3dlight-color:#000000;
+scrollbar-darkshadow-color:#000000;
+scrollbar-track-color:#000000;
+scrollbar-arrow-color:#ffffff;}
+
+#wrap_livegameinfo div ::-webkit-scrollbar
+{background-color:#000000}
+#wrap_livegameinfo div ::-webkit-scrollbar-botton:start:decrement, 
+#wrap_livegameinfo div ::-webkit-scrollbar-botton:end:decrement
+{background:url("../img/livecenter_icon_up.png") center 50% no-repeat;}
+#wrap_livegameinfo div ::-webkit-scrollbar-track
+{background-color:#000000}
+#wrap_livegameinfo div ::-webkit-scrollbar-thumb
+{background-color:#000000}
+
+#wrap_livegameinfo div p
+{width:100% !important;line-height:17px;display:block;
+text-align:left !important;}
+#wrap_livegameinfo li span
+{}
+#wrap_livegameinfo .time
+{color:#ffffff;font-size:11px;margin:0 10px 0 0}
+#wrap_livegameinfo .term
+{color:#ffffff;padding:0 0 0 16px;margin:0 10px 0 0;
+background:url("../img/icon_clock.png") left 50% no-repeat;}
+
+
+#wrap_livegameinfo .btn
+{overflow:hidden;float:left;display:inline;margin:0px 0 0 1px;display:none;}
+#wrap_livegameinfo .btn img
+{margin:0 1px 0 1px;}
+#wrap_livegameinfo .btn img:hover
+{cursor:pointer}
+
+.wrap_livegame
+{width:99%;overflow:hidden;margin:0 auto;margin-top:10px;margin-bottom:10px;}
+.wrap_livegame h3
+{width:100%;height:26px;line-height:26px;
+text-align:left;color:#ffdb00;text-shadow:1px 1px 2px #000000;padding:0 0 0 16px;
+background:url("../img/table_live_head.png") left top no-repeat;border-top:1px solid #605301;border-bottom:1px solid #605301;}
+.wrap_livegame h3 img
+{margin-top:6px}
+
+.wrap_livegame .normaltable,
+.wrap_livegame .oddtable,
+.wrap_livegame .scoretable
+{clear:both;width:99%;margin:0 auto;margin-bottom:0px;
+text-align:center;}
+.wrap_livegame .normaltable th,
+.wrap_livegame .oddtable th,
+.wrap_livegame .scoretable th
+{text-align:left;color:#ffdb00;text-shadow:1px 1px 2px #000000;font-weight:bold;font-size:12px;padding:0 0 0 6px;}
+.wrap_livegame .normaltable td,
+.wrap_livegame .oddtable td,
+.wrap_livegame .scoretable td
+{width:33%;height:17px !important;line-height:17x;
+border:1px solid #253e0e}
+
+.wrap_livegame .scoretable .draw,
+.wrap_livegame .scoretable .draw:hover
+{width:33%;height:17px;line-height:17px;color:#cccccc;border:1px solid #253e0e}
+
+.wrap_livegame .none,
+.wrap_livegame .none:hover
+{background:none !important;border:none !important;}
+
+.oddtable .draw
+{color:#ffffff;}
+.normaltable .name,
+.oddtable .name,
+.scoretable .name,
+.normaltable .name span,
+.oddtable .name span,
+.scoretable .name span
+{margin:0 0px 0 2px;float:left;overflow:visible;display:inline;
+color:#ffffff;vertical-align:middle;text-align:left;}
+.normaltable .rate,
+.oddtable .rate,
+.scoretable .rate
+{margin:0 5px 0 0px;float:right;
+color:#ffffff;font-size:11px;text-align:right;display:inline;}
+.normaltable .rate span,
+.oddtable .rate span,
+.scoretable .rate span
+{color:#ffff00;text-align:right;}
+
+.wrap_livegame .normaltable .pick,
+.wrap_livegame .oddtable .pick,
+.wrap_livegame .scoretable .pick
+{border-top:1px solid #ffffff;border-left:1px solid #ffffff;border-bottom:1px solid #ffff00;border-right:1px solid #ffff00;
+background-image:none;background-color:#e2d00c;}
+.wrap_livegame .pick .name
+{float:left !important;color:#000000}
+.wrap_livegame .pick .rate
+{float:right !important;color:#000000}
+.wrap_livegame .pick .name span,
+.wrap_livegame .pick .rate span
+{color:#000000}
+
+.wrap_livegame .end,
+.wrap_livegame .end:hover
+{background:none !important;border:1px solid #253e0e !important}
+.wrap_livegame .end span,
+.wrap_livegame .end:hover span,
+.wrap_livegame .end span span,
+.wrap_livegame .end:hover span span,
+.wrap_livegame .end span:hover
+{color:#253e0e !important}
+
+
+.wrap_livegame .normaltable td:hover,
+.wrap_livegame .oddtable td:hover,
+.wrap_livegame .scoretable td:hover
+{border-top:1px solid #ffffff;border-left:1px solid #ffffff;border-bottom:1px solid #ffff00;border-right:1px solid #ffff00;
+background-image:none;background-color:#e2d00c;}
+.wrap_livegame .normaltable td:hover .name,
+.wrap_livegame .normaltable td:hover .name span,
+.wrap_livegame .normaltable td:hover .rate span,
+.wrap_livegame .oddtable td:hover .name,
+.wrap_livegame .oddtable td:hover .name span,
+.wrap_livegame .oddtable td:hover .rate span,
+.wrap_livegame .scoretable td:hover .name,
+.wrap_livegame .scoretable td:hover .name span,
+.wrap_livegame .scoretable td:hover .rate span
+{color:#000000}
+
+.wrap_livegame .draw:hover .rate,
+.wrap_livegame .draw:hover .rate span,
+.wrap_livegame .draw:hover
+{color:#000000}
+
+.wrap_livegame .up,
+.wrap_livegame .draw .up
+{margin:0 0px 0 0px;float:left;width:9px;height:10px;padding:2px;vertical-align:middle;
+background:url("../img/icon_up_rate.gif") center 50% no-repeat;}
+.wrap_livegame .upnow,
+.wrap_livegame .draw .upnow
+{margin:0 0px 0 0px;float:left;width:9px;height:10px;padding:2px;vertical-align:middle;
+background:url("../img/icon_up_rate.gif") center 50% no-repeat;}
+.wrap_livegame .down,
+.wrap_livegame .draw .down,
+#overseas .down
+{margin:0 0px 0 0px;float:left;width:9px;height:10px;padding:2px;vertical-align:middle;
+background:url("../img/icon_down_rate.gif") center 52% no-repeat;}
+.wrap_livegame .downnow,
+.wrap_livegame .draw .downnow
+{margin:0 0 0 0px;float:left;width:9px;height:10px;padding:2px;vertical-align:middle;
+background:url("../img/icon_down_rate.gif") center 52% no-repeat;}
+
+#pinnacle_game_list .up
+{width:9px;height:20px;padding:2px;margin:0 2px 0 2px;vertical-align:middle;
+background:url("../img/icon_up.png") center 50% no-repeat;}
+#pinnacle_game_list .down
+{width:9px;height:20px;padding:2px;margin:0 2px 0 2px;vertical-align:middle;
+background:url("../img/icon_down.png") center 52% no-repeat;}
+
+
+.wrap_livegame td:hover .up,
+.wrap_livegame .pick .up
+{background:url("../img/icon_up_rate.gif") center 50% no-repeat;}
+.wrap_livegame td:hover .upnow,
+.wrap_livegame .pick .upnow
+{background:url("../img/icon_up_rate.gif") center 50% no-repeat;}
+.wrap_livegame td:hover .down,
+.wrap_livegame .pick .down
+{background:url("../img/icon_down_rate.gif") center 52% no-repeat;}
+.wrap_livegame td:hover .downnow,
+.wrap_livegame .pick .downnow
+{background:url("../img/icon_down_rate.gif") center 52% no-repeat;}
+
+.wrap_livegame .end .up,
+.wrap_livegame .end:hover .up,
+.wrap_livegame .end .upnow,
+.wrap_livegame .end:hover .upnow,
+.wrap_livegame .end .down,
+.wrap_livegame .end:hover .down,
+.wrap_livegame .end .downnow,
+.wrap_livegame .end:hover .downnow
+{background:none !important;}
+
+
+#wrap_ladder
+{width:640px;height:330px;overflow:hidden;margin:0 auto;margin-top:10px;margin-bottom:10px;
+text-align:center;border-top:1px solid #222222}
+#wrap_ladder iframe
+{width:800px;height:624px;overflow:hidden;margin-top:-210px;margin-left:-120px}
+
+
+
+/* 경기결과 */
+
+#gameresult thead .home,
+#gameresult thead .away
+{width:38%;}
+#gameresult thead .draw
+{width:12%}
+
+#gameresult tbody .home,
+#gameresult tbody .away,
+#gameresult tbody .draw,
+#gameresult tbody .home:hover,
+#gameresult tbody .away:hover,
+#gameresult tbody .draw:hover
+{background-color:#3d3e43;
+border-left:1px solid #4a4e4f;border-top:1px solid #4a4e4f;border-bottom:1px solid #17181a;border-right:1px solid #17181a;}
+#gameresult tbody .homewin,
+#gameresult tbody .awaywin,
+#gameresult tbody .drawwin,
+#gameresult tbody .homewin:hover,
+#gameresult tbody .awaywin:hover,
+#gameresult tbody .drawwin:hover
+{border-top:1px solid #718048;border-bottom:1px solid #475522;background:none;background-color:#5f6e37;}
+
+#gameresult tbody .homewin .name,
+#gameresult tbody .homewin .rate,
+#gameresult tbody .awaywin .name,
+#gameresult tbody .awaywin .rate,
+#gameresult tbody .drawwin .name,
+#gameresult tbody .drawwin .rate,
+#gameresult tbody .homewin:hover .name,
+#gameresult tbody .homewin:hover .rate,
+#gameresult tbody .awaywin:hover .name,
+#gameresult tbody .awaywin:hover .rate,
+#gameresult tbody .drawwin:hover .name,
+#gameresult tbody .drawwin:hover .rate
+{color:#ffff00;font-weight:bold;}
+
+#gameresult tbody .home:hover .name,
+#gameresult tbody .homewin .name,
+#gameresult tbody .away:hover .name,
+#gameresult tbody .awaywin .name
+{overflow:hidden;color:#ffffff !important;}
+#gameresult tbody .draw:hover,
+#gameresult tbody .draw:hover .name
+{color:#ffffff !important}
+#gameresult tbody .home .rate,
+#gameresult tbody .away .rate,
+#gameresult tbody .draw .rate,
+#gameresult tbody .home .rate:hover,
+#gameresult tbody .away .rate:hover,
+#gameresult tbody .draw .rate:hover,
+#gameresult tbody .home:hover .rate,
+#gameresult tbody .away:hover .rate,
+#gameresult tbody .draw:hover .rate
+{color:#ffffff !important}
+
+
+#gameresult tbody .name
+{width:80%;display:inline;overflow:hidden;}
+#gameresult .drawwin,
+#gameresult .drawwin span,
+#gameresult .drawwin b
+{font-weight:normal;}
+
+#gameresult_live
+{margin-bottom:10px}
+#gameresult_live thead .table
+{width:80%}
+#gameresult_live thead .league b,
+#gameresult_live thead .gameinfo b
+{margin:0 0 0 6px;color:#ffffff}
+#gameresult_live thead .gameinfo
+{padding:2px 0 2px 0}
+#gameresult_live thead .gameinfo .score
+{margin:0 0 0 6px;padding:2px;background-color:#000000;}
+#gameresult_live thead .league img
+{width:20px;height:14px;margin:0 4px 0 0}
+
+#gameresult_live tbody td
+{padding:0px;line-height:30px;text-align:center;}
+
+#gameresult_live .type
+{text-align:left;color:#cccccc;}
+
+
+#gameresult_live tbody .gametable,
+#gameresult_live tbody .livetable
+{width:66%;text-align:center;border:none;}
+#gameresult_live tbody .livetable td
+{line-height:30px;color:#ffffff;text-align:center;
+border-left:1px solid #4a4e4f;border-top:1px solid #4a4e4f;border-bottom:1px solid #17181a;border-right:1px solid #17181a;}
+#gameresult_live tbody .livetable span
+{clear:both;width:100%;display:block !important;line-height:30px;color:#ffffff;margin:0 auto;display:block;text-align:center !important;}
+#gameresult_live .oddtable td
+{width:50%;}
+#gameresult_live .normaltable td
+{width:33%;}
+#gameresult_live .scoretable td
+{width:20%;}
+#gameresult_live .livetable .win
+{background:none;background-color:#5f6e37;border:1px solid #5f6e37}
+#gameresult_live .livetable .win span
+{color:#ffff00 !important}
+
+#gameresult_live .result .win
+{border:none !important}
+
+
+
+
+
+/* 베팅내역 */
+
+.wrapgame
+{width:100%;overflow:hidden;margin:0 auto;margin-top:5px;
+padding-bottom:8px;background-color:#222222;}
+.wrapgame .tablestyle_gamelist
+{width:99%;margin:0 auto;}
+.wrapgame h4
+{width:100%;height:30px;line-height:30px;overflow:hidden;padding:0 0 0 10px;
+color:#757575;font-size:14px;text-shadow:1px 1px 2px #000000;}
+.wrapgame h4 span
+{margin:0 0 0 10px;color:#757575;font-size:14px;text-shadow:1px 1px 2px #000000;}
+
+.wrapgame_win
+{width:100%;overflow:hidden;margin:0 auto;margin-top:5px;
+padding-bottom:8px;background-color:#555555;}
+.wrapgame_win .tablestyle_gamelist
+{width:99%;margin:0 auto;}
+.wrapgame_win h4
+{width:100%;height:30px;line-height:30px;overflow:hidden;}
+.wrapgame_win h4 span
+{margin:0 0 0 10px;color:#ffdf1b;font-size:14px;text-shadow:1px 1px 2px #000000;}
+
+.wrapgame_win #bethistory thead .home,
+.wrapgame #bethistory thead .home,
+.wrapgame_win #bethistory thead .away,
+.wrapgame #bethistory thead .away
+{width:38%;}
+
+
+#bethistory
+{margin-bottom:10px}
+
+#bethistory thead .home,
+#bethistory thead .away
+{width:40%}
+#bethistory thead .draw
+{width:12%}
+
+#bethistory tbody .home,
+#bethistory tbody .home:hover,
+#bethistory tbody .draw,
+#bethistory tbody .draw:hover,
+#bethistory tbody .away,
+#bethistory tbody .away:hover
+{background-color:#3d3e43;
+border-left:1px solid #4a4e4f;border-top:1px solid #4a4e4f;border-bottom:1px solid #17181a;border-right:1px solid #17181a}
+#bethistory tbody .home span,
+#bethistory tbody .home:hover span,
+#bethistory tbody .draw span,
+#bethistory tbody .draw:hover span,
+#bethistory tbody .away span,
+#bethistory tbody .away:hover
+{color:#ffffff}
+#bethistory tbody td
+{font-size:12px}
+
+
+#bethistory .league
+{width:18%;background-color:#3d3e43;
+border-left:1px solid #4a4e4f;border-top:1px solid #4a4e4f;border-bottom:1px solid #17181a;border-right:1px solid #17181a;}
+#bethistory .league img
+{width:20px;height:16px;margin:0 4px 0 2px}
+#bethistory .league span
+{color:#ffffff;font-weight:normal}
+
+#bethistory .home:hover span,
+#bethistory .home span:hover,
+#bethistory .away:hover span,
+#bethistory .away span:hover,
+#bethistory .draw:hover span,
+#bethistory .draw span:hover
+{color:#ffffff !important}
+
+#bethistory .homepick,
+#bethistory .awaypick,
+#bethistory .drawpick
+{border:1px solid #096995;background:none;background-color:#0d95d4;}
+#bethistory .homepick span,
+#bethistory .drawpick span,
+#bethistory .awaypick span
+{color:#ffffff}
+#bethistory .drawpick
+{width:10%;}
+
+#bethistory .homewin,
+#bethistory .drawwin,
+#bethistory .awaywin
+{border:1px solid #ffff00;background-color:#0d95d4 !important;background:none}
+#bethistory .homewin span,
+#bethistory .drawwin span,
+#bethistory .awaywin span
+{color:#ffff00;font-weight:bold}
+
+#bethistory .homewin_nopick,
+#bethistory .awaywin_nopick,
+#bethistory .drawwin_nopick
+{border:1px solid #ffff00;}
+#bethistory .homewin_nopick span,
+#bethistory .drawwin_nopick span,
+#bethistory .awaywin_nopick span
+{color:#ffff00;font-weight:bold}
+
+#bethistory .homepick .name,
+#bethistory .homewin .name,
+#bethistory .homewin_nopick .name,
+#bethistory .awaypick .rate,
+#bethistory .awaywin .rate,
+#bethistory .awaywin_nopick .rate
+{float:left;margin:0 0 0 4px}
+#bethistory .awaypick .name,
+#bethistory .awaywin .name,
+#bethistory .awaywin_nopick .name,
+#bethistory .homepick .rate,
+#bethistory .homewin .rate,
+#bethistory .homewin_nopick .rate
+{float:right;margin:0 4px 0 0}
+
+#bethistory .score
+{color:#00f6ff;font-weight:bold}
+
+
+#bethistory tfoot td,
+#bethistory_live tfoot td
+{height:30px;line-height:30px;text-align:left;padding:0px 0 0px 0px;color:#cccccc;}
+#bethistory tfoot td span,
+#bethistory_live tfoot td span
+{margin:0 10px 0 0px;
+color:#cccccc;padding:0 0 0 0px;}
+#bethistory tfoot td span b,
+#bethistory_live tfoot td span b
+{color:#87ff4c;margin:0 0 0 2px}
+
+#bethistory tfoot td .input,
+#bethistory_live tfoot td .input
+{display:none}
+#bethistory tfoot .info,
+#bethistory_live tfoot .info
+{width:100%;height:30px;border:1px solid #111111;
+background-color:#000000;}
+#bethistory tfoot .info p,
+#bethistory_live tfoot .info p
+{overflow:hidden;float:left;display:inline;height:24px;line-height:24px;margin:0px 0 0 20px;}
+#bethistory tfoot .info span,
+#bethistory_live tfoot .info span
+{margin:0 10px 0 0px;color:#ffffff;font-weight:bold}
+#bethistory tfoot .info span b,
+#bethistory_live tfoot .info span b
+{color:#ffff00;}
+#bethistory tfoot .info .btn,
+#bethistory_live tfoot .info .btn
+{float:right;display:inline;padding:1px;}
+#bethistory tfoot .info .btn img,
+#bethistory_live tfoot .info .btn img
+{margin:0px 0 1px 0px}
+
+#bethistory tfoot .info .win
+{padding:0px;color:#5aaeff}
+#bethistory tfoot .info .lose
+{padding:0px;color:#ff5a5a}
+#bethistory tfoot .info .cancel
+{padding:0px;color:#bebebf}
+
+
+
+
+#bethistory_live .game
+{height:30px;line-height:30px;
+text-align:left;font-weight:bold;}
+#bethistory_live .game span
+{font-weight:normal;font-size:11px;margin:0 4px 0 6px}
+#bethistory_live tbody .type
+{width:20%;text-align:left;color:#d7e6b0;}
+#bethistory_live .league
+{width:18%;line-height:24px;
+background-color:#3d3e43;
+border-left:1px solid #4a4e4f;border-top:1px solid #4a4e4f;border-bottom:1px solid #17181a;border-right:1px solid #17181a;}
+#bethistory_live .league img
+{width:20px;height:16px;margin:0 4px 0 2px}
+#bethistory_live .league span
+{color:#ffffff;font-weight:normal}
+
+#bethistory_live tbody .pick
+{width:40%;border:1px solid #096995;background:none;background-color:#0d95d4;}
+#bethistory_live tbody .pick div
+{width:100%}
+#bethistory_live tbody .pick .name
+{float:left;display:inline;margin:0 0 0 5px;
+color:#ffffff}
+#bethistory_live tbody .pick .rate
+{float:right;display:inline;margin:0 5px 0 0;
+text-align:right;color:#ffffff}
+#bethistory_live tbody .betmoney
+{width:12%;}
+#bethistory_live tbody .winmoney
+{width:12%;color:#ffff00}
+
+
+/* 베팅내역 - 팝업 */
+
+#bethistorypage
+{width:100%;height:100%;margin:0 auto;overflow:hidden;border:1px solid #000000;
+background:none;}
+#bethistorypage #wrap_body
+{width:100%;margin:0 auto;}
+#bethistorypage #subvisual
+{width:100% !important;background:url("/img/subvisual_bethistory.jpg") -6px top no-repeat !important}
+
+#bethistorypage .tablestyle_gamelist
+{width:99%;margin:0 auto;}
+
+
+
+/* 게시판 */
+
+.tablestyle_normal
+{width:100%;overflow:hidden;margin:20px auto;padding:0px;
+border-bottom:2px solid #222222}
+.tablestyle_normal thead th
+{height:30px; vertical-align:middle;padding:0px;
+color:#c9c9c9;text-shadow:1px 1px 2px #000000;
+background:url(../img/list_head.gif) left top repeat-x;background-color:#232323;
+border-top:1px solid #373737;border-bottom:1px solid #373737;}
+.tablestyle_normal tbody td
+{height:28px;padding:3px 0 3px 0;
+text-align:center; vertical-align:middle;font-size:11px;color:#cccccc;
+border-top:1px solid #222222;border-left:1px solid #222222;border-right:1px solid #222222;border-bottom:1px solid #090909;}
+.tablestyle_normal tbody tr:hover td
+{}
+.tablestyle_normal tbody tr:hover .title a
+{text-decoration:underline}
+
+.tablestyle_normal thead .title
+{width:60%}
+
+.tablestyle_normal tbody .title
+{width:60%;text-align:left;padding:0 0 0 5px;background:none}
+.tablestyle_normal tbody .title a
+{color:#ffffff;font-size:12px;}
+.tablestyle_normal tbody .title span
+{color:#ffffff;}
+.tablestyle_normal tbody .title img
+{margin:0 0 0 4px}
+.tablestyle_normal tbody .title font
+{font-size:11px;color:#ffff00}
+.tablestyle_normal tbody .writer
+{font-weight:bold;font-size:11px;color:#cccccc;text-align:left}
+.tablestyle_normal tbody .writer img
+{margin:0 6px 0 10px}
+.tablestyle_normal tbody .hit,
+.tablestyle_normal tbody .recommend
+{color:#e7560e;}
+.tablestyle_normal tbody .categoty
+{color:#999999;letter-spacing:-1px}
+
+
+.tablestyle_normal thead .icon
+{width:12px;}
+
+.tablestyle_normal tbody .bbs_notice td,
+.tablestyle_normal tbody tr:hover .bbs_notice td
+{padding:3px 0 3px 0;background-color:#161616}
+.tablestyle_normal tbody .bbs_notice .title,
+.tablestyle_normal tbody tr:hover .bbs_notice .title
+{text-align:left;}
+.tablestyle_normal tbody .bbs_notice .title a
+{color:#ffdf1b;font-weight:bold;font-size:12px;margin:0 0 0 8px;}
+
+
+
+.tablestyle_view
+{width:100%;overflow:hidden;margin:0 auto;padding:0px;
+border:2px solid #333333;border-bottom:2px solid #090909;}
+.tablestyle_view tr
+{border-bottom:1px solid #0d0d0d;}
+.tablestyle_view td
+{line-height:28px;border:1px solid #222222;
+background-color:#000000;border:1px solid #222222;padding:3px 5px 3px 5px;}
+.tablestyle_view th
+{line-height:28px;text-align:left;padding:3px 5px 3px 5px;
+border:1px solid #313131;
+background:url(../img/list_th_icon.gif) left top no-repeat;background-color:#232323;}
+.tablestyle_view th img
+{margin:0 0px 0 0}
+.tablestyle_view .title
+{color:#ffffff;font-weight:bold;}
+.tablestyle_view .title img
+{margin:0 10px 0 0}
+.tablestyle_view .writer
+{font-weight:bold;font-size:11px;}
+.tablestyle_view .writer img
+{margin:0 5px 0 0px}
+.tablestyle_view .content
+{width:98%;min-height:160px;overflow:hidden;border:none;margin:10px 10px 60px 10px;line-height:20px;
+color:#ffffff;background-color:#000000}
+
+.tablestyle_view .textarea
+{width:99%;line-height:20px;color:#ffffff;
+border:1px solid #272727;background-color:#000000}
+
+.tablestyle_view select
+{border:1px solid #2a374f;font-size:11px}
+
+.tablestyle_view .danger
+{font-size:11px;letter-spacing:-1px;color:#ff0000;}
+.tablestyle_view .info
+{font-size:11px;letter-spacing:-1px;color:#cccccc;}
+.tablestyle_view .infotext_member
+{width:200px;line-height:30px;overflow:hidden;float:left;color:#5b8ce6;margin:0 5px 0 5px;font-size:11px;letter-spacing:-1px;}
+
+
+.wrap_bbsbet
+{width:100%;overflow:hidden;margin:0 auto;}
+.wrap_bbsbet .tablestyle_gamelist
+{width:99%;margin:0 auto;margin-top:5px;margin-bottom:5px;}
+.wrap_bbsbet thead th
+{height:22px !important;line-height:22px !important;
+color:#bebebe;text-shadow:1px -2px 1px #000000;text-align:center;font-weight:bold;
+background-color:#232323;border-top:1px solid #373737;border-bottom:1px solid #0c0c0c;}
+.wrap_bbsbet tbody td
+{}
+
+
+.wrap_reply
+{width:99%;overflow:hidden;margin:0 auto;
+border:1px solid #4f4f4f;background-color:#111111}
+.tablestyle_reply
+{width:99%;overflow:hidden;margin:0 auto;margin-top:5px;margin-bottom:5px;}
+.tablestyle_reply td
+{line-height:20px;padding:8px 8px 8px 8px;text-align:left;
+color:#ffffff;}
+.tablestyle_reply th
+{width:14%;
+color:#ffffff;font-size:11px;font-weight:bold;text-align:left;padding:8px 0px 8px 10px;
+border:1px solid #373737;background-color:#232323;}
+.tablestyle_reply .contents
+{color:#cccccc;text-align:left;padding:8px 0 8px 5px}
+.tablestyle_reply .date
+{width:12%;text-align:center;font-size:11px;color:#666666}
+.tablestyle_reply .date img
+{margin:0 0 0 5px}
+.tablestyle_reply .reply
+{border:1px solid #223861;background-color:#011124;}
+.tablestyle_reply textarea
+{width:90%;height:60px;margin:0 5px 0 0px;float:left;
+color:#fffffff;line-height:20px;padding:5px;
+border:1px solid #373737;background:#000000;}
+
+
+/* 내역첨부 */
+#bethistory_pop
+{width:1200px;margin:0px;background:url(../img/bg_body.gif) left top repeat-y !important;}
+#bethistory_pop .tablestyle_gamelist
+{width:1190px;border-top:2px solid #666666}
+#bethistory_pop tbody td
+{height:32px;line-height:32px;text-align:center;font-size:11px;color:#d4d4d4;
+background-color:#3d3e43;
+border-left:1px solid #4a4e4f;border-top:1px solid #4a4e4f;border-bottom:1px solid #17181a;border-right:1px solid #17181a;}
+#bethistory_pop tbody .league
+{text-align:left}
+
+#bethistory_pop tfoot .input
+{display:visible !important;margin:0 -20px 0 10px}
+#bethistory_pop tfoot .info
+{padding:0 0 0 18px}
+
+
+
+/* 고객센터 */
+
+#wrap_qnaadd
+{overflow:hidden;}
+#wrap_qnaadd .tablestyle_normal
+{margin-top:20px;}
+#wrap_qnaadd .tablestyle_normal .title
+{width:60%;}
+
+.tablestyle_normal tbody .cs_q
+{width:60%;text-align:left;}
+.tablestyle_normal tbody .cs_q:hover
+{cursor:pointer}
+.tablestyle_normal tbody .cs_q p
+{width:98%;margin:0 0 0 26px;color:#ffffff;}
+.tablestyle_normal tbody .cs_a,
+.tablestyle_normal tbody .cs_a:hover
+{width:60%;text-align:left;}
+.tablestyle_normal tbody .cs_a p
+{width:98%;margin:0 auto;padding:5px;color:#e09453;}
+
+
+/* 메모함 */
+
+.tablestyle_normal .memo_title
+{width:60%;text-align:left;padding:0 0 0 5px;}
+.tablestyle_normal .memo_title:hover
+{cursor:pointer}
+.tablestyle_normal .memo_content
+{text-align:left;padding:5px;
+color:#ffffff;
+background-color:#161616}
+
+
+/*  */
+
+.tablestyle_money
+{width:99%;margin:0 auto;overflow:hidden;
+text-align:left;border-top:2px solid #333333;border-left:1px solid #333333;border-right:2px solid #333333}
+.tablestyle_money dt
+{width:100%;line-height:24px;margin:4px 0 0 0px;
+text-align:left;color:#ffffff;font-weight:bold;padding:0 0 0 6px;}
+.tablestyle_money dd
+{width:100%;line-height:32px;margin:4px 0 0 0px;
+color:#ffffff;font-weight:bold;
+border:1px solid #666666;background-color:#333333}
+.tablestyle_money dd span
+{color:#ff0000;font-size:11px}
+.tablestyle_money .inputstyle_number
+{margin-top:6px;}
+
+.money_btn
+{overflow:hidden;line-height:28px;margin:0px 0 0px 0px;text-align:left;
+background-color:#cccccc;padding:5px 0 8px 0}
+.money_btn input
+{width:71px;height:24px;line-height:18px;overflow:hidden;margin:0 0px 0 0;
+border:0px solid #000000;color:#ffffff;font-size:11px;font-weight:bold;letter-spacing:-1px;text-align:center;
+background:url("../img/money_btn.gif") left top no-repeat;}
+.money_btn input:hover
+{text-decoration:underline;cursor:pointer;color:#ffdf1b}
+
+.inputstyle_money
+{width:20%;height:20px;line-height:20px;
+color:#ffff00;font-weight:bold;
+background-color:#595959;border:2px solid #161e3e}
+
+
+.charge_money,
+.rc_rate
+{color:#00f0ff !important}
+.exchange_money,
+.rc_point
+{color:#00ff00 !important}
+.money_name
+{font-size:12px}
+
+#skin2
+{margin-top:20px;}
+#skin2 th
+{color:#9dedd4;background-color:#16231f}
+#skin2 .charge_money
+{color:#00f0ff}
+
+
+.wrap_information
+{width:99%;overflow:hidden;margin:0 auto;margin-top:10px;margin-bottom:5px;}
+.wrap_information p
+{overflow:hidden;margin:14px 0 0 14px;
+text-align:left;}
+.wrap_information ul
+{width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;}
+.wrap_information li
+{width:98%;margin:0 auto;margin-top:6px;padding:0 0 0 12px;
+font-family:"돋움";font-size:11px;color:#cccccc;letter-spacing:-1px;
+background:url("../img/icon_info.gif") left 3px no-repeat;}
+.wrap_information strong
+{font-size:11px;font-family:"돋움";color:#ff0000}
+
+
+/* 마이페이지 */
+
+/* 가이드 */
+
+#gameguide
+{clear:both;width:100%;min-height:700px;overflow:hidden;margin:0 auto;margin-top:0px;margin-bottom:20px;
+line-height:22px;}
+
+#gameguide dl
+{width:98%;overflow:hidden;margin:0 auto;margin-top:20px;line-height:18px}
+#gameguide dt
+{font-size:14px;color:#fad659;font-weight:bold;margin:0 0 5px 0;
+padding:0 0 0 14px;
+background:url("../img/icon_info.gif") left 50% no-repeat !important}
+#gameguide dd
+{margin:0 0 5px 5px}
+
+#gameguide div ul
+{overflow:hidden;margin:10px 0 0 10px;}
+#gameguide div li
+{color:#999999}
+#gameguide div .example
+{overflow:hidden;margin:0px 0 0 10px;}
+#gameguide div .example li
+{font-size:11px;color:#ff0000}
+#gameguide div strong
+{margin:0 5px 0 0}
+
+
+
+
+/* 로그인 */
+
+#loginpage
+{width:100%; margin:0 auto;}
+
+
+#loginpage .swf
+{width:700px;height:300px;overflow:hidden;margin:0 auto;margin-top:100px}
+
+#loginpage #wrap_body
+{width:100%; height:1200px; margin:0 auto; background:url("../img/login_bg_n.png") center top no-repeat !important;}
+#loginpage #wrap_body .flash
+{width:987px;height:570px;overflow:hidden;margin:0 auto;}
+
+
+#loginpage h1
+{width:220px;height:70px;overflow:hidden;margin:0 auto;margin-top:285px;display:none;}
+#loginpage h1 a
+{width:197px;height:70px;overflow:hidden;display:block;
+background:url("../img/login_logo.gif") center top no-repeat !important;}
+
+#loginpage #wrap_login
+{width:100%;height:350px;overflow:hidden;margin:0 auto;display:block;margin-top:205px; background:url("../img/login_logo_n.png") center top no-repeat !important;}
+#loginpage #wrap_login .wrap
+{clear:both; margin-top:150px;}
+#loginpage #wrap_login label,
+#loginpage #wrap_login .input span
+{position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px;overflow:hidden;visibility:hidden;}
+#loginpage #wrap_login .input
+{width:152px;height:24px;overflow:hidden;float:left;display:inline;margin:0 4px 0px 0px;}
+#loginpage #wrap_login .inputstyle_normal
+{width:120px !important;height:18px;line-height:18px;margin:0 0 0 20px;
+font-weight:bold;color:#ffffff;
+background-color:#23000b;border:1px solid #4d473f;}
+
+#loginpage #wrap_login .btn
+{float:left;display:inline;margin-top:-10px;}
+#loginpage #wrap_login .join
+{float:left;display:inline;margin-top:-10px;}
+
+
+#record
+{clear:both;width:320px;overflow:hidden;margin:0 auto;display:block;margin-top:50px;
+border:1px solid #59b8e4;background-color:#000000}
+#record .title
+{height:26px;line-height:26px;text-align:center;font-size:11px;color:#59b8e4;
+border:none;background-color:#59b8e4;}
+#record .title span
+{margin:0 0 0 5px;
+font-size:12px;color:#000000;font-weight:bold}
+#record .title a
+{margin:5px 5px 0 0;float:right;display:inline;}
+#record th
+{color:#59b8e4;background-color:#000000}
+#record .pincode
+{line-height:30px;text-align:center;padding:5px 0 5px 0;background-color:#000000}
+#record td input
+{width:160px;line-height:22px;height:22px;margin:0 5px 0 0;vertical-align:middle;
+color:#59b8e4;font-weight:bold;
+border:1px solid #222222;background-color:#000000}
+#record td img
+{margin:2px 0 0 0}
+
+
+/* 회원가입 */
+#joinpage
+{width:100%;overflow:auto;}
+
+#wrap_join
+{width:100%;overflow:hidden;margin:10px 0 0 10px;}
+
+#wrap_join dl
+{display:none;}
+
+#wrap_join .info
+{line-height:20px;color:#cccccc}
+
+
+#wrap_join span
+{color:#cccccc;font-size:11px;margin:0 0 0 0}
+.reaction
+{font-size:11px;letter-spacing:-1px;}
+#wrap_join table .reaction span
+{color:#ffffff;text-shadow:none}
+#wrap_join table .reaction font
+{color:#ff0000 !important;text-shadow:none}
+
+#wrap_join .wrap_btn
+{margin-top:20px;margin-bottom:40px;}
+
+#wrap_join #makeid
+{width:500px;height:150px;overflow:hidden;margin:0 auto;display:none;
+text-align:center}
+#wrap_join #makeid .info
+{color:#ffffff;display:block;}
+#wrap_join #makeid .id
+{width:200px;height:60px;line-height:60px;overflow:hidden;margin:10px 0 0 120px;float:left;display:inline;
+font-size:30px;font-weight:bold;color:#ffffff;
+background-color:#84a740;border:1px solid #c4ea7b}
+#wrap_join #makeid .copy
+{margin:26px 0 0 6px;float:left;display:inline;}
+#wrap_join #makeid .copy:hover
+{cursor:pointer}
+
+#wrap_join #makeid .wrap_btn
+{padding-top:20px}
+
+
+/* 인덱스 */
+
+#index_menu
+{overflow:hidden;background-color:#14805e;}
+#index_menu #mmenu
+{margin-top:-1px}
+#index_notice
+{width:100%;overflow:hidden;margin:0 auto;margin-top:10px;}
+#index_notice ul
+{width:99%;overflow:hidden;margin:0 auto;}
+#index_notice li
+{overflow:hidden;font-weight:bold;margin:2px 0 8px 0;padding:0 0 8px 0;
+border-bottom:1px dashed #333333}
+#index_notice li a
+{color:#ffffff;font-size:12px;}
+#index_notice li a:hover
+{color:#ffff00}
+#index_notice .title
+{font-size:15px;font-weight:bold;padding:6px 0 6px 20px;border:none;
+background:url("../img/icon_title.png") left 50% no-repeat;background-color:#222222}
+
+
+/* 팝업 */
+
+#popuppage
+{background:none !important;background-color:#ffffff;}
+
+#wrap_popup
+{width:400px;height:500px;overflow:hidden;
+background:url("../img/maintain.jpg") center -100px no-repeat !important;}
+#wrap_popup .text
+{width:360px;height:430px;overflow:hidden;margin:0 auto;margin-top:50px;
+color:#ffffff;}
+#wrap_popup p
+{width:100%;height:48px;overflow:hidden;line-height:48px;background-color:#111111;
+text-align:left;
+font-weight:normal;font-size:11px;font-family:"돋움";color:#666666}
+#wrap_popup p input
+{margin:0 4px 0 5px;}
+#wrap_popup p a
+{float:right;display:inline;font-weight:bold;margin:0 5px 0 0;
+color:#ffffff}
+#wrap_popup p a:hover
+{float:right;display:inline;font-weight:bold;margin:0 5px 0 0;
+color:#ffff00}
+
+
+/* */
+.casinopage
+{height:800px;margin-top:4px;
+text-align:center}
+.casinopage img
+{margin-bottom:10px;}
+
+
+/* 점검 */
+#maintainpage
+{height:100%;background:url("../img/maintain.jpg") center top no-repeat !important;background-color:#000000}
+#maintainpage #maintain
+{width:50%;height:570px;overflow:hidden;margin:0 auto;}
+#maintainpage #maintain p
+{width:50%;height:200px;overflow:hidden;margin:0 auto;margin-top:300px;
+color:#ffffff;text-align:center;padding:10px;
+border:1px solid #06172b}
+
+
+
+/* */

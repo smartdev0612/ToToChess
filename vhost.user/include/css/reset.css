@@ -1,0 +1,54 @@
+/* 마진과 패딩의 초기화 */
+a, abbr, acronym, address, 
+b, blockquote, big, body,
+center, caption, cite, code, command,
+ dd, del, dfn, dl, div, dt, 
+em, embed,
+fieldset, footer, form, 
+h1, h2, h3, h4, h5, h6, header, hgroup, html,
+i, iframe, img,
+label, legend, li, 
+object, ol,
+p, pre, 
+q, 
+s, samp, section, small, span, source, strike, strong, sub, sup,
+table, tbody, tfoot, thead, th, tr, 
+u, ul, 
+var {
+	margin-top: 1;
+	padding: 1;
+	color: #eae9e9;
+}
+
+/* 헤더 폰트 사이즈 초기화 */
+h1,h2,h3,h4,h5,h6 {font-size:100% }
+
+
+/* 리스트의 스타일 제거 */
+ol, ul {list-style:none}
+
+
+/* 폰트 강조 특성 초기화 */
+address, caption, cite, code, dfn, em, 
+strong, th, var {font-style :normal; font-weight:normal}
+
+
+/* 테이블 스타일 초기화 */
+table {border-collapse:collapse; border-spacing:0}
+
+
+/* 이미지 및 필드셋에서 보더표시 초기화 */
+fieldset, img {border:0}
+
+img, input, button, select, textarea { vertical-align:middle}
+
+
+/* 캡션과 테이블헤더 텍스트 정렬 초기화 */
+caption, th {text-align:left }
+
+
+/* 인용구 표시 초기화 */
+q:before, q:after {content :''} 
+
+/* hidden_class */
+.hidden {width:0; height:0; margin:0; padding:0; overflow:hidden; line-height:0; font-size:0; visibility:hidden; position:absolute; left:0; top:0}

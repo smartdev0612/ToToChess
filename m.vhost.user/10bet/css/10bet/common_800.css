@@ -1,0 +1,283 @@
+﻿@charset "utf-8";
+
+@media screen and (max-width:800px) {
+
+	body::-webkit-scrollbar {width:0px !important;}
+	
+	/* 해더 */
+	header {height:55px !important;}
+	header h1 {width:100% !important;}
+	header h1 img {height:45px !important;}
+	header .ico_menu {}
+	header #gnb {display:none;}
+	header .mobile_header {display:block !important;}
+	
+	/* 양쪽 날개 감추기 */
+	#left_section {display:none;}
+	#right_section {display:none;}
+	
+	/* 모바일 하단 메뉴 보이기 */
+	#mobile_foot_menu {display:block !important;}
+	.mobile_betting_cart {display:block !important;}
+	.mobile_bottom_menu {display:block !important;}
+	
+	/* 컨텐츠 사이즈 조절 */
+	#contents {margin:0px 4px !important;}
+	
+	/* 메인 비쥬얼 텍스트 이미지 */
+	.main_visual .box01 {width:320px !important;padding:0px 10px;}
+	
+	/* 메인 스포츠 매치 */
+	.main_sports section {width:100% !important;padding:0 !important;}
+	.main_sports section:first-child {margin-bottom:10px;}
+	
+	/* 메인 미니게임 */
+	.main_minigame ul li {width:50% !important;margin-bottom:10px;}
+	
+	/* 스포츠 상단 메뉴 조절 */
+	.sports_head .menu_list2 {height:105px !important;}
+	.sports_head .menu_list2 .list02 {top:55px !important;left:0px !important;}
+	
+	/* 게임 베팅 리스트 조절 */
+	.sports_game .game_title .title_area .title01 {display:none !important;}
+	.sports_game .game_title .title_area .title02 {display:none !important;}
+	.sports_game .game_title .title_area .title03 {display:none !important;}
+	
+	.sports_game .game_head {width:100% !important;}
+	.sports_game .bet_box {width:100% !important;position:relative !important;right:0 !important;padding:10px 50px 10px 65px;}
+	.sports_game .game_list .side_bet {bottom:20px !important;top:auto !important;}
+	
+	.sports_game .btn_bet01 {height:38px !important;font-size:14px;}
+	
+	.sports_game .bet_box {margin-top:0px !important;padding:0;}
+	.sports_game .bet_box .colum01 {width:100% !important;}
+	.sports_game .bet_box .colum02 {display:none;}
+	.sports_game .bet_box .colum03 {display:none;}
+
+	.sports_game .bet_box .box01 .btn_area {width:24%;}
+	.sports_game .bet_box .box02 .btn_area {width:30% !important;}
+	
+	/* 게임 상세 */
+	.sports_game .detail_bet .section01 {width:100% !important;}
+	.sports_game .detail_bet .btn_box button {padding:0px 11px !important;}
+	
+	/* 미니게임 */
+	.mini_game_bet .view_section {width:100% !important;}
+	.mini_game_bet .bet_section {width:100% !important;}
+	
+	/* 이벤트 리스트 사이즈 */
+	.event_section .event_list li {float:left;width:50% !important;}
+	
+	/* 회원가입 사이즈 */
+	.member_section .member_rolling {display:none !important;}
+	.member_section .member_box .box01 {width:100% !important;padding:0px !important;}
+	.member_section .member_box .box_left {width:100% !important;}
+	.member_section .member_box .btn_join {margin-top:0 !important;}
+	
+	/* 경기 결과 버튼 영역 */
+	.result_btn h3 {display:block !important;}
+	.result_btn ul {position:absolute;top:50px;left:0;width:100%;z-index:10;background:#2d2e35;overflow-y:auto;height:380px;display:none;}
+	.result_btn li {margin-bottom:0px;float:left;width:100%;}
+	.result_btn li button {border:1px solid #434347;background:#2d2e35;height:40px;font-weight:bold;border-radius:5px;width:100%;}
+	.result_btn li.on button {background:#312b20;border:1px solid #ffa604;}
+	
+	/* 라이브스포츠 타이틀 영역 */
+	.sports_game .livegame_head {margin-bottom:50px !important;}
+	.sports_game .livegame_head .update {top:90px !important;}
+	
+	/* 푸터 */
+	footer {margin:50px 4px 100px 5px !important;}
+	footer .foot_site li {height:30px !important;}
+	footer .foot_site li img {height:100%;}
+	footer h1 img {width:100px;}
+	footer p {padding:0px 0px 0px 110px !important;}
+	footer copyright {padding-left:110px !important;}
+	
+	/* 라이브 스포츠 */
+	.sports_game .livegame_list .simple_box {height:205px !important;}
+	.sports_game .livegame_list .simple_box:hover .ticket_btn  {display:none !important;}
+	.sports_game .livegame_list .simple_box .category {top:135px !important;height:20px !important;}
+	.sports_game .livegame_list .simple_box .mach_box {margin:0px 0px 0px 13px !important;}
+	.sports_game .livegame_list .simple_box .mach_box .team_name {font-size:18px !important;padding:30px 0px 8px 0px !important;}
+	.sports_game .livegame_list .simple_box .mach_box .count_area {top:175px !important;left:0px !important;}
+	.sports_game .livegame_list .simple_box .bet_total {position:relative !important;top:0 !important;right:0 !important;margin:15px 0px 0px 10px;width:100% !important;}
+	.sports_game .livegame_list .simple_box .bet_total .odds {width:80px !important;height:35px !important;line-height:32px !important;font-size:17px !important;}
+	.sports_game .livegame_list .simple_box .bet_total .eur01 {font-size:17px !important;}
+	.sports_game .livegame_list .simple_box .bet_total .eur01 span {font-size:10px !important;}
+	.sports_game .livegame_list .simple_box .bet_total .eur02 {font-size:17px !important;}
+	.sports_game .livegame_list .simple_box .bet_total .eur02 span {font-size:10px !important;}
+	.sports_game .livegame_list .simple_box .location {width:20px !important;}
+	.sports_game .livegame_list .simple_box .location .city {display:none !important;}
+	
+	.sports_game .livegame_list .detail_box .ticket_detail .date_area {position:relative !important;top:0 !important;right:0 !important;text-align:left !important;padding:15px 15px 0px 15px !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .date_area .pending {text-align:center !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .date_area .date {display:inline-block !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .mach_box {margin:0px 0px 0px 15px !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .mach_box .team_name {font-size:18px !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .mach_box .combo {display:none !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .mach_box .single {display:none !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .mach_box .livebet {display:none !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .mach_box .count {display:none !important;}
+	.sports_game .livegame_list .detail_box .head_text {text-align:center !important;}
+	.sports_game .livegame_list .detail_box .bet_total {text-align:center !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .bet_total2 {position:relative !important;top:0 !important;right:0 !important;text-align:left !important;padding:0px 15px 0px 15px !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .bet_total2 .outcount {display:inline-block !important;}
+	.sports_game .livegame_list .detail_box .ticket_detail .category {position:relative !important;left:0 !important;left:0 !important;text-align:left !important;margin:15px 0px 15px 0px !important;}
+	.sports_game .livegame_list .ticket_btn {position:relative !important;top:0 !important;right:0 !important;width:100% !important;}
+	
+	/* 가상경기 */
+	.virtual_sports section {display:block !important;width:100% !important;}
+	
+	/* 오늘의 경기 */
+	.today_sports {background-position:-30px -30px !important;}
+	.today_sports .title_area {left:25px !important;}
+	.today_sports .head_sports {margin:90px 20px 30px 20px !important;}
+	
+	/* 슬롯게임 메인 */
+	.casino_slot_main .main_list .list_box {width:50% !important;}
+
+	.minigame_main_m .box01 .time {top:55px;right:15px;}
+
+	.minigame_main_m .box01 .img_box {border:0;}
+
+	.minigame_main_m .box01 {margin-bottom:35px;}
+
+	.minigame_main_m .box01 .play {bottom:-35px !important;}
+}
+
+/* 미니게임 사이즈 */
+@media screen and (max-width:550px) {
+	.minigame_main .box01 {width:100% !important;}
+}
+
+@media (min-width:550px) and (max-width:800px) {
+	.minigame_main .box01 {width:50% !important;}
+}
+
+/* 미니게임 사이즈 */
+@media screen and (max-width:550px) {
+	.minigame_main_m .box01 {width:50% !important;}
+}
+
+@media (min-width:550px) and (max-width:800px) {
+	.minigame_main_m .box01 {width:33.333% !important;}
+}
+
+@media screen and (max-width:655px) {
+	/* 미니 게임 버튼 영역 사이즈 */
+	.mini_game_bet .bet_section .bet_list01 .list_box01 {width:100% !important;}
+	.mini_game_bet .bet_section .bet_cart .info_box {width:100% !important;}
+	.mini_game_bet .bet_section .bet_cart .btn_box {width:100% !important;}
+}
+
+@media screen and (max-width:550px) {
+	.event_section .event_list li {float:left;width:100% !important;}
+}
+
+/* 오늘의 경기 */
+@media (min-width:600px) and (max-width:800px) {
+	.today_sports .more_list {margin:20px 10px !important;}
+	.today_sports .more_list .list_box li {width:50% !important;}
+}
+
+@media screen and (max-width:600px) {
+	.today_sports .more_list {margin:20px 10px !important;}
+	.today_sports .more_list .list_box li {width:100% !important;}
+}
+
+/* 국내스포츠2 */
+@media screen and (max-width:600px) {
+	.ko_sports_game {padding:0 !important;}
+	.ko_sports_game .type01 {width:100% !important;text-align:left !important;padding:5px 10px !important;display:none;}
+	.ko_sports_game .bet_area {width:100% !important;}
+	.ko_sports_game .bet_area div {margin-bottom:4px !important;height:60px !important;line-height:20px !important;}
+	.ko_sports_game .bet_area .home {width:43% !important;min-height:62px !important;padding:8px 0px !important;}
+	.ko_sports_game .bet_history .home {width:41% !important;}
+	.ko_sports_game .bet_area .home font {display:inline-block;vertical-align:middle;}
+	.ko_sports_game .bet_history .home font {display:inline-block;vertical-align:middle;text-overflow: ellipsis;/*white-space: nowrap;*/overflow: hidden;}
+	.ko_sports_game .bet_area .home font.team_name {width:100% !important;/*line-height:20px;*/font-size:10px;text-align:center;}
+	/*.ko_sports_game .bet_history .home font.team_name {width:58px !important;line-height:20px;}*/
+	.ko_sports_game .bet_area .vs {width:11% !important;font-size:11px;min-height:62px !important;}
+	.ko_sports_game .bet_area .draw {width:11% !important;min-height:62px !important;padding:0px !important;font-size:10px;line-height:62px !important;}
+	.ko_sports_game .bet_area .away {width:43% !important;min-height:62px !important;padding:8px 0px !important;text-align:left !important;}
+	.ko_sports_game .bet_history .away {width:41% !important;text-align:left !important;}
+	.ko_sports_game .bet_area .away font {display:inline-block;vertical-align:middle;}
+	.ko_sports_game .bet_history .away font {display:inline-block;vertical-align:middle;text-overflow: ellipsis;/*white-space: nowrap;*/overflow: hidden;}
+	.ko_sports_game .bet_area .away font.team_name {width:100% !important;/*line-height:20px;*/font-size:10px;text-align:center;}
+	/*.ko_sports_game .bet_history .away font.team_name {width:65px !important;line-height:20px;}*/
+	/*.ko_sports_game .bet_area .away .bed {right:10px !important;left:auto !important; top:15px !important;}*/
+	.ko_sports_game .bet_area .result {width:49% !important;}
+	.ko_sports_game .bet_history .result {width:49% !important;height:30px !important;}
+	.ko_sports_game h4 .league_name {max-width:180px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;display:inline-block;vertical-align:middle;}
+
+	.ko_sports_game .bet_area .home .bed {position:relative !important; right:0 !important;display:inline-block;width:100%;text-align:center;font-size:12px;color:#ffea00;}
+	.ko_sports_game .bet_area .away .bed {position:relative !important; left:0 !important;display:inline-block;width:100%;text-align:center;font-size:12px;color:#ffea00;}
+
+	.ko_sports_game ul li {padding-bottom:0px !important;padding-top:0px !important;}
+
+	.mini_game_bet .bet_section .time_box .time_area {font-size:25px !important;padding:23px 0px 0px 40px !important;}
+
+	.ko_sports_game .bet_area .home font.team_name img , .ko_sports_game .bet_area .away font.team_name img {width:15px;}
+}
+
+/* 들어오는 뱃 */
+@media (min-width:750px)  and (max-width:800px) {
+	.incom_bet {padding-bottom:300px !important;}
+	.incom_bet .people_num {top:420px !important;}
+	.incom_bet .price_box {top:420px !important;}
+}
+@media screen  and (max-width:750px) {
+	.incom_bet .people_num {position:relative !important;top:0 !important;left:0 !important;}
+	.incom_bet .price_box {position:relative !important;top:0 !important;left:0 !important;}
+}
+
+@media screen and (max-width:700px) {
+	.incom_list .type01 {width:100% !important;}
+	.incom_list .bet_area .no_bet01 {line-height:43px !important;height:45px !important;}
+	.incom_list .bet_area {width:100% !important;}
+	.incom_list .bet_area .home {width:100% !important;}
+	.incom_list .bet_area .vs {width:100% !important;}
+	.incom_list .bet_area .draw {width:100% !important;}
+	.incom_list .bet_area .away {width:100% !important;text-align:left !important;}
+	.incom_list .bet_area .away .bed {right:10px !important;left:auto !important;}
+	.incom_list .bet_btn {width:100% !important;}
+}
+
+/* 슬롯게임 메인 */
+@media screen and (max-width:500px) {
+	.casino_slot_main .main_box p {font-size:12px !important;}
+	.casino_slot_main .main_list .list_box {width:100% !important;}
+}
+
+/* 카지노 메인 */
+@media (min-width:600px) and (max-width:800px) {
+	.casino_main .game_list li {width:50% !important;}
+}
+@media screen and (max-width:600px) {
+	.casino_main .game_list li {width:100% !important;}
+}
+
+/* 슬롯 메인 */
+@media (min-width:600px) and (max-width:800px) {
+	.slot_main .game_list li {width:25% !important;}
+}
+@media screen and (max-width:600px) {
+	.slot_main .game_list li {width:49.4% !important;}
+}
+@media screen and (max-width:800px) {
+	.slot_main .head_box {padding-bottom:60px;}
+	.slot_main .head_box .game_company {top:78px !important;}
+}
+
+/* 복권 이벤트 */
+@media (min-width:450px) and (max-width:600px) {
+	.lottery_box .event_area .img01 .point_text {line-height:20px !important;font-size:14px !important;}
+}
+@media screen and (max-width:450px) {
+	.lottery_box .event_area .img01 .point_text {line-height:16px !important;font-size:12px !important;}
+}
+
+
+
+
+

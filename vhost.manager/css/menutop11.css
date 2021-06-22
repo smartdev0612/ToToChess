@@ -1,0 +1,65 @@
+/* font style*/
+Body, .SignOutBtn, .RoleSel, .LangSel{font:700 12px/14px Arial, Helvetica, sans-serif; margin:0px;}
+
+/* image */
+.AccSumBG, .AccSumB{background:url(../img/menutop.png?131202) repeat-x; position:relative;}
+.AccSumLCorner, .AccSumRCorner, .IdIcon, .UserIcon, .UcIcon, .DollarIcon,
+.Divider, .FontMedium, .FontLarger, .FontLargest
+{background:url(../img/menutop.png?131202) no-repeat; float:left; position:relative;}
+
+/* top menu bg */
+.AccSumBG{ height:30px; width:2000px;}
+.AccSumBody {float:left; width:100%; background:url(../img/menutop.png?131202) repeat-x 0px 30px; background-position:0px -35px; height:30px;}
+.AccSumlogo {float:left; width:1000px; margin:3px 0 0 10px;}
+.AccSuminfo {float:left; width:310px; height:29px; color:#fff; padding-top:8px; background:url(../img/top_bg.png) right top no-repeat;}
+
+/* account header */
+.AccSumLCorner, .AccSumRCorner{height:20px; width:10px; top:4px;}
+.AccSumLCorner{background-position:-5px -100px; margin-left:12px;}
+.AccSumRCorner{background-position:-20px -100px;}
+.AccSumB{background-position:0px -67px; height:20px; float:left; top:4px; padding:0px 9px;}
+
+/* icon */
+.IdIcon, .UserIcon, .UcIcon, .DollarIcon{height:16px; width:16px; top:2px;}
+.IdIcon{background-position:-40px -100px;}
+.UserIcon{background-position:-60px -100px; margin-left:18px;}
+.UcIcon{background-position:-80px -100px; margin-left:18px;}
+.DollarIcon{background-position:-100px -100px; margin-left:18px;}
+
+/* account information */
+.AcctInfor, .Role{float:left; padding-left:9px; margin-left:8px; position:relative; background:url(../img/dot.png) no-repeat 0 3px;}
+.AcctInfor1, .Role{float:left; padding-left:7px; margin-left:7px; position:relative; font-size:11px; font-family:"dotum"; letter-spacing:-1px; border-left:2px solid #415d7d;}
+.AcctInfor2, .Role{float:left; padding-left:7px; margin-left:7px; position:relative; color:#ffff00}
+.AcctInfor{top:3px;}
+
+/* drop down list */
+.RoleSel{font-size:11px; margin-top:3px;}
+.LangSel{font-weight:normal; width:85px; color:#036; position:relative;}
+.Lang{float:left; top:5px; position:relative;}
+
+/* date */
+.DateTime{font:normal 11px Arial, Helvetica, sans-serif; float:left; top:7px; padding-left:8px; color:#fff; white-space:nowrap; position:relative;}
+
+/* divider */
+.Divider{background-position:0px -90px; width:2px; height:30px; margin:0px 6px;}
+
+/* font image */
+.FontMedium, .FontLarger, .FontLargest{cursor:pointer;}
+.FontMedium{background-position:-120px -90px; width:19px; height:19px; top:8px; padding-right:3px;}
+.FontLarger{background-position:-145px -90px; width:20px; height:21px; top:6px; padding-right:3px;}
+.FontLargest{background-position:-170px -90px; width:23px; height:23px; top:4px;}
+
+/* btn */
+.SignOutBtn{height:22px; width:93px; margin-top:4px; color:#c30;} 
+
+/* align left */
+.AlignL{float:left; position:relative;}
+
+/* help */
+.Help{background:url(../img/menutop.png?131202) no-repeat -215px -90px; height:25px; padding:7px 0 0 20px; float:left; position:relative;}
+.Help span a{text-decoration:none; color:#fff;}
+.HelpTxt{font:normal 11px Arial, Helvetica, sans-serif; color:#fff; vertical-align:top;}
+.TDN{text-decoration:none !important;}
+
+/*Remove button padding in FF*/
+input::-moz-focus-inner{border:0; padding:0;}

@@ -1,0 +1,6 @@
+BettingNo[4546876666]->MemberSn[4]->SubChildSn[446655]->SelctNo[home]->HomeRate[1.67]->DrawRate[-0.50]->AwayRate[2.07]->Money[5000]->Date[2017-04-29 13:37:57]
+BettingNo[4546876666]->MemberSn[4]->SubChildSn[446654]->SelctNo[away]->HomeRate[1.82]->DrawRate[6.00]->AwayRate[1.92]->Money[5000]->Date[2017-04-29 13:37:57]
+BettingNo[4546876878]->MemberSn[4]->SubChildSn[446653]->SelctNo[home]->HomeRate[2.05]->DrawRate[1.00]->AwayRate[1.55]->Money[5000]->Date[2017-04-29 13:41:25]
+BettingNo[4546876878]->MemberSn[4]->SubChildSn[446654]->SelctNo[away]->HomeRate[1.82]->DrawRate[6.00]->AwayRate[1.92]->Money[5000]->Date[2017-04-29 13:41:25]
+BettingNo[4546878521]->MemberSn[4]->SubChildSn[446656]->SelctNo[away]->HomeRate[1.95]->DrawRate[1.0]->AwayRate[1.95]->Money[5000]->Date[2017-04-29 14:08:47]
+BettingNo[33546888503]->MemberSn[33]->SubChildSn[446654]->SelctNo[home]->HomeRate[1.82]->DrawRate[6.00]->AwayRate[1.92]->Money[15000]->Date[2017-04-29 16:55:08]

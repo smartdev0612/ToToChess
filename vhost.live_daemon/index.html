@@ -1,0 +1,216 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+<title> SPORTS BETTING GAME ::모나코:: 관리자 시스템</title>
+<meta name="generator" content="editplus">
+<meta charset="UTF-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="author" content="KG SOFT">
+<meta name="keywords" content="">
+<meta http-equiv="imagetoolbar" content="no">
+<link rel="shortcut icon" href="img/favicon.ico">
+<link rel="stylesheet" href="default.css" type="text/css">
+
+</head>
+
+<body>
+
+<!-- 공통 (전체) start -->
+<div id="wrap">
+
+
+
+	<!-- 공통 (헤더/탑) start -->
+	<div id="header">
+		<div id="wrap_gMenu">
+			<p id="logo"><img src="img/top_logo.gif" alt="관리자 메인"><h1 class="blind"><a href="/">관리자 메인</a></h1></p>
+			<ul>
+				<li class="user">환영합니다. <b>id</b>님</li>
+				<li>로그아웃</li>
+				<li>ip차단관리</li>
+				<li>비밀번호관리</li>
+				<li>잭팟초기화</li>
+			</ul>
+		</div>
+
+		<div id="topMenu">
+			<ul>
+				<li><img src="img/topMenu_icon.gif" alt="현황정보"><li>
+				<li>쪽지:<b>(0/57)</b>건</li>
+				<li>회원가입:<b>(0)</b>건</li>
+				<li>인증문자:<b>(0)</b>건</li>
+				<li>고객센터:<b>(0)</b>건</li>
+				<li>게시판:<b>(0)</b>건</li>
+				<li>출금신청:<b>(0)</b>건</li>
+				<li>입금신청:<b>(0)</b>건</li>
+				<li>파트너신청:<b>(0)</b>건</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 공통 (헤더/탑) end -->
+
+
+	<!-- 공통 (바디) start -->
+
+	<div id="body">
+
+		<!-- 공통 (메뉴) start -->
+		<div id="leftMenu">
+			<h2><span class="blind">메인메뉴</span></h2>
+			<p class="m_menu" onclick="mainchgna('1')"><a href="#">입금/출금 관리</a></p>
+			<div id="left_menu01">
+				<ul>
+					<li><a href='richer/Richer.php' target='mainFrame'>입금신청</a></li>
+					<li><a href='richer/Withdrawal.php' target='mainFrame'>출금신청</a></li>
+					<li><a href='richer/Richer_over.php' target='mainFrame' >입금완료</a></li>
+					<li><a href='richer/Withdrawal_wait.php' target='mainFrame' >출금대기</a></li>
+					<li><a href='richer/Withdrawal_over.php' target='mainFrame'>출금완료</a></li>
+				</ul>
+			</div>
+			<p class="m_menu" onclick="mainchgna('2')"><a href="#">회원 관리</a></p>
+			<div id="left_menu02">
+				<ul>
+					<li><a href='user/user.php' target='mainFrame'>회원목록</a></li>
+					<li><a href='user/baduser.php' target='mainFrame'>불량회원</a></li>
+					<li><a href='user/user_loginlist.php' target='mainFrame'>접속기록</a></li>
+					<li><a href='user/userlev.php'  target='mainFrame'>등급설정</a></li>
+					<li><a href='user/user_add.php'  target='mainFrame'>회원등록</a></li>
+					<li><a href='user/user_quit.php'  target='mainFrame' >탈퇴신청</a></li>
+					<li><a href='memo/memo_list.php'  target='mainFrame'>쪽지관리</a></li>
+					<li><a href="javascript:void(0)" onclick="javascript:window.open('memo/memo_write.php','memo','width=650,height=300')">쪽지쓰기</a></li>
+				</ul>
+			</div>
+			<p class="m_menu" onclick="mainchgna('3')"><a href="#">게시판 관리</a></p>
+			<div id="left_menu03">
+				<ul>
+					<li><a href='bbs/article.php' target='mainFrame'>게시물관리</a></li>
+					<li><a href='bbs/bbs.php' target='mainFrame'>게시판설정</a></li>
+					<li><a href='bbs/write.php' target='mainFrame'>게시물쓰기</a></li>
+					<li><a href='bbs/question_list.php' target='mainFrame'>고객센터</a></li>
+				</ul>
+			</div>
+			<p class="m_menu" onclick="mainchgna('4')"><a href="#">게임 관리</a></p>
+			<div id="left_menu04">
+				<ul>
+					<li><a href='race/raceGame.php' target='mainFrame'>게임설정</a></li>
+				</ul>
+			</div>
+			<p class="m_menu" onclick="mainchgna('5')"><a href="#">파트너 관리</a></p>
+			<div id="left_menu05">
+				<ul>
+					<li><a href='partner/partner_list.php' target='mainFrame'>파트너목록</a></li>
+					<li><a href='partner/partner_reg.php' target='mainFrame'>파트너신청</a></li>
+					<li><a href='partner/partner_notic.php' target='mainFrame'>파트너공지</a></li>
+					<li><a href='partner/partner_notic_add.php' target='mainFrame'>공지쓰기</a></li>
+					<li><a href='partner/partner_memo_box.php' target='mainFrame'>파트너쪽지</a></li>
+					<li><a href='partner/partner_memo_add.php' target='mainFrame'>쪽지쓰기</a></li>
+					<li><a href='partner/partner_accounting.php' target='mainFrame'>정산신청</a></li>
+					<li><a href='partner/partner_accounting_list.php' target='mainFrame'>정산완료</a></li>
+				</ul>
+			</div>
+			<p class="m_menu" onclick="mainchgna('6')"><a href="#">통계</a></p>
+			<div id="left_menu06">
+				<ul>
+					<li><a href='circs/result_site.php' target='mainFrame'>사이트현황</a></li>
+					<li><a href='circs/result_money.php' target='mainFrame'>입/출금</a></li>
+					<li><a href='circs/result_bet.php' target='mainFrame'>배팅 통계</a></li>
+				</ul>
+			</div>
+			<p class="m_menu" onclick="mainchgna('7')"><a href="#">시스템 관리</a></p>
+			<div id="left_menu07">
+				<ul>
+					<li><a href='config/global_config.php' target='mainFrame'>기본 설정</a></li>
+					<li><a href='config/default_config.php' target='mainFrame'>포인트설정</a></li>
+					<li><a href='popup/popup.php' target='mainFrame'>팝업설정</a></li>
+					<li><a href='config/data_excle.php' target='mainFrame'>DB추출</a></li>
+				</ul>
+			</div>
+			<p class="m_menu" onclick="mainchgna('8')"><a href="#">관리자</a></p>
+			<div id="left_menu08">
+				<ul>
+					<li><a href='admin_log/login_log.php'  target='mainFrame'>로그인 내역</a></li>
+					<li><a href='circs/site_accounting.php'  target='mainFrame'>사이트 정산</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- 공통 (메뉴) END -->
+
+		<!-- 공통 (컨텐츠 감싸기) start -->
+		<div id="wrap_main">
+
+			<!-- 컨텐츠 start -->
+			<div id="main">
+				<div id="route">
+					<h5>관리자메인</h5>
+				</div>
+				<h3>관리자메인</h3>
+
+				<ul id="tab">
+					<li><a href="#">입금신청</a></li>
+					<li><a href="#">입금완료</a></li>
+					<li><a href="#">출금신청</a></li>
+					<li><a href="#">출금대기</a></li>
+					<li><a href="#">출금완료</a></li>
+				</ul>
+				<div id="search">
+					<label>상품검색</label><a href="#"><img src="img/btn_search.gif" alt="검색"></a>
+				</div>
+
+				<table cellspacing="0" class="tableStyle_normal" summary="게시판 목록">
+				<legend class="blind">게시판 목록</legend>
+					<thead>
+						<tr>
+							<th scope="col"></th>
+							<th scope="col">신청시간</td>
+							<th scope="col">처리시간</th>
+							<th scope="col">아이디</th>
+							<th scope="col">닉네임</th>
+							<th scope="col">당시금액</td>
+							<th scope="col">보유금액</th>
+							<th scope="col">배팅금액</th>
+							<th scope="col">신청금액</th>
+							<th scope="col">실입금액</td>
+							<th scope="col">보너스</th>
+							<th scope="col">입금자명</th>
+							<th scope="col">파트너</th>
+							<th scope="col">입금횟수</td>
+							<th scope="col">처리</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- 컨텐츠 end -->
+		</div>
+		<!-- 공통 (컨텐츠 감싸기) END -->
+	</div>
+	<!-- 공통 (바디) end -->
+
+	<!-- 공통 (하단) start -->
+	<div id="footer">
+		<img src="/img/footer.gif" title="모나코">
+	</div>
+	<!-- 공통 (하단) end -->
+
+</div>
+<!-- 공통 (전체) end -->
+</body>
+</html>

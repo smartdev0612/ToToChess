@@ -1,0 +1,17 @@
+.article_text_long {width:400px; height:20px;border:1px  #878FC2 solid; font-size:12px; line-height:20px; padding-left:3px;}
+.article_text {width:150px; height:20px; border:1px  #878FC2 solid; font-size:12px;line-height:18px;padding-left:3px;}
+.article_text_f {width:200px; height:15px; border:1px  #878FC2 solid; font-size:12px;line-height:18px;padding-left:3px;}
+.article_text_x {width:100px; height:15px; border:1px  #878FC2 solid; font-size:12px;line-height:20px;padding-left:3px;}
+.article_text_m {height:15px; border:1px  #878FC2 solid; font-size:12px;line-height:20px;padding-left:3px;}
+.article_select {width:150px; height:28px;font-size:14px; margin-left:2px;}
+.article_textarea { width:500px; height:50px; font-size:12px;}
+.article_text_Color{width:200px; height:16px; border:1px  #878FC2 solid; font-size:12px;}
+#article_color_box {width:400px; height:58px; display:none; position:absolute; border:1px #999999 solid; background-color:#EFF4F8}
+#article_color_box a {border:1px  #999999 solid;height:20px; width:20px;background-color: #0066CC; float:left; margin-left:8px;
+display:inherit;}
+#article_color_box a:hover {border:1px #000000 solid;}
+#article_color_box_bg {width:22px; height:22px; border:1px #88A7B9 solid; background-image:url(../images/article_bg.gif); cursor:pointer}
+.article_color_title {width:300px; height:22px; margin-left:8px; line-height:22px; font-size:12px; margin-top:4px; float:left; margin-bottom:3px;}
+.article_color_box_close {width:80px; float:left;line-height:22px; font-size:12px; margin-top:4px;cursor:pointer; text-align:right}
+.article_category_input_a {width:200px; font-size:12px;padding:3px; border: #BDC5DB 1px solid; vertical-align: middle}
+.article_category_input_c {width:200px; font-size:12px;padding:3px; border: #8795BE 1px solid; background-color: #FFFF99; vertical-align:middle;}

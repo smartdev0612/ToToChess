@@ -1,0 +1,456 @@
+@charset "utf-8";
+@font-face{
+    font-family:NanumGothic;
+    weight:300;
+    src:url(/nanumgothic.eot);
+    src:local('※'), url(/nanumgothic.woff) format('woff');
+}
+@font-face{
+    font-family:NanumGothic;
+    weight:600;
+    src:url(/nanumgothic-Bold.eot);
+    src:local('※'), url(/nanumgothic-Bold.woff) format('woff');
+}
+
+*{font-family:NanumGothic, Verdana, Arial, Helvetica, 'MALGUN', "Malgun Gothic", "맑은 고딕", 'Nanum Gothic', "나눔 고딕", "굴림", "돋움", dotum, Gulim;font-size:12px;}
+
+/* 라이트 */
+
+#livescore
+{width:100%;overflow:hidden;margin:0 auto;margin-top:5px;padding-bottom:5px;
+background:url("/images/live/score_bg.gif") left bottom no-repeat;}
+#livescore h3
+{width:100%;height:34px;overflow:hidden;margin-bottom:5px;
+background:url("/images/live/score_title.gif") left top no-repeat;}
+#livescore h3 span,
+#livescore li span
+{position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px;overflow:hidden;visibility:hidden;}
+#livescore ul
+{width:196px;overflow:hidden;margin:0 auto;}
+#livescore li
+{width:196px;;height:32px;overflow:hidden;margin:0 auto;margin-bottom:3px;
+border:1px solid #6d6d6d;background-color:#000000}
+#livescore .afreeca
+{display:none}
+#livescore .naver a
+{width:194px;height:30px;overflow:hidden;display:block;
+background:url("/images/live/score_naver.gif") left top no-repeat;}
+#livescore .daum a
+{width:194px;height:30px;overflow:hidden;display:block;
+background:url("/images/live/score_daum.gif") left top no-repeat;}
+#livescore .livescore a
+{width:194px;height:30px;overflow:hidden;display:block;
+background:url("/images/live/score_named.gif") left top no-repeat;}
+#livescore .naver a:hover,
+#livescore .daum a:hover,
+#livescore .livescore a:hover
+{border-top:1px solid #999999;border-left:1px solid #8399b1;border-right:1px solid #8399b1;border-bottom:1px solid #8399b1;
+background-position:0px -30px}
+
+/* 라이브 */
+
+#body_livegame_sub
+{width:214px;overflow:hidden;float:left;display:inline;margin:2px 0 0 0px}
+#body_livegame
+{min-height:780px;overflow:hidden;float:right;display:inline;
+background:url("/images/live/livegame_bg.jpg") center top no-repeat;background-color:#010201}
+
+
+#wrap_favorite
+{width:100%;overflow:hidden;}
+#wrap_favorite dt
+{width:100%;height:30px;line-height:30px;overflow:hidden;
+background:url("/images/live/favorite_thead.gif") left top repeat-x;border-bottom:1px solid #000000}
+#wrap_favorite dt h4
+{width:90%;margin:0px 0 0 14px;
+background:url("/images/live/icon_favorite.png") right 50% no-repeat}
+#wrap_favorite dd
+{width:100%;overflow:hidden;
+color:#9f9f9f;font-size:11px;
+background:url("/images/live/live_gamelist_bg.gif") left top repeat-y;
+border-top:1px solid #494f4f;border-bottom:1px solid #000000}
+#wrap_favorite .empty
+{line-height:18px;padding:10px 0 10px 0}
+#wrap_favorite ul
+{width:100%;overflow:hidden;}
+#wrap_favorite .league
+{width:100%;height:26px;line-height:26px;overflow:hidden;display:block;
+background-color:#212224;border-top:1px solid #2d2d2d;border-bottom:1px solid #111111}
+#wrap_favorite .league a
+{width:17px;height:17px;overflow:hidden;float:right;margin:3px 3px 0 0;
+font-size:0px;padding:6px;
+background:url("/images/live/icon_favorite.png") right top no-repeat}
+#wrap_favorite .league a:hover
+{background:url("/images/live/icon_favorite_off.png") right top no-repeat}
+#wrap_favorite .home,
+#wrap_favorite .away
+{width:35%;height:22px;line-height:22px;float:left;display:inline;
+color:#e3cb23;font-size:11px;}
+#wrap_favorite .home a,
+#wrap_favorite .away a
+{color:#e3cb23;font-size:11px;}
+#wrap_favorite .home a:hover,
+#wrap_favorite .away a:hover
+{text-decoration:underline}
+#wrap_favorite .away
+{text-align:right}
+#wrap_favorite .score
+{width:30%;height:22px;line-height:22px;float:left;display:inline;
+color:#ffffff;text-align:center}
+
+
+#live_game_table
+{width:100%;overflow:hidden;}
+
+#live_game_table th
+{height:30px;text-align:left;padding:0 0 0 16px;
+text-shadow:1px 1px 2px #000000;color:#ffdb00;
+background:url("/images/live/live_gamlist_thead.gif") left top repeat-x;}
+#live_game_table th span
+{color:#ffdb00;font-size:11px;float:right;margin:0px 20px 0 0}
+
+.nonlive th
+{height:30px;text-align:left;padding:0 0 0 16px;
+text-shadow:1px 1px 2px #000000;color:#ffdb00;
+background:url("/images/live/live_gamlist_thead.gif") left -32px repeat-x !important;}
+.nonlive td
+{height:30px;text-align:center;border-bottom:1px solid #0f1109}
+
+
+#live_game_table .league,
+#live_game_table .league:hover
+{height:26px;line-height:26px;overflow:hidden;padding:0px 0 0px 0 !important;
+background:none;background-color:#30381b;border-top:1px solid #3b4326;border-bottom:1px solid #111111}
+#live_game_table .league img
+{width:20px;height:14px;margin:0 0 0 4px}
+#live_game_table .league span,
+#live_game_table .league:hover span
+{color:#ffffff;text-shadow:1px 1px 2px #000000;}
+#live_game_table .league a
+{width:17px;height:17px;overflow:hidden;float:right;margin:3px 3px 0 0;
+font-size:0px;padding:6px;display:none;
+background:url("/images/live/icon_favorite_off.png") right top no-repeat}
+#live_game_table .league a:hover,
+#live_game_table .league .on
+{background:url("/images/live/icon_favorite.png") right top no-repeat}
+
+#live_game_table tbody td
+{}
+#live_game_table tbody .gamelist_enable td
+{height:19px;line-height:19px;color:#ffffff;background:url("/images/live/live_gamlist_name.gif") left top repeat-x}
+#live_game_table tbody .gamelist_enable:hover td,
+#live_game_table tbody .on td
+{height:19px;line-height:19px;color:#ffd000;background:url("/images/live/live_gamlist_name.gif") left -38px repeat-x}
+#live_game_table tbody .on .home
+{border-top:1px solid #ffd000;border-left:1px solid #ffd000;border-bottom:1px solid #ffd000}
+#live_game_table tbody .on .draw
+{border-top:1px solid #ffd000;border-bottom:1px solid #ffd000}
+#live_game_table tbody .on .away
+{border-top:1px solid #ffd000;border-right:1px solid #ffd000;border-bottom:1px solid #ffd000}
+
+#live_game_table tbody .home,
+#live_game_table tbody .away
+{line-height:19px;width:33%;line-height:19px;color:#e3cb23;}
+
+#live_game_table tbody .on span,
+#live_game_table tbody .on .draw,
+#live_game_table tbody .on:hover .draw,
+#live_game_table tbody .on:hover .home,
+#live_game_table tbody .on:hover .away
+{text-align:ffd000 !important}
+#live_game_table tbody .away
+{text-align:ffd000;text-align:right}
+#live_game_table tbody .draw
+{line-height:19px;color:#e3cb23;text-align:center}
+#live_game_table tbody .score
+{color:#e3cb23;text-align:center}
+#live_game_table tbody .home:hover,
+#live_game_table tbody .away:hover,
+#live_game_table tbody .draw:hover,
+#live_game_table tbody .score:hover
+{cursor:pointer}
+
+
+#live_game_table .date td
+{padding:2px 0 2px 2px;color:#999999;font-size:11px;
+background:none;background-color:#222222;}
+#live_game_table .date span,
+#live_game_table .date span span
+{width:150px !important;color:#fffd00;font-size:10px}
+#live_game_table .data tr
+{background:url("/images/live/live_gamelist_bg.gif") left top repeat-y;}
+#live_game_table .data td
+{padding:0px 0 2px 0;font-size:11px;
+border-bottom:1px solid #333333;}
+
+#live_game_table .data .timer
+{text-align:center}
+#live_game_table .data .score
+{}
+#live_game_table .data .score span
+{display:block;color:#ff0000;font-weight:bold;
+background:url("/images/live/live_gamlist_score.png") center top no-repeat;}
+
+#live_game_table .data .gameamount
+{text-align:center;color:#a4c4ff;font-weight:bold;
+background-color:#555555;background:none}
+#live_game_table .data .gameamount a
+{color:#a4c4ff;font-weight:bold;}
+
+
+
+
+#livegame_bg
+{width:100%;min-height:600px;overflow:hidden;margin:0 auto;}
+
+#wrap_livescore
+{width:458px;height:110px;overflow:visible;margin:0 auto;margin-top:24px;}
+#wrap_livescore div
+{width:388px;height:90px;overflow:hidden;float:left;display:inline;margin:0 0px 0 5px;}
+#wrap_livegameinfo
+{width:450px !important;height:17px !important;overflow:hidden;margin:0 auto;}
+
+#wrap_livescore .timeinfo
+{overflow:hidden;margin-left:10px;font-size:11px}
+#wrap_livescore .timeinfo span
+{}
+
+#wrap_livescore .gameinfo_home
+{width:16px;height:70px;overflow:hidden;float:left;display:inline;margin:19px 0 0 12px;}
+#wrap_livescore .gameinfo_away
+{width:16px;height:70px;overflow:hidden;float:left;display:inline;margin:19px 0 0 6px;}
+#wrap_livescore .gameinfo_home li,
+#wrap_livescore .gameinfo_away li
+{text-align:center;line-height:14px;margin:0 0 0px 0;font-size:11px;letter-spacing:-1px}
+#wrap_livescore .gameinfo_home .goal,
+#wrap_livescore .gameinfo_away .goal
+{color:#ffffff;}
+#wrap_livescore .gameinfo_home .red,
+#wrap_livescore .gameinfo_away .red
+{color:#ff0000;}
+#wrap_livescore .gameinfo_home .yell,
+#wrap_livescore .gameinfo_away .yell
+{color:#ffff00;}
+
+
+#wrap_livescore div .league
+{width:100%;height:18px;line-height:18x;overflow:hidden;margin:0 auto;margin-top:4px;display:block;
+text-align:left;color:#cccccc;font-weight:bold;}
+#wrap_livescore div ul
+{width:100%;height:90px;overflow:hidden;}
+#wrap_livescore div li
+{width:150px;height:70px;display:inline;float:left;overflow:hidden;
+text-align:center;}
+
+#wrap_livescore div .home
+{margin-top:10px}
+#wrap_livescore div .away
+{margin-top:10px;float:right}
+#wrap_livescore div .home b,
+#wrap_livescore div .away b
+{width:98%;overflow:hidden;margin-top:20px;padding-top:20px;
+font-size:14px;color:#ffffff;text-align:center;}
+#wrap_livescore div .home b span,
+#wrap_livescore div .away b span
+{margin-top:20px;line-height:20px}
+#wrap_livescore div .score
+{width:84px;height:90px;margin:0 0 0 4px}
+#wrap_livescore div .score p
+{height:50px;line-height:50px !important;margin:0 auto;margin-bottom:2px;
+text-align:center;font-size:16px;}
+#wrap_livescore div .score p span,
+#wrap_livescore div .score p span span
+{color:#ffffff;font-size:22px;
+vertical-align:middle}
+#wrap_livescore div .score .harf
+{color:#00deff;font-size:12px;}
+#wrap_livescore div .score .harf span
+{color:#00deff;font-size:12px;}
+
+
+#wrap_livegameinfo div
+{width:90% !important;height:20px;overflow:auto;margin-top:-1px;float:left;display:inline;
+color:#ffffff;
+scrollbar-face-color:#000000;
+scrollbar-shadow-color:#000000;
+scrollbar-highlight-color:#000000;
+scrollbar-3dlight-color:#000000;
+scrollbar-darkshadow-color:#000000;
+scrollbar-track-color:#000000;
+scrollbar-arrow-color:#ffffff;}
+
+#wrap_livegameinfo div ::-webkit-scrollbar
+{background-color:#000000}
+#wrap_livegameinfo div ::-webkit-scrollbar-botton:start:decrement, 
+#wrap_livegameinfo div ::-webkit-scrollbar-botton:end:decrement
+{background:url("/images/live/livecenter_icon_up.png") center 50% no-repeat;}
+#wrap_livegameinfo div ::-webkit-scrollbar-track
+{background-color:#000000}
+#wrap_livegameinfo div ::-webkit-scrollbar-thumb
+{background-color:#000000}
+
+#wrap_livegameinfo div p
+{width:100% !important;line-height:17px;display:block;
+text-align:left !important;}
+#wrap_livegameinfo li span
+{}
+#wrap_livegameinfo .time
+{color:#ffffff;font-size:11px;margin:0 10px 0 0}
+#wrap_livegameinfo .term
+{color:#ffffff;padding:0 0 0 16px;margin:0 10px 0 0;
+background:url("/images/live/icon_clock.png") left 50% no-repeat;}
+
+
+#wrap_livegameinfo .btn
+{overflow:hidden;float:left;display:inline;margin:0px 0 0 1px;}
+#wrap_livegameinfo .btn img
+{margin:0 1px 0 1px;}
+#wrap_livegameinfo .btn img:hover
+{cursor:pointer}
+
+.wrap_livegame
+{width:99%;overflow:hidden;margin:0 auto;margin-top:10px;margin-bottom:10px;}
+.wrap_livegame h3
+{width:100%;height:26px;line-height:26px;
+text-align:left;color:#ffdb00;text-shadow:1px 1px 2px #000000;padding:0 0 0 16px;
+background:url("/images/live/table_live_head.png") left top repeat-x;}
+.wrap_livegame h3 img
+{margin-top:6px}
+
+.wrap_livegame .normaltable,
+.wrap_livegame .oddtable,
+.wrap_livegame .scoretable
+{clear:both;width:99%;margin:0 auto;margin-bottom:0px;
+text-align:center;}
+.wrap_livegame .normaltable th,
+.wrap_livegame .oddtable th,
+.wrap_livegame .scoretable th
+{text-align:left;color:#ffdb00;text-shadow:1px 1px 2px #000000;font-weight:bold;font-size:12px;padding:0 0 0 6px;}
+.wrap_livegame .normaltable td,
+.wrap_livegame .oddtable td,
+.wrap_livegame .scoretable td
+{width:33%;height:17px !important;line-height:17x;cursor:pointer;
+background:url("/images/live/table_td_live.png") left top repeat-x;border:1px solid #253e0e}
+
+.wrap_livegame .scoretable .draw,
+.wrap_livegame .scoretable .draw:hover
+{width:33%;height:17px;line-height:17px;color:#cccccc;
+background:url("/images/live/table_td_live.png") left top repeat-x;border:1px solid #253e0e}
+
+.wrap_livegame .none,
+.wrap_livegame .none:hover
+{background:none !important;border:none !important;cursor:default;}
+
+.oddtable .draw
+{color:#ffffff;}
+.normaltable .name,
+.oddtable .name,
+.scoretable .name,
+.normaltable .name span,
+.oddtable .name span,
+.scoretable .name span
+{margin:0 0px 0 2px;float:left;overflow:visible;display:inline;
+color:#ffffff;vertical-align:middle;text-align:left;}
+.normaltable .rate,
+.oddtable .rate,
+.scoretable .rate
+{margin:0 5px 0 0px;float:right;
+color:#ffffff;font-size:11px;text-align:right;display:inline;}
+.normaltable .rate span,
+.oddtable .rate span,
+.scoretable .rate span
+{color:#ffff00;text-align:right;}
+
+.wrap_livegame .normaltable .pick,
+.wrap_livegame .oddtable .pick,
+.wrap_livegame .scoretable .pick
+{border-top:1px solid #ffffff;border-left:1px solid #ffffff;border-bottom:1px solid #ffff00;border-right:1px solid #ffff00;
+background-image:none;background-color:#e2d00c;}
+.wrap_livegame .pick .name
+{float:left !important;color:#000000}
+.wrap_livegame .pick .rate
+{float:right !important;color:#000000}
+.wrap_livegame .pick .name span,
+.wrap_livegame .pick .rate span
+{color:#000000}
+
+.wrap_livegame .end,
+.wrap_livegame .end:hover
+{background:none !important;border:1px solid #253e0e !important;cursor:default}
+.wrap_livegame .end span,
+.wrap_livegame .end:hover span,
+.wrap_livegame .end span span,
+.wrap_livegame .end:hover span span,
+.wrap_livegame .end span:hover
+{color:#253e0e !important}
+
+
+.wrap_livegame .normaltable td:hover,
+.wrap_livegame .oddtable td:hover,
+.wrap_livegame .scoretable td:hover
+{border-top:1px solid #ffffff;border-left:1px solid #ffffff;border-bottom:1px solid #ffff00;border-right:1px solid #ffff00;
+background-image:none;background-color:#e2d00c;}
+.wrap_livegame .normaltable td:hover .name,
+.wrap_livegame .normaltable td:hover .name span,
+.wrap_livegame .normaltable td:hover .rate span,
+.wrap_livegame .oddtable td:hover .name,
+.wrap_livegame .oddtable td:hover .name span,
+.wrap_livegame .oddtable td:hover .rate span,
+.wrap_livegame .scoretable td:hover .name,
+.wrap_livegame .scoretable td:hover .name span,
+.wrap_livegame .scoretable td:hover .rate span
+{color:#000000}
+
+.wrap_livegame .draw:hover .rate,
+.wrap_livegame .draw:hover .rate span,
+.wrap_livegame .draw:hover
+{color:#000000}
+
+.wrap_livegame .up,
+.wrap_livegame .draw .up
+{margin:0 0px 0 0px;float:left;width:9px;height:10px;padding:2px;vertical-align:middle;
+background:url("/images/live/icon_up_rate.gif") center 50% no-repeat;}
+.wrap_livegame .upnow,
+.wrap_livegame .draw .upnow
+{margin:0 0px 0 0px;float:left;width:9px;height:10px;padding:2px;vertical-align:middle;
+background:url("/images/live/icon_up_rate.gif") center 50% no-repeat;}
+.wrap_livegame .down,
+.wrap_livegame .draw .down,
+#overseas .down
+{margin:0 0px 0 0px;float:left;width:9px;height:10px;padding:2px;vertical-align:middle;
+background:url("/images/live/icon_down_rate.gif") center 52% no-repeat;}
+.wrap_livegame .downnow,
+.wrap_livegame .draw .downnow
+{margin:0 0 0 0px;float:left;width:9px;height:10px;padding:2px;vertical-align:middle;
+background:url("/images/live/icon_down_rate.gif") center 52% no-repeat;}
+
+#pinnacle_game_list .up
+{width:9px;height:20px;padding:2px;margin:0 2px 0 2px;vertical-align:middle;
+background:url("/images/live/icon_up.gif") center 50% no-repeat;}
+#pinnacle_game_list .down
+{width:9px;height:20px;padding:2px;margin:0 2px 0 2px;vertical-align:middle;
+background:url("/images/live/icon_down.gif") center 52% no-repeat;}
+
+
+.wrap_livegame td:hover .up,
+.wrap_livegame .pick .up
+{background:url("/images/live/icon_up_rate.gif") center 50% no-repeat;}
+.wrap_livegame td:hover .upnow,
+.wrap_livegame .pick .upnow
+{background:url("/images/live/icon_up_rate.gif") center 50% no-repeat;}
+.wrap_livegame td:hover .down,
+.wrap_livegame .pick .down
+{background:url("/images/live/icon_down_rate.gif") center 52% no-repeat;}
+.wrap_livegame td:hover .downnow,
+.wrap_livegame .pick .downnow
+{background:url("/images/live/icon_down_rate.gif") center 52% no-repeat;}
+
+.wrap_livegame .end .up,
+.wrap_livegame .end:hover .up,
+.wrap_livegame .end .upnow,
+.wrap_livegame .end:hover .upnow,
+.wrap_livegame .end .down,
+.wrap_livegame .end:hover .down,
+.wrap_livegame .end .downnow,
+.wrap_livegame .end:hover .downnow
+{background:none !important;}

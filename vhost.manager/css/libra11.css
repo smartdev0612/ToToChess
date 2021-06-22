@@ -1,0 +1,258 @@
+/*-------------------------------------------------libra right------------------------------------------------*/
+/*font family and font style*/
+body, .Select{font:normal 12px/14px Tahoma;}
+.Btn{font:normal 10px Tahoma;}
+
+/*color*/
+.Plus{color:#00f; white-space:nowrap;}
+.Minus{color:#f00; white-space:nowrap;}
+
+/*background*/
+.Bg, .HeaderBg, .RBg{background:url(../img/rightlibra.png?120410) repeat-x; height:30px; position:relative;}
+
+.BgCL, .BgCR{background:url(../img/rightlibra.png?120410) no-repeat; height:30px; position:relative;}
+.Bg{background-position:0px -40px;}
+
+.BgCL{background-position:0px 0px; width:40px; float:left;}
+.BgCR{background-position:0px -80px; width:17px; float:right;}
+.HeaderC{background:url(../img/rightlibra.png?120410) no-repeat -580px 0px; height:30px; width:20px; float:left; position:relative;}
+.HeaderBg{background-position:-40px 0px; float:left; padding-right:18px; color:#fff; font-weight:700; line-height:25px;}
+.HeaderBg a:link, .HeaderBg a:visited{ color:#FC0; text-decoration:underline;}
+.HeaderBg a:hover{ color:#F30; text-decoration:none;}
+
+/*right header*/
+.Divider, .DividerS, .Divider1, .RBgC{background:url(../img/rightlibra.png?120410) no-repeat; height:30px; float:left; position:relative;}
+.RBg{background-position:-3px -62px; float:right; right:-17px;}
+.Divider{background-position:-22px -80px; padding:8px 6px 0px 7px; height:22px; font-weight:700; color:#839abe;}
+.Divider1{background-position:-22px -80px; padding:4px 6px 0px 7px; height:26px; font-weight:700; color:#839abe;}
+.DividerS{background-position:-22px -80px; padding:8px 6px 0px 7px; height:22px; font-weight:700;}
+.RBgC{background-position:-590px -80px; width:10px; height:30px;}
+
+/*score table*/
+.ScoreTable{border:3px solid #b3c1d5; border-collapse:collapse;} 
+.ScoreTable thead td{border:1px solid #b3c1d5; background-color:#2a437c; text-align:center; font-weight:700; color:#fff; height:20px;}
+.ScoreTable tbody th{background-color:#e0ebff; padding-left:5px; text-align:left; font-weight:700; height:20px;}
+.ScoreTable tbody td{border:1px solid #b3c1d5; padding:8px;}
+.TAP{padding-left:9px;}
+.PL3{padding-left:3px !important;}
+
+/*score table member*/
+.ScoreTableM{border:3px solid #b3c1d5; border-collapse:collapse;} 
+.ScoreTableM thead td{border:1px solid #b3c1d5; background-color:#2a437c; padding:5px; text-align:center; font-weight:700; color:#fff; height:20px;}
+.ScoreTableM tbody th{background-color:#e0ebff; padding-left:5px; text-align:left; font-weight:700; height:20px;}
+.ScoreTableM tbody td{border:1px solid #b3c1d5; padding:2px; text-align:center;}
+
+/*score table money*/
+.ScoreTableM2{border:3px solid #b3c1d5; border-collapse:collapse;} 
+.ScoreTableM2 thead td{border:1px solid #b3c1d5; background-color:#2a437c; padding:5px; text-align:center; font-weight:700; color:#fff; height:20px;}
+.ScoreTableM2 tbody th{background-color:#e0ebff; padding-left:5px; text-align:left; font-weight:700; height:20px;}
+.ScoreTableM2 tbody td{border:1px solid #b3c1d5; padding:5px; text-align:center;}
+.ScoreTableM2 .moneyTd { background-color:#FFFFCC;}
+
+/*min width for table*/
+.MinWidth{line-height:0px; height:0px; width:550px;}
+
+/*remarks password*/
+p.RemarkT{font-weight:700; margin-bottom:10px; display:block; color:#2d457f; margin-top:0px;}
+.Remark{background:url(../img/icon_key.gif?150311) no-repeat;}
+.TypeLoginName{background:url(../img/icon-loginname.png?150311) no-repeat;}
+.Remark ul, .Remarks ul{list-style:disc; margin-bottom:5px;}
+.Remark ul ul, .Remarks ul ul{list-style:circle;}
+.Remark ul, .Remark ul ul, .Remarks ul, .Remark ul ul{padding-left:8px; margin-left:10px;}
+.Remark li, .Remarks li{padding:3px; margin-left:20px;}
+.Remark p, .Remarks p{padding-left:24px; margin-top:14px;}
+
+/*remarks*/
+.Remarks{background:url(../img/icon-remarks.png?120410) no-repeat;}
+
+/*RT Position Taking Expand Collapse*/
+.PTCountry{text-align:left; line-height:25px; background-color:#D7DEEA; font-weight:700;}
+.Collapse .PTCountryTxt{padding-left:15px; background:url(../img/misc_plus.gif) no-repeat 0px 2px; cursor:pointer; margin-left:16px;}
+.Expand .PTCountryTxt{padding-left:15px; background:url(../img/misc_minus.gif) no-repeat 0px 2px; cursor:pointer; margin-left:16px;}
+.Expand .PTContent{display:block;}
+.Collapse .PTContent{display:none;}
+
+/*Racing page*/
+.Plus, .Minus{padding:2px 2px 2px 15px; color:#000; background:url(../img/icon.png?120410) no-repeat; cursor:pointer; margin-left:3px !important; float:left; position:relative;}
+.Plus{background-position:-22px -64px;}
+.Minus{background-position:-24px -2px;}
+.SqNum{background:url(../img/icon.png?120410) no-repeat -12px -40px; width:20px; height:18px; color:#fff; font-weight:700; padding-top:2px; margin:1px 2px 0px 2px; float:left; text-align:center; position:relative;}
+.EmptyTxt, .BTxt{float:left; height:18px; padding-top:3px; margin-right:2px;}
+.BTxt{font-weight:700; color:#314C98;}
+.PTxt{height:18px; padding-top:3px; margin-right:2px;}
+
+/*Racing Countries*/
+.CZA, .CSG, .CDE, .CUS, .CSE, .CGB, .CAU, .CHK, .CIE, .CAE{background:url(../img/countries.png?120410) no-repeat; width:16px; height:11px; margin:2px 6px 2px 0px; float:left; position:relative;}
+.CZA{background-position:-20px 0px;}
+.CSG{background-position:-20px -15px;}
+.CDE{background-position:-20px -30px;}
+.CUS{background-position:-20px -45px;}
+.CSE{background-position:-20px -60px;}
+.CGB{background-position:-20px -75px;}
+.CAU{background-position:-20px -90px;}
+.CHK{background-position:-20px -105px;}
+.CIE{background-position:-20px -120px;}
+.CAE{background-position:-20px -135px;}
+
+/*win loss*/
+.CombineTotal{background-color:#FFFFE0; height:40px; font-weight:700;}
+.BT3D{border-top:3px double #aaa;}
+
+/*bet type group*/
+.BTGrp{background-color:#849ABE; color:#fff; font-weight:700; padding-left:32px !important;}
+
+/* ----------------------------------------------global----------------------------------------------- */
+/*import scrollbar css*/
+@import url("scrollbar.css");
+
+/*font family*/
+body{ font-family:Tahoma;}
+
+/*general*/
+a:link, a:hover, a:visited,  a:active{ text-decoration: none;}
+.Pointer{ cursor:pointer;}
+
+/*alignment*/
+.TAL{text-align:left}
+.TAC{text-align:center}
+.TAR{text-align:right}
+.VAT{vertical-align:top}
+.VAM{vertical-align:middle}
+.VAB{vertical-align:bottom}
+
+/*font*/
+.Arial{font-family:Arial !important}
+.Tahoma{font-family:Tahoma !important}
+.FS10{font-size:10px}
+.FS12{font-size:12px}
+.FS14{font-size:14px}
+.FS16{font-size:16px}
+.FS80P{font-size:80%}
+.FW700, .Bold, .B{font-weight:700}
+.FWN{font-weight:normal}
+.WSN{white-space:nowrap}
+.FSI{font-style:italic; padding-right:0px;padding-right:/*\**/3px\9;}
+.ScoreTable .FSI{font-style:italic; padding-right:0px;padding-right:/*\**/1px\9;}
+html*.FSI{padding-right:0px;}
+
+/*color*/
+.White, .CFFF{color:#FFF}
+.Black, .C000{color:#000}
+.Blue, .C00F{color:#00F}
+.Red, .CF00{color:#F00}
+.Green, .C0F0{color:#0F0;}
+.C999{color:#999}
+.CF60{color:#F60}
+.C666{color:#666}
+.C060{color:#060}
+.C090{color:#090}
+.CFFCC33, .DarkYellow{color:#ffcc33;}
+.C365385, .DeepBlue{color:#365385;}
+.C00d8ff, .LightBlue{color:#00d8ff;}
+.C008000, .DeepGreen{color:#008000;}
+
+/*background color*/
+.BC-999{ background-color:#999 !important;}
+.BC-FFDCDC{ background-color:#FFDCDC !important;}
+.BC-D3D3D3{background-color:#D3D3D3 !important;}
+.BGLB{background-color:#C6DBF2;}
+.BGGray{background-color:#f7f7f7;}
+.BGNew{background-color:#FFFFCC;}
+
+/*width*/
+.W20{width:20px;}
+.W25{width:25px;}
+.W30{width:30px;}
+.W40{width:40px;}
+.W45{width:45px;}
+.W50{width:50px;}
+.W50P{width:50%;}
+.W55{width:55px;}
+.W60{width:60px;}
+.W65{width:65px;}
+.W70{width:70px;}
+.W75{width:75px;}
+.W80{width:80px;}
+.W90{width:90px;}
+.W95{width:95px;}
+.W100{width:100px;}
+.W100Pa, .W100P{width:100%;}
+.W105{width:105px;}
+.W110{width:110px;}
+.W115{width:115px;}
+.W120{width:120px;}
+.W130{width:130px;}
+.W135{width:135px;}
+.W145{width:145px;}
+.W146{width:146px; margin-top:3px;}
+.W150{width:150px;}
+.W180{width:180px;}
+.W200{width:200px;}
+.W210{width:210px;}
+.W220{width:220px;}
+.W225{width:225px;}
+.W240{width:240px;}
+.W260{width:260px;}
+.W270{width:270px;}
+.W280{width:280px;}
+.W300{width:300px;}
+.W340{width:340px;}
+.W350{width:350px;}
+.W388{width:388px;}
+.W483{width:483px;}
+.W450{width:450px;}
+.W480{width:480px;}
+.W500{width:500px;}
+.W600{width:600px;}
+.W635{width:635px;}
+.W700{width:700px;}
+.W710{width:710px;}
+.W720{width:720px;}
+.W800{width:800px;}
+.W900{width:900px;}
+.WAuto{width:auto;}
+
+/*height*/
+.H10{height:10px;}
+.H20{height:20px;}
+.H30{height:30px !important;}
+
+/*padding*/
+.PL8{padding-left:8px;}
+.PR8{padding-right:8px;}
+.P0{padding:0 !important;}
+.PT8{padding-top:8px;}
+.PB8{padding-bottom:8px;}
+.P4{padding:4px;}
+.P8{padding:8px !important;}
+
+.hiddenFrame {position:absolute;top:0px;left:-500px;width:0px;height:0px; display:none;}
+
+.checkboxForCountry{float:left; cursor:pointer;}
+.CountryTxt{text-align:right; vertical-align:top; padding-top:12px; font-weight:700;}
+.del {text-decoration: line-through;}
+
+/*Forecast Live CS*/
+.ForecastHA, .ForecastA{background-color:#FFEFB9 !important; font-weight:700 !important;} 
+.ForecastHA{padding-left:8px !important; text-align:left !important;}
+.ForecastA{padding-left:22px !important; text-align:left !important;}
+
+/*footer td*/
+.TDFoot{height:30px; font-weight:700; border-top:3px #aaa double !important; background-color:#FFF;border:1px solid #ddd;border-left:/*\**/none\9;}
+html*.TDFoot{border:1px solid #ddd;}
+
+.SportsIcon{background:url(../img/soccer-icon.png?130411) no-repeat center center; width:28px;}
+.CasinoIcon{background:url(../img/dice-icon.png?130411) no-repeat center center; width:28px;}
+.OptSel{color:#0a40ba !important; font-weight:700 !important;}
+.ImgPlaceHolder{display:block; width:32px;}
+.DatePlaceHolder{display:block; width:95px;}
+.TableInactive tr{background-color:#e4e4e4 !important;}
+
+.InputInactive{background:#ebebe4; color: #545454; border:1px solid #abadb3;padding-left:2px;}
+.InputActive{background:#fff; color: #000; border:1px solid #abadb3;padding-left:2px;}
+
+/*Money management*/
+.StatProgress{color:#3178e3;}
+.StatOpen{color:#000;}
+.StatComplete{color:#008000;}
+.StatCancelled{color:#7b1001;}

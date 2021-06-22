@@ -1,0 +1,237 @@
+@charset "utf-8";
+body { background:#fff;}
+img{border:0 none}
+dl,ul,ol,menu,li{list-style:none}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button{margin:0;padding:0;}
+/*body {font-size:12px; color:#dfdfdf; font-family: "malgeun gothic",Malgun Gothic,'맑은 고딕', tahoma,돋움,Apple Gothic,sans-serif; -webkit-font-smoothing: antialiased;}*/
+a:link, a:visited {    color: #dfdfdf; text-decoration: none;}
+a:hover { color: #dfdfdf; text-decoration: none;}
+a.rollover img.over { display:none; }
+a.rollover:hover img { display:none; }
+a.rollover:hover img.over { display:inline;}
+input, select, option, textarea {font-family:"돋움",Dotum,sans-serif; font-size:11px; color:#333; margin:0; padding:0;}
+input, button {
+    margin: 0;
+    padding: 0;
+    font-family: dotum;
+    font-size: 1em;
+    border: 0;
+}
+textarea, select {
+    font-family: dotum;
+    font-size: 1em;
+}
+label, input, select, img {
+    vertical-align: middle;
+}
+iframe {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+/* 레이아웃 메인 배경 */
+#bg_warp {min-width:1275px; margin: 0px; padding: 0px; overflow: hidden;}
+
+#topnavi {clear:both; width:1340px; height:185px; margin:0px auto; }
+.logo_r {clear:both; display:block; margin-left:533px; width:285px; height:109px; background:url('/images/logo_v2.png') 0 0 no-repeat; cursor:pointer;}
+.logo_r li a {display:block; text-indent:-999px; height:77px;}
+
+.timer {float:right; font-family:Verdana; overflow:hidden; display:inline; margin-top:20px; font-size:20px; font-weight:bold; color:#fff;}
+.livetv {float:right; margin-right:20px;}
+
+.mem_info {position:absolute; top:27px; left:50%; margin-left:-215px; width: 350px; height:50px; margin-top:10px; /*overflow:hidden; background:url('/images/temp.png');*/}
+.mem_info li {float:left; margin:3px 15px 3px 0; width:157px;}
+.mem_text_1 {color: #cef66f; font-weight: bold;}
+.mem_text_2 {color: #99caf0; font-weight: bold;}
+.mem_text_3 {color: #f7f53a; font-weight: bold;}
+.mem_text_4 {color: #45e0e3; font-weight: bold;}
+
+.mem_info2 {position:absolute; top:-10px; left:50%; margin-left:123px; width:426px; height:82px;}
+.mem_info2 li {float:left; width:71px;}
+
+.header_level_menu_21 {height: 31px; padding-left: 16px; padding-top: 5px; float: left; }
+.header_level_menu_22 {width: 150px; height: 31px; padding-top: 8px; float: left; }
+
+.navi_r {clear:both; display:block; margin-top:-17px; margin-left:10px; text-align:center; width:1317px; height:50px;}
+.navi_r li {float:left; margin-left:1px; /*background:url('/images/temp.png');*/}
+.navi_r li a {display:block; text-indent:-999px; height:40px; overflow:hidden;}
+
+.header_information {position:absolute; top:212px; left:50%; margin-left:-606px; width:1210px; }
+.top_banner {float:right; width:263px;}
+
+
+.ft_warp {clear:both; display:block; width:1110px; height:160px; margin:0 auto; padding-top:50px; padding-left:53px; background:url('/images/con_bg4.png?v=<?php echo time();?>') 0 0 repeat;}
+.ft_menu {float:left; width:650px; height:80px; border-bottom:1px solid #ddd; margin-bottom:25px;}
+.ft_menu2 {width:1050px; height:50px; border-top:1px solid #666; padding-top:10px;}
+.ft_menu li {float:left;}
+.ft_katalk {float:left; width:516px; height:80px; border-bottom:1px solid #ddd; margin-bottom:25px;}
+.ft_katalk li {float:left;}
+
+.ft_service_game {clear:both; display:block; width:1050px; text-align:center;}
+.ft_service_game a {margin:0 10px;}
+
+/* 레이아웃 서브 배경 */
+#bg_warp_1 {min-width:1100px; margin: 0px; padding: 0px; overflow: hidden; /*background-image:url(../new_images/bg_main.jpg); */background-color:#000; background-repeat:no-repeat; background-position: top center; background-attachment:scroll; background-position:49.999% 0;}
+
+
+/* 레이아웃 시작 */
+#warp {margin:auto; width:100%; position:relative; z-index:100000; background:url('/images/top_menu_1000.png') center 0 repeat-x;}
+#warp_bg {width:100%; height:100%; position:fixed; background:url('/images/main2_bg.jpg?v=<?php echo time();?>') center 0 repeat; z-index:1000;}
+#con_1275 {width:1163px; margin:0 auto; /*background:url('/images/con_bg4.png?v=<?php echo time();?>') 0 0 repeat; */padding-top:8px; padding-bottom:15px; *zoom:1;}
+#con_1275:after {clear:both; display:block; content:''}
+
+/* 헤더 시작 */
+#header {width:100%; height:130px}
+#header #logo{position:relative;width: 1100px;margin:0 auto;}
+#header_logo {}
+#header_logo_2 {}
+
+/* 매뉴 */
+#header_menu { text-align:center;width: 1100px; height: 45px;margin:0 auto; background-color:#ffcc00;}
+	#header_menu ul li {float: left;width:90px;padding-top:15px;}
+
+#container {clear:both;width:1163px; margin:0 auto; *zoom:1; top: 180px;}
+#container:after {clear:both; display:block; content:''}
+/* 로그인 박스 */
+#header_level_menu{clear:both;background:url("/new_img/menu/menu_bg.gif") repeat-x; height:40px;}
+#header_level_menu 
+
+
+
+/* 센터 플래시 */
+#flash_warp_1 {width: 1100px; height: 380px;margin:0 auto; }
+
+/* 플래시 무비 */
+#flash_warp_2 {width: 1100px; height: 339px; margin:0 auto;}
+.flash {width: 867px; height: 339px; float: left; margin-right: 15px;}
+/*.banner_box {width: 218px; height: 339px; float: right; }*/
+.banner {width: 218px; height: 35px; padding-bottom: 2.7px; }
+.banner_k {width: 211px; padding: 2.7px; text-align:center; font-weight:bold; font-size:16px; border:1px solid #24415f; color:#bbbbbb; }
+
+/* 하단 카피 */
+#foot_warp {width:100%;text-align: center; margin:0 auto;} 
+.foot_menu {margin:0 auto; color:#9a9a9a; text-align:center; padding:8px 0px;}
+.foot_menu a{color:#9a9a9a; padding:0 5px;}
+.copy { width: 1100px; height: 60px; text-align: center;}
+
+#count_livegame
+{position:absolute; top:90px; left:330px; width:21px; height:21px; text-align:center; background:url(/images/icon_livegame.gif) no-repeat}
+#count_livegame p {margin-top:3px; font-weight: bold; color:#fff; text-shadow:-2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;}
+
+
+.casinopage
+{margin-top:-46px;
+text-align:center}
+.casinopage img
+{margin-bottom:10px;}
+.temka {position:relative; margin:0 auto; top:61px; left:369px; width:290px; height:67px; background:#eee; z-index:9;}
+
+#subvisual
+{width:100%; overflow:hidden;}
+#subvisual h3
+{width:100%;height:36px;line-height:36px;overflow:hidden;
+background-color:#2d2d2d;border-bottom:2px solid #000000}
+#subvisual h3 img
+{margin:10px 0 0 10px}
+
+
+
+
+.main_warp {position:relative; margin:0 auto; height:790px; background:url('/images/main_bg.jpg?v=<?php echo time();?>') center -180px repeat-x;}
+.main_in_box {clear:both; display:block; margin:5px auto 0; width:1169px;}
+.main_game li {float:left; margin-right:4px;}
+.main_info {float:left; position:relative; background:url(/images/mypage2.png) 0 0 no-repeat; width:232px; height:187px;}
+.main_info_in1 {clear:both; width:206px; margin:34px 0 0 19px;}
+.main_info_in1 .level000 {float:left; width:80px; margin-top:2px;}
+.main_info_in1 .lv_name {float:left; width:100px; color:#fed362; font-size:12px; font-weight:bold;}
+.main_info_in2 {clear:both; display:block; width:200px; height:60px; padding:14px 6px 0 19px;}
+.main_info_in2 dt {float:left; width:70px; color:#ebebeb; font-size:12px; line-height:23px; font-family:Dotum; padding-bottom:7px;}
+.main_info_in2 dd {float:left; width:125px; text-align:right; font-weight:bold; font-size:12px; vertical-align:middle; line-height:23px; font-family:Dotum; padding-right:5px; padding-bottom:7px;}
+.main_info_in2 dd img {vertical-align:middle;}
+.main_info_in3 {clear:both; display:block; width:230px; padding:80px 0 0 0;}
+.main_info_in3 li {float:left; text-align:center; font-weight:bold;}
+.main_info_in3 li a {color:#222;}
+
+.main_service {clear:both; display:block; margin:0 auto; width:1169px; padding-top:6px; *zoom:1;}
+.main_service:after {clear:both; display:block; content:''}
+.main_service li {float:left; margin-right:4px;}
+.main_notice {position:absolute; top:255px; left:50%; margin-left:160px; width:434px; height:160px;}
+.main_notice li {line-height:24px; background:url(/images/icon_dot.png) 0 10px no-repeat; padding-left:10px; width:400px; overflow:hidden; height:24px; letter-spacing:-1px;}
+.main_notice li a {color:#b1b1b1; }
+.main_notice li a:hover {text-decoration:underline;}
+.main_faq {float:left; background:url(/images/service.png) 0 0 no-repeat; width:230px; height:160px; padding-top:55px; margin-right:3px; text-align:center;}
+.main_faq li {text-align:center; padding-top:23px;}
+.main_cs {float:left; width:468px; height:215px;}
+
+table caption {
+    overflow: hidden;
+    background: none;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    line-height: 0;
+}
+.msg_sound_only, .sound_only {display: inline-block !important; position: absolute; top: 0; left: 0; margin: 0 !important; padding: 0 !important; font-size: 0; line-height: 0; border: 0 !important; overflow: hidden !important;}
+.pg {
+    display: inline-block;
+    border: 1px solid #cfded8;
+    letter-spacing: -4px;
+}
+
+.pg_page {
+    background: #f9f9f9;
+    text-decoration: none;
+}
+.pg_page, .pg_current {
+    display: inline-block;
+    padding: 0 12px;
+    height: 30px;
+    color: #000;
+    letter-spacing: 0;
+    line-height: 2.6em;
+    vertical-align: middle;
+}
+.pg_current {
+    background: #333;
+    color: #fff;
+    font-weight: bold;
+}
+.pg_end, .pg_next {
+    border-left: 1px solid #cfded8;
+}
+
+.main_game_dl {float:left;}
+.main_game_dl dd li {float:left; margin-right:2px;}
+.main_game_dl dd li img {width:auto; height:155px;}
+
+.topmenu_sadari {position:absolute; top:78px; left:50%; margin-left:-258px; background:url(/images/submenu_bg.png); width:118px; height:67px; padding-top:52px; z-index:10000000000;}
+.topmenu_sadari li.tm_sadari {background:none; width:118px; height:33px;}
+.topmenu_sadari li.tm_sadari:hover {background:url(/images/submenu_sadari.png); width:118px; height:34px;}
+.topmenu_sadari li.tm_daridari {background:none; width:118px; height:34px;}
+.topmenu_sadari li.tm_daridari:hover {background:url(/images/submenu_daridari.png); width:118px; height:34px;}
+
+.top_menu {position:absolute; top:5px; left:50%; margin-left:370px;}
+.top_menu li {float:left; margin-left:3px;}
+
+.main_con1 {position:absolute; top:100px; left:50%; margin-left:-270px;}
+.main_con1 li, .main_con2 li {margin-bottom:13px;}
+.main_con2 {position:absolute; top:234px; left:50%; margin-left:-339px;}
+.main_con3 {position:absolute; top:60px; left:50%; margin-left:-148px;}
+.main_con4 {position:absolute; top:250px; left:50%; margin-left:-141px;}
+.main_con4 li {margin-bottom:7px;}
+.main_con5 {position:absolute; top:480px; left:50%; margin-left:-341px;}
+.main_con5 li {float:left; margin-right:5px;}
+
+.top_my_info {position:absolute; top:9px; left:50%; margin-left:-445px;}
+.top_my_info .level000 {float:left; width:50px;}
+.top_my_info .lv_name {float:left; width:100px; color:#fed362; font-size:12px; font-family:Dotum; font-weight:bold; line-height:19px;}
+.top_my_info dt {float:left; width:70px; color:#ebebeb; font-size:12px; font-family:Dotum; line-height:19px;}
+.top_my_info dd {float:left; width:80px; text-align:right; font-weight:bold; font-size:12px; vertical-align:middle; font-family:Dotum; padding-right:5px; line-height:19px;}
+.top_my_info dd img {vertical-align:middle;}
+
+.bet_disable_3game{position:absolute;top:-26px;bottom:-13px;left:-81px;right:-21px;font-size:30px;text-align:center;color:white;background:rgba(0,0,0,0.7);}
+.bet_disable_pw_3game{position:absolute;top:-53px;bottom:-12px;left:-26px;right:-34px;font-size:30px;text-align:center;color:white;background:rgba(0,0,0,0.7);}
+.bet_disable_pw_4game{position:absolute;top:-53px;bottom:-12px;left:-26px;right:-20px;font-size:30px;text-align:center;color:white;background:rgba(0,0,0,0.7);}
+.bet_disable_pw_5game{position:absolute;top:-53px;bottom:-12px;left:-31px;right:-25px;font-size:30px;text-align:center;color:white;background:rgba(0,0,0,0.7);}

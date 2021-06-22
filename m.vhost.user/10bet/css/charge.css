@@ -1,0 +1,72 @@
+@charset "euc-kr";
+
+.boardCharge {margin-bottom:8px;border-top:1px solid #ddd;}
+.boardCharge tr th{text-align: left; padding-left:20px; color:#fff;background: #fafafa; }
+.boardCharge tr td{text-align: left;}
+.boardCharge tr td:first-child{ text-align: right;}
+.boardCharge tr td.infoCont p{margin-left:12px;}
+.boardCharge tr.infoTr td{ background: #fafafa;border-bottom:1px solid #ddd;}
+.boardCharge tr.chargeApp td{background: #fafafa; text-align: center; border-bottom:1px solid #ddd; }
+.boardCharge tr.chargeApp td.even{ background: #fff; text-align: left; padding-left:12px; height:40px; line-height: 40px;}
+.boardCharge tr.chargeApp td.even a{display: inline-block; color:#fff;}
+.boardCharge tr.chargeApp td.even a.btnYellow{display: inline-block; color:#000;}
+.boardCharge tr.chargeApp td.even a.btnInq{background: url('../images/charge/btn_reset.png') 0 -31px no-repeat; width:92px; height: 31px; vertical-align: middle;}
+.boardCharge tr.chargeApp td.even a.btnReset{background: url('../images/charge/btn_reset.png') 0 0 no-repeat; width:92px; height: 31px; vertical-align: middle;}
+.boardCharge tr.chargeApp td.even input.boxPassword{border: 0;width: 150px; height:27px; padding-left: 5px;}
+.boardCharge tr.chargeApp td.even input.boxCash{border:0; width:150px; height: 27px; margin-right: 3px; text-align: right; padding-right:5px;}
+
+a.btnGray {
+    background: #777;
+	width:82px; line-height: 29px; vertical-align: middle; text-align: center; color:#fff; font-size:12px; font-weight: bold;
+	border-radius:5px;
+    height: 29px;
+    line-height: 29px;
+}
+
+a.btnGray:hover {
+	/* FF3.6+ */
+    background: -moz-linear-gradient(top, #777 0%, #555 100%);
+    /* Chrome,Safari4+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#777), color-stop(100%,#555));
+    /* Chrome10+,Safari5.1+ */
+    background: -webkit-linear-gradient(top,  #777 0%,#555 100%);
+    /* Opera 11.10+ */
+    background: -o-linear-gradient(top, #777 0%,#555 100%);
+    /* IE10+ */
+    background: -ms-linear-gradient(top, #777 0%,#555 100%);
+    /* IE6-9 */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#777', endColorstr='#555',GradientType=0 );
+    /* W3C */
+    background: linear-gradient(to bottom, #777 0%,#555 100%);
+}
+
+a.btnRed {
+    background: #f45530;
+	width:88px; line-height:  29px; vertical-align: middle; text-align: center; color:#fff; font-size:14px; font-weight: bold;
+	border-radius:5px;
+    height: 29px;
+    line-height: 29px;
+}
+
+a.btnYellow {
+    background:#065623;
+	width:88px; line-height:  29px; vertical-align: middle; text-align: center; color:#fff !important; font-size:14px; font-weight: bold;
+	border-radius:5px;
+    height: 29px;
+    line-height: 29px;
+}
+a.btnYellow:hover {
+    background: -moz-linear-gradient(top, #e7391c 0%, #ce280d 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e7391c), color-stop(100%,#ce280d));
+    background: -webkit-linear-gradient(top,  #e7391c 0%,#ce280d 100%);
+    background: -o-linear-gradient(top, #e7391c 0%,#ce280d 100%);
+    background: -ms-linear-gradient(top, #e7391c 0%,#ce280d 100%);
+    background: linear-gradient(to bottom, #e7391c 0%,#ce280d 100%);
+	width:88px; line-height:  29px; vertical-align: middle; text-align: center; color:#fff; font-size:14px; font-weight: bold;
+	border-radius:5px;
+    height: 29px;
+    line-height: 29px;
+}
+
+a.btnRed.btnDone { width:240px; border-radius: 5px; line-height: 52px; height: 50px; display: block; position: relative; margin:20px auto; font-size: 18px; color:#ffffff;  background: #065623; }
+a.btnRed.btnDone:hover { background: #bf2e0c; color:#fff; text-decoration:none; }

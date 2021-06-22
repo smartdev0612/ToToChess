@@ -1,0 +1,19 @@
+
+/* 출석이벤트 */
+.calendar {position:relative;padding:10px;background_:#2e97b6;}
+.calendar .checkOk {position:absolute;left:25px;top:25px;}
+.calendar .monCheng {margin-left:150px;font-size:35px;line-height:33px;}
+.calendar .monCheng .mon {display:inline-block;text-align:center;font-weight:bold;}
+.calendar .monCheng p {padding-top:10px;line-height:16px;}
+.calendar .monCheng p.event {position:absolute;left:490px;top:20px;padding:10px 20px;color:#FFFFFF;line-height:18px;font-size:12px;background:url(../images/sub/calendar_bg2.png) no-repeat;width: 413px; height: 115px;}
+.calendar .total {text-align:right;color:#fff;font-weight:bold;}
+.calendar .calendar_list {margin-top:20px;}
+.calendar .calendar_list table {border-collapse: collapse; width:930px;}
+.calendar .calendar_list table thead th {position:relative;width:66px;height:35px;font-size:17px;color:#fff;}
+.calendar .calendar_list table thead th span {display:inline-block;position:absolute;left:0;top:0;height:55px;width:2px;font-size:0;line-height:0;}
+.calendar .calendar_list table thead th span.r {left:100%;}
+.calendar .calendar_list table thead th.sum {width:60px;}
+.calendar .calendar_list table tbody td {height:60px;vertical-align:top;padding-top: 10px;text-align:center;}
+.calendar .calendar_list table tbody td div.num {height:15px;text-align:right; padding-top: 20px;  padding-right: 15px;}
+.calendar .calendar_list table tbody td .calendar_total {display:inline-block;width:60px;height:60px;line-height:65px;font-size:13px;text-align:center;font-weight:bold;color:#ffffff;background:url("../images/calendar_td_bg3.png") no-repeat 0 0;}
+

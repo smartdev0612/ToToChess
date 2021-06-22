@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+/* html5 호환 설정*/
+* {margin:0;padding:0;}
+html,body,div,span,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+abbr,address,cite,code,
+del,dfn,em,img,ins,kbd,q,samp,
+small,strong,sub,sup,var,
+b,i,
+dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend,
+
+article,aside,canvas,details,figcaption,figure,main,
+footer,header,hgroup,menu,nav,section,summary,
+time,mark,audio,video {border:0;outline:0;background:transparent;}
+table,caption,tbody,tfoot,thead,tr,th,td {outline:0;background:transparent;}
+article,aside,canvas,details,figcaption,figure,main,
+footer,header,hgroup,menu,nav,section,summary {display:block;}
+nav, ul {list-style:none;}
+blockquote,q {quotes:none;}
+blockquote:before,blockquote:after,
+q:before,q:after {content:"";content:none;}
+
+a {margin:0;padding:0;border:0;}
+ins {color:#000;text-decoration:none;}
+mark {color:#000;font-style:italic;font-weight:500;}
+del,s {text-decoration:line-through;}
+abbr[title],dfn[title] {border-bottom:1px dotted #000;cursor:help;}
+
+hr {display:block;height:1px;border:0;border-top:1px solid #cccccc;margin:1em 0;padding:0;}
+input,select {}
+th,td {}
+
+
+/* 초기화 */
+html {overflow-y:scroll}
+body {margin:0;padding:0;}
+html, h1, h2, h3, h4, h5, h6, form, fieldset, img {margin:0;padding:0;border:0}
+h1, h2, h3, h4, h5, h6 {font-family:Nanum Gothic}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block}
+
+#hd ul, nav ul, #ft ul {margin:0;padding:0;list-style:none}
+legend {position:absolute;margin:0;padding:0;font-size:0;line-height:0;text-indent:-9999em;overflow:hidden}
+label, input, button, select, img {vertical-align:middle;}
+input, button {margin:0;padding:0;font-family:Nanum Gothic;}
+button {cursor:pointer; outline: 0;}
+img { border: 0; }
+
+textarea, select {font-family:Nanum Gothic;}
+select {margin:0}
+p {margin:0 !important;padding:0 !important;word-break:break-all}
+ pre {overflow-x:scroll;}
+a:link, a:visited {color:#fff;text-decoration:none}
+a:hover, a:focus, a:active {color:#22b486;text-decoration:none}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* add */
+#modal_memo {font-size:12px; font-weight:bold;}
+._hidden {display:none;}
+.pointer {cursor:pointer;}
+._en {ime-mode:disabled;}
+.pdl10 {padding-left:10px}
+.ht100 {height:100px}
+.ht200 {height:200px}
+.ht300 {height:300px}
+.ht400 {height:400px}

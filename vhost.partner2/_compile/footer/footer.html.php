@@ -1,0 +1,1 @@
+<img src="/img/footer.gif" title="모나코">

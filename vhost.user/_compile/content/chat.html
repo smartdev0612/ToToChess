@@ -1,0 +1,147 @@
+﻿<html>
+<head>
+<title>MU-BAY</title>
+<script type="text/javascript" src="/include/js/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/include/css/sweetalert.css">
+<script>
+	$(window).load(function() {
+		$("#loading").hide();
+	})
+</script>
+<style type="text/css">
+input:focus::-webkit-input-placeholder {
+    opacity: 0;
+}
+#loading {
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	display: block;
+	opacity: 1;
+	background-color: #55b7ba;
+	z-index: 3;
+	text-align: center;
+}
+
+#loading-image {
+	width:50px;
+	height:50px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left:-25px;
+	z-index: 100;
+}
+
+body, html{
+	margin:0px auto;
+	background-color:#55b7ba;
+	height:100%;
+	width:100%;
+	font-family: 'Nanum Gothic', sans-serif;
+	overflow:hidden;
+}
+.req_input {
+	border:0px;
+	padding:10px;
+	color:#20929b;
+	text-align:center;
+	font-size:20px;
+	font-weight:700;
+	outline:0px;
+	background-image:url('/images/ibet/screet.png');
+	background-position:10 center;
+	background-repeat:no-repeat;
+	background-color:#ffffff;
+}
+.req_input2 {
+	border:0px;
+	padding:10px;
+	color:#20929b;
+	text-align:center;
+	font-size:20px;
+	font-weight:700;
+	outline:0px;
+	background-color:#ffffff;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #20929b;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #20929b;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #20929b;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #20929b;
+}
+.button {
+	background:#086165;
+	color:#ffffff;
+	outline:0px;
+	border:0px;
+	font-size:20px;
+	font-weight:bold;
+	cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div id="loading"><img id="loading-image" src="/images/ibet/ajax-loading.gif"></div>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%">
+	<tr>
+		<td style="vertical-align:middle; text-align:center;">
+			<div style="width:320px; margin:0px auto; margin-top:-70px; font-size:50px; font-weight:700; color:#086165; text-align:center; line-height:120px;">
+				1:1 채팅상담
+			</div>
+			<div style="width:320px; margin:0px auto;">
+				<input type="text" id="uid" class="req_input" placeholder="아이디" style="width:320px; height:50px; margin-bottom:20px;">
+				<input type="text" id="uname" class="req_input" placeholder="이름" style="width:320px; height:50px; margin-bottom:20px;">
+				<input type="text" id="unick" class="req_input" placeholder="닉네임" style="width:320px; height:50px; margin-bottom:20px;">
+				<input type="text" id="uhp" class="req_input" placeholder="핸드폰번호" style="width:320px; height:50px; margin-bottom:20px;">
+				<input type="button" id="ak" value="상담요청" class="button" style="width:320px; height:50px;">
+			</div>
+			<div style="width:320px; margin:0px auto; text-align:center; color:#043f42; font-size:14px; font-weight:bold; line-height:25px; margin-top:20px;">
+				로그인정보를 잃어버리셨을경우 사용하세요<br>
+				기존 회원만 상담이 가능하며 가입된 정보중<br>두개이상이 일치해야 상담이 가능합니다.
+			</div>
+		</td>
+	</tr>
+</table>
+<script>
+$("#ak").click(function () {
+	var req = $.ajax({
+		method: "POST",
+		url: "/chat/ask",
+		data: 	{ 
+					uid: encodeURIComponent($("#uid").val()),
+					uname: encodeURIComponent($("#uname").val()),
+					unick: encodeURIComponent($("#unick").val()),
+					uhp: encodeURIComponent($("#uhp").val())
+				}
+	});		
+	req.done(function( result ) {
+		//alert(result);
+		swal({
+			title: "확인",
+			text: result,
+			type: "info",
+			confirmButtonColor: '#086165',
+			confirmButtonText: 'OK',
+			closeOnConfirm: true
+		}, function (){
+			window.location.reload();
+		});
+	});
+});
+</script>
+
+<script type="text/javascript" src="/include/js/sweetalert-dev.js"></script>
+</body>
+</html>

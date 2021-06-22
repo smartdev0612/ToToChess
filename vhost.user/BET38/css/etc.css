@@ -1,0 +1,851 @@
+.loader {
+    background: url('/pc/_img/st_load.gif') no-repeat center center;
+	/*background:  url(/pc/_img/st_load.gif) 50% 50% no-repeat rgb(0,0,1,0.5); */
+	width: 250px;
+	height: 50px;
+	position: fixed;
+	z-index: 1000000;
+	left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+	display:block;
+}
+#loader {
+    top: 0px;
+    left: 0px;
+	width: 100%;
+	height: 100%;
+    position: fixed;
+    display: table;
+    background: none !important;
+    z-index: 9999;
+    text-align: center;
+}
+.loader2 {
+    background: none;
+    width: 300px;
+  	height: 70px;
+	position: fixed;
+	z-index: 1000000;
+	left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+	display:block;
+}
+.loader2 i{
+    vertical-align: middle;
+    text-align: center;
+    display: table-cell;
+	color: #fff;
+	opacity: 0.8;
+    font-size: 10rem;
+}
+#st_site {
+	position: relative;
+	width: 100%;
+	height: 100%;
+/*	min-height:920px; */
+    margin: 0 auto;
+}
+#topPage {
+	/* position: fixed; */
+  width: 100%;
+  /* padding: 0 318px 0 289px !important; */
+	margin: 0 auto;
+  z-index: 1055;
+  opacity: 1;
+}
+#centerPage{
+	height:100%;
+	width: 100%;
+
+}
+#leftPage{
+	position: absolute;
+	width:100%;
+	top: 0px;
+}
+#rightPage{
+	position: absolute;
+	width:100%;
+	top: 0px;
+ }
+#footPage{
+	float:bottom;
+}
+.st_header {
+	width: 100%;
+  height: 70px;
+  margin: 0 auto;
+}
+  /*
+.st_left_line {
+ position: absolute;
+  position: relative !important;
+    height: 100%;
+    width: 280px;
+    left: 0;
+    top: 133px;
+    margin: 0 auto;
+    z-index: 10;
+	float:left;
+} */
+
+.st_left {
+    position: absolute;
+    width: 289px;
+	/*
+	height: 850px;
+	max-height:850px;
+	*/
+	/*border:1px red solid;*/
+    left: 0;
+    margin: 0 auto;
+    z-index: 300;
+}
+
+.st_center {
+	position: relative !important;
+	min-width: 700px;
+	height: 100%;
+	width: 100%;
+	/* padding: 0 3px 3px 3px; */
+	margin: 0 auto;
+	z-index: 10;
+  background: #1e1e1e;
+}
+
+.st_right {
+    position: relative !important;
+    width: 316px;
+	/*
+	height: 850px;
+	max-height:850px;
+	*/
+	/*border:1px red solid;*/
+    right: 0;
+    top: 0;
+    margin: 0 auto;
+}
+
+/*************** SCROLLBAR BASE CSS ***************/
+
+.scroll-wrapper {
+	overflow: hidden !important;
+	padding: 0 0 10px 0 !important;
+	z-index: 2;
+	height:100%;
+}
+
+.scroll-wrapper > .scroll-content {
+	border: none !important;
+	box-sizing: content-box !important;
+	height: auto;
+	left: 0;
+	margin: 0;
+	max-height: none;
+	max-width: none !important;
+	overflow-y: scroll !important;
+	padding: 0;
+	position: relative !important;
+	top: 0;
+	width: auto !important;
+}
+
+.scroll-wrapper > .scroll-content::-webkit-scrollbar {
+	height: 0;
+	width: 0;
+}
+
+.scroll-element {
+	display: none;
+}
+.scroll-element, .scroll-element div {
+	box-sizing: content-box;
+}
+
+.scroll-element.scroll-x.scroll-scrollx_visible,
+.scroll-element.scroll-y.scroll-scrolly_visible {
+	display: block;
+}
+
+.scroll-element .scroll-bar,
+.scroll-element .scroll-arrow {
+	cursor: default;
+}
+
+.scroll-element.scroll-x.scroll-scrolly_visible {
+display:none !important;
+}
+.scroll-element.scroll-y.scroll-scrolly_visible {
+display:none !important;
+}
+
+
+/*************** SIMPLE INNER SCROLLBAR LEFT ***************/
+
+.scrollbar-left > .scroll-element,
+.scrollbar-left > .scroll-element div
+{
+	border: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	z-index: 1;
+	 overflow: hidden !important;
+}
+
+.scrollbar-left > .scroll-element div {
+	display: block;
+	height: 100%;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.scrollbar-left > .scroll-element.scroll-x {
+	bottom: 2px;
+	height: 8px;
+	left: 0;
+	width: 100%;
+}
+
+.scrollbar-left > .scroll-element.scroll-y {
+	height: 100%;
+	right: 2px;
+	top: 0;
+	width: 8px;
+}
+
+.scrollbar-left > .scroll-element .scroll-element_outer {
+	overflow: hidden;
+}
+
+.scrollbar-left.scroll-content.scroll-scrolly_visible {
+ overflow: hidden;
+ /*min-height:900px;*/
+}
+/*************** SIMPLE INNER SCROLLBAR CENTER ***************/
+.scrollbar-center > .scroll-element,
+.scrollbar-center > .scroll-element div
+{
+	border: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	z-index: 1;
+	 overflow: hidden !important;
+}
+
+.scrollbar-center > .scroll-element div {
+	display: block;
+	height: 100%;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.scrollbar-center > .scroll-element.scroll-x {
+	bottom: 2px;
+	height: 8px;
+	left: 0;
+	width: 100%;
+}
+
+.scrollbar-center > .scroll-element.scroll-y {
+	height: 100%;
+	right: 2px;
+	top: 0;
+	width: 8px;
+}
+
+.scrollbar-center > .scroll-element .scroll-element_outer {
+	overflow: hidden;
+}
+
+.scrollbar-center.scroll-content.scroll-scrolly_visible {
+ overflow-x: hidden !important;
+ overflow-y: auto;
+}
+
+
+/*************** SIMPLE INNER SCROLLBAR RIGHT ***************/
+.scrollbar-right > .scroll-element,
+.scrollbar-right > .scroll-element div
+{
+	border: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	z-index: 10;
+	 overflow: hidden !important;
+}
+
+.scrollbar-right > .scroll-element {
+	background-color: #ffffff;
+}
+
+.scrollbar-right > .scroll-element div {
+	display: block;
+	height: 100%;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.scrollbar-right > .scroll-element.scroll-x {
+	bottom: 0;
+	height: 12px;
+	left: 0;
+	width: 100%;
+}
+
+.scrollbar-right > .scroll-element.scroll-y {
+	height: 100%;
+	right: 0;
+	top: 0;
+	width: 12px;
+}
+
+.scrollbar-right > .scroll-element .scroll-element_outer {
+	overflow: hidden !important;
+}
+
+.scrollbar-right.scroll-content.scroll-scrolly_visible {
+ overflow-x: hidden;
+}
+
+html,body { }
+
+
+.sst_left {
+    /* position: absolute; */
+    position: relative;
+	width: 50% !important;
+    padding-right: 10px !important;
+	overflow-x: hidden;
+	overflow-y: hidden;
+    bottom: 3px !important;
+    /* padding-bottom: 90px;*/
+    /* border: 1px solid red; */
+	padding-bottom: 90px;
+    float: left;
+	/*
+	height:900px;
+	max-height:900px !important;
+	*/
+
+	/*border:1px red solid;*/
+}
+
+.sst_right {
+    /* position: absolute; */
+    position: relative;
+    width: 50% !important;
+	overflow-x: hidden;
+	overflow-y: hidden;
+    bottom: 3px !important;
+    padding-bottom: 90px;
+    float: left;
+	/*
+	height:900px;
+	max-height:900px !important;
+	*/
+
+}
+
+    /*
+.sst_left {
+   position: absolute;
+	position:  relative;
+	width: 645px;
+	height: 600px;
+	bottom:10px;
+	border:1px solid red;
+    left: 0;
+    margin: 0 auto;
+	float:left;
+}
+*/
+/*
+.sst_left, .sst_right{
+	height:850px;
+}
+
+*/
+    /*
+.sst_right {
+	position: absolute;
+	position: relative;
+	width: 645px;
+    height: 600px;
+	padding-left:2px;
+	bottom:10px;
+	border:1px solid red;
+	left:600px;
+  margin: 0 auto;
+   float:left;
+}
+*/
+
+/*************** SIMPLE INNER SCROLLBAR LEFT ***************/
+
+.left-scrollbar > .scroll-element,
+.left-scrollbar > .scroll-element div
+{
+	border: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	z-index: 1;
+	 overflow: hidden !important;
+}
+
+.left-scrollbar > .scroll-element div {
+	display: block;
+	height: 100%;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.left-scrollbar > .scroll-element.scroll-x {
+	bottom: 2px;
+	height: 8px;
+	left: 0;
+	width: 100%;
+}
+
+.left-scrollbar > .scroll-element.scroll-y {
+	height: 100%;
+	right: 2px;
+	top: 0;
+	width: 8px;
+}
+
+.left-scrollbar > .scroll-element .scroll-element_outer {
+	overflow: hidden;
+}
+
+.left-scrollbar.scroll-content.scroll-scrolly_visible {
+ overflow: hidden;
+}
+
+
+
+
+/*************** SIMPLE INNER SCROLLBAR LEFT ***************/
+
+.right-scrollbar > .scroll-element,
+.right-scrollbar > .scroll-element div
+{
+	border: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	z-index: 1;
+	 overflow: hidden !important;
+}
+
+.right-scrollbar > .scroll-element div {
+	display: block;
+	height: 100%;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.right-scrollbar > .scroll-element.scroll-x {
+	bottom: 2px;
+	height: 8px;
+	left: 0;
+	width: 100%;
+}
+
+.right-scrollbar > .scroll-element.scroll-y {
+	height: 100%;
+	right: 2px;
+	top: 0;
+	width: 8px;
+}
+
+.right-scrollbar > .scroll-element .scroll-element_outer {
+	overflow: hidden;
+}
+
+.right-scrollbar.scroll-content.scroll-scrolly_visible {
+ overflow: hidden;
+}
+
+
+.width_98_ {
+    width: 99%;
+    margin: 0 auto;
+	/*
+	height:620px;
+	*/
+}
+
+
+/*  리스트 on over */
+
+.selectable.on {
+  background: #22b486;
+  color: #000 !important;
+}
+.selectable.on span.txt_co5{
+    color: #000 !important;
+}
+.selectable:hover {
+	cursor:pointer;
+  background: #30af87;
+  color: #000 !important;
+}
+
+.selectable_none {
+  background: #1d1d1d !important;
+  color: #484848 !important;
+}
+
+.selectable_none.on {
+	background: #fa6200;
+    color: #fff !important;
+}
+
+
+.selectable:hover .txt_co3 {color:red !important;}
+.selectable.on .txt_co3 {color:red !important;}
+/*
+.selectable.on {
+	background: #ffb400;
+    color: #000;
+}
+.g_cont_bg ul li.selectable.on {
+    background: url('/pc/_img/_game/g_game_bg_ov.png') repeat-x;
+    cursor: pointer;
+}
+
+*/
+
+.bt_game_more {
+  width: 40px;
+  height: 24px;
+  margin-top: 8px;
+  float: right;
+  font-weight: 600;
+  font-size: 0.76rem;
+  padding: 0 0;
+  background: #626262;
+  color: #fff !important;
+  border-radius: 15px;
+  border: none;
+}
+.bt_game_more.act {
+  text-align: center;
+  border: none;
+  color: #000 !important;
+  background: #22b486;
+}
+.st_cart_bg .lis { display: block;text-overflow:ellipsis;overflow: hidden;white-space: nowrap; }
+
+.league_bg {
+	background: rgba( 0, 0, 0, 0.3 );
+}
+.st9_ {
+	width: 100%;
+	display: block;
+  table-layout: fixed;
+  overflow: scroll;
+  height: 195px;
+  margin: 0 auto;
+  position: relative;
+  border-top: 1px solid #000;
+}
+._style1{
+	margin: 0 1px;
+	background: #333;
+	color: #0072ff;
+	font-weight: 600;
+	float: left;
+}
+
+._style2{
+   margin: 0 1px;
+   background: #333;
+   color: #ff0000;
+   font-weight: 600;
+	float: left;
+}
+
+._style3{
+   margin: 0 1px;
+   background: #333;
+   color: #00d2ff;
+   font-weight: 600;
+	float: left;
+}
+
+._style4{
+	margin: 0 1px;
+	background: #333;
+	color: #85ec46;
+	font-weight: 600;
+	float: left;
+}
+
+._style5{
+	margin: 0 1px;
+	background: #333;
+	color: #ff8400;
+	font-weight: 600;
+	float: left;
+}
+
+._style6{
+	margin: 0 1px;
+	background: #333;
+	color: #fff;
+	font-weight: 600;
+	float: left;
+}
+
+._style7{
+	margin: 0 1px;
+	background: #333;
+	color: #ff8400;
+	font-weight: 600;
+	float: left;
+}
+
+._style8{
+	margin: 0 1px;
+	background: #333;
+	color: #c062c2;
+	font-weight: 600;
+	float: left;
+}
+
+
+._f_st1{
+	padding: 2px;
+  font-size: 0.9em;
+  letter-spacing: -0.5px;
+  border-radius: 5px;
+  background: #0324eb;
+  color: #fff;
+}
+
+._f_st2{
+	padding: 1.5px;
+	font-size: 0.9em;
+  letter-spacing: -0.5px;
+  border-radius: 5px;
+  background: #ff0000;
+  color: #fff;
+}
+
+._f_st3{
+	padding: 2px;
+  font-size: 0.9em;
+  letter-spacing: -0.5px;
+  border-radius: 5px;
+	background: #00d2ff;
+	color: #000;
+}
+
+._f_st4{
+	padding: 2px;
+  font-size: 0.9em;
+  letter-spacing: -0.5px;
+  border-radius: 5px;
+  background: #85ec46;
+  color: #000;
+}
+
+._f_st5{
+	padding: 2px;
+  font-size: 0.9em;
+  letter-spacing: -0.5px;
+  border-radius: 5px;
+	background: #ff8400;
+	color: #000;
+}
+
+._f_st6{
+	padding: 2px;
+  font-size: 0.9em;
+  letter-spacing: -0.5px;
+  border-radius: 5px;
+	background: #fff;
+	color: #000;
+}
+
+._f_st7{
+	padding: 2px;
+  font-size: 0.9em;
+  letter-spacing: -0.5px;
+  border-radius: 5px;
+	background: #ff0000;
+	color: #000;
+}
+
+._f_st8{
+	padding: 2px;
+  font-size: 0.9em;
+  letter-spacing: -0.5px;
+  border-radius: 5px;
+	background: #1c7110;
+	color: #000;
+}
+
+._f_st9{
+	padding: 2px;
+  font-size: 0.9em;
+  letter-spacing: -0.5px;
+  border-radius: 5px;
+	background: #c062c2;
+	color: #000;
+}
+
+.st_cont_bg { padding: 5px 0 50px 0 !important;  background: #000 !important;}
+._st_cont_bg {padding-bottom:50px !important;}
+
+._en {ime-mode:disabled;}
+._kr {ime-mode: active;}
+
+
+._width_100 {
+    width: 99.7%;
+	padding-bottom:100px;
+}
+._center{text-align:center !important}
+
+
+._st_bbs_write {
+    width: 99%;
+    margin: 0 auto;
+    padding: 10px;
+    color: #fff;
+    font-size: 1.2em;
+    line-height: 24px;
+}
+
+
+.bt_gr_area5.act { color: #fecb17 !important; background: #093c11 !important;}
+
+.st_b_cont_bg {min-height:850px}
+._h10 {height:10px !important;}
+._h20 {height:20px !important;}
+._h30 {height:30px !important;}
+._h50 {height:50px !important;}
+._h77 {height:77px !important;}
+._h100 {height:100px !important;}
+._h137 {height:137px !important;}
+._h150 {height:150px !important;}
+._h300 {height:300px !important;}
+._h900 {height:900px !important;}
+._h1000 {height:1000px !important;}
+._h1200 {height:1200px !important;}
+
+/* 팝업레이어 */
+#hd_pop {
+
+
+	/*top: 200px;*/
+
+	/*
+	width: auto;
+	height: auto;
+	left: 50%;
+	top: 50%;
+
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	*/
+}
+.hd_pops {
+	z-index:100000;
+	position: absolute;
+    color: #fff;
+    font-size: 0.74rem;
+    text-align: center;
+	border:1px solid #585858;
+	background:#323232;
+	/*float:left !important;*/
+}
+.hd_pops img{max-width:100%;}
+.hd_pops_con { font-size: 0.84rem !important; padding: 5px;}
+.hd_pops_footer {padding: 0; line-height: 30px;background:#000;color:#fff;text-align:left;position:relative;}
+.hd_pops_footer:after {display:block;visibility:hidden;clear:both;content:""}
+.hd_pops_footer button {margin-right:5px;padding:1px 10px;font-size: 0.8rem;border:0;background:#393939;color:#fff}
+.hd_pops_footer .hd_pops_reject{background:#000;text-align:left}
+.hd_pops_footer .hd_pops_close{background:#393939;position:absolute;top:0;right:0}
+
+/*  팝업로그인 */
+.pop_bg {
+	position: absolute;
+	top: 50%;
+	left:50%;
+	margin: -145px 0 0 -140px;
+	width: 320px;
+	height: 140px;
+	border-radius: 5px;
+	border: 1px solid #000;
+    background: url(/pc/_img/pop_login_bg.png) center no-repeat;
+	z-index: 20000;
+}
+.pop_login {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #35c89a;
+  border-radius: 10px;
+  background: url(/pc/_img/pop_login_bg2.png) center no-repeat;
+}
+.pop_cont {
+	padding: 50px 10px 0 10px;
+	color: #fff;
+	text-align: center;
+	font-weight: bold;
+	font-size: 0.84rem;
+}
+.pop_btn {
+	padding-top: 20px;
+}
+.pop_btn button {
+	padding: 5px 10px;
+	width: 100px;
+	font-size: 0.76rem;
+	border-radius: 5px;
+  color: #000;
+  background: #35c89a;
+}
+.pop_back {
+	position: absolute;
+	min-height: 100%;
+	min-width: 100%;
+	left: 0px;
+	top: 0px;
+	background: rgba( 0, 0, 0, 0.7 );
+	z-index: 18000;
+}
+
+._limit {text-overflow:ellipsis;overflow: hidden;white-space: nowrap;}
+._w180{width:140px}
+
+
+/* 카지노 레이어 마스크 */
+#casino_mask {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:300000;display:none;}
+.casino_layer {position:absolute;top:100px;left:50%;width:1173px;height:748px;background:#131313;margin-left:-586px;z-index:500000;display:none;}
+.casino_layer h3 {line-height:59px;text-align:center;font-size:18px;font-weight:500;color:#b6b6b6;}
+.casino_layer .close {position:absolute;top:20px;right:20px;cursor:pointer;}
+.casino_layer .game_area {width:1155px;margin:0 auto;}
+
+.imabutton:before {content:"\274c"}
+.imabutton{float:right;background-color:#c0392b;border:1px solid #c0392b;color:#ffffff !important;display:inline-block;font-family:sans-serif;font-size:16px;line-height:44px;text-align:center;text-decoration:none;width:50px;-webkit-text-size-adjust:none;mso-hide:all;border-radius:10px}

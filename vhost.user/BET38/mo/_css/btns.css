@@ -1,0 +1,752 @@
+@charset "utf-8";
+
+/* BUTTON BBS AREA */
+
+.bbs_btn_area {
+    display: block;
+    text-align: center;
+}
+
+
+.bbs_btn_area2 {
+    display: block;
+    text-align: center;
+    padding: 0 0 0 0;
+}
+
+.bbs_btn_area3 {
+    display: block;
+    text-align: center;
+    padding: 0 0 10px 0;
+}
+
+/* BUTTON BG */
+
+.bt_off {
+	border: none;
+	color: #fff !important;
+	font-weight: 600;
+  background: url(/BET38/pc/_img/bt_gray_bg_ov.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.bt_off.act {
+	border: none;
+	color: #fff !important;
+	font-weight: 600;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.bt_on {
+	border: none;
+	color: #fff !important;
+	font-weight: 600;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.btn_money {
+    color: #000 !important;
+    text-align: center;
+    cursor: pointer;
+    background: url(/BET38/pc/_img/r_btn_bg01.png) left top no-repeat;
+    background-size: 100% 100%;
+}
+.bt_gray {
+    color: #fff !important;
+	font-weight: 600;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.bt_gray2 {
+	color: #fff !important;
+	font-weight: 600;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.bt_gray3 {
+  color: #fff !important;
+	font-weight: 600;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+.bt_none1 {
+  border: none;
+	color: #fff !important;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) no-repeat top center;
+  background-size: 100% 100%;
+}
+.bt_none2 {
+  border: none;
+	color: #fff !important;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) no-repeat top center;
+  background-size: 100% 100%;
+  border-radius: 5px;
+}
+.bt_none3 {
+  border: none;
+	color: #00ffe4 !important;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) no-repeat top center;
+  background-size: 100% 100%;
+  border-radius: 5px;
+}
+.bt_none4 {
+  border: none;
+	color: #fff !important;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) no-repeat top center;
+  background-size: 100% 100%;
+  border-radius: 5px;
+}
+.bt_none5 {
+  border: none;
+	color: #fff !important;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) no-repeat top center;
+  background-size: 100% 100%;
+  border-radius: 5px;
+}
+.bt_none6 {
+  border: none;
+	color: #fff000 !important;
+  background: url(/BET38/pc/_img/bt_gray_bg.png) no-repeat top center;
+  background-size: 100% 100%;
+  border-radius: 5px;
+}
+
+
+.txt_none1 {color: #fff !important;}
+.txt_none2 {color: #fff000 !important;}
+.txt_none3 {color: #00ffe4 !important;}
+.txt_none4 {color: #fff !important;}
+.txt_none5 {color: #fff !important;}
+
+.bt_gray.act {
+    border: 1px solid #fa6200;
+    color: #fff !important;
+    background:#fa6200;
+}
+
+.bt_green {
+    border: 1px solid #1e1e1e;
+    background: rgb(100,224,0); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(100,224,0,1) 0%, rgba(30,56,0,1) 87%, rgba(54,117,0,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(100,224,0,1) 0%,rgba(30,56,0,1) 87%,rgba(54,117,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(100,224,0,1) 0%,rgba(30,56,0,1) 87%,rgba(54,117,0,1) 100%);
+}
+
+.bt_gold {
+    border: 1px solid #1e1e1e;
+    background: rgb(247,180,0); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(247,180,0,1) 0%, rgba(82,53,0,1) 87%, rgba(147,103,0,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(247,180,0,1) 0%,rgba(82,53,0,1) 87%,rgba(147,103,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(247,180,0,1) 0%,rgba(82,53,0,1) 87%,rgba(147,103,0,1) 100%);
+}
+
+.bt_gold2 {
+    border:1px solid #000;
+    background: rgb(247,180,0); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(247,180,0,1) 0%, rgba(102,71,16,1) 67%, rgba(150,107,10,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(247,180,0,1) 0%,rgba(102,71,16,1) 67%,rgba(150,107,10,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(247,180,0,1) 0%,rgba(102,71,16,1) 67%,rgba(150,107,10,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+
+
+.bt_blue {
+    border: 1px solid #1e1e1e;
+    background: rgb(0,188,242); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(0,188,242,1) 0%, rgba(0,53,93,1) 87%, rgba(0,102,147,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0,188,242,1) 0%,rgba(0,53,93,1) 87%,rgba(0,102,147,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0,188,242,1) 0%,rgba(0,53,93,1) 87%,rgba(0,102,147,1) 100%);
+}
+
+
+.st_game_tbtn .st_button1 {
+    width: 91px;
+    height: 27px;
+    border: none;
+    background: url('/BET38/pc/_img/_game/btn_divide_off.png') no-repeat;
+}
+
+
+.st_game_tbtn .st_button1.act {
+    width: 91px;
+    height: 27px;
+    border: none;
+    background: url('/BET38/pc/_img/_game/btn_divide_on.png') no-repeat;
+}
+
+
+.st_game_tbtn .st_button2 {
+    width: 98px;
+    height: 27px;
+    border: none;
+    background: url('/BET38/pc/_img/_game/btn_wide_on.png') no-repeat;
+}
+
+
+
+.st_game_tbtn .st_button2.act {
+    width: 98px;
+    height: 27px;
+    border: none;
+    background: url('/BET38/pc/_img/_game/btn_wide_off.png') no-repeat;
+}
+
+/* BUTTON ST */
+
+.bt_g_tabs {
+    width: 99.99%;
+    color: #fff;
+   font-size: 0.7rem;
+    line-height: 18px;
+    float: left;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.bt_g_tabs ul li {
+    width: 32.8%;
+    padding: 10px;
+    color: #fff;
+   font-size: 0.7rem;
+    line-height: 18px;
+    float: left;
+    cursor: pointer;
+    border: 1px solid #1e1e1e;
+    background: rgb(75,75,75); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(75,75,75,1) 0%, rgba(30,30,30,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(75,75,75,1) 0%,rgba(30,30,30,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(75,75,75,1) 0%,rgba(30,30,30,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+.bt_g_tabs2 {
+    width: 99.99%;
+    color: #fff;
+    font-size: 0.7rem;
+    line-height: 18px;
+    float: left;
+}
+.bt_g_tabs2 ul li {
+	width: 33%;
+  padding: 7px 5px;
+  color: #fff;
+  font-size: 0.78rem;
+  line-height: 16px;
+  margin-right: 1.2px;
+  float: left;
+  cursor: pointer;
+  border-radius: 5px;
+  background: url(/BET38/pc/_img/tc_tab_bg.png) no-repeat top center;
+  background-size: 100% 100%;
+}
+.bt_g_tabs3 {
+    width: 98%;
+    color: #fff;
+    font-size: 0.7rem;
+    line-height: 18px;
+    float: left;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.bt_g_tabs3 ul li {
+    width: 33.3%;
+    padding: 10px 5px;
+    color: #fff;
+   font-size: 0.7rem;
+    line-height: 18px;
+    float: left;
+    cursor: pointer;
+    background: #fa6200;
+    color: #fff !important;
+}
+.bt_gr_area {
+  width: 45px;
+  color: #000;
+  float: right;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 7px;
+  background: #fff;
+}
+.bt_gr_area2 {
+    width: 35px;
+    float: right;
+    font-size: 0.6rem;
+    text-align: center;
+    border-radius: 0px;
+    border: 1px solid #fa6200;
+    color: #fff !important;
+    background: #0f7b0f;
+}
+.bt_gr_area3 {
+    width: 50px;
+    color: #fecb17;
+    float: right;
+    font-size: 0.7rem;
+    padding: 3px 0;
+    border-radius: 12px;
+    text-align: center;
+    background: #093c11;
+    border: none;
+}
+.bt_gr_area4 {
+    width: 30px;
+    color: #fff;
+    float: right;
+    font-size: 0.6rem;
+    text-align: center;
+    border-radius: 7px;
+    background: #04221f;
+    border: none;
+}
+.bt_gr_area5 {
+    width: 60px;
+    color: #000;
+    float: right;
+    font-size: 0.7rem;
+    padding: 3px 0;
+    border-radius: 12px;
+    text-align: center;
+    background: #666;
+    border: none;
+}
+.bt_gr_area6 {
+    width: 40px;
+    color: #fecb17;
+    float: right;
+    font-size: 0.7rem;
+    padding: 3px 0;
+    border-radius: 5px;
+    text-align: center;
+    background: #3c3c3c;
+    border: none;
+}
+.bt_gr_area66 {
+    width: 40px;
+    color: #fecb17;
+    font-size: 0.7rem;
+    padding: 2px 0;
+    border-radius: 5px;
+    text-align: center;
+    background: #3c3c3c;
+    border: none;
+}
+
+.bt_250 {
+    display: inline-block;
+    width: 250px;
+    margin: 0 auto;
+    height: 45px;
+    text-align: center;
+    line-height: 35px;
+    padding: 3px 5px;
+    border:1px solid #000;
+    background: rgb(247,180,0); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(247,180,0,1) 0%, rgba(102,71,16,1) 67%, rgba(150,107,10,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(247,180,0,1) 0%,rgba(102,71,16,1) 67%,rgba(150,107,10,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(247,180,0,1) 0%,rgba(102,71,16,1) 67%,rgba(150,107,10,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.bt_250_txt a{
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #fff;
+}
+.bt_230 {
+    display: inline-block;
+    width: 230px;
+    margin: 0 auto;
+    height: 35px;
+    text-align: center;
+    line-height: 28px;
+    padding: 3px 5px;
+    background: url(/BET38/pc/_img/bt_gray_bg.png) center center no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.bt_230 a {
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.bt_110 {
+    display: inline-block;
+    width: 110px;
+    text-align: center;
+   font-size: 0.7rem;
+    color: #fff;
+    height: 30px;
+    line-height: 23px;
+    padding: 3px 5px;
+}
+
+.bt_120 {
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+   font-size: 0.74rem;
+    color: #fff;
+    height: 30px;
+    font-weight: 600;
+    line-height: 31px;
+}
+.bt_120-2 {
+    display: inline-block;
+    text-align: center;
+   font-size: 0.74rem;
+    color: #fff;
+    height: 30px;
+    font-weight: 600;
+    line-height: 31px;
+}
+.bt_130 {
+  display: inline-block;
+  width: 130px;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #000 !important;
+  height: 22px;
+  line-height: 17px;
+  padding: 3px 5px;
+}
+
+.bt_140 {
+    display: inline-block;
+    width: 140px;
+    text-align: center;
+   font-size: 0.7rem;
+    color: #fff;
+    height: 30px;
+    line-height: 23px;
+    padding: 3px 5px;
+}
+
+.bt_150 {
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+   font-size: 0.7rem;
+    color: #fff;
+    height: 30px;
+    line-height: 23px;
+    padding: 3px 5px;
+}
+
+.bt_185 {
+    display: inline-block;
+    width: 184px;
+    text-align: center;
+    font-size: 1.3em;
+    color: #fecb17;
+}
+
+.bt_182 {
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+    font-size: 1.3em;
+    color: #fecb17;
+}
+
+.bt_180_area {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.bt_180 {
+    display: inline-block;
+    width: 180px;
+    height: 50px;
+    text-align: center;
+    font-size: 1.6em;
+    line-height: 41px;
+    color: #fecb17;
+    margin: 15px auto 0 auto;
+    padding: 3px 5px;
+}
+
+.bt_160 {
+    display: inline-block;
+    width: 160px;
+    height: 40px;
+    text-align: center;
+    font-size: 1.6em;
+    line-height: 34px;
+    color: #fff;
+    margin: 15px auto 0 auto;
+    padding: 3px 5px;
+}
+.bt_120_txt {
+	text-align: center;
+    font-size: 0.74rem;
+    color: #fff;
+    font-weight: 600;
+}
+.bt_120_txt2 {
+	text-align: center;
+    font-size: 0.74rem;
+    color: #000;
+    font-weight: 600;
+}
+.bt_48w {
+	display: inline-block;
+  width: 48%;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #000;
+  height: 55px;
+  line-height: 48px;
+  padding: 3px 5px;
+  border-radius: 10px;
+  background: url(/BET38/pc/_img/r_btn_bg01.png) left top no-repeat;
+  background-size: 100% 100%;
+}
+
+.bt_110_txt2 {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #4fa60b;
+}
+.bt_110_txt {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #fff;
+}
+
+.bt_110_txt2 {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #4fa60b;
+}
+.bt_118 {
+    display: inline-block;
+    width: 118px;
+    text-align: center;
+    height: 30px;
+    border: 1px solid #c3c3c3;
+}
+.bt_80 {
+	display: inline-block;
+    width: 80px;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #fff !important;
+    height: 25px;
+    line-height: 19px;
+    padding: 3px 5px;
+}
+.bt_100 {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+   font-size: 0.7rem;
+    color: #fff;
+    height: 30px;
+    line-height: 24px;
+    padding: 3px 5px;
+}
+.bt_75 {
+  display: inline-block;
+  width: 75px;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #000 !important;
+  height: 22px;
+  font-weight: 600;
+  line-height: 23px;
+  margin-bottom: 5px;
+}
+.bt_70 {
+    display: inline-block;
+    width: 70px;
+    text-align: center;
+   font-size: 0.7rem;
+    color: #fff;
+    height: 30px;
+    line-height: 21px;
+    padding: 3px 5px;
+    border: 1px solid #c3c3c3;
+}
+.bt_60 {
+    display: inline-block;
+    width: 60px;
+    text-align: center;
+    font-size: 0.8em;
+    color: #000;
+    height: 30px;
+    line-height: 21px;
+    padding: 3px 5px;
+    background: url(/BET38/pc/_img/r_btn_bg01_ov.png) left top no-repeat;
+    background-size: 100% 100%;
+}
+.bt_60-1 {
+	display: inline-block;
+    width: 50px;
+    text-align: center;
+    font-size: 0.8em;
+    color: #000;
+    height: 22px;
+    line-height: 16px;
+    padding: 2px 5px;
+    background: url(/BET38/pc/_img/r_btn_bg01_ov.png) left top no-repeat;
+    background-size: 100% 100%;
+}
+.bt_60-2 {
+	display: inline-block;
+    width: 50px;
+    text-align: center;
+    font-size: 0.6rem;
+    height: 22px;
+    line-height: 17px;
+    padding: 2px 5px;
+    color: #000 !important;
+    font-weight: 600;
+    background: url(/BET38/pc/_img/r_btn_bg01_ov.png) left top no-repeat;
+    background-size: 100% 100%;
+}
+.bt_50 {
+    display: inline-block;
+    text-align: center;
+    font-size: 0.7rem;
+    width: 45px;
+    color: #000;
+    padding: 0 3px;
+    background: url(/BET38/pc/_img/r_btn_bg01_ov.png) left top no-repeat;
+    background-size: 100% 100%;
+}
+.bt_45 {
+    display: inline-block;
+    width: 45px;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #000;
+    height: 30px;
+    line-height: 21px;
+    padding: 3px 5px;
+    background: url(/BET38/pc/_img/r_btn_bg01_ov.png) left top no-repeat;
+    background-size: 100% 100%;
+}
+
+.bt_45_none {
+  display: inline-block;
+  text-align: center;
+  font-size: 0.7rem;
+  letter-spacing: -0.5px;
+  border-radius: 5px;
+  line-height: 21px;
+  padding: 0px 2px;
+}
+.bt_45-1 {
+	display: inline-block;
+    width: 32px;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #fff;
+    height: 22px;
+    border-radius: 5px;
+    line-height: 21px;
+    padding: 0px 5px;
+}
+.bt_45-2 {
+    display: inline-block;
+    width: 45px;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #000;
+    height: 30px;
+    line-height: 21px;
+    padding: 3px 5px;
+    background: url(/BET38/pc/_img/r_btn_bg01_ov.png) left top no-repeat;
+    background-size: 100% 100%;
+}
+.bt_45-3 {
+    display: inline-block;
+    width: 45px;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #000;
+    height: 30px;
+    line-height: 21px;
+    border-radius: 5px;
+    padding: 3px 5px;
+    background: url(/BET38/pc/_img/r_btn_bg01_ov.png) left top no-repeat;
+    background-size: 100% 100%;
+}
+.bt_40 {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    color: #000;
+    height: 30px;
+    line-height: 28px;
+    background: url(/BET38/pc/_img/r_btn_bg01_ov.png) left top no-repeat;
+    background-size: 100% 100%;
+}
+.bt_33 {
+	display: inline-block;
+    width: 33px;
+    text-align: center;
+    font-size: 0.8em;
+    color: #000;
+    height: 24px;
+    line-height: 18px;
+    padding: 2px 1px;
+    background: url(/BET38/pc/_img/r_btn_bg01_ov.png) left top no-repeat;
+    background-size: 100% 100%;
+}
+.bt_33_none {
+	display: inline-block;
+    width: 33px;
+    text-align: center;
+    font-size: 0.8em;
+    color: #fff;
+    height: 24px;
+    line-height: 18px;
+    padding: 2px 1px;
+}
+.bt_30 {
+    display: inline-block;
+    text-align: center;
+    font-size: 0.8em;
+    width: 30px;
+    padding: 0 2px;
+}
+
+.t_btn_r {
+    border-radius: 10px;
+    background-color: #ffcc01;
+    color: #000;
+    font-size: 0.7rem !important;
+    width: 70px !important;
+    height: 20px !important;
+    line-height: 20px !important;
+    text-align: center;
+    cursor: pointer;
+}
+.t_btn_r2 {
+    border-radius: 10px;
+    background-color: #ffcc01;
+    color: #000;
+    font-size: 0.7rem !important;
+    width: 80px !important;
+    height: 20px !important;
+    line-height: 20px !important;
+    text-align: center;
+    cursor: pointer;
+}
+.t_btn_r3 {
+    border-radius: 10px;
+    background-color: #ffcc01;
+    padding: 2px 5px;
+    color: #000;
+    font-size: 0.7rem !important;
+    height: 20px !important;
+    line-height: 18px !important;
+    text-align: center;
+    cursor: pointer;
+}
+/*  리스트 on over */
+
+.selectable.on {
+	background: #fa6200;
+    color: #fff !important;
+}

@@ -1,0 +1,93 @@
+body { margin:0px;background-color: #198bc9; font-family:Tahoma,돋움,굴림,바탕,Arial, Helvetica, sans-serif; font-size:12px; color:#075587; height:100%;}
+input {font-family:Tahoma,돋움,Arial, Helvetica, sans-serif;}
+.clear{clear:both;}
+filter:progid:dximagetransform.microsoft.gradientwipe(duration=1); text-decoration:none;} 
+form { margin:0px; padding:0px;}
+.link_lan a:link {color: #003399;	text-decoration: none;}
+.link_lan a:visited {text-decoration: none;color: #003399;}
+.link_lan a:hover {text-decoration: underline;color: #009900;}
+.link_lan a:active {text-decoration: none;color: #003399;}
+.link_bk a:link {color: #333333;	text-decoration: none;}
+.link_bk a:visited {text-decoration: none;color: #333333;}
+.link_bk a:hover {text-decoration: underline;color: #009900;}
+.link_bk a:active {text-decoration: none;color: #333333;}
+.link_page a:link {color: #333333;	text-decoration: none;}
+.link_page a:visited {text-decoration: none;color: #333333;}
+.link_page a:hover {text-decoration: underline;color: #009900; background-color:#C8D6E1}
+.link_page a:active {text-decoration: none;color: #333333;}
+/*-----分页样式--------*/
+.page_box {border: 1px solid #7AA6D1; background: #F1F4FA;display:block;height:23px; line-height:23px; padding-left:6px; padding-right:6px; margin-left:5px; float:left;}
+.page_box_a {border: 1px solid #7AA6D1;display:block;height:23px; line-height:23px; margin-left:5px; float:left; width:23px; text-align:center;}
+.page_box_a a {background: #F1F4FA;}
+.page_box_a a:hover { background-color: #009900}
+.page_box_b {border: 1px solid #7AA6D1; background: #006699;display:block;height:23px; line-height:23px; margin-left:5px;float:left;width:23px; color:#FFFFFF;text-align:center;}
+/*-----登录样式--------*/
+.login_top {height:140px;}
+.login_box {width:580px; height:240px; margin:0 auto; padding:10px; border:1px #FFFFFF solid; background-image:url(../images/login_bg.jpg)}
+.login_box input { padding:3px;height:16px; width:150px; font-family:Arial, Helvetica, sans-serif;}
+.login_box_rememberme { padding:0px !important; margin-bottom:0px !important;width:15px !important;}
+.login_box_rig_an {border:0px; text-align:center; width:80px !important; height:24px !important; background-image: url(../images/login_a.jpg); font-size:12px; line-height:20px;}
+.login_box_rig_yanzhen {width:70px !important;}
+.footer {font-size:10px;text-align:center;border:1px #bfd8e0 solid; height:40px; line-height:40px; margin:5px;background-color:#f4f9fb; color:#666666 }
+.footer a {text-decoration: none;}
+.footer a:hover {	text-decoration: underline;}
+/*-----框架页面--------------------------------------*/
+/*-----框架-top--------*/
+.admin_top_big { width:100%; height:62px; background-image:url(../images/by_top_02.gif); background-repeat:repeat-x;}
+.admin_top { width:322px; height:62px; float:left; background-image:url(../images/admin_01.gif); background-repeat:no-repeat; float:left;}
+.admin_top_logo { width:280px; height:25px; background-image: url(../images/logo_in.png); background-repeat:no-repeat; text-align:right; margin-top:20px; margin-left:35px; line-height:25px; color:#FF9900}
+.admin_top_right {width:870px; height:62px; float:left; background-image:url(../images/admin_02.gif); background-repeat:no-repeat;}
+.admin_top_right_top{ width:630px; height:20px; margin-top:10px; text-align:right;}
+.admin_top_right_navigation{ width:100%; height:25px; padding-left:1px; margin-top:34px; line-height:25px; padding-left:20px;}
+.admin_top_right_navigation_li{ width:95px; height:25px; text-align:center; margin-left:10px; float:left; }
+.admin_top_right a {color:#FFFFFF;text-decoration: none;}
+.admin_big_box_nav {height:26px; background-image:url(../images/by_top_06.gif); background-repeat:repeat-x; margin-left:4px; line-height:26px;}
+.admin_top_nav {height:24px; width:100%; padding-left:5px; color: #333333;}
+.admin_top_nav a {color: #006600;text-decoration: none;}
+.admin_top_nav_l {height:26px; width:200px; float:left;}
+.admin_top_nav_l1 { width:35px; float:left;}
+.admin_top_nav_c {height:26px; width:500px; float:left;}
+.admin_top_nav_r {width:300px;margin-left:50px; float:left; text-align:right;}
+/*-----框架-left--------*/
+.admin_left_box_top {position:absolute; top:0px; left:4px;width:238px; height:4px;background-color:#CDDDFC; font-size:0px; z-index:3}
+.admin_left_box_bottom {position:absolute; bottom:4px; left:4px;width:238px; height:4px;background-color:#CDDDFC; font-size:0px; z-index:4}
+.admin_left_box_left {position:absolute; left:4px; bottom:4px;height:100%; width:4px;background-color:#CDDDFC; font-size:0px; z-index:5}
+.admin_left_box_right {position:absolute; right:4px; bottom:4px;height:100%; width:4px;background-color:#CDDDFC; font-size:0px; z-index:6}
+.admin_left_box_bg {position:absolute;bottom:4px;left:4px;height:100%;width:210px;background-color:#e6f4fa;font-size:0px;z-index:1}
+.admin_left_box_in {position:absolute;bottom:4px;right:4px;height:100%;width:210px;background-color:#e6f4fa;overflow-y:auto;overflow-x:hidden;;z-index:2;left: 4px;top: 0px;}
+.admin_left_box_nr {width:210px;}
+.admin_left_box_title {width:210px; height:27px; font-size:12px; color:#345291; font-weight:bold;background-image:url(../images/left_06.gif); background-repeat:repeat-x; line-height:27px; cursor:pointer;}
+.admin_left_box_title_img{ border:0px; margin-right:10px; margin-left:10px; margin-bottom:3px;}
+.admin_left_box_title span { width:80px;border:1px solid #cccccc;}
+.admin_left_box_nr_box {width:190px; font-size:12px; color:#345291;padding:10px;line-height:180%;}
+.admin_left_box_nr_box  a {color:#345291;text-decoration: none;}
+.admin_left_box_nr_box  a:hover {text-decoration: underline;}
+.admin_left_box_nr_box_g {width:170px; font-size:12px; color:#345291;padding:5px;line-height:180%; margin-bottom:8px;}
+.admin_left_box_nr_box_g  a {color:#345291;text-decoration: none;}
+.admin_left_box_nr_box_g  a:hover {text-decoration: underline;} 
+/*-----框架-main--------*/
+.admin_main_tit {border:1px #bfd8e0 solid; height:30px; line-height:30px; color: #333333; padding-left:10px; font-size:12px; background-color:#f4f9fb; margin:5px;}
+.admin_main_in { width:700px;}
+.admin_main_lan_bg {margin-left:5px; margin-right:5px; height:30px; background-image:url(../images/main_bg.gif); color:#003366; background-color:#003333}
+.admin_main_lan_bg a {text-decoration:none; color:#003366}
+.admin_main_an_a {width:100px; height:20px; float:left; background-image:url(../images/main_b_bg.jpg);text-align:center;padding-top:10px; margin-right:5px;}
+.admin_main_an_b {width:100px; height:20px; float:left; background-image:url(../images/main_a_bg.jpg);text-align:center;padding-top:10px; margin-right:5px;}
+.admin_main_nr_box {border-left:1px #bfd8e0 solid;border-right:1px #bfd8e0 solid;border-bottom:1px #bfd8e0 solid; background-color:#FFFFFF; margin-left:5px; margin-right:5px; padding:5px;}
+.admin_main_nr_dbox {border:1px #bfd8e0 solid;background-color:#FFFFFF; margin-left:5px; margin-right:5px; padding:10px;}
+/*-----按钮--------*/
+.Qishi_submit_a {border:0px; background-image:url(../images/admin_submit.jpg); width:85px; height:27px; font-size:12px; text-align:center; line-height:27px;}
+.Qishi_submit_b {border:0px; background-image:url(../images/admin_submit.jpg); width:85px; height:27px; font-size:12px; text-align:center; line-height:27px; background-position:0px -27px;}
+.jobs_category_box {width:800px;}
+.jobs_category_box_leftimg {width:30px; height:30px; float:left; line-height:30px;}
+.jobs_category_box_center {width:320px; height:30px; float:left; line-height:30px;}
+.jobs_category_box_right {width:440px; height:30px; float:left; line-height:30px;}
+/*分页*/
+#pages { clear:both;text-align:center; height:28px; line-height:28px; margin-top:20px; margin-bottom:20px; font-size:12px;font-family:"Tahoma"; }
+#pages span,#pages u {padding:2px 4px;margin:4px 8px 0 0;background:#8B8A8A;border:1px solid #B9B7B7; color:#fff; font-weight:bold; }
+#pages a{ padding:2px 4px;margin:2px 4px 0 0; border:1px solid #B9B7B7; color:#8B8A8A; }
+#pages .active{background:#fff;border:1px solid #B9B7B7;color:#8B8A8A;font-weight:bold;padding:2px 4px;margin:2px 4px 0 0;}
+#pages a:visited{color:#8B8A8A;text-decoration:none; }
+#pages a:hover{color:#fff;background:#878787;border:1px solid #B9B7B7;}
+
+/*----------按纽二------------*/
+.input { font-family: "돋움"; font-size: 9pt; color: #333333; background-color: #ffffff; border: 1px #CFCFCF solid}

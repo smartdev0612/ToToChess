@@ -1,0 +1,8 @@
+
+[37.48.116.242|52.198.44.78|37.48.116.242|] update tb_subchild SET home_rate='2.17',draw_rate='-1.50',away_rate='1.57',update_enable='0' where child_sn=23 and betting_type=2
+
+
+[45.32.52.206|52.198.44.78|45.32.52.206|] update tb_subchild set home_rate = if(new_home_rate is null,home_rate,new_home_rate), 
+draw_rate = if(new_draw_rate is null,draw_rate,new_draw_rate), 
+away_rate = if(new_away_rate is null,away_rate,new_away_rate) where update_enable = 1 and child_sn in(33,34,35,36,37,38,39,40,100,41,101,42,43,102,45,46,44,47,103,48,49,50,51,52,53,54,55,56,57,58,104,60,59,61,62,63,106,105,64,65,66,67,68,70,69,71,72,76,75,77,107,108,74,73,78,79,80,81,83,84,82,85,86,88,110,87,109,89,90,111,93,112,92,91,94,114,113,98,116,97,115,95,96,99)
+

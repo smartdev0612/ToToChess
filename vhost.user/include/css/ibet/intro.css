@@ -1,0 +1,713 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,600,700,800,900,500);
+/* 로고 웹폰트 */
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,700italic,700,500italic,500,400italic,300italic,300);
+@import url(https://fonts.googleapis.com/css?family=Abel);
+@import url(https://fonts.googleapis.com/css?family=Merriweather+Sans:400,800,700,800italic,700italic,400italic);
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+/* 한글 웹폰트 */
+@font-face{
+    font-family:'Nanum Barun Gothic';
+    font-style:normal;
+    font-weight:700;
+    src:url(../../fonts/NanumBarunGothic-Bold.woff) format('woff');
+}
+input:focus::-webkit-input-placeholder {
+    opacity: 0;
+}
+img {
+    border:0px;
+    outline:0px;
+}
+html.blueplate-html{
+    -ms-text-size-adjust:100%;
+    -webkit-text-size-adjust:100%;
+    -moz-text-size-adjust:100%;
+}
+body{
+    line-height:1.5em;
+    color:#7482A5;
+    font-size:18px;
+    font-weight:400;
+    background-color:#102a50;
+    background: url(/images/ibet/intro_bg7.jpg?9) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family:Nanum Barun Gothic, Abel, sans-serif;
+    margin:0px auto;
+}
+li{
+    list-style:none;
+}
+#login_box{
+    position:absolute;
+    top:50%;
+    margin-top:180px;
+    left:50%;
+    z-index: 10;
+    margin-left:-255px;
+}
+:required {
+    outline:0;
+}
+.logo{
+    width:345px;
+    height:80px;
+    float:left;
+    margin-top:0px;
+
+    background-repeat:no-repeat;
+}
+.logo_2{
+    width:100%;
+    height:80px;
+    float:left;
+    margin-top:0px;
+    color:#e3f7ff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.6) , -1px -1px 1px rgba(0,0,0,0.67) ;
+}
+.close_btn{
+    position:absolute;
+    width:50px;
+    height:50px;
+    cursor:pointer;
+    background-image:url('/images/ibet/cross.png');
+    background-repeat:no-repeat;
+}
+.colose_login{
+    top:-60px;
+    left:352px;
+}
+.colose_join{
+    top:30px;
+    left:722px;
+}
+.colose_chat{
+    top:30px;
+    left:345px;
+}
+/* 중앙 박스 조정 */
+.box_box{
+    width:100%;
+    text-align:center;
+}
+.box_box_login{
+    height:200px;
+    margin-top:140px;
+}
+.box_box_join{
+    height:440px;
+    margin-top:130px;
+}
+.button {
+    float:left;
+    border:1px solid #ffffff;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,aaaaaa+23,efefef+49,c9c9c9+73,ffffff+100 */
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 0%, rgba(170,170,170,1) 23%, rgba(239,239,239,1) 49%, rgba(201,201,201,1) 73%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(170,170,170,1) 23%,rgba(239,239,239,1) 49%,rgba(201,201,201,1) 73%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(170,170,170,1) 23%,rgba(239,239,239,1) 49%,rgba(201,201,201,1) 73%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    color: #000000;
+    font-family:Ubuntu, Nanum Barun Gothic;
+    font-size: 0.9em;
+    font-weight:700;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 3px 15px;
+    width:180px;
+    height:40px;
+    text-align:center;
+    -webkit-transition-property: border, color; /* Safari 3.1 to 6.0 */
+    transition-property: border, color;
+    -webkit-transition-duration: 0.5s; /* Safari 3.1 to 6.0 */
+    transition-duration: 0.5s;
+    box-shadow: 5px 5px 10px #000000;
+    text-shadow: 0px 1px #ffffff;
+    -webkit-transition: all 0.7s;
+    -moz-transition: all 0.7s;
+    transition: all 0.7s;
+}
+.button:hover {
+    color:#000000;
+    border:1px solid #ffffff;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,aaaaaa+23,efefef+49,c9c9c9+73,ffffff+100 */
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 5%, rgba(170,170,170,1) 33%, rgba(239,239,239,1) 49%, rgba(201,201,201,1) 73%, rgba(255,255,255,1) 90%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 5%,rgba(170,170,170,1) 33%,rgba(239,239,239,1) 49%,rgba(201,201,201,1) 73%,rgba(255,255,255,1) 90%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  rgba(255,255,255,1) 5%,rgba(170,170,170,1) 33%,rgba(239,239,239,1) 49%,rgba(201,201,201,1) 73%,rgba(255,255,255,1) 90%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    -webkit-transition: all 0.7s;
+    -moz-transition: all 0.7s;
+    transition: all 0.7s;
+}
+.splash-container{
+    min-width:1024px;
+    min-height:700px;
+    z-index:-1;
+    overflow:hidden;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    position:fixed!important
+}
+-webkit-transform-origin:center;
+-ms-transform-origin:center;
+transform-origin:center
+}
+#mesh-container{
+    background:radial-gradient(circle,#75AFEF,#7482A5)
+}
+@-webkit-keyframes thumb{
+    0%,100%{
+        -webkit-transform:scale(1)
+    }
+    50%{
+        -webkit-transform:scale(.9)
+    }
+}
+.text{
+    font-size:3.9em;
+    font-family:Ubuntu, sans-serif;
+    font-weight: 700;
+}
+.text_2{
+    font-size:1.2em;
+    font-family:Ubuntu, sans-serif;
+    font-weight: 700;
+}
+.mask__shape{fill:#fff}
+.shape--fill{fill:#05193a}
+.text--transparent{fill:transparent}
+.box-with-text{position:absolute;top:0;right:0;bottom:0;left:0}
+.text-fill{
+    position:absolute;
+    top:45%;left:50%;
+    padding-top:35vw;
+    padding-left:100%;
+    margin:auto;
+    overflow:hidden;
+    -webkit-transform:translate(-50%,-50%);
+    -ms-transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%)}
+@media (min-aspect-ratio:1 / 2){.text-fill{padding-top:35vw}}
+@media (min-aspect-ratio:2 / 1){.text-fill{padding-top:70vh;padding-left:190vh}}
+.svg-defs{width:0;height:0;}
+.svg-inverted-mask{position:absolute; width:100%; height:100%;}
+.subtitle-top{
+    font-size:0.56em;
+    letter-spacing:27px;
+    font-family: 'Nanum Barun Gothic';
+    font-style: normal;
+    font-weight: 700;
+}
+
+/*  레이어 팝업 부모 */
+.container {
+    background: #e74c3c;
+    min-height: 100%;
+}
+/*  레이어 팝업 */
+.md-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: auto;
+    z-index: 2000;
+    visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+.md-login{
+    width: 800px;
+}
+.md-join{
+    width: 900px;
+}
+.md-show {
+    visibility: visible;
+}
+.md-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    opacity: 0;
+    background: rgba(255,255,255,0.7);
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.md-show ~ .md-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+/* Content styles */
+.md-content {
+    color: #fff;
+    background: url('/images/ibet/intro_bg7.jpg?9') no-repeat center center;
+    position: relative;
+    border-radius: 0px;
+    margin: 0 auto;
+    padding:20px;
+}
+.md-close{
+    opacity:0.3;
+    -webkit-transition-duration: 0.5s; /* Safari 3.1 to 6.0 */
+    transition-duration: 0.5s;
+}
+.md-close:hover{
+    opacity:1;
+    -ms-transform: rotate(360deg); /* IE 9 */
+    -webkit-transform: rotate(360deg); /* Chrome, Safari, Opera */
+    transform: rotate(360deg);
+}
+.md-content {
+    display: block;
+    margin: 0 auto;
+    font-size: 0.8em;
+}
+/* Effect login:  3D Rotate from bottom */
+.md-effect-login.md-modal {
+    -webkit-perspective: 1300px;
+    -moz-perspective: 1300px;
+    perspective: 1300px;
+}
+.md-effect-login .md-content {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform: translateY(100%) rotateX(90deg);
+    -moz-transform: translateY(100%) rotateX(90deg);
+    -ms-transform: translateY(100%) rotateX(90deg);
+    transform: translateY(100%) rotateX(90deg);
+    -webkit-transform-origin: 0 100%;
+    -moz-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    opacity: 0;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+.md-show.md-effect-login .md-content {
+    -webkit-transform: translateY(0%) rotateX(0deg);
+    -moz-transform: translateY(0%) rotateX(0deg);
+    -ms-transform: translateY(0%) rotateX(0deg);
+    transform: translateY(0%) rotateX(0deg);
+    opacity: 1;
+}
+.input{
+    background-color:#05193a;
+    color:#455e96;
+    font-family:Abel, sans-serif;
+    -webkit-ime-mode:inactive;
+    -moz-ime-mode:inactive;
+    -ms-ime-mode:inactive;
+    ime-mode:inactive;
+    font-weight:700;
+    -webkit-transition-property: outline, border; /* Safari 3.1 to 6.0 */
+    transition-property: outline, border;
+    -webkit-transition-duration: 0.5s; /* Safari 3.1 to 6.0 */
+    transition-duration: 0.5s;
+}
+input:-webkit-autofill {
+    background-color: #000 !important;
+}
+.input_login{
+    font-size:1em;
+    margin:10px;
+    padding:10px;
+    width:410px;
+    border:2px solid #637ea1;
+    background-color:#05193a;
+    color:#d6edff;
+    font-family:Merriweather Sans, sans-serif;
+    -webkit-ime-mode:inactive;
+    -moz-ime-mode:inactive;
+    -ms-ime-mode:inactive;
+    ime-mode:inactive;
+    font-weight:700;
+    -webkit-transition-property: outline, border; /* Safari 3.1 to 6.0 */
+    transition-property: outline, border;
+    -webkit-transition-duration: 0.5s; /* Safari 3.1 to 6.0 */
+    transition-duration: 0.5s;
+}
+.input_join{
+    padding:7px;
+    width:200px;
+    border:2px solid #455e96;
+    margin:12px;
+    color:#d6edff;
+    font-size:13px;
+    font-family: Nanum Gothic;
+    font-weight:normal;
+    letter-spacing:1px;
+}
+
+.input_chat{
+    padding:7px;
+    width:330px;
+    border:2px solid #455e96;
+    margin:12px;
+    color:#d6edff;
+    font-size:13px;
+    font-family: Nanum Gothic;
+    font-weight:normal;
+    letter-spacing:1px;
+}
+.input_login:hover{
+    outline:0;
+    border:2px solid #8eccff;
+}
+.input_login:focus{
+    outline:0;
+    border:2px solid #8eccff;
+}
+.input_join:hover{
+    outline:0;
+    border:2px solid #8eccff;
+}
+.input_join:focus{
+    outline:0;
+    border:2px solid #8eccff;
+}
+::-webkit-input-placeholder {
+    color: #455e96;
+    font-family: Nanum Gothic;
+    font-weight:700;
+    letter-spacing:0px;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #455e96;
+    font-family: Nanum Gothic;
+    font-weight:700;
+    letter-spacing:0px;
+}
+:-ms-input-placeholder {
+    color: #455e96;
+    font-family: Nanum Gothic;
+    font-weight:700;
+    letter-spacing:0px;
+}
+.login_btn{
+    font-size:1.7em;
+    padding:5px;
+    width:528px;
+    outline:0;
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 0%, rgba(170,170,170,1) 23%, rgba(239,239,239,1) 49%, rgba(201,201,201,1) 73%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(170,170,170,1) 23%,rgba(239,239,239,1) 49%,rgba(201,201,201,1) 73%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(170,170,170,1) 23%,rgba(239,239,239,1) 49%,rgba(201,201,201,1) 73%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    border:1px solid #ffffff;
+    color:#000000;
+    font-family:'Merriweather Sans', sans-serif;
+    font-weight:700;
+    cursor:pointer;
+    -webkit-transition-property: outline, background-color, border, color; /* Safari 3.1 to 6.0 */
+    transition-property: outline, background-color, border, color;
+    -webkit-transition-duration: 0.5s; /* Safari 3.1 to 6.0 */
+    transition-duration: 0.5s;
+    box-shadow: 5px 5px 10px #000000;
+    text-shadow: 0px 1px #ffffff;
+}
+.login_btn:hover{
+    color:#455e96;
+}
+.login_btn_after{
+    border:1px solid #ffffff;
+    color:#ff6600;
+}
+.login_btn:active{
+    border:1px solid #ffffff;
+    color:#ff6600;
+}
+.join_btn{
+    margin-left:220px;
+    margin-top:30px;
+    font-size:1.7em;
+    padding:7px;
+    width:270px;
+    outline:0;
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 0%, rgba(170,170,170,1) 23%, rgba(239,239,239,1) 49%, rgba(201,201,201,1) 73%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(170,170,170,1) 23%,rgba(239,239,239,1) 49%,rgba(201,201,201,1) 73%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(170,170,170,1) 23%,rgba(239,239,239,1) 49%,rgba(201,201,201,1) 73%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    border:1px solid #ffffff;
+    color:#000000;
+    font-family:'Merriweather Sans', sans-serif;
+    font-weight:700;
+    cursor:pointer;
+    -webkit-transition-property: outline, background-color, border, color; /* Safari 3.1 to 6.0 */
+    transition-property: outline, background-color, border, color;
+    -webkit-transition-duration: 0.5s; /* Safari 3.1 to 6.0 */
+    transition-duration: 0.5s;
+    box-shadow: 5px 5px 10px #000000;
+    text-shadow: 0px 1px #ffffff;
+}
+.join_btn:hover{
+    color:#455e96;
+}
+.join_btn_after{
+    border:1px solid #ffffff;
+    color:#ff6600;
+}
+.join_btn:active{
+    border:1px solid #ffffff;
+    color:#ff6600;
+}
+.hp_btn{
+    font-size:12px;
+    width:88px;
+    height:34px;
+    color:#455e96;
+    background-color:#8eccff;
+    border:0px;
+    font-family:Nanum Barun Gothic;
+    -webkit-ime-mode:inactive;
+    -moz-ime-mode:inactive;
+    -ms-ime-mode:inactive;
+    ime-mode:inactive;
+    cursor:pointer;
+    margin-right:12px;
+    margin-top:12px;
+    font-weight:bold;
+    letter-spacing:1px;
+    -webkit-transition-property: outline, background-color, border, color; /* Safari 3.1 to 6.0 */
+    transition-property: outline, background-color, border, color;
+    -webkit-transition-duration: 0.5s; /* Safari 3.1 to 6.0 */
+    transition-duration: 0.5s;
+}
+.hp_btn:hover{
+    outline:0;
+    background-color:#455e96;
+    color:#8eccff;
+}
+.input_line{
+    clear:both;
+    width:720px;
+    border-bottom:0px solid #394a60;
+}
+.input_line2 {
+    text-align:left;
+    vertical-align:top;
+    border-bottom:0px solid #394a60;
+    margin:0px;
+    padding:0px;
+}
+.input_line2 li{
+    display:inline-block;
+    text-align:left;
+    vertical-align:top;
+}
+.ajax_text{
+    color:#fff600;
+    font-size:13px;
+    font-family: Nanum Gothic;
+    padding-top:16px;
+
+}
+
+.ajax_text_chat{
+    color:#fff600;
+    font-size:13px;
+    font-family: Nanum Gothic;
+    padding-top:0px;
+
+}
+
+.ajax_text_login{
+    color:#fff600;
+    font-size:13px;
+    font-family: Nanum Gothic;
+    padding-top:16px;
+
+}
+.crome_div{
+    color:#8eccff;
+    width:100%;
+    height:110px;
+    background:#091E28;
+    position:absolute;
+    z-index:999;
+    top:-10px;
+    text-align:center;
+    -webkit-animation: mymove 1s; /* Chrome, Safari, Opera */
+    animation: mymove 1s;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
+
+
+}
+.crome_div ul{
+    width:1100px;
+    text-align:center;
+    margin:auto;
+    margin-top:20px;
+}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes mymove {
+    0% {top: -100px;}
+    100% {top: -10px;}
+}
+@keyframes mymove {
+    0% {top: -100px;}
+    100% {top: -10px;}
+}
+
+/* 은행선택 설렉트 css */
+.cs-select {
+    position: relative;
+    text-align: left;
+    background: #fff;
+    z-index: 100;
+    width: 182px;
+    height:13px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding-bottom:10px;
+}
+.cs-select select {
+    display: none;
+}
+.cs-select span {
+    display: block;
+    margin-top:-4px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    font-weight:700;
+}
+.cs-select ::after{
+    speak: none;
+    position: absolute;
+}
+.cs-selected{
+    color:#ffffff;
+    background:#455e96;
+}
+.cs-active {
+    z-index: 200;
+}
+/* Options */
+.cs-select .cs-options {
+    overflow: hidden;
+    background: #8eccff;
+    width:690px;
+    visibility: hidden;
+    margin-left:-9px;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-right:30px;
+}
+.cs-select.cs-active .cs-options {
+    visibility: visible;
+}
+.cs-skin-border {
+    background: #05193a;
+}
+.cs-skin-border .cs-options {
+    color: #2980b9;
+    opacity: 0;
+    -webkit-transition: opacity 0.2s, visibility 0s 0.2s;
+    transition: opacity 0.2s, visibility 0s 0.2s;
+}
+.cs-skin-border.cs-active .cs-options {
+    opacity: 1;
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+}
+.cs-skin-border .cs-options li span:hover,
+.cs-skin-border li.cs-focus span {
+    background: #455e96;
+    color:#ffffff;
+}
+.cs-option-y{
+    padding:5px 10px 0px 10px;
+    border:1px solid #6eadd6;
+    margin:3px;
+    width:80px;
+    text-align:center;
+}
+.cs-option-y:hover{
+    background: #455e96;
+    color:#ffffff;
+}
+
+
+
+
+
+/* 휴대폰 설렉트 css */
+.cs-select-hp.cs-select {
+    text-align: center;
+    background: #fff;
+    z-index: 100;
+    width: 37px;
+    height:13px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    float:left;
+}
+.cs-select-hp.cs-select select {
+    display: none;
+}
+.cs-select-hp.cs-select span {
+    display: inline-block;
+    margin-top:-4px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+.cs-select-hp.cs-select ::after{
+    speak: none;
+    position: absolute;
+}
+.cs-select-hp.cs-active {
+    z-index: 200;
+}
+
+
+
+
+.crome {
+    margin-top:-150px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.ani_text {
+
+}
+.ani_text2 {
+
+}
+
+/* 크롬 ime-mode 적용을 위한 한글우선*/
+
+.input_kor[type=text] {
+    -webkit-ime-mode:active;
+    -moz-ime-mode:active;
+    -ms-ime-mode:active;
+    ime-mode:active;
+}

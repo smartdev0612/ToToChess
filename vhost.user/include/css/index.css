@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+img{border:0 none}
+dl,ul,ol,menu,li{list-style:none}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button{margin:0;padding:0}
+body {font-size:12px; color:#afc0da; font-family:"돋움",Dotum,sans-serif; line-height:1.5; }
+a:link, a:visited, a:active { color: #afc0da; text-decoration: none;}
+a:hover { color: #afc0da; text-decoration: none;}
+a.rollover img.over { display:none; }
+a.rollover:hover img { display:none; }
+a.rollover:hover img.over { display:inline;}
+input, select, option, textarea {font-family:"돋움",Dotum,sans-serif; font-size:11px; color:#333; }
+
+#index_logdin { position:absolute; top:421px; width:280px; height:300px; margin-left:-166px; left:50%;} 
+
+.logo {width:300px; height:86px; text-align:right; float:right;}
+.inputr {clear:both; display:block; width:280px; height:180px; font-family:Tahoma; font-size:11px; line-height:25px; color:#cc2820;}
+.input_id {width:144px; height:30px; padding:0 7px 0 35px; font-size:16px; font-family:Tahoma; color:#999; background:none; border:none;}
+/*input:-webkit-autofill {
+   transition: background-color 5000s ease-in-out 0s;
+/*   -webkit-box-shadow: 0 0 0px 1000px #3e3820 inset;*
+}
+input:focus {
+  outline: none;
+}*/
+
+.input_btn1 {width:82px; height:34px; background:url('/images/login_bt_d.png'); border:0; cursor:pointer; margin-left:5px;}
+.input_btn1:hover {background:url('/images/login_bt_u.png');}
+.input_btn2 {width:82px; height:34px; background:url('/images/join_bt_d.png'); border:0; cursor:pointer; margin-left:5px; margin-top:7px;}
+.input_btn2:hover {background:url('/images/join_bt_u.png');}
+
+.inputr2 {position:absolute; top:93px; margin-left:-3px; width:282px; height:46px;font-size:12px; font-family:Tahoma; background:url('/images/join_bg.png'); color:#fff; z-index:1000;}
+.input_id2 {width:110px; height:27px; margin-top:8px; margin-left:12px; padding:0 9px; font-size:14px; font-family:Tahoma; color:#484848; /*background:none;*/ border:none;}
+.input_btn3 {width:63px; height:32px; background:url('/images/join_bt3_d.png'); border:0; cursor:pointer; margin-top:7px;}
+.input_btn3:hover {background:url('/images/join_bt3_u.png');}
+.input_btn4 {width:63px; height:32px; background:url('/images/join_bt2_d.png'); border:0; cursor:pointer; margin-left:1px; margin-top:7px;}
+.input_btn4:hover {background:url('/images/join_bt2_u.png');}
+
+
+#member {background:url('/images/join_bg_3_.png'); width:522px; height:564px; margin:20px auto 0; padding-top:256px;}
+#member_join {background:#fff; margin: 20px auto 0 auto;}
+
+#member2 {background:url(/images/join_bg_22.png); width:522px; height:328px; margin:0px auto 40px; padding-top:190px;}
+
+
+.index_game_end_sub_menu {position:relative; width:690px; height:40px; padding: 0 0 0 10px; border-top:1px solid #25405b; background-image:linear-gradient(180deg, #25303b, #000);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#25303b', endColorstr='#000'); /* for IE */
+background: -webkit-gradient(linear, left top, left bottom, from(#25303b), to(#000)); /* for webkit browsers */
+background: -moz-linear-gradient(top,  #25303b,  #000); /* for firefox 3.6+ */}
+.index_game_end_sub_menu_1 {690px; height:30px; padding-top: 10px; }
+
+/* 회원 정보변경 */
+.index_id_pass {width:700px; height:300px; }
+.index_id_pass_left {width: 149px; height: 24px; float: left; background-color:#000;  text-align: center; padding: 8px 0 0 0; border-bottom: 1px solid #505050; border-right: 1px solid #505050;}
+.index_id_pass_right {width: 486px; height: 25px; color:#d4d4d4; font-size: 14px; float: right; padding: 7px 0 0px 10px;  }
+.index_id_pass_right_move {width:}
+.index_id_pass_img {clear:both; display:block; width:449px; margin:40px auto;}
+.index_id_pass_img2 {clear:both; display:block; width:500px; margin:268px auto 0;}
+.id_text {color: #f65555;}
+.index_id_pass_right input[type="text"], .index_id_pass_right input[type="password"] {width: 440px; height:35px; font-size:14px; line-height:16px; background:#f7f7f7; border:1px solid #ccc; padding-left:7px;}
+.index_id_pass_right select {height:37px; line-height:16px; background:#f7f7f7; border:1px solid #ccc; font-size:14px;}

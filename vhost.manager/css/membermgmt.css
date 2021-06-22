@@ -1,0 +1,22 @@
+@import url("style.css");
+/* CSS Document */
+.BN td{border:none !important;}
+.MinMaxSetting{cursor:pointer;background-color: #E1E1E1; border: 1px solid #CCCCCC; width:100px ; margin-top:1px; text-align:left;padding-left:2px;}
+.DataTable tbody th{ width:130px !important;}
+
+.MgmtHeader{background-color:#2d457f; text-align:center; color:#FFF; font-weight:700; border:1px solid #d1dae6; height:22px;}
+.TAL{text-align:left !important;}
+.TAC{text-align:center !important;}
+.TAR{text-align:right !important;}
+
+.BC-D3D3D3{background-color:#D3D3D3 !important;}
+
+.TRSelect{background-color:#FF9;}
+.TRFail{background-color:#FCC;}
+.PTMaxVal{font-size:10px;color:#999;vertical-align: 50%;}
+.PTMinVal{font-size:10px;color:#999;vertical-align: -50%;}
+.ByLeague{background-color:#fed872;}
+.PTSelected{ font-weight:700; color:#f00;}
+
+.AcctInfor, .Role{ padding-left:9px; margin:8px 8px 0 0; background:url(../img/dot.png) no-repeat 0 3px;}
+.radio {padding-top:5px;}

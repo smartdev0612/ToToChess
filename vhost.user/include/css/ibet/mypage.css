@@ -1,0 +1,1422 @@
+﻿.main{
+	position: relative;
+	margin-top: 17.3em;
+}
+.container{
+	width:100%;
+	margin:0px auto;
+	margin-top:-220px;
+	display:block;
+}
+
+
+
+/* 스크롤바 관련 css
+
+
+/* scrollbar height/width & offset from container borders */
+.scrollbar-macosx > .scroll-element.scroll-x .scroll-bar { height: 7px; min-width: 10px; top: -9px; }
+.scrollbar-macosx > .scroll-element.scroll-y .scroll-bar { left: -9px; min-height: 10px; width: 7px; }
+
+.scrollbar-macosx > .scroll-element.scroll-x .scroll-element_outer { left: 2px; }
+.scrollbar-macosx > .scroll-element.scroll-x .scroll-element_size { left: -4px; }
+
+.scrollbar-macosx > .scroll-element.scroll-y .scroll-element_outer { top: 2px; }
+.scrollbar-macosx > .scroll-element.scroll-y .scroll-element_size { top: -4px; }
+
+/* update scrollbar offset if both scrolls are visible */
+.scrollbar-macosx > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_size { left: -11px; }
+.scrollbar-macosx > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_size { top: -11px; }
+
+
+
+
+/* 마이페이지 스크롤 박스 관련 css */
+.content {
+	padding: 10px;
+	max-width: 950px;
+	height: 630px;
+}
+
+.my_scroll_content {
+	width: 930px; 
+
+}
+
+#charge_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 600px; 	
+	overflow: hidden; 
+}
+
+#exchange_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 600px; 	
+	overflow: hidden; 
+}
+
+#money_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 600px; 	
+	overflow: hidden; 
+}
+
+#my_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 600px; 	
+	overflow: hidden; 
+}
+
+#memo_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 600px; 	
+	overflow: hidden; 
+}
+
+#agency_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 600px; 	
+	overflow: hidden; 
+}
+
+#sportsguide_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 550px; 	
+	overflow: hidden; 
+}
+#sportsguide_content {
+	height:550px;
+	background:#f0f0f0; 
+	color:#666;
+}
+
+#sadariguide_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 600px; 	
+	overflow: hidden; 
+}
+
+#sadariguide_content {
+	height:620px;
+	background:#f0f0f0; 
+	color:#666;
+}
+
+#sadariaguide_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 600px; 	
+	overflow: hidden; 
+}
+
+#sadariaguide_content {
+	height:620px;
+	background:#f0f0f0; 
+	color:#666;
+}
+
+
+#dapangiguide_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 600px; 	
+	overflow: hidden; 
+}
+
+#dapangiguide_content {
+	height:620px;
+	background:#f0f0f0; 
+	color:#666;
+}
+
+#vsportsguide_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 550px; 	
+	overflow: hidden; 
+}
+#vsportsguide_content {
+	height:550px;
+	background:#f0f0f0; 
+	color:#666;
+}
+
+
+
+#vsportsresult_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 550px; 	
+	overflow: hidden; 
+}
+
+
+#vsportsresult_content {
+	height:570px;
+	background:#f0f0f0; 
+	color:#666;
+}
+
+
+#vsportsbetlist_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 550px; 	
+	overflow: hidden; 
+}
+
+
+#vsportsbetlist_content {
+	height:570px;
+	background:#f0f0f0; 
+	color:#666;
+}
+
+
+
+#topscorer_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 600px; 	
+	overflow: hidden; 
+}
+
+
+#topscorer_content {
+	height:720px;
+	background:#f0f0f0; 
+	color:#666;
+}
+
+
+
+/* 마이페이지 스크롤 박스 관련 css ------------*/
+
+@media screen and (max-height: 750px) {
+	
+	.content {
+	padding: 10px;
+	max-width: 950px;
+	height: 450px;
+	}
+
+	.my_scroll_content {
+		width: 930px; 
+
+	}
+
+
+/* 마이페이지 스크롤 박스 관련 작은 모니터 높이 조절 css */
+	#charge_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+	#exchange_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+	#money_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+	#my_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+	#memo_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+	#agency_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+	#sportsguide_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+	#sportsguide_content {
+		height:450px;
+		background:#f0f0f0; 
+		color:#666;
+	}
+
+	#sadariguide_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+	#sadariguide_content {
+		height:450px;
+		background:#f0f0f0; 
+		color:#666;
+	}
+
+
+	#dapangiguide_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+	#dapangiguide_content {
+		height:450px;
+		background:#f0f0f0; 
+		color:#666;
+	}
+
+	#powerballguide_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+
+	#powerballguide_content {
+		height:450px;
+		background:#f0f0f0; 
+		color:#666;
+	}
+	
+	
+	#vsportsguide_content_s { 
+	position:relative; 
+	margin:0px auto; 
+	width:100%;
+	height: 450px; 	
+	overflow: hidden; 
+	}
+	#vsportsguide_content {
+		height:450px;
+		background:#f0f0f0; 
+		color:#666;
+	}
+
+
+
+	#vsportsresult_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+
+	#vsportsresult_content {
+		height:450px;
+		background:#f0f0f0; 
+		color:#666;
+	}
+
+
+	#vsportsbetlist_content_s { 
+		position:relative; 
+		margin:0px auto; 
+		width:100%;
+		height: 450px; 	
+		overflow: hidden; 
+	}
+
+
+	#vsportsbetlist_content {
+		height:450px;
+		background:#f0f0f0; 
+		color:#666;
+	}
+}
+/* 마이페이지 스크롤 박스 관련 css //*/
+
+
+.table {
+    width: 95%;
+	margin-top:20px;
+}
+
+
+.table td{
+border-top: 1px solid #b0c1df;
+padding: 5px 10px 5px 20px;
+height:35px;
+
+}
+
+.tr_last {
+	border-bottom:1px solid #b0c1df;
+}
+.table .subject {
+	background-color:#071821;
+	text-align:center;
+	border-right: 1px solid #b0c1df;
+	border-left: 1px solid #b0c1df;
+	width:130px;
+	padding-left: 0px;
+}
+
+.table .subject_first {
+	background-color:#071821;
+	text-align:center;
+	border-right: 1px solid #b0c1df;
+	width:130px;
+	padding-left: 10px;
+	background-size:100% -1px;
+}
+
+
+
+.small_table {
+    width: 95%;
+    border-collapse: collapse;
+}
+
+.small_table td{
+border-top: 1px solid #b0c1df;
+border-bottom: 1px solid #b0c1df;
+padding: 5px;
+height:25px;
+text-align:center;
+
+}
+
+.small_table .subject {
+	background-color:#174F6C;
+}
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들 충전신청   충전신청*/
+
+#container_box {
+	width:100%;
+	margin: 0px auto;
+}
+
+
+ul.tabs {
+
+    padding: 0px;
+    float: left;
+    list-style: none;
+    height: 32px;
+    border-bottom: 1px solid #b0c1df;
+    border-left: 1px solid #b0c1df;
+    width: 100%;
+    font-size:13px;
+	margin:0px auto;
+
+}
+ul.tabs li {
+    float: left;
+    text-align:center;
+    cursor: pointer;
+    width:100px;
+    height: 31px;
+    line-height: 31px;
+    border: 1px solid #b0c1df;
+    border-left: none;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+}
+ul.tabs li.active {
+    background: #071821;
+    border-bottom: 1px solid #071821;
+}
+.tab_container {
+    border: 1px solid #b0c1df;
+    border-top: none;
+    clear: both;
+    float: left;
+    width: 100%;
+}
+.tab_charge_content {
+    padding: 20px;
+    font-size: 12px;
+    display: none;
+	background-color:#071821;
+}
+.tab_container .tab_charge_content ul {
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+.tab_container .tab_charge_content ul li {
+    padding:5px;
+    list-style:none;
+}
+/* 새로운 레이어 팝업을 위한 복사 해둘것들  충전신청--------*/
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들  환전신청*/
+
+#container_box2 {
+	width:95%;
+	margin: 0px auto;
+}
+
+ul.tabs2 {
+
+    padding: 0px;
+    float: left;
+    list-style: none;
+    height: 32px;
+    border-bottom: 1px solid #b0c1df;
+    border-left: 1px solid #b0c1df;
+    width: 100%;
+    font-size:13px;
+	margin:0px auto;
+
+}
+ul.tabs2 li {
+    float: left;
+    text-align:center;
+    cursor: pointer;
+    width:100px;
+    height: 31px;
+    line-height: 31px;
+    border: 1px solid #b0c1df;
+    border-left: none;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+}
+ul.tabs2 li.active {
+    background: #071821;
+    border-bottom: 1px solid #071821;
+}
+
+
+.tab_container2 {
+    border: 1px solid #b0c1df;
+    border-top: none;
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+.tab_exchange_content {
+    padding: 20px;
+    font-size: 12px;
+    display: none;
+	background-color:#071821;
+}
+.tab_container2 .tab_exchange_content ul {
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+.tab_container2 .tab_exchange_content ul li {
+    padding:5px;
+    list-style:none;
+}
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들 환전신청--------*/
+
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들 머니내역 */
+
+#container_box4 {
+	width:95%;
+	margin: 0px auto;
+}
+
+ul.tabs4 {
+
+    padding: 0px;
+    float: left;
+    list-style: none;
+    height: 32px;
+    border-bottom: 1px solid #b0c1df;
+    border-left: 1px solid #b0c1df;
+    width: 100%;
+    font-size:13px;
+	margin:0px auto;
+
+}
+ul.tabs4 li {
+    float: left;
+    text-align:center;
+    cursor: pointer;
+    width:100px;
+    height: 31px;
+    line-height: 31px;
+    border: 1px solid #b0c1df;
+    border-left: none;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+}
+ul.tabs4 li.active {
+    background: #071821;
+    border-bottom: 1px solid #071821;
+}
+
+
+.tab_container4 {
+    border: 1px solid #b0c1df;
+    border-top: none;
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+.tab_money_content {
+    padding: 20px;
+    font-size: 12px;
+    display: none;
+	background-color:#071821;
+}
+.tab_container4 .tab_money_content ul {
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+.tab_container4 .tab_money_content ul li {
+    padding:5px;
+    list-style:none;
+}
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들  머니내역--------*/
+
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들 마이리퍼블릭 */
+
+#container_box5 {
+	width:95%;
+	margin: 0px auto;
+}
+
+ul.tabs5 {
+
+    padding: 0px;
+    float: left;
+    list-style: none;
+    height: 32px;
+    border-bottom: 1px solid #b0c1df;
+    border-left: 1px solid #b0c1df;
+    width: 100%;
+    font-size:13px;
+	margin:0px auto;
+
+}
+ul.tabs5 li {
+    float: left;
+    text-align:center;
+    cursor: pointer;
+    width:100px;
+    height: 31px;
+    line-height: 31px;
+    border: 1px solid #b0c1df;
+    border-left: none;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+}
+ul.tabs5 li.active {
+    background: #071821;
+    border-bottom: 1px solid #071821;
+}
+
+
+.tab_container5 {
+    border: 1px solid #b0c1df;
+    border-top: none;
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+.tab_my_content {
+    padding: 20px;
+    font-size: 12px;
+    display: none;
+	background-color:#071821;
+}
+.tab_container5 .tab_my_content ul {
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+.tab_container5 .tab_my_content ul li {
+    padding:5px;
+    list-style:none;
+}
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들  마이리퍼블릭--------*/
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들 고객상담 */
+
+#container_box6 {
+	width:95%;
+	margin: 0px auto;
+}
+
+ul.tabs6 {
+
+    padding: 0px;
+    float: left;
+    list-style: none;
+    height: 32px;
+    border-bottom: 1px solid #b0c1df;
+    border-left: 1px solid #b0c1df;
+    width: 100%;
+    font-size:13px;
+	margin:0px auto;
+
+}
+ul.tabs6 li {
+    float: left;
+    text-align:center;
+    cursor: pointer;
+    width:100px;
+    height: 31px;
+    line-height: 31px;
+    border: 1px solid #b0c1df;
+    border-left: none;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+}
+ul.tabs6 li.active {
+    background: #071821;
+    border-bottom: 1px solid #071821;
+}
+
+
+.tab_container6 {
+    border: 1px solid #b0c1df;
+    border-top: none;
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+.tab__memo_content {
+    padding: 20px;
+    font-size: 12px;
+    display: none;
+	background-color:#071821;
+}
+.tab_container6 .tab_memo_content ul {
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+.tab_container6 .tab_memo_content ul li {
+    padding:5px;
+    list-style:none;
+}
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들  고객상담--------*/
+
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들 머니내역 */
+
+#container_box7 {
+	width:95%;
+	margin: 0px auto;
+}
+
+ul.tabs7 {
+
+    padding: 0px;
+    float: left;
+    list-style: none;
+    height: 32px;
+    border-bottom: 1px solid #b0c1df;
+    border-left: 1px solid #b0c1df;
+    width: 100%;
+    font-size:13px;
+	margin:0px auto;
+
+}
+ul.tabs7 li {
+    float: left;
+    text-align:center;
+    cursor: pointer;
+    width:100px;
+    height: 31px;
+    line-height: 31px;
+    border: 1px solid #b0c1df;
+    border-left: none;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+}
+ul.tabs7 li.active {
+    background: #071821;
+    border-bottom: 1px solid #071821;
+}
+
+
+.tab_container7 {
+    border: 1px solid #b0c1df;
+    border-top: none;
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+.tab_agency_content {
+    padding: 20px;
+    font-size: 12px;
+    display: none;
+	background-color:#071821;
+}
+.tab_container7 .tab_agency_content ul {
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+.tab_container7 .tab_agency_content ul li {
+    padding:5px;
+    list-style:none;
+}
+
+/* 새로운 레이어 팝업을 위한 복사 해둘것들  에이전시--------*/
+
+
+/*  마이페이지 중간 단락 리스트 보여지는 부분 */
+
+.title_div {
+	clear:both; 
+	width:95%; 
+	margin-left:20px; 
+	margin-top:30px;
+	margin-bottom:10px;
+	display:inline-block;
+}
+
+.title_div li:first-child {
+	float:left; 
+	font-size:18px; 
+	font-weight:700;
+}
+
+.title_div li:first-child img{
+	vertical-align:middle; 
+	margin-right:10px;
+}
+
+.title_div li:last-child {
+	float:left;
+	text-align:right;
+}
+
+
+.small_table_line {
+    width: 95%;
+    border-collapse: collapse;
+}
+
+.small_table_line td{
+border-top: 1px solid #b0c1df;
+border-bottom: 1px solid #b0c1df;
+border-right: 1px solid #b0c1df;
+padding: 5px;
+height:25px;
+text-align:center;
+}
+
+.small_table_line td:last-child{
+border-top: 1px solid #cccccc;
+border-bottom: 1px solid #cccccc;
+border-right:none;
+padding: 5px;
+height:25px;
+text-align:center;
+}
+
+.small_table_line > thead > tr:first-child {
+	background-color:#071821;
+}
+
+
+.small_table_line_level {
+    width: 90%;
+    border-collapse: collapse;
+	font-size:12px;
+}
+
+
+.small_table_line_level td{
+border-top: 1px solid #cccccc;
+border-bottom: 1px solid #cccccc;
+border-right: 1px solid #cccccc;
+padding: 5px;
+height:25px;
+text-align:center;
+}
+
+.small_table_line_level td:first-child{
+border-top: 1px solid #cccccc;
+border-bottom: 1px solid #cccccc;
+border-right: 1px solid #cccccc;
+padding: 5px;
+height:25px;
+text-align:center;
+}
+
+.small_table_line_level td:last-child{
+border-top: 1px solid #cccccc;
+border-bottom: 1px solid #cccccc;
+border-right:none;
+padding: 5px;
+height:25px;
+text-align:center;
+}
+
+
+.ing_text {
+	color:#ffde00;
+	font-weight:bold;
+}
+/* 캔슬버튼 이상으로 연구 하니 클래스가 같았어 이런 염병 그래서 _2 붙임  2016-02-12*/
+.cancel_2 {
+	background-color:#233e70;
+	color:#8bc9fd;
+	padding:3px;
+	width:80px;
+	border-radius:2px;
+	font-size:13px;
+	font-weight:bold;
+	cursor:pointer;
+	font-family:Abel;
+	letter-spacing:1px;
+	margin:0px auto;
+}
+/* 캔슬버튼 이상으로 연구 하니 클래스가 같았어 이런 염병 */
+.tail_more {
+	width:91%; 
+	padding:15px; 
+	margin:0px auto; 
+	border-top:1px solid #b0c1df; 
+	border-bottom:1px solid #b0c1df; 
+	text-align:center;
+	margin-top:30px;
+	background-color:#071821;
+	cursor:pointer;
+}
+.my {
+	color:#ffde00;
+	font-size:18px;
+}
+
+.star {
+	color:#ffde00;
+	font-size:18px;
+	font-family:'Roboto', sans-serif;  
+	letter-spacing:0em; 
+	vertical-align:top;
+
+}
+
+
+.content_ajax_text {
+	color:#ff9900;
+	font-weight:bold;
+}
+
+
+/* 데이트 피크를 위한 css */
+
+.dropdown-menu {
+	position:absolute;
+	top:100%;
+	left:0;
+	z-index:1000;
+	display:none;
+	float:left;
+	min-width:130px;
+	padding:5px 0;
+	margin:2px 0 0;
+	font-size:14px;
+	text-align:left;
+	list-style:none;
+	background-color:#fff;
+	-webkit-background-clip:padding-box;
+	background-clip:padding-box;
+	border:1px solid #ccc;
+	border:1px solid rgba(0, 0, 0, .15);
+	-webkit-box-shadow:0 6px 12px rgba(0, 0, 0, .175);
+	box-shadow:0 6px 12px rgba(0, 0, 0, .175)
+}
+
+/* 달력 선택시 확인 취소 버튼 */
+.btn-success {
+	color:#fff;
+	background-color:#489248;
+	border-color:#4cae4c;
+	padding:5px;
+	outline:none;
+	border:0px;
+	width:59px;
+	cursor:pointer;
+}
+.btn-default {
+	color:#fff;
+	background-color:#666;
+	border-color:#4cae4c;
+	padding:5px;
+	outline:none;
+	border:0px;
+	width:58px;
+	cursor:pointer;
+}
+
+
+.back_btn{
+	margin-top:70px;
+	font-size:1.8em;
+	padding:5px;
+	width:120px;
+	height:40px;
+	color:#8eccff;
+	background-color:#233e70;
+	border:0px;
+	font-family:Abel, sans-serif;
+	cursor:pointer;
+	-webkit-transition-property: outline, background-color, border, color; /* Safari 3.1 to 6.0 */
+	transition-property: outline, background-color, border, color;
+	-webkit-transition-duration: 0.5s; /* Safari 3.1 to 6.0 */
+	transition-duration: 0.5s;
+}
+.back_btn:hover{
+	outline:0;
+	background-color:#ff7c1e;
+	color:#fff;
+}
+.complete_text {
+	margin-top:150px;
+	font-family:Abel, sans-serif;
+	font-size:4em;
+}
+
+.complete_kor_text {
+	margin-top:5px;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size:1.2em;
+}
+
+.card {
+	float:left;
+	margin-right:36px;
+	width:280px; 
+	height:580px;  
+	border:2px solid #ffffff; 
+	padding-top:0px; 
+	text-align:center; 
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(-45deg,  #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(-45deg,  #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(135deg,  #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	display:inline-block; 
+	box-shadow:5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+.card div {
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#183c7e+0,2989d8+50,207cca+51,174F6C+100 */
+background: rgb(24,60,126); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(24,60,126,1) 0%, rgba(41,137,216,1) 50%, rgba(32,124,202,1) 51%, rgba(57,99,176,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  rgba(24,60,126,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(57,99,176,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  rgba(24,60,126,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(57,99,176,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#183c7e', endColorstr='#174F6C',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+	margin-bottom:10px;
+}
+.card.on {
+	border:2px solid #174F6C; 
+}
+
+.coupon {
+	float:left; 
+	width:206px; 
+	height:50px;  
+	border:2px solid #071821; 
+	padding-top:5px; 
+	text-align:center; 
+	background-color:#071821; 
+	display:inline-block; 
+	margin:7px; 
+	box-shadow:5px 5px 5px #2c4b86;
+	cursor:pointer;
+}
+
+.coupon.on {
+	border:2px solid #f4d621; 
+}
+
+.coupon_pay {
+	font-family:'Roboto', sans-serif; 
+	font-size:25px; 
+	font-style:italic;  
+	letter-spacing:0em; 
+	vertical-align:middle;
+	text-align:right;
+}
+.coupon_pay.ok {
+	text-decoration:line-through;
+}
+
+/* 텍스트 입력 박스 스타일 */
+
+#commentBox {
+	display: block;
+	background-color:#071821;
+	padding: 15px;
+	border:1px solid #7b98cd;
+	line-height: 200%;
+	font-size: 14px;
+	font-family:Nanum Gothic;
+	color:#fff;
+	width:736px;
+	overflow-y: auto;
+}
+
+.input_style{
+	padding-left:10px;
+	height:30px;
+	border:1px solid #7b98cd;
+	font-size:13px;
+	text-align:left; 
+	background-color:#071821;
+	color:#fff;
+	font-family:Nanum Gothic;
+
+}
+.tab_title_bg {	
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+	float:left; 
+	width:100px; 
+	margin:2px; 
+	color:#707070; 
+	padding:10px; 
+	font-size:13px; 
+	font-weight:bold; 
+	border:1px solid #d9d9d9; 
+	cursor:pointer;
+}
+
+
+.tab_title_on_bg {
+	background: -moz-linear-gradient(top, #648de7 0%, #05193a 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#648de7), color-stop(100%,#05193a)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #648de7 0%,#05193a 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #648de7 0%,#05193a 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #648de7 0%,#05193a 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #648de7 0%,#05193a 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#648de7', endColorstr='#05193a',GradientType=0 ); /* IE6-9 */
+	float:left; 
+	width:100px; 
+	margin:2px; 
+	color:#ffffff; 
+	padding:10px; 
+	font-size:13px; 
+	font-weight:bold; 
+	border:1px solid #d9d9d9; 
+	cursor:pointer;
+}
+
+.tab_title_bg2 {	
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+	float:left; 
+	margin:2px; 
+	color:#707070; 
+	padding:10px; 
+	font-size:14px; 
+	font-weight:bold; 
+	border:1px solid #d9d9d9; 
+	cursor:pointer;
+}
+
+
+.tab_title_on_bg2 {
+	background: -moz-linear-gradient(top, #648de7 0%, #05193a 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#648de7), color-stop(100%,#05193a)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #648de7 0%,#05193a 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #648de7 0%,#05193a 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #648de7 0%,#05193a 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #648de7 0%,#05193a 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#648de7', endColorstr='#05193a',GradientType=0 ); /* IE6-9 */
+	float:left; 
+	margin:2px; 
+	color:#ffffff; 
+	padding:10px; 
+	font-size:14px; 
+	font-weight:bold; 
+	border:1px solid #d9d9d9; 
+	cursor:pointer;
+}
+
+
+
+
+.ptab_title_bg {	
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+	float:left;  
+	margin:2px; 
+	color:#707070; 
+	padding:10px 30px 10px 30px; 
+	font-size:13px; 
+	font-weight:bold; 
+	border:1px solid #d9d9d9; 
+	cursor:pointer;
+}
+
+
+.ptab_title_on_bg {
+	background: -moz-linear-gradient(top, #648de7 0%, #05193a 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#648de7), color-stop(100%,#05193a)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #648de7 0%,#05193a 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #648de7 0%,#05193a 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #648de7 0%,#05193a 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #648de7 0%,#05193a 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#648de7', endColorstr='#05193a',GradientType=0 ); /* IE6-9 */
+	float:left; 
+	margin:2px; 
+	color:#ffffff; 
+	padding:10px 30px 10px 30px; 
+	font-size:13px; 
+	font-weight:bold; 
+	border:1px solid #d9d9d9; 
+	cursor:pointer;
+}
+
+
+.table_title_bg {
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+	
+}
+
+.bet_title_bg {
+	color:#FFFFFF;
+	size:12px;
+	background: -moz-linear-gradient(top, #444444 0%, #222222 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#444444), color-stop(100%,#222222)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #444444 0%,#222222 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #444444 0%,#222222 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #444444 0%,#222222 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #444444 0%,#222222 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444444', endColorstr='#222222',GradientType=0 ); /* IE6-9 */
+	
+}
+
+.page_btn {
+	padding:5px 10px 5px 10px; 
+	margin:5px; 
+	background-color:#e3e3e3; 
+	border:1px solid #cccccc; 
+	cursor:pointer;
+}
+.page_btn:hover {
+	background-color:#fff; 
+	border:1px solid #cccccc; 
+	cursor:pointer;
+	color:#666666;
+}
+
+.page_btn_my {
+	padding:5px 10px 5px 10px; 
+	margin:5px; 
+	background-color:#2d5191; 
+	border:1px solid #2d5191; 
+	cursor:pointer;
+	color:#fff;
+}
+.page_btn_my:hover {
+	border:1px solid #ccc; 
+	cursor:pointer;
+	color:#fff;
+}
+
+
+.page_btn_on {
+	background-color:#3f66b3; 
+	border:1px solid #cccccc;
+color:#ffffff;		
+	cursor:pointer;
+}
+.folder_tr {
+	height:30px;
+	border-bottom:1px solid #cccccc;
+	background-color:#f9f9f9;
+}
+
+.folder_td {
+	text-align:center;
+	border-left:1px solid #cccccc;
+	padding:3px;
+}
+
+.default_input {
+	background:#071821; 
+	font-size:13px; 
+	font-family:sans-serif;  
+	text-align:center; 
+	color:#fff; 
+	cursor: pointer; 
+	padding: 5px; 
+	border: 1px solid #b0c1df; 
+}
+.default_input::-webkit-input-placeholder {color:#fff;}
+.default_input::-ms-input-placeholder {color:#fff;}
+.default_input::-moz-input-placeholder {color:#fff;}
+.default_input::input-placeholder {color:#fff;}
+
+.search_btn{
+	margin-left:1px;
+	font-size:1.0em;
+	padding:3px;
+	width:50px;
+	height:29px;
+	color:#8eccff;
+	background-color:#233e70;
+	border:0px;
+	font-family:Abel, sans-serif;
+	display:inline-block;
+	-webkit-ime-mode:inactive;
+	-moz-ime-mode:inactive;
+	-ms-ime-mode:inactive;
+	ime-mode:inactive;
+	cursor:pointer;
+	-webkit-transition-property: outline, background-color, border, color; /* Safari 3.1 to 6.0 */
+	transition-property: outline, background-color, border, color;
+	-webkit-transition-duration: 0.5s; /* Safari 3.1 to 6.0 */
+	transition-duration: 0.5s;
+}
+.search_btn:hover{
+	outline:0;
+	background-color:#ff7c1e;
+	color:#fff;
+}
+
+.younjang_1 {
+	border:1px solid #7ea0df;
+	color:#7ea0df; 
+	border-radius:2px; 
+	padding:3px; 
+	font-size:11px; 
+	font-family:돋움; 
+	height:14px;
+	vertical-align:text-top;
+	line-height:15px;
+}
+.younjang_2 {
+	border:1px solid #fa9048;
+	color:#fa9048; 
+	border-radius:2px; 
+	padding:3px; 
+	font-size:11px; 
+	font-family:돋움; 
+	height:14px;
+	vertical-align:text-top;
+	line-height:15px;
+}
+.younjang_3 {
+	border:1px solid #6c6c6c;
+	color:#6c6c6c; 
+	border-radius:2px; 
+	padding:3px; 
+	font-size:11px; 
+	font-family:돋움; 
+	height:14px;
+	vertical-align:text-top;
+	line-height:15px;
+}
+.font-logo {
+	font-family:Ubuntu;
+	color:#174F6C;
+	font-size:18px;
+	font-style:italic;
+	margin:0px 5px 0px 5px;
+}
+.terms {
+	font-size:60px; 
+	float:left; 
+	font-weight:700; 
+	text-align:left; 
+	color:#666;
+	background: -webkit-linear-gradient(#999, #222);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent; 
+	font-family:Merriweather Sans; 
+	border:0px;
+	/* text-shadow: 2px 2px rgba(255, 255, 255, 1);  */
+}
