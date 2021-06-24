@@ -234,6 +234,24 @@
             margin-bottom: 10px;
             transition: 200ms all;
         }
+
+        .hidden-xs {
+            display: block !important;
+        }
+
+        .hidden-sm {
+            display: none !important;
+        }
+
+        @media screen and (max-width: 900px) { 
+            .hidden-xs {
+                display: none !important;
+            }
+
+            .hidden-sm {
+                display: block !important;
+            }
+        }
     </style>
     <!-- <script type="text/javascript" src="/10bet/js/10bet/jquery-2.0.3.min.js"></script> -->
     <script type="text/javascript">
@@ -305,6 +323,15 @@
             <div class="btn-center">
                 <button type="button" class="confirm-yes" onClick="location.href='/member/memolist'">예</button>
             </div>
+        </div>
+    </div>
+    <!-- 레이어 팝업 -->
+    <div class="mask_layer" style="display:none;"></div>
+    <div class="popup_message" style="display:none;" onClick="location.href='/member/memolist'">
+        <div class="message_box">
+            <img src="/10bet/images/10bet/img_message_01.png">
+            <span class="count01"></span>
+            <span class="count02"></span>
         </div>
     </div>
     <!-- 배팅취소알림 팝업 -->
@@ -395,7 +422,7 @@
                             <li  onClick="location.href='/cs/cs_list'"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="IO BET 로고" />고객센터</li>
                             <!-- <li  onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="IO BET 로고" />게시판</li> -->
                             <li  onClick="location.href='/board/?bbsNo=7'"><img src="/10bet/images/10bet/ico/top_ico12.png" alt="IO BET 로고" />이벤트</li>
-                            <li  onClick="location.href='/game_guide'"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="IO BET 로고" />이용규정</li>
+                            <li  onClick="location.href='/game_guide'"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="IO BET 로고" />배팅규정</li>
                         <?php } else { ?>
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico6.png" alt="IO BET 로고" />카지노</li>
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="IO BET 로고" />경기결과</li>
@@ -403,7 +430,7 @@
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="IO BET 로고" />고객센터</li>
                             <!-- <li  onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="IO BET 로고" />게시판</li> -->
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico12.png" alt="IO BET 로고" />이벤트</li>
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="IO BET 로고" />이용규정</li>
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="IO BET 로고" />배팅규정</li>
                         <?php 
                             }
                         ?>
@@ -468,14 +495,14 @@
                                 <li class="button_type01 " onClick="location.href='/cs/cs_list'">고객센터</li>
                                 <!-- <li class="button_type01 " onClick="location.href='/board/'">게시판</li> -->
                                 <li class="button_type01 " onClick="location.href='/board/?bbsNo=7'">이벤트</li>
-                                <li class="button_type01 " onClick="location.href='/game_guide'">이용규정</li>
+                                <li class="button_type01 " onClick="location.href='/game_guide'">배팅규정</li>
                             <?php } else { ?>
                                 <li class="button_type01 " onClick="login_open();">경기결과</li>
                                 <li class="button_type01 " onClick="login_open();">배팅내역</li>
                                 <li class="button_type01 " onClick="login_open();">고객센터</li>
                                 <!-- <li class="button_type01 " onClick="location.href='/board/'">게시판</li> -->
                                 <li class="button_type01 " onClick="login_open();">이벤트</li>
-                                <li class="button_type01 " onClick="login_open();">이용규정</li>
+                                <li class="button_type01 " onClick="login_open();">배팅규정</li>
                             <?php 
                                 }
                             ?>

@@ -44,8 +44,8 @@
                                 <?php echo $TPL_I1+1?>
                             </td>
                             <td class="ta_left"><?php echo nl2br($TPL_V1["subject"])?></td>
-                            <td><span class='member' style='color:#ffffff;'><?php echo $TPL_V1["regdate"]?></span></td>
-                            <td><?php if(count((array)$TPL_V1["reply"])<=0){?>답변준비중<?php }else{?>답변완료<?php }?></td>
+                            <td><span class='member' style='color:#ffffff;'><?php echo substr($TPL_V1["regdate"], 5)?></span></td>
+                            <td><?php if(count((array)$TPL_V1["reply"])<=0){?>준비중<?php }else{?>완료<?php }?></td>
                             <td><a href="/cs/cs_list?act=del&amp;idx=<?php echo $TPL_V1["idx"]?>" class="btn btn-danger btnstyle_s" style="color: red;" >삭제</a></td>
                         </tr>
                         <?php if(count((array)$TPL_V1["reply"])>0){?>

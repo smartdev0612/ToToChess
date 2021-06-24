@@ -2,25 +2,6 @@
 	<div class="mask"></div>
 	<div id="container">
 
-<style>
-    .hidden-xs {
-        display: block;
-    }
-
-    .hidden-sm {
-        display: none;
-    }
-
-    @media screen and (max-width: 900px) { 
-        .hidden-xs {
-            display: none;
-        }
-
-        .hidden-sm {
-            display: block;
-        }
-    }
-</style>
 <script type="text/javascript" src="/10bet/js/left.js?1610338639"></script>
 <!-- 컨텐츠 영역 -->
 <div id="contents">
@@ -75,7 +56,7 @@
                     </p>
                     <?php 
                     if(count((array)$_SESSION['member']) > 0) { ?>
-                    <button onClick="location.href='/game_list?game=real'">PLAY NOW</button>
+                    <button onClick="location.href='/game_list?game=live'">PLAY NOW</button>
                     <?php } else { ?>
                     <button onClick="login_open();">PLAY NOW</button>
                     <?php } ?>
@@ -111,7 +92,7 @@
                     </p>
                     <?php 
                     if(count((array)$_SESSION['member']) > 0) { ?>
-                    <button onClick="location.href='/minigame'">PLAY NOW</button>
+                    <button onClick="location.href='/game_list?game=power'">PLAY NOW</button>
                     <?php } else { ?>
                     <button onClick="login_open();">PLAY NOW</button>
                     <?php } ?>
@@ -142,7 +123,7 @@
                     </p>
                     <?php 
                     if(count((array)$_SESSION['member']) > 0) { ?>
-                    <button onClick="location.href='/game_list?game=multi'">PLAY NOW</button>
+                    <button onClick="location.href='/game_list?game=abroad'">PLAY NOW</button>
                     <?php } else { ?>
                     <button onClick="login_open();">PLAY NOW</button>
                     <?php } ?>
@@ -336,7 +317,7 @@
             <li>
                 <?php 
                 if(count((array)$_SESSION['member']) > 0) { ?>
-                <div class="box01 bg04" onClick="location.href='/minigame'">
+                <div class="box01 bg04" onClick="location.href='/game_list?game=power'">
                 <?php } else { ?>
                 <div class="box01 bg04" onClick="login_open();">
                 <?php } ?>

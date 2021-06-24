@@ -200,15 +200,15 @@ function toggle_multi($tr, $index, selectedRate)
 	if(m_betList._items.length > 0) {
 		for(i=0; i<m_betList._items.length; ++i)
 		{
-			var temps = m_betList._items[i]._game_index.split("_");
-			var temp_game_sn = temps[0];
-			if(gameSn == temps[0]) {
-				del_bet(m_betList._items[i]._game_index, s_type, 1);
-			}
-			// if(m_betList._items[i]._game_type == 6 || m_betList._items[i]._game_type == 9 || m_betList._items[i]._game_type == 100 || m_betList._items[i]._game_type == 217  || m_betList._items[i]._game_type == 394 || 
-			// 	m_betList._items[i]._game_type == 395 || m_betList._items[i]._game_type == 602) {
+			// var temps = m_betList._items[i]._game_index.split("_");
+			// var temp_game_sn = temps[0];
+			// if(gameSn == temps[0]) {
 			// 	del_bet(m_betList._items[i]._game_index, s_type, 1);
 			// }
+			if(m_betList._items[i]._game_type == 6 || m_betList._items[i]._game_type == 9 || m_betList._items[i]._game_type == 100 || m_betList._items[i]._game_type == 217  || m_betList._items[i]._game_type == 394 || 
+				m_betList._items[i]._game_type == 395 || m_betList._items[i]._game_type == 602) {
+				del_bet(m_betList._items[i]._game_index, s_type, 1);
+			}
 		}
 	}
 	

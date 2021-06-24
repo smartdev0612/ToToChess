@@ -2563,5 +2563,87 @@ class GameModel extends Lemon_Model
 		$sql = "UPDATE tb_markets SET fRate = " . $fRate . " WHERE mid = " . $mid;
 		$this->db->exeSql($sql);
 	}
+
+	function getMarketFamily() {
+		$sql = "SELECT family_id, family_name FROM tb_market_family;";
+		return $this->db->exeSql($sql);
+	}
+
+	function getCrossLimitList() {
+		$sql = "SELECT
+					tb_cross_limit.*,
+					tb_sports.`name` AS sport_name,
+					tb_sports.nOrder
+				FROM
+					tb_cross_limit 
+					LEFT JOIN tb_sports
+					ON tb_cross_limit.sport_id = tb_sports.`sn`
+				ORDER BY tb_cross_limit.type_id, tb_sports.nOrder;";
+		return $this->db->exeSql($sql);
+	}
+
+	function getLimitScript($limit_id = 0) {
+		$sql = "SELECT
+					*
+				FROM
+					tb_cross_limit 
+				WHERE	limit_id = " . $limit_id;
+
+		$res = $this->db->exeSql($sql);
+
+		$script = [];
+
+		if(count((array)$res) > 0) {
+			$script = $res[0];
+		}
+
+		return $script;
+	}
+
+	function getSportList() {
+		$sql = "SELECT 
+					tb_sports.*
+				FROM 
+					tb_sports
+				WHERE 
+					tb_sports.use = 1
+				ORDER BY 
+					tb_sports.nOrder;";
+
+		$res = $this->db->exeSql($sql);
+
+		return $res;
+	}
+
+	function saveCrossScript($limit_id = 0, $cross_script = "", $type_id = 0, $sport_id = 0) {
+		if($limit_id == 0) {
+			$sql = "INSERT INTO tb_cross_limit
+							( 	
+								type_id, 
+								sport_id,
+								cross_script
+							)
+							VALUES 
+							(
+								{$type_id},
+								{$sport_id},
+								'{$cross_script}'
+							)";
+		} else {
+			$sql = "UPDATE 	tb_cross_limit
+					SET		cross_script = '{$cross_script}',
+							type_id = {$type_id},
+							sport_id = {$sport_id}
+					WHERE	limit_id = {$limit_id}";
+		}
+		$res = $this->db->exeSql($sql);
+		return $res;
+	}
+
+	function deleteCrossScript($limit_id = 0) {
+		$sql = "DELETE FROM tb_cross_limit WHERE limit_id = " . $limit_id;
+		$res = $this->db->exeSql($sql);
+		return $res;
+	}
 }
 ?>

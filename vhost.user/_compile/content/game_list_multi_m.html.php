@@ -975,7 +975,7 @@
         
         var homeAdd = "";
         var awayAdd = "";
-        var sub_idx = `${item.m_nGame}_${detail.m_nMarket}`;
+        var sub_idx = `${item.m_nGame}_${detail.m_nMarket}_${detail.m_nFamily}`;
         //console.log(response.betting_type);
         
         div += '<ul id="div_' + item.m_nGame + '">';
@@ -1208,6 +1208,7 @@
                 "m_strHour": res.m_strHour, 
                 "m_strMin": res.m_strMin, 
                 "m_nMarket": detail.m_nMarket, 
+                "m_nFamily": detail.m_nFamily, 
                 "m_nHBetCode": detail.m_nHBetCode, 
                 "m_nDBetCode": detail.m_nDBetCode, 
                 "m_nABetCode": detail.m_nABetCode, 
@@ -2618,7 +2619,7 @@
         children_div += `<div class="list_st5" id="${div_id}">`;
         children_div += '<ul><li class="tr2">' + header + '</li>';
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
             children_div += '<li>';
             children_div += '<div style="display:none">';
             children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -2658,7 +2659,7 @@
         children_div += `<div class="list_st5" id="${div_id}">`;
         children_div += '<ul><li class="tr2">' + header + '</li>';
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
             children_div += '<li>';
             children_div += '<div style="display:none">';
             children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -2701,7 +2702,7 @@
         children_div += `<div class="list_st5" id="${div_id}">`;
         children_div += '<ul><li class="tr2">' + header + '</li>';
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${index}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}_${index}`;
             children_div += '<li>';
             children_div += '<div style="display:none">';
             children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -2742,7 +2743,7 @@
         children_div += `<div class="list_st5" id="${div_id}">`;
         children_div += '<ul><li class="tr2">' + header + '</li>';
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${index}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}_${index}`;
             children_div += '<li>';
             children_div += '<div style="display:none">';
             children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -2781,7 +2782,7 @@
         children_div += `<div class="list_st5" id="${div_id}">`;
         children_div += '<ul><li class="tr2">' + header + '</li>';
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
             children_div += '<li>';
             children_div += '<div style="display:none">';
             children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -2821,7 +2822,7 @@
         children_div += '<ul><li class="tr2">' + header + '</li>';
         $i = 0;
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${index}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}_${index}`;
             $i++;
             if($i % 3 == 1) {
                 children_div += '<li>';
@@ -2864,7 +2865,7 @@
         children_div += '<ul><li class="tr2">' + header + '</li>';
         $i = 0;
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${index}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}_${index}`;
             $i++;
             if($i % 2 == 1) {
                 children_div += '<li>';
@@ -2925,7 +2926,7 @@
         children_div += `<div class="list_st5" id="${div_id}">`;
         children_div += '<ul><li class="tr2">' + header + '</li>';
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
             children_div += '<li>';
             children_div += '<div style="display:none">';
             children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';

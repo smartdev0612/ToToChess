@@ -92,6 +92,48 @@ class ConfigController extends WebServiceController
         //$this->globalconfigAction();
     }
 
+	// 조합배팅제한
+    function crosslimitAction()
+    {
+        $this->commonDefine();
+
+        if(!$this->auth->isLogin())
+        {
+            $this->redirect("/login");
+            exit;
+        }
+
+        $this->view->define("content","content/config/cross_limit.html");
+
+		$model 	= $this->getModel("GameModel");
+
+		$act = empty($this->request('act')) ? "" : $this->request('act');
+
+		if($act == "save") {
+			$limit_id = empty($this->request('limit_id')) ? 0 : $this->request('limit_id');
+			$cross_script = empty($this->request('cross_script')) ? "" : $this->request('cross_script');
+			$type_id = empty($this->request('type_id')) ? 0 : $this->request('type_id');
+			$sport_id = empty($this->request('sport_id')) ? 0 : $this->request('sport_id');
+
+			$model->saveCrossScript($limit_id, $cross_script, $type_id, $sport_id);
+
+			throw new Lemon_ScriptException("","","script","alert('성공적으로 보관되였습니다.'); opener.document.location.reload(); self.close();");
+		} else if ($act == "delete") {
+			$limit_id = empty($this->request('limit_id')) ? 0 : $this->request('limit_id');
+			$model->deleteCrossScript($limit_id);
+		}
+		
+	
+		$list = $model->getMarketFamily();
+
+		$crossLimitList = $model->getCrossLimitList();
+
+        $this->view->assign( "list", $list);
+		$this->view->assign( "crossLimitList", $crossLimitList);
+
+        $this->display();
+    }
+
 	// 배팅제한 (원기준)
     function sportlimitAction()
     {
@@ -1329,6 +1371,39 @@ class ConfigController extends WebServiceController
 
 		echo "<meta content=\"application/vnd.ms-excel; charset=UTF-8\" name=\"Content-type\"> ";  
 		echo $ex_data;
+	}
+
+	function popup_limit_editAction() {
+		$this->popupDefine();
+
+		if(!$this->auth->isLogin())
+		{
+			$this->redirect("/login");
+			exit;
+		}
+		$this->view->define("content","content/config/popup.limit_edit.html");
+		
+		$model = $this->getModel("gameModel");
+	
+		$limit_id = empty($this->request("limit_id")) ? 0 : $this->request("limit_id");
+
+		$sport_list = $model->getSportList();
+
+		$script = "";
+
+		if($limit_id > 0) {
+			$script = $model->getLimitScript($limit_id);
+			$this->view->assign( 'script', $script);
+			$this->view->assign( 'limit_id', $limit_id);
+			$this->view->assign( 'sport_list', $sport_list);
+		} else {
+			$this->view->assign( 'script', $script);
+			$this->view->assign( 'limit_id', $limit_id);
+			$this->view->assign( 'sport_list', $sport_list);
+		}
+		
+	
+		$this->display();
 	}
 }
 ?>

@@ -67,7 +67,7 @@ function mainchgna(vii)
 					<li><a href='/gameUpload/modify_rate'>배당수정</a></li>
 					<!-- <li><a href='/gameBlock/list'>경기차단</a></li> -->
 					<li><a href='/gameBlock/gamelist'>경기차단</a></li>
-					<li><a href='/config/sportlimit'>스포츠배팅제한</a></li>
+					<li><a href='/config/crosslimit'>스포츠배팅제한</a></li>
 					<li><a href='/gameUpload/liveList?state=40&parsing_type=ALL'>라이브구독</a></li>
 				</ul>
 			</div>

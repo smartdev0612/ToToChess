@@ -595,7 +595,7 @@
     
         if(showJson.length == 0) {
             $("#left_flow").empty();
-            warning_popup("미안하지만 경기자료가 없습니다.");
+            warning_popup("현재 진행중인 경기가 없습니다.");
         } else {
             $("#left_flow").empty();
             var jsonCountInfo = showJson[0].m_lstSportsCnt;
@@ -1084,6 +1084,7 @@
                 "m_strHour": res.m_strHour, 
                 "m_strMin": res.m_strMin, 
                 "m_nMarket": detail.m_nMarket, 
+                "m_nFamily": detail.m_nFamily, 
                 "m_nHBetCode": detail.m_nHBetCode, 
                 "m_nDBetCode": detail.m_nDBetCode, 
                 "m_nABetCode": detail.m_nABetCode, 
@@ -2573,7 +2574,7 @@
         var div = "";
         var homeAdd = "";
         var awayAdd = "";
-        var sub_idx = `${item.m_nGame}`;
+        var sub_idx = `${item.m_nGame}_${detail.m_nMarket}_${detail.m_nFamily}`;
         if(index == 0) {
             getBtns(item.m_nGame);
         }
@@ -2705,7 +2706,7 @@
         $.each(children_array, function(index, item) {
             if(item.m_nHBetCode > 0 && item.m_nABetCode > 0)
             {
-                var sub_idx = `${item.m_nGame}_${item.m_nMarket}`;
+                var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
                 children_div += '<li class="list_flex">';
                 children_div += '<div style="display:none">';
                 children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -2743,7 +2744,7 @@
         $.each(children_array, function(index, item) {
             if(item.m_nHBetCode > 0 && item.m_nABetCode > 0 && item.m_nDBetCode > 0)
             {
-                var sub_idx = `${item.m_nGame}_${item.m_nMarket}`;
+                var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
                 children_div += '<li class="list_flex">';
                 children_div += '<div style="display:none">';
                 children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -2787,7 +2788,7 @@
         children_div += '<li class="tr"><img src="/BET38/pc/_img/_game/bl_03.png">' + header + '</li>';
         $.each(children_array, function(index, item) {
             if(item.m_strHLine !== null && item.m_strALine !== null) {
-                var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${index}`;
+                var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}_${index}`;
                 children_div += `<li class="list_flex" id="${sub_idx}">`;
                 children_div += '<div style="display:none">';
                 children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -2829,7 +2830,7 @@
         children_div += `<ul id="${ul_id}">`;
         children_div += '<li class="tr"><img src="/BET38/pc/_img/_game/bl_03.png">' + header + '</li>';
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${index}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}_${index}`;
             children_div += `<li class="list_flex" id="${sub_idx}">`;
             children_div += '<div style="display:none">';
             children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -2868,7 +2869,7 @@
         $.each(children_array, function(index, item) {
             if(item.m_nHBetCode > 0 && item.m_nABetCode > 0)
             {
-                var sub_idx = `${item.m_nGame}_${item.m_nMarket}`;
+                var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
                 children_div += '<li class="list_flex">';
                 children_div += '<div style="display:none">';
                 children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -2909,7 +2910,7 @@
         children_div += '<li class="tr"><img src="/BET38/pc/_img/_game/bl_03.png">' + header + '</li>';
         $i = 0;
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${index}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}_${index}`;
             $i++;
             if($i % 3 == 1) {
                 children_div += `<li class="list_flex" id="${sub_idx}">`;
@@ -2953,7 +2954,7 @@
         children_div += '<li class="tr"><img src="/BET38/pc/_img/_game/bl_03.png">' + header + '</li>';
         $i = 0;
         $.each(children_array, function(index, item) {
-            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${index}`;
+            var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}_${index}`;
             $i++;
             if($i % 2 == 1) {
                 children_div += `<li class="list_flex" id="${sub_idx}">`;
@@ -3016,7 +3017,7 @@
         $.each(children_array, function(index, item) {
             if(item.m_nHBetCode > 0 && item.m_nABetCode > 0 && item.m_nDBetCode > 0)
             {
-                var sub_idx = `${item.m_nGame}_${item.m_nMarket}`;
+                var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
                 children_div += '<li class="list_flex">';
                 children_div += '<div style="display:none">';
                 children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';

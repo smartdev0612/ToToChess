@@ -151,7 +151,10 @@ function getUserInfo() {
             var url = window.location.href;
             if(url.indexOf('/member/memolist') == -1) {
                 try { jBeep('/public/snd/msg_recv_alarm.mp3'); } catch(e) {};
-                memo_popup(json.memo);
+                $j(".count01").text(json.memo);
+                $j(".count02").text(json.memo);
+                $j(".mask_layer").show();
+                $j(".popup_message").show();
             }
         }
             

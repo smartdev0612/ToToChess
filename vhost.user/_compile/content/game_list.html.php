@@ -881,9 +881,9 @@
                             //배당자료업데이트
                             if(document.getElementById(`${djson.m_nHBetCode}`) != null)
                                 document.getElementById(`${djson.m_nHBetCode}`).innerHTML = djson.m_fHRate.toFixed(2);
-                            else if(document.getElementById(`${djson.m_nDBetCode}`) != null)
+                            if(document.getElementById(`${djson.m_nDBetCode}`) != null)
                                 document.getElementById(`${djson.m_nDBetCode}`).innerHTML = djson.m_fDRate.toFixed(2);
-                            else if(document.getElementById(`${djson.m_nABetCode}`) != null)
+                            if(document.getElementById(`${djson.m_nABetCode}`) != null)
                                 document.getElementById(`${djson.m_nABetCode}`).innerHTML = djson.m_fARate.toFixed(2);
                         }
                     }
@@ -985,6 +985,7 @@
             div += '<img src="/10bet/images/10bet/arrow_01.png" class="arrow" alt="">';
             div += '<img src="' + json.m_strLeagueImg + '" width="20" height="16" style="margin-top:-2px;">&nbsp;&nbsp;';
             div += '<font class="league_name" style="color:#22b486; font-weight:900;">' + json.m_strLeagueName + '</font>';
+            div += `<span class="time hidden-sm">${json.m_strDate.substring(5,10)}&nbsp;${json.m_strHour}:${json.m_strMin}</span>`;
             div += '</h4>';
             div += `</div></td></tr>`;
 
@@ -1020,7 +1021,7 @@
             var marketCnt = 0;
             var detail = json.m_lstDetail;
             for (var j = 0; j < detail.length; j++) {
-                sub_idx = `${json.m_nGame}_${detail[j].m_nMarket}`;
+                sub_idx = `${json.m_nGame}_${detail[j].m_nMarket}_${detail[j].m_nFamily}`;
                 switch(json.m_strSportName) {
                     case "축구":
                         if(detail[j].m_nMarket == 1) {

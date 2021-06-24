@@ -241,7 +241,7 @@ class LeagueModel extends Lemon_Model
 	//▶ 국가 목록
 	function getNationImage($sn)
 	{
-		$sql = "select lg_img from ".$this->db_qz."nation where sn = '".$sn."'";
+		$sql = "select img from ".$this->db_qz."nation where sn = '".$sn."'";
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['img'];
 	}

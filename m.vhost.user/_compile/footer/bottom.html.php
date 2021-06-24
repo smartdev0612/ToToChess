@@ -602,13 +602,6 @@
 </div>
 <!-- 레이어 팝업 -->
 <div class="mask_layer" style="display:none;"></div>
-<div class="popup_message" style="display:none;" onClick="location.href='/bbs/memo.php'">
-	<div class="message_box">
-		<img src="/10bet/images/10bet/img_message_01.png" />
-		<span class="count01"></span>
-		<span class="count02"></span>
-	</div>
-</div>
 
 <!-- simple modal {{ -->
 <link type='text/css' href='/10bet/simplemodal/css/basic.css' rel='stylesheet' media='screen' />

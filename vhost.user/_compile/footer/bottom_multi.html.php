@@ -2,9 +2,10 @@
 	<!-- 모바일 푸터 메뉴 -->
 	<div id="mobile_foot_menu">
 		<ul class="foot_menu">
-			<li style="width:33%;"><span class="ico_customer"><a href="/cs/cs_list"><img src="/10bet/images/10bet/ico_customer_01.png" alt="고객문의" /></a></span></li>
+            <li><span class="ico_customer"><a href="https://telegram.me/<?=$TPL_VAR["telegramID"]?>" target="_blank"><img src="/10bet/images/10bet/ico_telegram_01.png" alt="텔레그램"></a></span></li>
+			<li><span class="ico_customer"><a href="/cs/cs_list"><img src="/10bet/images/10bet/ico_customer_01.png" alt="고객문의" /></a></span></li>
 			<!--<li><span class="ico_chetting"><img src="/10bet/images/10bet/ico_chetting_01.png" alt="라이브채팅" /></span></li>-->
-            <li style="width:33%;"><span class="ico_cart" id="ico_betting_cart"><img src="/10bet/images/10bet/ico_cart_01.png" alt="배팅카트" /></span></li>
+            <li><span class="ico_cart" id="ico_betting_cart"><img src="/10bet/images/10bet/ico_cart_01.png" alt="배팅카트" /></span></li>
             <li><span class="ico_bottom_menu" id="ico_bottom_menu">
                     SPORT
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 35" fill="currentColor">
@@ -566,17 +567,6 @@
         <copyright>COPYRIGHT ⓒ <span>체스</span> ALL RIGHTS RESERVED.</copyright>
     </div>
 </footer>
-</div>
-
-
-<!-- 레이어 팝업 -->
-<div class="mask_layer" style="display:none;"></div>
-<div class="popup_message" style="display:none;" onClick="location.href='/bbs/memo.php'">
-	<div class="message_box">
-		<img src="/10bet/images/10bet/img_message_01.png" />
-		<span class="count01"></span>
-		<span class="count02"></span>
-	</div>
 </div>
 
 <!-- simple modal {{ -->
