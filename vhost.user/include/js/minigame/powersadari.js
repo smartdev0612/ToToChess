@@ -5,6 +5,7 @@
 	var selectGameType = null;
 	var selectGameRate = 0;
 	var gameTh = 0;
+	var gameDh = 0;
 
 	var serverTime = null;
 	var serverdate = null;
@@ -14,6 +15,9 @@
 	var hour = null;
 	var min = null;
 	var sec = null;
+
+	var limitMin = null;
+	var limitSec = null;
 
 	var postData;
 
@@ -41,10 +45,20 @@
 		sec = arrTime[5];
 		gameTh = arrTime[6];
 		secTemp = arrTime[7];
+		gameDh = arrTime[8];
 
-		$j("#viewSysDate").html(mm+"월 "+dd+"일");
-		$j("#viewSysTime").html(hour+":"+min+":"+sec);
-		$j("#viewGameTh").html(gameTh);
+		if(secTemp >= limit_time) {
+			limitMin = parseInt((secTemp - limit_time) / 60);
+			if(limitMin < 10)
+				limitMin = "0" + limitMin; 
+	
+			limitSec = (secTemp - limit_time) % 60;
+			if(limitSec < 10)
+				limitSec = "0" + limitSec;
+	
+			$j(".gameDh").html(mm+"월 "+dd+"일 [" + (gameDh - 1) + "]회차");
+			$j(".time_area").html(limitMin + ":" + limitSec);
+		}
 		
 		if ( secTemp < 60 ) {
 			secTempMin = "00";

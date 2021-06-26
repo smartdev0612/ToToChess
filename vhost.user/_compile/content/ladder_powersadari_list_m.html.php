@@ -65,8 +65,8 @@
                                                                         <form name="betForm">
                                                                             <div id="gamelist" class="bet_section">
                                                                                 <div class="time_box">
-                                                                                    <h3>06월27일[418회차]</h3>
-                                                                                    <div id="time-limit" class="time_area">00:14</div>
+                                                                                    <h3 class="gameDh"></h3>
+                                                                                    <div id="time-limit" class="time_area"></div>
                                                                                     <div class="btn_center"><button type="button" class="button_type01" onclick="location.reload()">새로고침</button></div>
                                                                                 </div>
                                                                                 <div class="bet_cart_box">
