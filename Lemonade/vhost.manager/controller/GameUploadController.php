@@ -478,7 +478,7 @@ class GameUploadController extends WebServiceController
 			$list[$i]['active_total_betting'] = $item['active_home_total_betting']+$item['active_draw_total_betting']+$item['active_away_total_betting'];
 			$list[$i]['betting_count'] = $item['home_count']+$item['draw_count']+$item['away_count'];
 		}
-
+		$orderCnt = $gameModel->getLiveOrderCnt();
 		$categoryList = $leagueModel->getCategoryList();
 		$this->view->assign("league_sn",$leagueSn);
 		$this->view->assign("categoryName",$categoryName);
@@ -490,6 +490,7 @@ class GameUploadController extends WebServiceController
 		$this->view->assign('filter_team', $filterTeam);
 		$this->view->assign('filter_team_type', $filterTeamType);
 		$this->view->assign("league_list",$leagueList);		
+		$this->view->assign("orderCnt",$orderCnt);		
 		$this->display();
 	}
 
@@ -4969,6 +4970,7 @@ class GameUploadController extends WebServiceController
 				$drawRate="1.00";
 	
 			$LeagueName	 = '';
+			$LeagueImg	 = '';
 			$type		 = '';
 			
 			$rs = $leagueModel->getListBySn( $leagueSn );
@@ -4980,6 +4982,7 @@ class GameUploadController extends WebServiceController
 			else
 			{
 				$LeagueName = $rs["name"];
+				$LeagueImg = $rs["lg_img"];
 				if( $is_specified_special == 1)
 				{
 					if( false!=strstr($LeagueName, "득점/무득점"))
@@ -4994,7 +4997,7 @@ class GameUploadController extends WebServiceController
 			//if($kubun=="") $kubun = 'null';
 			if($kubun=="") $kubun = 0;
 		
-			$gmodel->addChild($intParentIdx,$kind,$leagueSn,$HomeTeam,$AwayTeam,$gameDate,$gameHour,$gameTime,'',$kubun,$gameType,$specialType,$homeRate,$drawRate,$awayRate, $is_specified_special);
+			$gmodel->addChild($intParentIdx,$kind,$rs["lsports_league_sn"],$HomeTeam,$AwayTeam,$gameDate,$gameHour,$gameTime,$LeagueName,$kubun,$gameType,$specialType,$homeRate,$drawRate,$awayRate, $is_specified_special, $LeagueImg);
 			$reg_game_count++;
 		}
 

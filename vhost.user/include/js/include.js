@@ -1,5 +1,22 @@
 $j().ready(function(){
-            
+    $j(function(){ 
+        var ww2 = window.innerWidth;
+        if(ww2 <= 1200) {
+            $j("#pc_betting_cart").empty();
+        }else {
+            $j("#mobile_betting_cart").empty();
+        }
+    });
+
+    $j(window).resize(function() { 
+        var ww2 = window.innerWidth;
+        if(ww2 <= 1200) {
+            $j("#pc_betting_cart").empty();
+        }else {
+            $j("#mobile_betting_cart").empty();
+        }
+    });
+
     $j("#confirmBetCancel").on("click", function(){
         betCancel_popup_close();
         location.href = "/race/betting_list";
@@ -7,20 +24,108 @@ $j().ready(function(){
 
     var userMoney = setInterval(getUserInfo, 5000);
 
-    $j("#confirm-yes").on("click", function(){
+    $j(".confirmBetting").on("click", function(){
         confirm_popup_close();
         confirmBet();
     });
 
-    $j("#confirm-no").on("click", function(){
+    $j(".confirmNoBetting").on("click", function(){
         bettingSubmitFlag = 0;
         confirm_popup_close();
     });
-    
+
     $j(".icon-close").on("click", function(){
         $j(".mask_layer").click();
     });
+
+    // 축구
+    $j(".soc").on( "click", function() {
+        console.log("축구");
+        var submenu = $j(".li-soccer");
+        var submenu1 = $j(".ul-soccer");
+
+
+        // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+        if( submenu.is(":visible") ){
+            submenu.slideUp("fast");
+            submenu1.slideUp("fast");
+        }else{
+            submenu.slideDown("fast");
+        }
+
+    });
+
+    // 농구
+    $j(".bask").on( "click", function() {
+        
+        var submenu = $j(".li-bask");
+        var submenu1 = $j(".ul-bask");
+
+        // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+        if( submenu.is(":visible") ){
+            submenu.slideUp("fast");
+            submenu1.slideUp("fast");
+        }else{
+            submenu.slideDown("fast");
+        }
+    });
+
+    // 야구
+    $j(".base").on( "click", function() {
+        
+        var submenu = $j(".li-base");
+        var submenu1 = $j(".ul-base");
+
+        // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+        if( submenu.is(":visible") ){
+            submenu.slideUp("fast");
+            submenu1.slideUp("fast");
+        }else{
+            submenu.slideDown("fast");
+        }
+    });
+
+    // 아이스 하키
+    $j(".hock").on( "click", function() {
+        
+        var submenu = $j(".li-hock");
+        var submenu1 = $j(".ul-hock");
+
+        // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+        if( submenu.is(":visible") ){
+            submenu.slideUp("fast");
+            submenu1.slideUp("fast");
+        }else{
+            submenu.slideDown("fast");
+        }
+    });
+
+    // 배구
+    $j(".val").on( "click", function() {
+        
+        var submenu = $j(".li-val");
+        var submenu1 = $j(".ul-val");
+
+        // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+        if( submenu.is(":visible") ){
+            submenu.slideUp("fast");
+            submenu1.slideUp("fast");
+        }else{
+            submenu.slideDown("fast");
+        }
+    });
+
 });
+
+function showLeagues(className) {
+    var submenu2 = $j("." + className);
+    // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+    if( submenu2.is(":visible") ){
+        submenu2.slideUp("fast");
+    }else{
+        submenu2.slideDown("fast");
+    }
+}
 
 function login_open(){
     $j("#popup_login").fadeIn();
@@ -43,7 +148,7 @@ function warning_popup(text) {
     $j("#warning_popup .pop_message").text(text);
     $j("#warning_popup").fadeIn();
     $j("#coverBG").fadeIn();
-    setTimeout(warning_popup_close, 1000);
+    setTimeout(warning_popup_close, 1500);
 }
 
 function warning_popup_close() {
@@ -51,15 +156,22 @@ function warning_popup_close() {
     $j("#coverBG").fadeOut();
 }
 
+function sports_popup(text) {
+    $j("#sports_popup .pop_message").html(text);
+    $j("#sports_popup").slideDown('fast');
+    $j("#coverBG").fadeIn('fast');
+}
+
 function confirm_popup(text) {
     console.log(text);
-    $j("#confirm_popup .pop_message").text(text);
+    $j("#confirm_popup .pop_message").html(text);
     $j("#confirm_popup").slideDown('fast');
     $j("#coverBG").fadeIn('fast');
 }
 
 function confirm_popup_close() {
     $j("#confirm_popup").slideUp('fast');
+    $j("#sports_popup").slideUp('fast');
     $j("#coverBG").fadeOut('fast');
 }
 
@@ -73,8 +185,8 @@ function betCancel_popup_close() {
     $j("#coverBG").fadeOut('fast');
 }
 
-function memo_popup(memoCnt) {
-    var text = "읽지 못한 쪽지가 " + memoCnt + "개 있습니다.";
+function memo_popup(answerCnt) {
+    var text = "고객센터에서 답변이 " + answerCnt + "개 왔습니다.";
     $j("#memo_popup .pop_message").text(text);
     $j("#memo_popup").slideDown('fast');
     $j("#coverBG").fadeIn('fast');
@@ -147,8 +259,8 @@ function getUserInfo() {
             
         $j(".member_inmoney").html(addCommas(json.member.g_money));
 
+        var url = window.location.href;
         if(json.memo > 0) {
-            var url = window.location.href;
             if(url.indexOf('/member/memolist') == -1) {
                 try { jBeep('/public/snd/msg_recv_alarm.mp3'); } catch(e) {};
                 $j(".count01").text(json.memo);
@@ -157,10 +269,16 @@ function getUserInfo() {
                 $j(".popup_message").show();
             }
         }
-            
 
         if(json.member.bet_cancel_cnt > 0)
             betCancel_popup();
+
+        if(json.member.customer_answer_flag > 0) {
+            if(url.indexOf('/cs/cs_list') == -1) {
+                try { jBeep('/public/snd/Alarm01.mp3'); } catch(e) {};
+                memo_popup(json.member.customer_answer_flag);
+            }
+        }
         // console.log(addCommas(result));
     });
 }
@@ -176,6 +294,15 @@ function addCommas(nStr)
         x1 = x1.replace(rgx, '$1' + ',' + '$2');
     }
     return x1 + x2;
+}
+
+function scrollToTop() {
+    var position = document.body.scrollTop || document.documentElement.scrollTop;
+    var scrollAnimation;
+    if (position) {
+        window.scrollBy(0, -Math.max(1, Math.floor(position / 10)));
+        scrollAnimation = setTimeout("scrollToTop()", 30);
+    } else clearTimeout(scrollAnimation);
 }
 
 /******************************************* Web Socket *******************************************/
@@ -198,7 +325,7 @@ var packet = {
     "m_nLeague"     :   0,
     "m_nLive"       :   0,
     "m_nPageIndex"  :   0,
-    "m_nPageSize"   :   30
+    "m_nPageSize"   :   50
 };
 
 var ws = new WebSocket("ws://211.115.107.17:3002");
@@ -305,6 +432,7 @@ function checkExist1x2(item) {
 }
 
 function getMarketsCnt(sport_name, children, isExist12 = true) {
+    console.log(isExist12);
     var temp_id = 0;
     var cnt = 0;
     var marketArray = [];
@@ -316,7 +444,7 @@ function getMarketsCnt(sport_name, children, isExist12 = true) {
             marketArray = [226, 342, 28, 202, 203, 204, 205, 206, 464, 41, 42, 43, 44, 282, 284, 64, 65, 66, 67, 467, 468, 21, 45, 46, 47, 77, 469, 153, 154, 155, 156, 223, 222, 287, 288, 354, 355, 221, 220, 51, 72, 73, 74, 75, 76, 242, 243, 289, 292, 290, 293, 291, 294, 285, 198, 199];
             break;
         case "배구":
-            marketArray = [52, 866, 1558, 2, 28, 202, 203, 204, 205, 206, 64, 65, 66, 67, 68, 21, 45, 46, 47, 101, 102, 5, 72, 73, 74, 75, 76, 6, 9, 100, 153, 154, 155, 156];
+            marketArray = [52, 866, 1558, 2, 202, 203, 204, 205, 206, 64, 65, 66, 67, 68, 21, 45, 46, 47, 101, 102, 5, 72, 73, 74, 75, 76, 6, 153, 154, 155, 156];
             break;
         case "야구":
             marketArray = [226, 342, 28, 220, 221, 235, 41, 42, 43, 44, 524, 281, 526, 21, 45, 46, 47, 48, 236, 525];

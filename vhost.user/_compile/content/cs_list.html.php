@@ -26,7 +26,7 @@
                             <th>제목</th>
                             <th>작성일</th>
                             <th>상태</th>
-                            <th>삭제</th>
+                            <th>처리</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,6 +65,7 @@
                 <!-- 검색 및 버튼 -->
                 <div class="search_area" style="text-align:right;">
                     <span class="btn01" style="position:relative;">
+                        <a href="https://telegram.me/<?=$TPL_VAR["telegramID"]?>" target="_blank"><button type="button" class="button_type01" style="background:#1a4050;">텔레그램 문의</button></a>
                         <button type="button" class="button_type01" onclick="ask_account();">계좌문의</button>
                         <button type="button" class="button_type01" onClick="view_write();">문의하기</button>
                     </span>

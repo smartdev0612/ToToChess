@@ -599,7 +599,7 @@
             "m_nLeague"     :   league_sn,
             "m_nLive"       :   2,
             "m_nPageIndex"  :   page_index,
-            "m_nPageSize"   :   30
+            "m_nPageSize"   :   50
         };
 
         onLoadingScreen();
@@ -949,10 +949,10 @@
         div += '<ul id="div_' + item.m_nGame + '">';
         div += '<li class="tr">';
         div += '<span class="st_game_leg">';
-        div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="20" class="st_marr3 st_marb1 st_game_ico">`;
+        div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="23" class="st_marr3 st_marb1 st_game_ico">`;
         div += '&nbsp';
         if(item.m_strLeagueImg != "") {
-            div += '<img src="' + item.m_strLeagueImg + '" width="20" class="st_marr3 st_marb1 st_game_ico">';
+            div += '<img src="' + item.m_strLeagueImg + '" width="23" class="st_marr3 st_marb1 st_game_ico">';
         }
         div += '&nbsp';
         div += item.m_strLeagueName;
@@ -1537,7 +1537,7 @@
                             header2 = "핸디캡";
                             children2.push(item);
                             break;
-                        case 28:
+                        case 2:
                             header3 = "언더오버";
                             children3.push(item);
                             break;
@@ -1647,7 +1647,7 @@
                             break;
                         case 9:
                             header30 = "정확한 스코어 (1세트)";
-                            children30.push(item);
+                            // children30.push(item);
                             break;
                     }
                     break;

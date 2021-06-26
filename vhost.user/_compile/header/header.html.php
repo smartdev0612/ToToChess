@@ -5,7 +5,7 @@
     <title>체스</title>
     <link rel="shortcut icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345885" />
+    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345886" />
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
@@ -309,8 +309,20 @@
                 정말 배팅하시겠습니까?
             </div>
             <div class="btn-center">
-                <button type="button" class="confirm-yes" id="confirm-yes">예</button>
-                <button type="button" class="confirm-no" id="confirm-no">아니오</button>
+                <button type="button" class="confirm-yes confirmBetting">예</button>
+                <button type="button" class="confirm-no confirmNoBetting">아니오</button>
+            </div>
+        </div>
+    </div>
+    <div id="sports_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;display:none;top:12%;width:310px;">
+        <div class="pop_box" style="height:300px;">
+            <h2>알림</h2>
+            <div class="pop_message" style="height:200px; text-align:left;">
+                정말 배팅하시겠습니까?
+            </div>
+            <div class="btn-center">
+                <button type="button" class="confirm-yes confirmBetting">예</button>
+                <button type="button" class="confirm-no confirmNoBetting">아니오</button>
             </div>
         </div>
     </div>
@@ -321,7 +333,7 @@
             <div class="pop_message">
             </div>
             <div class="btn-center">
-                <button type="button" class="confirm-yes" onClick="location.href='/member/memolist'">예</button>
+                <button type="button" class="confirm-yes" onClick="location.href='/cs/cs_list'">예</button>
             </div>
         </div>
     </div>
@@ -417,7 +429,7 @@
                         <?php 
                         if(count((array)$_SESSION['member']) > 0) { ?>
                             <li  onClick="warning_popup('준비중입니다.');"><img src="/10bet/images/10bet/ico/top_ico6.png" alt="IO BET 로고" />카지노</li>
-                            <li  onClick="location.href='/race/game_result?view_type=winlose'"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="IO BET 로고" />경기결과</li>
+                            <!-- <li  onClick="location.href='/race/game_result?view_type=winlose'"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="IO BET 로고" />경기결과</li> -->
                             <li  onClick="location.href='/race/betting_list'"><img src="/10bet/images/10bet/ico/top_ico9.png" alt="IO BET 로고" />배팅내역</li>
                             <li  onClick="location.href='/cs/cs_list'"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="IO BET 로고" />고객센터</li>
                             <!-- <li  onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="IO BET 로고" />게시판</li> -->
@@ -425,7 +437,7 @@
                             <li  onClick="location.href='/game_guide'"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="IO BET 로고" />배팅규정</li>
                         <?php } else { ?>
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico6.png" alt="IO BET 로고" />카지노</li>
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="IO BET 로고" />경기결과</li>
+                            <!-- <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="IO BET 로고" />경기결과</li> -->
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico9.png" alt="IO BET 로고" />배팅내역</li>
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="IO BET 로고" />고객센터</li>
                             <!-- <li  onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="IO BET 로고" />게시판</li> -->
@@ -490,14 +502,14 @@
                         <ul class="menu02">
                             <?php 
                             if(count((array)$_SESSION['member']) > 0) { ?>
-                                <li class="button_type01 " onClick="location.href='/race/game_result?view_type=winlose'">경기결과</li>
+                                <!-- <li class="button_type01 " onClick="location.href='/race/game_result?view_type=winlose'">경기결과</li> -->
                                 <li class="button_type01 " onClick="location.href='/race/betting_list'">배팅내역</li>
                                 <li class="button_type01 " onClick="location.href='/cs/cs_list'">고객센터</li>
                                 <!-- <li class="button_type01 " onClick="location.href='/board/'">게시판</li> -->
                                 <li class="button_type01 " onClick="location.href='/board/?bbsNo=7'">이벤트</li>
                                 <li class="button_type01 " onClick="location.href='/game_guide'">배팅규정</li>
                             <?php } else { ?>
-                                <li class="button_type01 " onClick="login_open();">경기결과</li>
+                                <!-- <li class="button_type01 " onClick="login_open();">경기결과</li> -->
                                 <li class="button_type01 " onClick="login_open();">배팅내역</li>
                                 <li class="button_type01 " onClick="login_open();">고객센터</li>
                                 <!-- <li class="button_type01 " onClick="location.href='/board/'">게시판</li> -->
@@ -582,8 +594,8 @@
                             </div>
                         </div>
                         <? } ?>
-                        <div><a href="#"><img src="/10bet/images/10bet/ico_telegram_01.gif" alt="텔레그램" /></a></div><br>
-                        <div><a href="#"><img src="/10bet/images/10bet/ico_host_address_01.gif" alt="도메인" /></a></div><br>
+                        <div><a href="https://telegram.me/<?=$TPL_VAR["telegramID"]?>" target="_blank"><img src="/10bet/images/10bet/ico_telegram_01.gif" alt="텔레그램" /></a></div><br>
+                        <div><img src="/10bet/images/10bet/kakao.png?v=2" alt="카카오톡 아이디"/><span style="position:relative; top:-47px; left:90px; color:#381e1e; font-size:25px; font-weight:bold;"><?=$TPL_VAR["kakaoID"]?></span></div><br>
                     </div>
                 </div>
             </div>

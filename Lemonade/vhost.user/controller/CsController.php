@@ -347,6 +347,9 @@ class CsController extends WebServiceController
 		
 		$boardModel = Lemon_Instance::getObject("BoardModel", true);
 		$cconfigModel = Lemon_Instance::getObject("ConfigModel", true);
+		$memberModel = Lemon_Instance::getObject("MemberModel", true);
+
+		$memberModel->updateCustomerAnswerFlag($uid);
 		
 		if($act=="add")
 		{

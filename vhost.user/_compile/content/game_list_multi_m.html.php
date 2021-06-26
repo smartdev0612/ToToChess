@@ -618,7 +618,7 @@
             "m_nLeague"     :   league_sn,
             "m_nLive"       :   1,
             "m_nPageIndex"  :   page_index,
-            "m_nPageSize"   :   30
+            "m_nPageSize"   :   50
         };
 
         if(ws.readyState === WebSocket.OPEN)
@@ -629,137 +629,6 @@
             }, 1000);
 
         return;
-       
-        $.ajax({
-            url: "/getGameList",
-            type: "GET",
-            dataType: "json",
-            data: {
-                "page_index": page_index,
-                "sport_type": sport_type,
-                "league_sn": league_sn,
-                "today": today
-            },
-            success: function(res){ 
-                console.log(res);
-                $(".list_st1").empty();
-                if(res.length == 0) {
-                    warning_popup("미안하지만 경기자료가 없습니다.");
-                } else {
-                    var parentIDs = new Array();
-                    var parentItems = new Array();
-                    var firstItems = new Array();
-                    var parent_child_sn = 0;
-                    var parent_index = 0;
-                    $.each(res, function(index, item) {
-                        if(parent_child_sn != item.child_sn) {
-                            switch(item.sport_name) {
-                                case "축구":
-                                    if(item.betting_type == 1) {
-                                        parent_child_sn = item.child_sn;
-                                        parentItems.push(item);
-                                        parent_index++;
-                                    } else {
-                                        if(parent_index == 0) {
-                                            firstItems.push(item);
-                                        }
-                                    }
-                                    break;
-                                case "농구":
-                                    if(item.betting_type == 226) {
-                                        parent_child_sn = item.child_sn;
-                                        parentItems.push(item);
-                                        parent_index++;
-                                    } else {
-                                        if(parent_index == 0) {
-                                            firstItems.push(item);
-                                        }
-                                    }
-                                    break;
-                                case "야구":
-                                    if(item.betting_type == 226) {
-                                        parent_child_sn = item.child_sn;
-                                        parentItems.push(item);
-                                        parent_index++;
-                                    } else {
-                                        if(parent_index == 0) {
-                                            firstItems.push(item);
-                                        }
-                                    }
-                                    break;
-                                case "배구":
-                                    if(item.betting_type == 52) {
-                                        parent_child_sn = item.child_sn;
-                                        parentItems.push(item);
-                                        parent_index++;
-                                    } else {
-                                        if(parent_index == 0) {
-                                            firstItems.push(item);
-                                        }
-                                    }
-                                    break;
-                                case "아이스 하키":
-                                    if(item.betting_type == 226) {
-                                        parent_child_sn = item.child_sn;
-                                        parentItems.push(item);
-                                        parent_index++;
-                                    } else {
-                                        if(parent_index == 0) {
-                                            firstItems.push(item);
-                                        }
-                                    }
-                                    break;
-                            }
-                        } else {
-                            if(parent_index == 1) {
-                                switch(item.sport_name) {
-                                    case "축구":
-                                        if(item.betting_type != 1) {
-                                            firstItems.push(item);
-                                        }
-                                        break;
-                                    case "농구":
-                                        if(item.betting_type != 226) {
-                                            firstItems.push(item);
-                                        } 
-                                        break;
-                                    case "야구":
-                                        if(item.betting_type != 226) {
-                                            firstItems.push(item);
-                                        }
-                                        break;
-                                    case "배구":
-                                        if(item.betting_type != 52) {
-                                            firstItems.push(item);
-                                        }
-                                        break;
-                                    case "아이스 하키":
-                                        if(item.betting_type == 226) {
-                                            firstItems.push(item);
-                                        }
-                                        break;
-                                }
-                            }
-                        }
-                    });
-                    console.log(parentItems);
-                    
-                    $.each(parentItems, function(index, item) {
-                        if(index == 0) {
-                            getSubChildInfo(index, item, getMarketsCnt(firstItems));
-                        } else {
-                            var childArray = res.filter(value => value.child_sn == item.child_sn);
-                            getSubChildInfo(index, item, getMarketsCnt(childArray));
-                        }
-                    });
-                }
-
-                $j("#loading").fadeOut();
-                $j("#coverBG2").fadeOut();
-            }
-        });
-
-        $j(".mask_layer").click();
     }
 
     function onRevGameList(strPacket) {
@@ -887,6 +756,7 @@
         $.each(showJson, function(index, item) {
             appendGameDiv(item, index);
         });
+      
         $j(".mask_layer").click();
     }
 
@@ -981,10 +851,10 @@
         div += '<ul id="div_' + item.m_nGame + '">';
         div += '<li class="tr">';
         div += '<span class="st_game_leg">';
-        div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="20" class="st_marr3 st_marb1 st_game_ico">`;
+        div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="23" class="st_marr3 st_marb1 st_game_ico">`;
         div += '&nbsp';
         if(item.m_strLeagueImg != "") {
-            div += '<img src="' + item.m_strLeagueImg + '" width="20" class="st_marr3 st_marb1 st_game_ico">';
+            div += '<img src="' + item.m_strLeagueImg + '" width="23" class="st_marr3 st_marb1 st_game_ico">';
         }
         div += '&nbsp';
         div += item.m_strLeagueName;
@@ -1570,7 +1440,7 @@
                             header2 = "핸디캡";
                             children2.push(item);
                             break;
-                        case 28:
+                        case 2:
                             header3 = "언더오버";
                             children3.push(item);
                             break;
@@ -1680,7 +1550,7 @@
                             break;
                         case 9:
                             header30 = "정확한 스코어 (1세트)";
-                            children30.push(item);
+                            // children30.push(item);
                             break;
                     }
                     break;

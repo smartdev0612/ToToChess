@@ -771,13 +771,14 @@ class GameController extends WebServiceController
 			
 			if($keyword!="")
 			{
-				if($selectKeyword=="uid")							$where.=" and c.uid like('%".$keyword."%') ";
-				else if($selectKeyword=="nick")				$where.=" and c.nick like('%".$keyword."%') ";
-				else if($selectKeyword=="betting_no")		$where.=" and a.betting_no like('%".$keyword."%') ";
+				if($selectKeyword=="uid")							$where.=" and c.uid like ('%".$keyword."%') ";
+				else if($selectKeyword=="nick")				$where.=" and c.nick like ('%".$keyword."%') ";
+				else if($selectKeyword=="betting_no")		$where.=" and a.betting_no like ('%".$keyword."%') ";
 				else if($selectKeyword=="money_up")		$where.=" and a.betting_money > '".$keyword."' ";
 				else if($selectKeyword=="money_down")		$where.=" and a.betting_money < '".$keyword."' ";
 				else if($selectKeyword=="home")		$where.=" and d.home_team like '%".$keyword."%' ";
 				else if($selectKeyword=="away")		$where.=" and d.away_team like '%".$keyword."%' ";
+				else $where .= " and (c.uid like ('%".$keyword."%') or c.nick like ('%".$keyword."%') or a.betting_no like ('%".$keyword."%') or d.notice like '%".$keyword."%' or d.home_team like '%".$keyword."%' or d.away_team like '%".$keyword."%') ";
 			}
 		}
 

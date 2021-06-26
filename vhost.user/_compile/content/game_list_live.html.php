@@ -690,7 +690,7 @@
             "m_nLeague"     :   league_sn,
             "m_nLive"       :   2,
             "m_nPageIndex"  :   page_index,
-            "m_nPageSize"   :   30
+            "m_nPageSize"   :   50
         };
 
         console.log(packet);
@@ -1446,7 +1446,7 @@
                             header2 = "핸디캡";
                             children2.push(item);
                             break;
-                        case 28:
+                        case 2:
                             header3 = "언더오버";
                             children3.push(item);
                             break;
@@ -1556,11 +1556,11 @@
                             break;
                         case 9:
                             header30 = "정확한 스코어 (1세트)";
-                            children30.push(item);
+                            // children30.push(item);
                             break;
                         case 100:
                             header31 = "정확한 스코어 (2세트)";
-                            children31.push(item);
+                            // children31.push(item);
                             break;
                     }
                     break;
@@ -2590,10 +2590,10 @@
         div += '<ul>';
         div += '<li class="tr" data-fid="6931381" data-status="2">';
         div += '<div class="st_game_leg">';
-        div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="20" class="st_marr3 st_marb1 st_game_ico">`;
+        div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="25" class="st_marr3 st_marb1 st_game_ico">`;
         div += '&nbsp';
         if(item.m_strLeagueImg != "") {
-            div += '<img src="' + item.m_strLeagueImg + '" width="20" class="st_marr3 st_marb1 st_game_ico">';
+            div += '<img src="' + item.m_strLeagueImg + '" width="25" class="st_marr3 st_marb1 st_game_ico">';
         }
         div += '&nbsp';
         div += item.m_strLeagueName;

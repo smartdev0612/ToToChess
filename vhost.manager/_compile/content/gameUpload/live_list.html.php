@@ -17,6 +17,9 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 				if(json.status == 0) {
 					$("#orderBtn_" + child_sn).prop('disabled', false);
        				$("#cancelBtn_" + child_sn).prop('disabled', true);
+				} else {
+					var cnt = parseInt($("#orderCnt").text()) + 1;
+					$("#orderCnt").text(cnt);
 				}
 				alert(json.msg);
             }
@@ -33,6 +36,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
                 "child_sn": child_sn
             },
             success: function(res){ 
+				var cnt = parseInt($("#orderCnt").text()) - 1;
+				$("#orderCnt").text(cnt);
                 alert(res);
             }
         });
@@ -46,47 +51,48 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	<div id="search">
 		<div class="wrap_search">
 			<form name=frmSrh method=post action="/gameUpload/liveList"> 	
-			<input type="hidden" name="category_name" value="">
-			
-			<span>출력</span>
-			<input name="perpage" type="text" id="perpage"  class="sortInput" onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" maxlength="3" size="5" value="<?php echo $TPL_VAR["perpage"]?>" onmouseover="this.focus()">
-
-			&nbsp;
-			<span class="icon">정렬</span>
-			
-			<select name="categoryName">
-				<option value="">종목</option>
-<?php if($TPL_categoryList_1){foreach($TPL_VAR["categoryList"] as $TPL_V1){?>
-					<option value="<?php echo $TPL_V1["name"]?>" <?php if($TPL_VAR["categoryName"]==$TPL_V1["name"]){?> selected <?php }?>><?php echo $TPL_V1["name"]?></option>
-<?php }}?>
-			</select>
-			<select name="league_sn">
-				<option value="">리그</option>
-	<?php 
-		if ( count($TPL_VAR["league_list"]) > 0 ) {
-			foreach ( $TPL_VAR["league_list"] as $leagueInfo ) {
-				if ( $TPL_VAR["league_sn"] == $leagueInfo['league_sn'] ) $selected = "selected";
-				else $selected = "";
-				if ( !trim($leagueInfo['alias_name']) ) $league_name = $leagueInfo['league_name'];
-				else $league_name = $leagueInfo['alias_name'];
-				echo "<option value=\"".$leagueInfo['league_sn']."\" {$selected}>".$league_name."</option>";
-			}
-		}
-	?>
-			</select>
-			<!-- 기간 필터 -->
-			<span class="icon">날짜</span><input name="begin_date" type="text" id="begin_date" class="date" value="<?php echo $TPL_VAR["begin_date"]?>" maxlength="20" onclick="new Calendar().show(this);"/>&nbsp;~
-			<input name="end_date" type="text" id="end_date" class="date" value="<?php echo $TPL_VAR["end_date"]?>" maxlength="20" onclick="new Calendar().show(this);" />
+				<input type="hidden" name="category_name" value="">
 				
-			<!-- 팀검색, 리그검색 -->
-			<select name="filter_team_type">
-				<option value="home_team" <?php if($TPL_VAR["filter_team_type"]=="home_team"){?> selected<?php }?>>홈팀</option>
-				<option value="away_team" <?php if($TPL_VAR["filter_team_type"]=="away_team"){?> selected<?php }?>>원정팀</option>
-			</select>
-			<input type="text" size="10" name="filter_team" value="<?php echo $TPL_VAR["filter_team"]?>" class="name">
-			<!-- 검색버튼 -->
-			<input name="Submit4" type="image" src="/img/btn_search.gif" class="imgType" title="검색" />
-			&nbsp;&nbsp;
+				<span>출력</span>
+				<input name="perpage" type="text" id="perpage"  class="sortInput" onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" maxlength="3" size="5" value="<?php echo $TPL_VAR["perpage"]?>" onmouseover="this.focus()">
+
+				&nbsp;
+				<span class="icon">정렬</span>
+				
+				<select name="categoryName">
+					<option value="">종목</option>
+	<?php if($TPL_categoryList_1){foreach($TPL_VAR["categoryList"] as $TPL_V1){?>
+						<option value="<?php echo $TPL_V1["name"]?>" <?php if($TPL_VAR["categoryName"]==$TPL_V1["name"]){?> selected <?php }?>><?php echo $TPL_V1["name"]?></option>
+	<?php }}?>
+				</select>
+				<select name="league_sn">
+					<option value="">리그</option>
+		<?php 
+			if ( count($TPL_VAR["league_list"]) > 0 ) {
+				foreach ( $TPL_VAR["league_list"] as $leagueInfo ) {
+					if ( $TPL_VAR["league_sn"] == $leagueInfo['league_sn'] ) $selected = "selected";
+					else $selected = "";
+					if ( !trim($leagueInfo['alias_name']) ) $league_name = $leagueInfo['league_name'];
+					else $league_name = $leagueInfo['alias_name'];
+					echo "<option value=\"".$leagueInfo['league_sn']."\" {$selected}>".$league_name."</option>";
+				}
+			}
+		?>
+				</select>
+				<!-- 기간 필터 -->
+				<span class="icon">날짜</span><input name="begin_date" type="text" id="begin_date" class="date" value="<?php echo $TPL_VAR["begin_date"]?>" maxlength="20" onclick="new Calendar().show(this);"/>&nbsp;~
+				<input name="end_date" type="text" id="end_date" class="date" value="<?php echo $TPL_VAR["end_date"]?>" maxlength="20" onclick="new Calendar().show(this);" />
+					
+				<!-- 팀검색, 리그검색 -->
+				<select name="filter_team_type">
+					<option value="home_team" <?php if($TPL_VAR["filter_team_type"]=="home_team"){?> selected<?php }?>>홈팀</option>
+					<option value="away_team" <?php if($TPL_VAR["filter_team_type"]=="away_team"){?> selected<?php }?>>원정팀</option>
+				</select>
+				<input type="text" size="10" name="filter_team" value="<?php echo $TPL_VAR["filter_team"]?>" class="name">
+				<!-- 검색버튼 -->
+				<input name="Submit4" type="image" src="/img/btn_search.gif" class="imgType" title="검색" />
+				&nbsp;&nbsp;
+				<span style="float:right; font-size:15px; margin-right:15px;">구독 : <label id="orderCnt"><?=$TPL_VAR["orderCnt"]?></label> 개</span>
 			</form>
 		</div>
 	</div>

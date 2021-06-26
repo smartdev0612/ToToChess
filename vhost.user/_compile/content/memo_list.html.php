@@ -270,14 +270,14 @@
             <div class="message_count">쪽지 <span>총 <?php echo $TPL_list_1?> 개</span> 입니다.</div>
             <div class="board_list">
                 <table cellpadding="0" cellspacing="0" border="0">
-                    <colgroup><col width="50" /><col width="*" /><col width="120" /><col width="100" /><col width="100" /></colgroup>
+                    <colgroup><col width="10%" /><col width="*" /><col width="20%" /><col width="10%" /><col width="10%" /></colgroup>
                     <thead>
                         <tr>
                             <th>번호</th>
                             <th>내용</th>
                             <th>받은 시간</th>
                             <th>상태</th>
-                            <th>삭제하기</th>
+                            <th>처리</th>
                         </tr>
                     <thead>
                     <tbody>

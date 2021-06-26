@@ -835,7 +835,7 @@
                 "m_nLeague"     :   league_sn,
                 "m_nLive"       :   0,
                 "m_nPageIndex"  :   page_index,
-                "m_nPageSize"   :   30
+                "m_nPageSize"   :   50
             };
         
             onSendReqListPacket(packet);
@@ -857,6 +857,7 @@
                     appendGameDiv(showJson[i]);
                 }
             }
+            scrollToTop();
             $j(".mask_layer").click();
         }
         
@@ -983,7 +984,7 @@
                     break;
             }
             div += '<img src="/10bet/images/10bet/arrow_01.png" class="arrow" alt="">';
-            div += '<img src="' + json.m_strLeagueImg + '" width="20" height="16" style="margin-top:-2px;">&nbsp;&nbsp;';
+            div += '<img src="' + json.m_strLeagueImg + '" width="22" height="16" style="margin-top:-2px;">&nbsp;&nbsp;';
             div += '<font class="league_name" style="color:#22b486; font-weight:900;">' + json.m_strLeagueName + '</font>';
             div += `<span class="time hidden-sm">${json.m_strDate.substring(5,10)}&nbsp;${json.m_strHour}:${json.m_strMin}</span>`;
             div += '</h4>';

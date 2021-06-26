@@ -651,14 +651,14 @@ class GameModel extends Lemon_Model
 	}
 	
 	//▶ 경기 추가
-	function addChild($parentSn = 0,$category = "", $leagueSn = 0, $homeTeam = "", $awayTeam = "", $gameDate = "", $gameHour = "", $gameTime = "", $notice = "", $kubun = 0, $type = 0, $special = 0, $homeRate = 0.00, $drawRate = 0.00, $awayRate = 0.00, $is_specified_special='0')
+	function addChild($parentSn = 0, $category = "", $leagueSn = 0, $homeTeam = "", $awayTeam = "", $gameDate = "", $gameHour = "", $gameTime = "", $notice = "", $kubun = 0, $type = 0, $special = 0, $homeRate = 0.00, $drawRate = 0.00, $awayRate = 0.00, $is_specified_special='0', $league_img = "")
 	{
 		$sql = "insert into ".$this->db_qz."child("; 
 		$sql = $sql ." parent_sn, sport_name, league_sn, home_team, away_team," ;
 		if($category == "이벤트") {
-			$sql = $sql ." gameDate, gameHour, gameTime, notice, kubun, type, special, is_specified_special, win_team)";
+			$sql = $sql ." gameDate, gameHour, gameTime, notice, kubun, type, special, league_img, is_specified_special, win_team)";
 		} else {
-			$sql = $sql ." gameDate, gameHour, gameTime, notice, kubun, type, special, is_specified_special)";
+			$sql = $sql ." gameDate, gameHour, gameTime, notice, kubun, type, special, league_img, is_specified_special)";
 		}
 		$sql = $sql . " values("  	;
 		$sql = $sql . "'" . $parentSn . "','". $category ."',";
@@ -674,6 +674,7 @@ class GameModel extends Lemon_Model
 		$sql = $sql . "'" . $kubun . "',";	
 		$sql = $sql . "'" . $type . "',";
 		$sql = $sql . "'" . $special . "',";
+		$sql = $sql . "'" . $league_img . "',";
 		if($category == "이벤트") {
 			$sql = $sql . "'" . $is_specified_special . "','Home')";
 		} else {
@@ -2504,7 +2505,7 @@ class GameModel extends Lemon_Model
 	// 라이브경기 구독하기
 	function orderFixture($child_sn) {
 		$res = $this->updateLiveField($child_sn, 2);
-
+		$this->updateOrderCnt(1);
 		$result["msg"] = "라이브구독에 성공하였습니다.";
 		$result["status"] = 1;
 		if($res){
@@ -2514,6 +2515,7 @@ class GameModel extends Lemon_Model
 			
 			if(count($resp->Body->Ordered) == 0) {
 				$this->updateLiveField($child_sn, 1);
+				$this->updateOrderCnt(0);
 				$result["msg"] = "해당 경기는 라이브배당을 제공하지 않습니다.";
 				$result["status"] = 0;
 			}
@@ -2524,6 +2526,7 @@ class GameModel extends Lemon_Model
 	// 라이브경기 구독취소하기
 	function cancelOrder($child_sn) {
 		$res = $this->updateLiveField($child_sn, 1);
+		$this->updateOrderCnt(0);
 		$msg = "라이브구독을 취소하였습니다.";
 		
 		if($res){
@@ -2533,6 +2536,7 @@ class GameModel extends Lemon_Model
 
 			if(count($resp->Body->Cancelled) == 0) {
 				$this->updateLiveField($child_sn, 1);
+				$this->updateOrderCnt(1);
 				$msg = "미안하지만 라이브구독취소에 실패하였습니다.";
 			}
 		}
@@ -2644,6 +2648,27 @@ class GameModel extends Lemon_Model
 		$sql = "DELETE FROM tb_cross_limit WHERE limit_id = " . $limit_id;
 		$res = $this->db->exeSql($sql);
 		return $res;
+	}
+
+	// 라이브구독개수 얻기
+	function getLiveOrderCnt() {
+		$sql = "SELECT orderCnt FROM tb_live_order";
+		$res = $this->db->exeSql($sql);
+		$cnt = 0;
+		if(count((array)$res) > 0)
+			$cnt = $res[0]["orderCnt"];
+		
+		return $cnt;
+	}
+
+	// 라이브구독개수 갱신
+	function updateOrderCnt($flag = 0) {
+		if($flag == 0) {
+			$sql = "UPDATE tb_live_order SET orderCnt = orderCnt - 1";
+		} else {
+			$sql = "UPDATE tb_live_order SET orderCnt = orderCnt + 1";
+		}
+		$this->db->exeSql($sql);
 	}
 }
 ?>

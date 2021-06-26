@@ -528,6 +528,7 @@ class BoardController extends WebServiceController
 				} else {
 					$model->addCs($idx, $comment);
 					$model->modifyCsReply($idx,1);
+					$model->modifyAnswerAlarmFlag($idx);
 					throw new Lemon_ScriptException('답변이 저장 되였습니다.','','go','/board/questionlist');
 				}				
 			}

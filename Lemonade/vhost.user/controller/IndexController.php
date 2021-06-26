@@ -459,7 +459,7 @@ class IndexController extends WebServiceController
 			$is_checked = 1;
 		}
 
-		$this->commonDefine('calendar');
+		$this->commonDefine('join');
 		$this->view->define(array("content"=>"content/calendar.html"));
 		$this->view->assign('is_enable_check', $is_enable_check);
 		$this->view->assign('is_checked', $is_checked);

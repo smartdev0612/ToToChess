@@ -2209,5 +2209,10 @@ class MemberModel extends Lemon_Model
         $this->db->exeSql($sql);
     }
 
+    // 고객센터 답변 알람개수 갱신
+    function updateCustomerAnswerFlag($uid) {
+        $sql = "UPDATE tb_member SET customer_answer_flag = 0 WHERE uid = '" . $uid . "'";
+        $this->db->exeSql($sql);
+    }
 }
 ?>

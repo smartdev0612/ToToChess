@@ -90,12 +90,12 @@
                                             $battingJT = "1";
                                         }
                                         $table .= '<tr><td>';
-                                        $table .= '<img src="/BET38/_icon/sport/S' . $TPL_V2["sport_id"] . '.png" width="15">&nbsp;';
+                                        $table .= '<img src="/BET38/_icon/sport/S' . $TPL_V2["sport_id"] . '.png" width="20">&nbsp;';
                                         if($TPL_V2["league_image"] == "")
-                                            $table .= '<img src="/BET38/_icon/etc.svg" width="15">&nbsp;';
+                                            $table .= '<img src="/BET38/_icon/etc.svg" width="20">&nbsp;';
                                         else 
-                                            $table .= '<img src="' . $TPL_V2["league_image"] . '" width="15">&nbsp;';
-                                        $table .= 'KBO';
+                                            $table .= '<img src="' . $TPL_V2["league_image"] . '" width="20">&nbsp;';
+                                        $table .= $TPL_V2["league_name"];
                                         $table .= '</td>';
                                         $table .= '<td class="_left">';
                                         $table .= '<span class="txt_co6">홈팀</span> : ' . $TPL_V2["home_team"] . '<br>';

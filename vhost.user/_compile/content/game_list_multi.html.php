@@ -747,7 +747,7 @@
             "m_nLeague"     :   league_sn,
             "m_nLive"       :   1,
             "m_nPageIndex"  :   page_index,
-            "m_nPageSize"   :   30
+            "m_nPageSize"   :   50
         };
 
         onSendReqListPacket(packet);
@@ -844,7 +844,7 @@
     }
 
     function appendSubMarketDiv(game, market) {
-        var obj = document.getElementById(`ul_${game.m_nGame}_${market.m_nMarket}`);
+        var obj = document.getElementById(`ul_${game.m_nGame}_${market.m_nMarket}_${market.m_nFamily}`);
         if(obj != null && obj != undefined) {
             console.log("append sub market");
             var item = {
@@ -857,6 +857,7 @@
                 "m_strHour": game.m_strHour, 
                 "m_strMin": game.m_strMin, 
                 "m_nMarket": market.m_nMarket, 
+                "m_nFamily": market.m_nFamily, 
                 "m_nHBetCode": market.m_nHBetCode, 
                 "m_nDBetCode": market.m_nDBetCode, 
                 "m_nABetCode": market.m_nABetCode, 
@@ -876,7 +877,7 @@
             var children_div = "";
             if(market.m_strMarket.indexOf("핸디캡") > 0) {
                 if(item.m_strHLine !== null && item.m_strALine !== null) {
-                    var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_strHLine}`;
+                    var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
                     children_div += `<li class="list_flex" id="${sub_idx}">`;
                     children_div += '<div style="display:none">';
                     children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -906,7 +907,7 @@
                     $j(`#ul_${game.m_nGame}_${market.m_nMarket}`).append(children_div);
                 }
             } else if (market.m_strMarket.indexOf("언더오버") > 0) {
-                var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_strHLine}`;
+                var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
                 children_div += `<li class="list_flex" id="${sub_idx}">`;
                 children_div += '<div style="display:none">';
                 children_div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
@@ -933,7 +934,7 @@
                 children_div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div></li>';
                 $j(`#ul_${game.m_nGame}_${market.m_nMarket}`).append(children_div);
             } else if (market.m_strMarket.indexOf("정확한스코어") > 0) {
-                var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_strHName}`;
+                var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
                 children_div += `<li class="list_flex" id="${sub_idx}">`;
                 children_div += "<div class='st_wd33_l  selectable' name='" + sub_idx + "_div'  onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.m_nHBetCode + "')>";
                 children_div += '<div style="display:none">';
@@ -1492,7 +1493,7 @@
                             header2 = "핸디캡";
                             children2.push(item);
                             break;
-                        case 28:
+                        case 2:
                             header3 = "언더오버";
                             children3.push(item);
                             break;
@@ -1602,7 +1603,7 @@
                             break;
                         case 9:
                             header30 = "정확한 스코어 (1세트)";
-                            children30.push(item);
+                            // children30.push(item);
                             break;
                     }
                     break;
@@ -2654,10 +2655,10 @@
         div += '<ul class="clear">';
         div += '<li class="tr">';
         div += '<span class="st_game_leg">';
-        div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="20" class="st_marr3 st_marb1 st_game_ico">`;
+        div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="25" class="st_marr3 st_marb1 st_game_ico">`;
         div += '&nbsp';
         if(item.m_strLeagueImg != "") {
-            div += '<img src="' + item.m_strLeagueImg + '" width="20" class="st_marr3 st_marb1 st_game_ico">';
+            div += '<img src="' + item.m_strLeagueImg + '" width="25" class="st_marr3 st_marb1 st_game_ico">';
         }
         div += '&nbsp';
         div += item.m_strLeagueName;

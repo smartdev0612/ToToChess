@@ -132,8 +132,7 @@ function initialize($min, $bonus3, $bonus4, $bonus5, $bonus6, $bonus7, $bonus8, 
 function toggle($tr, $index, selectedRate)
 {
 	var toggle_action = "";
-	console.log($index);
-	//console.log($tr);
+	
 	$j('div[name='+$tr+'] input').each( function(index) {
 		if(index!=$index)
 		{
@@ -194,27 +193,36 @@ function toggle($tr, $index, selectedRate)
 function toggle_multi($tr, $index, selectedRate)
 { 
 	var toggle_action = "";
-	var gameSn = 0;
-	var pieces = $tr.split("_");
-	gameSn = pieces[0];
+	var pieces = $tr.split("_div");
+	var game_index = pieces[0];
+	var parts = game_index.split("_");
+	var gameSn = parts[0];
+	var market_id = parts[1];
+	var family_id = parts[2];
+
 	if(m_betList._items.length > 0) {
 		for(i=0; i<m_betList._items.length; ++i)
 		{
-			// var temps = m_betList._items[i]._game_index.split("_");
-			// var temp_game_sn = temps[0];
-			// if(gameSn == temps[0]) {
-			// 	del_bet(m_betList._items[i]._game_index, s_type, 1);
-			// }
-			if(m_betList._items[i]._game_type == 6 || m_betList._items[i]._game_type == 9 || m_betList._items[i]._game_type == 100 || m_betList._items[i]._game_type == 217  || m_betList._items[i]._game_type == 394 || 
-				m_betList._items[i]._game_type == 395 || m_betList._items[i]._game_type == 602) {
-				del_bet(m_betList._items[i]._game_index, s_type, 1);
+			var temps = m_betList._items[i]._game_index.split("_");
+			var temp_game_sn = temps[0];
+			var temp_market_id = temps[1];
+			var temp_family_id = temps[2];
+			var temp_game_index = m_betList._items[i]._game_index;
+			
+			if(game_index != temp_game_index) {
+				if(family_id == 11 && temp_family_id == 11) { // || family_id == 7 || family_id == 8 || family_id == 47
+					del_bet(temp_game_index);
+				} else if (temp_family_id == 7 || temp_family_id == 8 || temp_family_id == 47) {
+					if(gameSn == temp_game_sn && market_id == temp_market_id && family_id == temp_family_id) {
+						del_bet(temp_game_index);
+					}
+				}
 			}
 		}
 	}
-	
-	$j('div[name='+$tr+'] input:checkbox').each( function(index) {
-		if(index!=$index)
-		{ 
+
+	$j('div[name='+$tr+'] input:checkbox').each( function(index) {		
+		if(index != $index) { 
 			this.checked=false;
 		}
 	});
@@ -247,11 +255,13 @@ function toggle_multi($tr, $index, selectedRate)
 
 		else
 		{
+			console.log("Checked True");
+
 			$selectedCheckbox.prop("checked", true);
 			toggle_action = 'inserted';
 		}
 	}
-
+	
 	//change css class
 	$j('div[name='+$tr+'] input:checkbox').each(function(index)
 	{  
@@ -1312,31 +1322,21 @@ function check_specified_special_rule($game_index, $is_specified_special, $game_
 	return 1;
 }
 
-function del_bet($game_index, s_type, bonusFlag) {
-	if(s_type == "1") {
-		$j("[name=" + $game_index + "_div] input").each(function (index) {
-			this.checked = false;
-			index = index + 1;
-			$div = $j(this).parent();
-			$div.removeClass('on');
-		});
-	} else {
-		$j("[name=" + $game_index + "_div] input:checkbox").each(function (index) {
-			this.checked = false;
-			index = index + 1;
-			$div = $j(this).parent();
-			$div.removeClass('on');
-		});
-	}
+function del_bet($game_index, bonusFlag) {
+	$j("[name=" + $game_index + "_div] input:checkbox").each(function (index) {
+		this.checked = false;
+		$div = $j(this).parent();
+		$div.removeClass('on');
+	});
 
 	m_betList.removeItem($game_index);
 	betcon=betcon.del_one($game_index);
 
-	if ( bonusFlag != 1 )	bonus_del(s_type); //시점 관련 버그
+	if ( bonusFlag != 1 )	bonus_del(); //시점 관련 버그
 	calc();
 }
 
-function bet_clear(s_type)
+function bet_clear()
 {
 	var delArray = new Array();
 	for(i=0; i<m_betList._items.length;++i)
@@ -1346,7 +1346,7 @@ function bet_clear(s_type)
 	//console.log(delArray);
 	for(i=0; i<delArray.length; ++i)
 	{
-		del_bet(delArray[i], s_type, 1);
+		del_bet(delArray[i], 1);
 	}
 
 	$j("#betMoney").val(MoneyFormat(parseInt(eval("VarMinBet"))));
@@ -1515,7 +1515,7 @@ function add_bet_list(item)
 		case '2': selectedTeam="원정"; team_name=item._away_team; break;
 	}
 
-	var mkPickRow = "<li><h4><font>" + selectedTeam + "</font><span class='del'><img src='/10bet/images/10bet/ico_del_01.png' alt='삭제' onclick=\"del_bet('"+item._game_index+"','"+item._s_type+"','0');\"></span></h4>" +
+	var mkPickRow = "<li><h4><font>" + selectedTeam + "</font><span class='del'><img src='/10bet/images/10bet/ico_del_01.png' alt='삭제' onclick=\"del_bet('"+item._game_index+"','0');\"></span></h4>" +
 				"<div class='result'><b><font>" + team_name + "</font></b> <span>" + parseFloat(item._selct_rate).toFixed(2) + "</span></div></li>";
 
 	
@@ -1805,7 +1805,16 @@ function betting(type)
 	else 
 	{
 		bettingSubmitFlag = 1;
-		confirm_popup("배팅완료 "+bettingcanceltime+"분이내, 경기시작 "+bettingcancelbeforetime+"분전에만 취소가능합니다.\n확인클릭후 배팅 완료됩니다");
+		var betMoney = $j("#betMoney").val();
+		var totalMoney = $j("#sp_total").text();
+		var content = `배팅액: ${betMoney} <br>
+						예상당첨금액: ${totalMoney}
+						<br><br>
+						위내용이 맞는지 확인하십시오.
+						<br><br>
+						배팅완료 ${bettingcanceltime}분이내, 경기시작 ${bettingcancelbeforetime}분전에만 취소가능합니다.<br><br>
+						확인클릭후 배팅 완료됩니다.`;
+		sports_popup(content);
 	}
 }
 
@@ -1923,7 +1932,7 @@ function folder_bonus(val, s_type) {
 }
 
 //-> 2폴더(보너스포함) 이하이고 선택 게임중 [보너스]가 있으면 삭제
-function bonus_del(s_type){	
+function bonus_del(){
 	var truncount = "0";	
 	for ( i = 0 ; i < m_betList._items.length ; i++ ) {
 		var item = m_betList._items[i];
@@ -1954,11 +1963,12 @@ function bonus_del(s_type){
 		for ( i = 0 ; i < m_betList._items.length ; i++ ) {
 			var item = m_betList._items[i];
 			if ( item._home_team.indexOf("폴더") > -1 ) {
-				if(s_type == "1") {
-					toggle_action = toggle(item._game_index+'_div', item._index, item._selectedRate);
-				} else {
-					toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate);
-				}
+				// if(s_type == "1") {
+				// 	toggle_action = toggle(item._game_index+'_div', item._index, item._selectedRate);
+				// } else {
+				// 	toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate);
+				// }
+				toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate);
 				m_betList.removeItem(item._game_index);
 				betcon=betcon.del_element(item._game_index+"|"+item._index+"&"+item._home_team+"  VS "+item._away_team);
 			}	

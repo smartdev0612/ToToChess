@@ -19,8 +19,8 @@
             .top-3 {
                 top: 3px;
             }
-            .top-2 {
-                top: 2px;
+            .img-top {
+                top: 4px;
             }
             .pointer {
                 cursor: pointer;
@@ -111,12 +111,12 @@
                                     $table .= '<tr data-game_id="1731940" data-fid="6967104" data-mid="1" data-gb_id="25322682" data-betid="20609690316967104">';
                                     $table .= '<td>' . $TPL_V2["gameDate"] . ' ' . $TPL_V2["gameHour"] . ' : ' . $TPL_V2["gameTime"] . '</td>';
                                     $table .= '<td class="txt_left st_padl5">';
-                                    $table .= '<img src="/BET38/_icon/sport/S' . $TPL_V2["sport_id"] . '.png" width="15">&nbsp;';
+                                    $table .= '<img src="/BET38/_icon/sport/S' . $TPL_V2["sport_id"] . '.png" width="23">&nbsp;';
                                     if($TPL_V2["league_image"] == "")
-                                        $table .= '<img src="/BET38/_icon/etc.svg" width="15">&nbsp;';
+                                        $table .= '<img src="/BET38/_icon/etc.svg" width="23">&nbsp;';
                                     else 
-                                        $table .= '<img src="' . $TPL_V2["league_image"] . '" width="15" class="top-2">&nbsp;';
-                                    $table .= '<span class="top-2">' . $TPL_V2["league_name"] . '</span>'; 
+                                        $table .= '<img src="' . $TPL_V2["league_image"] . '" width="23" class="img-top">&nbsp;&nbsp;';
+                                    $table .= '<span class="img-top">' . $TPL_V2["league_name"] . '</span>'; 
                                     $table .= '</td>';
                                     $table .= '<td class="txt_left st_padl5">';
                                     $table .= '<div>';

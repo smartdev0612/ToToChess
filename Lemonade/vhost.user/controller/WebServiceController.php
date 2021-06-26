@@ -76,7 +76,7 @@ class WebServiceController extends Lemon_Controller
 		if($type=="index") {
 			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "right" => "right/right.html", "left" => "left/left_index.html"));
 		} else if($type=="join") {
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", "right" => "right/right.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", "left" => "left/left_index.html", "right" => "right/right.html"));
 		} else if($type=="poker") {
 			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "right" => "right/right_poker.html"));
 		} else if($type=="slot") {
