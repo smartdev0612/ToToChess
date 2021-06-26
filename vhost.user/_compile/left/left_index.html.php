@@ -2,53 +2,6 @@
 <!-- left 메뉴 -->
 <div id="left_section">
     <div class="left_box">
-        <style>
-            .name {
-                vertical-align: top;
-                font-size: 14px;
-            }
-            .menu2-a {
-                color:white !important; 
-                line-height:24px;
-            }
-            .menu2-img {
-                vertical-align: middle;
-            }
-            .menu2-span {
-                float:right; 
-                margin-right:10px;
-            }
-            .p-badge {
-                margin-top:7px;
-                margin-right:10px;
-            }
-            .span-badge {
-                float: right;
-                margin-right:10px;
-                margin-top:-5px;
-                color:white;
-            }
-            .sub-ul {
-                width:95%; 
-                margin-left:13px;
-            }
-            .li-bg {
-                background:#000 !important;
-            }
-            ._w180 {
-                width: 140px;
-            }
-            ._limit {
-                text-overflow:ellipsis;
-                overflow:hidden;
-                white-space:nowrap;
-            }
-            .text_line1{
-                display:inline-block;
-                height:15px;
-            }
-        </style>
-        
         <div class="sports_menu_list box_type01" style="font-size: 14px !important; padding-top: 0px;">
             <h3>오늘의 경기 
                 <?php
@@ -69,7 +22,7 @@
                     <a href="javascript:login_open();" style="color: white;">
                     <?php } ?>
                         <span class="name pc-name">축구</span>
-                        <span class="count count-top soc on total_count_soccer">0</span>
+                        <span class="count count-top on total_count_soccer">0</span>
                     </a>
                 </li>
                 <div class='div_soccer'>
@@ -83,7 +36,7 @@
                     <a href="javascript:login_open();" style="color: white;">
                     <?php } ?>
                     <span class="name pc-name">농구</span>
-                    <span class="count count-top soc on total_count_basketball">0</span></a>
+                    <span class="count count-top on total_count_basketball">0</span></a>
                 </li>
                 <div class='div_bask'>
                 </div>
@@ -96,7 +49,7 @@
                     <a href="javascript:login_open();" style="color: white;">
                     <?php } ?>
                     <span class="name pc-name">야구</span>
-                    <span class="count count-top soc on total_count_baseball">0</span></a>
+                    <span class="count count-top on total_count_baseball">0</span></a>
                 </li>
                 <div class="div_base">
                 </div>
@@ -109,7 +62,7 @@
                         <a href="javascript:login_open();" style="color: white;">
                     <?php } ?>
                     <span class="name pc-name">아이스 하키</span>
-                    <span class="count count-top soc on total_count_icehocky">0</span>
+                    <span class="count count-top on total_count_icehocky">0</span>
                     </a>
                 </li>
                 <div class="div_hock">
@@ -124,7 +77,7 @@
                     <?php } ?>
 
                     <span class="name pc-name">배구</span>
-                    <span class="count count-top soc on total_count_volleyball">0</span>
+                    <span class="count count-top on total_count_volleyball">0</span>
                     </a>
                 </li>
                 <div class="div_val">

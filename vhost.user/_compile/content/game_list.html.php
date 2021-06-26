@@ -8,7 +8,6 @@
       $sport_setting = $TPL_VAR["sport_setting"];
       
       $bonus_list = $TPL_VAR["bonus_list"];
-      
    ?>
 <div class="mask"></div>
 <div id="container">

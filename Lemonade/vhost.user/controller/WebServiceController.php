@@ -98,10 +98,10 @@ class WebServiceController extends Lemon_Controller
 			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom_multi.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right_sports.html"));
 		} else if($type=="abroad") {
 			//$this->view->define("index","layout/layout.sports.html");
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom_abroad.html", /*"top" => "header/top.html",*/ "left" => "left/left_abroad.html", "right" => "right/right_sports.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right_sports.html"));
 		}  else if($type=="live") {
 			//$this->view->define("index","layout/layout.sports.html");
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom_live.html", /*"top" => "header/top.html",*/ "left" => "left/left_live.html", "right" => "right/right_sports.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right_sports.html"));
 		} else if($type=="ladder") {
 			if($this->isMobile() == "pc") {
 				$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom_mini.html", /*"top" => "header/top.html",*/ "left" => "left/left_minigame.html", "right" => "right/right.html"));
@@ -145,7 +145,6 @@ class WebServiceController extends Lemon_Controller
 		
 		$live_model = $this->getModel("LiveGameModel");
 		$live_game_count = $live_model->getLiveGameCount();
-		$this->view->assign("game_list",  $gameList);
 		
 		$conf = Lemon_Configure::readConfig('config');
 		if($conf['site']!='')
@@ -153,24 +152,21 @@ class WebServiceController extends Lemon_Controller
 			$upload_url	 = $conf['site']['upload_url'];
 		}
 		
+		$gameType = $this->req->request("game");
+		$request_url = $_SERVER["REQUEST_URI"];
+
+		$style_type = 0; // 10bet 디자인
+
+		if($gameType == "abroad" || $gameType == "live" || strpos($request_url, '/race/betting_list') !== false)
+			$style_type = 1; // bet38 디자인
+
 		$this->view->assign("ad", $ad);
 		$this->view->assign('jackpot', $jackpot);
 		$this->view->assign("user_agent", $userAgent);		
 		$this->view->assign("UPLOAD_URL", $upload_url);
-		$this->view->assign("live_game_count", $live_game_count);		
+		$this->view->assign("live_game_count", $live_game_count);
+		$this->view->assign("style_type",  $style_type);
 
-		$sn = $this->auth->getSn();
-		$uid = $this->auth->getId();
-		
-		// if($sn!='' && $uid!='' && $type!='memo_list')
-		// {
-		// 	$memoModel = $this->getModel("MemoModel");
-		// 	$newMemoList = $memoModel->getMemberNewMemoList($uid);
-		// 	if( $newMemoList > 0 and !strpos($_SERVER["REQUEST_URI"],"member/memolist") ) {
-		// 		echo "<html><head><meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" /><script>alert('잃지 않은 쪽지가 있습니다. 쪽지를 읽어주세요.');</script></head></html>";
-		// 		$this->redirect('/member/memolist');
-		// 	}
-		// }
 	}
 	
 	/*

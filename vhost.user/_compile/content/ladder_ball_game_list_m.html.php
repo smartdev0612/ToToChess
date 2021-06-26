@@ -27,7 +27,6 @@
     <div class="mask"></div>
 	<div id="container">
 	
-<script language="javascript" src="/10bet/js/sideview.js"></script>
 <script language='javascript' src='/10bet/js/calendar2.js'></script>
 <script type="text/javascript" src="/10bet/skin/board/betting/js/script.js"></script>
 <!--[if lte ie 8]>-->
@@ -85,6 +84,11 @@
                                                                         </div>
                                                                         <form name="betForm">
                                                                             <div id="gamelist" class="bet_section">
+                                                                                <div class="time_box">
+                                                                                    <h3>06월27일[418회차]</h3>
+                                                                                    <div id="time-limit" class="time_area">00:14</div>
+                                                                                    <div class="btn_center"><button type="button" class="button_type01" onclick="location.reload()">새로고침</button></div>
+                                                                                </div>
                                                                                 <div class="bet_cart_box">
                                                                                     <div class="bet_list01">
                                                                                         <div class="list_box01">

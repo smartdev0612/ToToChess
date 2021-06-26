@@ -373,6 +373,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 							<th colspan="2">원정팀</th>
 							<th>배팅방향</th>
 							<th>배팅배당</th>
+							<th>총 배팅액</th>
 							<th>스코어</th>
 							<th>결과</th>
 							<th>상태</th>
@@ -521,6 +522,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 							?>
 								</td>
 								<td width="40" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666"><?php echo $TPL_V2["select_rate"];?></td>
+								<td width="20" align="" style="border-bottom:1px #CCCCCC solid;color: #666666"><a href="javascript:open_window('/member/popup_bet_detail?idx=<?php echo $TPL_V2["sub_child_sn"]?>',600,400)"><?=number_format($TPL_V2["nTotalBetMoney"],0)?></a></td>
 								<td width="40" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666" id="<?php echo $TPL_V1["betting_no"].'_'.$TPL_V2["total_betting_sn"]?>_score">
 								<?php 
 									if($TPL_V2["live"] == 1)

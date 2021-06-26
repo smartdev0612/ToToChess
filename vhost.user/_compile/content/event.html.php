@@ -3,8 +3,6 @@
 ?>
 <div class="mask"></div>
 <div id="container">
-	
-    <script language="javascript" src="/10bet/js/sideview.js"></script>
     <style>
         .board_list {border:0;background:none;box-shadow:none;}
         .event_section .event_list .btn_area .cate01 {width:auto;padding:0 5px;}

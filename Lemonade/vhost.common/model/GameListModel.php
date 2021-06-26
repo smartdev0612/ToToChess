@@ -2145,18 +2145,26 @@ class GameListModel extends Lemon_Model
 									SELECT 	a.sn as total_betting_sn, a.sub_child_sn, a.select_no, a.home_rate, a.away_rate, a.draw_rate, a.select_rate, a.game_type, a.result, a.score, a.live, 
 											b.sn as child_sn, b.home_team, b.away_team, b.home_score, b.away_score, b.special, b.gameDate, b.gameHour, b.gameTime, b.sport_name, b.sport_id, 
 											b.notice as league_name, IFNULL(b.league_img, '') as league_image, d.home_line, d.away_line, d.draw_line, d.home_name, d.away_name, d.draw_name,
-											d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate 
-									FROM ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d  
-									where a.betting_no='".$bettingSn."' and a.sub_child_sn=d.sn and b.sn=d.child_sn order by gameDate, gameHour, gameTime) AS tb_temp 
+											d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate, e.nTotalBetMoney 
+									FROM 	tb_total_betting a
+											INNER JOIN tb_subchild d ON a.`sub_child_sn`= d.`sn`
+											LEFT JOIN tb_child b ON d.child_sn = b.sn
+											LEFT JOIN (SELECT SUM(bet_money) AS nTotalBetMoney, sub_child_sn FROM tb_total_betting GROUP BY sub_child_sn) e ON d.sn = e.sub_child_sn
+									WHERE	a.betting_no='".$bettingSn."'  
+									ORDER BY gameDate, gameHour, gameTime) AS tb_temp 
 							LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
 				} else {
 					$sql = "SELECT 	tb_temp.*, tb_markets.mid, tb_markets.mname_ko, tb_markets.mfamily FROM (
 									SELECT 	a.sn as total_betting_sn, a.sub_child_sn, a.select_no, a.home_rate, a.away_rate, a.draw_rate, a.select_rate, a.game_type, a.result, a.score, a.live, 
 											b.sn as child_sn, b.home_team, b.away_team, b.home_score, b.away_score, b.special, b.gameDate, b.gameHour, b.gameTime, b.sport_id,
 											b.notice as league_name, IFNULL(b.league_img, '') as league_image, 
-											d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate
-									FROM ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d 
-									where a.betting_no='".$bettingSn."' and a.sub_child_sn=d.sn and b.sn=d.child_sn order by gameDate, gameHour, gameTime) AS tb_temp 
+											d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate, e.nTotalBetMoney
+									FROM 	tb_total_betting a
+											INNER JOIN tb_subchild d ON a.`sub_child_sn`= d.`sn`
+											LEFT JOIN tb_child b ON d.child_sn = b.sn
+											LEFT JOIN (SELECT SUM(bet_money) AS nTotalBetMoney, sub_child_sn FROM tb_total_betting GROUP BY sub_child_sn) e ON d.sn = e.sub_child_sn
+									WHERE	a.betting_no='".$bettingSn."' 
+									ORDER BY gameDate, gameHour, gameTime) AS tb_temp 
 							LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
 				}
 				

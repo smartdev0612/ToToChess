@@ -4,8 +4,6 @@
 ?>
     <div class="mask"></div>
 	<div id="container">
-	
-<script language="javascript" src="/10bet/js/sideview.js"></script>
 
 <script type="text/javascript" src="/10bet/js/left.js?1610361825"></script>
 <!-- 게시판 목록 시작 -->

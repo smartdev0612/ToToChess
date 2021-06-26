@@ -2,7 +2,6 @@
 	<div class="mask"></div>
 	<div id="container">
 	
-<script language="javascript" src="/10bet/js/sideview.js"></script>
 <script language="javascript">
     var VarLadder="";
     var VarListViewMode = "1";

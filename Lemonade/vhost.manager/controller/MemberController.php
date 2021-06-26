@@ -1265,6 +1265,28 @@ class MemberController extends WebServiceController
 
 		$this->alertRedirect("성공적으로  보관되었습니다.", $url);
 	}
+
+	// 한개 경기에 배팅한 유저목록
+	function popup_bet_detailAction() {
+		$this->popupDefine();
+
+		if(!$this->auth->isLogin())
+		{
+			$this->redirect("/login");
+			exit;
+		}
+		$this->view->define("content","content/member/popup.bet_detail.html");
+		
+		$model 	= Lemon_Instance::getObject("MemberModel", true);
+		
+		$subChildSn = $this->request("idx");
+
+		$list = $model->getUserBettingList($subChildSn);
+
+		$this->view->assign('list',$list);
+		
+		$this->display();
+	}
 }
 
 ?>

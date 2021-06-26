@@ -215,7 +215,7 @@
 
 	.ko_sports_game ul li {padding-bottom:0px !important;padding-top:0px !important;}
 
-	.mini_game_bet .bet_section .time_box .time_area {font-size:25px !important;padding:23px 0px 0px 40px !important;}
+	.mini_game_bet .bet_section .time_box .time_area {font-size:25px !important;padding:23px 0px 0px 0px !important;}
 
 	.ko_sports_game .bet_area .home font.team_name img , .ko_sports_game .bet_area .away font.team_name img {width:15px;}
 

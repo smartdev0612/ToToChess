@@ -1,8 +1,7 @@
 
 	<div class="mask"></div>
 	<div id="container">
-	
-<script language="javascript" src="/10bet/js/sideview.js"></script>
+
 <script type='text/javascript' src='/10bet/js/ajax.js'></script>
 <script type="text/javascript" src="/10bet/js/left.js?1610942372"></script>
     <div id="contents">

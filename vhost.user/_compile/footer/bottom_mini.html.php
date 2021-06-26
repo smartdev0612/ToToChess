@@ -229,6 +229,5 @@
 <link type='text/css' href='/10bet/simplemodal/css/basic.css' rel='stylesheet' media='screen' />
 <script type='text/javascript' src='/10bet/simplemodal/js/jquery.simplemodal.js'></script>
 <!-- simple modal }} -->
-<script language="javascript" src="/10bet/js/wrest.js"></script>
 </body>
 </html>

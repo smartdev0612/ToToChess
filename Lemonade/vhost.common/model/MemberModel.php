@@ -2214,5 +2214,22 @@ class MemberModel extends Lemon_Model
         $sql = "UPDATE tb_member SET customer_answer_flag = 0 WHERE uid = '" . $uid . "'";
         $this->db->exeSql($sql);
     }
+
+    function getUserBettingList($subChildSn = 0) {
+        $sql = "SELECT
+                    tb_total_betting.`betting_no`,
+                    tb_total_betting.bet_money,
+                    tb_member.`sn`,
+                    tb_member.`uid`
+                FROM
+                    tb_total_betting
+                    LEFT JOIN tb_member
+                    ON tb_total_betting.member_sn = tb_member.sn
+                WHERE tb_total_betting.`sub_child_sn` = " . $subChildSn;
+
+        $rs = $this->db->exeSql($sql);
+
+        return $rs;
+    }
 }
 ?>

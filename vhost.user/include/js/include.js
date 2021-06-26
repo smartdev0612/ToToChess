@@ -18,11 +18,11 @@ $j().ready(function(){
     });
 
     $j("#confirmBetCancel").on("click", function(){
-        betCancel_popup_close();
         location.href = "/race/betting_list";
+        betCancel_popup_close();
     });
 
-    var userMoney = setInterval(getUserInfo, 5000);
+    var userInfo = setInterval(getUserInfo, 5000);
 
     $j(".confirmBetting").on("click", function(){
         confirm_popup_close();
@@ -117,6 +117,9 @@ $j().ready(function(){
 
 });
 
+/*********************** 왼쪽 오늘의 경기 스포츠 개수 현시 ****************************/
+
+// 리그클릭시 리그목록 현시.
 function showLeagues(className) {
     var submenu2 = $j("." + className);
     // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
@@ -127,6 +130,112 @@ function showLeagues(className) {
     }
 }
 
+// 종목별 경기개수 현시
+function showSportsTotalCount(json, isOther = false) {
+    
+    if(json == null || json.length == 0)
+        return;
+    var soccer = json.find(value => value.m_strName == "축구");
+    if(soccer != null) {
+        $j(".total_count_soccer").text(soccer.m_nCount);
+        for(var i=0; i<soccer.m_lstCountryCnt.length; i++) {
+            appendCntInfo("soccer", soccer.m_lstCountryCnt[i], isOther);
+        }
+    }
+
+    var basketball = json.find(value => value.m_strName == "농구");
+    if(basketball != null) {
+        $j(".total_count_basketball").text(basketball.m_nCount);
+        for(var i=0; i<basketball.m_lstCountryCnt.length; i++) {
+            appendCntInfo("bask", basketball.m_lstCountryCnt[i], isOther);
+        }
+    }
+
+    var volleyball = json.find(value => value.m_strName == "배구");
+    if(volleyball != null) {
+        $j(".total_count_volleyball").text(volleyball.m_nCount);
+        for(var i=0; i<volleyball.m_lstCountryCnt.length; i++) {
+            appendCntInfo("val", volleyball.m_lstCountryCnt[i], isOther);
+        }
+    }
+
+    var baseball = json.find(value => value.m_strName == "야구");
+    if(baseball != null) {
+        $j(".total_count_baseball").text(baseball.m_nCount);
+        for(var i=0; i<baseball.m_lstCountryCnt.length; i++) {
+            appendCntInfo("base", baseball.m_lstCountryCnt[i], isOther);
+        }
+    }
+
+    var icehocky = json.find(value => value.m_strName == "아이스 하키");
+    if(icehocky != null) {
+        $j(".total_count_icehocky").text(icehocky.m_nCount);
+        for(var i=0; i<icehocky.m_lstCountryCnt.length; i++) {
+            appendCntInfo("hock", icehocky.m_lstCountryCnt[i], isOther);
+        }
+    }
+}
+
+// 국가별 리그 현시.
+function appendCntInfo(sports, json, isOther = false) {
+    console.log(style_type);
+    var div_id = `id_${sports}-${json.m_nCountry}`;
+    var div_obj = document.getElementById(div_id);
+    if(div_obj != null && div_obj != undefined) {
+        document.getElementById(`id_${sports}-${json.m_nCountry}_value`).innerHTML = json.m_nCount;
+        for(var j = 0; j < json.m_lstLeagueCnt.length; j++){
+            var obj = document.getElementById(`id_${sports}-${json.m_nCountry}-${json.m_lstLeagueCnt[j].m_nLeague}_value`);
+            if(obj == null || obj == undefined) {
+                var div = "";
+                if(isOther) {
+                    div += `<li class="ss_bl1 li-bg" onClick="location.href='/game_list?game=abroad&league_sn=${json.m_lstLeagueCnt[j].m_nLeague}'">`;
+                } else {
+                    div += `<li class="ss_bl1 li-bg" onClick="onClickLeague('${json.m_lstLeagueCnt[j].m_nLeague}')">`;
+                }
+                div += '<a href="javascript:void(0)">';
+                div += '<p class="txt_line1 _limit _w180 p-badge">' + json.m_lstLeagueCnt[j].m_strName + '</p>';
+                div += `<span class="badge badge-info f_right _center w35 ${style_type > 0 ? 'span-badge-abroad' : 'span-badge'}" id="id_${sports}-${json.m_nCountry}-${json.m_lstLeagueCnt[j].m_nLeague}">` + json.m_lstLeagueCnt[j].m_nCount + `</span>`;
+                div += '</a>';
+                div += '</li>';
+
+                $j(`#id_${sports}-${json.m_nCountry}_ul`).append(div);
+            }
+            else {
+                obj.innerHTML = json.m_lstLeagueCnt[j].m_nCount;
+            }
+        }
+    }
+    else {
+        var div = `<div id="id_${sports}-${json.m_nCountry}">`;
+        div += `<ul class="li-${sports}" onclick=showLeagues("ul-${sports}-${json.m_nCountry}") style="display:none; width:97%; margin-left:7px;">`;
+        div += '<li class="menu2">';
+        div += '<a href="javascript:void(0)" class="st_marl10 menu2-a">';
+        div += '<img src="' + json.m_strImg + '" width="15" class="menu2-img">'; 
+        div += json.m_strName;									
+        div += `<span class="f_right _center w35 menu2-span" style="margin-right:10px;" id="id_${sports}-${json.m_nCountry}_value">` + json.m_nCount + '</span>';
+        div += '</a>';
+        div += '</li>';
+        div += '</ul>';
+        div += `<ul class="ul-${sports} ul-${sports}-${json.m_nCountry} sub-ul" style="display:none;" id="id_${sports}-${json.m_nCountry}_ul">`;
+        for(var j = 0; j < json.m_lstLeagueCnt.length; j++){
+            if(isOther) {
+                div += `<li class="ss_bl1 li-bg" onClick="location.href='/game_list?game=abroad&league_sn=${json.m_lstLeagueCnt[j].m_nLeague}'">`;
+            } else {
+                div += `<li class="ss_bl1 li-bg" onClick="onClickLeague('${json.m_lstLeagueCnt[j].m_nLeague}')">`;
+            }
+            div += '<a href="javascript:void(0)">';
+            div += '<p class="txt_line1 _limit _w180 p-badge">' + json.m_lstLeagueCnt[j].m_strName + '</p>';
+            div += `<span class="badge badge-info f_right _center w35 ${style_type > 0 ? 'span-badge-abroad' : 'span-badge'}" id="id_${sports}-${json.m_nCountry}-${json.m_lstLeagueCnt[j].m_nLeague}_value">` + json.m_lstLeagueCnt[j].m_nCount + `</span>`;
+            div += '</a>';
+            div += '</li>';
+        }
+        div += '</ul>';
+        div += `</div>`
+        $j(`.div_${sports}`).append(div);
+    }
+}
+
+/**************************** 로그인, 회원가입, 배팅, 쪽지, 알람 각종 팝업 **************************************/
 function login_open(){
     $j("#popup_login").fadeIn();
     $j("#coverBG").fadeIn();
@@ -210,12 +319,15 @@ function loginCheck() {
     return false;
 }
 
+
+// 회원가입시 엔터건으로 가입단추 클릭
 function loginEnter(e) {
     if ( e.keyCode == 13 ) {
         loginCheck();
     }
 }
 
+// 회원가입을 위한 추천인코드 검사
 function check_pincode() {
     var pincode = $j('#pincode').val();
     if ( pincode.length < 1 ) {
@@ -239,6 +351,8 @@ function check_pincode() {
     return false;
 }
 
+
+// 회원가입시 영문, 수자 체크
 function eng(obj) {
     var pattern = /[^(a-zA-Z0-9)]/; //영문만 허용
     if (pattern.test(obj.value)) {
@@ -249,6 +363,7 @@ function eng(obj) {
     }
 }
 
+// 5초에 한번씩 유저머니, 쪽지, 고객센터 답변등록, 배팅취소 등 체크
 function getUserInfo() {
     $j.ajaxSetup({async:true});
 
@@ -283,6 +398,7 @@ function getUserInfo() {
     });
 }
 
+// 수자를 반점 구분으로 현시, ex: 10,000
 function addCommas(nStr)
 {
     nStr += '';
@@ -296,6 +412,7 @@ function addCommas(nStr)
     return x1 + x2;
 }
 
+// 페지스크롤을 페지상단으로 유연하게 이동.
 function scrollToTop() {
     var position = document.body.scrollTop || document.documentElement.scrollTop;
     var scrollAnimation;
@@ -306,9 +423,12 @@ function scrollToTop() {
 }
 
 /******************************************* Web Socket *******************************************/
-const PACKET_SPORT_LIST = 0x01;
-const PACKET_SPORT_BET = 0x02;
-const PACKET_SPORT_AJAX = 0x03;
+
+// 스포츠
+const PACKET_SPORT_LIST = 0x01;         // 첫 페지로딩시 보내는 파켓코드
+const PACKET_SPORT_BET = 0x02;          // 스포츠배팅시 보내는 파켓코드
+const PACKET_SPORT_AJAX = 0x03;         // 실시간으로 스포츠자료 가져오는 파켓코드
+
 //Powerball
 const PACKET_POWERBALL_TIME = 0x11;
 const PACKET_POWERBALL_BET = 0x12;
@@ -320,6 +440,7 @@ const PACKET_POWERLADDER_BET = 0x22;
 const PACKET_KENOLADDER_BET = 0x32;
 
 var showJson;
+
 var packet = {
     "m_strSports"   :   "",
     "m_nLeague"     :   0,
@@ -375,6 +496,8 @@ function sendPacket(nPacketCode, strPacket) {
     ws.send(JSON.stringify(packet));
 }
 
+
+// 페지로딩시 로딩아이콘 현시
 function onLoadingScreen() {
     $j("#loading").show();
     $j("#loading img").show().css({'transition':'transform 1s ease' , 'transform' : 'rotateY(180deg)'});
@@ -396,7 +519,11 @@ function onSendReqListPacket(param) {
 	if(ws.readyState === WebSocket.OPEN) {
 		onLoadingScreen();
 		sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
-	}
+	} else {
+        setTimeout(() => {
+            sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
+        }, 500);
+    }
 }
 
 
@@ -431,8 +558,9 @@ function checkExist1x2(item) {
     return isExist12;
 }
 
+
+// 유럽형, 라이브에서 매 경기별 배팅가능한 마켓개수 얻기.
 function getMarketsCnt(sport_name, children, isExist12 = true) {
-    console.log(isExist12);
     var temp_id = 0;
     var cnt = 0;
     var marketArray = [];
@@ -472,105 +600,3 @@ function getMarketsCnt(sport_name, children, isExist12 = true) {
     return cnt;
 }
 
-function showSportsTotalCount(json, isOther = false) {
-    
-    if(json == null || json.length == 0)
-        return;
-    var soccer = json.find(value => value.m_strName == "축구");
-    if(soccer != null) {
-        $j(".total_count_soccer").text(soccer.m_nCount);
-        for(var i=0; i<soccer.m_lstCountryCnt.length; i++) {
-            appendCntInfo("soccer", soccer.m_lstCountryCnt[i], isOther);
-        }
-    }
-
-    var basketball = json.find(value => value.m_strName == "농구");
-    if(basketball != null) {
-        $j(".total_count_basketball").text(basketball.m_nCount);
-        for(var i=0; i<basketball.m_lstCountryCnt.length; i++) {
-            appendCntInfo("bask", basketball.m_lstCountryCnt[i], isOther);
-        }
-    }
-
-    var volleyball = json.find(value => value.m_strName == "배구");
-    if(volleyball != null) {
-        $j(".total_count_volleyball").text(volleyball.m_nCount);
-        for(var i=0; i<volleyball.m_lstCountryCnt.length; i++) {
-            appendCntInfo("val", volleyball.m_lstCountryCnt[i], isOther);
-        }
-    }
-
-    var baseball = json.find(value => value.m_strName == "야구");
-    if(baseball != null) {
-        $j(".total_count_baseball").text(baseball.m_nCount);
-        for(var i=0; i<baseball.m_lstCountryCnt.length; i++) {
-            appendCntInfo("base", baseball.m_lstCountryCnt[i], isOther);
-        }
-    }
-
-    var icehocky = json.find(value => value.m_strName == "아이스 하키");
-    if(icehocky != null) {
-        $j(".total_count_icehocky").text(icehocky.m_nCount);
-        for(var i=0; i<icehocky.m_lstCountryCnt.length; i++) {
-            appendCntInfo("hock", icehocky.m_lstCountryCnt[i], isOther);
-        }
-    }
-}
-
-function appendCntInfo(sports, json, isOther = false) {
-    //console.log(isOther);
-    var div_id = `id_${sports}-${json.m_nCountry}`;
-    var div_obj = document.getElementById(div_id);
-    if(div_obj != null && div_obj != undefined) {
-        document.getElementById(`id_${sports}-${json.m_nCountry}_value`).innerHTML = json.m_nCount;
-        for(var j = 0; j < json.m_lstLeagueCnt.length; j++){
-            var obj = document.getElementById(`id_${sports}-${json.m_nCountry}-${json.m_lstLeagueCnt[j].m_nLeague}_value`);
-            if(obj == null || obj == undefined) {
-                var div = "";
-                if(isOther) {
-                    div += `<li class="ss_bl1 li-bg" onClick="location.href='/game_list?game=abroad&league_sn=${json.m_lstLeagueCnt[j].m_nLeague}'">`;
-                } else {
-                    div += `<li class="ss_bl1 li-bg" onClick="onClickLeague('${json.m_lstLeagueCnt[j].m_nLeague}')">`;
-                }
-                div += '<a href="javascript:void(0)">';
-                div += '<p class="txt_line1 _limit _w180 p-badge">' + json.m_lstLeagueCnt[j].m_strName + '</p>';
-                div += `<span class="badge badge-info f_right _center w35 span-badge" id="id_${sports}-${json.m_nCountry}-${json.m_lstLeagueCnt[j].m_nLeague}">` + json.m_lstLeagueCnt[j].m_nCount + `</span>`;
-                div += '</a>';
-                div += '</li>';
-
-                $j(`#id_${sports}-${json.m_nCountry}_ul`).append(div);
-            }
-            else {
-                obj.innerHTML = json.m_lstLeagueCnt[j].m_nCount;
-            }
-        }
-    }
-    else {
-        var div = `<div id="id_${sports}-${json.m_nCountry}">`;
-        div += `<ul class="li-${sports}" onclick=showLeagues("ul-${sports}-${json.m_nCountry}") style="display:none; width:97%; margin-left:7px;">`;
-        div += '<li class="menu2">';
-        div += '<a href="javascript:void(0)" class="st_marl10 menu2-a">';
-        div += '<img src="' + json.m_strImg + '" width="15" class="menu2-img">'; 
-        div += json.m_strName;									
-        div += `<span class="f_right _center w35 menu2-span" style="margin-right:10px;" id="id_${sports}-${json.m_nCountry}_value">` + json.m_nCount + '</span>';
-        div += '</a>';
-        div += '</li>';
-        div += '</ul>';
-        div += `<ul class="ul-${sports} ul-${sports}-${json.m_nCountry} sub-ul" style="display:none;" id="id_${sports}-${json.m_nCountry}_ul">`;
-        for(var j = 0; j < json.m_lstLeagueCnt.length; j++){
-            if(isOther) {
-                div += `<li class="ss_bl1 li-bg" onClick="location.href='/game_list?game=abroad&league_sn=${json.m_lstLeagueCnt[j].m_nLeague}'">`;
-            } else {
-                div += `<li class="ss_bl1 li-bg" onClick="onClickLeague('${json.m_lstLeagueCnt[j].m_nLeague}')">`;
-            }
-            div += '<a href="javascript:void(0)">';
-            div += '<p class="txt_line1 _limit _w180 p-badge">' + json.m_lstLeagueCnt[j].m_strName + '</p>';
-            div += `<span class="badge badge-info f_right _center w35 span-badge" id="id_${sports}-${json.m_nCountry}-${json.m_lstLeagueCnt[j].m_nLeague}_value">` + json.m_lstLeagueCnt[j].m_nCount + `</span>`;
-            div += '</a>';
-            div += '</li>';
-        }
-        div += '</ul>';
-        div += `</div>`
-        $j(`.div_${sports}`).append(div);
-    }
-}

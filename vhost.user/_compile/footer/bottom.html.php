@@ -105,7 +105,7 @@
                         <a href="javascript:login_open();" style="color: white;">
                         <?php } ?>
                             <span class="name">축구</span>
-                            <span class="count soc on total_count_soccer">0</span>
+                            <span class="count on total_count_soccer">0</span>
                         </a>
                     </li>
                     <div class="div_soccer"></div>
@@ -118,7 +118,7 @@
                         <a href="javascript:login_open();" style="color: white;">
                         <?php } ?>
                             <span class="name">농구</span>
-                            <span class="count soc on total_count_basketball">0</span>
+                            <span class="count on total_count_basketball">0</span>
                         </a>
                     </li>
                     <div class='div_bask'></div>
@@ -131,7 +131,7 @@
                         <a href="javascript:login_open();" style="color: white;">
                         <?php } ?>
                             <span class="name">야구</span>
-                            <span class="count soc on total_count_baseball">0</span>
+                            <span class="count on total_count_baseball">0</span>
                         </a>
                     </li>
                     <div class="div_base"></div>
@@ -144,7 +144,7 @@
                             <a href="javascript:login_open();" style="color: white;">
                         <?php } ?>
                             <span class="name">아이스하키</span>
-                            <span class="count soc on total_count_icehocky">0</span>
+                            <span class="count on total_count_icehocky">0</span>
                         </a>
                     </li>
                     <div class="div_hock"></div>
@@ -157,7 +157,7 @@
                             <a href="javascript:login_open();" style="color: white;">
                         <?php } ?>
                             <span class="name">배구</span>
-                            <span class="count soc on total_count_volleyball">0</span>
+                            <span class="count on total_count_volleyball">0</span>
                         </a>
                     </li>
                     <div class="div_val"></div>
@@ -359,7 +359,7 @@
         });
     }
 </script>
-<script language="javascript" src="/10bet/js/wrest.js"></script>
+
 <!-- 새창 대신 사용하는 iframe -->
 <iframe width=0 height=0 name='hiddenframe' style='display:none;'></iframe>
 </body>

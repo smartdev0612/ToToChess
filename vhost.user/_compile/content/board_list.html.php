@@ -4,8 +4,7 @@
 ?>
 <div class="mask"></div>
 <div id="container">
-	
-<script language="javascript" src="/10bet/js/sideview.js"></script>
+
 <script>
     $j(document).ready(function(){
         // 게시판 페이징 맨끝 없애기

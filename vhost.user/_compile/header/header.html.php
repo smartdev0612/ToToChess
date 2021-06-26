@@ -5,7 +5,7 @@
     <title>체스</title>
     <link rel="shortcut icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345886" />
+    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345887" />
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
@@ -41,33 +41,17 @@
 
 <script type="text/javascript">
     // F12 버튼 방지
-    // $j(document).ready(function(){
-    //     $j(document).bind('keydown',function(e){
-    //         if ( e.keyCode == 123 /* F12 */) {
-    //             e.preventDefault();
-    //             e.returnValue = false;
-    //         }
-    //     });
-    // });
+    $j(document).ready(function(){
+        $j(document).bind('keydown',function(e){
+            if ( e.keyCode == 123 /* F12 */) {
+                e.preventDefault();
+                e.returnValue = false;
+            }
+        });
+    });
 </script>
 <body  oncontextmenu='return false'>
     <a name="g4_head"></a>
-    <script language="javascript">
-        // 자바스크립트에서 사용하는 전역변수 선언
-        var g4_path      = "..";
-        var g4_bbs       = "bbs";
-        var g4_agent	= "agent";
-        var g4_bbs_img   = "img";
-        var g4_url       = "http://www.gbet-999.com";
-        var g4_is_member = "1";
-        var g4_is_admin  = "";
-        var g4_bo_table  = "";
-        var g4_sca       = "";
-        var g4_charset   = "euc-kr";
-        var g4_cookie_domain = ".gbet-999.com";
-        var g4_is_gecko  = navigator.userAgent.toLowerCase().indexOf("gecko") != -1;
-        var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
-    </script>
     <script language="javascript">
         function setPng24(obj) {
             obj.width=obj.height=1;
@@ -195,6 +179,56 @@
         .pagination-centered {
             text-align: center;
             font-size: 1.3em;
+        }
+
+        .name {
+            vertical-align: top;
+            font-size: 14px;
+        }
+        .menu2-a {
+            color:white !important; 
+            line-height:24px;
+        }
+        .menu2-img {
+            vertical-align: middle;
+        }
+        .menu2-span {
+            float:right; 
+            margin-right:10px;
+        }
+        .p-badge {
+            margin-top:7px !important;
+            margin-right:10px !important;
+        }
+        .span-badge {
+            float: right;
+            margin-right:10px;
+            margin-top:-5px;
+            color:white;
+        }
+        .sub-ul {
+            width:95% !important; 
+            margin-left:13px !important;
+        }
+        .li-bg {
+            background:#000 !important;
+        }
+        ._w180 {
+            width: 140px;
+        }
+        ._limit {
+            text-overflow:ellipsis;
+            overflow:hidden;
+            white-space:nowrap;
+        }
+        .text_line1{
+            display:inline-block;
+            height:15px;
+        }
+
+        .span-badge-abroad {
+            margin-top:13px !important;
+            margin-right:10px !important;
         }
 
         .btn-center {
@@ -601,9 +635,8 @@
             </div>
         </header>
 <script>
-    
     var member_sn = "<?=$TPL_VAR["member_sn"]?>";
-
+    var style_type = <?=$TPL_VAR["style_type"]?>;
 </script>
 <?php
 if ( isset($TPL_VAR["popup_list"]) && count($TPL_VAR["popup_list"]) > 0 ) {

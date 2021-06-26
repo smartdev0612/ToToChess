@@ -4,8 +4,6 @@ $roulette_rb = $TPL_VAR["mini_odds"]["roulette_rb"];
     <div class="mask"></div>
 	<div id="container">
 	
-<script language="javascript" src="/10bet/js/sideview.js"></script>
-<script language='javascript' src='/10bet/js/calendar2.js'></script>
 <script type="text/javascript" src="/10bet/skin/board/betting/js/script.js"></script>
 <!--[if lte ie 8]>-->
 <script type="text/javascript" src="/10bet/js/math.ie8.shim.min.js"></script>
