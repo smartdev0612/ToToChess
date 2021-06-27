@@ -856,6 +856,8 @@
         $.each(showJson, function(index, item) {
             appendGameDiv(item, index);
         });
+
+        $j(".mask_layer").click();
     }
 
     function appendGameDiv(item, index) {

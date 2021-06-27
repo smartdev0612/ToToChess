@@ -2568,6 +2568,8 @@
         $.each(showJson, function(index, item) {
             appendGameDiv(item, index);
         });
+
+        $j(".mask-layer").click();
     }
 
     function getSubChildInfo(index, item, detail, childCnt, isExist12) {

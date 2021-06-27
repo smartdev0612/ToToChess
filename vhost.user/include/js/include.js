@@ -178,7 +178,6 @@ function showSportsTotalCount(json, isOther = false) {
 
 // 국가별 리그 현시.
 function appendCntInfo(sports, json, isOther = false) {
-    console.log(style_type);
     var div_id = `id_${sports}-${json.m_nCountry}`;
     var div_obj = document.getElementById(div_id);
     if(div_obj != null && div_obj != undefined) {
@@ -389,10 +388,8 @@ function getUserInfo() {
             betCancel_popup();
 
         if(json.member.customer_answer_flag > 0) {
-            if(url.indexOf('/cs/cs_list') == -1) {
-                try { jBeep('/public/snd/Alarm01.mp3'); } catch(e) {};
-                memo_popup(json.member.customer_answer_flag);
-            }
+            try { jBeep('/public/snd/Alarm01.mp3'); } catch(e) {};
+            memo_popup(json.member.customer_answer_flag);
         }
         // console.log(addCommas(result));
     });
@@ -460,7 +457,7 @@ ws.onmessage = function (event) {
         var objPacket = JSON.parse(event.data);
         
         if(objPacket.m_nPacketCode == PACKET_SPORT_LIST) {
-            console.log(objPacket);
+            // console.log(objPacket);
             onRevGameList(objPacket.m_strPacket);
         }
         else if(objPacket.m_nPacketCode == PACKET_SPORT_BET) {

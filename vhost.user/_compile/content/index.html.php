@@ -6,7 +6,7 @@
 <!-- 컨텐츠 영역 -->
 <div id="contents">
     <!-- 메인 비쥬얼 -->
-    <div class="main_visual">
+    <div class="main_visual hidden-xs">
         <ul class="swiper-wrapper">
             <li class="swiper-slide bg01">
                 <div class="box01">

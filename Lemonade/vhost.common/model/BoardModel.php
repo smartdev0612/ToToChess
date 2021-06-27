@@ -1081,7 +1081,7 @@ class BoardModel extends Lemon_Model
 
 	function modifyAnswerAlarmFlag($idx = 0) {
 		$member_id = $this->getMemberIdByIdx($idx);
-		$sql = "update ".$this->db_qz."member set customer_answer_flag= customer_answer_flag + 1 where uid = " . $member_id;
+		$sql = "update ".$this->db_qz."member set customer_answer_flag= customer_answer_flag + 1 where uid = '" . $member_id . "'";
 		$this->db->exeSql($sql);	
 	}
 }

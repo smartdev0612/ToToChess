@@ -95,7 +95,7 @@ class WebServiceController extends Lemon_Controller
 			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left_index.html", "right" => "right/right.html"));
 		} else if($type=="winlose" or $type=="handi" or $type=="special") {
 			//$this->view->define("index","layout/layout.sports.html");
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom_multi.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right_sports.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right_sports.html"));
 		} else if($type=="abroad") {
 			//$this->view->define("index","layout/layout.sports.html");
 			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right_sports.html"));
