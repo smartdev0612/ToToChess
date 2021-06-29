@@ -95,6 +95,8 @@
 	
 			$j(".gameDh").html(mm+"월 "+dd+"일 [" + (gameDh - 1) + "]회차");
 			$j(".time_area").html(limitMin + ":" + limitSec);
+		} else {
+			$j(".time_area").html("00:00");
 		}
 				
 		if ( secTemp < 60 ) {

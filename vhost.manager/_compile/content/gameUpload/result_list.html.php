@@ -88,17 +88,17 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	function account_popup()
 	{
 		var width = 1024;
-    var height = 600;
+		var height = 600;
 
-    var left = (screen.width/2)-(width/2);
-    var top = (screen.height/2)-(height/2);
+		var left = (screen.width/2)-(width/2);
+		var top = (screen.height/2)-(height/2);
+			
+		var win = window.open ("", "popupWindow", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width='+width+', height='+height+', top='+top+', left='+left);
+		document.popup.action = "/gameUpload/popup_win_member_list";
+		document.popup.target = "popupWindow";
 		
-    var win = window.open ("", "popupWindow", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width='+width+', height='+height+', top='+top+', left='+left);
-    document.popup.action = "/gameUpload/popup_win_member_list";
-    document.popup.target = "popupWindow";
-    
-    document.popup.submit();
-    win.focus();
+		document.popup.submit();
+		win.focus();
 	}
 	
 	function autoCheck($i, $data)
@@ -201,8 +201,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 				
 				<select name="special_type">
 					<option value="">대분류</option>
-					<option value="1"  <?php if($TPL_VAR["special_type"]==1){?>  selected <?php }?>>국내형</option>
-					<option value="2"  <?php if($TPL_VAR["special_type"]==2){?>  selected <?php }?>>해외형</option>
+					<option value="1"  <?php if($TPL_VAR["special_type"]==1){?>  selected <?php }?>>스포츠</option>
 					<option value="4"  <?php if($TPL_VAR["special_type"]==4){?>  selected <?php }?>>라이브</option>
                     <option value="22" <?php if($TPL_VAR["special_type"]==22){?> selected <?php }?>>가상축구</option>
 					<option value="5"  <?php if($TPL_VAR["special_type"]==5){?>  selected <?php }?>>사다리</option>
@@ -221,14 +220,6 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
                     <option value="21" <?php if($TPL_VAR["special_type"]==21){?> selected <?php }?>>나인</option>
                     <option value="26" <?php if($TPL_VAR["special_type"]==26){?> selected <?php }?>>MGM홀짝</option>
                     <option value="27" <?php if($TPL_VAR["special_type"]==27){?> selected <?php }?>>MGM바카라</option>
-				</select>
-				
-				<select name="game_type">
-					<option value="">종류</option>
-					<option value="1"  <?php if($TPL_VAR["gameType"]==1){?>  selected <?php }?>>승무패</option>
-					<option value="2"  <?php if($TPL_VAR["gameType"]==2){?>  selected <?php }?>>핸디캡</option>
-					<option value="4"  <?php if($TPL_VAR["gameType"]==4){?>  selected <?php }?>>언더오버</option>
-					<option value="24"  <?php if($TPL_VAR["gameType"]==24){?>  selected <?php }?>>핸디+언오버</option>
 				</select>
 				
 				<select name="categoryName">
@@ -291,7 +282,6 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
   	<input type="hidden" name="perpage" value=<?php echo $TPL_VAR["perpage"]?>>
   	<input type="hidden" name="state" value=<?php echo $TPL_VAR["state"]?>>
   	<input type="hidden" name="special_type" value=<?php echo $TPL_VAR["special_type"]?>>
-  	<input type="hidden" name="game_type" value=<?php echo $TPL_VAR["gameType"]?>>
   	<input type="hidden" name="categoryName" value=<?php echo $TPL_VAR["categoryName"]?>>
   	<input type="hidden" name="begin_date" value=<?php echo $TPL_VAR["begin_date"]?>>
   	<input type="hidden" name="end_date" value=<?php echo $TPL_VAR["end_date"]?>>
@@ -302,33 +292,33 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 		<table cellspacing="1" class="tableStyle_gameList" summary="항목보기">
 		<legend class="blind">항목보기</legend>
 			<thead>
-	    	<tr>
-	      	<th class="check" width="5"><input type="checkbox" name="chkAll" onClick="select_all()"/></th>
-					<th>경기타입</th>
-					<th>경기일시</th>
-					<th>진행상태</th>
-					<th>대분류</th>
-					<th>종류</th>
-					<th>종목</th>
-					<th>리그</th>
-					<th>승(홈팀)</th>
-					<th>VS</th>
-					<th>패(원정팀)</th>
-					<th>홈배당</th>
-					<th>무배당</th>
-					<th>원정배당</th>
-<?php if($TPL_VAR["state"]!=3){?>
-					<th>취소</th>
-					<th>스코어</th>
-					<th>이긴 팀</th>
-<?php }?>
-					<th class="check" width="5"></th>
-	    	</tr>
+				<tr>
+					<th class="check" width="5"><input type="checkbox" name="chkAll" onClick="select_all()"/></th>
+						<th>경기타입</th>
+						<th>경기일시</th>
+						<th>진행상태</th>
+						<th>대분류</th>
+						<th>종류</th>
+						<th>종목</th>
+						<th>리그</th>
+						<th>승(홈팀)</th>
+						<th>VS</th>
+						<th>패(원정팀)</th>
+						<th>홈배당</th>
+						<th>무배당</th>
+						<th>원정배당</th>
+	<?php if($TPL_VAR["state"]!=3){?>
+						<th>취소</th>
+						<th>스코어</th>
+						<th>이긴 팀</th>
+	<?php }?>
+						<th class="check" width="5"></th>
+				</tr>
 	 		</thead>
 			<tbody>
 <?php if($TPL_list_1){$TPL_I1=-1;foreach($TPL_VAR["list"] as $TPL_V1){$TPL_I1++;?>
 					<tr>
-						<td><input name="y_id[]" type="checkbox" value="<?php echo $TPL_V1["child_sn"]?>" onClick="select_to(this);"/></td>
+						<td><input name="y_id[]" type="checkbox" value="<?php echo $TPL_V1["sn"]?>" onClick="select_to(this);"/></td>
 						<td><?php echo "타입".$TPL_V1["parsing_site"];?></td>
 						<td><?php if($TPL_V1["update_enable"]==0){?><span style="border-bottom:1px solid red;"><?php }?><?php echo sprintf("%s %s:%s",substr($TPL_V1["gameDate"],5),$TPL_V1["gameHour"],$TPL_V1["gameTime"])?></td>
 						<td>
@@ -338,8 +328,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 <?php }?>
 						</td>
 						<td>
-<?php if($TPL_V1["special"]==1){?>국내형
-<?php }elseif($TPL_V1["special"]==2){?>해외형
+<?php if($TPL_V1["special"] < 4){?>스포츠
 <?php }elseif($TPL_V1["special"]==4){?>라이브
 <?php }elseif($TPL_V1["special"]==5){?>사다리
 <?php }elseif($TPL_V1["special"]==8){?>달팽이
@@ -361,11 +350,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 <?php }?>
 						</td>
 						<td>
-							<input type="hidden" name="game_types[<?php echo $TPL_V1["child_sn"]?>]" value=<?php echo $TPL_V1["type"]?>>
-<?php if($TPL_V1["type"]==1){?><span class="victory">승무패<?php if($TPL_V1["special"]==1){?>(실시간)<?php }/*elseif($TPL_V1["special"]==2){*/?><!--(실시간)--><?php /*}*/?></span>
-<?php }elseif($TPL_V1["type"]==2){?><span class="handicap">핸디캡<?php if($TPL_V1["special"]==1){?>(실시간)<?php }/*elseif($TPL_V1["special"]==2){*/?><!--(실시간)--><?php /*}*/?></span>
-<?php }elseif($TPL_V1["type"]==4){?><span class="underover">언더오버<?php if($TPL_V1["special"]==1){?>(실시간)<?php }/*elseif($TPL_V1["special"]==2){*/?><!--(실시간)--><?php /*}*/?></span>
-<?php }?>
+							<input type="hidden" name="game_types[]" value=<?php echo $TPL_V1["type"]?>>
+							<?=$TPL_V1["mname_ko"]?>
 						</td>
 						<td><?php echo $TPL_V1["sport_name"]?></td>
 						<td><?php echo $TPL_V1["league_name"]?></td>
@@ -378,26 +364,18 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 							<td><b><font color='red'>VS</font></b></td>
 							<td class="awayName"><font color=blue><b><?=$TPL_V1["away_team"]?></b></font></td>
 						<? } ?>
-						<td><input type="text" id="home_rate" name="home_rate[<?php echo $TPL_V1["child_sn"]?>]" size="5" value="<?php echo $TPL_V1["home_rate"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'><br><?php echo number_format($TPL_V1["home_total_betting"],0)?></td>
-						<td><input type="text" id="draw_rate" name="draw_rate[<?php echo $TPL_V1["child_sn"]?>]" size="5" value="<?php echo $TPL_V1["draw_rate"]?>" style="border:1px #97ADCE solid;"><br><?php echo number_format($TPL_V1["draw_total_betting"],0)?></td>
-						<td><input type="text" id="away_rate" name="away_rate[<?php echo $TPL_V1["child_sn"]?>]" size="5" value="<?php echo $TPL_V1["away_rate"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'><br><?php echo number_format($TPL_V1["away_total_betting"],0)?></td>
+						<td><input type="text" id="home_rate" name="home_rate[]" size="5" value="<?php echo $TPL_V1["home_rate"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'><br><?php echo number_format($TPL_V1["home_total_betting"],0)?></td>
+						<td><input type="text" id="draw_rate" name="draw_rate[]" size="5" value="<?php echo $TPL_V1["draw_rate"]?>" style="border:1px #97ADCE solid;"><br><?php echo number_format($TPL_V1["draw_total_betting"],0)?></td>
+						<td><input type="text" id="away_rate" name="away_rate[]" size="5" value="<?php echo $TPL_V1["away_rate"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'><br><?php echo number_format($TPL_V1["away_total_betting"],0)?></td>
 <?php if($TPL_VAR["state"]!=3){?>
 						<td><input type="checkbox" name="check_cancel[]" onclick='autoCheck_check(<?php echo $TPL_I1?>)' ></td>
 						<td>
-							<input type="text" name="home_score[<?php echo $TPL_V1["child_sn"]?>]" size="5" value="<?php echo $TPL_V1["home_score"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")' onblur='autoCheck(<?php echo $TPL_I1?>, this.value)'>
+							<input type="text" name="home_score[]" size="5" value="<?php echo $TPL_V1["sub_home_score"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")' onblur='autoCheck(<?php echo $TPL_I1?>, this.value)'>
 							:
-							<input type="text" name="away_score[<?php echo $TPL_V1["child_sn"]?>]" size="5" value="<?php echo $TPL_V1["away_score"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'>
-						</td>
-						<td>
-<?php if($TPL_V1["win"]==1){?> 홈승
-<?php }elseif($TPL_V1["win"]==2){?> 원정승
-<?php }elseif($TPL_V1["win"]==3){?> 무승부
-<?php }elseif($TPL_V1["win"]==4){?> 취소/적특
-<?php }else{?> &nbsp;
-<?php }?>
+							<input type="text" name="away_score[]" size="5" value="<?php echo $TPL_V1["sub_away_score"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'>
 						</td>
 <?php }?>
-						<td><input name="y_id_back[]" type="checkbox" value="<?php echo $TPL_V1["child_sn"]?>" onClick="select_to(this);"/></td>
+						<td><input name="y_id_back[]" type="checkbox" value="<?php echo $TPL_V1["sn"]?>" onClick="select_to(this);"/></td>
 					</tr>
 <?php }}?>
 			</tbody>

@@ -15,7 +15,7 @@
 <div id="wrap_pop">
 
 	<div id="pop_title">
-		<h1><?=($TPL_VAR["limit_id"] > 0) ? "배팅조합 편집" : "배팅조합 추가"?></h1>
+		<h1><?=($TPL_VAR["limit_id"] > 0) ? "배팅제한 편집" : "배팅제한 추가"?></h1>
 		<p><a href="#"><img src="/img/btn_s_close.gif" onclick="self.close();"></a></p>
 	</div>
 

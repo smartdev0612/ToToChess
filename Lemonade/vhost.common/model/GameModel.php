@@ -519,7 +519,7 @@ class GameModel extends Lemon_Model
 		//-> 서브차일드 수정 로그
 		$hDate = date("Y-m-d H:i:s",time());
 		$fileName = "subChildModify_".date("Ymd",time()).".log";
-		$logFile = @fopen("/home/gadget/www_gadget_1.com/Lemonade/_logs/system/".$fileName,"a");
+		$logFile = @fopen("C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\Lemonade\\_logs\\system\\".$fileName,"a");
 		if ( $logFile ) {
 			@fwrite($logFile, $sql."\n\n");
 			@fclose($logFile);
@@ -579,6 +579,18 @@ class GameModel extends Lemon_Model
 		
 		return $this->getRow($field, $this->db_qz.'subchild', $where);
 	}
+
+	function getSubChildRowBySn($sn)
+	{
+		$sql = "select * from tb_subchild where sn = " . $sn;
+		$rs = [];
+		$rs = $this->db->exeSql($sql);
+		if(count((array)$rs) > 0)
+			return $rs[0];
+
+		return $rs;
+	}
+
 
 	//▶ 서브차일드 목록 (다기준)
 	function getSubChildRowMulti($sn, $field='*', $addWhere='')
@@ -852,12 +864,6 @@ class GameModel extends Lemon_Model
 		
 		if($category!='') 
 			$where.=" and a.sport_name='".$category."'";
-
-		if ( $gameType == 24 ) {
-			$where.=" and (a.type='2' or a.type='4')";
-		} else if ( $gameType != '' ) {
-			$where.=" and a.type='".$gameType."'";
-		}
 		
 		if($specialType!=="")	
 		{
@@ -1332,12 +1338,6 @@ class GameModel extends Lemon_Model
 		if($category!='') 
 			$where.=" and a.sport_name='".$category."'";
 
-		if ( $gameType == 24 ) {
-			$where.=" and (a.type='2' or a.type='4')";
-		} else if ( $gameType != '' ) {
-			$where.=" and a.type='".$gameType."'";
-		}
-			
 		if($specialType!=="")	
 		{
 			switch($specialType)
@@ -1429,27 +1429,28 @@ class GameModel extends Lemon_Model
 		if($minBettingMoney!='')
 		{	
 			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
-								a.gameDate, a.gameHour, a.gameTime, a.notice, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
-								a.type, a.special, a.bet_money, c.name as league_name, c.alias_name,
-								b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result,
-								b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
-							from ".$this->db_qz."child a, ".$this->db_qz."league c, ".$this->db_qz."subchild b left outer join
+							a.gameDate, a.gameHour, a.gameTime, a.notice as league_name, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
+							a.type, a.special, a.bet_money,
+							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 
+							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
-								where c.betting_no=d.betting_no and c.is_account=1 
-								group by sub_child_sn) as c on b.sn=c.sub_child_sn
-							where a.sn=b.child_sn and a.league_sn=c.lsports_league_sn and a.view_flag = '1' ".$where."
-							order by a.gameDate ".$sort.", a.gameHour ".$sort.", a.gameTime ".$sort.", league_name, a.home_team, a.special, a.type, a.sn asc " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid" ;
+							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+							where c.betting_no=d.betting_no and c.is_account=1 
+							group by sub_child_sn) as c on b.sn=c.sub_child_sn
+					where a.sn=b.child_sn and a.view_flag = '1' ".$where."
+					order by a.gameDate ".$sort.", a.gameHour ".$sort.", a.gameTime ".$sort.", league_name, a.home_team, a.special, a.sn asc " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid" ;
 		} else {
 			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
-								a.gameDate, a.gameHour, a.gameTime, a.notice, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
-								a.type, a.special, a.bet_money, c.name as league_name, c.alias_name,
-								b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result,
-								b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
-							from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."league c 
-							where a.sn=b.child_sn and a.league_sn=c.lsports_league_sn and a.view_flag = '1' ".$where."
-							order by a.gameDate ".$sort.", a.gameHour ".$sort.", a.gameTime ".$sort.", league_name, a.home_team, a.special, a.type, a.sn asc " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid";
+							a.gameDate, a.gameHour, a.gameTime, a.notice as league_name, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
+							a.type, a.special, a.bet_money, 
+							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 
+							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b 
+					where a.sn=b.child_sn and a.view_flag = '1' ".$where."
+					order by a.gameDate ".$sort.", a.gameHour ".$sort.", a.gameTime ".$sort.", league_name, a.home_team, a.special, a.sn asc " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid";
 		}
+		
 		return $this->db->exeSql($sql);
 	}
 
@@ -2198,6 +2199,19 @@ class GameModel extends Lemon_Model
 		
 		return $rs[$field];
 	}
+
+	// 서브챠일드 아이디로부터 챠일드 아이디 얻기
+	function getChildSn($subchildSn = 0)
+	{
+		$sql = "SELECT child_sn FROM tb_subchild WHERE sn = " . $subchildSn;
+		$res = $this->db->exeSql($sql);
+		$childSn = 0;
+
+		if(count((array)$res) > 0)
+			$childSn = $res[0]["child_sn"];
+
+		return $childSn;
+	}
 	
 	//▶ 차일드 목록
 	function getChildRows($sn, $field='*', $addWhere='')
@@ -2449,14 +2463,6 @@ class GameModel extends Lemon_Model
         $sql = "select * from tbl_powerball order by round desc limit 1";
         return $this->db->exeSql($sql)[0];
     }
-
-	// 서브챠일드 아이디로부터 챠일드 아이디 얻기 (다기준)
-	function getChildSn($subChildSn = 0) {
-		$sql = "SELECT *, a.sn AS child_sn, b.sn AS subchild_sn FROM tb_child a, tb_subchild b WHERE a.sn = b.child_sn AND b.sn = " . $subChildSn;
-		$res = $this->db->exeSql($sql);
-		return $res[0]["child_sn"];
-	}
-
 	
 	//▶ 차일드 목록 (다기준)
 	function getMultiChildRow($sn, $field='*', $addWhere='')
@@ -2582,7 +2588,7 @@ class GameModel extends Lemon_Model
 					tb_cross_limit 
 					LEFT JOIN tb_sports
 					ON tb_cross_limit.sport_id = tb_sports.`sn`
-				ORDER BY tb_cross_limit.type_id, tb_sports.nOrder;";
+				ORDER BY tb_cross_limit.type_id, tb_sports.nOrder, tb_cross_limit.cross_script;";
 		return $this->db->exeSql($sql);
 	}
 
@@ -2669,6 +2675,17 @@ class GameModel extends Lemon_Model
 			$sql = "UPDATE tb_live_order SET orderCnt = orderCnt + 1";
 		}
 		$this->db->exeSql($sql);
+	}
+
+	function getFamilyID($market_id = 0) {
+		$sql = "SELECT mfamily FROM tb_markets WHERE tb_markets.mid = " . $market_id;
+		$family_id = 0;
+
+		$r = $this->db->exeSql($sql);
+		if(count((array)$r) > 0)
+			$family_id = $r[0]["mfamily"];
+
+		return $family_id;
 	}
 }
 ?>

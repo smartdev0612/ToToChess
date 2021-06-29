@@ -1355,7 +1355,7 @@ function bet_clear()
 
 
 // ------------------------- item -----------------------------------------------------------------
-function Item(game_index, home_team, away_team, chckbox_index, select_rate, home_rate, draw_rate, away_rate, game_type, sub_child_sn, is_specified_special, game_date, league_sn, sport_name, s_type, betid) 
+function Item(game_index, home_team, away_team, chckbox_index, select_rate, home_rate, draw_rate, away_rate, game_type, sub_child_sn, is_specified_special, game_date, league_sn, sport_name, s_type, betid, market_name, home_line, away_line, home_name) 
 {
 	this._game_index = game_index;
 	this._home_team = home_team;
@@ -1373,6 +1373,10 @@ function Item(game_index, home_team, away_team, chckbox_index, select_rate, home
 	this._sport_name = sport_name;
 	this._s_type = s_type;
 	this._betid = betid;
+	this._market_name = market_name;
+	this._home_line = home_line;
+	this._away_line = away_line;
+	this._home_name = home_name;
 }
 
 Item.prototype._game_index;
@@ -1391,6 +1395,10 @@ Item.prototype._league_sn;
 Item.prototype._sport_name;
 Item.prototype._s_type;
 Item.prototype._betid;
+Item.prototype._market_name;
+Item.prototype._home_line;
+Item.prototype._away_line;
+Item.prototype._home_name;
 
 function BetList() 
 {
@@ -1485,6 +1493,7 @@ function del_bet_list(num)
 
 function add_bet_list(item)
 {
+	console.log(item);
 	var table 	= document.getElementById("tb_list");
 	var tr0		= table.insertRow(table.rows.length);
 	var tr1 	= table.insertRow(table.rows.length);
@@ -1506,26 +1515,88 @@ function add_bet_list(item)
 	td10.style.textAlign = 'left';
 	
 	var selectedTeam = item._checkbox_index;
-	
-	var team_name='';
-	switch(selectedTeam)
-	{
-		case '0': selectedTeam="홈"; team_name=item._home_team; break;
-		case '1': selectedTeam="무"; team_name=item._home_team; break;
-		case '2': selectedTeam="원정"; team_name=item._away_team; break;
+	var home_line = item._home_line;
+	var away_line = item._away_line;
+	var home_name = item._home_name;
+	var market_name = item._market_name;
+	var home_team = item._home_team;
+	var away_team = item._away_team;
+	var team_name = item._home_team + " VS " + item._away_team;
+
+	var pieces = item._game_index.split("_");
+	var family_id = pieces[2];
+
+	switch(family_id){
+		case "1":
+		case "2":
+			if(selectedTeam == "0")
+				selectedTeam = market_name + ' (홈) - ' + home_team;
+			else if(selectedTeam == "1") 
+				selectedTeam = market_name + ' - 무승부'; 
+			else if(selectedTeam == "2")   
+				selectedTeam = market_name + ' (원) - ' + away_team;                       
+			break;
+		case "7":
+			if(selectedTeam == "0") {
+				selectedTeam = market_name + ' - 언더 (' + home_line + ')';
+			} else if(selectedTeam == "2") {
+				selectedTeam = market_name + ' - 오버 (' + home_line + ')'; 
+			}
+			break;
+		case "8":
+			if(selectedTeam == "0") {
+				home_line = home_line.split(" ");
+				selectedTeam = market_name + ' (홈) - ' + home_team + ' (' + home_line[0] + ')';
+			} else if(selectedTeam == "2") {
+				away_line = away_line.split(" ");
+				selectedTeam = market_name + ' (원) - ' + away_team + ' (' + away_line[0] + ')'; 
+			}
+			break;
+		case "10":
+			if(selectedTeam == "0")
+				selectedTeam = market_name + ' (홀)';
+			else if(selectedTeam == "2") 
+				selectedTeam = market_name + ' (짝)'; 
+			break;
+		case "11":
+			selectedTeam = market_name + ' (' + home_name + ')';
+			break;
+		case "12":
+			if(selectedTeam == "0")
+				selectedTeam = market_name + ' (' + '승무' + ')';
+			else if(selectedTeam == "1") 
+				selectedTeam = market_name + ' (' + '무패' + ')';                       
+			else if(selectedTeam == "2")                        
+				selectedTeam = market_name + ' (' + '승패' + ')'; 
+			break;
+		case "47":
+			if(home_name == "1 And Under")
+				selectedTeam = market_name + ' (홈승 & 언더) ' + '(' + home_line + ')';
+			else if(home_name == "1 And Over") 
+				selectedTeam = market_name + ' (홈승 & 오버) ' + '(' + home_line + ')';                       
+			else if(home_name == "2 And Under")                        
+				selectedTeam = market_name + ' (원정승 & 언더) ' + '(' + home_line + ')'; 
+			else if(home_name == "2 And Over")
+				selectedTeam = market_name + ' (원정승 & 오버) ' + '(' + home_line + ')';
+			else if(home_name == "3 And Under")
+				selectedTeam = market_name + ' (무 & 언더) ' + '(' + home_line + ')';
+			else if(home_name == "3 And Over")
+				selectedTeam = market_name + ' (무 & 오버) ' + '(' + home_line + ')';
+			break;
 	}
 
-	var mkPickRow = "<li><h4><font>" + selectedTeam + "</font><span class='del'><img src='/10bet/images/10bet/ico_del_01.png' alt='삭제' onclick=\"del_bet('"+item._game_index+"','0');\"></span></h4>" +
-				"<div class='result'><b><font>" + team_name + "</font></b> <span>" + parseFloat(item._selct_rate).toFixed(2) + "</span></div></li>";
-
-	
-	// var mkPickRow = "<div class=\"betting_cart_list\">" +
-	// 									"<ul>" +
-	// 										"<li class=\"betting_cart_list_league\">"+team_name+"</li>" +
-	// 										"<li class=\"betting_cart_list_del\"><a href=\"javascript:del_bet('"+item._game_index+"');\"><img src=\"/images/cart_del_icon.png\" /></a></li>" +
-	// 										"<li class=\"betting_cart_list_odd\">"+parseFloat(item._selct_rate).toFixed(2)+" ["+selectedTeam+"]</li>" +
-	// 									"</ul>" +
-	// 								"</div>";
+	var mkPickRow = `<li>
+						<h4>
+							<span class="betting-cart-name lis">${team_name}</span>
+							<span class="del">
+								<img src="/10bet/images/10bet/ico_del_01.png" alt="삭제" onclick="del_bet('${item._game_index}','0')">
+							</span>
+						</h4>
+						<div class="result">
+							<p class="betting-cart-name lis"><b>${selectedTeam}</b></p> 
+							<span>${parseFloat(item._selct_rate).toFixed(2)}</span>
+						</div>
+					</li>`;
 
 	//내용 삽입
 	td00.innerHTML = mkPickRow;
@@ -1869,7 +1940,7 @@ String.prototype.str_cut = function(len)
 }
 
 ///********************보너스배당   관련 스크립트************************************************************/ 
-function folder_bonus(val, s_type) {
+function folder_bonus(val) {
 	var foldersum;
 	//보너스 명에 따른 폴더수를 비교 한다. 
 	if(val.indexOf("2폴더") > -1){
@@ -1919,11 +1990,7 @@ function folder_bonus(val, s_type) {
 	for ( i = 0 ; i < m_betList._items.length ; i++ ) {
 		var item = m_betList._items[i];
 		if ( item._home_team.indexOf("폴더") > -1 ) {
-			if(s_type == "1") {
-				toggle_action = toggle(item._game_index+'_div', item._index, item._selectedRate);
-			} else {
-				toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate);
-			}
+			toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate);
 			m_betList.removeItem(item._game_index);
 			betcon=betcon.del_element(item._game_index+"|"+item._index+"&"+item._home_team+"  VS "+item._away_team);
 		}
@@ -1963,11 +2030,6 @@ function bonus_del(){
 		for ( i = 0 ; i < m_betList._items.length ; i++ ) {
 			var item = m_betList._items[i];
 			if ( item._home_team.indexOf("폴더") > -1 ) {
-				// if(s_type == "1") {
-				// 	toggle_action = toggle(item._game_index+'_div', item._index, item._selectedRate);
-				// } else {
-				// 	toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate);
-				// }
 				toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate);
 				m_betList.removeItem(item._game_index);
 				betcon=betcon.del_element(item._game_index+"|"+item._index+"&"+item._home_team+"  VS "+item._away_team);

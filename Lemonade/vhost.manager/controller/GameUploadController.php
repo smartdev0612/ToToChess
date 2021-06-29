@@ -614,7 +614,7 @@ class GameUploadController extends WebServiceController
 			$accountList = unserialize(urldecode($accountParam));
 		if($gameSnListParam!="")
 			$gameSnList = unserialize(urldecode($gameSnListParam));
-			
+		
 		$act			 			= $this->request("act");
 		$selectKeyword	= $this->request("select_keyword");
 		$keyword				= $this->request("keyword");
@@ -629,18 +629,18 @@ class GameUploadController extends WebServiceController
 			else if($selectKeyword=="nick")				$where.=" and c.nick like('%".$keyword."%') ";
 			else if($selectKeyword=="betting_no")	$where.=" and a.betting_no like('%".$keyword."%') ";
 		}
-		
+	
 		if($act=="account")
 		{
 			for($i=0; $i<count((array)$gameSnList); ++$i)
 			{
-				$childSn = $gameSnList[$i]["child_sn"];
+				$subchildSn = $gameSnList[$i]["subchild_sn"];
 				$homeScore = $gameSnList[$i]["home_score"];
 				$awayScore = $gameSnList[$i]["away_score"];
 				$gameCancel = $gameSnList[$i]["is_cancel"];
-				if($childSn!="")
+				if($subchildSn!="")
 				{
-					$processModel->resultGameProcess($childSn, $homeScore, $awayScore, $gameCancel);
+					$processModel->resultGameProcess($subchildSn, $homeScore, $awayScore, $gameCancel);
 				}
 			}
 			
@@ -755,7 +755,6 @@ class GameUploadController extends WebServiceController
 		$act  				= $this->request("act");
 		$perpage			= $this->request("perpage");
 		$specialType	= $this->request("special_type");
-		$gameType			= $this->request("game_type");
 		$categoryName	= $this->request("categoryName");
 		$beginDate  	= $this->request('begin_date');
 		$endDate 			= $this->request('end_date');
@@ -814,34 +813,36 @@ class GameUploadController extends WebServiceController
 			$beginDate 	= date("Y-m-d",strtotime ("-1 days"));
 			$endDate		= date("Y-m-d",strtotime ("+1 days"));
 		}
-		$page_act= "parsing_type=".$parsingType."&filter_team=".$filterTeam."&state=".$state."&game_type=".$gameType."&categoryName=".$categoryName."&special_type=".$specialType."&perpage=".$perpage."&begin_date=".$beginDate."&end_date=".$endDate."&filter_team_type=".$filterTeamType."&filter_betting_total=".$filterBettingTotal;
+		$page_act= "parsing_type=".$parsingType."&filter_team=".$filterTeam."&state=".$state."&categoryName=".$categoryName."&special_type=".$specialType."&perpage=".$perpage."&begin_date=".$beginDate."&end_date=".$endDate."&filter_team_type=".$filterTeamType."&filter_betting_total=".$filterBettingTotal;
 
 		if($act=="modify")
 		{
-			$arrayChildSn 	= $this->request("y_id");
+			$arraySubChildSn 	= $this->request("y_id");
 			$arrayHomeRate 	= $this->request("home_rate");
 			$arrayDrawRate 	= $this->request("draw_rate");
 			$arrayAwayRate 	= $this->request("away_rate");
+			$arrayCancel	= $this->request("check_cancel");
 			$arrayHomeScore	= $this->request("home_score");
 			$arrayAwayScore	= $this->request("away_score");
 			
-			for($i=0;$i<count((array)$arrayChildSn);++$i)
+			for($i=0;$i<count((array)$arraySubChildSn);++$i)
 			{
 				$isCancel	 = $arrayCancel[$i];
-				$childSn 	 = $arrayChildSn[$i];
-				$homeRate	 = $arrayHomeRate[$childSn];
-				$drawRate	 = $arrayDrawRate[$childSn];
-				$awayRate	 = $arrayAwayRate[$childSn];
-				$homeScore = $arrayHomeScore[$childSn];
-				$awayScore = $arrayAwayScore[$childSn];
+				$subchildSn 	 = $arraySubChildSn[$i];
+				$childSn = $model->getChildSn($subchildSn);
+				$homeRate	 = $arrayHomeRate[$i];
+				$drawRate	 = $arrayDrawRate[$i];
+				$awayRate	 = $arrayAwayRate[$i];
+				$homeScore = $arrayHomeScore[$i];
+				$awayScore = $arrayAwayScore[$i];
 				
 				if($homeScore!="" && $awayScore!="")
 				{
-					$set =	"home_score='".$homeScore."',";  
-					$set.=	"away_score='".$awayScore."'";
+					$set =	"sub_home_score='".$homeScore."',";  
+					$set.=	"sub_away_score='".$awayScore."'";
 				
-					$where = " sn=".$childSn;
-					$model->modifyChild($set, $where);
+					$where = " sn=".$subchildSn;
+					$model->modifySubChild($set, $where);
 				}
 				
 				if($homeRate!="" && $awayRate!="")
@@ -853,7 +854,7 @@ class GameUploadController extends WebServiceController
 					$set.= "away_rate = '".$awayRate."',";
 					$set.= "update_enable = '0'";
 					
-					$where = " child_sn=".$childSn;
+					$where = " sn=".$subchildSn;
 					$model->modifySubChild($set, $where);
 				}
 			}
@@ -865,7 +866,7 @@ class GameUploadController extends WebServiceController
 		//게임정산
 		else if($act=="modify_result")
 		{
-			$arrayChildSn 	= $this->request("y_id");
+			$arraySubChildSn 	= $this->request("y_id");
 			$arrayHomeScore	= $this->request("home_score");
 			$arrayAwayScore	= $this->request("away_score");
 			$arrayCancel		= $this->request("check_cancel");
@@ -875,20 +876,21 @@ class GameUploadController extends WebServiceController
 			$data = array();
 			$betData = array();
 
-			for ( $i = 0 ; $i < count((array)$arrayChildSn) ; ++$i ) {
+			for ( $i = 0 ; $i < count((array)$arraySubChildSn) ; ++$i ) {
 				$isCancel	 = $arrayCancel[$i];
-				$childSn 	 = $arrayChildSn[$i];
-				$homeScore = $arrayHomeScore[$childSn];
-				$awayScore = $arrayAwayScore[$childSn];
-
+				$subchildSn 	 = $arraySubChildSn[$i];
+				$homeScore = $arrayHomeScore[$i];
+				$awayScore = $arrayAwayScore[$i];
+				
 				if ( (strlen(trim($homeScore)) > 0 and strlen(trim($awayScore)) > 0) or $isCancel ) {
+					$childSn = $model->getChildSn($subchildSn);
 					$childRs = $model->getChildRow($childSn, '*');
 					if ( $childRs['kubun'] == 1 ) {
 						throw new Lemon_ScriptException("이미 처리된 게임이 포함되어 있습니다.");
 						exit;
 					}
 
-					$dataArray = $processModel->resultPreviewProcess($childSn, $homeScore, $awayScore, $isCancel, $betData);
+					$dataArray = $processModel->resultPreviewProcess($subchildSn, $homeScore, $awayScore, $isCancel, $betData);
 				
 					$list_temp = $dataArray["list"];
 					$betData_temp = $dataArray["betData"];
@@ -907,20 +909,19 @@ class GameUploadController extends WebServiceController
 						$betData = array_merge($betData, $betData_temp);
 					}
 
-					$gameSnList[] = array("child_sn" => $childSn, "home_score" => $homeScore, "away_score" => $awayScore, "is_cancel" => $isCancel);
+					$gameSnList[] = array("subchild_sn" => $subchildSn, "home_score" => $homeScore, "away_score" => $awayScore, "is_cancel" => $isCancel);
 				}
 			}// end of for
 		}
 		
 		$categoryName = $this->request("categoryName");
-		$gameType = $this->request("game_type");
 
-		$total_info = $model->getListTotal($filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '', $leagueSn);
+		$total_info = $model->getListTotal($filterState, $categoryName, "", $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '');
 		$total = $total_info["cnt"];
 		$leagueList = $total_info["league_list"];
 
 		$pageMaker = $this->displayPage($total, $perpage, $page_act);
-		$list = $model->getList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '', $leagueSn);
+		$list = $model->getList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, "", $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '');
 
 		for($i=0; $i<count((array)$list); ++$i)
 		{
@@ -952,7 +953,6 @@ class GameUploadController extends WebServiceController
 		$this->view->assign("league_sn",$leagueSn);
 		$this->view->assign("parsing_type",$parsingType);			
 		$this->view->assign("special_type", $specialType);
-		$this->view->assign("gameType", $gameType);
 		$this->view->assign("categoryName", $categoryName);
 		$this->view->assign("categoryList", $categoryList);
 		$this->view->assign("state", $state);

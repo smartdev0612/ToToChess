@@ -452,6 +452,10 @@
             $away_rate = $j("#" + $game_index + "_away_rate").val();
             $sub_sn = $j("#" + $game_index + "_sub_sn").val();
             $game_date = $j("#" + $game_index + "_game_date").val();
+            $market_name = $j("#" + $game_index + "_market_name").val();
+            $home_line = $j("#" + $game_index + "_home_line").val();
+            $away_line = $j("#" + $game_index + "_away_line").val();
+            $home_name = $j("#" + $game_index + "_home_name").val();
             $league_sn = $j("#" + $game_index + "_league_sn").val();
             $is_specified_special = $j("#" + $game_index + "_is_specified_special").val();
         
@@ -468,106 +472,6 @@
                 }
             }
         
-            // if ($game_type != 1 && $game_type != 2 && $game_type != 4) {
-            //     warning_popup("올바른 배팅이 아닙니다.");
-            //     return;
-            // }
-        
-            $sport_array = ["축구", "야구", "농구", "배구", "하키"];
-        
-            <?php
-            $kind = '';
-            if($gameType == 'multi')
-            {
-                $kind = 'cross';
-            } else if($gameType == 'handi') {
-                $kind = 'handi';
-            } else if($gameType == 'special') {
-                $kind = 'special';
-            } else if($gameType == 'real') {
-                $kind = 'real';
-            } else if($gameType == 'live') {
-                $kind = 'live';
-            } else if($gameType == 'abroad') {
-                $kind = 'abroad';
-            }
-            ?>
-        
-            if( (<?=$sport_setting[$kind.'_soccer_wl_over']?> == 1 && $sport_name == '축구') ||
-                (<?=$sport_setting[$kind.'_baseball_wl_over']?> == 1 && $sport_name == '야구') ||
-                (<?=$sport_setting[$kind.'_basketball_wl_over']?> == 1 && $sport_name == '농구') ||
-                (<?=$sport_setting[$kind.'_volleyball_wl_over']?> == 1 && $sport_name == '배구') ||
-                (<?=$sport_setting[$kind.'_hockey_wl_over']?> == 1 && $sport_name == '하키') ||
-                (<?=$sport_setting[$kind.'_etc_wl_over']?> == 1 && inArray($sport_name, $sport_array) == false)
-            )
-            {
-                if(!CheckRule_wl_over($game_index, $index, $game_type, $home_team, $away_team))
-                {
-                    warning_popup("동일경기("+$sport_name+") [승패]+[오버] 조합은 배팅 불가능합니다.");
-                    return;
-                }
-            }
-        
-            if( (<?=$sport_setting[$kind.'_soccer_wl_under']?> == 1 && $sport_name == '축구') ||
-                (<?=$sport_setting[$kind.'_baseball_wl_under']?> == 1 && $sport_name == '야구') ||
-                (<?=$sport_setting[$kind.'_basketball_wl_under']?> == 1 && $sport_name == '농구') ||
-                (<?=$sport_setting[$kind.'_volleyball_wl_under']?> == 1 && $sport_name == '배구') ||
-                (<?=$sport_setting[$kind.'_hockey_wl_under']?> == 1 && $sport_name == '하키') ||
-                (<?=$sport_setting[$kind.'_etc_wl_under']?> == 1 && inArray($sport_name, $sport_array) == false)
-            )
-            {
-                if (!CheckRule_wl_under($game_index, $index, $game_type, $home_team, $away_team)) {
-                    warning_popup("동일경기("+$sport_name+") [승패]+[언더]  조합은 배팅 불가능합니다.");
-                    return;
-                }
-            }
-        
-            if( (<?=$sport_setting[$kind.'_soccer_d_over']?> == 1 && $sport_name == '축구') ||
-                (<?=$sport_setting[$kind.'_baseball_d_over']?> == 1 && $sport_name == '야구') ||
-                (<?=$sport_setting[$kind.'_basketball_d_over']?> == 1 && $sport_name == '농구') ||
-                (<?=$sport_setting[$kind.'_volleyball_d_over']?> == 1 && $sport_name == '배구') ||
-                (<?=$sport_setting[$kind.'_hockey_d_over']?> == 1 && $sport_name == '하키') ||
-                (<?=$sport_setting[$kind.'_etc_d_over']?> == 1 && inArray($sport_name, $sport_array) == false)
-            )
-            {
-                if (!CheckRule_d_over($game_index, $index, $game_type, $home_team, $away_team)) {
-                    warning_popup("동일경기("+$sport_name+") [무]+[오버]  조합은 배팅 불가능합니다.");
-                    return;
-                }
-            }
-        
-            if( (<?=$sport_setting[$kind.'_soccer_d_under']?> == 1 && $sport_name == '축구') ||
-                (<?=$sport_setting[$kind.'_baseball_d_under']?> == 1 && $sport_name == '야구') ||
-                (<?=$sport_setting[$kind.'_basketball_d_under']?> == 1 && $sport_name == '농구') ||
-                (<?=$sport_setting[$kind.'_volleyball_d_under']?> == 1 && $sport_name == '배구') ||
-                (<?=$sport_setting[$kind.'_hockey_d_under']?> == 1 && $sport_name == '하키') ||
-                (<?=$sport_setting[$kind.'_etc_d_under']?> == 1 && inArray($sport_name, $sport_array) == false)
-            )
-            {
-                if (!CheckRule_d_under($game_index, $index, $game_type, $home_team, $away_team)) {
-                    warning_popup("동일경기("+$sport_name+") [무]+[언더]  조합은 배팅 불가능합니다.");
-                    return;
-                }
-            }
-        
-            if( (<?=$sport_setting[$kind.'_soccer_h_unov']?> == 1 && $sport_name == '축구') ||
-                (<?=$sport_setting[$kind.'_baseball_h_unov']?> == 1 && $sport_name == '야구') ||
-                (<?=$sport_setting[$kind.'_basketball_h_unov']?> == 1 && $sport_name == '농구') ||
-                (<?=$sport_setting[$kind.'_volleyball_h_unov']?> == 1 && $sport_name == '배구') ||
-                (<?=$sport_setting[$kind.'_hockey_h_unov']?> == 1 && $sport_name == '하키') ||
-                (<?=$sport_setting[$kind.'_etc_h_unov']?> == 1 && inArray($sport_name, $sport_array) == false)
-            )
-            {
-                if (!checkRule_handi_unov($game_index, $index, $game_type, $home_team, $away_team)) {
-                    warning_popup("동일경기("+$sport_name+") [핸디]+[언더/오버]  조합은 배팅 불가능합니다.");
-                    return;
-                }
-            }
-        
-            //승무패 이외에 무승부는 처리하지 않는다.
-            if ($game_type != 1 && $index == 1)
-                return;
-        
             //선택한 Checkbox의 배당
             var selectedRate = '0';
             if (0 == $index) selectedRate = $home_rate;
@@ -576,17 +480,11 @@
         
             //토글
             var toggle_action = toggle($game_index + '_div', $index, selectedRate);
+
             //insert game
             if (toggle_action == 'inserted') {
-                /*
-                        //-> 선택 총 배당이 500배를 넘을 수 없음.
-                        if ( (Number(selectedRate) * Number(m_betList._bet)) > 500 ) {
-                            alert('MAX배당은 500배까지만 가능합니다.');
-                            toggle_action = toggle($game_index+'_div', $index, selectedRate);
-                            return;
-                        }`
-                */
-                var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid);
+                
+                var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid, $market_name, $home_line, $away_line, $home_name);
                 m_betList.addItem(item);
         
                 //betcon = betcon.add_element($game_index + "|" + $index + "&" + $home_team + "  VS " + $away_team);
@@ -594,131 +492,9 @@
             }
             //delete game
             else {
-                /*for (i = 0; i < m_betList._items.length; i++) {
-                    var i_item = m_betList._items[i];
-                    if (i_item._game_index == $game_index) {
-                        var ig_idx = i_item._game_index;
-                        var bet_num = i_item._checkbox_index;
-                        switchBtn('delete', bet_num, ig_idx);
-                        subCartNew(ig_idx, bet_num);
-                    } //-> end FOR J
-                }*/
-        
                 m_betList.removeItem($game_index);
                 //betcon = betcon.del_element($game_index + "|" + $index + "&" + $home_team + "  VS " + $away_team);
                 var isdisabled = false;
-            }
-        
-            if ($game_type == '1' || $game_type == '2') {
-                $j('#form_' + $game_index + ' input:checkbox').each(function (index) {
-                    if (0 == index) { this.disabled = ($home_rate == '0') ? true : isdisabled; }
-                    if (1 == index) { this.disabled = ($draw_rate == '0') ? true : isdisabled; }
-                    if (2 == index) { this.disabled = ($away_rate == '0') ? true : isdisabled; }
-                });
-            }
-        
-            /*
-                if ( $special_type == 0 || $special_type == 1 || $special_type == 2 ) {
-                    if(!check_single_only($game_date))
-                    {
-                        warning_popup("단폴더만 가능합니다.");
-                        toggle_action = toggle($game_index+'_div', $index, selectedRate);
-                        m_betList.removeItem($game_index);
-                        betcon=betcon.del_element($game_index+"|"+$index+"&"+$home_team+"  VS "+$away_team);
-                        var isdisabled = false;
-                        return;
-                    }
-                }
-            */
-        
-            //-> 축구 -> 동일경기 [승무패-승]+[언더오버-오버] 조합은 배팅 체크
-            if ($sport_name == "축구") {
-                if (!checkRule_win_over()) {
-                    matchGameWinOver = 1;
-                } else {
-                    matchGameWinOver = 0;
-                }
-            }
-        
-            //-> 축구 -> 동일경기 [승무패-승]+[언더오버-언더] 조합은 배팅 체크
-            /*if( $sport_name == "축구" ) {
-                if ( !checkRule_win_under() ) {
-                    matchGameWinUnder = 1;
-                } else {
-                    matchGameWinUnder = 0;
-                }
-            }*/
-        
-            //-> 축구 -> 동일경기 [승무패-패]+[언더오버-언더] 조합은 배팅 체크
-            if ($sport_name == "축구") {
-                if (!checkRule_lose_under()) {
-                    matchGameLoseUnder = 1;
-                } else {
-                    matchGameLoseUnder = 0;
-                }
-            }
-        
-            //-> 축구 -> 동일경기 [승무패-패]+[언더오버-오버] 조합은 배팅 체크
-            if ($sport_name == "축구") {
-                if (!checkRule_lose_over()) {
-                    matchGameLoseOver = 1;
-                } else {
-                    matchGameLoseOver = 0;
-                }
-            }
-        
-            //-> 야구 -> 동일경기 "1이닝 득점" [승무패-승]+[언더오버-언더] 조합은 배팅 체크
-            if ($sport_name == "야구") {
-                if (!checkRule_fb_win_under()) {
-                    matchGameFbWinUnder = 1;
-                } else {
-                    matchGameFbWinUnder = 0;
-                }
-            }
-        
-            //-> 야구 -> 동일경기 "1이닝 득점" [승무패-승]+[언더오버-오버] 조합은 배팅 체크
-            if ($sport_name == "야구") {
-                if (!checkRule_fb_win_over()) {
-                    matchGameFbWinOver = 1;
-                } else {
-                    matchGameFbWinOver = 0;
-                }
-            }
-        
-            //-> 야구 -> 동일경기 "1이닝 무득점" [승무패-패]+[언더오버-언더] 조합은 배팅 체크
-            if ($sport_name == "야구") {
-                if (!checkRule_fb_lose_under()) {
-                    matchGameFbLoseUnder = 1;
-                } else {
-                    matchGameFbLoseUnder = 0;
-                }
-            }
-        
-            //-> 야구 -> 동일경기 "1이닝 무득점" [승무패-패]+[언더오버-오버] 조합은 배팅 체크
-            if ($sport_name == "야구") {
-                if (!checkRule_fb_lose_over()) {
-                    matchGameFbLoseOver = 1;
-                } else {
-                    matchGameFbLoseOver = 0;
-                }
-            }
-        
-            //-> 야구 -> 동일경기 [승패]+[언오버] 조합 체크
-            if ($sport_name == "야구") {
-                if (!checkRule_winlose_unover()) {
-                    matchGameFbWinloseUnover = 1;
-                } else {
-                    matchGameFbWinloseUnover = 0;
-                }
-            }
-        
-            //-> 농구 첫3점슛+첫자유투 묶을수 없다.
-            if ($sport_name == "농구") {
-                if (!checkRule_basketBall_a()) {
-                    matchGameBbFtsFfs = 1;
-                } else {
-                    matchGameBbFtsFfs = 0;
-                }
             }
         
             bonus_del(); //시점 관련 버그
@@ -1252,7 +1028,11 @@
             div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + awayTeamName + '">';
             div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + detail.m_fARate + '">';
             div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + gameDate + '">';
-            div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '"></div>';
+            div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_market_name" value="승무패">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + detail.m_strHLine + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '"></div>';
             div += '<div name="' + sub_idx + '">';
             div += '<ul>';
             div += '<li style="margin-bottom:10px;"></li>';
@@ -1308,7 +1088,11 @@
             div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + awayTeamName + '">';
             div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + detail.m_fARate + '">';
             div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + gameDate + '">';
-            div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '"></div>';
+            div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_market_name" value="승패">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + detail.m_strHLine + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '"></div>';
             div += '<div name="' + sub_idx + '">';
             div += '<ul>';
             div += '<li style="margin-bottom:10px;"></li>';
@@ -1363,7 +1147,11 @@
             div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + away_team + '">';
             div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + detail.m_fARate + '">';
             div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + gameDate + '">';
-            div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '"></div>';
+            div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_market_name" value="언더오버">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + detail.m_strHLine + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '"></div>';
             div += '<div name="' + sub_idx + '">';
             div += '<ul>';
             div += '<li style="margin-bottom:10px;"></li>';
@@ -1418,7 +1206,11 @@
             div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + away_team + '">';
             div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + detail.m_fARate + '">';
             div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + gameDate + '">';
-            div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '"></div>';
+            div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_market_name" value="핸디캡">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + detail.m_strHLine + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '"></div>';
             div += '<div name="' + sub_idx + '">';
             div += '<ul>';
             div += '<li style="margin-bottom:10px;"></li>';

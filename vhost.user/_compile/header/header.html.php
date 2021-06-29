@@ -277,6 +277,22 @@
             display: none !important;
         }
 
+        .betting-cart-name {
+            font-size: 0.74rem;
+            text-align: left;
+            width: 80%;
+            float: left;
+            line-height: 26px;
+            color: #ffd200;
+        }
+
+        .lis {
+            display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
         @media screen and (max-width: 900px) { 
             .hidden-xs {
                 display: none !important;
@@ -466,7 +482,7 @@
                             <!-- <li  onClick="location.href='/race/game_result?view_type=winlose'"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="IO BET 로고" />경기결과</li> -->
                             <li  onClick="location.href='/race/betting_list'"><img src="/10bet/images/10bet/ico/top_ico9.png" alt="IO BET 로고" />배팅내역</li>
                             <li  onClick="location.href='/cs/cs_list'"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="IO BET 로고" />고객센터</li>
-                            <!-- <li  onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="IO BET 로고" />게시판</li> -->
+                            <li  onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="IO BET 로고" />공지사항</li>
                             <li  onClick="location.href='/board/?bbsNo=7'"><img src="/10bet/images/10bet/ico/top_ico12.png" alt="IO BET 로고" />이벤트</li>
                             <li  onClick="location.href='/game_guide'"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="IO BET 로고" />배팅규정</li>
                         <?php } else { ?>
@@ -474,7 +490,7 @@
                             <!-- <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="IO BET 로고" />경기결과</li> -->
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico9.png" alt="IO BET 로고" />배팅내역</li>
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="IO BET 로고" />고객센터</li>
-                            <!-- <li  onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="IO BET 로고" />게시판</li> -->
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="IO BET 로고" />공지사항</li>
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico12.png" alt="IO BET 로고" />이벤트</li>
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="IO BET 로고" />배팅규정</li>
                         <?php 
@@ -539,14 +555,14 @@
                                 <!-- <li class="button_type01 " onClick="location.href='/race/game_result?view_type=winlose'">경기결과</li> -->
                                 <li class="button_type01 " onClick="location.href='/race/betting_list'">배팅내역</li>
                                 <li class="button_type01 " onClick="location.href='/cs/cs_list'">고객센터</li>
-                                <!-- <li class="button_type01 " onClick="location.href='/board/'">게시판</li> -->
+                                <li class="button_type01 " onClick="location.href='/board/'">공지사항</li>
                                 <li class="button_type01 " onClick="location.href='/board/?bbsNo=7'">이벤트</li>
                                 <li class="button_type01 " onClick="location.href='/game_guide'">배팅규정</li>
                             <?php } else { ?>
                                 <!-- <li class="button_type01 " onClick="login_open();">경기결과</li> -->
                                 <li class="button_type01 " onClick="login_open();">배팅내역</li>
                                 <li class="button_type01 " onClick="login_open();">고객센터</li>
-                                <!-- <li class="button_type01 " onClick="location.href='/board/'">게시판</li> -->
+                                <li class="button_type01 " onClick="login_open();">공지사항</li>
                                 <li class="button_type01 " onClick="login_open();">이벤트</li>
                                 <li class="button_type01 " onClick="login_open();">배팅규정</li>
                             <?php 

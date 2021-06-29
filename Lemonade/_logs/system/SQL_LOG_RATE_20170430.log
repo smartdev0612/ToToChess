@@ -1,6 +1,0 @@
-
-[5.79.102.12|52.198.44.78|5.79.102.12|] update tb_subchild SET home_rate='1.94',draw_rate='2.50',away_rate='1.80',update_enable='0' where child_sn=446660 and betting_type=4
-
-
-[5.79.102.12|52.198.44.78|5.79.102.12|] update tb_subchild SET home_rate='1.67',draw_rate='-0.50',away_rate='2.07',update_enable='0' where child_sn=446655 and betting_type=2
-

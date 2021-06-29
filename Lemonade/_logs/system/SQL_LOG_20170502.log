@@ -1,5 +1,0 @@
-
-[37.48.116.236|52.198.44.78|37.48.116.236|] update tb_member 
-set upass='!Q@W3e4r', nick='정무딱', bank_name='', bank_account='', bank_member='정무딱', phone='01011111111', mem_lev='1', 
-email='', recommend_sn='4', level_code='00040000', memo='111', mem_status='N', exchange_pass='' where uid='jhjh2010'
-

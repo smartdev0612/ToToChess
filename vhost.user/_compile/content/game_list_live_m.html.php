@@ -400,7 +400,7 @@
     var bettingcanceltime =<?php echo $TPL_VAR["betCancelTime"]?>;
     var bettingcancelbeforetime =<?php echo $TPL_VAR["betCancelBeforeTime"]?>;
     var game_kind = "<?php echo $gameType?>";
-    var s_type = "<?=$s_type?>";
+    
     function inArray(needle, haystack) {
         var length = haystack.length;
         for(var i = 0; i < length; i++) {
@@ -423,6 +423,10 @@
         $away_rate = $j("#" + $game_index + "_away_rate").val();
         $sub_sn = $j("#" + $game_index + "_sub_sn").val();
         $game_date = $j("#" + $game_index + "_game_date").val();
+        $market_name = $j("#" + $game_index + "_market_name").val();
+        $home_line = $j("#" + $game_index + "_home_line").val();
+        $away_line = $j("#" + $game_index + "_away_line").val();
+        $home_name = $j("#" + $game_index + "_home_name").val();
         $league_sn = $j("#" + $game_index + "_league_sn").val();
         $is_specified_special = 0;
 
@@ -434,7 +438,7 @@
 
         //-> 보너스 선택시 (2폴더 이상시만 가능)
         if ($home_team.indexOf("폴더") > -1) {
-            if (folder_bonus($home_team, s_type) == "0") {
+            if (folder_bonus($home_team) == "0") {
                 return;
             }
         }
@@ -443,18 +447,6 @@
             warning_popup("올바른 배팅이 아닙니다.");
             return;
         }
-
-        $sport_array = ["축구", "야구", "농구", "배구", "하키"];
-
-        // if(!CheckRule_samegame($game_index, $sport_name, $index, $game_type, $home_team, $away_team))
-        // {
-        //     warning_popup("해외형스포츠 동일경기조합은 배팅 불가능합니다.");
-        //     return;
-        // }
-
-        //승무패 이외에 무승부는 처리하지 않는다.
-        // if ($game_type != 1 && $index == 1)
-        //     return;
 
         //선택한 Checkbox의 배당
         var selectedRate = '0';
@@ -466,7 +458,7 @@
         var toggle_action = toggle_multi($game_index + '_div', $index, selectedRate);
         //insert game
         if (toggle_action == 'inserted') {
-            var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid);
+            var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid, $market_name, $home_line, $away_line, $home_name);
             m_betList.addItem(item);
 
             //betcon = betcon.add_element($game_index + "|" + $index + "&" + $home_team + "  VS " + $away_team);
@@ -480,14 +472,7 @@
             var isdisabled = false;
         }
 
-        if ($game_type == '1' || $game_type == '2') {
-            $j('#form_' + $game_index + ' input:checkbox').each(function (index) {
-                if (0 == index) { this.disabled = ($home_rate == '0') ? true : isdisabled; }
-                if (1 == index) { this.disabled = ($draw_rate == '0') ? true : isdisabled; }
-                if (2 == index) { this.disabled = ($away_rate == '0') ? true : isdisabled; }
-            });
-        }
-        bonus_del(s_type);
+        bonus_del();
         calc();
     }
 
@@ -612,128 +597,7 @@
             }, 1000);
 
         return;
-        
-        $.ajax({
-            url: "/getLiveGameList",
-            type: "GET",
-            dataType: "json",
-            data: {
-                "page_index": page_index,
-                "sport_type": sport_type,
-                "league_sn": league_sn,
-                "today": today
-            },
-            success: function(res){ 
-                $(".list_st1").empty();
-                if(res.length == 0) {
-                    warning_popup("미안하지만 경기자료가 없습니다.");
-                } else {
-                    $.each(res, function(index, item) {
-                        var div = "";
-                        $.ajax({
-                            url: "/getSubChildInfo",
-                            type: "GET",
-                            dataType: "json",
-                            data: {
-                                "child_sn": item.child_sn
-                            },
-                            success: function(response){
-                                var homeAdd = "";
-                                var awayAdd = "";
-                                //console.log(response.betting_type);
-                                switch(response.betting_type) {
-                                    case "1":
-                                        homeAdd = "";
-                                        awayAdd = "";
-                                        break;
-                                    case "2":
-                                        homeAdd = "&nbsp;<span style='color:#ffa604'>[H]</span>";
-                                        awayAdd = "<span style='color:#ffa604'>[H]</span>&nbsp;";
-                                        break;
-                                    case "3":
-                                        homeAdd = "&nbsp;<img src='/10bet/images/10bet/dw.png' align='absmiddle'>";
-                                        awayAdd = "<img src='/10bet/images/10bet/up.png' align='absmiddle'>&nbsp;";
-                                        break;
-                                }
-                                div += '<ul>';
-                                div += '<li class="tr">';
-                                div += '<span class="st_game_leg">';
-                                            
-                                if( item.sport_name == "축구")
-                                    div += '<img src="/BET38/_icon/sport/football.png" width="20" class="st_marr3 st_marb1 st_game_ico">';
-                                else if( item.sport_name == "야구")
-                                    div += '<img src="/BET38/_icon/sport/baseball.png" width="20" class="st_marr3 st_marb1 st_game_ico">';
-                                else if( item.sport_name == "농구")
-                                    div += '<img src="/BET38/_icon/sport/basketball.png" width="20" class="st_marr3 st_marb1 st_game_ico">';
-                                else if( item.sport_name == "배구")
-                                    div += '<img src="/BET38/_icon/sport/volleyball.png" width="20" class="st_marr3 st_marb1 st_game_ico">';
-                                else if( item.sport_name == "아이스 하키")
-                                    div += '<img src="/BET38/_icon/sport/ice-hocky.png" width="20" class="st_marr3 st_marb1 st_game_ico">';
-                                else if( item.sport_name == "테니스")
-                                    div += '<img src="/BET38/_icon/sport/tennis.png" width="20" class="st_marr3 st_marb1 st_game_ico">';
-                                else
-                                    div += '<img src="/BET38/_icon/sport/e-sport.png" width="20" class="st_marr3 st_marb1 st_game_ico">';
-                                    
-                                div += '&nbsp';
-                                div += item.league_name;
-                                div += '</span>';
-                                div += "<button onclick=getBtnsMobile('" + item.child_sn + "','" + response.betting_type + "') id='F" + item.child_sn + "' class='gBtn st_mart1 bt_game_more'> +" + response.cnt + "</button>";
-                                div += '<span class="st_game_time">' + item.gameDate.substring(5,10) + ' ' + item.gameHour + ':' + item.gameTime + '</span>'; 
-                                div += '</li>';
-                                div += '<li class="spo_align">';
-                                div += '<div style="display:none">';
-                                div += '<input type="hidden" id="' + response.sn + '_sport_name" value="' + item.sport_name + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_game_type" value="' + response.betting_type + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_sub_sn"    value="' + response.sn + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_home_team" value="' + item.home_team + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_home_rate" value="' + response.home_rate + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_draw_rate" value="' + response.draw_rate + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_away_team" value="' + item.away_team + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_away_rate" value="' + response.away_rate + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_game_date" value="' + item.gameDate + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_league_sn" value="' + item.league_sn + '"></div>';
-                                div += "<div class='st_wd44_l3  st_marr_n1 selectable' name='" + response.sn + "_div' onclick=onMultiTeamSelected('" + response.sn + "','0','" + response.home_betid + "')>";
-                                div += '<span class="spo_align1 f_w6">';
-                                div += item.home_team;
-                                div += '</span>';
-                                div += '<span class="spo_align2 txt_ar st_padr5" id="' + response.sn + '_home_rate">' + response.home_rate + '</span>';
-                                //div += '<span class="f_right" id="' + item.child_sn + '_home_rate"></span>';
-                                div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
-                                if(response.mname_ko.indexOf("승무패") >= 0) {
-                                    div += "<div class='st_wd10_l txt_ac spo_align4 selectable' name='" + response.sn + "_div'  onclick=onMultiTeamSelected('" + response.sn + "','1','" + response.draw_betid + "')>";
-                                    //div += '<span id="' + item.child_sn + '_draw_rate">VS</span>';
-                                    div += response.draw_rate;
-                                    div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
-                                } else {
-                                    div += '<div class="st_wd10_l txt_ac spo_align4 selectable" name="' + response.sn + '_div">';
-                                    //div += '<span id="' + item.child_sn + '_draw_rate">VS</span>';
-                                    div += "VS";
-                                    div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
-                                }
-                                div += "<div class='st_wd44_l3 st_marl_n1 selectable' name='" + response.sn + "_div' onclick=onMultiTeamSelected('" + response.sn + "','2','" + response.away_betid + "')>";
-                                //div += '<span id="' + item.child_sn + '_away_rate"></span>';
-                                //div += item.away_rate;
-                                div += '<span class="spo_align1 txt_ar f_w6">'; 
-                                div += item.away_team + '</span>';
-                                div += '<span class="spo_align2 txt_al st_marl5">' + response.away_rate + '</span>';
-                                div += '<input type="checkbox" name="ch" value="2" style="display:none;">';
-                                div += '</div></li>';
-                                div += '<div class="_hidden game_bottom" id="game_bottom_' + item.child_sn + '">';
-                                div += '<div class="sel_game" id="sel_game_' + item.child_sn + '">';
-                                div += '</div></div>';
-                                div += '</ul>';
-                                $(".list_st1").append(div);
-                            }
-                        });
-                    });
-                }
-
-                $j("#loading").fadeOut();
-                $j("#coverBG2").fadeOut();
-            }
-        });
-
-        $j(".mask_layer").click();
+      
     }
 
     function onRevGameList(strPacket) {
@@ -973,6 +837,13 @@
         div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + item.m_strAwayTeam + '">';
         div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + detail.m_fARate + '">';
         div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
+        if(detail.m_nFamily == 1)
+            div += '<input type="hidden" id="' + sub_idx + '_market_name" value="승무패">';
+        else if(detail.m_nFamily == 2)
+            div += '<input type="hidden" id="' + sub_idx + '_market_name" value="승패">';
+        div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + detail.m_strHLine + '">';
+        div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
+        div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '">';
         div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
         div += "<div class='st_wd44_l3  st_marr_n1 selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + detail.m_nHBetCode + "')>";
         div += '<span class="spo_align1 f_w6">';
@@ -1619,7 +1490,7 @@
                             header22 = "언더오버 (1세트) - 원정팀";
                             children22.push(item);
                             break;
-                        case 155:
+                        case 156:
                             header23 = "언더오버 (2세트) - 원정팀";
                             children23.push(item);
                             break;
@@ -1667,11 +1538,11 @@
                             header3 = "언더오버";
                             children3.push(item);
                             break;
-                        case 220:
+                        case 221:
                             header4 = "언더오버 (연장포함) - 홈팀";
                             children4.push(item);
                             break;
-                        case 221:
+                        case 220:
                             header5 = "언더오버 (연장포함) - 원정팀";
                             children5.push(item);
                             break;
@@ -1741,7 +1612,7 @@
                     switch (detail.m_nMarket) {
                         case 1:
                             header1 = "승무패";
-                            children1.push(item);
+                            // children1.push(item);
                             break;
                         case 226:
                             // header2 = "승패";
@@ -2600,6 +2471,10 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + item.m_strAwayTeam + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
             children_div += "<div class='st_wd50_l2 selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.m_nHBetCode + "')>";
             children_div += '<span class="listName list_wd_65">';
@@ -2640,6 +2515,10 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + item.m_strAwayTeam + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
             children_div += "<div class='st_wd33_l2  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.m_nHBetCode + "')>";
             children_div += '<span class="listName list_wd_65">';
@@ -2683,6 +2562,10 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + item.m_strAwayTeam + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
             children_div += "<div class='st_wd50_l2  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.home_betid + "')>";
             children_div += '<span class="listName list_wd_65">';
@@ -2724,6 +2607,10 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + item.m_strAwayTeam + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
             children_div += "<div class='st_wd50_l2  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.m_nHBetCode + "')>";
             children_div += '<span class="listName list_wd_65">';
@@ -2763,6 +2650,10 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + item.m_strAwayTeam + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
             children_div += "<div class='st_wd50_l2 selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.m_nHBetCode + "')>";
             children_div += '<span class="listName list_wd_65">';
@@ -2807,6 +2698,10 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + item.m_strAwayTeam + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
             children_div += '<span class="listName list_wd_65">';
             children_div += item.m_strHName;
@@ -2850,6 +2745,10 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + item.m_strAwayTeam + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
             children_div += '<span class="listName list_wd_65">';
             switch(item.m_strHName) {
@@ -2907,6 +2806,10 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_team" value="' + item.m_strAwayTeam + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
             children_div += "<div class='st_wd33_l2  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.m_nHBetCode + "')>";
             children_div += '<span class="listName list_wd_65">';

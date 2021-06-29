@@ -519,7 +519,7 @@ function onSendReqListPacket(param) {
 	} else {
         setTimeout(() => {
             sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
-        }, 500);
+        }, 1000);
     }
 }
 
@@ -575,7 +575,7 @@ function getMarketsCnt(sport_name, children, isExist12 = true) {
             marketArray = [226, 342, 28, 220, 221, 235, 41, 42, 43, 44, 524, 281, 526, 21, 45, 46, 47, 48, 236, 525];
             break;
         case "아이스 하키":
-            marketArray = [1, 226, 3, 342, 28, 7, 202, 41, 42, 43, 44, 64, 65, 66, 221, 220, 21, 45, 46, 51];
+            marketArray = [226, 3, 342, 28, 7, 202, 41, 42, 43, 44, 64, 65, 66, 221, 220, 21, 45, 46, 51];
             break;
     }
    

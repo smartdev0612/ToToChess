@@ -197,29 +197,35 @@ class ProcessModel extends Lemon_Model
  		}
  	}
  	
-	function resultPreviewProcess($childSn, $homeScore, $awayScore, $gameCancel="", $betData)
+	function resultPreviewProcess($subChildSn, $homeScore, $awayScore, $gameCancel="", $betData)
  	{
- 		if($childSn=="")
+ 		if($subChildSn == "")
  			return;
  			
- 		$sql = "select 			a.type,
+ 		$sql = "select 			IFNULL(a.sport_id, 0) AS sport_id, 
+		 						a.special, 
+		 						b.betting_type,
 								b.draw_rate,
-								b.sn as sub_child_sn
+								b.home_line,
+								b.home_name
 				from 			".$this->db_qz."child a,
 								".$this->db_qz."subchild b
-				where 			a.sn=b.child_sn
-							and a.sn=".$childSn;
+				where 			a.sn = b.child_sn
+							and b.sn = ".$subChildSn;
  									
  		$childRs = $this->db->exeSql($sql);
- 		$gameType = $childRs[0]['type'];
+ 		$gameType = intval($childRs[0]['betting_type']);
  		$drawRate = $childRs[0]['draw_rate'];
- 		$subChildSn = $childRs[0]['sub_child_sn'];
+		$sport_id = intval($childRs[0]['sport_id']);
+		$special = $childRs[0]['special'];
+		$home_line = $childRs[0]['home_line'];
+		$home_name = $childRs[0]['home_name'];
  		
 		////////////////////////////////////////////////////////////////////////////////
 		//modify total_betting                   
-		$sql = "select sn, member_sn, betting_no, select_no, game_type, home_rate, draw_rate, away_rate
-						from ".$this->db_qz."total_betting 
-						where sub_child_sn=".$subChildSn;
+		$sql = "select 	sn, member_sn, betting_no, select_no, game_type, home_rate, draw_rate, away_rate
+				from 	".$this->db_qz."total_betting 
+				where 	sub_child_sn=".$subChildSn;
 						
 		$rs = $this->db->exeSql($sql);
 	
@@ -234,34 +240,10 @@ class ProcessModel extends Lemon_Model
 			$select = $rs[$i]["select_no"];
 			$selectDrawRate	= $rs[$i]["draw_rate"];
 
-			//-> 파일로그와 DB의 배팅방향이 틀리면 tb_total_betting->checked에 둘다 로그방향을 저장하고 로그 기반으로 현재 배팅방향 업데이트.
 			$sql = "select bet_date, last_special_code from tb_total_cart where betting_no = '{$betting_no}'";
 			$cartInfo = $this->db->exeSql($sql);
 			$bet_date = str_replace("-","",substr($cartInfo[0]['bet_date'],0,10));
 			$last_special_code = $cartInfo[0]['last_special_code'];
-
-			$fileName = $bet_date."_".$member_sn.".log";
-			$logFile = @fopen("/home/gadget/www_gadget_1.com/Lemonade/_logs/user/".$fileName,"r");
-			if ( $logFile ) {
-				unset($bettingLogArray);
-				while ( !feof($logFile) ) {
-					$bettingLog = fgets($logFile);
-					if ( strlen(trim($bettingLog)) > 0 ) $bettingLogArray[] = str_replace("'","\"",$bettingLog);
-				}
-				if ( count((array)$bettingLogArray) > 0 ) {
-					$bettingLogArrayJson = implode(",",$bettingLogArray);
-					$bettingLogArray = json_decode("{".$bettingLogArrayJson."}",true);
-				}
-				@fclose($logFile);
-
-				$logBettingSelect = $bettingLogArray[$betting_no."_".$subChildSn];
-				if ( $logBettingSelect > 0 and $logBettingSelect != $select ) {
-					$sql = "UPDATE tb_total_betting SET select_no = '{$logBettingSelect}', checked = '{$select}->{$logBettingSelect}' WHERE sn = '".$betSn."'";
-					$this->db->exeSql($sql);
-					$select = $logBettingSelect;
-				}
-			}
-			//------------------------------------------------------------------------------------
 
 			//핸디캡, 언더오버의 기준점 변경이 일어날 경우를 대비해, 배팅당시의 기준점으로 처리한다.			
 			//강제취소의 경우 자기 자신의 배당을 하지 않고, 전체 적용한다.
@@ -276,44 +258,406 @@ class ProcessModel extends Lemon_Model
 					$winCode = 4;
 				else
 				{
-					if($gameType==1) //승무패
-					{
-						if($homeScore==$awayScore)
-						{
-							if($drawRate=="1.00" and $last_special_code < 3) $winCode = 4;
-							else $winCode = 3;
-						}
-						else if($homeScore > $awayScore){$winCode = 1;}
-						else														{$winCode = 2;}
+					switch ($sport_id) {
+						case 6046: // 축구
+							switch($gameType) {
+								case 427: // 승무패 + 언더오버
+									switch($home_name) {
+										case "1 And Under":
+											if(($homeScore > $awayScore) && ($homeScore + $awayScore) < $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+										case "1 And Over":
+											if(($homeScore > $awayScore) && ($homeScore + $awayScore) > $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+										case "2 And Under":
+											if(($homeScore < $awayScore) && ($homeScore + $awayScore) < $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+										case "2 And Over":
+											if(($homeScore < $awayScore) && ($homeScore + $awayScore) > $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+										case "X And Under":
+											if(($homeScore == $awayScore) && ($homeScore + $awayScore) < $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+										case "X And Over":
+											if(($homeScore == $awayScore) && ($homeScore + $awayScore) > $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+									}
+									break;
+								case 52: // 승패
+									if( $homeScore > $awayScore )						$winCode = 1;
+									else if ( $homeScore < $awayScore )					$winCode = 2;
+									break;
+								case 3: // 핸디캡
+								case 64:
+								case 65:
+									$points = explode(" ", $home_line);
+									if(($homeScore + $points[0]) > $awayScore)			$winCode = 1; // 홈승
+									else if(($homeScore + $points[0]) < $awayScore)		$winCode = 2; // 원정승
+									else if(($homeScore + $points[0]) == $awayScore)	$winCode = 4; // 적특
+									break;
+								case 2: // 언더오버
+								case 21:
+								case 45:
+									if (($homeScore + $awayScore) == $home_line)        $winCode = 4;
+									else
+										$winCode = (($homeScore + $awayScore) > $home_line) ? 2 : 1;
+									break;
+								case 153: // 언더오버-홈팀
+								case 154:
+								case 101:
+									if ($homeScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($homeScore > $home_line) ? 2 : 1;
+									break;
+								case 155: // 언더오버-원정팀
+								case 156:
+								case 102:
+									if ($awayScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($awayScore > $home_line) ? 2 : 1;
+									break;
+								case 41: // 승무패
+								case 42:
+									if($homeScore == $awayScore)
+									{
+										if($drawRate == "1.00" and $last_special_code < 5) 	$winCode = 4;
+										else 										     	$winCode = 3; // 무승부
+									} else if($homeScore > $awayScore)						{$winCode = 1;}
+									else											    	{$winCode = 2;}
+									break;
+								case 7: // 더블찬스
+								case 456:
+								case 457:
+								case 151:
+									if($select == 1) {
+										if($homeScore > $awayScore || $homeScore == $awayScore)
+											$winCode = 1;
+										else 
+											$winCode = 2;
+									} else if ($select == 2) {
+										if($homeScore == $awayScore || $homeScore < $awayScore)
+											$winCode = 1;
+										else 
+											$winCode = 2;
+									} else {
+										if($homeScore > $awayScore || $homeScore < $awayScore)
+											$winCode = 1;
+										else 
+											$winCode = 2;
+									}
+									break;
+								case 5: // 득점홀짝
+								case 72:
+								case 73:
+									if(($homeScore+$awayScore) % 2 == 1) 				$winCode = 1;
+									else 												$winCode = 2;
+									break;
+								case 6: // 정확한스코어
+								case 9:
+								case 100:
+									$scores = explode("-", $home_name);
+									if($scores[0] == $homeScore && $scores[1] == $awayScore)
+										$winCode = 1;
+									else 
+										$winCode = 2;
+									break;
+							}
+							break;
+						case 48242: // 농구
+							switch($gameType) {
+								case 226: // 승패
+								case 202:
+								case 203:
+								case 204:
+								case 205:
+								case 206:
+								case 464:
+									if( $homeScore > $awayScore )						$winCode = 1;
+									else if ( $homeScore < $awayScore )					$winCode = 2;
+									break;
+								case 342: // 핸디캡
+								case 64:
+								case 65:
+								case 66:
+								case 67:
+								case 467:
+								case 468:
+									$points = explode(" ", $home_line);
+									if(($homeScore + $points[0]) > $awayScore)			$winCode = 1; // 홈승
+									else if(($homeScore + $points[0]) < $awayScore)		$winCode = 2; // 원정승
+									else if(($homeScore + $points[0]) == $awayScore)	$winCode = 4; // 적특
+									break;
+								case 28: // 언더오버
+								case 21:
+								case 45:
+								case 46:
+								case 47:
+								case 77:
+								case 469:
+									if (($homeScore + $awayScore) == $home_line)        $winCode = 4;
+									else
+										$winCode = (($homeScore + $awayScore) > $home_line) ? 2 : 1;
+									break;
+								case 153: // 언더오버-홈팀
+								case 154:
+								case 223:
+								case 287:
+								case 354:
+								case 221:
+									if ($homeScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($homeScore > $home_line) ? 2 : 1;
+									break;
+								case 155: // 언더오버-원정팀
+								case 156:
+								case 222:
+								case 288:
+								case 355:
+								case 220:
+									if ($awayScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($awayScore > $home_line) ? 2 : 1;
+									break;
+								case 41: // 승무패
+								case 42:
+								case 43:
+								case 44:
+								case 282:
+								case 284:
+									if($homeScore == $awayScore)
+									{
+										if($drawRate == "1.00" and $last_special_code < 5) 	$winCode = 4;
+										else 										     	$winCode = 3; // 무승부
+									} else if($homeScore > $awayScore)						{$winCode = 1;}
+									else											    	{$winCode = 2;}
+									break;
+								case 51: // 득점홀짝
+								case 72:
+								case 73:
+								case 74:
+								case 75:
+								case 76:
+								case 285:
+									if(($homeScore + $awayScore) % 2 == 1) 				$winCode = 1;
+									else 												$winCode = 2;
+									break;
+								case 242: // 홀짝-홈팀
+								case 289:
+								case 290:
+								case 291:
+								case 198:
+									if($homeScore % 2 == 1) 							$winCode = 1;
+									else 												$winCode = 2;
+									break;
+								case 243: // 홀짝-원정팀
+								case 292:
+								case 293:
+								case 294:
+								case 199:
+									if($awayScore % 2 == 1) 							$winCode = 1;
+									else 												$winCode = 2;
+									break;
+							}
+							break;
+						case 154830: // 배구
+							switch($gameType) {
+								case 52: // 승패
+									if( $homeScore > $awayScore )						$winCode = 1;
+									else if ( $homeScore < $awayScore )					$winCode = 2;
+									break;
+								case 866: // 핸디캡
+								case 64:
+								case 65:
+								case 66:
+								case 67:
+								case 68:
+									$points = explode(" ", $home_line);
+									if(($homeScore + $points[0]) > $awayScore)			$winCode = 1; // 홈승
+									else if(($homeScore + $points[0]) < $awayScore)		$winCode = 2; // 원정승
+									else if(($homeScore + $points[0]) == $awayScore)	$winCode = 4; // 적특
+									break;
+								case 2: // 언더오버
+								case 21:
+								case 45:
+								case 46:
+								case 47:
+									if (($homeScore + $awayScore) == $home_line)        $winCode = 4;
+									else
+										$winCode = (($homeScore + $awayScore) > $home_line) ? 2 : 1;
+									break;
+								case 153: // 언더오버-홈팀
+								case 154:
+								case 101:
+									if ($homeScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($homeScore > $home_line) ? 2 : 1;
+									break;
+								case 155: // 언더오버-원정팀
+								case 156:
+									if ($awayScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($awayScore > $home_line) ? 2 : 1;
+									break;
+								case 5: // 득점홀짝
+								case 72:
+								case 73:
+								case 74:
+								case 75:
+								case 76:
+									if(($homeScore + $awayScore) % 2 == 1) 				$winCode = 1;
+									else 												$winCode = 2;
+									break;
+								case 6: // 정확한스코어
+								case 9:
+								case 100:
+									$scores = explode("-", $home_name);
+									if($scores[0] == $homeScore && $scores[1] == $awayScore)
+										$winCode = 1;
+									else 
+										$winCode = 2;
+									break;
+							}
+							break;
+						case 154914: // 야구
+							switch($gameType) {
+								case 1:  // 승무패
+								case 41:
+								case 42:
+								case 43:
+								case 44:
+								case 524:
+									if($homeScore == $awayScore)
+									{
+										if($drawRate == "1.00" and $last_special_code < 5) 	$winCode = 4;
+										else 										     	$winCode = 3; // 무승부
+									} else if($homeScore > $awayScore)						{$winCode = 1;}
+									else											    	{$winCode = 2;}
+									break;
+								case 226: // 승패
+								case 235:
+									if( $homeScore > $awayScore )						$winCode = 1;
+									else if ( $homeScore < $awayScore )					$winCode = 2;
+									break;
+								case 342: // 핸디캡
+								case 281:
+								case 526:
+									$points = explode(" ", $home_line);
+									if(($homeScore + $points[0]) > $awayScore)			$winCode = 1; // 홈승
+									else if(($homeScore + $points[0]) < $awayScore)		$winCode = 2; // 원정승
+									else if(($homeScore + $points[0]) == $awayScore)	$winCode = 4; // 적특
+									break;
+								case 28: // 언더오버
+								case 21:
+								case 45:
+								case 46:
+								case 47:
+								case 48:
+								case 236:
+								case 525:
+									if (($homeScore + $awayScore) == $home_line)        $winCode = 4;
+									else
+										$winCode = (($homeScore + $awayScore) > $home_line) ? 2 : 1;
+									break;
+								case 221: // 언더오버-홈팀
+									if ($homeScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($homeScore > $home_line) ? 2 : 1;
+									break;
+								case 220: // 언더오버-원정팀
+									if ($awayScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($awayScore > $home_line) ? 2 : 1;
+									break;
+							}
+							break;
+						case 35232: // 아이스 하키
+							switch($gameType) {
+								case 1: // 승무패
+								case 41:
+								case 42:
+								case 43:
+								case 44:
+									if($homeScore == $awayScore)
+									{
+										if($drawRate == "1.00" and $last_special_code < 5) 	$winCode = 4;
+										else 										     	$winCode = 3; // 무승부
+									} else if($homeScore > $awayScore)						{$winCode = 1;}
+									else											    	{$winCode = 2;}
+									break;
+								case 226: // 승패
+								case 202:
+									if( $homeScore > $awayScore )						$winCode = 1;
+									else if ( $homeScore < $awayScore )					$winCode = 2;
+									break;
+								case 342: // 핸디캡
+								case 64:
+								case 65:
+								case 66:
+									$points = explode(" ", $home_line);
+									if(($homeScore + $points[0]) > $awayScore)			$winCode = 1; // 홈승
+									else if(($homeScore + $points[0]) < $awayScore)		$winCode = 2; // 원정승
+									else if(($homeScore + $points[0]) == $awayScore)	$winCode = 4; // 적특
+									break;
+								case 28: // 언더오버
+								case 21:
+								case 45:
+								case 46:
+									if (($homeScore + $awayScore) == $home_line)        $winCode = 4;
+									else
+										$winCode = (($homeScore + $awayScore) > $home_line) ? 2 : 1;
+									break;
+								case 221: // 언더오버-홈팀
+									if ($homeScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($homeScore > $home_line) ? 2 : 1;
+									break;
+								case 220: // 언더오버-원정팀
+									if ($awayScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($awayScore > $home_line) ? 2 : 1;
+									break;
+								case 51: // 홀짝
+									if(($homeScore + $awayScore) % 2 == 1) 				$winCode = 1;
+									else 												$winCode = 2;
+									break;
+							}
+							break;	
 					}
-					else if($gameType==2)
-				 	{
-				 		if(($homeScore+$selectDrawRate) > $awayScore)				$winCode = 1;
-				 		else if(($homeScore+$selectDrawRate) < $awayScore)	$winCode = 2;
-				 		else if(($homeScore+$selectDrawRate) == $awayScore)	$winCode = 4;
-					}
-					else if($gameType==4)
-				 	{
-				 		if(($homeScore+$awayScore)==$selectDrawRate) $winCode = 4;
-				 		else
-				 			$winCode = (($homeScore+$awayScore) > $selectDrawRate) ? 2:1;
-					}
+
 				}
 			}
-			if($winCode==4)							{$result=4;}
-			else if($select==$winCode) 	{$result=1;}
-			else				  							{$result=2;}
+			if($winCode == 4)							{$result=4;}
+			else if($select == $winCode) 				{$result=1;}
+			else				  						{$result=2;}
 			
-			$data["bet_sn"]			= $betSn;
-			$data["child_sn"]		= $childSn;
+			$data["bet_sn"]	= $betSn;
+			$data["subchild_sn"] = $subChildSn;
 			$data["home_score"] = $homeScore;
 			$data["away_score"] = $awayScore;
-			$data["win"]				= $winCode;
-			$data["result"]			= $result;
+			$data["win"] = $winCode;
+			$data["result"]	= $result;
 			$betData[] = $data;
 		 }
 
-		 return $this->accountListProcess($childSn, $betData);
+		 return $this->accountListProcess($subChildSn, $betData);
 	}
 
 	//다기준
@@ -574,74 +918,24 @@ class ProcessModel extends Lemon_Model
 	}
 
     //▶ [수정] - 결과에 따른 정보 갱신
-    function resultGameProcess($childSn, $homeScore, $awayScore, $gameCancel="")
+    function resultGameProcess($subChildSn, $homeScore, $awayScore, $gameCancel="")
     {
-        $sql = "select a.type, a.special, b.draw_rate, b.sn as sub_child_sn from ".$this->db_qz."child a, ".$this->db_qz."subchild b where a.sn=b.child_sn and a.sn=".$childSn;
+        $sql = "select 		b.betting_type, 
+							a.special, 
+							IFNULL(a.sport_id, 0) AS sport_id, 
+							b.draw_rate, 
+							b.sn as sub_child_sn,
+							b.home_line,
+							b.home_name  
+				from 		".$this->db_qz."child a, ".$this->db_qz."subchild b 
+				where 		a.sn=b.child_sn and b.sn=".$subChildSn;
         $childRs = $this->db->exeSql($sql);
-        $gameType = $childRs[0]['type'];
+        $gameType = $childRs[0]['betting_type'];
         $specialCode = $childRs[0]['special'];
+		$sport_id = $childRs[0]['sport_id'];
         $drawRate = $childRs[0]['draw_rate'];
-        $subChildSn = $childRs[0]['sub_child_sn'];
-
-        $winTeam = '';
-        $winCode = '';
-
-        // modify result flag
-        ////////////////////////////////////////////////////////////////////////////////
-        if($gameCancel=="1")
-        {
-            $homeScore = 0;
-            $awayScore = 0;
-            $winTeam = "Cancel";
-        }
-        else
-        {
-            if($gameType==1)
-            {
-                if($homeScore==$awayScore)
-                {
-                    if($drawRate=="1.00" and $specialCode < 3) $winTeam = 'Cancel';
-                    else $winTeam = 'Draw';
-                }
-                else if($homeScore > $awayScore){$winTeam = 'Home';}
-                else														{$winTeam = 'Away';}
-            }
-            else if($gameType==2)
-            {
-                if($homeScore+$drawRate > $awayScore) 			{$winTeam = 'Home';}
-                else if($homeScore+$drawRate < $awayScore) 	{$winTeam = 'Away';}
-                else																				{$winTeam = 'Cancel';}
-            }
-            else if($gameType==4)
-            {
-                if($homeScore+$awayScore < $drawRate) 			{$winTeam = 'Home';}
-                else if($homeScore+$awayScore > $drawRate) 	{$winTeam = 'Away';}
-                else																				{$winTeam = 'Cancel';}
-            }
-        }
-        $set="";
-        $where="";
-
-        $set .=	"home_score=".$homeScore."," ;
-        $set .=	"away_score=".$awayScore;
-
-        if($gameType==1 or $gameType==4)
-            $set.=",win_team='".$winTeam."'";
-
-        else if($gameType==2)
-            $set.=",handi_winner='".$winTeam."'";
-
-        $where=" sn=".$childSn;
-
-        $this->gameModel->modifyChild($set, $where);
-
-        if($winTeam=='Home') 				$winCode = 1;
-        else if($winTeam=='Away') 	$winCode = 2;
-        else if($winTeam=='Draw') 	$winCode = 3;
-        else if($winTeam=='Cancel') $winCode = 4;
-
-        $sql = "update ".$this->db_qz."subchild set win=".$winCode." where child_sn=".$childSn;
-        $this->db->exeSql($sql);
+		$home_line = $childRs[0]['home_line'];
+		$home_name = $childRs[0]['home_name'];
 
         ////////////////////////////////////////////////////////////////////////////////
         //modify total_betting
@@ -668,30 +962,6 @@ class ProcessModel extends Lemon_Model
             $bet_date = str_replace("-","",substr($cartInfo[0]['bet_date'],0,10));
             $last_special_code = $cartInfo[0]['last_special_code'];
 
-            $fileName = $bet_date."_".$member_sn.".log";
-            $logFile = @fopen("/home/gadget/www_gadget_1.com/Lemonade/_logs/user/".$fileName,"r");
-            if ( $logFile ) {
-                unset($bettingLogArray);
-                while ( !feof($logFile) ) {
-                    $bettingLog = fgets($logFile);
-                    if ( strlen(trim($bettingLog)) > 0 ) $bettingLogArray[] = str_replace("'","\"",$bettingLog);
-                }
-                if ( count((array)$bettingLogArray) > 0 ) {
-                    $bettingLogArrayJson = implode(",",$bettingLogArray);
-                    $bettingLogArray = json_decode("{".$bettingLogArrayJson."}",true);
-                }
-                @fclose($logFile);
-
-                $logBettingSelect = $bettingLogArray[$betting_no."_".$subChildSn];
-                if ( $logBettingSelect > 0 and $logBettingSelect != $select ) {
-                    $sql = "UPDATE tb_total_betting SET select_no = '{$logBettingSelect}', checked = '{$select}->{$logBettingSelect}' WHERE sn = '".$betSn."'";
-                    $this->db->exeSql($sql);
-                    $select = $logBettingSelect;
-                }
-            }
-            //------------------------------------------------------------------------------------
-
-
             //핸디캡, 언더오버의 기준점 변경이 일어날 경우를 대비해, 배팅당시의 기준점으로 처리한다.
             //강제취소의 경우 자기 자신의 배당을 하지 않고, 전체 적용한다.
             if($gameCancel=="1")
@@ -705,40 +975,405 @@ class ProcessModel extends Lemon_Model
                     $winCode = 4;
                 else
                 {
-                    if($gameType==1) //승무패
-                    {
-                        if($homeScore==$awayScore)
-                        {
-                            if($drawRate=="1.00" and $last_special_code < 3) $winCode = 4;
-                            else $winCode = 3;
-                        }
-                        else if($homeScore > $awayScore){$winCode = 1;}
-                        else														{$winCode = 2;}
-                    }
-                    else if($gameType==2)
-                    {
-                        if(($homeScore+$selectDrawRate) > $awayScore)				$winCode = 1;
-                        else if(($homeScore+$selectDrawRate) < $awayScore)	$winCode = 2;
-                        else if(($homeScore+$selectDrawRate) == $awayScore)	$winCode = 4;
-                    }
-                    else if($gameType==4)
-                    {
-                        if(($homeScore+$awayScore)==$selectDrawRate) $winCode = 4;
-                        else
-                            $winCode = (($homeScore+$awayScore) > $selectDrawRate) ? 2:1;
-                    }
+                    switch ($sport_id) {
+						case 6046: // 축구
+							switch($gameType) {
+								case 427: // 승무패 + 언더오버
+									switch($home_name) {
+										case "1 And Under":
+											if(($homeScore > $awayScore) && ($homeScore + $awayScore) < $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+										case "1 And Over":
+											if(($homeScore > $awayScore) && ($homeScore + $awayScore) > $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+										case "2 And Under":
+											if(($homeScore < $awayScore) && ($homeScore + $awayScore) < $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+										case "2 And Over":
+											if(($homeScore < $awayScore) && ($homeScore + $awayScore) > $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+										case "X And Under":
+											if(($homeScore == $awayScore) && ($homeScore + $awayScore) < $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+										case "X And Over":
+											if(($homeScore == $awayScore) && ($homeScore + $awayScore) > $home_line)
+												$winCode = 1;
+											else 
+												$winCode = 2;
+											break;
+									}
+									break;
+								case 52: // 승패
+									if( $homeScore > $awayScore )						$winCode = 1;
+									else if ( $homeScore < $awayScore )					$winCode = 2;
+									break;
+								case 3: // 핸디캡
+								case 64:
+								case 65:
+									$points = explode(" ", $home_line);
+									if(($homeScore + $points[0]) > $awayScore)			$winCode = 1; // 홈승
+									else if(($homeScore + $points[0]) < $awayScore)		$winCode = 2; // 원정승
+									else if(($homeScore + $points[0]) == $awayScore)	$winCode = 4; // 적특
+									break;
+								case 2: // 언더오버
+								case 21:
+								case 45:
+									if (($homeScore + $awayScore) == $home_line)        $winCode = 4;
+									else
+										$winCode = (($homeScore + $awayScore) > $home_line) ? 2 : 1;
+									break;
+								case 153: // 언더오버-홈팀
+								case 154:
+								case 101:
+									if ($homeScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($homeScore > $home_line) ? 2 : 1;
+									break;
+								case 155: // 언더오버-원정팀
+								case 156:
+								case 102:
+									if ($awayScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($awayScore > $home_line) ? 2 : 1;
+									break;
+								case 1: // 승무패
+								case 41:
+								case 42:
+									if($homeScore == $awayScore)
+									{
+										if($drawRate == "1.00" and $last_special_code < 5) 	$winCode = 4;
+										else 										     	$winCode = 3; // 무승부
+									} else if($homeScore > $awayScore)						{$winCode = 1;}
+									else											    	{$winCode = 2;}
+									break;
+								case 7: // 더블찬스
+								case 456:
+								case 457:
+								case 151:
+									if($select == 1) {
+										if($homeScore > $awayScore || $homeScore == $awayScore)
+											$winCode = 1;
+										else 
+											$winCode = 2;
+									} else if ($select == 2) {
+										if($homeScore == $awayScore || $homeScore < $awayScore)
+											$winCode = 1;
+										else 
+											$winCode = 2;
+									} else {
+										if($homeScore > $awayScore || $homeScore < $awayScore)
+											$winCode = 1;
+										else 
+											$winCode = 2;
+									}
+									break;
+								case 5: // 득점홀짝
+								case 72:
+								case 73:
+									if(($homeScore+$awayScore) % 2 == 1) 				$winCode = 1;
+									else 												$winCode = 2;
+									break;
+								case 6: // 정확한스코어
+								case 9:
+								case 100:
+									$scores = explode("-", $home_name);
+									if($scores[0] == $homeScore && $scores[1] == $awayScore)
+										$winCode = 1;
+									else 
+										$winCode = 2;
+									break;
+							}
+							break;
+						case 48242: // 농구
+							switch($gameType) {
+								case 226: // 승패
+								case 202:
+								case 203:
+								case 204:
+								case 205:
+								case 206:
+								case 464:
+									if( $homeScore > $awayScore )						$winCode = 1;
+									else if ( $homeScore < $awayScore )					$winCode = 2;
+									break;
+								case 342: // 핸디캡
+								case 64:
+								case 65:
+								case 66:
+								case 67:
+								case 467:
+								case 468:
+									$points = explode(" ", $home_line);
+									if(($homeScore + $points[0]) > $awayScore)			$winCode = 1; // 홈승
+									else if(($homeScore + $points[0]) < $awayScore)		$winCode = 2; // 원정승
+									else if(($homeScore + $points[0]) == $awayScore)	$winCode = 4; // 적특
+									break;
+								case 28: // 언더오버
+								case 21:
+								case 45:
+								case 46:
+								case 47:
+								case 77:
+								case 469:
+									if (($homeScore + $awayScore) == $home_line)        $winCode = 4;
+									else
+										$winCode = (($homeScore + $awayScore) > $home_line) ? 2 : 1;
+									break;
+								case 153: // 언더오버-홈팀
+								case 154:
+								case 223:
+								case 287:
+								case 354:
+								case 221:
+									if ($homeScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($homeScore > $home_line) ? 2 : 1;
+									break;
+								case 155: // 언더오버-원정팀
+								case 156:
+								case 222:
+								case 288:
+								case 355:
+								case 220:
+									if ($awayScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($awayScore > $home_line) ? 2 : 1;
+									break;
+								case 41: // 승무패
+								case 42:
+								case 43:
+								case 44:
+								case 282:
+								case 284:
+									if($homeScore == $awayScore)
+									{
+										if($drawRate == "1.00" and $last_special_code < 5) 	$winCode = 4;
+										else 										     	$winCode = 3; // 무승부
+									} else if($homeScore > $awayScore)						{$winCode = 1;}
+									else											    	{$winCode = 2;}
+									break;
+								case 51: // 득점홀짝
+								case 72:
+								case 73:
+								case 74:
+								case 75:
+								case 76:
+								case 285:
+									if(($homeScore + $awayScore) % 2 == 1) 				$winCode = 1;
+									else 												$winCode = 2;
+									break;
+								case 242: // 홀짝-홈팀
+								case 289:
+								case 290:
+								case 291:
+								case 198:
+									if($homeScore % 2 == 1) 							$winCode = 1;
+									else 												$winCode = 2;
+									break;
+								case 243: // 홀짝-원정팀
+								case 292:
+								case 293:
+								case 294:
+								case 199:
+									if($awayScore % 2 == 1) 							$winCode = 1;
+									else 												$winCode = 2;
+									break;
+							}
+							break;
+						case 154830: // 배구
+							switch($gameType) {
+								case 52: // 승패
+									if( $homeScore > $awayScore )						$winCode = 1;
+									else if ( $homeScore < $awayScore )					$winCode = 2;
+									break;
+								case 866: // 핸디캡
+								case 64:
+								case 65:
+								case 66:
+								case 67:
+								case 68:
+									$points = explode(" ", $home_line);
+									if(($homeScore + $points[0]) > $awayScore)			$winCode = 1; // 홈승
+									else if(($homeScore + $points[0]) < $awayScore)		$winCode = 2; // 원정승
+									else if(($homeScore + $points[0]) == $awayScore)	$winCode = 4; // 적특
+									break;
+								case 2: // 언더오버
+								case 21:
+								case 45:
+								case 46:
+								case 47:
+									if (($homeScore + $awayScore) == $home_line)        $winCode = 4;
+									else
+										$winCode = (($homeScore + $awayScore) > $home_line) ? 2 : 1;
+									break;
+								case 153: // 언더오버-홈팀
+								case 154:
+								case 101:
+									if ($homeScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($homeScore > $home_line) ? 2 : 1;
+									break;
+								case 155: // 언더오버-원정팀
+								case 156:
+									if ($awayScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($awayScore > $home_line) ? 2 : 1;
+									break;
+								case 5: // 득점홀짝
+								case 72:
+								case 73:
+								case 74:
+								case 75:
+								case 76:
+									if(($homeScore + $awayScore) % 2 == 1) 				$winCode = 1;
+									else 												$winCode = 2;
+									break;
+								case 6: // 정확한스코어
+								case 9:
+								case 100:
+									$scores = explode("-", $home_name);
+									if($scores[0] == $homeScore && $scores[1] == $awayScore)
+										$winCode = 1;
+									else 
+										$winCode = 2;
+									break;
+							}
+							break;
+						case 154914: // 야구
+							switch($gameType) {
+								case 1:  // 승무패
+								case 41:
+								case 42:
+								case 43:
+								case 44:
+								case 524:
+									if($homeScore == $awayScore)
+									{
+										if($drawRate == "1.00" and $last_special_code < 5) 	$winCode = 4;
+										else 										     	$winCode = 3; // 무승부
+									} else if($homeScore > $awayScore)						{$winCode = 1;}
+									else											    	{$winCode = 2;}
+									break;
+								case 226: // 승패
+								case 235:
+									if( $homeScore > $awayScore )						$winCode = 1;
+									else if ( $homeScore < $awayScore )					$winCode = 2;
+									break;
+								case 342: // 핸디캡
+								case 281:
+								case 526:
+									$points = explode(" ", $home_line);
+									if(($homeScore + $points[0]) > $awayScore)			$winCode = 1; // 홈승
+									else if(($homeScore + $points[0]) < $awayScore)		$winCode = 2; // 원정승
+									else if(($homeScore + $points[0]) == $awayScore)	$winCode = 4; // 적특
+									break;
+								case 28: // 언더오버
+								case 21:
+								case 45:
+								case 46:
+								case 47:
+								case 48:
+								case 236:
+								case 525:
+									if (($homeScore + $awayScore) == $home_line)        $winCode = 4;
+									else
+										$winCode = (($homeScore + $awayScore) > $home_line) ? 2 : 1;
+									break;
+								case 221: // 언더오버-홈팀
+									if ($homeScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($homeScore > $home_line) ? 2 : 1;
+									break;
+								case 220: // 언더오버-원정팀
+									if ($awayScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($awayScore > $home_line) ? 2 : 1;
+									break;
+							}
+							break;
+						case 35232: // 아이스 하키
+							switch($gameType) {
+								case 1: // 승무패
+								case 41:
+								case 42:
+								case 43:
+								case 44:
+									if($homeScore == $awayScore)
+									{
+										if($drawRate == "1.00" and $last_special_code < 5) 	$winCode = 4;
+										else 										     	$winCode = 3; // 무승부
+									} else if($homeScore > $awayScore)						{$winCode = 1;}
+									else											    	{$winCode = 2;}
+									break;
+								case 226: // 승패
+								case 202:
+									if( $homeScore > $awayScore )						$winCode = 1;
+									else if ( $homeScore < $awayScore )					$winCode = 2;
+									break;
+								case 342: // 핸디캡
+								case 64:
+								case 65:
+								case 66:
+									$points = explode(" ", $home_line);
+									if(($homeScore + $points[0]) > $awayScore)			$winCode = 1; // 홈승
+									else if(($homeScore + $points[0]) < $awayScore)		$winCode = 2; // 원정승
+									else if(($homeScore + $points[0]) == $awayScore)	$winCode = 4; // 적특
+									break;
+								case 28: // 언더오버
+								case 21:
+								case 45:
+								case 46:
+									if (($homeScore + $awayScore) == $home_line)        $winCode = 4;
+									else
+										$winCode = (($homeScore + $awayScore) > $home_line) ? 2 : 1;
+									break;
+								case 221: // 언더오버-홈팀
+									if ($homeScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($homeScore > $home_line) ? 2 : 1;
+									break;
+								case 220: // 언더오버-원정팀
+									if ($awayScore == $home_line)        $winCode = 4;
+									else
+										$winCode = ($awayScore > $home_line) ? 2 : 1;
+									break;
+								case 51: // 홀짝
+									if(($homeScore + $awayScore) % 2 == 1) 				$winCode = 1;
+									else 												$winCode = 2;
+									break;
+							}
+							break;	
+					}
                 }
             }
 
+			$sql = "update ".$this->db_qz."subchild set win=".$winCode." where sn=".$subChildSn;
+			$this->db->exeSql($sql);
+
             if($winCode==4)							{$result=4;}
-            else if($select==$winCode) 	{$result=1;}
-            else				  							{$result=2;}
+            else if($select==$winCode) 				{$result=1;}
+			else				  					{$result=2;}
 
             $sql = "update ".$this->db_qz."total_betting set result=".$result." where sn=".$betSn;
             $this->db->exeSql($sql);
         }
 
-        $this->accountMoneyProcess($childSn);
+        $this->accountMoneyProcess($subChildSn);
     }
 
 	//▶ [수정] - 결과에 따른 정보 갱신 (다기준)
@@ -910,39 +1545,30 @@ class ProcessModel extends Lemon_Model
     }
 
     //▶ [배당지급] - 결과에 따른 돈 지급 (팝업정산)
-    function accountMoneyProcess($childSn)
+    function accountMoneyProcess($subChildSn)
     {
-        $rs = $this->gameModel->getChildRow($childSn, '*');
+        $rs = $this->gameModel->getSubChildRowBySn($subChildSn);
+		$child_sn = $rs["child_sn"];
 
-        $homeScore = $rs['home_score'];
-        $awayScore = $rs['away_score'];
-        $league_sn = $rs['league_sn']; //사다리게임만 체크를 위함
-
-        if(is_null($homeScore)||is_null($awayScore))
-            return -1;
-
-        //이미 처리된게임인지 확인
-        if($rs['kubun']==1)
-            return 1;
-
-        $rs = $this->gameModel->getSubChildRow($childSn, "sn");
-        $subChildSn = $rs['sn'];
-
-        $sql = "update ".$this->db_qz."subchild set result=1 where sn=".$subChildSn;
+        $sql = "update ".$this->db_qz."subchild set result = 1 where sn = ".$subChildSn;
         $this->db->exeSql($sql);
 
-        $sql = "update ".$this->db_qz."child set kubun=1 where sn=".$childSn;
-        $this->db->exeSql($sql);
+		$sql = "select * from tb_subchild where result = 0 and child_sn = " . $child_sn;
+		$childInfo = $this->db->exeSql($sql);
+		if(count((array)$childInfo) == 0) {
+			$sql = "update ".$this->db_qz."child set kubun = 1 where sn = ".$child_sn;
+			$this->db->exeSql($sql);
+		}
 
-        $sql = "select b.betting_no, b.member_sn, d.last_special_code
-						from 	tb_subchild a, tb_total_betting b, tb_child c, tb_total_cart d
-						where a.sn=b.sub_child_sn and a.child_sn=c.sn and b.betting_no=d.betting_no and d.result=0 and a.child_sn=".$childSn;
+        $sql = "select 	b.betting_no, b.member_sn, d.last_special_code
+				from 	tb_subchild a, tb_total_betting b, tb_child c, tb_total_cart d
+				where 	a.sn=b.sub_child_sn and a.child_sn=c.sn and b.betting_no = d.betting_no and d.result=0 and a.sn=".$subChildSn;
         $rs = $this->db->exeSql($sql);
 
         for($i=0; $i<count((array)$rs); ++$i)
         {
             $bettingNo = $rs[$i]['betting_no'];
-            $sn = $rs[$i]['member_sn'];
+            $memberSn = $rs[$i]['member_sn'];
             $specialCode = $rs[$i]['last_special_code'];
 
             $sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
@@ -975,7 +1601,6 @@ class ProcessModel extends Lemon_Model
 
             //모든게임종료
             if ( $ingGameCount == 0 ) {
-                $memberSn = $rs[$i]['member_sn'];
                 $sql = "select * from ".$this->db_qz."member where sn=".$memberSn;
                 $rsi = $this->db->exeSql($sql);
                 $logo = $rsi[0]['logo'];
@@ -994,7 +1619,7 @@ class ProcessModel extends Lemon_Model
                     }
                     $this->modifyMoneyProcess($memberSn, $winMoney, 5, $bettingNo);
 
-                    //낙첨
+				//낙첨
                 } else if( $loseCount > 0 ) {
                     $sql = "update ".$this->db_qz."total_cart set result=2, operdate=now() where betting_no ='".$bettingNo."'";
                     $rsi = $this->db->exeSql($sql);
@@ -1004,14 +1629,14 @@ class ProcessModel extends Lemon_Model
                     }
 
                     //미니게임은 지급하지 않는다.
-                    if($specialCode < 3) {
+                    if($specialCode < 5) {
                         //-> 낙첨 마일리지는 미니게임은 제외하고 스포츠 1폴더 이상부터 지급
                         if ( ($winCount + $loseCount - $bonusGameCount) > 1 ) {
                             //낙첨 마일리지
-                            $this->modifyMileageProcess($sn, $betMoney, "4", $bettingNo);
+                            $this->modifyMileageProcess($memberSn, $betMoney, "4", $bettingNo);
                         }
                     }
-                    //당첨
+				//당첨
                 } else if( ($winCount+$cancelCount) >= $total ) {
                     $winRate  = bcmul($winRate,1,2);
                     $winMoney = bcmul($betMoney,$winRate,0);
@@ -1021,7 +1646,7 @@ class ProcessModel extends Lemon_Model
                     if($rsi<=0)
                     {
                         $sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) 
-										values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
+								values ('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
                         $this->db->exeSql($sql);
                     }
 
@@ -1039,15 +1664,15 @@ class ProcessModel extends Lemon_Model
                 else
                 {
                     $sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel, flag) 
-									values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.",1)";
+							values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.",1)";
                     $this->db->exeSql($sql);
                 }
 
                 //-> 추천인 마일리지는 미니게임 제외, 스포츠 1폴더(이기거나 진거 합 2이상) 이상부터 지급
-                if ( $specialCode < 3 ) {
+                if ( $specialCode < 5 ) {
                     if ( ($winCount + $loseCount - $bonusGameCount) > 1 ) {
                         //-> 추천인 마일리지
-                        $this->recommendFailedGameMileage($sn, $betMoney, $bettingNo, $loseCount);
+                        $this->recommendFailedGameMileage($memberSn, $betMoney, $bettingNo, $loseCount);
                     }
                 }
 
@@ -1735,23 +2360,23 @@ class ProcessModel extends Lemon_Model
 
  	
  	//▶ 당첨된 회원의 목록
-	function accountListProcess($childSn, $betData)
+	function accountListProcess($subchildSn, $betData)
 	{
 		$sql = "select 	a.member_sn, a.betting_no, a.betting_money, a.betting_ip, b.result,
-										e.uid, e.nick, a.bet_date,
-										c.type, c.gameDate, c.gameHour, c.gameTime, c.home_team, c.away_team,
-										d.home_rate, d.draw_rate, d.away_rate, d.win
-							from ".$this->db_qz."total_cart a
-											,".$this->db_qz."total_betting b
-											,".$this->db_qz."child c
-											,".$this->db_qz."subchild d
-											,".$this->db_qz."member e
-							where a.betting_no=b.betting_no 
-										and b.sub_child_sn=d.sn 
-										and c.sn=d.child_sn
-										and a.member_sn=e.sn
-										and a.result = 0
-										and c.sn=".$childSn;
+						e.uid, e.nick, a.bet_date,
+						c.gameDate, c.gameHour, c.gameTime, c.home_team, c.away_team,
+						d.home_rate, d.draw_rate, d.away_rate, d.win
+				from 	".$this->db_qz."total_cart a
+						,".$this->db_qz."total_betting b
+						,".$this->db_qz."child c
+						,".$this->db_qz."subchild d
+						,".$this->db_qz."member e
+				where 	a.betting_no=b.betting_no 
+						and b.sub_child_sn=d.sn 
+						and c.sn=d.child_sn
+						and a.member_sn=e.sn
+						and a.result = 0
+						and d.sn=".$subchildSn;
 						
 		$rs = $this->db->exeSql($sql);
 	
@@ -1760,18 +2385,14 @@ class ProcessModel extends Lemon_Model
 			$bettingNo  = $rs[$i]['betting_no'];
 
 			$sql = "select 	a.sn as betSn, a.betting_no, a.member_sn, a.bet_money, a.result, a.preview_result, a.select_rate, a.select_no,
-											c.type, concat(c.gameDate,' ',c.gameHour,':',c.gameTime) as game_date, e.name as league_name, 
-											c.home_team, c.away_team, a.home_rate, a.draw_rate, a.away_rate, c.home_score, c.away_score, d.win
-							from ".$this->db_qz."total_betting a
-											, ".$this->db_qz."total_cart b
-											, ".$this->db_qz."child c
-											, ".$this->db_qz."subchild d
-											, ".$this->db_qz."league e
-							where a.betting_no=b.betting_no 
-										and a.sub_child_sn=d.sn 
-										and d.child_sn=c.sn 
-										and c.league_sn=e.sn
-										and a.betting_no='".$bettingNo."'";
+							concat(c.gameDate,' ',c.gameHour,':',c.gameTime) as game_date, c.notice as league_name, d.betting_type, 
+							c.home_team, c.away_team, a.home_rate, a.draw_rate, a.away_rate, c.home_score, c.away_score, d.win
+					from 	".$this->db_qz."total_betting a
+							, ".$this->db_qz."child c
+							, ".$this->db_qz."subchild d
+					where 	a.sub_child_sn=d.sn 
+							and d.child_sn=c.sn 
+							and a.betting_no='".$bettingNo."'";
 
 			$rsi = $this->db->exeSql($sql);
 			

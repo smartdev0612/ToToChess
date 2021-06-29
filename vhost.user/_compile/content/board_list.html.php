@@ -27,7 +27,7 @@
                 if ( $TPL_VAR["bbsNo"] == 7) {
                     echo "이벤트";
                 } else {
-                    echo "게시판";
+                    echo "공지사항";
                 }
                 ?>
             </h2>
