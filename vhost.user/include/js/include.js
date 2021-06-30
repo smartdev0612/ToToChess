@@ -330,7 +330,7 @@ function loginEnter(e) {
 function check_pincode() {
     var pincode = $j('#pincode').val();
     if ( pincode.length < 1 ) {
-        alert('가입인증코드를 입력하세요');
+        warning_popup('가입인증코드를 입력하세요');
         $j('#pincode').focus();
         return false;
     } else {
@@ -340,7 +340,7 @@ function check_pincode() {
         $j.post("/member/pincodePopup", param, function(result) {
             if( $.trim(result) == "false" ) {
                 $j("#pincode").focus();
-                alert("존재하지 않거나, 제한된 가입인증코드 입니다.");
+                warning_popup("존재하지 않거나, 제한된 가입인증코드 입니다.");
                 return false;
             } else {
                 document.next.submit();
@@ -350,12 +350,57 @@ function check_pincode() {
     return false;
 }
 
+// 회원가입시 중복아이디 체크
+function checkDuplicatedID() {
+    var userid = $j('#userid').val();
+    if ( userid == "" ) {
+        warning_popup('사용자아이디를 입력하세요');
+        $j('#userid').focus();
+        return false;
+    } else {
+        $j.ajaxSetup({async:false});
+        var param={userid:userid};
+
+        $j.post("/member/checkDuplicatedID", param, function(result) {
+            if(result > 0) {
+                warning_popup("현재 아이디는 이용가능합니다.");
+            } else {
+                $j("#userid").focus();
+                warning_popup("미안하지만 이미 존재하는 아이디입니다.");
+            }
+        });
+    }
+    return false;
+}
+
+// 회원가입시 중복닉네임 체크
+function checkDuplicatedNickName() {
+    var nick = $j('#nick').val();
+    if ( nick == "" ) {
+        warning_popup('닉네임을 입력하세요');
+        $j('#nick').focus();
+        return false;
+    } else {
+        $j.ajaxSetup({async:false});
+        var param={nick:nick};
+
+        $j.post("/member/checkDuplicatedNickName", param, function(result) {
+            if(result > 0) {
+                warning_popup("현재 닉네임은 이용가능합니다.");
+            } else {
+                $j("#nick").focus();
+                warning_popup("미안하지만 이미 존재하는 닉네임입니다.");
+            }
+        });
+    }
+    return false;
+}
 
 // 회원가입시 영문, 수자 체크
 function eng(obj) {
     var pattern = /[^(a-zA-Z0-9)]/; //영문만 허용
     if (pattern.test(obj.value)) {
-        alert("영문과 숫자만 허용합니다!");
+        warning_popup("영문과 숫자만 허용합니다!");
         obj.value = '';
         obj.focus();
         return false;
@@ -417,6 +462,10 @@ function scrollToTop() {
         window.scrollBy(0, -Math.max(1, Math.floor(position / 10)));
         scrollAnimation = setTimeout("scrollToTop()", 30);
     } else clearTimeout(scrollAnimation);
+}
+
+function scrollToTopDiv(div_id) {
+    setTimeout(function() { $(div_id).scrollTop(0); }, 500);
 }
 
 /******************************************* Web Socket *******************************************/

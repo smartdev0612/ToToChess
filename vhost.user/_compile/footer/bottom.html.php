@@ -325,40 +325,6 @@
 <link type='text/css' href='/10bet/simplemodal/css/basic.css' rel='stylesheet' media='screen' />
 <script type='text/javascript' src='/10bet/simplemodal/js/jquery.simplemodal.js'></script>
 <!-- simple modal }} -->
-<script>
-    var page_load_time="2021-01-11 19:44:42";
-    function memo_polling(){
-        $j.ajax({
-            url: "/ajax.polling.php",
-            type: 'POST',
-            data: {
-                t: page_load_time
-            },
-            dataType: 'json',
-            success: function(data) {
-                if( data["new_mail_count"]>0 ){
-                    $j('#new_mail_count').html(data["new_mail_count"]);
-                    if( typeof(ion) != "undefined" ) ion.sound.play("new_mail");
-                    
-                    $j(".mask_layer").show();
-                    $j(".popup_message").show();
-                    $j(".count01").html(data["new_mail_count"]+"개");
-                    $j(".count02").html(data["new_mail_count"]+"개");
-                    //var html = $j('#basic-modal-content').html().replace('{count}',data["new_mail_count"]);
-                    //$j('#basic-modal-content').html(html).modal();
-                    
-                }else{
-                    $j.modal.close();
-                }
-                if( data["auto_logout"] ){
-                    if( data["auto_logout_desc"] ) warning_popup(data["auto_logout_desc"]);
-                    document.location.href='/bbs/logout.php';
-                    return;
-                }
-            }
-        });
-    }
-</script>
 
 <!-- 새창 대신 사용하는 iframe -->
 <iframe width=0 height=0 name='hiddenframe' style='display:none;'></iframe>

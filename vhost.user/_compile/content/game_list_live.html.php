@@ -9,20 +9,15 @@
     $sport_setting = $TPL_VAR["sport_setting"];
 ?>
 <!-- <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/bootstrap-ko.css?v=511"> -->
-<link rel="stylesheet" type="text/css" href="/BET38/pc/_css/default.css?v=514">
+<!-- <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/default.css?v=514"> -->
 <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/layout.css?v=516">
 <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/btns.css?v=511">
 <link rel="stylesheet" type="text/css" href="/BET38/css/etc.css?v=513">
-<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css"> -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 <link rel="stylesheet" href="/BET38/css/font-awesome-animation.min.css">
 <link rel="stylesheet" href="/BET38/pc/_css/bxslider.css" type="text/css">
 <script src="/BET38/js/jquery-1.12.1.min.js"></script>
 <script src="/BET38/js/jquery-ui.min.js"></script>
-<script src="/BET38/js/jquery.scrollbar.js"></script>
-<script src="/BET38/pc/_js/jquery.bxslider.min.js"></script>
 
 <!-- JS END -->
 <style>
@@ -813,7 +808,7 @@
                 "m_strDName": market.m_strDName,
                 "m_strAName": market.m_strAName
             };
-            console.log(type);
+            
             var children_div = "";
             if(market.m_strMarket.indexOf("핸디캡") > 0) {
                 if(item.m_strHLine !== null && item.m_strALine !== null) {
@@ -2670,7 +2665,6 @@
         div += '<div class="st_real_r">';
         div += '<ul>';
         div += '<li><span>게임진행정보</span></li>';
-        div += '<li class="_hidden">시간 : <b id="r_stime0">107:31</b></li>';
         div += `<li style="padding:10px 0 5px 0">상태 : <b id="period_${item.m_nGame}"> ${item.m_strPeriod}</b></li>`;
         div += '</ul></div></li></ul></div>';
         $("#left_flow").append(div);

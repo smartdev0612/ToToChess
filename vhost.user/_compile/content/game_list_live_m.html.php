@@ -354,6 +354,64 @@
                 <div class="st_con_total">
                     <!-- CONTAINER AREA LEFT-->
                     <div class="list_st1" style="position:relative;">
+                        <!-- <ul id="div_353">
+                            <li class="tr">
+                                <span class="st_game_leg">
+                                    <img src="/BET38/_icon/sport/S6046.png" width="23" class="st_marr3 st_marb1 st_game_ico">&nbsp;
+                                    <img src="/upload/league/248.jpg" width="23" class="st_marr3 st_marb1 st_game_ico">&nbsp;
+                                    클럽 친선 경기
+                                </span>
+                                <button onclick="getBtnsMobile('353')" id="F353" class="gBtn st_mart1 bt_game_more">
+                                    <span id="cnt_353">+3</span>
+                                </button>
+                                <span class="st_game_time">06-29 19:00</span>
+                            </li>
+                            <li class="spo_align">
+                                <div style="display:none">
+                                    <input type="hidden" id="353_1_1_sport_name" value="축구">
+                                    <input type="hidden" id="353_1_1_game_type" value="1">
+                                    <input type="hidden" id="353_1_1_sub_sn" value="353_1_1">
+                                    <input type="hidden" id="353_1_1_home_team" value="바일레 BK">
+                                    <input type="hidden" id="353_1_1_home_rate" value="2.03">
+                                    <input type="hidden" id="353_1_1_draw_rate" value="3.72">
+                                    <input type="hidden" id="353_1_1_away_team" value="실케보르 IF">
+                                    <input type="hidden" id="353_1_1_away_rate" value="3.12">
+                                    <input type="hidden" id="353_1_1_game_date" value="2021-06-29">
+                                    <input type="hidden" id="353_1_1_market_name" value="승무패">
+                                    <input type="hidden" id="353_1_1_home_line" value="null">
+                                    <input type="hidden" id="353_1_1_away_line" value="null">
+                                    <input type="hidden" id="353_1_1_home_name" value="1">
+                                    <input type="hidden" id="353_1_1_league_sn" value="14493">
+                                </div>
+                                <div class="st_wd44_l3  st_marr_n1 selectable" name="353_1_1_div" onclick="onMultiTeamSelected('353_1_1','0','18609252857148262')">
+                                    <span class="spo_align1 f_w6">바일레 BK</span>
+                                    <span class="spo_align2 txt_ar st_padr5" id="18609252857148262">2.03</span>
+                                    <input type="checkbox" name="ch" value="1" style="display:none;">
+                                </div>
+                                <div class="st_wd10_l txt_ac spo_align4 selectable" name="353_1_1_div" onclick="onMultiTeamSelected('353_1_1','1','15065134327148262')">
+                                    <span id="15065134327148262">3.72</span>
+                                    <input type="checkbox" name="ch" value="3" style="display:none;">
+                                </div>
+                                <div class="st_wd44_l3 st_marl_n1 selectable" name="353_1_1_div" onclick="onMultiTeamSelected('353_1_1','2','14576407587148262')">
+                                    <span class="spo_align1 txt_ar f_w6">실케보르 IF</span>
+                                    <span class="spo_align2 txt_al st_marl5" id="14576407587148262">3.12</span>
+                                    <input type="checkbox" name="ch" value="2" style="display:none;">
+                                </div>
+                            </li>
+                            <div class="_hidden game_bottom" id="game_bottom_353">
+                                <div class="sel_game" id="sel_game_353">
+                                    <div class="st_b_tit4">
+                                        <div class="st_wd45 f_left txt_cut line-team">바일레 BK</div>
+                                        <div class="st_wd10 txt_ac" style="margin-top:5px;">
+                                            <img src="/BET38/pc/_img/ico_vs.png" style="max-width:100%;">
+                                        </div>
+                                        <div class="st_wd45 f_right  st_padr10 txt_cut line-team">실케보르 IF</div>
+                                    </div>
+                                    <div class="list_st5" id="div_353_3">
+                                    </div>
+                                </div>
+                            </div>
+                        </ul> -->
                     </div>
                     <div class="pagination pagination-centered">
                         <ul>
@@ -897,10 +955,10 @@
         $('#sel_game_' + res.m_nGame).html("");
         var details = res.m_lstDetail;
         if(details.length > 0) {
-            var div_header = '<div class="st_b_tit4"><div class="st_wd45 f_left  txt_cut" style="text-align:center; margin-top:15px;">';
+            var div_header = '<div class="st_b_tit4"><div class="st_wd45 f_left txt_cut line-team">';
             div_header += res.m_strHomeTeam;
             div_header += '</div><div class="st_wd10 txt_ac" style="margin-top:5px;"><img src="/BET38/pc/_img/ico_vs.png" style="max-width:100%;"></div>';
-            div_header += '<div class="st_wd45 f_right  st_padr10 txt_cut" style="text-align:center; margin-top:15px;">';
+            div_header += '<div class="st_wd45 f_right  st_padr10 txt_cut line-team">';
             div_header += res.m_strAwayTeam;
             div_header += "</div></div>";
             $('#sel_game_' + res.m_nGame).html( div_header );

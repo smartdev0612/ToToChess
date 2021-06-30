@@ -15,14 +15,11 @@
                 <div class="point">
                     <span class="head"><img src="/10bet/images/10bet/ico_01.png" alt="" /> 포인트</span> 
                     <span id="member_mileage"><?php echo number_format($TPL_VAR["mileage"],0)?></span>&nbsp;P
-                    <!-- <span class="change" onClick="mileage2Cash();">포인트전환</span> -->
                     <span class="change" onClick="location.href='/member/mileage?type=6'">포인트전환</span>
                 </div>
                 <div class="btn_list">
                     <button type="button" onClick="location.href='/member/memolist'">쪽지 <span class="memoCnt"><?php echo $TPL_VAR["new_memo_count"]?></span></button>
                     <button type="button" onClick="location.href='/calendar'">출석부</button>
-                    <!-- <button type="button" onClick="location.href='/recommand'">추천인</button> -->
-                    <!--<button type="button" onClick="location.href='/bbs/board.php?bo_table=z10'">1:1문의</button>-->
                     <button type="button" onClick="location.href='/logout'">로그아웃</button>
                 </div>
                 <button type="button" class="charge" onClick="location.href='/member/charge'">충전하기</button>
@@ -41,7 +38,7 @@
                 <h3>Memer Login</h3>
                 <form name="login" method="post" action="/loginProcess" onSubmit="return loginCheck();">
                     <input type="hidden" name="sitecode" value="site-a">
-                    <input type="hidden" name="returl" value="<?php echo c?>">
+                    <input type="hidden" name="returl" value="<?php $TPL_VAR["returl"]?>">
                     <div class="login_input">
                         <input type="text" name="uid" id="uid" placeholder="아이디" />
                         <input type="password" name="upasswd" id="upasswd" placeholder="비밀번호" />
@@ -51,12 +48,7 @@
                 </form>
                 <div class="btn_list">
                     <button onClick="login_open();" style="width:48%;">쪽지 <span>00</span></button>
-                    <!-- <button onClick="login_open();">복권 <span>00</span></button>
-                    <button onClick="login_open();">쿠폰 <span>00</span></button> -->
                     <button onClick="login_open();" style="width:48%;">출석부</button>
-                    <!-- <button onClick="login_open();">추천인</button> -->
-                    <!--<button onClick="login_open();">1:1문의</button>
-                    <button onClick="location.href='/bbs/logout.php'">로그아웃</button>-->
                 </div>
             </div>
         <?php 

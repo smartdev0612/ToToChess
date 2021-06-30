@@ -32,14 +32,18 @@
 						<!-- 입력 박스 -->
 						<div class="input_area" >
 							<div class="box_left">
-								<h3>사용자 아이디</h3>
+								<div class="userbox" style="display:flex;">
+									<h3>사용자 아이디</h3><button type="button" class="checkBtn" onclick="checkDuplicatedID()">중복아이디 체크</button>
+								</div>
 								<div class="input_box">
 									<input type="text" id="userid" name="userid"/>
 									<p>영문자, 숫자만 입력 가능, 최소 3자이상 입력하세요.</p>
 								</div>
 							</div>
 							<div class="box_left">
-								<h3>닉네임</h3>
+								<div class="userbox" style="display:flex;">
+									<h3>닉네임</h3><button type="button" class="checkBtn" onclick="checkDuplicatedNickName()">중복닉네임 체크</button>
+								</div>
 								<div class="input_box">
 									<input type="text" id='nick' name='nick'/>
 									<p>한글만 등록이 가능합니다.</p>

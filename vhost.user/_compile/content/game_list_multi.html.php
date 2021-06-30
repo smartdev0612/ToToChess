@@ -12,16 +12,10 @@
 <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/layout.css?v=513">
 <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/btns.css?v=511">
 <link rel="stylesheet" type="text/css" href="/BET38/css/etc.css?v=514">
-<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css">
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css"> -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 <link rel="stylesheet" href="/BET38/css/font-awesome-animation.min.css">
-<!-- <link rel="stylesheet" href="/BET38/pc/_css/bxslider.css" type="text/css"> -->
 <script src="/BET38/js/jquery-1.12.1.min.js"></script>
 <script src="/BET38/js/jquery-ui.min.js"></script>
-<!-- <script src="/BET38/js/jquery.scrollbar.js"></script> -->
-<!-- <script src="/BET38/pc/_js/jquery.bxslider.min.js"></script> -->
 <!-- JS END -->
 <style>
    .ko_sports_game img {vertical-align:middle;}
@@ -248,18 +242,16 @@
    color: #fff;
    text-decoration: none;
    }
-   img {
-   vertical-align: middle;
-   }
+   
    @media screen and (max-width: 900px) { 
    .search_main {
    display:none;
    } 
    .sports_head {
-   height:55px !important;
+    height:55px !important;
    }
    .margin-left-175 {
-   margin-left: 0px;
+    margin-left: 0px;
    }
    .area-width {
    width: 90% !important;
@@ -2607,6 +2599,7 @@
                         break;
                 }
             });
+            scrollToTopDiv(".sst_left");
             if(index == 0) {
                 setTimeout(() => {
                     getBtns(item.m_nGame);
@@ -2621,6 +2614,7 @@
         $.each(showJson, function(index, item) {
             appendGameDiv(item, index);
         });
+        
     }
     
     function getSubChildInfo(index, item, detail, childCnt, isExist12) {

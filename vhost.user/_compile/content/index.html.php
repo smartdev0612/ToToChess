@@ -257,22 +257,22 @@
                 <div class="box01 bg01" onClick="login_open();">
                 <?php } ?>
                     <h3>체스
-                        <strong>국내형</strong>
+                        <strong>국내형스포츠</strong>
                     </h3>
-                    <div class="bottom01">국내형</div>
+                    <div class="bottom01">국내형스포츠</div>
                 </div>
             </li>
             <li>
                 <?php 
                 if(count((array)$_SESSION['member']) > 0) { ?>
-                <div class="box01 bg04" onClick="location.href='/game_list?game=abroad'">
+                <div class="box01 bg05" onClick="location.href='/game_list?game=abroad'">
                 <?php } else { ?>
-                <div class="box01 bg04" onClick="login_open();">
+                <div class="box01 bg05" onClick="login_open();">
                 <?php } ?>
                     <h3>체스
-                        <strong>유럽형</strong>
+                        <strong>유럽형스포츠</strong>
                     </h3>
-                    <div class="bottom01">유럽형</div>
+                    <div class="bottom01">유럽형스포츠</div>
                 </div>
             </li>
             <li>
@@ -283,22 +283,22 @@
                 <div class="box01 bg02" onClick="login_open();">
                 <?php } ?>
                     <h3>체스
-                        <strong>LIVE BETTING</strong>
+                        <strong>라이브스포츠</strong>
                     </h3>
-                    <div class="bottom01">LIVE BETTING</div>
+                    <div class="bottom01">라이브스포츠</div>
                 </div>
             </li>
-            <li class="hidden-sm">
+            <li>
                 <?php 
                 if(count((array)$_SESSION['member']) > 0) { ?>
-                <div class="box01 bg04" onClick="warning_popup('준비중입니다.');">
+                <div class="box01 bg06" onClick="location.href='/game_list?game=power'">
                 <?php } else { ?>
-                <div class="box01 bg04" onClick="login_open();">
+                <div class="box01 bg06" onClick="login_open();">
                 <?php } ?>
                     <h3>체스
-                        <strong>REELTIME BETTING</strong>
+                        <strong>미니게임</strong>
                     </h3>
-                    <div class="bottom01">REELTIME BETTING</div>
+                    <div class="bottom01">미니게임</div>
                 </div>
             </li>
             <li class="hidden-sm">
@@ -309,22 +309,22 @@
                 <div class="box01 bg03" onClick="login_open();">
                 <?php } ?>
                     <h3>체스
-                        <strong>CASINO</strong>
+                        <strong>카지노</strong>
                     </h3>
-                    <div class="bottom01">CASINO</div>
+                    <div class="bottom01">카지노</div>
                 </div>
             </li>
-            <li>
+            <li class="hidden-sm">
                 <?php 
                 if(count((array)$_SESSION['member']) > 0) { ?>
-                <div class="box01 bg04" onClick="location.href='/game_list?game=power'">
+                <div class="box01 bg07" onClick="warning_popup('준비중입니다.');">
                 <?php } else { ?>
-                <div class="box01 bg04" onClick="login_open();">
+                <div class="box01 bg07" onClick="login_open();">
                 <?php } ?>
                     <h3>체스
-                        <strong>MINIGAME</strong>
+                        <strong>슬롯머신</strong>
                     </h3>
-                    <div class="bottom01">MINIGAME</div>
+                    <div class="bottom01">슬롯머신</div>
                 </div>
             </li>
         </ul>

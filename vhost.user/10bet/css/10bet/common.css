@@ -609,6 +609,9 @@ footer copyright span {color:#c34013;}
 .main_minigame ul li .box01.bg02 {background:url("/10bet/images/10bet/img_minigame_02.png") no-repeat;background-position:center top;background-size:cover;}
 .main_minigame ul li .box01.bg03 {background:url("/10bet/images/10bet/img_minigame_03.png") no-repeat;background-position:center top;background-size:cover;}
 .main_minigame ul li .box01.bg04 {background:url("/10bet/images/10bet/img_minigame_04.png") no-repeat;background-position:center top;background-size:cover;}
+.main_minigame ul li .box01.bg05 {background:url("/10bet/images/10bet/img_minigame_05.png") no-repeat;background-position:center top;background-size:cover;}
+.main_minigame ul li .box01.bg06 {background:url("/10bet/images/10bet/img_minigame_06.png") no-repeat;background-position:center top;background-size:cover;}
+.main_minigame ul li .box01.bg07 {background:url("/10bet/images/10bet/img_minigame_07.png") no-repeat;background-position:center top;background-size:cover;}
 .main_minigame ul li .box01 h3 {position:relative;padding:40px 0px 0px 25px;font-weight:bold;color:#ffea00;font-size:12px;z-index:10;}
 .main_minigame ul li .box01 h3 strong {display:block;color:#ffffff;font-size:20px;line-height:30px;}
 .main_minigame ul li .box01 .bottom01 {position:absolute;bottom:0;left;0;width:100%;line-height:70px;text-align:center;background:#0c1319;border-top:1px solid #434347;opacity:0.5;z-index:10;}
@@ -1783,3 +1786,8 @@ vertical-align:top;}
 }
 .display_none {display:none;}
 
+.line-team {
+	text-align:center; 
+	margin-top:13px; 
+	line-height:normal;
+}

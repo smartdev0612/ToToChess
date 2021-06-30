@@ -5,7 +5,7 @@
     <title>체스</title>
     <link rel="shortcut icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345887" />
+    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345888" />
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
@@ -229,6 +229,7 @@
         .span-badge-abroad {
             margin-top:13px !important;
             margin-right:10px !important;
+            color:white;
         }
 
         .btn-center {
@@ -293,6 +294,26 @@
             white-space: nowrap;
         }
 
+        .checkBtn {
+            height: 40px;
+            border: 1px solid #ff0012;
+            background: #501a1a;
+            border-radius: 3px;
+            padding:5px;
+            position: relative;
+            top: -10px;
+            margin-left:15px;
+        }
+
+        .checkBtn:hover {
+            border: 1px solid #ff0000;
+            background: #ff0000;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
         @media screen and (max-width: 900px) { 
             .hidden-xs {
                 display: none !important;
@@ -300,6 +321,14 @@
 
             .hidden-sm {
                 display: block !important;
+            }
+
+            .main_minigame ul {
+                height: 160px;
+            }
+
+            .main_minigame ul li .box01 .bottom01 {
+                line-height: 30px;
             }
         }
     </style>

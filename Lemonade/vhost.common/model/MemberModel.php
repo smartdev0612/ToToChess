@@ -2231,5 +2231,25 @@ class MemberModel extends Lemon_Model
 
         return $rs;
     }
+
+    function checkDuplicatedID($userid = "") {
+        $sql = "SELECT uid FROM tb_member WHERE uid LIKE '" . $userid . "'";
+        $rs = $this->db->exeSql($sql);
+        $status = 1;
+        if(count((array)$rs) > 0) {
+            $status = 0;
+        }
+        return $status;
+    }
+
+    function checkDuplicatedNickName($nick = "") {
+        $sql = "SELECT nick FROM tb_member WHERE nick LIKE '" . $nick . "'";
+        $rs = $this->db->exeSql($sql);
+        $status = 1;
+        if(count((array)$rs) > 0) {
+            $status = 0;
+        }
+        return $status;
+    }
 }
 ?>

@@ -1561,5 +1561,19 @@ class MemberController extends WebServiceController
 
 		echo json_encode($rs);
 	}
+
+	function checkDuplicatedIDAction() {
+		$userid = empty($this->req->post('userid')) ? "" : $this->req->post('userid');
+		$mModel = $this->getModel("MemberModel");
+		$res = $mModel->checkDuplicatedID($userid);
+		echo $res;
+	}
+
+	function checkDuplicatedNickNameAction() {
+		$nick = empty($this->req->post('nick')) ? "" : $this->req->post('nick');
+		$mModel = $this->getModel("MemberModel");
+		$res = $mModel->checkDuplicatedNickName($nick);
+		echo $res;
+	}
 }
 ?>
