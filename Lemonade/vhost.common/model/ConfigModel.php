@@ -70,7 +70,7 @@ class ConfigModel extends Lemon_Model
             $PARAM_cnt=$PARAM_cnt-1;
             if($PARAM_cnt!=0)	$sql .= ",";
         }
-
+		
         return $this->db->exeSql($sql);
     }
 	

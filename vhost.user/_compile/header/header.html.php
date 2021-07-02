@@ -330,6 +330,10 @@
             .main_minigame ul li .box01 .bottom01 {
                 line-height: 30px;
             }
+
+            .th-mini {
+                font-size:9px;
+            }
         }
     </style>
     <!-- <script type="text/javascript" src="/10bet/js/10bet/jquery-2.0.3.min.js"></script> -->

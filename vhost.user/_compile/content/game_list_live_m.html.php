@@ -778,7 +778,7 @@
         $.each(showJson, function(index, item) {
             appendGameDiv(item, index);
         });
-
+        scrollToTopDiv(".st_container");
         $j(".mask_layer").click();
     }
 

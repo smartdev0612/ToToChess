@@ -646,3 +646,22 @@ function getMarketsCnt(sport_name, children, isExist12 = true) {
     return cnt;
 }
 
+/****************************** 미니게임 ****************************/
+function getStrDatetime(date, hour, min) {
+    var month = date.getMonth() + 1;
+    if(month < 10)
+        month = "0" + month;
+    
+    var day = date.getDate();
+    if(day < 10) 
+        day = "0" + day;
+
+    if(hour < 10)
+        hour = "0" + hour;
+        
+    if(min < 10)
+        min = "0" + min;
+
+    var strDatetime = date.getFullYear() + "-" + month + "-" + day + "T" + hour + ":" + min;
+    return strDatetime;
+}

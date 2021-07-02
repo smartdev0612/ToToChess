@@ -140,10 +140,17 @@
             <tr>
                 <th width="20%">파워볼</th>
                 <td>
-                    <input type="radio" name="power" value="1" <?php if($TPL_VAR["list"]["power"]==1){?> checked <?php }?>> 서비스
-                    <input type="radio" name="power" value="0" <?php if($TPL_VAR["list"]["power"]==0){?> checked <?php }?>> 점검중
+                    <div style="display:flex;">
+                        <input type="radio" name="power" value="1" <?php if($TPL_VAR["list"]["power"]==1){?> checked <?php }?>> 서비스
+                        <input type="radio" name="power" value="0" <?php if($TPL_VAR["list"]["power"]==0){?> checked <?php }?>> 점검중
 
-                    <span style="margin-left: 40px">배팅마감시간:</span> <input type="number" class="w60" name="power_limit" style="text-align: right" value="<?php echo $TPL_VAR["list"]["power_limit"]?>" size="10" />초
+                        <span style="margin-left: 40px">배팅마감시간:</span> <input type="number" class="w60" name="power_limit" style="text-align: right" value="<?php echo $TPL_VAR["list"]["power_limit"]?>" size="10" />초
+                        <div id="power_limit_div">
+                            <span style="margin-left: 40px">점검시간:</span>
+                            <input type="text" class="w60" name="power_limit_start" style="text-align: right" value="<?php echo $TPL_VAR["list"]["power_limit_start"]?>" size="10" /> ~ 
+                            <input type="text" class="w60" name="power_limit_end" style="text-align: right" value="<?php echo $TPL_VAR["list"]["power_limit_end"]?>" size="10" />
+                        </div>
+                    </div>
                 </td>
             </tr>
             <?php } 
@@ -162,10 +169,17 @@
             <tr>
                 <th width="20%">파워사다리</th>
                 <td>
-                    <input type="radio" name="powersadari" value="1" <?php if($TPL_VAR["list"]["powersadari"]==1){?> checked <?php }?>> 서비스
-                    <input type="radio" name="powersadari" value="0" <?php if($TPL_VAR["list"]["powersadari"]==0){?> checked <?php }?>> 점검중
+                    <div style="display:flex;">
+                        <input type="radio" name="powersadari" value="1" <?php if($TPL_VAR["list"]["powersadari"]==1){?> checked <?php }?>> 서비스
+                        <input type="radio" name="powersadari" value="0" <?php if($TPL_VAR["list"]["powersadari"]==0){?> checked <?php }?>> 점검중
 
-                    <span style="margin-left: 40px">배팅마감시간:</span> <input type="number" class="w60" name="powersadari_limit" style="text-align: right" value="<?php echo $TPL_VAR["list"]["powersadari_limit"]?>" size="10" />초
+                        <span style="margin-left: 40px">배팅마감시간:</span> <input type="number" class="w60" name="powersadari_limit" style="text-align: right" value="<?php echo $TPL_VAR["list"]["powersadari_limit"]?>" size="10" />초
+                        <div id="powersadari_limit_div">
+                            <span style="margin-left: 40px">점검시간:</span> 
+                            <input type="text" class="w60" name="powersadari_limit_start" style="text-align: right" value="<?php echo $TPL_VAR["list"]["powersadari_limit_start"]?>" size="10" /> ~ 
+                            <input type="text" class="w60" name="powersadari_limit_end" style="text-align: right" value="<?php echo $TPL_VAR["list"]["powersadari_limit_end"]?>" size="10" />
+                        </div>
+                    </div>
                 </td>
             </tr>
             <?php } 

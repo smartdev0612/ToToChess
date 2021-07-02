@@ -2722,11 +2722,25 @@ class GameListModel extends Lemon_Model
 
     public function bettingListOfSport($beginDate='', $endDate='')
     {
-        $sql = "select last_special_code as special, count(sn) as bet_cnt, IFNULL(sum(betting_money),0) as amt
-                from tb_total_cart
-                where bet_date >= '{$beginDate}' and bet_date <= '{$endDate}'
-                and (last_special_code < 3 or last_special_code = 50)
-                group by last_special_code";
+        $sql = "SELECT
+					tb_total_cart.last_special_code AS special,
+					COUNT(tb_total_cart.sn) AS bet_cnt,
+					IFNULL(
+					SUM(tb_total_cart.betting_money),
+					0
+					) AS amt,
+					tb_temp.live
+				FROM
+					tb_total_cart
+					LEFT JOIN (SELECT betting_no, live FROM tb_total_betting GROUP BY betting_no) AS tb_temp
+					ON tb_total_cart.betting_no = tb_temp.betting_no
+				WHERE tb_total_cart.bet_date >= '{$beginDate}'
+					AND tb_total_cart.bet_date <= '{$endDate}'
+					AND (
+					tb_total_cart.last_special_code < 5
+					OR tb_total_cart.last_special_code = 50
+					)
+				GROUP BY tb_temp.live";
 
         $rs = $this->db->exeSql($sql);
         return $rs;

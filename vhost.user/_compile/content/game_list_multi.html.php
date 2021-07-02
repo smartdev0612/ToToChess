@@ -2599,7 +2599,7 @@
                         break;
                 }
             });
-            scrollToTopDiv(".sst_left");
+
             if(index == 0) {
                 setTimeout(() => {
                     getBtns(item.m_nGame);
@@ -2614,7 +2614,7 @@
         $.each(showJson, function(index, item) {
             appendGameDiv(item, index);
         });
-        
+        scrollToTopDiv(".scroll-content");
     }
     
     function getSubChildInfo(index, item, detail, childCnt, isExist12) {

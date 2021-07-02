@@ -92,6 +92,38 @@ class ConfigController extends WebServiceController
         //$this->globalconfigAction();
     }
 
+	function miniUseConfigProcessAction()
+    {
+        $this->commonDefine();
+
+        if(!$this->auth->isLogin())
+        {
+            $this->redirect("/login");
+            exit;
+        }
+        $this->view->define("content","content/config/mini_config.html");
+
+
+        $adminConfigArr	= $_POST;
+
+        $logo = $this->request('logo');
+        if($logo=='')
+            $logo = $this->logo;
+
+        $rs=$this->getModel("ConfigModel")->modifyMiniConfig($adminConfigArr, $logo);
+
+        if($rs>0)
+        {
+            throw new Lemon_ScriptException("수정되었습니다.","","go","/config/miniUseConfig");
+        }
+        else{
+            throw new Lemon_ScriptException("변경내역이 없거나 정상처리 되지 않았습니다..","","go","/config/miniUseConfig");
+            exit;
+        }
+
+        //$this->globalconfigAction();
+    }
+
 	// 조합배팅제한
     function crosslimitAction()
     {
@@ -1404,6 +1436,29 @@ class ConfigController extends WebServiceController
 		
 	
 		$this->display();
+	}
+
+	function miniUseConfigAction() {
+		$this->commonDefine();
+
+        if(!$this->auth->isLogin())
+        {
+            $this->redirect("/login");
+            exit;
+        }
+        $this->view->define("content","content/config/mini_use_config.html");
+
+        $logo = $this->request('logo');
+        if($logo=='')
+            $logo = $this->logo;
+
+        $model = $this->getModel("ConfigModel");
+        $list = $model->getMiniConfigRow("*", "", $logo);
+
+        $this->view->assign( "list", $list);
+        $this->view->assign( "logo", $logo);
+
+        $this->display();
 	}
 }
 ?>

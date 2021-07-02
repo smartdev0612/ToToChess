@@ -1191,15 +1191,13 @@ class IndexController extends WebServiceController
 
 						$btNo = $forCnt;
 						$dom .= "<tr>
-								<td>".$btNo."</td>
-								<td style=\"font-weight:bold;\">{$bettingDate} <br />[{$gameTh}회차]</td>
-								<td>{$betDay}<br />{$betTime}</td>
-								<td style=\"font-weight:bold;\">{$gameName}</td>
-								<td>{$select_val}</td>
-								<td>{$bettingRate}</td>
-								<td>".number_format($bettingMoney)."</td>
-								<td class=\"new_betting_no\" id='resultMoney_{$bettingNo}'>{$resultMoney}</td>
-								<td id='result_{$bettingNo}'>{$bettingResult}</td>
+								<td class='th-mini' style=\"font-weight:bold;\">{$gameTh}</td>
+								<td class='th-mini' style=\"font-weight:bold;\">{$gameName}</td>
+								<td class='th-mini'>{$select_val}</td>
+								<td class='th-mini'>{$bettingRate}</td>
+								<td class='th-mini'>".number_format($bettingMoney)."</td>
+								<td class=\"new_betting_no th-mini\" id='resultMoney_{$bettingNo}'>{$resultMoney}</td>
+								<td class='th-mini' id='result_{$bettingNo}'>{$bettingResult}</td>
 							</tr>";
 					}
 				} else {
@@ -1281,15 +1279,13 @@ class IndexController extends WebServiceController
 						}
 						$btNo = $forCnt;
 						$dom .= "<tr>
-								<td>".$btNo."</td>
-								<td style=\"font-weight:bold;\">{$bettingDate} <br />[{$gameTh}회차]</td>
-								<td>{$betDay}<br />{$betTime}</td>
-								<td style=\"font-weight:bold;\">{$gameName}</td>
-								<td>{$select_val}</td>
-								<td>{$bettingRate}</td>
-								<td>".number_format($bettingMoney)."</td>
-								<td class=\"new_betting_no\" id='resultMoney_{$bettingNo}'>{$resultMoney}</td>
-								<td id='result_{$bettingNo}'>{$bettingResult}</td>
+								<td class='th-mini' style=\"font-weight:bold;\">{$gameTh}</td>
+								<td class='th-mini' style=\"font-weight:bold;\">{$gameName}</td>
+								<td class='th-mini'>{$select_val}</td>
+								<td class='th-mini'>{$bettingRate}</td>
+								<td class='th-mini'>".number_format($bettingMoney)."</td>
+								<td class=\"new_betting_no th-mini\" id='resultMoney_{$bettingNo}'>{$resultMoney}</td>
+								<td class='th-mini' id='result_{$bettingNo}'>{$bettingResult}</td>
 							</tr>";
 						
 					}

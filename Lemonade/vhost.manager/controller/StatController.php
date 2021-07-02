@@ -950,19 +950,14 @@ class StatController extends WebServiceController
         );
 
         // 스포츠 배팅정보
-        $sport_betting_info = array('multi'=>array(), 'special'=>array(), 'real'=>array(), 'live'=>array());
+        $sport_betting_info = array('sports'=>array(), 'real'=>array(), 'live'=>array());
         $sport_betting_array = $gameListModel->bettingListOfSport($beginDate, $endDate);
         if($sport_betting_array != null)
         {
             foreach($sport_betting_array as $betting_info) {
-                if($betting_info['special'] == 0)
-                {
-                    $sport_betting_info['multi'] = $betting_info;
-                } else if($betting_info['special'] == 1) {
-                    $sport_betting_info['special'] = $betting_info;
-                } else if($betting_info['special'] == 2) {
-                    $sport_betting_info['real'] = $betting_info;
-                } else if($betting_info['special'] == 50) {
+                if($betting_info['live'] == 0) {
+                    $sport_betting_info['sports'] = $betting_info;
+                } else if($betting_info['live'] == 1) {
                     $sport_betting_info['live'] = $betting_info;
                 }
             }
@@ -1081,19 +1076,14 @@ class StatController extends WebServiceController
         );
 
         // 스포츠 배팅정보
-        $sport_betting_info = array('multi'=>array(), 'special'=>array(), 'real'=>array(), 'live'=>array());
+        $sport_betting_info = array('sports'=>array(), 'real'=>array(), 'live'=>array());
         $sport_betting_array = $gameListModel->bettingListOfSport($beginDate, $endDate);
         if($sport_betting_array != null)
         {
             foreach($sport_betting_array as $betting_info) {
-                if($betting_info['special'] == 0)
-                {
-                    $sport_betting_info['multi'] = $betting_info;
-                } else if($betting_info['special'] == 1) {
-                    $sport_betting_info['special'] = $betting_info;
-                } else if($betting_info['special'] == 2) {
-                    $sport_betting_info['real'] = $betting_info;
-                } else if($betting_info['special'] == 50) {
+                if($betting_info['live'] == 0) {
+                    $sport_betting_info['sports'] = $betting_info;
+                } else if($betting_info['live'] == 1) {
                     $sport_betting_info['live'] = $betting_info;
                 }
             }

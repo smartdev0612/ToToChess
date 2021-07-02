@@ -85,6 +85,7 @@ function mainchgna(vii)
 			<p class="m_menu" onclick="mainchgna('6')"><a href="javascript:void();"><font color='orange'>미니게임 관리</font></a></p>
 			<div id="left_menu06">
 				<ul>
+					<li><a href='/config/miniUseConfig'>사용설정</a></li>
 					<li><a href='/config/miniconfig'>게임설정</a></li>
 					<li><a href='/config/miniodds?lev=1'>배당설정</a></li>
 				</ul>

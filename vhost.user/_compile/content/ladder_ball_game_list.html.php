@@ -26,13 +26,30 @@
 ?>
     <div class="mask"></div>
 	<div id="container">
-
 <!-- 게시판 목록 시작 -->
 <script>
     var limit_time = <?php echo $TPL_VAR["mini_config"]["power_limit"]?>;
+    var limit_start = "<?php echo $TPL_VAR["mini_config"]["power_limit_start"]?>";
+    var limit_end = "<?php echo $TPL_VAR["mini_config"]["power_limit_end"]?>";
+    var now = new Date();
+    var pieces = limit_start.split(":");
+    var startHour = parseInt(pieces[0]);
+    var startMin = parseInt(pieces[1]);
+    var strStartTime = getStrDatetime(now, startHour, startMin);
+    
+    pieces = limit_end.split(":");
+    var endHour = parseInt(pieces[0]);
+    var endMin = parseInt(pieces[1]);
+    var strEndTime = getStrDatetime(now, endHour, endMin);
+    
     <?php if($TPL_VAR["mini_config"]["power"] == 0) {?>
         warning_popup('파워볼 미니게임은 현재 점검중입니다.\n이용에 불편을 드려 죄송합니다.');
         document.location.href='/';
+    <?php }  else { ?>
+        if(new Date(strStartTime) < now && now < new Date(strEndTime)) {
+            warning_popup('파워볼 미니게임은 현재 점검중입니다.\n이용에 불편을 드려 죄송합니다.');
+            document.location.href='/';
+        }
     <?php } ?>
 </script>
 <style>
@@ -273,27 +290,14 @@
                                                                         <h2>배팅내역</h2>
                                                                         <div class="board_list">
                                                                             <table cellpadding="0" cellspacing="0" border="0">
-                                                                                <colgroup>
-                                                                                    <col width="5%" />
-                                                                                    <col width="15%" />
-                                                                                    <col width="15%" />
-                                                                                    <col width="15%" />
-                                                                                    <col width="10%" />
-                                                                                    <col width="10%" />
-                                                                                    <col width="10%" />
-                                                                                    <col width="10%" />
-                                                                                    <col width="10%" />
-                                                                                </colgroup>
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th>번호</th>
                                                                                         <th>회차</th>
-                                                                                        <th>배팅시간</th>
                                                                                         <th>게임분류</th>
                                                                                         <th>배팅내역</th>
                                                                                         <th>배당율</th>
-                                                                                        <th>배팅금액</th>
-                                                                                        <th>적중/손실</th>
+                                                                                        <th>배팅금</th>
+                                                                                        <th>당첨금</th>
                                                                                         <th>적중여부</th>
                                                                                     </tr>
                                                                                 </thead>
@@ -402,9 +406,7 @@
 
                                                                                                 $btNo = $forCnt;
                                                                                                 echo "<tr>
-                                                                                                        <td>".$btNo."</td>
-                                                                                                        <td style=\"font-weight:bold;\">{$bettingDate} <br />[{$gameTh}회차]</td>
-                                                                                                        <td>{$betDay}<br />{$betTime}</td>
+                                                                                                        <td style=\"font-weight:bold;\">{$gameTh}</td>
                                                                                                         <td style=\"font-weight:bold;\">{$gameName}</td>
                                                                                                         <td>{$select_val}</td>
                                                                                                         <td>{$bettingRate}</td>

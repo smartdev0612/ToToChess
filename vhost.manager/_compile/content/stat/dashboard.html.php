@@ -91,13 +91,13 @@
             $('#multi_bet_amt').html(number_format(data['sport_betting_info']['multi']['amt']));
         }
 
-        if(data['sport_betting_info']['special'] == null || data['sport_betting_info']['special'].length == 0)
+        if(data['sport_betting_info']['sports'] == null || data['sport_betting_info']['sports'].length == 0)
         {
-            $('#special_bet_cnt').html('0');
-            $('#special_bet_amt').html('0');
+            $('#sports_bet_cnt').html('0');
+            $('#sports_bet_amt').html('0');
         } else {
-            $('#special_bet_cnt').html(data['sport_betting_info']['special']['bet_cnt']);
-            $('#special_bet_amt').html(number_format(data['sport_betting_info']['special']['amt']));
+            $('#sports_bet_cnt').html(data['sport_betting_info']['sports']['bet_cnt']);
+            $('#sports_bet_amt').html(number_format(data['sport_betting_info']['sports']['amt']));
         }
 
         if(data['sport_betting_info']['real'] == null || data['sport_betting_info']['real'].length == 0)
@@ -279,33 +279,33 @@
                     <thead>
                     <tr>
                         <th scope="col" colspan="2">구분</th>
-                        <th scope="col">조합배팅</th>
+                        <!-- <th scope="col">조합배팅</th> -->
                         <!--<th scope="col">승무패</th>
                         <th scope="col">핸디</th>
                         <th scope="col">언더오버</th>-->
-                        <th scope="col">스페셜</th>
-                        <th scope="col">실시간</th>
+                        <th scope="col">국내형 / 해외형</th>
                         <th scope="col">라이브</th>
+                        <th scope="col">실시간</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td rowspan="2">스포츠</td>
                         <td>건수</td>
-                        <td id="multi_bet_cnt"><?php echo count((array)$TPL_V1['sport_betting_info']['multi']) > 0 ? number_format($TPL_V1['sport_betting_info']['multi']['bet_cnt'], 0) : 0;?></td>
-                        <td id="special_bet_cnt"><?php echo count((array)$TPL_V1['sport_betting_info']['special']) > 0 ? number_format($TPL_V1['sport_betting_info']['special']['bet_cnt'], 0) : 0;?></td>
-                        <td id="real_bet_cnt"><?php echo count((array)$TPL_V1['sport_betting_info']['real']) > 0 ? number_format($TPL_V1['sport_betting_info']['real']['bet_cnt'], 0) : 0;?></td>
+                        <!-- <td id="multi_bet_cnt"><?php echo count((array)$TPL_V1['sport_betting_info']['multi']) > 0 ? number_format($TPL_V1['sport_betting_info']['multi']['bet_cnt'], 0) : 0;?></td> -->
+                        <td id="sports_bet_cnt"><?php echo count((array)$TPL_V1['sport_betting_info']['sports']) > 0 ? number_format($TPL_V1['sport_betting_info']['sports']['bet_cnt'], 0) : 0;?></td>
                         <td id="live_bet_cnt"><?php echo count((array)$TPL_V1['sport_betting_info']['live']) > 0 ? number_format($TPL_V1['sport_betting_info']['live']['bet_cnt'], 0) : 0;?></td>
+                        <td id="real_bet_cnt"><?php echo count((array)$TPL_V1['sport_betting_info']['real']) > 0 ? number_format($TPL_V1['sport_betting_info']['real']['bet_cnt'], 0) : 0;?></td>
                         <!--<td></td>
                         <td></td>
                         <td></td>-->
                     </tr>
                     <tr>
                         <td>금액</td>
-                        <td id="multi_bet_amt"><?php echo count((array)$TPL_V1['sport_betting_info']['multi']) > 0 ? number_format($TPL_V1['sport_betting_info']['multi']['amt'], 0) : 0;?></td>
-                        <td id="special_bet_amt"><?php echo count((array)$TPL_V1['sport_betting_info']['special']) > 0 ? number_format($TPL_V1['sport_betting_info']['special']['amt'], 0) : 0;?></td>
-                        <td id="real_bet_amt"><?php echo count((array)$TPL_V1['sport_betting_info']['real']) > 0 ? number_format($TPL_V1['sport_betting_info']['real']['amt'], 0) : 0;?></td>
+                        <!-- <td id="multi_bet_amt"><?php echo count((array)$TPL_V1['sport_betting_info']['multi']) > 0 ? number_format($TPL_V1['sport_betting_info']['multi']['amt'], 0) : 0;?></td> -->
+                        <td id="sports_bet_amt"><?php echo count((array)$TPL_V1['sport_betting_info']['sports']) > 0 ? number_format($TPL_V1['sport_betting_info']['sports']['amt'], 0) : 0;?></td>
                         <td id="live_bet_amt"><?php echo count((array)$TPL_V1['sport_betting_info']['live']) > 0 ? number_format($TPL_V1['sport_betting_info']['live']['amt'], 0) : 0;?></td>
+                        <td id="real_bet_amt"><?php echo count((array)$TPL_V1['sport_betting_info']['real']) > 0 ? number_format($TPL_V1['sport_betting_info']['real']['amt'], 0) : 0;?></td>
                         <!--<td></td>
                         <td></td>
                         <td></td>-->
@@ -315,6 +315,8 @@
             </div>
         </div>
     </div>
+    <?php 
+    if($TPL_VAR["miniSetting"]["power_use"]==1){?>
     <div class='dtable'>
         <div id='control_panel_wrapper' class='drow'>
             <div id='control_panel' class='dcell'>
@@ -490,6 +492,8 @@
             </div>
         </div>
     </div>
+    <?php } 
+    if($TPL_VAR["miniSetting"]["fx_use"]==1){?>
     <div class='dtable'>
         <div id='control_panel_wrapper' class='drow'>
             <div id='control_panel' class='dcell'>
@@ -610,24 +614,33 @@
             </div>
         </div>
     </div>
+    <?php } 
+    if($TPL_VAR["miniSetting"]["powersadari_use"]==1 || $TPL_VAR["miniSetting"]["dari2_use"]==1) {?>
     <div class='dtable'>
         <div id='control_panel_wrapper' class='drow'>
             <div id='control_panel' class='dcell'>
                 <table cellspacing="1" class="tableStyle_normal" summary="" style="margin-top: 15px;width: 100%">
                     <thead>
                     <tr>
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["powersadari_use"]==1){?>
                         <th scope="col" colspan="2">게임</th>
                         <th scope="col" colspan="2">홀/짝</th>
                         <th scope="col" colspan="4">좌/우/3줄/4줄</th>
                         <th scope="col" colspan="4">3짝/3홀/4짝/4홀</th>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["dari2_use"]==1){?>
                         <th scope="col" colspan="2">게임</th>
                         <th scope="col" colspan="2">홀/짝</th>
                         <th scope="col" colspan="4">좌/우/3줄/4줄</th>
                         <th scope="col" colspan="4">3짝/3홀/4짝/4홀</th>
+                    <?php } ?>
                     </tr>
                     </thead>
                     <tbody>
                     <tr style="background-color: #faebd7;">
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["powersadari_use"]==1){?>
                         <td rowspan="3">파워사다리</td>
                         <td></td>
                         <td>홀</td>
@@ -640,6 +653,8 @@
                         <td>4홀좌</td>
                         <td>3홀우</td>
                         <td>4짝우</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["dari2_use"]==1){?>
                         <td rowspan="3">2다리</td>
                         <td></td>
                         <td>홀</td>
@@ -652,8 +667,11 @@
                         <td>4홀좌</td>
                         <td>3홀우</td>
                         <td>4짝우</td>
+                    <?php } ?>
                     </tr>
                     <tr>
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["powersadari_use"]==1){?>
                         <td>건수</td>
                         <td id="25_ps_oe_1_cnt">0</td>
                         <td id="25_ps_oe_2_cnt">0</td>
@@ -665,6 +683,8 @@
                         <td id="25_ps_e3o4l_2_cnt">0</td>
                         <td id="25_ps_o3e4r_1_cnt">0</td>
                         <td id="25_ps_o3e4r_2_cnt">0</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["dari2_use"]==1){?>
                         <td>건수</td>
                         <td id="30_2d_oe_1_cnt">0</td>
                         <td id="30_2d_oe_2_cnt">0</td>
@@ -676,8 +696,11 @@
                         <td id="30_2d_e3o4l_2_cnt">0</td>
                         <td id="30_2d_o3e4r_1_cnt">0</td>
                         <td id="30_2d_o3e4r_2_cnt">0</td>
+                    <?php } ?>
                     </tr>
                     <tr>
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["powersadari_use"]==1){?>
                         <td>금액</td>
                         <td id="25_ps_oe_1_amt">0</td>
                         <td id="25_ps_oe_2_amt">0</td>
@@ -689,6 +712,8 @@
                         <td id="25_ps_e3o4l_2_amt">0</td>
                         <td id="25_ps_o3e4r_1_amt">0</td>
                         <td id="25_ps_o3e4r_2_amt">0</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["dari2_use"]==1){?>
                         <td>금액</td>
                         <td id="30_2d_oe_1_amt">0</td>
                         <td id="30_2d_oe_2_amt">0</td>
@@ -700,30 +725,40 @@
                         <td id="30_2d_e3o4l_2_amt">0</td>
                         <td id="30_2d_o3e4r_1_amt">0</td>
                         <td id="30_2d_o3e4r_2_amt">0</td>
+                    <?php } ?>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    <?php }
+    if($TPL_VAR["miniSetting"]["kenosadari_use"]==1 || $TPL_VAR["miniSetting"]["dari3_use"]==1){?>
     <div class='dtable'>
         <div id='control_panel_wrapper' class='drow'>
             <div id='control_panel' class='dcell'>
                 <table cellspacing="1" class="tableStyle_normal" summary="" style="margin-top: 15px;width: 100%">
                     <thead>
                     <tr>
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["kenosadari_use"]==1){?>
                         <th scope="col" colspan="2">게임</th>
                         <th scope="col" colspan="2">홀/짝</th>
                         <th scope="col" colspan="4">좌/우/3줄/4줄</th>
                         <th scope="col" colspan="4">3짝/3홀/4짝/4홀</th>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["dari3_use"]==1){?>  
                         <th scope="col" colspan="2">게임</th>
                         <th scope="col" colspan="2">홀/짝</th>
                         <th scope="col" colspan="4">좌/우/3줄/4줄</th>
                         <th scope="col" colspan="4">3짝/3홀/4짝/4홀</th>
+                    <?php } ?>
                     </tr>
                     </thead>
                     <tbody>
                     <tr style="background-color: #faebd7;">
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["kenosadari_use"]==1){?>
                         <td rowspan="3">키노사다리</td>
                         <td></td>
                         <td>홀</td>
@@ -736,6 +771,8 @@
                         <td>4홀좌</td>
                         <td>3홀우</td>
                         <td>4짝우</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["dari3_use"]==1){?>
                         <td rowspan="3">3다리</td>
                         <td></td>
                         <td>홀</td>
@@ -748,8 +785,11 @@
                         <td>4홀좌</td>
                         <td>3홀우</td>
                         <td>4짝우</td>
+                    <?php } ?>
                     </tr>
                     <tr>
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["kenosadari_use"]==1){?>
                         <td>건수</td>
                         <td id="24_ks_oe_1_cnt">0</td>
                         <td id="24_ks_oe_2_cnt">0</td>
@@ -761,6 +801,8 @@
                         <td id="24_ks_e3o4l_2_cnt">0</td>
                         <td id="24_ks_o3e4r_1_cnt">0</td>
                         <td id="24_ks_o3e4r_2_cnt">0</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["dari3_use"]==1){?>
                         <td>건수</td>
                         <td id="31_3d_oe_1_cnt">0</td>
                         <td id="31_3d_oe_2_cnt">0</td>
@@ -772,8 +814,11 @@
                         <td id="31_3d_e3o4l_2_cnt">0</td>
                         <td id="31_3d_o3e4r_1_cnt">0</td>
                         <td id="31_3d_o3e4r_2_cnt">0</td>
+                    <?php } ?>
                     </tr>
                     <tr>
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["kenosadari_use"]==1){?>
                         <td>금액</td>
                         <td id="24_ks_oe_1_amt">0</td>
                         <td id="24_ks_oe_2_amt">0</td>
@@ -785,6 +830,8 @@
                         <td id="24_ks_e3o4l_2_amt">0</td>
                         <td id="24_ks_o3e4r_1_amt">0</td>
                         <td id="24_ks_o3e4r_2_amt">0</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["dari3_use"]==1){?>
                         <td>금액</td>
                         <td id="31_3d_oe_1_amt">0</td>
                         <td id="31_3d_oe_2_amt">0</td>
@@ -796,66 +843,98 @@
                         <td id="31_3d_e3o4l_2_amt">0</td>
                         <td id="31_3d_o3e4r_1_amt">0</td>
                         <td id="31_3d_o3e4r_2_amt">0</td>
+                    <?php } ?>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    <?php } 
+    if($TPL_VAR["miniSetting"]["choice_use"]==1 || $TPL_VAR["miniSetting"]["roulette_use"]==1 || $TPL_VAR["miniSetting"]["pharah_use"]==1){ ?>
     <div class='dtable'>
         <div id='control_panel_wrapper' class='drow'>
             <div id='control_panel' class='dcell'>
                 <table cellspacing="1" class="tableStyle_normal" summary="" style="margin-top: 15px;width: 60%">
                     <thead>
                     <tr>
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["choice_use"]==1){?>
                         <th scope="col" colspan="2">게임</th>
                         <th scope="col" colspan="2">블랙/화이트</th>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["roulette_use"]==1){?>
                         <th scope="col" colspan="2">게임</th>
                         <th scope="col" colspan="2">Red/블랙</th>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["pharah_use"]==1){?>
                         <th scope="col" colspan="2">게임</th>
                         <th scope="col" colspan="2">Heart/Spade</th>
+                    <?php } ?>
                     </tr>
                     </thead>
                     <tbody>
                     <tr style="background-color: #faebd7;">
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["choice_use"]==1){?>
                         <td rowspan="3">초이스</td>
                         <td></td>
                         <td>블랙</td>
                         <td>화이트</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["roulette_use"]==1){?>
                         <td rowspan="3">룰렛</td>
                         <td></td>
                         <td>Red</td>
                         <td>블랙</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["pharah_use"]==1){?>
                         <td rowspan="3">파라오</td>
                         <td></td>
                         <td>Heart</td>
                         <td>Spade</td>
+                    <?php } ?>
                     </tr>
                     <tr>
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["choice_use"]==1){?>
                         <td>건수</td>
                         <td id="32_choice_bw_1_cnt">0</td>
                         <td id="32_choice_bw_2_cnt">0</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["roulette_use"]==1){?>
                         <td>건수</td>
                         <td id="33_roulette_rb_1_cnt">0</td>
                         <td id="33_roulette_rb_2_cnt">0</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["pharah_use"]==1){?>
                         <td>건수</td>
                         <td id="34_pharaoh_hs_1_cnt">0</td>
                         <td id="34_pharaoh_hs_2_cnt">0</td>
+                    <?php } ?>
                     </tr>
                     <tr>
+                    <?php 
+                    if($TPL_VAR["miniSetting"]["choice_use"]==1){?>
                         <td>금액</td>
                         <td id="32_choice_bw_1_amt">0</td>
                         <td id="32_choice_bw_2_amt">0</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["roulette_use"]==1){?>
                         <td>금액</td>
                         <td id="33_roulette_rb_1_amt">0</td>
                         <td id="33_roulette_rb_2_amt">0</td>
+                    <?php } 
+                    if($TPL_VAR["miniSetting"]["pharah_use"]==1){?>
                         <td>금액</td>
                         <td id="34_pharaoh_hs_1_amt">0</td>
                         <td id="34_pharaoh_hs_2_amt">0</td>
+                    <?php } ?>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    <?php } ?>
 </div>

@@ -73,7 +73,6 @@
 	function realTime(strPacket) {
 		strPacket = strPacket + "";
 		var arrTime = strPacket.split('|');
-		console.log(arrTime);
 		yyyy = arrTime[0];
 		mm = arrTime[1];
 		dd = arrTime[2];
@@ -136,7 +135,7 @@
         var param = { special_type : 7 };
 
         $j.get("/getMiniGameResult", param, function(result) {
-            console.log(result);
+            // console.log(result);
             var json = JSON.parse(result);
             for(var i = 0; i < json.length; i++) {
                 if(json[i]["result"] == 1) {

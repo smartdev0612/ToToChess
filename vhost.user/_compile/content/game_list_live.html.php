@@ -2560,7 +2560,8 @@
         $.each(showJson, function(index, item) {
             appendGameDiv(item, index);
         });
-
+        
+        scrollToTopDiv(".scroll-content");
         $j(".mask-layer").click();
     }
 
