@@ -4,12 +4,13 @@
 
     $gameType = $TPL_VAR["game_type"];
     $sportType = $TPL_VAR["sport_type"];
+    $s_type = $TPL_VAR["s_type"];
     $sport_setting = $TPL_VAR["sport_setting"];
     $bonus_list = $TPL_VAR["bonus_list"];
 ?>
 <!-- <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/bootstrap-ko.css?v=511"> -->
 <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/default.css?v=515">
-<link rel="stylesheet" type="text/css" href="/BET38/mo/_css/m_layout.css?v=523">
+<link rel="stylesheet" type="text/css" href="/BET38/mo/_css/m_layout.css?v=524">
 <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/btns.css?v=511">
 <link rel="stylesheet" type="text/css" href="/BET38/css/etc.m.css?v=510">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
@@ -300,12 +301,12 @@
                 <li><button class="button_type01 <?=($TPL_VAR['sport_type'] == '' ) ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>'" style="height:35px;">ALL</button></li>
             </ul> -->
             <ul class="list02 margin-left-175">
-                <li><button type="button" class="button_type01 btn_all <?=($TPL_VAR['sport_type'] == '' ) ? 'on' : ''; ?>" onClick="getGameList('0')">ALL</button></li>
-                <li><button type="button" class="button_type01 btn_soccer <?= $TPL_VAR['sport_type'] == 'soccer' ? 'on' : ''; ?>" onClick="getGameList('0','soccer')"><img src="/10bet/images/10bet/ico/football-ico.png" alt="축구" /></button></li>
-                <li><button type="button" class="button_type01 btn_basketball <?= $TPL_VAR['sport_type'] == 'basketball' ? 'on' : ''; ?>" onClick="getGameList('0','basketball')"><img src="/10bet/images/10bet/ico/basketball-ico.png" alt="농구" /></button></li>
-                <li><button type="button" class="button_type01 btn_baseball <?= $TPL_VAR['sport_type'] == 'baseball' ? 'on' : ''; ?>" onClick="getGameList('0','baseball')"><img src="/10bet/images/10bet/ico/baseball-ico.png" alt="야구" /></button></li>
-                <li><button type="button" class="button_type01 btn_hockey <?= $TPL_VAR['sport_type'] == 'hockey' ? 'on' : ''; ?>" onClick="getGameList('0','hockey')"><img src="/10bet/images/10bet/ico/hockey-ico.png" alt="아이스하키" /></button></li>
-                <li><button type="button" class="button_type01 btn_volleyball <?= $TPL_VAR['sport_type'] == 'volleyball' ? 'on' : ''; ?>" onClick="getGameList('0','volleyball')"><img src="/10bet/images/10bet/ico/volleyball-ico.png" alt="배구" /></button></li>
+                <li><button type="button" class="button_type01 btn_all <?=($TPL_VAR['sport_type'] == '' ) ? 'on' : ''; ?>" onClick="getLiveGameList('0')">ALL</button></li>
+                <li><button type="button" class="button_type01 btn_soccer <?= $TPL_VAR['sport_type'] == 'soccer' ? 'on' : ''; ?>" onClick="getLiveGameList('0','soccer')"><img src="/10bet/images/10bet/ico/football-ico.png" alt="축구" /></button></li>
+                <li><button type="button" class="button_type01 btn_basketball <?= $TPL_VAR['sport_type'] == 'basketball' ? 'on' : ''; ?>" onClick="getLiveGameList('0','basketball')"><img src="/10bet/images/10bet/ico/basketball-ico.png" alt="농구" /></button></li>
+                <li><button type="button" class="button_type01 btn_baseball <?= $TPL_VAR['sport_type'] == 'baseball' ? 'on' : ''; ?>" onClick="getLiveGameList('0','baseball')"><img src="/10bet/images/10bet/ico/baseball-ico.png" alt="야구" /></button></li>
+                <li><button type="button" class="button_type01 btn_hockey <?= $TPL_VAR['sport_type'] == 'hockey' ? 'on' : ''; ?>" onClick="getLiveGameList('0','hockey')"><img src="/10bet/images/10bet/ico/hockey-ico.png" alt="아이스하키" /></button></li>
+                <li><button type="button" class="button_type01 btn_volleyball <?= $TPL_VAR['sport_type'] == 'volleyball' ? 'on' : ''; ?>" onClick="getLiveGameList('0','volleyball')"><img src="/10bet/images/10bet/ico/volleyball-ico.png" alt="배구" /></button></li>
                 <!-- <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'tennis' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=tennis'"><img src="/10bet/images/10bet/ico/tennis-ico.png" alt="테니스" /></button></li>
                 <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'handball' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=handball'"><img src="/10bet/images/10bet/ico/handball-ico.png" alt="핸드볼" /></button></li>
                 <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'mortor' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=mortor'"><img src="/10bet/images/10bet/ico/motor-sport-ico.png" alt="모터 스포츠" /></button></li>
@@ -353,6 +354,127 @@
                 <div class="st_con_total">
                     <!-- CONTAINER AREA LEFT-->
                     <div class="list_st1" style="position:relative;">
+                        <div class="list_st7 clearfix st_on live-div" id="div_158">
+                            <div id="lock_158" class="st_real_lock" style="display: none;"></div>
+                            <ul>
+                                <li class="tr" data-fid="6931381" data-status="2">
+                                    <div class="st_game_leg">
+                                        <img src="/BET38/_icon/sport/S154914.png" width="25" class="st_marr3 st_marb1 st_game_ico">&nbsp;
+                                        <img src="/upload/league/mlb.jpg" width="25" class="st_marr3 st_marb1 st_game_ico">&nbsp;
+                                        MLB
+                                    </div>
+                                    <button class="Bn6931381 gBtn st_mart3 st_marr5 bt_game_more act" onclick="getBtns('158')" id="F158">
+                                        <span id="cnt_158">+3</span>
+                                    </button>
+                                    <span class="f_right st_mart3 st_marr10">07-04 10:10</span>
+                                </li>
+                                <li>
+                                    <div class="st_real_l-4">
+                                        <ul>
+                                            <li></li>
+                                            <li><span class="no_st1" id="homescore_158">0</span></li>
+                                            <li><span class="no_st2">VS</span></li>
+                                            <li><span class="no_st1" id="awayscore_158">0</span></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                    <div class="st_real_l2-3">
+                                        <div style="display:none">
+                                            <input type="hidden" id="158_226_2_sport_name" value="야구">
+                                            <input type="hidden" id="158_226_2_game_type" value="226">
+                                            <input type="hidden" id="158_226_2_sub_sn" value="158_226_2">
+                                            <input type="hidden" id="158_226_2_home_team" value="콜로라도">
+                                            <input type="hidden" id="158_226_2_home_rate" value="1.89">
+                                            <input type="hidden" id="158_226_2_draw_rate" value="0">
+                                            <input type="hidden" id="158_226_2_away_team" value="세인트루이스">
+                                            <input type="hidden" id="158_226_2_away_rate" value="1.97">
+                                            <input type="hidden" id="158_226_2_game_date" value="2021-07-04">
+                                            <input type="hidden" id="158_226_2_market_name" value="승패">
+                                            <input type="hidden" id="158_226_2_home_line" value="">
+                                            <input type="hidden" id="158_226_2_away_line" value="">
+                                            <input type="hidden" id="158_226_2_home_name" value="1">
+                                            <input type="hidden" id="158_226_2_league_sn" value="183">
+                                        </div>
+                                        <ul>
+                                            <div class="pointer selectable" name="158_226_2_div" onclick="onMultiTeamSelected('158_226_2','0','16931383277167070')">
+                                                <span class="ds_f2">콜로라도</span>
+                                                <span class="f_right" id="16931383277167070">1.89</span>
+                                                <input type="checkbox" name="ch" value="1" style="display:none;">
+                                            </div>
+                                            <div class="txt_ac selectable" name="158_226_2_div">
+                                                <span class="ds_f2">&nbsp;<span>VS</span></span>
+                                                <input type="checkbox" name="ch" value="3" style="display:none;">
+                                            </div>
+                                            <div class="pointer selectable" name="158_226_2_div" onclick="onMultiTeamSelected('158_226_2','2','12898538007167070')">
+                                                <span class="ds_f2">세인트루이스</span> 
+                                                <span class="f_right" id="12898538007167070">1.97</span>
+                                                <input type="checkbox" name="ch" value="2" style="display:none;">
+                                            </div>
+                                        </ul>
+                                    </div>
+                                    <div class="st_real_r">
+                                        <ul>
+                                            <li><span>게임진행정보</span></li>
+                                            <li style="padding:10px 0 5px 0">상태 : <b id="period_158">7이닝</b></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul id="div_158">
+                            <li class="tr">
+                                <span class="st_game_leg">
+                                    <img src="/BET38/_icon/sport/S154914.png" width="23" class="st_marr3 st_marb1 st_game_ico">&nbsp;
+                                    <img src="/upload/league/mlb.jpg" width="23" class="st_marr3 st_marb1 st_game_ico">&nbsp;
+                                    MLB
+                                </span>
+                                <button onclick="getBtnsMobile('158')" id="F158" class="gBtn st_mart1 bt_game_more"><span id="cnt_158">+0</span></button>
+                                <span class="st_game_time">07-04 10:10</span>
+                            </li>
+                            <li class="spo_align">
+                                <div style="display:none">
+                                    <input type="hidden" id="158_226_2_sport_name" value="야구">
+                                    <input type="hidden" id="158_226_2_game_type" value="226">
+                                    <input type="hidden" id="158_226_2_sub_sn" value="158_226_2">
+                                    <input type="hidden" id="158_226_2_home_team" value="콜로라도">
+                                    <input type="hidden" id="158_226_2_home_rate" value="1.89">
+                                    <input type="hidden" id="158_226_2_draw_rate" value="0">
+                                    <input type="hidden" id="158_226_2_away_team" value="세인트루이스">
+                                    <input type="hidden" id="158_226_2_away_rate" value="1.97">
+                                    <input type="hidden" id="158_226_2_game_date" value="2021-07-04">
+                                    <input type="hidden" id="158_226_2_market_name" value="승패">
+                                    <input type="hidden" id="158_226_2_home_line" value="">
+                                    <input type="hidden" id="158_226_2_away_line" value="">
+                                    <input type="hidden" id="158_226_2_home_name" value="1">
+                                    <input type="hidden" id="158_226_2_league_sn" value="183">
+                                </div>
+                                <div class="st_wd44_l3  st_marr_n1 selectable" name="158_226_2_div" onclick="onMultiTeamSelected('158_226_2','0','16931383277167070')">
+                                    <span class="spo_align1 f_w6">콜로라도</span>
+                                    <span class="spo_align2 txt_ar st_padr5" id="16931383277167070">1.89</span>
+                                    <input type="checkbox" name="ch" value="1" style="display:none;">
+                                </div>
+                                <div class="st_wd10_l txt_ac spo_align4 selectable" name="158_226_2_div">
+                                    VS
+                                    <input type="checkbox" name="ch" value="3" style="display:none;">
+                                </div>
+                                <div class="st_wd44_l3 st_marl_n1 selectable" name="158_226_2_div" onclick="onMultiTeamSelected('158_226_2','2','12898538007167070')">
+                                    <span class="spo_align1 txt_ar f_w6">세인트루이스</span>
+                                    <span class="spo_align2 txt_al st_marl5" id="12898538007167070">1.97</span>
+                                    <input type="checkbox" name="ch" value="2" style="display:none;">
+                                </div>
+                            </li>
+                            <div class="_hidden game_bottom" id="game_bottom_158">
+                                <div class="sel_game" id="sel_game_158">
+                                    <div class="st_b_tit4">
+                                        <div class="st_wd45 f_left txt_cut line-team">콜로라도</div>
+                                        <div class="st_wd10 txt_ac" style="margin-top:5px;">
+                                            <img src="/BET38/pc/_img/ico_vs.png" style="max-width:100%;">
+                                        </div>
+                                        <div class="st_wd45 f_right  st_padr10 txt_cut line-team">세인트루이스</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
                     </div>
                     <div class="pagination pagination-centered">
                         <input type="hidden" id="sport_type" name="sport_type">
@@ -361,14 +483,7 @@
                         <ul>
                             <!-- <li class="active page page_1"><a href="javascript:void(0)" onclick="getPage('0')">1</a></li>
                             <li class="page page_2"><a href="javascript:void(0)" onclick="getPage('1')">2</a></li>
-                            <li class="page page_3"><a href="javascript:void(0)" onclick="getPage('2')">3</a></li>
-                            <li class="page page_4"><a href="javascript:void(0)" onclick="getPage('3')">4</a></li>
-                            <li class="page page_5"><a href="javascript:void(0)" onclick="getPage('4')">5</a></li>
-                            <li class="page page_6"><a href="javascript:void(0)" onclick="getPage('5')">6</a></li>
-                            <li class="page page_7"><a href="javascript:void(0)" onclick="getPage('6')">7</a></li>
-                            <li class="page page_8"><a href="javascript:void(0)" onclick="getPage('7')">8</a></li>
-                            <li class="page page_9"><a href="javascript:void(0)" onclick="getPage('8')">9</a></li>
-                            <li class="page page_10"><a href="javascript:void(0)" onclick="getPage('9')">10</a></li> -->
+                            <li class="page page_3"><a href="javascript:void(0)" onclick="getPage('2')">3</a></li> -->
                         </ul>
                     </div>
                     <!--// CONTAINER AREA LEFT-->
@@ -384,9 +499,7 @@
     $(document).ready(function() {
         // getBonusList();
         var sport_type = '<?php echo $TPL_VAR["sport_type"]?>';
-        var league_sn = '<?php echo $TPL_VAR["league_sn"]?>';
-        var today = '<?php echo $TPL_VAR["today"]?>';
-        getGameList(0, sport_type, league_sn, today);
+        getLiveGameList(0, "", 0, 0);
     });
 
 	initialize(<?php echo $TPL_VAR["minBetCount"]?>,<?php echo $TPL_VAR["folderBonus"]["bonus3"]?>,<?php echo $TPL_VAR["folderBonus"]["bonus4"]?>,
@@ -408,7 +521,7 @@
     var bettingcanceltime =<?php echo $TPL_VAR["betCancelTime"]?>;
     var bettingcancelbeforetime =<?php echo $TPL_VAR["betCancelBeforeTime"]?>;
     var game_kind = "<?php echo $gameType?>";
-
+    
     function inArray(needle, haystack) {
         var length = haystack.length;
         for(var i = 0; i < length; i++) {
@@ -421,7 +534,7 @@
     * $game_index 	: game identify id (Sub Child Index)
     * $index		: checkbox index-start from 0
     */
-    function onMultiTeamSelected($game_index, $index, $betid = 0) {
+    function onMultiTeamSelected($game_index, $index, $betid) {
         $sport_name = $j("#" + $game_index + "_sport_name").val();
         $game_type = $j("#" + $game_index + "_game_type").val();
         $home_team = $j("#" + $game_index + "_home_team").val();
@@ -529,17 +642,7 @@
         });
     }
 
-    function getPage(page_index) {
-        $j(".page").removeClass("active");
-        $j(".page_" + (parseInt(page_index) + 1)).addClass("active");
-        var sport_type = $j("#sport_type").val();
-        var league_sn = $j("#league_sn").val();
-        var today = $j("#today").val();
-        
-        getGameList(page_index, sport_type, league_sn, today);
-    }
-
-    function getGameList(page_index, sport_type, league_sn = 0, today = 0) {
+    function getLiveGameList(page_index, sport_type, league_sn = 0, today = 0) {
         $j("#sport_type").val(sport_type);
         $j("#league_sn").val(league_sn);
         $j("#today").val(today);
@@ -600,10 +703,12 @@
         packet = {
             "m_strSports"   :   sport_type,
             "m_nLeague"     :   league_sn,
-            "m_nLive"       :   1,
+            "m_nLive"       :   2,
             "m_nPageIndex"  :   page_index,
             "m_nPageSize"   :   50
         };
+
+        onLoadingScreen();
 
         if(ws.readyState === WebSocket.OPEN)
             onSendReqListPacket(packet);
@@ -613,6 +718,7 @@
             }, 1000);
 
         return;
+      
     }
 
     function onRevGameList(strPacket) {
@@ -620,7 +726,7 @@
         console.log(showJson);
         if(showJson.length == 0) {
             $j(".list_st1").empty();
-            warning_popup("미안하지만 경기자료가 없습니다.");
+            warning_popup("현재 진행중인 경기가 없습니다.");
         } else {
             $j(".list_st1").empty();
             $j(".pagination ul").empty();
@@ -634,6 +740,7 @@
             }
             $j(".pagination ul").append(page_item);
         }
+        
         $j("#loading").fadeOut(1000);
         $j("#coverBG2").fadeOut(1000);
     }
@@ -644,6 +751,7 @@
     
     function onRecvAjaxList(strPacket) {
         var json = JSON.parse(strPacket);
+        console.log(json);
         if(json.length > 0) {
             var jsonCountInfo = json[0].m_lstSportsCnt;
             showSportsTotalCount(jsonCountInfo);
@@ -689,31 +797,44 @@
 
                     djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket);
                     if(djson == null || djson == undefined) {
-                        // removeMarketDiv(showJson[i], showJson[i].m_lstDetail[j]);
+                        removeMarketDiv(showJson[i], showJson[i].m_lstDetail[j]);
                     }
+                }
+
+                var market12;
+                switch(json.m_nSports) {
+                    case 6046: // 축구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
+                        break;
+                    case 48242: // 농구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                        break;
+                    case 154914: // 야구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                        break;
+                    case 154830: // 배구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
+                        break;
+                    case 35232: // 아이스 하키
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                        break;    
+                }
+                var idx = `${json.m_nGame}_${market12.m_nMarket}_${market12.m_nFamily}_div`;
+                if(market12.m_nStatus > 1) {
+                    $('div[name="' + idx + '"]').removeClass("selectable");
+                    $('div[name="' + idx + '"]').addClass("selectable_none");
+                } else {
+                    $('div[name="' + idx + '"]').removeClass("selectable_none");
+                    $('div[name="' + idx + '"]').addClass("selectable");
                 }
             }
         }
 
-        // var game_sn = $("#game_sn").val();
-       
-        // var newData = newJson.find(val => val.m_nGame == game_sn);
-
-        // var newMarketID = 0;
-        // var oldData = showJson.find(val => val.m_nGame == game_sn);
-
-        // if(newData != null && newData != undefined && oldData != null && oldData != undefined) {
-        //     for(var j = 0; j < newData.m_lstDetail.length ; j++) {
-        //         if(newMarketID != newData.m_lstDetail[j].m_nMarket) {
-        //             var djson = oldData.m_lstDetail.find(val => val.m_nMarket == newData.m_lstDetail[j].m_nMarket);
-        //             if(djson == null || djson == undefined) {
-        //                 //새배당추가
-        //                 newMarketID = json.m_lstDetail[j].m_nMarket;
-        //                 appendMarketDiv(newData, newData.m_lstDetail.filter(val => val.m_nMarket == newMarketID));
-        //             }
-        //         }
-        //     }
-        // }
+        for(var i = 0; i < newJson.length; i++) {
+            if(document.getElementById(`sel_game_${newJson[i].m_nGame}`) != null && document.getElementById(`sel_game_${newJson[i].m_nGame}`) != undefined) {
+                showMarkets(newJson[i]);
+            }
+        }
     
         for(var i = 0; i < newJson.length; i++) {
             var json = showJson.find(val => val.m_nGame == newJson[i].m_nGame);
@@ -727,11 +848,10 @@
         showJson = newJson;
     }
 
-   
     function onClickLeague(nLeague) {
-        getGameList(0, "", nLeague, 0);
+        getLiveGameList(0, "", nLeague, 0);
     }
-
+   
     function removeGameDiv(item) {
         var obj = document.getElementById(`div_${item.m_nGame}`);
         if(obj != null && obj != undefined) {
@@ -740,6 +860,15 @@
         }
     }
 
+    function removeMarketDiv(game, market) {
+        console.log("remove market");
+        var div_id = `div_${game.m_nGame}_${market.m_nMarket}`;
+        var obj = document.getElementById(`${div_id}`);
+        if(obj != null && obj != undefined)
+        {
+            $j(`#${div_id}`).remove();
+        }
+    }
     
     function showGameList() {
         gameList = showJson;
@@ -872,7 +1001,7 @@
         div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
         div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '">';
         div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
-        div += "<div class='st_wd44_l3  st_marr_n1 selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + detail.m_nHBetCode + "')>";
+        div += `<div class="st_wd44_l3  st_marr_n1 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div" onclick="onMultiTeamSelected('${sub_idx}','0','${detail.m_nHBetCode}')">`;
         div += '<span class="spo_align1 f_w6">';
         div += item.m_strHomeTeam;
         div += '</span>';
@@ -880,17 +1009,17 @@
         //div += '<span class="f_right" id="' + item.child_sn + '_home_rate"></span>';
         div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
         if(detail.m_nMarket == 1) {
-            div += "<div class='st_wd10_l txt_ac spo_align4 selectable' name='" + sub_idx + "_div'  onclick=onMultiTeamSelected('" + sub_idx + "','1','" + detail.m_nDBetCode + "')>";
+            div += `<div class="st_wd10_l txt_ac spo_align4 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div"  onclick="onMultiTeamSelected('${sub_idx}','1','${detail.m_nDBetCode}')">`;
             //div += '<span id="' + item.child_sn + '_draw_rate">VS</span>';
             div += '<span id="' + detail.m_nDBetCode + '">' + detail.m_fDRate.toFixed(2) + '</span>';
             div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
         } else {
-            div += '<div class="st_wd10_l txt_ac spo_align4 selectable" name="' + sub_idx + '_div">';
+            div += `<div class="st_wd10_l txt_ac spo_align4 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div">`;
             //div += '<span id="' + item.child_sn + '_draw_rate">VS</span>';
             div += "VS";
             div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
         }
-        div += "<div class='st_wd44_l3 st_marl_n1 selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + detail.m_nABetCode + "')>";
+        div += `<div class="st_wd44_l3 st_marl_n1 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div" onclick="onMultiTeamSelected('${sub_idx}','2','${detail.m_nABetCode}')">`;
         //div += '<span id="' + item.child_sn + '_away_rate"></span>';
         //div += item.away_rate;
         div += '<span class="spo_align1 txt_ar f_w6">'; 
@@ -915,14 +1044,13 @@
             //$('#F'+fid).html("<b>-</b>");
             $('#F'+gameCode).addClass("act");
             var childArray = showJson.filter(value => value.m_nGame == gameCode);
-            $('#sel_game_' + gameCode).html("");
             showMarkets(childArray[0]);
-            
             $('#game_bottom_' + gameCode).css("display", "block");
         }
     }
 
     function showMarkets(res) {
+        $('#sel_game_' + res.m_nGame).html("");
         var details = res.m_lstDetail;
         if(details.length > 0) {
             var div_header = '<div class="st_b_tit4"><div class="st_wd45 f_left txt_cut line-team">';
@@ -2861,4 +2989,5 @@
         children_div += '</ul></div>';
         return children_div;
     }
+
 </script>

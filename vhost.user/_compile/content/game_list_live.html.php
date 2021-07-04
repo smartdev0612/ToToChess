@@ -371,13 +371,13 @@
                                                     <!--// left Game list -->
                                                     <!-- PAGEING-->
                                                     <div class="pagination pagination-centered">
+                                                        <input type="hidden" id="sport_type" name="sport_type">
+                                                        <input type="hidden" id="league_sn" name="league_sn">
+                                                        <input type="hidden" id="today" name="today">
                                                         <ul>
-                                                            <input type="hidden" id="sport_type" name="sport_type">
-                                                            <input type="hidden" id="league_sn" name="league_sn">
-                                                            <input type="hidden" id="today" name="today">
-                                                            <li class="active page page_1"><a href="javascript:void(0)" onclick="getPage('0')">1</a></li>
+                                                            <!-- <li class="page page_1 active"><a href="javascript:void(0)" onclick="getPage('0')">1</a></li>
                                                             <li class="page page_2"><a href="javascript:void(0)" onclick="getPage('1')">2</a></li>
-                                                            <li class="page page_3"><a href="javascript:void(0)" onclick="getPage('2')">3</a></li>
+                                                            <li class="page page_3"><a href="javascript:void(0)" onclick="getPage('2')">3</a></li> -->
                                                         </ul>
                                                     </div>
                                                     <!--// PAGEING-->
@@ -574,15 +574,22 @@
         showJson = JSON.parse(strPacket);
     
         if(showJson.length == 0) {
-            $("#left_flow").empty();
+            $j("#left_flow").empty();
             warning_popup("현재 진행중인 경기가 없습니다.");
         } else {
-            $("#left_flow").empty();
+            $j("#left_flow").empty();
+            $j(".pagination ul").empty();
             var jsonCountInfo = showJson[0].m_lstSportsCnt;
             showSportsTotalCount(jsonCountInfo);
+            showGameList();
+            var page_count = parseInt(showJson[0].m_nTotalCnt) / 50;
+            var page_item = "";
+            for(var i = 0; i < page_count; i++) {
+                page_item += `<li class="page page_${i + 1} ${packet.m_nPageIndex == i ? 'active' : ''}"><a href="javascript:void(0)" onclick="getPage('${i}')">${i + 1}</a></li>`;
+            }
+            $j(".pagination ul").append(page_item);
         }
 
-        showGameList();
         $j("#loading").fadeOut(1000);
         $j("#coverBG2").fadeOut(1000);
     }
@@ -737,6 +744,31 @@
                     // } else {
                     //     appendSubMarketDiv(showJson[i], showJson[i].m_lstDetail[j], showJson[i].m_lstDetail[j].m_strHName);
                     // }
+                }
+
+                var market12;
+                switch(json.m_nSports) {
+                    case 6046: // 축구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
+                        break;
+                    case 48242: // 농구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                        break;
+                    case 154914: // 야구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                        break;
+                    case 154830: // 배구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
+                        break;
+                    case 35232: // 아이스 하키
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                        break;    
+                }
+                
+                if(market12.m_nStatus > 1) {
+                    $("#lock_" + json.m_nGame).css("display", "block");
+                } else {
+                    $("#lock_" + json.m_nGame).css("display", "none");
                 }
             } else {
                 removeGameDiv(showJson[i]);
@@ -2560,7 +2592,7 @@
         $.each(showJson, function(index, item) {
             appendGameDiv(item, index);
         });
-        
+
         scrollToTopDiv(".scroll-content");
         $j(".mask-layer").click();
     }
@@ -2579,8 +2611,11 @@
         } else {
             div += '<div class="list_st7 clearfix live-div" id="div_' + item.m_nGame + '">';
         }
+       
         if(!isExist12 || detail.m_nStatus > 1) {
-            div += '<div id="r_status0" class="st_real_lock"></div>';
+            div += `<div id="lock_${item.m_nGame}" class="st_real_lock" style="display:block"></div>`;
+        } else {
+            div += `<div id="lock_${item.m_nGame}" class="st_real_lock" style="display:none"></div>`;
         }
         div += '<ul>';
         div += '<li class="tr" data-fid="6931381" data-status="2">';

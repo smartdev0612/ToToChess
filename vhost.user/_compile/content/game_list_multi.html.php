@@ -375,21 +375,21 @@
                                        <!--// left Game list -->
                                        <!-- PAGEING-->
                                        <div class="pagination pagination-centered">
-                                          <ul>
-                                             <input type="hidden" id="sport_type" name="sport_type">
-                                             <input type="hidden" id="league_sn" name="league_sn">
-                                             <input type="hidden" id="today" name="today">
-                                             <li class="active page page_1"><a href="javascript:void(0)" onclick="getPage('0')">1</a></li>
-                                             <li class="page page_2"><a href="javascript:void(0)" onclick="getPage('1')">2</a></li>
-                                             <li class="page page_3"><a href="javascript:void(0)" onclick="getPage('2')">3</a></li>
-                                             <li class="page page_4"><a href="javascript:void(0)" onclick="getPage('3')">4</a></li>
-                                             <li class="page page_5"><a href="javascript:void(0)" onclick="getPage('4')">5</a></li>
-                                             <li class="page page_6"><a href="javascript:void(0)" onclick="getPage('5')">6</a></li>
-                                             <li class="page page_7"><a href="javascript:void(0)" onclick="getPage('6')">7</a></li>
-                                             <li class="page page_8"><a href="javascript:void(0)" onclick="getPage('7')">8</a></li>
-                                             <li class="page page_9"><a href="javascript:void(0)" onclick="getPage('8')">9</a></li>
-                                             <li class="page page_10"><a href="javascript:void(0)" onclick="getPage('9')">10</a></li>
-                                          </ul>
+                                            <input type="hidden" id="sport_type" name="sport_type">
+                                            <input type="hidden" id="league_sn" name="league_sn">
+                                            <input type="hidden" id="today" name="today">
+                                            <ul>
+                                                <!-- <li class="page page_1 active"><a href="javascript:void(0)" onclick="getPage('0')">1</a></li>
+                                                <li class="page page_2"><a href="javascript:void(0)" onclick="getPage('1')">2</a></li>
+                                                <li class="page page_3"><a href="javascript:void(0)" onclick="getPage('2')">3</a></li>
+                                                <li class="page page_4"><a href="javascript:void(0)" onclick="getPage('3')">4</a></li>
+                                                <li class="page page_5"><a href="javascript:void(0)" onclick="getPage('4')">5</a></li>
+                                                <li class="page page_6"><a href="javascript:void(0)" onclick="getPage('5')">6</a></li>
+                                                <li class="page page_7"><a href="javascript:void(0)" onclick="getPage('6')">7</a></li>
+                                                <li class="page page_8"><a href="javascript:void(0)" onclick="getPage('7')">8</a></li>
+                                                <li class="page page_9"><a href="javascript:void(0)" onclick="getPage('8')">9</a></li>
+                                                <li class="page page_10"><a href="javascript:void(0)" onclick="getPage('9')">10</a></li> -->
+                                            </ul>
                                        </div>
                                        <!--// PAGEING-->
                                        <div class="_h30"></div>
@@ -630,14 +630,22 @@
         showJson = JSON.parse(strPacket);
         console.log(showJson);
         if(showJson.length == 0) {
-                $(".list_st1").empty();
+            $(".list_st1").empty();
             warning_popup("미안하지만 경기자료가 없습니다.");
         } else {
-                $(".list_st1").empty();
-                var jsonCountInfo = showJson[0].m_lstSportsCnt;
-                showSportsTotalCount(jsonCountInfo);
+            $(".list_st1").empty();
+            $j(".pagination ul").empty();
+            var jsonCountInfo = showJson[0].m_lstSportsCnt;
+            showSportsTotalCount(jsonCountInfo);
+            showGameList();
+            var page_count = parseInt(showJson[0].m_nTotalCnt) / 50;
+            var page_item = "";
+            for(var i = 0; i < page_count; i++) {
+                page_item += `<li class="page page_${i + 1} ${packet.m_nPageIndex == i ? 'active' : ''}"><a href="javascript:void(0)" onclick="getPage('${i}')">${i + 1}</a></li>`;
+            }
+            $j(".pagination ul").append(page_item);
         }
-        showGameList();
+        
         $j("#loading").fadeOut(1000);
         $j("#coverBG2").fadeOut(1000);
     }

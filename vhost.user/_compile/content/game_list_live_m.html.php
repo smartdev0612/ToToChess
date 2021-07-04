@@ -414,13 +414,13 @@
                         </ul> -->
                     </div>
                     <div class="pagination pagination-centered">
+                        <input type="hidden" id="sport_type" name="sport_type">
+                        <input type="hidden" id="league_sn" name="league_sn">
+                        <input type="hidden" id="today" name="today">
                         <ul>
-                            <input type="hidden" id="sport_type" name="sport_type">
-                            <input type="hidden" id="league_sn" name="league_sn">
-                            <input type="hidden" id="today" name="today">
-                            <li class="active page page_1"><a href="javascript:void(0)" onclick="getPage('0')">1</a></li>
+                            <!-- <li class="active page page_1"><a href="javascript:void(0)" onclick="getPage('0')">1</a></li>
                             <li class="page page_2"><a href="javascript:void(0)" onclick="getPage('1')">2</a></li>
-                            <li class="page page_3"><a href="javascript:void(0)" onclick="getPage('2')">3</a></li>
+                            <li class="page page_3"><a href="javascript:void(0)" onclick="getPage('2')">3</a></li> -->
                         </ul>
                     </div>
                     <!--// CONTAINER AREA LEFT-->
@@ -662,14 +662,22 @@
         showJson = JSON.parse(strPacket);
         console.log(showJson);
         if(showJson.length == 0) {
-            $(".list_st1").empty();
+            $j(".list_st1").empty();
             warning_popup("현재 진행중인 경기가 없습니다.");
         } else {
-            $(".list_st1").empty();
+            $j(".list_st1").empty();
+            $j(".pagination ul").empty();
             var jsonCountInfo = showJson[0].m_lstSportsCnt;
             showSportsTotalCount(jsonCountInfo);
+            showGameList();
+            var page_count = parseInt(showJson[0].m_nTotalCnt) / 50;
+            var page_item = "";
+            for(var i = 0; i < page_count; i++) {
+                page_item += `<li class="page page_${i + 1} ${packet.m_nPageIndex == i ? 'active' : ''}"><a href="javascript:void(0)" onclick="getPage('${i}')">${i + 1}</a></li>`;
+            }
+            $j(".pagination ul").append(page_item);
         }
-        showGameList();
+        
         $j("#loading").fadeOut(1000);
         $j("#coverBG2").fadeOut(1000);
     }
@@ -728,6 +736,33 @@
                     if(djson == null || djson == undefined) {
                         removeMarketDiv(showJson[i], showJson[i].m_lstDetail[j]);
                     }
+                }
+
+                var market12;
+                switch(json.m_nSports) {
+                    case 6046: // 축구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
+                        break;
+                    case 48242: // 농구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                        break;
+                    case 154914: // 야구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                        break;
+                    case 154830: // 배구
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
+                        break;
+                    case 35232: // 아이스 하키
+                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                        break;    
+                }
+                var idx = `${json.m_nGame}_${market12.m_nMarket}_${market12.m_nFamily}_div`;
+                if(market12.m_nStatus > 1) {
+                    $('div[name="' + idx + '"]').removeClass("selectable");
+                    $('div[name="' + idx + '"]').addClass("selectable_none");
+                } else {
+                    $('div[name="' + idx + '"]').removeClass("selectable_none");
+                    $('div[name="' + idx + '"]').addClass("selectable");
                 }
             }
         }
@@ -903,7 +938,7 @@
         div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
         div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '">';
         div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
-        div += "<div class='st_wd44_l3  st_marr_n1 selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + detail.m_nHBetCode + "')>";
+        div += `<div class="st_wd44_l3  st_marr_n1 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div" onclick="onMultiTeamSelected('${sub_idx}','0','${detail.m_nHBetCode}')">`;
         div += '<span class="spo_align1 f_w6">';
         div += item.m_strHomeTeam;
         div += '</span>';
@@ -911,17 +946,17 @@
         //div += '<span class="f_right" id="' + item.child_sn + '_home_rate"></span>';
         div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
         if(detail.m_nMarket == 1) {
-            div += "<div class='st_wd10_l txt_ac spo_align4 selectable' name='" + sub_idx + "_div'  onclick=onMultiTeamSelected('" + sub_idx + "','1','" + detail.m_nDBetCode + "')>";
+            div += `<div class="st_wd10_l txt_ac spo_align4 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div"  onclick="onMultiTeamSelected('${sub_idx}','1','${detail.m_nDBetCode}')">`;
             //div += '<span id="' + item.child_sn + '_draw_rate">VS</span>';
             div += '<span id="' + detail.m_nDBetCode + '">' + detail.m_fDRate.toFixed(2) + '</span>';
             div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
         } else {
-            div += '<div class="st_wd10_l txt_ac spo_align4 selectable" name="' + sub_idx + '_div">';
+            div += `<div class="st_wd10_l txt_ac spo_align4 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div">`;
             //div += '<span id="' + item.child_sn + '_draw_rate">VS</span>';
             div += "VS";
             div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
         }
-        div += "<div class='st_wd44_l3 st_marl_n1 selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + detail.m_nABetCode + "')>";
+        div += `<div class="st_wd44_l3 st_marl_n1 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div" onclick="onMultiTeamSelected('${sub_idx}','2','${detail.m_nABetCode}')">`;
         //div += '<span id="' + item.child_sn + '_away_rate"></span>';
         //div += item.away_rate;
         div += '<span class="spo_align1 txt_ar f_w6">'; 

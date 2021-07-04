@@ -521,11 +521,19 @@
                 warning_popup("미안하지만 경기자료가 없습니다.");
             } else {
                 $j("#gamelist").empty();
+                $j(".num").empty();
                 var jsonCountInfo = showJson[0].m_lstSportsCnt;
                 showSportsTotalCount(jsonCountInfo);
+                showGameList();
+                
+                var page_count = parseInt(showJson[0].m_nTotalCnt) / 50;
+                var page_item = "";
+                for(var i = 0; i < page_count; i++) {
+                    page_item += `&nbsp;<a class="page page_${i + 1} ${packet.m_nPageIndex == i ? 'on' : ''}" href="javascript:void(0)" onclick="getPage('${i}')">${i + 1}</a>`;
+                }
+                $j(".num").append(page_item);
             }
-
-            showGameList();
+            
             $j("#loading").fadeOut(1000);
             $j("#coverBG2").fadeOut(1000);
         }

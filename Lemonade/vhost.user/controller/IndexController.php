@@ -2338,5 +2338,20 @@ class IndexController extends WebServiceController
 		}
 		echo json_encode((array)$betting_list);
 	}
+
+	function test_pageAction()
+	{
+		$this->commonDefine('abroad');
+		$this->view->define(array("content"=>"content/test_page.html"));
+
+		if(!$this->auth->isLogin())
+		{
+			// $this->redirect("/login");
+			$this->loginAction();
+			exit;
+		}
+
+		$this->display();
+	}
 }
 ?>
