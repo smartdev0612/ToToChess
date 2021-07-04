@@ -682,21 +682,18 @@
                 }
             }
         
-            // var group_id = 0;
-            // for(var i = 0; i < newJson.length; i++) {
-            //     var json = showJson.find(val => val.m_nGame == newJson[i].m_nGame);
-            //     if(json == null || json == undefined) {
-            //         //새게임추가
-            //         appendLeagueDiv(newJson[i]);
-            //         appendGameDiv(newJson[i]);
-            //         // if(group_id != newJson[i].m_nGroup) {
-            //         //     group_id = newJson[i].m_nGroup;
-                        
-            //         // } else {
-            //         //     appendGameDiv(newJson[i]);
-            //         // }
-            //     }
-            // }
+            var group_id = 0;
+            for(var i = 0; i < newJson.length; i++) {
+                var league_div = $j(`#${newJson[i].m_strDate}_${newJson[i].m_strHour}_${newJson[i].m_strMin}_${newJson[i].m_nLeague}`);
+                if(league_div != null && league_div != undefined) {
+                    var form = $j(`#game_${json.m_nFixtureID}`);
+                    if(form == null || form == undefined)
+                        appendGameDiv(newJson[i]);
+                } else {
+                    appendLeagueDiv(newJson[i]);
+                    appendGameDiv(newJson[i]);
+                }
+            }
         
             showJson = newJson;
         }

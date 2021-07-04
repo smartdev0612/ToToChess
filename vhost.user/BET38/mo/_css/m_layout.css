@@ -2487,14 +2487,14 @@ ul, li, table, th, td {
 }
 .st_game_leg {
 	width: 67%;
-  /* height: 23px; */
-  display: inline-block;
-  padding: 1px 5px;
-  color: #22b486;
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    /* height: 23px; */
+    display: inline-block;
+    padding: 1px 5px;
+    color: #22b486;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .st_game_leg2 {
     width: 67%;

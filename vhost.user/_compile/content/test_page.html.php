@@ -245,6 +245,48 @@
         background-size: 100% 100%;
     }
 
+    .no_st1 {
+        display: inline-block;
+        height: 30px;
+        width: 50px;
+        color: #000;
+        font-weight: 600;
+        line-height: 30px;
+        border-radius: 10px;
+        font-size: 1.6em;
+        text-align: center;
+        background: #22b486;
+    }
+
+    .no_st2 {
+        display: inline-block;
+        height: 30px;
+        width: 50px;
+        color: #fff;
+        line-height: 30px;
+        font-size: 1.6em;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .st_real_l-4 {
+        width: 100%;
+        padding: 5px 0;
+        margin-right: 1px;
+        border-bottom: 1px solid #000;
+        float: left;
+        background: url(/BET38/pc/_img/st_real_bg4.png) center center no-repeat;
+        background-size: 100%;
+        text-align: center;
+    }
+
+    .span_period {
+        width: 10%;
+        position: relative;
+        top: -10px;
+        color: yellow;
+    }
+
     @media screen and (max-width: 900px) { 
         .search_main {
             display:none;
@@ -354,7 +396,8 @@
                 <div class="st_con_total">
                     <!-- CONTAINER AREA LEFT-->
                     <div class="list_st1" style="position:relative;">
-                        <div class="list_st7 clearfix st_on live-div" id="div_158">
+
+                        <!-- <div class="list_st7 clearfix st_on live-div" id="div_158">
                             <div id="lock_158" class="st_real_lock" style="display: none;"></div>
                             <ul>
                                 <li class="tr" data-fid="6931381" data-status="2">
@@ -412,25 +455,25 @@
                                             </div>
                                         </ul>
                                     </div>
-                                    <div class="st_real_r">
-                                        <ul>
-                                            <li><span>게임진행정보</span></li>
-                                            <li style="padding:10px 0 5px 0">상태 : <b id="period_158">7이닝</b></li>
-                                        </ul>
-                                    </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                         <ul id="div_158">
                             <li class="tr">
-                                <span class="st_game_leg">
+                                <span class="st_game_leg" style="width:52%;">
                                     <img src="/BET38/_icon/sport/S154914.png" width="23" class="st_marr3 st_marb1 st_game_ico">&nbsp;
                                     <img src="/upload/league/mlb.jpg" width="23" class="st_marr3 st_marb1 st_game_ico">&nbsp;
                                     MLB
                                 </span>
+                                <span class="span_period">9피리어드</span>
                                 <button onclick="getBtnsMobile('158')" id="F158" class="gBtn st_mart1 bt_game_more"><span id="cnt_158">+0</span></button>
                                 <span class="st_game_time">07-04 10:10</span>
                             </li>
+                            <div class="st_real_l-4">
+                                <span class="no_st1" id="homescore_158">0</span>
+                                <span class="no_st2">VS</span>
+                                <span class="no_st1" id="awayscore_158">0</span>
+                            </div>
                             <li class="spo_align">
                                 <div style="display:none">
                                     <input type="hidden" id="158_226_2_sport_name" value="야구">
@@ -448,8 +491,9 @@
                                     <input type="hidden" id="158_226_2_home_name" value="1">
                                     <input type="hidden" id="158_226_2_league_sn" value="183">
                                 </div>
+                                
                                 <div class="st_wd44_l3  st_marr_n1 selectable" name="158_226_2_div" onclick="onMultiTeamSelected('158_226_2','0','16931383277167070')">
-                                    <span class="spo_align1 f_w6">콜로라도</span>
+                                    <span class="spo_align1 txt_al f_w6">콜로라도</span>
                                     <span class="spo_align2 txt_ar st_padr5" id="16931383277167070">1.89</span>
                                     <input type="checkbox" name="ch" value="1" style="display:none;">
                                 </div>

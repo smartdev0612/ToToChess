@@ -245,6 +245,49 @@
         background-size: 100% 100%;
     }
 
+    .no_st1 {
+        display: inline-block;
+        height: 30px;
+        width: 50px;
+        color: #000;
+        font-weight: 600;
+        line-height: 30px;
+        border-radius: 10px;
+        font-size: 1.6em;
+        text-align: center;
+        background: #22b486;
+    }
+
+    .no_st2 {
+        display: inline-block;
+        height: 30px;
+        width: 50px;
+        color: #fff;
+        line-height: 30px;
+        font-size: 1.6em;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .st_real_l-4 {
+        width: 100%;
+        padding: 5px 0;
+        margin-right: 1px;
+        border-bottom: 1px solid #000;
+        float: left;
+        background: url(/BET38/pc/_img/st_real_bg4.png) center center no-repeat;
+        background-size: 100%;
+        text-align: center;
+    }
+
+    .span_period {
+        width: 10%;
+        position: relative;
+        top: -10px;
+        color: yellow;
+        text-align: right;
+    }
+
     @media screen and (max-width: 900px) { 
         .search_main {
             display:none;
@@ -710,6 +753,12 @@
                 var isExist = checkExist1x2(json);
                 if(document.getElementById(`cnt_${json.m_nGame}`) != null && document.getElementById(`cnt_${json.m_nGame}`) != undefined)
                     document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
+                if(document.getElementById(`period_${json.m_nGame}`) != null && document.getElementById(`period_${json.m_nGame}`) != undefined)
+                    document.getElementById(`period_${json.m_nGame}`).innerHTML = json.m_strPeriod;
+                if(document.getElementById(`homescore_${json.m_nGame}`) != null && document.getElementById(`homescore_${json.m_nGame}`) != undefined)
+                    document.getElementById(`homescore_${json.m_nGame}`).innerHTML = json.m_nHomeScore;
+                if(document.getElementById(`awayscore_${json.m_nGame}`) != null && document.getElementById(`awayscore_${json.m_nGame}`) != undefined)
+                    document.getElementById(`awayscore_${json.m_nGame}`).innerHTML = json.m_nAwayScore;
 
                 for(var j=0; j < showJson[i].m_lstDetail.length; j++) {
                     var djson = json.m_lstDetail.find(val => val.m_nHBetCode == showJson[i].m_lstDetail[j].m_nHBetCode && val.m_nDBetCode == showJson[i].m_lstDetail[j].m_nDBetCode && val.m_nABetCode == showJson[i].m_lstDetail[j].m_nABetCode);
@@ -907,7 +956,7 @@
         
         div += '<ul id="div_' + item.m_nGame + '">';
         div += '<li class="tr">';
-        div += '<span class="st_game_leg">';
+        div += '<span class="st_game_leg" style="width:55%;">';
         div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="23" class="st_marr3 st_marb1 st_game_ico">`;
         div += '&nbsp';
         if(item.m_strLeagueImg != "") {
@@ -916,9 +965,15 @@
         div += '&nbsp';
         div += item.m_strLeagueName;
         div += '</span>';
+        div += `<span class="span_period" id="period_${item.m_nGame}">${item.m_strPeriod}</span>`;
         div += "<button onclick=getBtnsMobile('" + item.m_nGame + "') id='F" + item.m_nGame + "' class='gBtn st_mart1 bt_game_more'><span id='cnt_" + item.m_nGame + "'>+" + childCnt + "</span></button>";
         div += '<span class="st_game_time">' + item.m_strDate.substring(5,10) + ' ' + item.m_strHour + ':' + item.m_strMin + '</span>'; 
         div += '</li>';
+        div += '<div class="st_real_l-4">';
+        div += `<span class="no_st1" id="homescore_${item.m_nGame}">${item.m_nHomeScore}</span>`;
+        div += '<span class="no_st2">VS</span>';
+        div += `<span class="no_st1" id="awayscore_${item.m_nGame}">${item.m_nAwayScore}</span>`;
+        div += '</div>';
         div += '<li class="spo_align">';
         div += '<div style="display:none">';
         div += '<input type="hidden" id="' + sub_idx + '_sport_name" value="' + item.m_strSportName + '">';
