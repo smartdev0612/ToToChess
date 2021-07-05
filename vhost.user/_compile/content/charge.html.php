@@ -82,15 +82,13 @@
 <!-- 목록 -->
 <div class="board_list">
     <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup><col width="10%" /><col width="10%" /><col width="*" /><col width="15%" /><col width="10%" /><col width="10%" /></colgroup>
         <thead>
             <tr>
-                <th>신청번호</th>
-                <th>신청금액</th>
-                <th>신청인</th>
-                <th>신청날자</th>
-                <th>처리여부</th>
-                <th>삭제</th>
+                <th class="th-mini">신청금액</th>
+                <th class="th-mini">신청인</th>
+                <th class="th-mini">신청날자</th>
+                <th class="th-mini">처리여부</th>
+                <th class="th-mini">삭제</th>
             </tr>
         </thead>
         <tbody>
@@ -98,16 +96,15 @@
         $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VAR["list"]);
         if ( $TPL_list_1 ) {
             foreach ( $TPL_VAR["list"] as $TPL_V1 ) {
+                $date = explode(":", substr($TPL_V1["regdate"], 5));
+                $chargeDate = $date[0] . ":" . $date[1];
         ?>
             <tr height="51">
-                <td>
-                    <?php echo $TPL_V1["sn"]?>
-                </td>
-                <td><?php echo number_format($TPL_V1["amount"])?></td>
-                <td><?php echo $TPL_V1["bank_owner"]?></td>
-                <td><?php echo $TPL_V1["regdate"]?></td>
-                <td><?php if($TPL_V1["state"]==0){?>처리중<?php }elseif($TPL_V1["state"]==1){?>처리완료<?php }?></td>
-                <td><?php	if($TPL_V1["state"]==0){echo "-";} else if ( $TPL_V1["state"] == 1 ) {?><a href="/member/chargelist?charge_sn=<?php echo $TPL_V1["sn"]?>"><img src="/images/bt_del_1.png" alt="삭제"/></a><?php	}?></td>
+                <td class="th-mini"><?php echo number_format($TPL_V1["amount"])?></td>
+                <td class="th-mini"><?php echo $TPL_V1["bank_owner"]?></td>
+                <td class="th-mini"><?php echo $chargeDate?></td>
+                <td class="th-mini"><?php if($TPL_V1["state"]==0){?>처리중<?php }elseif($TPL_V1["state"]==1){?>완료<?php }?></td>
+                <td class="th-mini"><?php	if($TPL_V1["state"]==0){echo "-";} else if ( $TPL_V1["state"] == 1 ) {?><a href="/member/chargelist?charge_sn=<?php echo $TPL_V1["sn"]?>"><img src="/images/bt_del_1.png" alt="삭제"/></a><?php	}?></td>
             </tr>
         <?php
             }

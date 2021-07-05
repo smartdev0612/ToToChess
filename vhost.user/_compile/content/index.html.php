@@ -1,12 +1,12 @@
-
 	<div class="mask"></div>
 	<div id="container">
 
 <script type="text/javascript" src="/10bet/js/left.js?1610338639"></script>
 <!-- 컨텐츠 영역 -->
 <div id="contents">
+    <marquee scrollamount="3"><span style="line-height:normal;"><?=$TPL_VAR["ads"]?></span></marquee>
     <!-- 메인 비쥬얼 -->
-    <div class="main_visual hidden-xs">
+    <div class="main_visual hidden-xs" style="margin-top:10px;">
         <ul class="swiper-wrapper">
             <li class="swiper-slide bg01">
                 <div class="box01">

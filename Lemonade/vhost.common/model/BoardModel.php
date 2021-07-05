@@ -1049,6 +1049,8 @@ class BoardModel extends Lemon_Model
 	//▶ 사이트 규정 수정
 	function modifySiteRule($type, $ruleSn, $content)
 	{
+		echo $content;
+		exit;
 		if ($ruleSn == "") {
 			$sql = "INSERT INTO ".$this->db_qz."site_rule (type, content, logo) VALUES ( ".$type.", '".$content."', '".$this->logo."' )";
 		} else {

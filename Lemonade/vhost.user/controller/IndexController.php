@@ -320,7 +320,7 @@ class IndexController extends WebServiceController
 
 		$ConfigModel=Lemon_Instance::getObject("ConfigModel", true);
 		$rs = $ConfigModel->getAdminConfigRow();
-
+		
 		// if(!$this->auth->isLogin() && $rs['maintain']==2)
 		// {
 		// 	$this->loginAction();
@@ -377,6 +377,7 @@ class IndexController extends WebServiceController
         $this->view->assign('game_result_list', $game_result_list);
         $this->view->assign('league_game_list', $leagueGameList);
 		$this->view->assign('league_game_list_multi', $leagueGameListMulti);
+		
         /*$this->view->assign('football_game', $football_game);
         $this->view->assign('basketball_game', $basketball_game);
         $this->view->assign('volleyball_game', $volleyball_game);*/

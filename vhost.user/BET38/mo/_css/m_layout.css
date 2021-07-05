@@ -8505,3 +8505,91 @@ button.close {
          	    transform-origin: top left;
          	}
           }
+
+          
+    .no_st1 {
+        display: inline-block;
+        height: 30px;
+        width: 50px;
+        color: #000;
+        font-weight: 600;
+        line-height: 30px;
+        border-radius: 10px;
+        font-size: 1.6em;
+        text-align: center;
+        background: #22b486;
+    }
+
+    .no_st2 {
+        display: inline-block;
+        height: 30px;
+        width: 50px;
+        color: #fff;
+        line-height: 30px;
+        font-size: 1.6em;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .st_real_l-1 {
+        width: 100%;
+        padding: 5px 0;
+        margin-right: 1px;
+        border-bottom: 1px solid #000;
+        float: left;
+        background: url(/BET38/pc/_img/st_real_bg1.png) center center no-repeat;
+        background-size: 100%;
+        text-align: center;
+    }
+
+    .st_real_l-2 {
+        width: 100%;
+        padding: 5px 0;
+        margin-right: 1px;
+        border-bottom: 1px solid #000;
+        float: left;
+        background: url(/BET38/pc/_img/st_real_bg2.png) center center no-repeat;
+        background-size: 100%;
+        text-align: center;
+    }
+
+    .st_real_l-3 {
+        width: 100%;
+        padding: 5px 0;
+        margin-right: 1px;
+        border-bottom: 1px solid #000;
+        float: left;
+        background: url(/BET38/pc/_img/st_real_bg3.png) center center no-repeat;
+        background-size: 100%;
+        text-align: center;
+    }
+
+    .st_real_l-4 {
+        width: 100%;
+        padding: 5px 0;
+        margin-right: 1px;
+        border-bottom: 1px solid #000;
+        float: left;
+        background: url(/BET38/pc/_img/st_real_bg4.png) center center no-repeat;
+        background-size: 100%;
+        text-align: center;
+    }
+
+    .st_real_l-5 {
+        width: 100%;
+        padding: 5px 0;
+        margin-right: 1px;
+        border-bottom: 1px solid #000;
+        float: left;
+        background: url(/BET38/pc/_img/st_real_bg5.png) center center no-repeat;
+        background-size: 100%;
+        text-align: center;
+    }
+
+    .span_period {
+        width: 10%;
+        position: relative;
+        top: -10px;
+        color: yellow;
+        text-align: right;
+    }

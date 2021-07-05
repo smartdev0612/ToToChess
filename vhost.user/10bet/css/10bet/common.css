@@ -152,7 +152,7 @@ header .mobile_left_menu .menu01 {}
 header .mobile_left_menu .menu01 li {cursor:pointer;height:60px;margin-bottom:15px;line-height:60px;padding-left:40px;font-weight:bold;}
 header .mobile_left_menu .menu_divider {text-align:center;margin-bottom:10px;}
 header .mobile_left_menu .menu02 {}
-header .mobile_left_menu .menu02 li {cursor:pointer;height:35px;margin-bottom:5px;line-height:35px;padding-left:40px;font-weight:bold;}
+header .mobile_left_menu .menu02 li {cursor:pointer;height:35px;margin-bottom:5px;line-height:35px;padding-left:35px;font-weight:bold;font-size:12px !important;}
 
 header .mobile_user_ico {position:absolute;top:7px;right:9px;width:47px;height:42px;font-size:0;cursor:pointer;background:#2d2e35;border-radius:5px;transition:200ms all;
 	box-shadow: rgba(0, 0, 0, 0.35) -3px 7px 6px -6px, rgb(92, 94, 108) 1px 1px 4px -2px inset;

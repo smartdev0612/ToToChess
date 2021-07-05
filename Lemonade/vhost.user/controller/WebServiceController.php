@@ -50,7 +50,8 @@ class WebServiceController extends Lemon_Controller
 
 		$ConfigModel=Lemon_Instance::getObject("ConfigModel", true);
 		$rs = $ConfigModel->getAdminConfigRow();
-		
+		$ads = $rs['ad'];
+
 		if($rs['maintain']==2)
 		{
 			session_destroy();
@@ -166,7 +167,7 @@ class WebServiceController extends Lemon_Controller
 		$this->view->assign("UPLOAD_URL", $upload_url);
 		$this->view->assign("live_game_count", $live_game_count);
 		$this->view->assign("style_type",  $style_type);
-
+		$this->view->assign('ads', $ads);
 	}
 	
 	/*

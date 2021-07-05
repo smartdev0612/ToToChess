@@ -5,7 +5,7 @@
     <title>체스</title>
     <link rel="shortcut icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345888" />
+    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345889" />
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
@@ -485,47 +485,49 @@
         <!-- 해더 웹 -->
         <header>
             <div class="header_box">
-                <h1><a href="/"><img src="/10bet/images/10bet/logo_01.png?v01" alt="IO BET 로고" /></a></h1>
+                <h1><a href="/"><img src="/10bet/images/10bet/logo_01.png?v01" alt="Chess 로고" /></a></h1>
                 
                 <div id="gnb">
                     <ul class="on">
                     <?php 
                         if(count((array)$_SESSION['member']) > 0) { ?>
-                            <li  onClick="location.href='/game_list?game=multi'"><img src="/10bet/images/10bet/ico/top_ico1.png" alt="IO BET 로고" />국내형</li>
-                            <li  onClick="location.href='/game_list?game=abroad'"><img src="/10bet/images/10bet/ico/top_ico1.png" alt="IO BET 로고" />유럽형</li>
-                            <li  onClick="location.href='/game_list?game=live'"><img src="/10bet/images/10bet/ico/top_ico3.png" alt="IO BET 로고" />라이브</li>
-                            <!-- <li  onClick="warning_popup('준비중입니다.');"><img src="/10bet/images/10bet/ico/top_ico5.png" alt="IO BET 로고" />가상게임</li> -->
-                            <li  onClick="location.href='/game_list?game=power'"><img src="/10bet/images/10bet/ico/top_ico4.png" alt="IO BET 로고" />미니게임</li>
+                            <li  onClick="location.href='/game_list?game=multi'"><img src="/10bet/images/10bet/ico/top_ico1.png" alt="Chess 로고" />국내형</li>
+                            <li  onClick="location.href='/game_list?game=abroad'"><img src="/10bet/images/10bet/ico/top_ico1.png" alt="Chess 로고" />유럽형</li>
+                            <li  onClick="location.href='/game_list?game=live'"><img src="/10bet/images/10bet/ico/top_ico3.png" alt="Chess 로고" />라이브</li>
+                            <!-- <li  onClick="warning_popup('준비중입니다.');"><img src="/10bet/images/10bet/ico/top_ico5.png" alt="Chess 로고" />가상게임</li> -->
+                            <li  onClick="location.href='/game_list?game=power'"><img src="/10bet/images/10bet/ico/top_ico4.png" alt="Chess 로고" />미니게임</li>
                         <?php } else { ?>
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico6.png" alt="IO BET 로고" />국내형</li>
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico6.png" alt="IO BET 로고" />유럽형</li>
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico9.png" alt="IO BET 로고" />라이브</li>
-                            <!-- <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico5.png" alt="IO BET 로고" />가상게임</li> -->
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico4.png" alt="IO BET 로고" />미니게임</li>
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico1.png" alt="Chess 로고" />국내형</li>
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico1.png" alt="Chess 로고" />유럽형</li>
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico3.png" alt="Chess 로고" />라이브</li>
+                            <!-- <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico5.png" alt="Chess 로고" />가상게임</li> -->
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico4.png" alt="Chess 로고" />미니게임</li>
                         <?php 
                             }
                         ?>
 						<!--
-                        <li  onClick="location.href='/poker'"><img src="/10bet/images/10bet/ico/top_ico14.png" alt="IO BET 로고" />포커</li>
-                        <li  onClick="location.href='/graph'"><img src="/10bet/images/10bet/ico/top_ico7.png" alt="IO BET 로고" />그래프</li>
+                        <li  onClick="location.href='/poker'"><img src="/10bet/images/10bet/ico/top_ico14.png" alt="Chess 로고" />포커</li>
+                        <li  onClick="location.href='/graph'"><img src="/10bet/images/10bet/ico/top_ico7.png" alt="Chess 로고" />그래프</li>
                         -->
                         <?php 
                         if(count((array)$_SESSION['member']) > 0) { ?>
-                            <li  onClick="warning_popup('준비중입니다.');"><img src="/10bet/images/10bet/ico/top_ico6.png" alt="IO BET 로고" />카지노</li>
-                            <!-- <li  onClick="location.href='/race/game_result?view_type=winlose'"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="IO BET 로고" />경기결과</li> -->
-                            <li  onClick="location.href='/race/betting_list'"><img src="/10bet/images/10bet/ico/top_ico9.png" alt="IO BET 로고" />배팅내역</li>
-                            <li  onClick="location.href='/cs/cs_list'"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="IO BET 로고" />고객센터</li>
-                            <li  onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="IO BET 로고" />공지사항</li>
-                            <li  onClick="location.href='/board/?bbsNo=7'"><img src="/10bet/images/10bet/ico/top_ico12.png" alt="IO BET 로고" />이벤트</li>
-                            <li  onClick="location.href='/game_guide'"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="IO BET 로고" />배팅규정</li>
+                            <li  onClick="warning_popup('준비중입니다.');"><img src="/10bet/images/10bet/ico/top_ico14.png" alt="Chess 로고" />카지노</li>
+                            <li  onClick="warning_popup('준비중입니다.');"><img src="/10bet/images/10bet/ico/top_ico6.png" alt="Chess 로고" />슬롯머신</li>
+                            <!-- <li  onClick="location.href='/race/game_result?view_type=winlose'"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="Chess 로고" />경기결과</li> -->
+                            <li  onClick="location.href='/race/betting_list'"><img src="/10bet/images/10bet/ico/top_ico9.png" alt="Chess 로고" />배팅내역</li>
+                            <li  onClick="location.href='/cs/cs_list'"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="Chess 로고" />고객센터</li>
+                            <li  onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="Chess 로고" />공지사항</li>
+                            <li  onClick="location.href='/board/?bbsNo=7'"><img src="/10bet/images/10bet/ico/top_ico12.png" alt="Chess 로고" />이벤트</li>
+                            <li  onClick="location.href='/game_guide'"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="Chess 로고" />배팅규정</li>
                         <?php } else { ?>
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico6.png" alt="IO BET 로고" />카지노</li>
-                            <!-- <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="IO BET 로고" />경기결과</li> -->
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico9.png" alt="IO BET 로고" />배팅내역</li>
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="IO BET 로고" />고객센터</li>
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="IO BET 로고" />공지사항</li>
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico12.png" alt="IO BET 로고" />이벤트</li>
-                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="IO BET 로고" />배팅규정</li>
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico14.png" alt="Chess 로고" />카지노</li>
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico6.png" alt="Chess 로고" />슬롯머신</li>
+                            <!-- <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico8.png" alt="Chess 로고" />경기결과</li> -->
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico9.png" alt="Chess 로고" />배팅내역</li>
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="Chess 로고" />고객센터</li>
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="Chess 로고" />공지사항</li>
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico12.png" alt="Chess 로고" />이벤트</li>
+                            <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="Chess 로고" />배팅규정</li>
                         <?php 
                             }
                         ?>
@@ -558,24 +560,26 @@
                             </svg>
                         </div>
                         <div class="logo">
-                            <a href="/"><img src="/10bet/images/10bet/logo_01.png?v01" alt="IO BET 로고" /></a>
+                            <a href="/"><img src="/10bet/images/10bet/logo_01.png?v01" alt="Chess 로고" /></a>
                         </div>
                         <ul class="menu02">
                             <?php 
                             if(count((array)$_SESSION['member']) > 0) { ?>
-                                <li class="button_type01 " onClick="location.href='/game_list?game=multi'">국내형</li>
-                                <li class="button_type01 " onClick="location.href='/game_list?game=abroad'">유럽형</li>
-                                <li class="button_type01 " onClick="location.href='/game_list?game=live'">라이브</li>
+                                <li class="button_type01 " onClick="location.href='/game_list?game=multi'"><img src="/10bet/images/10bet/ico/top_ico_min1.png" alt="Chess 로고" />&nbsp;국내형스포츠</li>
+                                <li class="button_type01 " onClick="location.href='/game_list?game=abroad'"><img src="/10bet/images/10bet/ico/top_ico_min1.png" alt="Chess 로고" />&nbsp;유럽형스포츠</li>
+                                <li class="button_type01 " onClick="location.href='/game_list?game=live'"><img src="/10bet/images/10bet/ico/top_ico_min3.png" alt="Chess 로고" />&nbsp;라이브스포츠</li>
                                 <!-- <li class="button_type01 " onClick="warning_popup('준비중입니다.');">가상게임</li> -->
-                                <li class="button_type01 " onClick="warning_popup('준비중입니다.');">카지노</li>
-                                <li class="button_type01 " onClick="location.href='/game_list?game=power'">미니게임</li>
+                                <li class="button_type01 " onClick="location.href='/game_list?game=power'"><img src="/10bet/images/10bet/ico/top_ico_min4.png" alt="Chess 로고" />&nbsp;미니게임</li>
+                                <li class="button_type01 " onClick="warning_popup('준비중입니다.');"><img src="/10bet/images/10bet/ico/top_ico_min14.png" alt="Chess 로고" />&nbsp;카지노</li>
+                                <li class="button_type01 " onClick="warning_popup('준비중입니다.');"><img src="/10bet/images/10bet/ico/top_ico_min6.png" alt="Chess 로고" />&nbsp;슬롯머신</li>
                             <?php } else { ?>
-                                <li class="button_type01 " onClick="login_open();">국내형</li>
-                                <li class="button_type01 " onClick="login_open();">유럽형</li>
-                                <li class="button_type01 " onClick="login_open();">라이브</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min1.png" alt="Chess 로고" />&nbsp;국내형스포츠</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min1.png" alt="Chess 로고" />&nbsp;유럽형스포츠</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min3.png" alt="Chess 로고" />&nbsp;라이브스포츠</li>
                                 <!-- <li class="button_type01 " onClick="login_open();">가상게임</li> -->
-                                <li class="button_type01 " onClick="login_open();">카지노</li>
-                                <li class="button_type01 " onClick="login_open();">미니게임</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min4.png" alt="Chess 로고" />&nbsp;미니게임</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min14.png" alt="Chess 로고" />&nbsp;카지노</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min6.png" alt="Chess 로고" />&nbsp;슬롯머신</li>
                             <?php } ?>
                             
 
@@ -586,18 +590,18 @@
                             <?php 
                             if(count((array)$_SESSION['member']) > 0) { ?>
                                 <!-- <li class="button_type01 " onClick="location.href='/race/game_result?view_type=winlose'">경기결과</li> -->
-                                <li class="button_type01 " onClick="location.href='/race/betting_list'">배팅내역</li>
-                                <li class="button_type01 " onClick="location.href='/cs/cs_list'">고객센터</li>
-                                <li class="button_type01 " onClick="location.href='/board/'">공지사항</li>
-                                <li class="button_type01 " onClick="location.href='/board/?bbsNo=7'">이벤트</li>
-                                <li class="button_type01 " onClick="location.href='/game_guide'">배팅규정</li>
+                                <li class="button_type01 " onClick="location.href='/race/betting_list'"><img src="/10bet/images/10bet/ico/top_ico_min9.png" alt="Chess 로고" />&nbsp;배팅내역</li>
+                                <li class="button_type01 " onClick="location.href='/cs/cs_list'"><img src="/10bet/images/10bet/ico/top_ico_min10.png" alt="Chess 로고" />&nbsp;고객센터</li>
+                                <li class="button_type01 " onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico_min11.png" alt="Chess 로고" />&nbsp;공지사항</li>
+                                <li class="button_type01 " onClick="location.href='/board/?bbsNo=7'"><img src="/10bet/images/10bet/ico/top_ico_min12.png" alt="Chess 로고" />&nbsp;이벤트</li>
+                                <li class="button_type01 " onClick="location.href='/game_guide'"><img src="/10bet/images/10bet/ico/top_ico_min13.png" alt="Chess 로고" />&nbsp;배팅규정</li>
                             <?php } else { ?>
                                 <!-- <li class="button_type01 " onClick="login_open();">경기결과</li> -->
-                                <li class="button_type01 " onClick="login_open();">배팅내역</li>
-                                <li class="button_type01 " onClick="login_open();">고객센터</li>
-                                <li class="button_type01 " onClick="login_open();">공지사항</li>
-                                <li class="button_type01 " onClick="login_open();">이벤트</li>
-                                <li class="button_type01 " onClick="login_open();">배팅규정</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min9.png" alt="Chess 로고" />&nbsp;배팅내역</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min10.png" alt="Chess 로고" />&nbsp;고객센터</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min11.png" alt="Chess 로고" />&nbsp;공지사항</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min12.png" alt="Chess 로고" />&nbsp;이벤트</li>
+                                <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min13.png" alt="Chess 로고" />&nbsp;배팅규정</li>
                             <?php 
                                 }
                             ?>
@@ -621,7 +625,7 @@
                                 <path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" class=""></path>
                             </svg>
                         </div>
-                        <div class="logo"><a href="#none"><img src="/10bet/images/10bet/logo_01.png?v01" alt="IO BET 로고" /></a></div>
+                        <div class="logo"><a href="#none"><img src="/10bet/images/10bet/logo_01.png?v01" alt="Chess 로고" /></a></div>
                         <? if (count((array)$_SESSION['member']) > 0) {?>
                         <!-- 유저 정보 -->
                         <div class="user_box box_type02">
@@ -683,6 +687,7 @@
                 </div>
             </div>
         </header>
+        <!-- <marquee scrollamount="3"><span style="line-height:normal;"><?=$TPL_VAR["ads"]?></span></marquee> -->
 <script>
     var member_sn = "<?=$TPL_VAR["member_sn"]?>";
     var style_type = <?=$TPL_VAR["style_type"]?>;

@@ -696,8 +696,12 @@
             var json = newJson.find(val => val.m_nGame == showJson[i].m_nGame);
             if(json != null && json != undefined) {
                 var isExist = checkExist1x2(json);
-                if(document.getElementById(`cnt_${json.m_nGame}`) != null && document.getElementById(`cnt_${json.m_nGame}`) != undefined)
-                    document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
+                if(document.getElementById(`cnt_${json.m_nGame}`) != null && document.getElementById(`cnt_${json.m_nGame}`) != undefined) {
+                    if(json.m_nStatus == 9)
+                        document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+0";
+                    else 
+                        document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
+                }
                 if(document.getElementById(`period_${json.m_nGame}`) != null && document.getElementById(`period_${json.m_nGame}`) != undefined)
                     document.getElementById(`period_${json.m_nGame}`).innerHTML = json.m_strPeriod;
                 if(document.getElementById(`homescore_${json.m_nGame}`) != null && document.getElementById(`homescore_${json.m_nGame}`) != undefined)
@@ -765,7 +769,7 @@
                         break;    
                 }
                 
-                if(market12.m_nStatus > 1) {
+                if(market12.m_nStatus > 1 || json.m_nStatus == 9) {
                     $("#lock_" + json.m_nGame).css("display", "block");
                 } else {
                     $("#lock_" + json.m_nGame).css("display", "none");
@@ -2602,7 +2606,7 @@
         var homeAdd = "";
         var awayAdd = "";
         var sub_idx = `${item.m_nGame}_${detail.m_nMarket}_${detail.m_nFamily}`;
-        if(index == 0) {
+        if(index == 0 && item.m_nStatus != 9) {
             getBtns(item.m_nGame);
         }
         
@@ -2612,7 +2616,7 @@
             div += '<div class="list_st7 clearfix live-div" id="div_' + item.m_nGame + '">';
         }
        
-        if(!isExist12 || detail.m_nStatus > 1) {
+        if(!isExist12 || item.m_nStatus == 9 || detail.m_nStatus > 1) {
             div += `<div id="lock_${item.m_nGame}" class="st_real_lock" style="display:block"></div>`;
         } else {
             div += `<div id="lock_${item.m_nGame}" class="st_real_lock" style="display:none"></div>`;
@@ -2629,9 +2633,9 @@
         div += item.m_strLeagueName;
         div += '</div>';
         if(index == 0) {
-            div += "<button class='Bn6931381 gBtn st_mart3 st_marr5 bt_game_more act' onclick=getBtns('" + item.m_nGame + "') id='F" + item.m_nGame + "'><span id='cnt_" + item.m_nGame + "'>+" + childCnt + "</span></button>";
+            div += `<button class="Bn6931381 gBtn st_mart3 st_marr5 bt_game_more act" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ${item.m_nStatus == 9 ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${item.m_nStatus == 9 ? 0 : childCnt}</span></button>`;
         } else {
-            div += "<button class='Bn6931381 gBtn st_mart3 st_marr5 bt_game_more' onclick=getBtns('" + item.m_nGame + "') id='F" + item.m_nGame + "'><span id='cnt_" + item.m_nGame + "'>+" + childCnt + "</span></button>";
+            div += `<button class="Bn6931381 gBtn st_mart3 st_marr5 bt_game_more" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ${item.m_nStatus == 9 ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${item.m_nStatus == 9 ? 0 : childCnt}</span></button>`;
         }
         div += '<span class="f_right st_mart3 st_marr10">' + item.m_strDate.substring(5,10) + ' ' + item.m_strHour + ':' + item.m_strMin + '</span>';
         div += '</li>';

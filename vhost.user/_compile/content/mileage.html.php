@@ -41,13 +41,11 @@
                     
                     <div class="board_list">
                         <table cellpadding="0" cellspacing="0" border="0">
-                            <colgroup><col width="10%" /><col width="30%" /><col width="20%" /><col width="*" /></colgroup>
                             <thead>
                                 <tr>
-                                    <th>번호</th>
-                                    <th>포인트</th>
-                                    <th>신청일</th>
-                                    <th>내용</th>
+                                    <th class="th-mini">포인트</th>
+                                    <th class="th-mini">신청일</th>
+                                    <th class="th-mini">내용</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,14 +53,13 @@
                                 $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VAR["list"]);
                                 if ( $TPL_list_1 ) {
                                     foreach ( $TPL_VAR["list"] as $TPL_V1 ) {
+                                        $date = explode(":", substr($TPL_V1["regdate"], 5));
+                                        $regDate = $date[0] . ":" . $date[1];
                                 ?>
                                     <tr height="51">
-                                        <td>
-                                            <?php echo $TPL_V1["sn"]?>
-                                        </td>
-                                        <td><?php echo number_format($TPL_V1["amount"])?> P</td>
-                                        <td><?php echo $TPL_V1["regdate"]?></td>
-                                        <td><?php echo $TPL_V1["status_message"]?></td>
+                                        <td class="th-mini"><?php echo number_format($TPL_V1["amount"])?> P</td>
+                                        <td class="th-mini"><?php echo $regDate?></td>
+                                        <td class="th-mini"><?php echo $TPL_V1["status_message"]?></td>
                                     </tr>
                                 <?php
                                     }

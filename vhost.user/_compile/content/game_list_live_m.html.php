@@ -10,7 +10,7 @@
 ?>
 <!-- <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/bootstrap-ko.css?v=511"> -->
 <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/default.css?v=515">
-<link rel="stylesheet" type="text/css" href="/BET38/mo/_css/m_layout.css?v=524">
+<link rel="stylesheet" type="text/css" href="/BET38/mo/_css/m_layout.css?v=525">
 <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/btns.css?v=511">
 <link rel="stylesheet" type="text/css" href="/BET38/css/etc.m.css?v=510">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
@@ -243,49 +243,6 @@
         border-radius: 5px;
         background: url(/BET38/pc/_img/tc_tab_bg_ov.png) no-repeat top center;
         background-size: 100% 100%;
-    }
-
-    .no_st1 {
-        display: inline-block;
-        height: 30px;
-        width: 50px;
-        color: #000;
-        font-weight: 600;
-        line-height: 30px;
-        border-radius: 10px;
-        font-size: 1.6em;
-        text-align: center;
-        background: #22b486;
-    }
-
-    .no_st2 {
-        display: inline-block;
-        height: 30px;
-        width: 50px;
-        color: #fff;
-        line-height: 30px;
-        font-size: 1.6em;
-        font-weight: 600;
-        text-align: center;
-    }
-
-    .st_real_l-4 {
-        width: 100%;
-        padding: 5px 0;
-        margin-right: 1px;
-        border-bottom: 1px solid #000;
-        float: left;
-        background: url(/BET38/pc/_img/st_real_bg4.png) center center no-repeat;
-        background-size: 100%;
-        text-align: center;
-    }
-
-    .span_period {
-        width: 10%;
-        position: relative;
-        top: -10px;
-        color: yellow;
-        text-align: right;
     }
 
     @media screen and (max-width: 900px) { 
@@ -751,8 +708,12 @@
             }
             else {
                 var isExist = checkExist1x2(json);
-                if(document.getElementById(`cnt_${json.m_nGame}`) != null && document.getElementById(`cnt_${json.m_nGame}`) != undefined)
-                    document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
+                if(document.getElementById(`cnt_${json.m_nGame}`) != null && document.getElementById(`cnt_${json.m_nGame}`) != undefined) {
+                    if(json.m_nStatus == 9)
+                        document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+0";
+                    else 
+                        document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
+                }
                 if(document.getElementById(`period_${json.m_nGame}`) != null && document.getElementById(`period_${json.m_nGame}`) != undefined)
                     document.getElementById(`period_${json.m_nGame}`).innerHTML = json.m_strPeriod;
                 if(document.getElementById(`homescore_${json.m_nGame}`) != null && document.getElementById(`homescore_${json.m_nGame}`) != undefined)
@@ -966,10 +927,19 @@
         div += item.m_strLeagueName;
         div += '</span>';
         div += `<span class="span_period" id="period_${item.m_nGame}">${item.m_strPeriod}</span>`;
-        div += "<button onclick=getBtnsMobile('" + item.m_nGame + "') id='F" + item.m_nGame + "' class='gBtn st_mart1 bt_game_more'><span id='cnt_" + item.m_nGame + "'>+" + childCnt + "</span></button>";
+        div += `<button onclick="getBtnsMobile('${item.m_nGame}')" id="F${item.m_nGame}" class="gBtn st_mart1 bt_game_more" ${item.m_nStatus == 9 ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${item.m_nStatus == 9 ? 0 : childCnt}</span></button>`;
         div += '<span class="st_game_time">' + item.m_strDate.substring(5,10) + ' ' + item.m_strHour + ':' + item.m_strMin + '</span>'; 
         div += '</li>';
-        div += '<div class="st_real_l-4">';
+        if( item.m_strSportName == "축구")
+            div += '<div class="st_real_l-1">';
+        else if( item.m_strSportName == "농구")
+            div += '<div class="st_real_l-2">'; 
+        else if( item.m_strSportName == "배구")
+            div += '<div class="st_real_l-3">';
+        else if( item.m_strSportName == "야구")
+            div += '<div class="st_real_l-4">';
+        else if( item.m_strSportName == "아이스 하키")
+            div += '<div class="st_real_l-5">';
         div += `<span class="no_st1" id="homescore_${item.m_nGame}">${item.m_nHomeScore}</span>`;
         div += '<span class="no_st2">VS</span>';
         div += `<span class="no_st1" id="awayscore_${item.m_nGame}">${item.m_nAwayScore}</span>`;
@@ -993,7 +963,7 @@
         div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
         div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '">';
         div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
-        div += `<div class="st_wd44_l3  st_marr_n1 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div" onclick="onMultiTeamSelected('${sub_idx}','0','${detail.m_nHBetCode}')">`;
+        div += `<div class="st_wd44_l3  st_marr_n1 ${(detail.m_nStatus > 1 || item.m_nStatus == 9) ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div" onclick="onMultiTeamSelected('${sub_idx}','0','${detail.m_nHBetCode}')">`;
         div += '<span class="spo_align1 f_w6">';
         div += item.m_strHomeTeam;
         div += '</span>';
@@ -1001,12 +971,12 @@
         //div += '<span class="f_right" id="' + item.child_sn + '_home_rate"></span>';
         div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
         if(detail.m_nMarket == 1) {
-            div += `<div class="st_wd10_l txt_ac spo_align4 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div"  onclick="onMultiTeamSelected('${sub_idx}','1','${detail.m_nDBetCode}')">`;
+            div += `<div class="st_wd10_l txt_ac spo_align4 ${(detail.m_nStatus > 1 || item.m_nStatus == 9) ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div"  onclick="onMultiTeamSelected('${sub_idx}','1','${detail.m_nDBetCode}')">`;
             //div += '<span id="' + item.child_sn + '_draw_rate">VS</span>';
             div += '<span id="' + detail.m_nDBetCode + '">' + detail.m_fDRate.toFixed(2) + '</span>';
             div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
         } else {
-            div += `<div class="st_wd10_l txt_ac spo_align4 ${detail.m_nStatus > 1 ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div">`;
+            div += `<div class="st_wd10_l txt_ac spo_align4 ${(detail.m_nStatus > 1 || item.m_nStatus == 9) ? 'selectable_none' : 'selectable'}" name="${sub_idx}_div">`;
             //div += '<span id="' + item.child_sn + '_draw_rate">VS</span>';
             div += "VS";
             div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
