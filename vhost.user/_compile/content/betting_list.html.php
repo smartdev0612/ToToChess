@@ -4,7 +4,7 @@
 
         <script type="text/javascript" src="/10bet/js/left.js?1610345806"></script>
         <script type="text/javascript" src="/include/js/betting_list.js?v=2"></script>
-        <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/layout.css?v=515">
+        <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/layout.css?v=516">
         <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/btns.css?v=511">
         <link rel="stylesheet" type="text/css" href="/BET38/css/etc.css?v=514">
         <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
@@ -115,8 +115,8 @@
                                     if($TPL_V2["league_image"] == "")
                                         $table .= '<img src="/BET38/_icon/etc.svg" width="23">&nbsp;';
                                     else 
-                                        $table .= '<img src="' . $TPL_V2["league_image"] . '" width="23" class="img-top">&nbsp;&nbsp;';
-                                    $table .= '<span class="img-top">' . $TPL_V2["league_name"] . '</span>'; 
+                                        $table .= '<img src="' . $TPL_V2["league_image"] . '" width="23">&nbsp;&nbsp;';
+                                    $table .= '<span>' . $TPL_V2["league_name"] . '</span>'; 
                                     $table .= '</td>';
                                     $table .= '<td class="txt_left st_padl5">';
                                     $table .= '<div>';

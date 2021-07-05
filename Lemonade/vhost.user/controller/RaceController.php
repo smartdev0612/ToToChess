@@ -160,8 +160,8 @@ class RaceController extends WebServiceController
 							if($TPL_V2["league_image"] == "")
 								$table .= '<img src="/BET38/_icon/etc.svg" width="23">&nbsp;';
 							else 
-								$table .= '<img src="' . $TPL_V2["league_image"] . '" width="23" class="img-top">&nbsp;&nbsp;';
-							$table .= '<span class="img-top">' . $TPL_V2["league_name"] . '</span>'; 
+								$table .= '<img src="' . $TPL_V2["league_image"] . '" width="23" >&nbsp;&nbsp;';
+							$table .= '<span>' . $TPL_V2["league_name"] . '</span>'; 
 							$table .= '</td>';
 							$table .= '<td class="txt_left st_padl5">';
 							$table .= '<div>';

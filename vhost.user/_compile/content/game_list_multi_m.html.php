@@ -484,51 +484,6 @@
         calc();
     }
 
-    function getBonusList() {
-        $("#bonus_ul").empty();
-        $.ajax({
-            url: "/getMultiBonusListAjax",
-            type: "GET",
-            dataType: "json",
-            success: function(res){ 
-                if(res.length > 0) {
-                    console.log(res);
-                    $.each(res, function(index, item) {
-                        console.log(item.home_team);
-                        var div = "";
-                        $.ajax({
-                            url: "/getSubChildInfo",
-                            type: "GET",
-                            dataType: "json",
-                            data: {
-                                "child_sn": item.child_sn
-                            },
-                            success: function(response){
-                                div += "<div class='bonus_item selectable' name='" + response.sn + "_div' onclick=onMultiTeamSelected('" + response.sn + "','0')>";
-                                div += '<div style="display:none">';
-                                div += '<input type="hidden" id="' + response.sn + '_sport_name" value="' + item.sport_name + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_game_type" value="' + response.betting_type + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_sub_sn"    value="' + response.sn + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_home_team" value="' + item.home_team + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_home_rate" value="' + response.home_rate + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_draw_rate" value="' + response.draw_rate + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_away_team" value="' + item.away_team + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_away_rate" value="' + response.away_rate + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_game_date" value="' + item.gameDate + '">';
-                                div += '<input type="hidden" id="' + response.sn + '_league_sn" value="' + item.league_sn + '"></div>';
-                                div += '<span class="txt_co7 txt_w600">' + item.home_team + '</span>';
-                                div += '<div class="bt_gr_area4 txt_w600">' + response.home_rate + '</div>';
-                                div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
-                                div += '</div>';
-                                $("#bonus_ul").append(div);
-                            }
-                        });
-                    });
-                }
-            }
-        });
-    }
-
     function getPage(page_index) {
         $j(".page").removeClass("active");
         $j(".page_" + (parseInt(page_index) + 1)).addClass("active");

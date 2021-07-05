@@ -1441,7 +1441,7 @@ vertical-align:top;}
 .point_change {position:relative;border:1px solid #2d2d34;border-radius:5px;background:#222227;box-shadow: rgba(0, 0, 0, 0.35) -3px 6px 6px -3px;padding:1px;margin-bottom:10px;padding:7px;}
 .point_change .my_point {border:1px solid #434347;border-radius:5px;background:#2d2e35;box-shadow: rgba(0, 0, 0, 0.35) -3px 6px 6px -3px;margin-bottom:5px;position:relative;}
 .point_change .head {color:#ffa604;font-weight:bold;display:inline-block;position:absolute;top:10px;left:20px;line-height:48px;}
-.point_change .point01 {font-size:30px;font-weight:bold;margin-left:100px;line-height:48px;padding:10px 0px;}
+.point_change .point01 {font-size:30px;font-weight:bold;margin-left:120px;line-height:48px;padding:10px 0px;}
 .point_change .point_input {border:1px solid #434347;border-radius:5px;background:#2d2e35;box-shadow: rgba(0, 0, 0, 0.35) -3px 6px 6px -3px;line-height:48px;min-height:68px;padding:10px 0px;position:relative;margin-bottom:10px;}
 .point_change .input_box {margin-left:100px;*zoom:1;} 
 .point_change .input_box:after {content:" ";display:block;clear:both;height:0;visibility:hidden;}
