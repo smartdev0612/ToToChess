@@ -1428,7 +1428,7 @@ class GameModel extends Lemon_Model
 
 		if($minBettingMoney!='')
 		{	
-			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
+			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.sport_id, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
 							a.gameDate, a.gameHour, a.gameTime, a.notice as league_name, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
 							a.type, a.special, a.bet_money,
 							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 
@@ -1441,7 +1441,7 @@ class GameModel extends Lemon_Model
 					where a.sn=b.child_sn and a.view_flag = '1' ".$where."
 					order by a.gameDate ".$sort.", a.gameHour ".$sort.", a.gameTime ".$sort.", league_name, a.home_team, a.special, a.sn asc " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid" ;
 		} else {
-			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
+			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.sport_id, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
 							a.gameDate, a.gameHour, a.gameTime, a.notice as league_name, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
 							a.type, a.special, a.bet_money, 
 							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 

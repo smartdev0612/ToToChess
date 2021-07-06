@@ -669,6 +669,14 @@
                                 document.getElementById(`${djson.m_nDBetCode}`).innerHTML = djson.m_fDRate.toFixed(2);
                             if(document.getElementById(`${djson.m_nABetCode}`) != null)
                                 document.getElementById(`${djson.m_nABetCode}`).innerHTML = djson.m_fARate.toFixed(2);
+
+                            var sub_idx = `${json.m_nGame}_${djson.m_nMarket}_${djson.m_nFamily}`;
+                            if(document.getElementById(`${sub_idx}_home_rate`) != null && document.getElementById(`${sub_idx}_home_rate`) != undefined)
+                                document.getElementById(`${sub_idx}_home_rate`).value = djson.m_fHRate.toFixed(2);
+                            if(document.getElementById(`${sub_idx}_draw_rate`) != null && document.getElementById(`${sub_idx}_draw_rate`) != undefined)
+                                document.getElementById(`${sub_idx}_draw_rate`).value = djson.m_fDRate.toFixed(2);
+                            if(document.getElementById(`${sub_idx}_away_rate`) != null && document.getElementById(`${sub_idx}_away_rate`) != undefined)
+                                document.getElementById(`${sub_idx}_away_rate`).value = djson.m_fARate.toFixed(2);
                         }
                     }
         

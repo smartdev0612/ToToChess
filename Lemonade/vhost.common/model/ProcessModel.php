@@ -3308,6 +3308,12 @@ class ProcessModel extends Lemon_Model
 					
 		return $this->db->exeSql($sql);
 	}
+
+	//▶ 승인되지 않은 충전요청이 있는지 확인
+	function checkChargeConfirm($member_sn) {
+		$sql = "select sn from ".$this->db_qz."charge_log where member_sn = " . $member_sn . " and state = 0";
+		return $this->db->exeSql($sql);
+	}
 	
 	//▶ 충전요청
 	function chargeReqProcess($member_sn, $amount)

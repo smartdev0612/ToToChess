@@ -1,0 +1,6 @@
+update tb_subchild  set home_rate = '2.38',draw_rate = '0.00',away_rate = '1.53',update_enable = '0' where  child_sn=372
+
+update tb_subchild  set home_rate = '2.38',draw_rate = '0.00',away_rate = '1.53',update_enable = '0' where  child_sn=372
+
+update tb_subchild  set home_rate = '1.40',draw_rate = '0.00',away_rate = '2.77',update_enable = '0' where  child_sn=100
+

@@ -447,7 +447,26 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 <?php }?>
 						</td>
 						<td>
-<?=$TPL_V1["mname_ko"]?>
+							<?php
+								$pieces = explode("|", $TPL_V1["mname_ko"]);
+								switch($TPL_V1["sport_id"]) {
+									case 6046: // 축구
+										echo $pieces[0];
+										break;
+									case 48242: // 농구
+										echo $pieces[1];
+										break;
+									case 154914: // 야구
+										echo $pieces[2];
+										break;
+									case 154830: // 배구
+										echo $pieces[3];
+										break;
+									case 35232: // 아이스 하키
+										echo $pieces[4];
+										break;
+								}
+							?>
 						</td>
 						<td><?php echo $TPL_V1["sport_name"]?></td>
 						<td><a onclick="window.open('/league/popup_edit?league_sn=<?php echo $TPL_V1["league_sn"];?>','','scrollbars=yes,width=600,height=400,left=5,top=0');" href="#"><?php echo $TPL_V1["league_name"]?></a></td>

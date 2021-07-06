@@ -204,8 +204,26 @@
 			return false;	
 		}
 
-		fm.submit();
+        var status = checkConfirmRequest();
+        if(status > 0) {
+            warning_popup("아직 처리되지 않은 충전요청이 있습니다.");
+        } else {
+            fm.submit();
+        }
 	}
+
+    function checkConfirmRequest() {
+        var status = 0;
+        $j.ajax({
+			url : "/member/checkConfirmRequest",
+			type : "get",
+            async: false,
+			success: function(res) {	
+				status = res;
+			}
+		});
+        return status;
+    }
 	
 	
 	function onMoneyClick(amount)
@@ -225,17 +243,17 @@
 	
 	function commaStr( num )
 	{
-	 num = num+"";
-	 point = num.length%3
-	 len = num.length;
-	
-	 str = num.substring(0,point);
-	 while( point < len){
-	  if( str != "" ) str += ",";
-	  str += num.substring( point , point+3);
-	  point +=3;
-	 }
-	 return str;
+        num = num+"";
+        point = num.length%3
+        len = num.length;
+        
+        str = num.substring(0,point);
+        while( point < len){
+            if( str != "" ) str += ",";
+            str += num.substring( point , point+3);
+            point +=3;
+        }
+        return str;
 	}
 	
 	function FormatNumber5(num)

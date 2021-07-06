@@ -399,7 +399,24 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 							<tr bgcolor="#ede8e8" border=1>				
 								<td width="60" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666">
 								<?php
-									echo $TPL_V2["mname_ko"];
+									$pieces = explode("|", $TPL_V2["mname_ko"]);
+                                    switch($TPL_V2["sport_id"]) {
+                                        case 6046: // 축구
+                                            echo $pieces[0];
+                                            break;
+                                        case 48242: // 농구
+                                            echo $pieces[1];
+                                            break;
+                                        case 154914: // 야구
+                                            echo $pieces[2];
+                                            break;
+                                        case 154830: // 배구
+                                            echo $pieces[3];
+                                            break;
+                                        case 35232: // 아이스 하키
+                                            echo $pieces[4];
+                                            break;
+                                    }
 								?>
 								</td>
 								<td width="80" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666"><?php echo $TPL_V2["g_date"]?><?php echo sprintf("%s/ %s %s:%s",substr($TPL_V2["gameDate"],5,2),substr($TPL_V2["gameDate"],8,2),$TPL_V2["gameHour"],$TPL_V2["gameTime"])?></td>

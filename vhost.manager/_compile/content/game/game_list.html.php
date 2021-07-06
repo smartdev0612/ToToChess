@@ -378,9 +378,28 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 <?php }elseif($TPL_V1["special"]==26){?>MGM홀짝
 <?php }elseif($TPL_V1["special"]==27){?>MGM바카라
 <?php }?>
-					</td>
-					<td>
-<?=$TPL_V1["mname_ko"]?>
+							</td>
+							<td>
+							<?php
+								$pieces = explode("|", $TPL_V1["mname_ko"]);
+								switch($TPL_V1["sport_id"]) {
+									case 6046: // 축구
+										echo $pieces[0];
+										break;
+									case 48242: // 농구
+										echo $pieces[1];
+										break;
+									case 154914: // 야구
+										echo $pieces[2];
+										break;
+									case 154830: // 배구
+										echo $pieces[3];
+										break;
+									case 35232: // 아이스 하키
+										echo $pieces[4];
+										break;
+								}
+							?>
 						</td>
 						<td><?php echo $TPL_V1["sport_name"]?></td>
 						<td><?php if($TPL_V1["update_game_date"]){?><span style="color:red;"><?php }?><?php if($TPL_V1["update_enable"]==0){?><span style="border-bottom:1px solid red;"><?php }?><?php echo sprintf("%s %s:%s",substr($TPL_V1["gameDate"],5),$TPL_V1["gameHour"],$TPL_V1["gameTime"])?></td>

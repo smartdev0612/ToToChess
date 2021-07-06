@@ -581,9 +581,9 @@ class MemberController extends WebServiceController
 			$this->redirect("/member/charge");
 			exit;
 		}
-		
+
 		$rs = $pModel->chargeReqProcess($this->auth->getSn(), $amount);
-		
+	
 		if($rs>0)
 		{
 			throw new Lemon_ScriptException("충전신청이 완료되었습니다.");				
@@ -1574,6 +1574,16 @@ class MemberController extends WebServiceController
 		$mModel = $this->getModel("MemberModel");
 		$res = $mModel->checkDuplicatedNickName($nick);
 		echo $res;
+	}
+
+	// ▶ 승인되지 않은 충전요청이 있는지 확인
+	function checkConfirmRequestAction() {
+		$pModel = Lemon_Instance::getObject("ProcessModel",true);
+		$rs = $pModel->checkChargeConfirm($this->auth->getSn());
+		$status = 0; // 충전요청이 다 처리됨
+		if(count((array)$rs) > 0)
+			$status = 1; // 처리되지 않은 충전요청이 있음
+		echo $status;
 	}
 }
 ?>

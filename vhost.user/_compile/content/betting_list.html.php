@@ -123,7 +123,24 @@
                                     $table .= '<span class="txt_co6">홈팀</span> : ' . $TPL_V2["home_team"];
                                     $table .= '</div>';
                                     $table .= '<div class="padding-top-5"><span class="txt_co71">원팀</span> : ' . $TPL_V2["away_team"]  . '</td></div>';
-                                    $table .= '<td>' . $TPL_V2["mname_ko"] . '</td>';
+                                    $pieces = explode("|", $TPL_V2["mname_ko"]);
+                                    switch($TPL_V2["sport_id"]) {
+                                        case 6046: // 축구
+                                            $table .= '<td>' . $pieces[0] . '</td>';
+                                            break;
+                                        case 48242: // 농구
+                                            $table .= '<td>' . $pieces[1] . '</td>';
+                                            break;
+                                        case 154914: // 야구
+                                            $table .= '<td>' . $pieces[2] . '</td>';
+                                            break;
+                                        case 154830: // 배구
+                                            $table .= '<td>' . $pieces[3] . '</td>';
+                                            break;
+                                        case 35232: // 아이스 하키
+                                            $table .= '<td>' . $pieces[4] . '</td>';
+                                            break;
+                                    }
                                     $table .= '<td class="txt_ac st_padl5">';
                                     switch($TPL_V2["mfamily"]) {
                                         case "1":
