@@ -1,0 +1,241 @@
+.font_11{font-size:11px;font-family:돋움}
+.popup-content {
+    margin: 10px;
+}
+    
+.pagination {
+    margin: 10px 0;
+}
+
+.pagination ul {
+    display: inline-block;
+    *display: inline;
+    margin-bottom: 0;
+    margin-left: 0;
+    -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+            border-radius: 4px;
+    *zoom: 1;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.pagination ul > li {
+    display: inline;
+}
+
+.pagination ul > li > a,
+.pagination ul > li > span {
+    float: left;
+    font-size: 1em;
+    padding: 2px 8px;
+    color: #22b486;
+    line-height: 20px;
+    text-decoration: none;
+    border-left-width: 0;
+}
+
+.pagination ul > li > a:hover,
+.pagination ul > li > a:focus,
+.pagination ul > .active > a,
+.pagination ul > .active > span {
+    background-color: #22b486;
+    border-radius: 4px;
+}
+
+.pagination ul > .active > a,
+.pagination ul > .active > span {
+    color: #000;
+    cursor: default;
+}
+
+.pagination ul > .disabled > span,
+.pagination ul > .disabled > a,
+.pagination ul > .disabled > a:hover,
+.pagination ul > .disabled > a:focus {
+    color: #fff;
+    cursor: default;
+    background-color: transparent;
+}
+
+.pagination ul > li:first-child > a,
+.pagination ul > li:first-child > span {
+    border-radius: 4px;
+}
+
+.pagination ul > li:last-child > a,
+.pagination ul > li:last-child > span {
+    border-radius: 4px;
+}
+
+.pagination-centered {
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.name {
+    vertical-align: top;
+    font-size: 14px;
+}
+.menu2-a {
+    color:white !important; 
+    line-height:24px;
+}
+.menu2-img {
+    vertical-align: middle;
+}
+.menu2-span {
+    float:right; 
+    margin-right:10px;
+}
+.p-badge {
+    margin-top:7px !important;
+    margin-right:10px !important;
+}
+.span-badge {
+    float: right;
+    margin-right:10px;
+    margin-top:-5px;
+    color:white;
+}
+.sub-ul {
+    width:95% !important; 
+    margin-left:13px !important;
+}
+.li-bg {
+    background:#000 !important;
+}
+._w180 {
+    width: 140px;
+}
+._limit {
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.text_line1{
+    display:inline-block;
+    height:15px;
+}
+
+.span-badge-abroad {
+    margin-top:13px !important;
+    margin-right:10px !important;
+    color:white;
+}
+
+.btn-center {
+    text-align: center;
+}
+
+.confirm-yes:hover {
+    border: 1px solid #ff0000;
+    background: #ff0000;
+}
+
+.confirm-yes {
+    width: 20%;
+    height: 30px;
+    border: 1px solid #ff0012;
+    background: #501a1a;
+    border-radius: 3px;
+    font-size: 12px;
+    box-shadow: rgb(0 0 0 / 50%) 0px 2px 3px;
+    margin-bottom: 10px;
+    transition: 200ms all;
+}
+
+.confirm-no:hover {
+    border: 1px solid #00bfff;
+    background: #00bfff;
+}
+
+.confirm-no {
+    width: 20%;
+    height: 30px;
+    border: 1px solid #00bfff;
+    background: #1a4050;
+    border-radius: 3px;
+    font-size: 12px;
+    box-shadow: rgb(0 0 0 / 50%) 0px 2px 3px;
+    margin-bottom: 10px;
+    transition: 200ms all;
+}
+
+.hidden-xs {
+    display: block !important;
+}
+
+.hidden-sm {
+    display: none !important;
+}
+
+.betting-cart-name {
+    font-size: 0.74rem;
+    text-align: left;
+    width: 80%;
+    float: left;
+    line-height: 26px;
+    color: #ffd200;
+}
+
+.lis {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.checkBtn {
+    height: 40px;
+    border: 1px solid #ff0012;
+    background: #501a1a;
+    border-radius: 3px;
+    padding:5px;
+    position: relative;
+    top: -10px;
+    margin-left:15px;
+}
+
+.checkBtn:hover {
+    border: 1px solid #ff0000;
+    background: #ff0000;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.calendar-comment {
+    text-align:center; 
+    margin-top:-20px; 
+    margin-bottom:20px; 
+    font-size:14px;
+}
+
+@media screen and (max-width: 900px) { 
+    .hidden-xs {
+        display: none !important;
+    }
+
+    .hidden-sm {
+        display: block !important;
+    }
+
+    .main_minigame ul {
+        height: 160px;
+    }
+
+    .main_minigame ul li .box01 .bottom01 {
+        line-height: 30px;
+    }
+
+    .th-mini {
+        font-size:9px;
+    }
+
+    .calendar-comment {
+        font-size: 12px;
+    }
+}

@@ -143,51 +143,179 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 				<tbody>
 <?php if($TPL_item_2){foreach($TPL_V1["item"] as $TPL_V2){?>
 						<tr>				
-							<td>
-<?php if($TPL_V2["special"]==0){?>
-									[일반]
-<?php }elseif($TPL_V2["special"]==1){?>
-									[실시간]
-<?php }/*elseif($TPL_V2["special"]==2){*/?><!--
-									[실시간]
---><?php /*}*/?>
+							<td align="center">
+								<?php if($TPL_V2["special"] < 5 && $TPL_V2["live"] == 0){?>
+									스포츠
+								<?php }elseif($TPL_V2["special"] < 5 && $TPL_V2["live"] == 1){?>
+									라이브
+								<?php }elseif($TPL_V2["special"] == 5){?>
+									사다리
+								<?php }elseif($TPL_V2["special"] == 6){?>
+									달팽이
+								<?php }elseif($TPL_V2["special"] == 7){?>
+									파워볼
+								<?php }elseif($TPL_V2["special"] == 8){?>
+									다리다리
+								<?php }elseif($TPL_V2["special"] == 24){?>
+									키노사다리
+								<?php }elseif($TPL_V2["special"] == 25){?>
+									파워사다리
+								<?php }elseif($TPL_V2["special"] == 28){?>
+									로하이
+								<?php }elseif($TPL_V2["special"] == 29){?>
+									알라딘
+								<?php }elseif($TPL_V2["special"] == 30){?>
+									이다리
+								<?php }elseif($TPL_V2["special"] == 31){?>
+									삼다리
+								<?php }elseif($TPL_V2["special"] == 32){?>
+									초이스
+								<?php }elseif($TPL_V2["special"] == 33){?>
+									룰렛
+								<?php }elseif($TPL_V2["special"] == 34){?>
+									파라오
+								<?php } ?>
 							</td>
-							<td>
-<?php if($TPL_V2["game_type"]==1){?>
-									[승무패]
-<?php }elseif($TPL_V2["game_type"]==2){?>
-									[핸디캡]
-<?php }elseif($TPL_V2["game_type"]==3){?>
-									[홀짝]
-<?php }elseif($TPL_V2["game_type"]==4){?>
-									[언더오버]
-<?php }?>
+							<td align="center">
+							<?php
+								$pieces = explode("|", $TPL_V2["mname_ko"]);
+								switch($TPL_V2["sport_id"]) {
+									case 6046: // 축구
+										echo $pieces[0];
+										break;
+									case 48242: // 농구
+										echo $pieces[1];
+										break;
+									case 154914: // 야구
+										echo $pieces[2];
+										break;
+									case 154830: // 배구
+										echo $pieces[3];
+										break;
+									case 35232: // 아이스 하키
+										echo $pieces[4];
+										break;
+								}
+							?>
 							</td>
-							<td><?php echo $TPL_V2["g_date"]?></td>
-							<td><?php echo $TPL_V2["league_name"]?></td>
-							<td <?php if($TPL_V2["select_no"]==1){?>bgcolor='#CEF279'<?php }?>><?php echo $TPL_V2["home_team"]?></td>
-							<td <?php if($TPL_V2["select_no"]==1){?>bgcolor='#CEF279'<?php }?>><?php echo $TPL_V2["home_rate"]?></td>
-							<td <?php if($TPL_V2["select_no"]==3){?>bgcolor='#CEF279'<?php }?> align=center><?php echo $TPL_V2["draw_rate"]?></td>
-							<td <?php if($TPL_V2["select_no"]==2){?>bgcolor='#CEF279'<?php }?>><?php echo $TPL_V2["away_rate"]?></td>
-							<td <?php if($TPL_V2["select_no"]==2){?>bgcolor='#CEF279'<?php }?>><?php echo $TPL_V2["away_team"]?></td>
-							<td><?php echo $TPL_V2["home_score"]?>:<?php echo $TPL_V2["away_score"]?></td>
-							<td>
-<?php if($TPL_V2["select_no"]==1){?>
-									홈팀
-<?php }elseif($TPL_V2["select_no"]==2){?>
-									원정팀
-<?php }else{?>
-									무
-<?php }?>	
+							<td align="center"><?php echo $TPL_V2["g_date"]?></td>
+							<td align="center"><?php echo $TPL_V2["league_name"]?></td>
+							<td align="center" <?php if($TPL_V2["select_no"]==1){?>bgcolor='#CEF279'<?php }?>><?php echo $TPL_V2["home_team"]?></td>
+							<td align="center" <?php if($TPL_V2["select_no"]==1){?>bgcolor='#CEF279'<?php }?>><?php echo $TPL_V2["home_rate"]?></td>
+							<td align="center" <?php if($TPL_V2["select_no"]==3){?>bgcolor='#CEF279'<?php }?> align=center>
+							<?php 
+								switch($TPL_V2["mfamily"]) {
+									case 1:
+										echo $TPL_V2["draw_rate"]; 
+										break;
+									case 2:
+										echo "VS";
+										break;
+									case 7:
+										echo $TPL_V2["home_line"];
+										break;
+									case 8:
+										$home_line = explode(" ", $TPL_V2["home_line"]);
+										echo $home_line[0];
+										break;
+									case 10:
+										echo "VS";
+										break;
+									case 11:
+										echo $TPL_V2["home_name"];
+										break;
+									case 12:
+										echo $TPL_V2["draw_rate"];
+										break;
+									case 47:
+										echo $TPL_V2["home_line"];
+										break;
+								}
+								
+							?>
 							</td>
-							<td>
+							<td align="center" <?php if($TPL_V2["select_no"]==2){?>bgcolor='#CEF279'<?php }?>><?php echo $TPL_V2["away_rate"]?></td>
+							<td align="center" <?php if($TPL_V2["select_no"]==2){?>bgcolor='#CEF279'<?php }?>><?php echo $TPL_V2["away_team"]?></td>
+							<td align="center">
+								<?php 
+									if($TPL_V2["live"] == 1)
+										echo $TPL_V2["score"];
+									else 
+										echo $TPL_V2["home_score"] . "-" . $TPL_V2["away_score"];
+								?>
+							</td>
+							<td align="center">
+								<?php
+									$selectedTeam = "";
+									switch($TPL_V2["mfamily"]) {
+										case 1:
+										case 2:
+											if($TPL_V2["select_no"] == "1")
+												$selectedTeam = '홈팀';
+											else if($TPL_V2["select_no"] == "2") 
+												$selectedTeam = '원정팀';                       
+											else if($TPL_V2["select_no"] == "3")                        
+												$selectedTeam = '무승부'; 
+											break;
+										case 7:
+											if($TPL_V2["select_no"] == "1") {
+												$selectedTeam = '언더 <span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+											} else if($TPL_V2["select_no"] == "2") {
+												$selectedTeam = '오버 <span class="txt_co6">(' . $TPL_V2["away_line"] . ')</span>'; 
+											}
+											break;
+										case 8:
+											if($TPL_V2["select_no"] == "1") {
+												$home_line = explode(" ", $TPL_V2["home_line"]);
+												$selectedTeam = $TPL_V2["home_team"] . '<span class="txt_co6">(' . $home_line[0] . ')</span>';
+											} else if($TPL_V2["select_no"] == "2") {
+												$away_line = explode(" ", $TPL_V2["away_line"]);
+												$selectedTeam = $TPL_V2["away_team"] . '<span class="txt_co6">(' . $away_line[0] . ')</span>'; 
+											}
+											break;
+										case 10:
+											if($TPL_V2["select_no"] == "1")
+												$selectedTeam = '홀수';
+											else if($TPL_V2["select_no"] == "2") 
+												$selectedTeam = '짝수'; 
+											break;
+										case 11:
+											$selectedTeam = $TPL_V2["home_name"];
+											break;
+										case 12:
+											if($TPL_V2["select_no"] == "1")
+												$selectedTeam = '승무';
+											else if($TPL_V2["select_no"] == "2") 
+												$selectedTeam = '무패';                       
+											else if($TPL_V2["select_no"] == "3")                        
+												$selectedTeam = '승패'; 
+											break;
+										case 47:
+											if($TPL_V2["home_name"] == "1 And Under")
+												$selectedTeam = '홈승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+											else if($TPL_V2["home_name"] == "1 And Over") 
+												$selectedTeam = '홈승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';                       
+											else if($TPL_V2["home_name"] == "2 And Under")                        
+												$selectedTeam = '원정승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>'; 
+											else if($TPL_V2["home_name"] == "2 And Over")
+												$selectedTeam = '원정승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+											else if($TPL_V2["home_name"] == "3 And Under")
+												$selectedTeam = '무 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+											else if($TPL_V2["home_name"] == "3 And Over")
+												$selectedTeam = '무 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+											break;
+									}
+									echo $selectedTeam;
+								?>
+							</td>
+							<td align="center">
 <?php if($TPL_V2["win"]==1){?>[홈승]
 <?php }elseif($TPL_V2["win"]==3){?>[무승부]
 <?php }elseif($TPL_V2["win"]==2){?>[원정승]
 <?php }elseif($TPL_V2["win"]==4){?>[취소]
 <?php }?>
 							</td>	
-							<td>
+							<td align="center">
 <?php if($TPL_V2["result"]==0){?>
 									<font color=#666666>진행중</font>
 <?php }elseif($TPL_V2["result"]==1){?>

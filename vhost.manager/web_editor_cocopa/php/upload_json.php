@@ -21,7 +21,7 @@ $max_size = 1000000;
 
 //上传图片 支持按照月份 分类文件夹储存
 if(!file_exists($save_path . 'f_' . date("Ym"))){
- mkdir($save_path . 'f_' . date("Ym"),0777);
+ 	mkdir($save_path . 'f_' . date("Ym"),0777);
 }
 $save_path = $config_upload_root.'upload/images/f_' . date("Ym").'/';
 $save_url = $config_upload_url.'upload/images/f_' . date("Ym").'/';

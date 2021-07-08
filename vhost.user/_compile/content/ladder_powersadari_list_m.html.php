@@ -222,7 +222,7 @@
                                                                                     <tr>
                                                                                         <th class="th-mini">회차</th>
                                                                                         <th class="th-mini">배팅유형</th>
-                                                                                        <th class="th-mini">사이드</th>
+                                                                                        <th class="th-mini">배팅내역</th>
                                                                                         <th class="th-mini">배당율</th>
                                                                                         <th class="th-mini">배팅금</th>
                                                                                         <th class="th-mini">당첨금</th>

@@ -24,10 +24,10 @@ $config_image_root="http://192.168.1.99:89/images/";
 ======================================*/
 
 //$config_upload_root="C:/xampp/htdocs/black/vhost.user/";
-$config_upload_root="/home/gadget/www_gadget_1.com/vhost.user/";
+$config_upload_root="C:/xampp/htdocs/gadget/www_gadget_o2_lsports.com/vhost.user/";
 
 //$config_upload_url="http://black.com/";//메인페이지 주소 / 를 무조건 달아줌
-$config_upload_url="http://black09.com/";//메인페이지 주소 / 를 무조건 달아줌
+$config_upload_url="http://dr-cu.cn/";//메인페이지 주소 / 를 무조건 달아줌
 
 /*======================================
 사이트도메인

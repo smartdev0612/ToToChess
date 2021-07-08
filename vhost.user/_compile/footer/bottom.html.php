@@ -3,10 +3,20 @@
 	<div id="mobile_foot_menu">
 		<ul class="foot_menu">
             <li><span class="ico_customer"><a href="https://telegram.me/<?=$TPL_VAR["telegramID"]?>" target="_blank"><img src="/10bet/images/10bet/ico_telegram_01.png" alt="텔레그램"></a></span></li>
-			<li><span class="ico_customer"><a href="/cs/cs_list"><img src="/10bet/images/10bet/ico_customer_01.png" alt="고객문의" /></a></span></li>
+			<li>
+                <span class="ico_customer">
+                    <a href="/cs/cs_list"><img src="/10bet/images/10bet/ico_customer_01.png" alt="고객문의" /></a>
+                </span>
+            </li>
 			<!--<li><span class="ico_chetting"><img src="/10bet/images/10bet/ico_chetting_01.png" alt="라이브채팅" /></span></li>-->
-            <li><span class="ico_cart" id="ico_betting_cart"><img src="/10bet/images/10bet/ico_cart_01.png" alt="배팅카트" /></span></li>
-            <li><span class="ico_bottom_menu" id="ico_bottom_menu">
+            <li>
+                <span class="ico_cart" id="ico_betting_cart">
+                    배팅카트
+                    <img src="/10bet/images/10bet/ico_cart_01.png" alt="배팅카트" />
+                </span>
+            </li>
+            <li>
+                <span class="ico_bottom_menu" id="ico_bottom_menu">
                     SPORT
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 35" fill="currentColor">
                         <rect width="33" height="7" rx="3.5" ry="3.5"></rect>

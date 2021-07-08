@@ -112,7 +112,16 @@
                         <td class="th-mini"><?php echo number_format($TPL_V1["amount"])?></td>
                         <td class="th-mini"><?php echo $TPL_V1["bank_owner"]?></td>
                         <td class="th-mini"><?php echo $exchangeDate?></td>
-                        <td class="th-mini"><?php if($TPL_V1["state"]==0){?>처리중<?php }elseif($TPL_V1["state"]==1){?>완료<?php }?></td>
+                        <td class="th-mini">
+                            <?php if($TPL_V1["state"] == 0){
+                                    echo "처리중";
+                                } elseif($TPL_V1["state"] == 1){
+                                    echo "완료";
+                                } elseif($TPL_V1["state"] == 2){
+                                    echo "취소";
+                                }
+                            ?>
+                        </td>
                         <td class="th-mini"><?php	if($TPL_V1["state"]==0){echo "-";} else if ( $TPL_V1["state"] == 1 ) {?><a href="/member/exchangelist?exchange_sn=<?php echo $TPL_V1["sn"]?>"><img src="/images/bt_del_1.png" alt="삭제"/></a><?php	}?></td>
                     </tr>
                 <?php

@@ -1134,16 +1134,16 @@ class IndexController extends WebServiceController
 							else $select_val = "짝";
 						} else if ( $gameCode == "p_n-uo" ) {
 							$gameName = "일반볼언오";
-							if ( $TPL_V2["select_no"] == 1 ) $select_val = "언";
-							else $select_val = "오";
+							if ( $TPL_V2["select_no"] == 1 ) $select_val = "언더";
+							else $select_val = "오버";
 						} else if ( $gameCode == "p_p-oe" ) {
 							$gameName = "파워볼홀짝";
 							if ( $TPL_V2["select_no"] == 1 ) $select_val = "홀";
 							else $select_val = "짝";
 						} else if ( $gameCode == "p_p-uo" ) {
 							$gameName = "파워볼언오";
-							if ( $TPL_V2["select_no"] == 1 ) $select_val = "언";
-							else $select_val = "오";
+							if ( $TPL_V2["select_no"] == 1 ) $select_val = "언더";
+							else $select_val = "오버";
 						} else if ( $gameCode == "p_01" ) {
 							$gameName = "파워볼숫자";
 							if ( $TPL_V2["select_no"] == 1 ) $select_val = "0";
@@ -2338,21 +2338,6 @@ class IndexController extends WebServiceController
 			$betting_list = $gameListModel->getMinigameResult($this->auth->getSn(), $special_type, $today);
 		}
 		echo json_encode((array)$betting_list);
-	}
-
-	function test_pageAction()
-	{
-		$this->commonDefine('abroad');
-		$this->view->define(array("content"=>"content/test_page.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$this->display();
 	}
 }
 ?>

@@ -5,8 +5,9 @@
     <title>체스</title>
     <link rel="shortcut icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345890" />
+    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345896" />
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="/include/css/style.css" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
     <script type="text/javascript">var $j = jQuery.noConflict(); jQuery.ajaxSetup({cache:false});</script>
@@ -103,270 +104,12 @@
             divid.filters.blendTrans.play();
         }
     </script>
-
-    <style>
-        .font_11{font-size:11px;font-family:돋움}
-        .popup-content {
-            margin: 10px;
-        }
-            
-        .pagination {
-            margin: 10px 0;
-        }
-
-        .pagination ul {
-            display: inline-block;
-            *display: inline;
-            margin-bottom: 0;
-            margin-left: 0;
-            -webkit-border-radius: 4px;
-                -moz-border-radius: 4px;
-                    border-radius: 4px;
-            *zoom: 1;
-            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-                -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
-
-        .pagination ul > li {
-            display: inline;
-        }
-
-        .pagination ul > li > a,
-        .pagination ul > li > span {
-            float: left;
-            font-size: 1em;
-            padding: 2px 8px;
-            color: #22b486;
-            line-height: 20px;
-            text-decoration: none;
-            border-left-width: 0;
-        }
-
-        .pagination ul > li > a:hover,
-        .pagination ul > li > a:focus,
-        .pagination ul > .active > a,
-        .pagination ul > .active > span {
-            background-color: #22b486;
-            border-radius: 4px;
-        }
-
-        .pagination ul > .active > a,
-        .pagination ul > .active > span {
-            color: #000;
-            cursor: default;
-        }
-
-        .pagination ul > .disabled > span,
-        .pagination ul > .disabled > a,
-        .pagination ul > .disabled > a:hover,
-        .pagination ul > .disabled > a:focus {
-            color: #fff;
-            cursor: default;
-            background-color: transparent;
-        }
-
-        .pagination ul > li:first-child > a,
-        .pagination ul > li:first-child > span {
-            border-radius: 4px;
-        }
-
-        .pagination ul > li:last-child > a,
-        .pagination ul > li:last-child > span {
-            border-radius: 4px;
-        }
-
-        .pagination-centered {
-            text-align: center;
-            font-size: 1.3em;
-        }
-
-        .name {
-            vertical-align: top;
-            font-size: 14px;
-        }
-        .menu2-a {
-            color:white !important; 
-            line-height:24px;
-        }
-        .menu2-img {
-            vertical-align: middle;
-        }
-        .menu2-span {
-            float:right; 
-            margin-right:10px;
-        }
-        .p-badge {
-            margin-top:7px !important;
-            margin-right:10px !important;
-        }
-        .span-badge {
-            float: right;
-            margin-right:10px;
-            margin-top:-5px;
-            color:white;
-        }
-        .sub-ul {
-            width:95% !important; 
-            margin-left:13px !important;
-        }
-        .li-bg {
-            background:#000 !important;
-        }
-        ._w180 {
-            width: 140px;
-        }
-        ._limit {
-            text-overflow:ellipsis;
-            overflow:hidden;
-            white-space:nowrap;
-        }
-        .text_line1{
-            display:inline-block;
-            height:15px;
-        }
-
-        .span-badge-abroad {
-            margin-top:13px !important;
-            margin-right:10px !important;
-            color:white;
-        }
-
-        .btn-center {
-            text-align: center;
-        }
-
-        .confirm-yes:hover {
-            border: 1px solid #ff0000;
-            background: #ff0000;
-        }
-
-        .confirm-yes {
-            width: 20%;
-            height: 30px;
-            border: 1px solid #ff0012;
-            background: #501a1a;
-            border-radius: 3px;
-            font-size: 12px;
-            box-shadow: rgb(0 0 0 / 50%) 0px 2px 3px;
-            margin-bottom: 10px;
-            transition: 200ms all;
-        }
-
-        .confirm-no:hover {
-            border: 1px solid #00bfff;
-            background: #00bfff;
-        }
-
-        .confirm-no {
-            width: 20%;
-            height: 30px;
-            border: 1px solid #00bfff;
-            background: #1a4050;
-            border-radius: 3px;
-            font-size: 12px;
-            box-shadow: rgb(0 0 0 / 50%) 0px 2px 3px;
-            margin-bottom: 10px;
-            transition: 200ms all;
-        }
-
-        .hidden-xs {
-            display: block !important;
-        }
-
-        .hidden-sm {
-            display: none !important;
-        }
-
-        .betting-cart-name {
-            font-size: 0.74rem;
-            text-align: left;
-            width: 80%;
-            float: left;
-            line-height: 26px;
-            color: #ffd200;
-        }
-
-        .lis {
-            display: block;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .checkBtn {
-            height: 40px;
-            border: 1px solid #ff0012;
-            background: #501a1a;
-            border-radius: 3px;
-            padding:5px;
-            position: relative;
-            top: -10px;
-            margin-left:15px;
-        }
-
-        .checkBtn:hover {
-            border: 1px solid #ff0000;
-            background: #ff0000;
-        }
-
-        img {
-            vertical-align: middle;
-        }
-
-        @media screen and (max-width: 900px) { 
-            .hidden-xs {
-                display: none !important;
-            }
-
-            .hidden-sm {
-                display: block !important;
-            }
-
-            .main_minigame ul {
-                height: 160px;
-            }
-
-            .main_minigame ul li .box01 .bottom01 {
-                line-height: 30px;
-            }
-
-            .th-mini {
-                font-size:9px;
-            }
-        }
-    </style>
     <!-- <script type="text/javascript" src="/10bet/js/10bet/jquery-2.0.3.min.js"></script> -->
     <script type="text/javascript">
         jQuery.noConflict();
         var $j = jQuery;
     </script>
 
-    
-    <script type="text/javascript">
-        function MM_preloadImages() { //v3.0
-            var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
-            var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
-            if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
-        }
-
-        function MM_findObj(n, d) { //v4.01
-            var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-                d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-            if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-            for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
-            if(!x && d.getElementById) x=d.getElementById(n); return x;
-        }
-
-        function MM_swapImgRestore() { //v3.0
-            var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
-        }
-
-        function MM_swapImage() { //v3.0
-            var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
-            if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
-        }
-    </script>
     <script type="text/javascript" src="/10bet/js/clock.js?20160309"></script> 
     
     <div id="loading">
@@ -630,7 +373,8 @@
                         <!-- 유저 정보 -->
                         <div class="user_box box_type02">
                             <div class="user_name">
-                                <img src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png' style="margin-top:6px;">&nbsp; <?=$TPL_VAR["nick"]?>
+                                <img src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png' >&nbsp; <?=$TPL_VAR["nick"]?>
+                                <span class="change" onClick="location.href='/member/member'">나의 정보</span>
                             </div>
                             <div class="money">
                                 <span class="head">

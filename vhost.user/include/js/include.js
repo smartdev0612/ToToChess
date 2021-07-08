@@ -256,7 +256,7 @@ function warning_popup(text) {
     $j("#warning_popup .pop_message").text(text);
     $j("#warning_popup").fadeIn();
     $j("#coverBG").fadeIn();
-    setTimeout(warning_popup_close, 1500);
+    // setTimeout(warning_popup_close, 1500);
 }
 
 function warning_popup_close() {
@@ -502,7 +502,7 @@ ws.onopen = function (event) {
 };
 
 ws.onmessage = function (event) {
-    try {
+    // try {
         var objPacket = JSON.parse(event.data);
         
         if(objPacket.m_nPacketCode == PACKET_SPORT_LIST) {
@@ -527,10 +527,10 @@ ws.onmessage = function (event) {
         else if(objPacket.m_nPacketCode == PACKET_POWERBALL_TIME) {
             realTime(objPacket.m_strPacket);
         }
-    }
-    catch(err) {
-        console.log(err.message);
-    }
+    // }
+    // catch(err) {
+    //     console.log(err.message);
+    // }
 }
 
 function sendPacket(nPacketCode, strPacket) {

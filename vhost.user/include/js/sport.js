@@ -224,6 +224,7 @@ function toggle_multi($tr, $index, selectedRate)
 	$j('div[name='+$tr+'] input:checkbox').each( function(index) {		
 		if(index != $index) { 
 			this.checked=false;
+
 		}
 	});
 	
@@ -268,10 +269,28 @@ function toggle_multi($tr, $index, selectedRate)
 		if(this.checked==true) 
 		{
 			$j(this).parent().addClass("on");
+			var chk_id = $(this).attr('id');
+			var betid = 0;
+			if(chk_id !== undefined) {
+				var pieces = chk_id.split("_");
+				betid = pieces[0];
+			}
+			
+			if(localStorage.getItem(`selected_${betid}`) === null)
+                localStorage.setItem(`selected_${betid}`, betid);
 		}
 		else
 		{ 
 			$j(this).parent().removeClass("on");
+			var chk_id = $(this).attr('id');
+			var betid = 0;
+			if(chk_id !== undefined) {
+				var pieces = chk_id.split("_");
+				betid = pieces[0];
+			}
+
+			if(localStorage.getItem(`selected_${betid}`) !== null)
+                localStorage.removeItem(`selected_${betid}`);
 		}
 	});
 	
@@ -1327,6 +1346,16 @@ function del_bet($game_index, bonusFlag) {
 		this.checked = false;
 		$div = $j(this).parent();
 		$div.removeClass('on');
+
+		var chk_id = $(this).attr('id');
+		var betid = 0;
+		if(chk_id !== undefined) {
+			var pieces = chk_id.split("_");
+			betid = pieces[0];
+		}
+
+		if(localStorage.getItem(`selected_${betid}`) !== null)
+			localStorage.removeItem(`selected_${betid}`);
 	});
 
 	m_betList.removeItem($game_index);
@@ -1355,7 +1384,7 @@ function bet_clear()
 
 
 // ------------------------- item -----------------------------------------------------------------
-function Item(game_index, home_team, away_team, chckbox_index, select_rate, home_rate, draw_rate, away_rate, game_type, sub_child_sn, is_specified_special, game_date, league_sn, sport_name, s_type, betid, market_name, home_line, away_line, home_name) 
+function Item(game_index, home_team, away_team, chckbox_index, select_rate, home_rate, draw_rate, away_rate, game_type, sub_child_sn, is_specified_special, game_date, league_sn, sport_name, s_type, betid, market_name, home_line, away_line, home_name, home_betid, away_betid, draw_betid) 
 {
 	this._game_index = game_index;
 	this._home_team = home_team;
@@ -1377,6 +1406,9 @@ function Item(game_index, home_team, away_team, chckbox_index, select_rate, home
 	this._home_line = home_line;
 	this._away_line = away_line;
 	this._home_name = home_name;
+	this._home_betid = home_betid;
+	this._away_betid = away_betid;
+	this._draw_betid = draw_betid;
 }
 
 Item.prototype._game_index;
@@ -1399,6 +1431,9 @@ Item.prototype._market_name;
 Item.prototype._home_line;
 Item.prototype._away_line;
 Item.prototype._home_name;
+Item.prototype._home_betid;
+Item.prototype._away_betid;
+Item.prototype._draw_betid;
 
 function BetList() 
 {
@@ -1493,7 +1528,7 @@ function del_bet_list(num)
 
 function add_bet_list(item)
 {
-	console.log(item);
+	// console.log(item);
 	var table 	= document.getElementById("tb_list");
 	var tr0		= table.insertRow(table.rows.length);
 	var tr1 	= table.insertRow(table.rows.length);
@@ -1522,6 +1557,15 @@ function add_bet_list(item)
 	var home_team = item._home_team;
 	var away_team = item._away_team;
 	var team_name = item._home_team + " VS " + item._away_team;
+
+	var selected_betid = 0;
+
+	if(selectedTeam == "0")
+		selected_betid = item._home_betid;
+	else if(selectedTeam == "1")
+		selected_betid = item._draw_betid;
+	else if(selectedTeam == "2")
+		selected_betid = item._away_betid;
 
 	var pieces = item._game_index.split("_");
 	var family_id = pieces[2];
@@ -1594,7 +1638,7 @@ function add_bet_list(item)
 						</h4>
 						<div class="result">
 							<p class="betting-cart-name lis"><b>${selectedTeam}</b></p> 
-							<span>${parseFloat(item._selct_rate).toFixed(2)}</span>
+							<span id="${selected_betid}_cart">${parseFloat(item._selct_rate).toFixed(2)}</span>
 						</div>
 					</li>`;
 
@@ -1603,6 +1647,31 @@ function add_bet_list(item)
 
 	//다폴더
 	folderBonusHTML();
+}
+
+function updateCart(selected_id, betid, rate) {
+	if(m_betList._items.length > 0) {
+		for(i=0; i<m_betList._items.length; ++i)
+		{
+			if(selected_id == 0) {
+				if(m_betList._items[i]._home_betid == betid) {
+					m_betList._items[i]._home_rate = rate;
+					m_betList._items[i]._selct_rate = rate;
+				}
+			} else if (selected_id == 1) {
+				if(m_betList._items[i]._draw_betid == betid) {
+					m_betList._items[i]._draw_rate = rate;
+					m_betList._items[i]._selct_rate = rate;
+				}
+			} else if (selected_id == 2) {
+				if(m_betList._items[i]._away_betid == betid) {
+					m_betList._items[i]._away_rate = rate;
+					m_betList._items[i]._selct_rate = rate;
+				}
+			}
+		}
+		calc();
+	}
 }
 
 function folderBonusHTML()

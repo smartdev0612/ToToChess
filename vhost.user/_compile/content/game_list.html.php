@@ -453,6 +453,9 @@
             $sub_sn = $j("#" + $game_index + "_sub_sn").val();
             $game_date = $j("#" + $game_index + "_game_date").val();
             $market_name = $j("#" + $game_index + "_market_name").val();
+            $home_betid = $j("#" + $game_index + "_home_betid").val();
+            $away_betid = $j("#" + $game_index + "_away_betid").val();
+            $draw_betid = $j("#" + $game_index + "_draw_betid").val();
             $home_line = $j("#" + $game_index + "_home_line").val();
             $away_line = $j("#" + $game_index + "_away_line").val();
             $home_name = $j("#" + $game_index + "_home_name").val();
@@ -484,9 +487,9 @@
             //insert game
             if (toggle_action == 'inserted') {
                 
-                var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid, $market_name, $home_line, $away_line, $home_name);
+                var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid, $market_name, $home_line, $away_line, $home_name, $home_betid, $away_betid, $draw_betid);
                 m_betList.addItem(item);
-        
+
                 //betcon = betcon.add_element($game_index + "|" + $index + "&" + $home_team + "  VS " + $away_team);
                 var isdisabled = true;
             }
@@ -663,20 +666,41 @@
                         }
                         else {
                             //배당자료업데이트
-                            if(document.getElementById(`${djson.m_nHBetCode}`) != null)
-                                document.getElementById(`${djson.m_nHBetCode}`).innerHTML = djson.m_fHRate.toFixed(2);
-                            if(document.getElementById(`${djson.m_nDBetCode}`) != null)
-                                document.getElementById(`${djson.m_nDBetCode}`).innerHTML = djson.m_fDRate.toFixed(2);
-                            if(document.getElementById(`${djson.m_nABetCode}`) != null)
-                                document.getElementById(`${djson.m_nABetCode}`).innerHTML = djson.m_fARate.toFixed(2);
-
                             var sub_idx = `${json.m_nGame}_${djson.m_nMarket}_${djson.m_nFamily}`;
-                            if(document.getElementById(`${sub_idx}_home_rate`) != null && document.getElementById(`${sub_idx}_home_rate`) != undefined)
-                                document.getElementById(`${sub_idx}_home_rate`).value = djson.m_fHRate.toFixed(2);
-                            if(document.getElementById(`${sub_idx}_draw_rate`) != null && document.getElementById(`${sub_idx}_draw_rate`) != undefined)
-                                document.getElementById(`${sub_idx}_draw_rate`).value = djson.m_fDRate.toFixed(2);
-                            if(document.getElementById(`${sub_idx}_away_rate`) != null && document.getElementById(`${sub_idx}_away_rate`) != undefined)
-                                document.getElementById(`${sub_idx}_away_rate`).value = djson.m_fARate.toFixed(2);
+                            if(document.getElementById(`${djson.m_nHBetCode}`) != null) {
+                                document.getElementById(`${djson.m_nHBetCode}`).innerHTML = djson.m_fHRate.toFixed(2);
+                            }
+                            if(document.getElementById(`${sub_idx}_home_rate`) != null)
+                                document.getElementById(`${sub_idx}_home_rate`).value = djson.m_fHRate.toFixed(2); 
+
+                            if(document.getElementById(`${djson.m_nDBetCode}`) != null) {
+                                document.getElementById(`${djson.m_nDBetCode}`).innerHTML = djson.m_fDRate.toFixed(2);
+                            }
+                            if(document.getElementById(`${sub_idx}_draw_rate`) != null) 
+                                document.getElementById(`${sub_idx}_draw_rate`).value = djson.m_fDRate.toFixed(2);   
+                            
+
+                            if(document.getElementById(`${djson.m_nABetCode}`) != null) {
+                                document.getElementById(`${djson.m_nABetCode}`).innerHTML = djson.m_fARate.toFixed(2);
+                            }
+                            if(document.getElementById(`${sub_idx}_away_rate`) != null) 
+                                document.getElementById(`${sub_idx}_away_rate`).value = djson.m_fARate.toFixed(2);  
+
+                            // 배팅카트의 배당 업데이트
+                            if(document.getElementById(`${djson.m_nHBetCode}_cart`) != null) {
+                                document.getElementById(`${djson.m_nHBetCode}_cart`).innerHTML = djson.m_fHRate.toFixed(2);
+                                updateCart(0, djson.m_nHBetCode, djson.m_fHRate);
+                            }
+
+                            if(document.getElementById(`${djson.m_nDBetCode}_cart`) != null) {
+                                document.getElementById(`${djson.m_nDBetCode}_cart`).innerHTML = djson.m_fDRate.toFixed(2);
+                                updateCart(1, djson.m_nDBetCode, djson.m_fDRate);
+                            }
+
+                            if(document.getElementById(`${djson.m_nABetCode}_cart`) != null) { 
+                                document.getElementById(`${djson.m_nABetCode}_cart`).innerHTML = djson.m_fARate.toFixed(2);
+                                updateCart(2, djson.m_nABetCode, djson.m_fARate);
+                            }
                         }
                     }
         
@@ -1043,6 +1067,9 @@
             div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + gameDate + '">';
             div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '">';
             div += '<input type="hidden" id="' + sub_idx + '_market_name" value="승무패">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + detail.m_nHBetCode + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + detail.m_nABetCode + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + detail.m_nDBetCode + '">';
             div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + detail.m_strHLine + '">';
             div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
             div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '"></div>';
@@ -1103,6 +1130,9 @@
             div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + gameDate + '">';
             div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '">';
             div += '<input type="hidden" id="' + sub_idx + '_market_name" value="승패">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + detail.m_nHBetCode + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + detail.m_nABetCode + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + detail.m_nDBetCode + '">';
             div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + detail.m_strHLine + '">';
             div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
             div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '"></div>';
@@ -1162,6 +1192,9 @@
             div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + gameDate + '">';
             div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '">';
             div += '<input type="hidden" id="' + sub_idx + '_market_name" value="언더오버">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + detail.m_nHBetCode + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + detail.m_nABetCode + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + detail.m_nDBetCode + '">';
             div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + detail.m_strHLine + '">';
             div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
             div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '"></div>';
@@ -1221,6 +1254,9 @@
             div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + gameDate + '">';
             div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + league_sn + '">';
             div += '<input type="hidden" id="' + sub_idx + '_market_name" value="핸디캡">';
+            div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + detail.m_nHBetCode + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + detail.m_nABetCode + '">';
+            div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + detail.m_nDBetCode + '">';
             div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + detail.m_strHLine + '">';
             div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
             div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '"></div>';

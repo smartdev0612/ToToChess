@@ -1,4 +1,4 @@
-@import url("common_800.css?v=66");
+@import url("common_800.css?v=69");
 @import url("common_800_1200.css?v=1");
 
 @charset "utf-8";
@@ -128,7 +128,7 @@ header #gnb .arrow_area button {width:45px;display:block;margin:1px auto 1px aut
 
 @media (max-width:800px) {
 	div {
-		font-size:0.6rem !important;
+		font-size:0.6rem;
 	}
 }
 
@@ -398,18 +398,18 @@ header .mobile_user_section .logo img {height:50px;}
 .user_box .member_join:hover {border:1px solid #00bfff;background:#00bfff;}
 .user_box .user_name {height:30px;border:1px solid #434347;background:#222227;border-radius:3px;font-size:12px;box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;padding:0px 20px;line-height:26px;font-weight:bold;margin-bottom:4px;}
 .user_box .user_name span {display:inline-block;width:auto;}
-.user_box .money {height:30px;border:1px solid #434347;color:#f2ae53;background:#222227;border-radius:3px;font-size:12px;box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;padding:0px 20px;line-height:26px;font-weight:bold;margin-bottom:4px;}
+.user_box .money {height:30px;border:1px solid #434347;color:#f2ae53;background:#222227;border-radius:3px;font-size:12px;box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;padding:0px 10px;line-height:26px;font-weight:bold;margin-bottom:4px;}
 .user_box .money img {vertical-align:middle;margin-bottom:2px;}
 .user_box .money .head {display:inline-block;color:#ffffff;width:75px;}
 .user_box .point {height:30px;border:1px solid #434347;color:#f2ae53;background:#222227;border-radius:3px;font-size:12px;box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
-	padding:0px 20px;line-height:26px;font-weight:bold;margin-bottom:4px;cursor:pointer;position:relative;transition:200ms all;}
+	padding:0px 10px;line-height:26px;font-weight:bold;margin-bottom:4px;cursor:pointer;position:relative;transition:200ms all;}
 .user_box .point:hover {background:#3f404b;}
 .user_box .point img {vertical-align:middle;margin-bottom:2px;}
 .user_box .point .head {display:inline-block;color:#ffffff;width:75px;}
 .user_box .point .change {position:absolute;top:0;right:20px;color:#ffffff;}
 .user_box .btn_list {margin:0px 0px 5px -5px;*zoom:1;}
 .user_box .btn_list:after {content:" ";display:block;clear:both;height:0;visibility:hidden;}
-.user_box .btn_list button {width:80px;height:30px;border:1px solid #434347;background:#222227;border-radius:3px;font-size:12px;box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 3px;float:left;margin-left:5px;
+.user_box .btn_list button {width:80px;height:30px;border:1px solid #434347;background:#222227;border-radius:3px;font-size:12px;box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 3px;float:left;margin-left:5px !important;
 	line-height:26px;font-weight:bold;margin-bottom:4px;cursor:pointer;position:relative;transition:200ms all;}
 .user_box .btn_list button:hover {background:#3f404b;}
 .user_box .btn_list button span {border:1px solid #ff0012;background:#501a1a;text-align:center;display:inline-block;line-height:18px;vertical-align:top;width:30px;height:20px;border-radius:2px;margin:2px 0px 0px 4px;box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;}

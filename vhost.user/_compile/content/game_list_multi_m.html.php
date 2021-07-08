@@ -432,6 +432,9 @@
         $sub_sn = $j("#" + $game_index + "_sub_sn").val();
         $game_date = $j("#" + $game_index + "_game_date").val();
         $market_name = $j("#" + $game_index + "_market_name").val();
+        $home_betid = $j("#" + $game_index + "_home_betid").val();
+        $away_betid = $j("#" + $game_index + "_away_betid").val();
+        $draw_betid = $j("#" + $game_index + "_draw_betid").val();
         $home_line = $j("#" + $game_index + "_home_line").val();
         $away_line = $j("#" + $game_index + "_away_line").val();
         $home_name = $j("#" + $game_index + "_home_name").val();
@@ -466,7 +469,7 @@
         var toggle_action = toggle_multi($game_index + '_div', $index, selectedRate);
         //insert game
         if (toggle_action == 'inserted') {
-            var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid, $market_name, $home_line, $away_line, $home_name);
+            var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid, $market_name, $home_line, $away_line, $home_name, $home_betid, $away_betid, $draw_betid);
             m_betList.addItem(item);
 
             //betcon = betcon.add_element($game_index + "|" + $index + "&" + $home_team + "  VS " + $away_team);
@@ -625,29 +628,47 @@
                     var djson = json.m_lstDetail.find(val => val.m_nHBetCode == showJson[i].m_lstDetail[j].m_nHBetCode && val.m_nDBetCode == showJson[i].m_lstDetail[j].m_nDBetCode && val.m_nABetCode == showJson[i].m_lstDetail[j].m_nABetCode);
                     if(djson != null && djson != undefined) {
                         //배당자료업데이트
+                        var sub_idx = `${json.m_nGame}_${djson.m_nMarket}_${djson.m_nFamily}`;
                         if(djson.m_fHRate != showJson[i].m_lstDetail[j].m_fHRate) {
                             var obj = document.getElementById(`${djson.m_nHBetCode}`);
-                            if(obj != null && obj != undefined)
+                            if(obj != null && obj != undefined) {
                                 document.getElementById(`${djson.m_nHBetCode}`).innerHTML = djson.m_fHRate.toFixed(2);
+                            }
+                            if(document.getElementById(`${sub_idx}_home_rate`) != null && document.getElementById(`${sub_idx}_home_rate`) != undefined)
+                                document.getElementById(`${sub_idx}_home_rate`).value = djson.m_fHRate.toFixed(2);
                         }
                         if(djson.m_fDRate != showJson[i].m_lstDetail[j].m_fDRate) {
                             var obj = document.getElementById(`${djson.m_nDBetCode}`);
-                            if(obj != null && obj != undefined)
+                            if(obj != null && obj != undefined) {
                                 document.getElementById(`${djson.m_nDBetCode}`).innerHTML = djson.m_fDRate.toFixed(2);
+                            }
+                            if(document.getElementById(`${sub_idx}_draw_rate`) != null && document.getElementById(`${sub_idx}_draw_rate`) != undefined)
+                                document.getElementById(`${sub_idx}_draw_rate`).value = djson.m_fDRate.toFixed(2);
                         }
                         if(djson.m_fARate != showJson[i].m_lstDetail[j].m_fARate) {
                             var obj = document.getElementById(`${djson.m_nABetCode}`);
-                            if(obj != null && obj != undefined)
+                            if(obj != null && obj != undefined) {
                                 document.getElementById(`${djson.m_nABetCode}`).innerHTML = djson.m_fARate.toFixed(2);
+                            }
+                            if(document.getElementById(`${sub_idx}_away_rate`) != null && document.getElementById(`${sub_idx}_away_rate`) != undefined)
+                                document.getElementById(`${sub_idx}_away_rate`).value = djson.m_fARate.toFixed(2);
+                        } 
+
+                        // 배팅카트의 배당 업데이트
+                        if(document.getElementById(`${djson.m_nHBetCode}_cart`) != null) {
+                            document.getElementById(`${djson.m_nHBetCode}_cart`).innerHTML = djson.m_fHRate.toFixed(2);
+                            updateCart(0, djson.m_nHBetCode, djson.m_fHRate);
                         }
 
-                        var sub_idx = `${json.m_nGame}_${djson.m_nMarket}_${djson.m_nFamily}`;
-                        if(document.getElementById(`${sub_idx}_home_rate`) != null && document.getElementById(`${sub_idx}_home_rate`) != undefined)
-                            document.getElementById(`${sub_idx}_home_rate`).value = djson.m_fHRate.toFixed(2);
-                        if(document.getElementById(`${sub_idx}_draw_rate`) != null && document.getElementById(`${sub_idx}_draw_rate`) != undefined)
-                            document.getElementById(`${sub_idx}_draw_rate`).value = djson.m_fDRate.toFixed(2);
-                        if(document.getElementById(`${sub_idx}_away_rate`) != null && document.getElementById(`${sub_idx}_away_rate`) != undefined)
-                            document.getElementById(`${sub_idx}_away_rate`).value = djson.m_fARate.toFixed(2);
+                        if(document.getElementById(`${djson.m_nDBetCode}_cart`) != null) {
+                            document.getElementById(`${djson.m_nDBetCode}_cart`).innerHTML = djson.m_fDRate.toFixed(2);
+                            updateCart(1, djson.m_nDBetCode, djson.m_fDRate);
+                        }
+
+                        if(document.getElementById(`${djson.m_nABetCode}_cart`) != null) { 
+                            document.getElementById(`${djson.m_nABetCode}_cart`).innerHTML = djson.m_fARate.toFixed(2);
+                            updateCart(2, djson.m_nABetCode, djson.m_fARate);
+                        }
                     }
 
                     djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket);
@@ -831,6 +852,9 @@
             div += '<input type="hidden" id="' + sub_idx + '_market_name" value="승무패">';
         else if(detail.m_nFamily == 2)
             div += '<input type="hidden" id="' + sub_idx + '_market_name" value="승패">';
+        div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + detail.m_nHBetCode + '">';
+        div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + detail.m_nABetCode + '">';
+        div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + detail.m_nDBetCode + '">';
         div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + detail.m_strHLine + '">';
         div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
         div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '">';
@@ -2463,6 +2487,9 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + item.m_nHBetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + item.m_nABetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + item.m_nDBetCode + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
@@ -2507,6 +2534,9 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + item.m_nHBetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + item.m_nABetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + item.m_nDBetCode + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
@@ -2554,6 +2584,9 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + item.m_nHBetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + item.m_nABetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + item.m_nDBetCode + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
@@ -2599,6 +2632,9 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + item.m_nHBetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + item.m_nABetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + item.m_nDBetCode + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
@@ -2642,6 +2678,9 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + item.m_nHBetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + item.m_nABetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + item.m_nDBetCode + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
@@ -2690,6 +2729,9 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + item.m_nHBetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + item.m_nABetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + item.m_nDBetCode + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
@@ -2737,6 +2779,9 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + item.m_nHBetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + item.m_nABetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + item.m_nDBetCode + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
@@ -2798,6 +2843,9 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_rate" value="' + item.m_fARate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_game_date" value="' + item.m_strDate + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_market_name" value="' + header + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_home_betid" value="' + item.m_nHBetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_away_betid" value="' + item.m_nABetCode + '">';
+            children_div += '<input type="hidden" id="' + sub_idx + '_draw_betid" value="' + item.m_nDBetCode + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_line" value="' + item.m_strHLine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';

@@ -431,39 +431,39 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 							?>
 								</td>
 								<td width="60" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666<?php if($TPL_V2["select_no"]==3){?>;background :#fff111<?php }?>">
-							<?php 
-								switch($TPL_V2["mfamily"]) {
-									case 1:
-										if ( $TPL_V2["select_no"] == 3 and $TPL_V2["game_draw_rate"] != $TPL_V2["select_rate"] ) 
-											echo $TPL_V2["draw_rate"]." <span style='color:red;'>[<b>".$TPL_V2["game_draw_rate"]."</b>]</span>";
-										else 
-											echo $TPL_V2["draw_rate"]; 
-										break;
-									case 2:
-										echo "VS";
-										break;
-									case 7:
-										echo $TPL_V2["home_line"];
-										break;
-									case 8:
-										$home_line = explode(" ", $TPL_V2["home_line"]);
-										echo $home_line[0];
-										break;
-									case 10:
-										echo "VS";
-										break;
-									case 11:
-										echo $TPL_V2["home_name"];
-										break;
-									case 12:
-										echo $TPL_V2["draw_rate"];
-										break;
-									case 47:
-										echo $TPL_V2["home_line"];
-										break;
-								}
-								
-							?>
+									<?php 
+										switch($TPL_V2["mfamily"]) {
+											case 1:
+												if ( $TPL_V2["select_no"] == 3 and $TPL_V2["game_draw_rate"] != $TPL_V2["select_rate"] ) 
+													echo $TPL_V2["draw_rate"]." <span style='color:red;'>[<b>".$TPL_V2["game_draw_rate"]."</b>]</span>";
+												else 
+													echo $TPL_V2["draw_rate"]; 
+												break;
+											case 2:
+												echo "VS";
+												break;
+											case 7:
+												echo $TPL_V2["home_line"];
+												break;
+											case 8:
+												$home_line = explode(" ", $TPL_V2["home_line"]);
+												echo $home_line[0];
+												break;
+											case 10:
+												echo "VS";
+												break;
+											case 11:
+												echo $TPL_V2["home_name"];
+												break;
+											case 12:
+												echo $TPL_V2["draw_rate"];
+												break;
+											case 47:
+												echo $TPL_V2["home_line"];
+												break;
+										}
+										
+									?>
 								</td>
 								<td width="20" align="" style="border-bottom:1px #CCCCCC solid;color: #666666<?php if($TPL_V2["select_no"]==2){?>;background :#fff111<?php }?>">
 							<?php
@@ -475,68 +475,68 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 								</td>
 								<td width="100" align="" style="border-bottom:1px #CCCCCC solid;color: #666666<?php if($TPL_V2["select_no"]==2){?>;background :#fff111<?php }?>"><?php echo $awayTeamNameAdd . $TPL_V2["away_team"]?></td>
 								<td width="40" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666">
-							<?php
-								$selectedTeam = "";
-								switch($TPL_V2["mfamily"]) {
-									case 1:
-									case 2:
-										if($TPL_V2["select_no"] == "1")
-											$selectedTeam = '홈팀';
-										else if($TPL_V2["select_no"] == "2") 
-											$selectedTeam = '원정팀';                       
-										else if($TPL_V2["select_no"] == "3")                        
-											$selectedTeam = '무승부'; 
-										break;
-									case 7:
-										if($TPL_V2["select_no"] == "1") {
-											$selectedTeam = '언더 <span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
-										} else if($TPL_V2["select_no"] == "2") {
-											$selectedTeam = '오버 <span class="txt_co6">(' . $TPL_V2["away_line"] . ')</span>'; 
-										}
-										break;
-									case 8:
-										if($TPL_V2["select_no"] == "1") {
-											$home_line = explode(" ", $TPL_V2["home_line"]);
-											$selectedTeam = $TPL_V2["home_team"] . '<span class="txt_co6">(' . $home_line[0] . ')</span>';
-										} else if($TPL_V2["select_no"] == "2") {
-											$away_line = explode(" ", $TPL_V2["away_line"]);
-											$selectedTeam = $TPL_V2["away_team"] . '<span class="txt_co6">(' . $away_line[0] . ')</span>'; 
-										}
-										break;
-									case 10:
-										if($TPL_V2["select_no"] == "1")
-											$selectedTeam = '홀수';
-										else if($TPL_V2["select_no"] == "2") 
-											$selectedTeam = '짝수'; 
-										break;
-									case 11:
-										$selectedTeam = $TPL_V2["home_name"];
-										break;
-									case 12:
-										if($TPL_V2["select_no"] == "1")
-											$selectedTeam = '승무';
-										else if($TPL_V2["select_no"] == "2") 
-											$selectedTeam = '무패';                       
-										else if($TPL_V2["select_no"] == "3")                        
-											$selectedTeam = '승패'; 
-										break;
-									case 47:
-										if($TPL_V2["home_name"] == "1 And Under")
-											$selectedTeam = '홈승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
-										else if($TPL_V2["home_name"] == "1 And Over") 
-											$selectedTeam = '홈승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';                       
-										else if($TPL_V2["home_name"] == "2 And Under")                        
-											$selectedTeam = '원정승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>'; 
-										else if($TPL_V2["home_name"] == "2 And Over")
-											$selectedTeam = '원정승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
-										else if($TPL_V2["home_name"] == "3 And Under")
-											$selectedTeam = '무 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
-										else if($TPL_V2["home_name"] == "3 And Over")
-											$selectedTeam = '무 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
-										break;
-								}
-								echo $selectedTeam;
-							?>
+								<?php
+									$selectedTeam = "";
+									switch($TPL_V2["mfamily"]) {
+										case 1:
+										case 2:
+											if($TPL_V2["select_no"] == "1")
+												$selectedTeam = '홈팀';
+											else if($TPL_V2["select_no"] == "2") 
+												$selectedTeam = '원정팀';                       
+											else if($TPL_V2["select_no"] == "3")                        
+												$selectedTeam = '무승부'; 
+											break;
+										case 7:
+											if($TPL_V2["select_no"] == "1") {
+												$selectedTeam = '언더 <span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+											} else if($TPL_V2["select_no"] == "2") {
+												$selectedTeam = '오버 <span class="txt_co6">(' . $TPL_V2["away_line"] . ')</span>'; 
+											}
+											break;
+										case 8:
+											if($TPL_V2["select_no"] == "1") {
+												$home_line = explode(" ", $TPL_V2["home_line"]);
+												$selectedTeam = $TPL_V2["home_team"] . '<span class="txt_co6">(' . $home_line[0] . ')</span>';
+											} else if($TPL_V2["select_no"] == "2") {
+												$away_line = explode(" ", $TPL_V2["away_line"]);
+												$selectedTeam = $TPL_V2["away_team"] . '<span class="txt_co6">(' . $away_line[0] . ')</span>'; 
+											}
+											break;
+										case 10:
+											if($TPL_V2["select_no"] == "1")
+												$selectedTeam = '홀수';
+											else if($TPL_V2["select_no"] == "2") 
+												$selectedTeam = '짝수'; 
+											break;
+										case 11:
+											$selectedTeam = $TPL_V2["home_name"];
+											break;
+										case 12:
+											if($TPL_V2["select_no"] == "1")
+												$selectedTeam = '승무';
+											else if($TPL_V2["select_no"] == "2") 
+												$selectedTeam = '무패';                       
+											else if($TPL_V2["select_no"] == "3")                        
+												$selectedTeam = '승패'; 
+											break;
+										case 47:
+											if($TPL_V2["home_name"] == "1 And Under")
+												$selectedTeam = '홈승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+											else if($TPL_V2["home_name"] == "1 And Over") 
+												$selectedTeam = '홈승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';                       
+											else if($TPL_V2["home_name"] == "2 And Under")                        
+												$selectedTeam = '원정승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>'; 
+											else if($TPL_V2["home_name"] == "2 And Over")
+												$selectedTeam = '원정승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+											else if($TPL_V2["home_name"] == "3 And Under")
+												$selectedTeam = '무 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+											else if($TPL_V2["home_name"] == "3 And Over")
+												$selectedTeam = '무 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+											break;
+									}
+									echo $selectedTeam;
+								?>
 								</td>
 								<td width="40" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666"><?php echo $TPL_V2["select_rate"];?></td>
 								<td width="20" align="" style="border-bottom:1px #CCCCCC solid;color: #666666"><a href="javascript:open_window('/member/popup_bet_detail?idx=<?php echo $TPL_V2["sub_child_sn"]?>',600,400)"><?=number_format($TPL_V2["nTotalBetMoney"],0)?></a></td>

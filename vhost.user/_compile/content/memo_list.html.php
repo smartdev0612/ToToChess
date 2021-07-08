@@ -248,20 +248,6 @@
     }
 </style>
 <!--좌측메뉴 -->
-<script>
-    var VarBoTable = "a10";
-    var VarBoTable2 = "a25";
-    var VarCaId = "";
-    var VarColspan = "7";
-    $j().ready(function(){
-        path = '/ajax.list.php?bo_table=a10&ca=&sca=&sfl=&stx=&b_type=2';
-        init("" + g4_path + path);
-        
-        path2 = '/ajax.list.php?bo_table=a25&ca=&sca=&sfl=&stx=';
-        init2("" + g4_path + path2);
-        //setInterval("init('"+g4_path+ path +"')", 30000);
-    });
-</script>
 <script type="text/javascript" src="/10bet/js/left.js?1610683365"></script>
 
     <div id="contents">
@@ -270,14 +256,12 @@
             <div class="message_count">쪽지 <span>총 <?php echo $TPL_list_1?> 개</span> 입니다.</div>
             <div class="board_list">
                 <table cellpadding="0" cellspacing="0" border="0">
-                    <colgroup><col width="10%" /><col width="*" /><col width="20%" /><col width="10%" /><col width="10%" /></colgroup>
                     <thead>
                         <tr>
-                            <th>번호</th>
-                            <th>내용</th>
-                            <th>받은 시간</th>
-                            <th>상태</th>
-                            <th>처리</th>
+                            <th class="th-mini">내용</th>
+                            <th class="th-mini">받은 시간</th>
+                            <th class="th-mini">상태</th>
+                            <th class="th-mini">처리</th>
                         </tr>
                     <thead>
                     <tbody>
@@ -288,24 +272,18 @@
                                 $TPL_I1++;
                         ?>
                         <tr onclick="memo_toggle('<?php echo $TPL_I1+1?>', '<?php echo $TPL_V1["mem_idx"]?>');" style="cursor:pointer;">
-                            <td><?php echo ($TPL_I1 + 1)?></td>
-                            <td class="ta_left"><?php echo $TPL_V1["title"]?></td>
-                            <td><?php echo substr($TPL_V1["writeday"],5,19)?></td>
-                            <td>
+                            <td class="th-mini"><?php echo $TPL_V1["title"]?></td>
+                            <td class="th-mini"><?php echo substr($TPL_V1["writeday"],5,11)?></td>
+                            <td class="th-mini">
                                 <input type="hidden" id="readStatus_<?=$TPL_I1 + 1?>" value="<?=$TPL_V1["newreadnum"]?>">
                                 <span id="span_status_<?=$TPL_I1 + 1?>"><?=($TPL_V1["newreadnum"] == 1) ? "읽음" : "읽지 않음"?></span>
                             </td>
-                            <td  class='state'><a href="javascript:void(0)" onclick="dodel('?mode=del&id=<?php echo $TPL_V1["mem_idx"]?>')" class="btn btn-danger" style="color: #ffa604;">삭제</a></td>
+                            <td  class='state th-mini'><a href="javascript:void(0)" onclick="dodel('?mode=del&id=<?php echo $TPL_V1["mem_idx"]?>')" class="btn btn-danger" style="color: #ffa604;">삭제</a></td>
                         </tr>
                         <tr id="TD_<?php echo $TPL_I1+1?>" style="display:none; text-align:center;">
-                            <td></td>
-                            <td width="100%">
-                                <p style="text-align: center; width: 100%;">
-                                    <?php echo nl2br($TPL_V1["content"])?>                        			
-                                </p>
+                            <td class="th-mini" colspan=4 style="width:100%;">
+                                <span><?php echo nl2br($TPL_V1["content"])?></span>
                             </td>
-                            <td></td>
-                            <td></td>
                         </tr>
                         <?php
                             }

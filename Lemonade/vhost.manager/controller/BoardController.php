@@ -255,9 +255,9 @@ class BoardController extends WebServiceController
 				
 				exit;
 			}
-	  }
-	  
-	  if($act == "modify_comment")
+		}
+		
+		if($act == "modify_comment")
 		{
 			$sn 			= $this->request('sn');
 			$content 	= $this->request('content');
@@ -278,29 +278,29 @@ class BoardController extends WebServiceController
 				
 				exit;
 			}
-	  }
+		}
 	  	
-		if($act=="reply")
+		if($act == "reply")
 		{
 			$id 					= $this->request('replyid');
-		  $replyAuthor 	= $this->request('reply_author');
-		  $comment 			= $this->request('comment');		  
-		 	
-		  $rs = $model->adminReply($id, $replyAuthor, $comment);
-		  		
+			$replyAuthor 	= $this->request('reply_author');
+			$comment 			= $this->request('comment');		  
+				
+			$rs = $model->adminReply($id, $replyAuthor, $comment);
+					
 			if($rs > 0)
 			{
 				$url = "/board/write?id=".$id;
 				throw new Lemon_ScriptException('코멘트가 등록되었습니다.', '', 'go', $url);								
 			
 				exit;
-			 }
-			 else
-			 {
-			 	$url = "/board/write?id=".$id;
+			}
+			else
+			{
+				$url = "/board/write?id=".$id;
 				throw new Lemon_ScriptException('코멘트 등록에 실패하였습니다.', '', 'go', $url);	
 				exit;
-			 }
+			}
 		}
 		
 		// 배팅첨부내역

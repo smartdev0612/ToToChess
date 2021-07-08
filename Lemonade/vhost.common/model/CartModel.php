@@ -420,11 +420,13 @@ class CartModel extends Lemon_Model
 			$rs[$i]['result_rate'] = $this->calcResultRate($bettingNo);
 			$event = $rs[$i]["event"];
 
-			$sql = "select a.sub_child_sn,a.select_no,a.home_rate,a.away_rate,a.draw_rate,a.select_rate,a.game_type,a.result,
-								b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, 
-								c.name as league_name,c.lg_img as league_image, d.win
-							from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d 
-							where a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.league_sn=c.lsports_league_sn and b.sn=d.child_sn ";
+			$sql = "SELECT 	tb_temp.*, tb_markets.mid, tb_markets.mname_ko, tb_markets.mfamily FROM (
+							SELECT a.sub_child_sn,a.select_no,a.home_rate,a.away_rate,a.draw_rate,a.select_rate,a.game_type,a.result,a.live,a.score, 
+									b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, 
+									b.notice as league_name, b.league_img as league_image, b.sport_id, d.win, d.home_line, d.away_line, d.draw_line, d.home_name, d.away_name, d.draw_name
+							FROM ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d 
+							WHERE a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.sn=d.child_sn ) AS tb_temp 
+					LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
 
 			if($orderby!='') {$sql.=" order by ".$orderby;}
 							

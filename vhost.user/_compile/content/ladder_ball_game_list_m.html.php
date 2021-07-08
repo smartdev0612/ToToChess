@@ -308,7 +308,7 @@
                                                                                     <tr>
                                                                                         <th class="th-mini">회차</th>
                                                                                         <th class="th-mini">배팅유형</th>
-                                                                                        <th class="th-mini">사이드</th>
+                                                                                        <th class="th-mini">배팅내역</th>
                                                                                         <th class="th-mini">배당율</th>
                                                                                         <th class="th-mini">배팅금</th>
                                                                                         <th class="th-mini">당첨금</th>
@@ -362,16 +362,16 @@
                                                                                                     else $select_val = "짝";
                                                                                                 } else if ( $gameCode == "p_n-uo" ) {
                                                                                                     $gameName = "일반볼언오";
-                                                                                                    if ( $TPL_V2["select_no"] == 1 ) $select_val = "언";
-                                                                                                    else $select_val = "오";
+                                                                                                    if ( $TPL_V2["select_no"] == 1 ) $select_val = "언더";
+                                                                                                    else $select_val = "오버";
                                                                                                 } else if ( $gameCode == "p_p-oe" ) {
                                                                                                     $gameName = "파워볼홀짝";
                                                                                                     if ( $TPL_V2["select_no"] == 1 ) $select_val = "홀";
                                                                                                     else $select_val = "짝";
                                                                                                 } else if ( $gameCode == "p_p-uo" ) {
                                                                                                     $gameName = "파워볼언오";
-                                                                                                    if ( $TPL_V2["select_no"] == 1 ) $select_val = "언";
-                                                                                                    else $select_val = "오";
+                                                                                                    if ( $TPL_V2["select_no"] == 1 ) $select_val = "언더";
+                                                                                                    else $select_val = "오버";
                                                                                                 } else if ( $gameCode == "p_01" ) {
                                                                                                     $gameName = "파워볼숫자";
                                                                                                     if ( $TPL_V2["select_no"] == 1 ) $select_val = "0";
