@@ -1,9 +1,9 @@
-
+ 
     <div class="mask"></div>
 	    <div id="container">
 
         <script type="text/javascript" src="/10bet/js/left.js?1610345806"></script>
-        <script type="text/javascript" src="/include/js/betting_list.js?v=2"></script>
+        <script type="text/javascript" src="/include/js/betting_list.js?v=11"></script>
         <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/layout.css?v=516">
         <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/btns.css?v=511">
         <link rel="stylesheet" type="text/css" href="/BET38/css/etc.css?v=514">
@@ -140,6 +140,9 @@
                                         case 35232: // 아이스 하키
                                             $table .= '<td>' . $pieces[4] . '</td>';
                                             break;
+                                        default:
+                                            $table .= '<td>' . $pieces[0] . '</td>';
+                                            break;
                                     }
                                     $table .= '<td class="txt_ac st_padl5">';
                                     switch($TPL_V2["mfamily"]) {
@@ -211,7 +214,7 @@
                                     else if($TPL_V2["result"] == "2")
                                         $table .= '<td rowspan="1"><span class="bt_none3 bt_45_none">낙첨</span></td>';
                                     else if($TPL_V2["result"] == "4")
-                                        $table .= '<td rowspan="1"><span class="bt_none5 bt_45_none">취소</span></td>';
+                                        $table .= '<td rowspan="1"><span class="bt_none5 bt_45_none" style="color:#e44e4e !important;">취소</span></td>';
                                     else 
                                         $table .= '<td rowspan="1"><span class="bt_none1 bt_45_none">진행</span></td>';
                                     $table .= '</tr>';
@@ -225,15 +228,21 @@
                             $table .= '베팅접수시간 : <span class="txt_co3 st_padr10">' . $TPL_V1["bet_date"] . '</span>';
                             $table .= '예상당첨금액 : <span class="txt_co3 st_padr10">(베팅 ' . $TPL_V1["betting_money"] . ' x 배당 ' . $TPL_V1["result_rate"] .') = ' . $TPL_V1["win_money"] . '</span>';
                             $table .= '결과당첨금액 : <span class="txt_co3 st_padr10">' . $TPL_V1["result_money"] . '</span>';
-                            $table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('/race/betlisthideProcess?betting_no=" . $TPL_K1 . "')>베팅내역삭제</span>";
-                            if($TPL_V1["result"] == "1")
+                            
+                            if($TPL_V1["result"] == "1") {
+                                $table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('" . $TPL_K1 . "')>베팅내역삭제</span>";
                                 $table .= '<span class="bt_45_none bt_none6 f_right st_mart5">당첨</span>';
-                            else if($TPL_V1["result"] == "2")
+                            } else if($TPL_V1["result"] == "2") {
+                                $table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('" . $TPL_K1 . "')>베팅내역삭제</span>";
                                 $table .= '<span class="bt_45_none bt_none3 f_right st_mart5">낙첨</span>';
-                            else if($TPL_V1["result"] == "4")
-                                $table .= '<span class="bt_45_none bt_none5 f_right st_mart5">취소</span>';
-                            else
+                            } else if($TPL_V1["result"] == "4") {
+                                $table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('" . $TPL_K1 . "')>베팅내역삭제</span>";
+                                $table .= '<span class="bt_45_none bt_none5 f_right st_mart5" style="color:#e44e4e !important;">취소</span>';
+                            } else {
+                                if($TPL_VAR["type"] != 2)
+                                    $table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=cancel_bet('" . $TPL_K1 . "')>베팅취소</span>";
                                 $table .= '<span class="bt_45_none bt_none1 f_right st_mart5">진행</span>';
+                            }
                             $table .= '</td></div>';
 
                             echo $table;
@@ -246,9 +255,9 @@
                 <?php
                     if(count($TPL_VAR["list"]) > 0) { ?>
                         <div class="bbs_btn_area clearfix">
-                            <div class="f_right bt_150 bt_gray st_marr10 pointer" onclick="hide_all_betting()">
+                            <!-- <div class="f_right bt_150 bt_gray st_marr10 pointer" onclick="hide_all_betting()">
                                 <span class="bt_100_txt">베팅내역 전체삭제</span>
-                            </div>
+                            </div> -->
                         <!--<div class="f_right bt_120 bt_gray txt_size1 st_marl10 st_marr10  pointer" onclick="sendBoard()"><span class="bt_120_txt">베팅첨부</span></div>-->
                         </div>
                 <?php 
@@ -278,11 +287,3 @@
 </div>
 </div>
 </div>
-<form name="form" method="post">
-    <input type="hidden" name="bo_table">
-    <input type="hidden" name="wr_1">
-</form>
-<form name="betting" method="post">
-    <input type="hidden" name="gid" value="">
-    <input type="hidden" name="mode" value="">
-</form>

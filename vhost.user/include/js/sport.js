@@ -224,7 +224,6 @@ function toggle_multi($tr, $index, selectedRate)
 	$j('div[name='+$tr+'] input:checkbox').each( function(index) {		
 		if(index != $index) { 
 			this.checked=false;
-
 		}
 	});
 	
@@ -269,7 +268,7 @@ function toggle_multi($tr, $index, selectedRate)
 		if(this.checked==true) 
 		{
 			$j(this).parent().addClass("on");
-			var chk_id = $(this).attr('id');
+			var chk_id = $j(this).attr('id');
 			var betid = 0;
 			if(chk_id !== undefined) {
 				var pieces = chk_id.split("_");
@@ -282,7 +281,7 @@ function toggle_multi($tr, $index, selectedRate)
 		else
 		{ 
 			$j(this).parent().removeClass("on");
-			var chk_id = $(this).attr('id');
+			var chk_id = $j(this).attr('id');
 			var betid = 0;
 			if(chk_id !== undefined) {
 				var pieces = chk_id.split("_");
@@ -1347,7 +1346,7 @@ function del_bet($game_index, bonusFlag) {
 		$div = $j(this).parent();
 		$div.removeClass('on');
 
-		var chk_id = $(this).attr('id');
+		var chk_id = $j(this).attr('id');
 		var betid = 0;
 		if(chk_id !== undefined) {
 			var pieces = chk_id.split("_");
@@ -1567,6 +1566,9 @@ function add_bet_list(item)
 	else if(selectedTeam == "2")
 		selected_betid = item._away_betid;
 
+	if(selected_betid == 0)	
+		team_name = item._home_team;
+
 	var pieces = item._game_index.split("_");
 	var family_id = pieces[2];
 
@@ -1626,6 +1628,9 @@ function add_bet_list(item)
 				selectedTeam = market_name + ' (무 & 언더) ' + '(' + home_line + ')';
 			else if(home_name == "3 And Over")
 				selectedTeam = market_name + ' (무 & 오버) ' + '(' + home_line + ')';
+			break;
+		default:
+			selectedTeam = "홈승";
 			break;
 	}
 
@@ -1945,6 +1950,8 @@ function betting(type)
 	else 
 	{
 		bettingSubmitFlag = 1;
+		betForm.betMoney.value = m_betList._point;
+		betForm.betcontent.value = m_betList.getList();
 		var betMoney = $j("#betMoney").val();
 		var totalMoney = $j("#sp_total").text();
 		var content = `배팅액: ${betMoney} <br>
@@ -1960,9 +1967,8 @@ function betting(type)
 
 function confirmBet() {
 	betForm.mode.value = "betting";
-	betForm.betMoney.value = m_betList._point;
-	betForm.betcontent.value = m_betList.getList();
-
+	
+	//console.log(betForm.betcontent.value);
 	var v_packet = {
 		"user"			:	betForm.member_sn.value,
 		"mode"			: 	betForm.mode.value,
@@ -1975,9 +1981,12 @@ function confirmBet() {
 	};
 
 	sendPacket(PACKET_SPORT_BET, JSON.stringify(v_packet));
+
+	betting_ready_popup("배팅중입니다...");
 }
 
 function onRecvBetting(objPacket) {
+	betting_ready_popup_close();
 	bettingSubmitFlag = 0;
 	bet_clear(0);
 	$j("#betMoney").val(0);
@@ -2135,3 +2144,62 @@ function check_folder() {
 	return true;
 }
 
+function updateGameInfo(djson) {
+	if(djson != null && djson != undefined) {
+		//배당자료업데이트
+		var sub_idx = `${json.m_nGame}_${djson.m_nMarket}_${djson.m_nFamily}`;
+		if(djson.m_fHRate != showJson[i].m_lstDetail[j].m_fHRate) {
+			var obj = document.getElementById(`${djson.m_nHBetCode}`);
+			if(obj != null && obj != undefined) {
+				document.getElementById(`${djson.m_nHBetCode}`).innerHTML = djson.m_fHRate.toFixed(2);
+			}
+			if(document.getElementById(`${sub_idx}_home_rate`) != null && document.getElementById(`${sub_idx}_home_rate`) != undefined)
+				document.getElementById(`${sub_idx}_home_rate`).value = djson.m_fHRate.toFixed(2);
+		}
+		if(djson.m_fDRate != showJson[i].m_lstDetail[j].m_fDRate) {
+			var obj = document.getElementById(`${djson.m_nDBetCode}`);
+			if(obj != null && obj != undefined) {
+				document.getElementById(`${djson.m_nDBetCode}`).innerHTML = djson.m_fDRate.toFixed(2);
+			}
+			if(document.getElementById(`${sub_idx}_draw_rate`) != null && document.getElementById(`${sub_idx}_draw_rate`) != undefined)
+				document.getElementById(`${sub_idx}_draw_rate`).value = djson.m_fDRate.toFixed(2);
+		}
+		if(djson.m_fARate != showJson[i].m_lstDetail[j].m_fARate) {
+			var obj = document.getElementById(`${djson.m_nABetCode}`);
+			if(obj != null && obj != undefined) {
+				document.getElementById(`${djson.m_nABetCode}`).innerHTML = djson.m_fARate.toFixed(2);
+			}
+			if(document.getElementById(`${sub_idx}_away_rate`) != null && document.getElementById(`${sub_idx}_away_rate`) != undefined)
+				document.getElementById(`${sub_idx}_away_rate`).value = djson.m_fARate.toFixed(2);
+		}
+
+		// 배팅카트의 배당 업데이트
+		if(document.getElementById(`${djson.m_nHBetCode}_cart`) != null) {
+			document.getElementById(`${djson.m_nHBetCode}_cart`).innerHTML = djson.m_fHRate.toFixed(2);
+			updateCart(0, djson.m_nHBetCode, djson.m_fHRate);
+			if(localStorage.getItem(`selected_${djson.m_nHBetCode}`) !== null) {
+				$j(`#${djson.m_nHBetCode}_chk`).parent().addClass("on");
+				$j(`#${djson.m_nHBetCode}_chk`).prop("checked", true);
+			}
+		}
+
+		if(document.getElementById(`${djson.m_nDBetCode}_cart`) != null) {
+			document.getElementById(`${djson.m_nDBetCode}_cart`).innerHTML = djson.m_fDRate.toFixed(2);
+			updateCart(1, djson.m_nDBetCode, djson.m_fDRate);
+			if(localStorage.getItem(`selected_${djson.m_nDBetCode}`) !== null) {
+				$j(`#${djson.m_nDBetCode}_chk`).parent().addClass("on");
+				$j(`#${djson.m_nDBetCode}_chk`).prop("checked", true);
+			}
+		}
+
+		if(document.getElementById(`${djson.m_nABetCode}_cart`) != null) { 
+			document.getElementById(`${djson.m_nABetCode}_cart`).innerHTML = djson.m_fARate.toFixed(2);
+			updateCart(2, djson.m_nABetCode, djson.m_fARate);
+			if(localStorage.getItem(`selected_${djson.m_nABetCode}`) !== null) {
+				$j(`#${djson.m_nABetCode}_chk`).parent().addClass("on");
+				$j(`#${djson.m_nABetCode}_chk`).prop("checked", true);
+			}
+		}
+
+	}
+}

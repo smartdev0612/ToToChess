@@ -6,6 +6,7 @@ class MemoController extends WebServiceController
 	{
 		$this->popupDefine();
 
+
 		if(!$this->auth->isLogin())
 		{
 			$this->redirect("/login");
@@ -89,7 +90,7 @@ class MemoController extends WebServiceController
 		
 		if($this->request("act") == "add")
 		{
-			$model->writeMemo($partner_id, "운영팀", htmlspecialchars($this->request("title")), htmlspecialchars($this->request("content")),1);
+			$model->writeMemo($partner_id, "운영팀", htmlspecialchars($this->request("title")), htmlspecialchars($this->request("content")),1,'',2);
 			throw new Lemon_ScriptException("발송 되였습니다.","","go","/memo/popup_list");
 		}
 		$this->display();

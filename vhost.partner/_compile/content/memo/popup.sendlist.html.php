@@ -4,30 +4,32 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 
 <script>
 function comfire_ok(url)
+{
+	falg=window.confirm("정말 삭제하시겠습니까?"); 
+	if(falg)
 	{
-		falg=window.confirm("정말 삭제하시겠습니까?"); 
-		if(falg)
-		{
-				location.href=url;
-		}
+			location.href=url;
 	}
+}
 </script>
 <script>
 function show(c_Str)
-{if(document.all(c_Str).style.display=='none')
-{document.all(c_Str).style.display='block';}
-else{document.all(c_Str).style.display='none';}}
+{
+	$("#"+c_Str).toggle();
+}
+	
 function high(){
-if (event.srcElement.className=="k"){
-event.srcElement.style.background="336699"
-event.srcElement.style.color="white"
+	if (event.srcElement.className=="k"){
+		event.srcElement.style.background="336699"
+		event.srcElement.style.color="white"
+	}
 }
-}
+
 function low(){
-if (event.srcElement.className=="k"){
-event.srcElement.style.background="99CCFF"
-event.srcElement.style.color=""
-}
+	if (event.srcElement.className=="k"){
+		event.srcElement.style.background="99CCFF"
+		event.srcElement.style.color=""
+	}
 }
 </script>
 </head>

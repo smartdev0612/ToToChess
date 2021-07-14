@@ -75,7 +75,7 @@ class BoardController extends WebServiceController
 		$pageMaker 	= $this->displayPage($total,20, $page_act);
 
         $topList = array();
-		if($bbsNo != 7)
+		if($bbsNo != 7 && $bbsNo != 8)
         {
             $topList = $boardModel->getNoticeList();
         }

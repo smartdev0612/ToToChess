@@ -428,7 +428,7 @@ class MoneyModel extends Lemon_Model
 	}
 	
 	function ajaxMileage2Cash($sn, $point) {
-		$pModel = Lemon_Instance::getObject("ProcessModel",true);		
+		$pModel = Lemon_Instance::getObject("ProcessModel",true);	
 		$pModel->modifyMoneyProcess($sn, $point, '6', '포인트전환');
 		$pModel->modifyMileageProcess($sn, -$point,'6','포인트전환');
 		return true;

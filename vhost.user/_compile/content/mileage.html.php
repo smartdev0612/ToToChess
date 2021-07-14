@@ -70,7 +70,9 @@
                         
                         <!-- page skip -->
                         <div class="page_skip">
-
+                            <span class="num">&nbsp;
+                                <?php echo $TPL_VAR["pagelist"]?>
+                            </span>
                         </div>
                     </div>
                 </div>

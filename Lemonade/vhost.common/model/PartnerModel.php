@@ -1081,14 +1081,21 @@ class PartnerModel extends Lemon_Model
 	}
 	
 	//▶ 필드 데이터
-	function getPartnerIdList($logo='')
+	function getPartnerIdList($logo='', $p_type = 0)
 	{
 		//-> 2014.12.18 곰탱수정
 		if ( strlen($logo) > 0 ) $addQry = "logo='".$logo."' and ";
-		$sql = "select * from ".$this->db_qz."recommend where ".$addQry." parent_sn = 0 and rec_lev = 1 order by rec_id asc";
+
+		$sql = "";
+		if($p_type == 1) {
+			$sql = "select * from ".$this->db_qz."recommend where ".$addQry." parent_sn = 0 and rec_lev = 9 order by rec_id asc";
+		} else if ($p_type == 2) {
+			$sql = "select * from ".$this->db_qz."recommend where ".$addQry." parent_sn = 0 and rec_lev = 1 order by rec_id asc";
+		}
+		
 		return $this->db->exeSql($sql);
 	}
-	
+
 	//▶ 필드 데이터
 	function getPartnerSnList()
 	{

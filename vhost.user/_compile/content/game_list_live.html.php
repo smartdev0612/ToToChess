@@ -727,6 +727,7 @@
 
                 for(var j=0; j < showJson[i].m_lstDetail.length; j++) {
                     var djson = json.m_lstDetail.find(val => val.m_nHBetCode == showJson[i].m_lstDetail[j].m_nHBetCode && val.m_nDBetCode == showJson[i].m_lstDetail[j].m_nDBetCode && val.m_nABetCode == showJson[i].m_lstDetail[j].m_nABetCode);
+                    // updateGameInfo(djson);
                     if(djson != null && djson != undefined) {
                         //배당자료업데이트
                         var sub_idx = `${json.m_nGame}_${djson.m_nMarket}_${djson.m_nFamily}`;
@@ -805,30 +806,36 @@
                     // }
                 }
 
-                var market12;
-                switch(json.m_nSports) {
-                    case 6046: // 축구
-                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
-                        break;
-                    case 48242: // 농구
-                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
-                        break;
-                    case 154914: // 야구
-                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
-                        break;
-                    case 154830: // 배구
-                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
-                        break;
-                    case 35232: // 아이스 하키
-                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
-                        break;    
-                }
-                
-                if(market12.m_nStatus > 1 || json.m_nStatus == 9) {
+                if(json.m_nStatus == 9) {
                     $("#lock_" + json.m_nGame).css("display", "block");
-                } else {
-                    $("#lock_" + json.m_nGame).css("display", "none");
+                } else if(json.m_lstDetail.length > 0) {
+                    var market12;
+                    switch(json.m_nSports) {
+                        case 6046: // 축구
+                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
+                            break;
+                        case 48242: // 농구
+                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                            break;
+                        case 154914: // 야구
+                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                            break;
+                        case 154830: // 배구
+                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
+                            break;
+                        case 35232: // 아이스 하키
+                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                            break;    
+                    }
+                    
+                    if(market12.m_nStatus > 1) {
+                        $("#lock_" + json.m_nGame).css("display", "block");
+                    } else {
+                        $("#lock_" + json.m_nGame).css("display", "none");
+                    }
                 }
+
+                
             } else {
                 removeGameDiv(showJson[i]);
             }
@@ -2770,7 +2777,7 @@
         $("#div_" + gameCode).addClass("st_on");
         $("#game_sn").val(gameCode);
         var childArray = showJson.filter(value => value.m_nGame == gameCode);
-
+        //showAjaxList(childArray);
         drawRightDiv(childArray[0]);
     }
 

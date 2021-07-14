@@ -1,3 +1,36 @@
+$j().ready(function(){
+    $j("#btnConfirm").on("click", function() {
+        betcancel_popup_close();
+        var betting_no = $j("#betting_no").val();
+        var type = $j("#type").val();
+        var url = "";
+        if(type == 1) {
+            url = "/race/betCancelProcess";
+        } else if (type == 2) {
+            url = "/race/betlisthideProcess";
+        }
+    
+        var data = {'betting_no': betting_no};
+        $j.ajax({
+            url : url,
+            data : data,
+            type : "post", 
+            dataType : "text",
+            success: function(res) {
+                warning_popup(res);
+                location.reload();
+            },
+            error: function(xhr,status,error) {
+                var error = error;
+            }
+        });
+    });
+    
+    $j("#btnCancel").on("click", function() {
+        betcancel_popup_close();
+    })    
+});
+
 function getBettingList(type, pc, page_index) {
     $j(".bt_off").removeClass("act");
     $j("#type").val(type);
@@ -149,26 +182,24 @@ function select_delete(all_flag) {
 }
 
 function delete_cart(gid, mode, page) {
-        if (!confirm("해당 세트를 삭제하시겠습니까?"))
-            return;
+    if (!confirm("해당 세트를 삭제하시겠습니까?"))
+        return;
 
-        window.location = "./betting_delete.php?gid="+gid+"&mode="+mode+"&page="+page;
+    window.location = "./betting_delete.php?gid="+gid+"&mode="+mode+"&page="+page;
 }
 
 function cancel_betting(gid,mode){
     document.location.href = 'betting_cancel.php?gid='+gid;
 }
 
-function cancel_bet(url)
+function cancel_bet(betting_no)
 {
-    if(confirm("정말 취소하시겠습니까?")) {document.location = url;}
-    else{return;}
+    betcancel_popup("정말 취소하시겠습니까?", betting_no, 1);
 }
 
-function hide_bet(url)
+function hide_bet(betting_no)
 {
-    if(confirm("정말 삭제 하시겠습니까?  ")) {document.location = url;}
-    else{return;}
+    betcancel_popup("정말 삭제하시겠습니까?", betting_no, 2);
 }
 
 function hide_all_betting() {
@@ -189,4 +220,20 @@ function on_upload(bettings) {
         });
     }
     document.location.href="/board/write?bettings="+bettings;
+}
+
+
+function betcancel_popup(text, betting_no, type) {
+    console.log(betting_no);
+    $j("#betcancel_popup .pop_message").text(text);
+    $j("#betcancel_popup").fadeIn();
+    $j("#coverBG").fadeIn();
+    $j("#betting_no").val(betting_no);
+    $j("#type").val(type);
+    // setTimeout(warning_popup_close, 1500);
+}
+
+function betcancel_popup_close() {
+    $j("#betcancel_popup").fadeOut();
+    $j("#coverBG").fadeOut();
 }

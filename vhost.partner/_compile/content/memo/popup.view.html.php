@@ -18,7 +18,7 @@ function comfire_ok(url)
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="10%" bgcolor="#FFFFFF"><div align="center">보낸이</div></td>
-    <td colspan="4" bgcolor="#FFFFFF"><?php echo $TPL_VAR["list"]["fromid"]?><?php echo $TPL_VAR["list"]["fromid"]?></td>
+    <td colspan="4" bgcolor="#FFFFFF"><?php echo $TPL_VAR["list"]["fromid"]?></td>
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="10%" bgcolor="#FFFFFF"><div align="center">제목</div></td>

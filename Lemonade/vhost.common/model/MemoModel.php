@@ -89,7 +89,7 @@ class MemoModel extends Lemon_Model
 						where a.toid=b.uid and a.fromid='운영팀' and 1=1 ".$where."
 						order by writeday desc
 						limit ".$page.",".$page_size;
-						
+					
 		return $this->db->exeSql($sql);
 	}
 	
@@ -115,7 +115,8 @@ class MemoModel extends Lemon_Model
 	function modifyMemoRead($sn)
 	{
 		$sql = "update ".$this->db_qz."memoboard set newreadnum='1' 
-						where mem_idx='".$sn."'";
+				where mem_idx='".$sn."'";
+		
 		return $this->db->exeSql($sql);						
 	}
 	
@@ -202,11 +203,11 @@ class MemoModel extends Lemon_Model
 	}
 	
 	//▶ 쓰기
-	function writeMemo($fromid, $toid, $subject, $content, $kubun='0'/*kubun*/, $logo='')
+	function writeMemo($fromid, $toid, $subject, $content, $kubun='0'/*kubun*/, $logo='', $p_type = 0)
 	{
 		if ( !$logo ) $logo = $this->logo;
-		$sql = "insert into ".$this->db_qz."memoboard (fromid,toid,title,content,writeday,newreadnum,kubun,logo) 
-						values ('".$fromid."','".$toid."','".$subject."','".$content."',now(),0,".$kubun.",'".$logo."')";
+		$sql = "insert into ".$this->db_qz."memoboard (fromid,toid,title,content,writeday,newreadnum,kubun,logo,p_type) 
+						values ('".$fromid."','".$toid."','".$subject."','".$content."',now(),0,".$kubun.",'".$logo."','".$p_type."')";
 		return $this->db->exeSql($sql);
 	}
 	
@@ -228,23 +229,23 @@ class MemoModel extends Lemon_Model
 	
 	
 	//▶ 파트너 메모쓰기
-	function writePartnerMemo($toid, $title, $content)
+	function writePartnerMemo($toid, $title, $content, $p_type = 0)
 	{
 		$pModel = Lemon_Instance::getObject("PartnerModel",true);
 		
-		if($toid=="전체파트너")
+		if($toid=="")
 		{
-			$rs = $pModel->getPartnerIdList();
+			$rs = $pModel->getPartnerIdList('', $p_type);
 			
 			for($i = 0; $i < count((array)$rs); ++$i )
 			{
 				$toid = $rs[$i]['rec_id'];
-				$this->writeMemo('운영팀', $toid, $title, $content, '1');
+				$this->writeMemo('운영팀', $toid, $title, $content, '1', '', $p_type);
 			}
 		}
 		else
 		{
-			$this->writeMemo('운영팀', $toid, $title, $content, '1');			
+			$this->writeMemo('운영팀', $toid, $title, $content, '1', '', $p_type);			
 		}
 	}
 	

@@ -51,7 +51,7 @@ class ProcessModel extends Lemon_Model
     }
 
 	//▶ 취소
-	function bettingCancelProcess($bettingNo)
+	function bettingCancelProcess($bettingNo, $cancel_id = "관리자")
 	{
 		//이미 취소했는지 여부 판단
 		$sql = "select count(betting_no) as cnt from ".$this->db_qz."money_log where state=5 and betting_no='".$bettingNo."'";
@@ -67,9 +67,9 @@ class ProcessModel extends Lemon_Model
 		$betMoney		= $rs[0]["betting_money"];
 		$result			= $rs[0]["result"];
 		
-		if ( 0 == $result ) {
+		if ( $result == 0 ) {
 			$this->modifyMoneyProcess($sn, $betMoney, 5, $bettingNo);
-			$this->cartModel->delCart($bettingNo);
+			$this->cartModel->delCart($bettingNo, $cancel_id);
 		}
     }
 
@@ -3101,27 +3101,30 @@ class ProcessModel extends Lemon_Model
 			//1=충전, 2=추천인, 3=다폴더,4=낙첨,5=이벤트,7=관리자수정
 			switch($status)
 			{
-                case '0':
+                /* case '0':
                     $rate = $this->configModel->getLevelConfigField($level, 'lev_first_charge_mileage_rate');
                     break;
 				case '1':
 				    $rate = $this->configModel->getLevelConfigField($level, 'lev_charge_mileage_rate');
 				    break;//$rate = 10; break;
 				case '2': break;
-				case '3': break;
+				case '3': break; */
 				case '4': 
-				{
-					$rate = $this->configModel->getLevelConfigField($level, 'lev_bet_failed_mileage_rate');
-					$bettingNo = $statusMessage;
-					$statusMessage = "낙첨|게임번호[".$bettingNo."]";
-				} break;
+					{
+						// $rate = $this->configModel->getLevelConfigField($level, 'lev_bet_failed_mileage_rate');
+						$bettingNo = $statusMessage;
+						$statusMessage = "낙첨|게임번호[".$bettingNo."]";
+					} 
+					break; 
 				case '5':
 				case '6':
 				case '7': 
-				case '8': $rate = 100; break;
+				case '8': 
+					$rate = 100; 
+					break;
 				default : $rate = 0;
 			}
-		}
+		} 
 		//다폴더
 		if($status=='3')
 		{
@@ -3135,7 +3138,7 @@ class ProcessModel extends Lemon_Model
 			$statusMessage = "추천인 ".$memo." 마일리지|게임번호[".$bettingNo."]";
 		}
 		
-		if($rate<=0) return 0;
+		if($rate<0) return 0;
 		
 		$amount = (int)($amount*$rate/100);
 		
@@ -3235,11 +3238,12 @@ class ProcessModel extends Lemon_Model
 		$amount		 = $rs['amount'];
 		$agreeAmount = $rs['agree_amount'];
 		
-		if($state==1 || $state==3) { $amount=$agreeAmount;}
+		if($state==1 || $state==3) { $amount = $agreeAmount;}
 		
 		$this->modifyMoneyProcess($memberSn, $amount, '2','환전취소');
 		
-		$sql = "delete from ".$this->db_qz."exchange_log
+		$sql = "UPDATE ".$this->db_qz."exchange_log
+				SET	state = 2, operdate=now()	
 				where sn=".$sn;
 			
 		$rs = $this->db->exeSql($sql);
@@ -3569,7 +3573,7 @@ class ProcessModel extends Lemon_Model
 
 	//-> 충전취소 (신청들어온 이력 취소)
 	function chargeToCancel($sn) {
-		$sql = "update tb_charge_log set state = 9, is_hidden = 1 where sn = ".$sn;
+		$sql = "update tb_charge_log set state = 9 where sn = ".$sn;
 		return $this->db->exeSql($sql);
 	}
 

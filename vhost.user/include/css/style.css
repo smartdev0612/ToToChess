@@ -109,6 +109,9 @@
 ._w180 {
     width: 140px;
 }
+._w100 {
+    width: 100px;
+}
 ._limit {
     text-overflow:ellipsis;
     overflow:hidden;
@@ -207,11 +210,24 @@ img {
     vertical-align: middle;
 }
 
+.img-height {
+    height: 16px;
+    margin: auto;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 .calendar-comment {
     text-align:center; 
     margin-top:-20px; 
     margin-bottom:20px; 
     font-size:14px;
+}
+
+.p-name {
+    color: #f2ae53 !important;
+    margin:auto;
+    margin-left:0px;
 }
 
 @media screen and (max-width: 900px) { 

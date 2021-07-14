@@ -24,8 +24,10 @@
         <div class="board_box">
             <h2>
                 <?php
-                if ( $TPL_VAR["bbsNo"] == 7) {
+                if ( $TPL_VAR["bbsNo"] == 7 ) {
                     echo "이벤트";
+                } else if ($TPL_VAR["bbsNo"] == 8 ) {
+                    echo "배팅규정";
                 } else {
                     echo "공지사항";
                 }
@@ -33,12 +35,11 @@
             </h2>
             <div class="board_list">
                 <table cellpadding="0" cellspacing="0" border="0">
-                    <colgroup><col width="*" /><col width="25%" /><col width="25%" /></colgroup>
                     <thead>
                         <tr>
-                            <th>제목</th>
-                            <th class="ta_left">작성자</th>
-                            <th>작성일</th>
+                            <th class="th-mini">제목</th>
+                            <th class="ta_left th-mini">작성자</th>
+                            <th class="th-mini">작성일</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +48,7 @@
                             foreach ( $TPL_VAR["top_list"] as $TPL_V1 ) {
                     ?>
                         <tr height="51">
-                            <td class="ta_left">
+                            <td class="ta_left th-mini">
                                 <?php 
                                 if(count((array)$_SESSION['member']) > 0) { ?>
                                     <a href="/board/view?bbsNo=<?php echo $TPL_VAR["bbsNo"]?>&Article_id=<?php echo $TPL_V1["id"]?>" style="color:#858585;padding-left:20px;"><?php echo $TPL_V1["title"]?></a>
@@ -55,8 +56,8 @@
                                     <a href="#" onClick="login_open();" style="color:#858585;padding-left:20px;"><?php echo $TPL_V1["title"]?></a>
                                 <?php } ?> 
                             </td>
-                            <td class="ta_left"><span class='member' style='color:#ffffff;'>관리자</span></td>
-                            <td><?php echo str_replace("-","/",substr($TPL_V1["time"],0,10))?></td>
+                            <td class="ta_left th-mini"><span class='member'>관리자</span></td>
+                            <td class="th-mini"><?php echo str_replace("-","/",substr($TPL_V1["time"],0,10))?></td>
                         </tr>
                     <?php
                             }

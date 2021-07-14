@@ -42,10 +42,18 @@ class WebServiceController extends Lemon_Controller
 		
 		$partnerLevel = $this->auth->getPartnerLevel();
 		
+		$etcModel = $this->getModel("EtcModel");
+
+		$id = $this->auth->getId();
+		$memoCnt = $etcModel->getUnreadMemoCnt($id);
+
+		
 		// 헤더/푸터
 		$this->view->define("index","layout/layout.html");
 		$this->view->define(array("header"=>"header/header.html", "top" => "header/top.html", "footer" => "footer/footer.html"));
 		$this->view->assign('partner_level', $partnerLevel);
+		$this->view->assign('memoCnt', $memoCnt);
+
 	}
 	
 	/*

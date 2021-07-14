@@ -347,18 +347,25 @@
                                           <div id="bonus_ul">
                                              <?php
                                                 foreach($bonus_list as $bonus) { ?>
-                                             <div class="bonus_item selectable" name="<?=$bonus["sn"]?>_div" onclick=onMultiTeamSelected('<?=$bonus["sn"]?>','0')>
+                                             <div class="bonus_item selectable" name="<?=$bonus["sn"]?>_div" onclick=onMultiTeamSelected('<?=$bonus["sn"]?>','0','0')>
                                                 <div style="display:none">';
-                                                   <input type="hidden" id="<?=$bonus["sn"]?>_sport_name" value="<?=$bonus["sport_name"]?>">
-                                                   <input type="hidden" id="<?=$bonus["sn"]?>_game_type" value="<?=$bonus["betting_type"]?>">
-                                                   <input type="hidden" id="<?=$bonus["sn"]?>_sub_sn"    value="<?=$bonus["sn"]?>">
-                                                   <input type="hidden" id="<?=$bonus["sn"]?>_home_team" value="<?=trim($bonus["home_team"])?>">
-                                                   <input type="hidden" id="<?=$bonus["sn"]?>_home_rate" value="<?=$bonus["home_rate"]?>">
-                                                   <input type="hidden" id="<?=$bonus["sn"]?>_draw_rate" value="<?=$bonus["draw_rate"]?>">
-                                                   <input type="hidden" id="<?=$bonus["sn"]?>_away_team" value="<?=trim($bonus["away_team"])?>">
-                                                   <input type="hidden" id="<?=$bonus["sn"]?>_away_rate" value="<?=$bonus["away_rate"]?>">
-                                                   <input type="hidden" id="<?=$bonus["sn"]?>_game_date" value="<?=$bonus["gameDate"]?>">
-                                                   <input type="hidden" id="<?=$bonus["sn"]?>_league_sn" value="<?=$bonus["league_sn"]?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_sport_name" value="<?=$bonus["sport_name"]?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_game_type" value="<?=$bonus["betting_type"]?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_sub_sn"    value="<?=$bonus["sn"]?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_home_team" value="<?=trim($bonus["home_team"])?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_home_rate" value="<?=$bonus["home_rate"]?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_draw_rate" value="<?=$bonus["draw_rate"]?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_away_team" value="<?=trim($bonus["away_team"])?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_away_rate" value="<?=$bonus["away_rate"]?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_game_date" value="<?=$bonus["gameDate"]?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_league_sn" value="<?=$bonus["league_sn"]?>">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_market_name" value="">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_home_betid" value="0">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_away_betid" value="0">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_draw_betid" value="0">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_home_line" value="">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_away_line" value="">
+                                                    <input type="hidden" id="<?=$bonus["sn"]?>_home_name" value="">
                                                 </div>
                                                 <span class="txt_co7"><?=$bonus["home_team"]?></span>
                                                 <div class="bt_gr_area"><?=$bonus["home_rate"]?></div>
@@ -464,6 +471,7 @@
 <script src="/BET38/js/utf-8.js"></script>
 <script language="javascript">
     $(document).ready(function() {
+        localStorage.clear();
         var sport_type = '<?php echo $TPL_VAR["sport_type"]?>';
         var league_sn = '<?php echo $TPL_VAR["league_sn"]?>';
         var today = '<?php echo $TPL_VAR["today"]?>';
@@ -559,8 +567,6 @@
             var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid, $market_name, $home_line, $away_line, $home_name, $home_betid, $away_betid, $draw_betid);
             m_betList.addItem(item);
 
-            localStorage.setItem(`selected_${$betid}`, $betid);
-
             //betcon = betcon.add_element($game_index + "|" + $index + "&" + $home_team + "  VS " + $away_team);
             var isdisabled = true;
         }
@@ -569,8 +575,6 @@
             m_betList.removeItem($game_index);
             //betcon = betcon.del_element($game_index + "|" + $index + "&" + $home_team + "  VS " + $away_team);
             var isdisabled = false;
-
-            localStorage.removeItem(`selected_${$betid}`, $betid);
         }
     
         bonus_del();
@@ -746,16 +750,28 @@
                         if(document.getElementById(`${djson.m_nHBetCode}_cart`) != null) {
                             document.getElementById(`${djson.m_nHBetCode}_cart`).innerHTML = djson.m_fHRate.toFixed(2);
                             updateCart(0, djson.m_nHBetCode, djson.m_fHRate);
+                            if(localStorage.getItem(`selected_${djson.m_nHBetCode}`) !== null) {
+                                $j(`#${djson.m_nHBetCode}_chk`).parent().addClass("on");
+                                $j(`#${djson.m_nHBetCode}_chk`).prop("checked", true);
+                            }
                         }
 
                         if(document.getElementById(`${djson.m_nDBetCode}_cart`) != null) {
                             document.getElementById(`${djson.m_nDBetCode}_cart`).innerHTML = djson.m_fDRate.toFixed(2);
                             updateCart(1, djson.m_nDBetCode, djson.m_fDRate);
+                            if(localStorage.getItem(`selected_${djson.m_nDBetCode}`) !== null) {
+                                $j(`#${djson.m_nDBetCode}_chk`).parent().addClass("on");
+                                $j(`#${djson.m_nDBetCode}_chk`).prop("checked", true);
+                            }
                         }
 
                         if(document.getElementById(`${djson.m_nABetCode}_cart`) != null) { 
                             document.getElementById(`${djson.m_nABetCode}_cart`).innerHTML = djson.m_fARate.toFixed(2);
                             updateCart(2, djson.m_nABetCode, djson.m_fARate);
+                            if(localStorage.getItem(`selected_${djson.m_nABetCode}`) !== null) {
+                                $j(`#${djson.m_nABetCode}_chk`).parent().addClass("on");
+                                $j(`#${djson.m_nABetCode}_chk`).prop("checked", true);
+                            }
                         }
 
                     }
@@ -873,7 +889,7 @@
                     var home_points = item.m_strHLine.split(" ");
                     children_div += '<span class="txt_co5 st_padl5">( ' +  home_points[0] + ' )</span>'; 
                     children_div += '<span class="f_right" id="' + item.m_nHBetCode + '"> ' + item.m_fHRate.toFixed(2) + ' </span>';
-                    children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+                    children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
                     children_div += '<div name="' + sub_idx + '_div" style="display:none">';
                     children_div += '<input type="checkbox" name="ch" value="3"></div>';
                     children_div += "<div class='st_wd50_l txt_cut selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.m_nABetCode + "')>";
@@ -881,7 +897,7 @@
                     var away_points = item.m_strALine.split(" ");
                     children_div += '<span class="txt_co5 st_padl5">( ' +  away_points[0] + ' )</span>'; 
                     children_div += '<span class="f_right" id="' + item.m_nABetCode + '">' +  item.m_fARate.toFixed(2) + '</span>';
-                    children_div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div></li>';
+                    children_div += `<input type="checkbox" id="${item.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div></li>`;
                     $j(`#ul_${game.m_nGame}_${market.m_nMarket}`).append(children_div);
                 }
             } else if (market.m_strMarket.indexOf("언더오버") > 0) {
@@ -909,14 +925,14 @@
                 children_div += '언더'; 
                 children_div += '<span class="txt_co5 st_padl5">( ' +  item.m_strHLine + ' )</span>';
                 children_div += '<span class="f_right" id="' + item.m_nHBetCode + '"> ' + item.m_fHRate.toFixed(2) + '  </span>';
-                children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+                children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
                 children_div += '<div name="' + sub_idx + '_div" style="display:none">';
                 children_div += '<input type="checkbox" name="ch" value="3"></div>';
                 children_div += "<div class='st_wd50_l txt_cut selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.m_nABetCode + "')>";
                 children_div += '오버'; 
                 children_div += '<span class="txt_co5 st_padl5">( ' +  item.m_strALine + ' )</span>'; 
                 children_div += '<span class="f_right"  id="' + item.m_nABetCode + '"> ' +  item.m_fARate.toFixed(2) + ' </span>';
-                children_div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div></li>';
+                children_div += `<input type="checkbox" id="${item.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div></li>`;
                 $j(`#ul_${game.m_nGame}_${market.m_nMarket}`).append(children_div);
             } else if (market.m_strMarket.indexOf("정확한스코어") > 0) {
                 var sub_idx = `${item.m_nGame}_${item.m_nMarket}_${item.m_nFamily}`;
@@ -943,7 +959,7 @@
                 children_div += item.m_strHName;
                 children_div += '<span class="txt_co5 st_padl5"></span>'; 
                 children_div += '<span class="f_right" id="' + item.m_nHBetCode + '">' + item.m_fHRate.toFixed(2) + '</span>';
-                children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+                children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
                 children_div += '<div name="' + sub_idx + '_div" style="display:none">';
                 children_div += '<input type="checkbox" name="ch" value="3"></div>';
                 children_div += "<div name='" + sub_idx + "_div' style='display:none'>";
@@ -2690,11 +2706,11 @@
         div += item.m_strHomeTeam + homeAdd;
         div += '<span class="f_right" id="' + detail.m_nHBetCode + '">' + detail.m_fHRate.toFixed(2) + '</span>';
         //div += '<span class="f_right" id="' + item.child_sn + '_home_rate"></span>';
-        div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+        div += `<input type="checkbox" id="${detail.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
         if(detail.m_nMarket == 1) {
             div += "<div class='st_wd10_l txt_ac selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','1','" + detail.m_nDBetCode + "')>";
             div += '<span id="' + detail.m_nDBetCode + '">' + detail.m_fDRate.toFixed(2) + '</span>';
-            div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
+            div += `<input type="checkbox" id="${detail.m_nDBetCode}_chk" name="ch" value="3" style="display:none;"></div>`;
         } else {
             div += '<div class="st_wd10_l txt_ac selectable" name="' + sub_idx + '_div">';
             //div += '<span id="' + item.child_sn + '_draw_rate">VS</span>';
@@ -2705,7 +2721,7 @@
         //div += '<span id="' + item.child_sn + '_away_rate"></span>';
         div += '<span id="' + detail.m_nABetCode + '">' + detail.m_fARate.toFixed(2) + '</span>'; 
         div += '<span class="f_right">' + awayAdd + item.m_strAwayTeam + '</span>';
-        div += '<input type="checkbox" name="ch" value="2" style="display:none;">';
+        div += `<input type="checkbox" id="${detail.m_nABetCode}_chk" name="ch" value="2" style="display:none;">`;
         div += '</div></li></ul>';
         div += '</div>';
         $(".list_st1").append(div);
@@ -2764,13 +2780,13 @@
             children_div += "<div class='st_wd50_l txt_cut  selectable' name='" + sub_idx+ "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.m_nHBetCode + "')>";
             children_div += item.m_strHomeTeam;   
             children_div += '<span class="f_right" id="' + item.m_nHBetCode + '"> ' + item.m_fHRate.toFixed(2) + ' </span>';
-            children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+            children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
             children_div += '<div name="' + sub_idx + '_div" style="display:none">';
             children_div += '<input type="checkbox" name="ch" value="3"></div>';
             children_div += "<div class='st_wd50_l txt_cut selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.m_nABetCode + "')>";
             children_div += item.m_strAwayTeam;
             children_div += '<span class="f_right" id="' + item.m_nABetCode + '">' +  item.m_fARate.toFixed(2) + '</span>';
-            children_div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div></li>';
+            children_div += `<input type="checkbox" id="${item.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div></li>`;
         });
         children_div += '</ul></div>';
         return children_div;
@@ -2807,17 +2823,17 @@
             children_div += item.m_strHomeTeam; 
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nHBetCode + '">' + item.m_fHRate.toFixed(2) + '</span>';
-            children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+            children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
             children_div += "<div class='st_wd33_l  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','1','" + item.m_nDBetCode + "')>";
             children_div += '무승부'; 
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nDBetCode + '">' +  item.m_fDRate.toFixed(2) + '</span>';
-            children_div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
+            children_div += `<input type="checkbox" id="${item.m_nDBetCode}_chk" name="ch" value="3" style="display:none;"></div>`;
             children_div += "<div class='st_wd33_l  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.m_nABetCode + "')>";
             children_div += item.m_strAwayTeam;  
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nABetCode + '">' +  item.m_fARate.toFixed(2) + '</span>';
-            children_div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div></li>';
+            children_div += `<input type="checkbox" id="${item.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div></li>`;
         });
         children_div += '</ul></div>';
         return children_div;
@@ -2858,7 +2874,7 @@
                 var home_points = item.m_strHLine.split(" ");
                 children_div += '<span class="txt_co5 st_padl5">( ' +  home_points[0] + ' )</span>'; 
                 children_div += '<span class="f_right" id="' + item.m_nHBetCode + '"> ' + item.m_fHRate.toFixed(2) + ' </span>';
-                children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+                children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
                 children_div += '<div name="' + sub_idx + '_div" style="display:none">';
                 children_div += '<input type="checkbox" name="ch" value="3"></div>';
                 children_div += "<div class='st_wd50_l txt_cut selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.m_nABetCode + "')>";
@@ -2866,7 +2882,7 @@
                 var away_points = item.m_strALine.split(" ");
                 children_div += '<span class="txt_co5 st_padl5">( ' +  away_points[0] + ' )</span>'; 
                 children_div += '<span class="f_right" id="' + item.m_nABetCode + '">' +  item.m_fARate.toFixed(2) + '</span>';
-                children_div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div></li>';
+                children_div += `<input type="checkbox" id="${item.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div></li>`;
             }
         });
         children_div += '</ul></div>';
@@ -2906,14 +2922,14 @@
             children_div += '언더'; 
             children_div += '<span class="txt_co5 st_padl5">( ' +  item.m_strHLine + ' )</span>';
             children_div += '<span class="f_right" id="' + item.m_nHBetCode + '"> ' + item.m_fHRate.toFixed(2) + '  </span>';
-            children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+            children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
             children_div += '<div name="' + sub_idx + '_div" style="display:none">';
             children_div += '<input type="checkbox" name="ch" value="3"></div>';
             children_div += "<div class='st_wd50_l txt_cut selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.m_nABetCode + "')>";
             children_div += '오버'; 
             children_div += '<span class="txt_co5 st_padl5">( ' +  item.m_strALine + ' )</span>'; 
             children_div += '<span class="f_right"  id="' + item.m_nABetCode + '"> ' +  item.m_fARate.toFixed(2) + ' </span>';
-            children_div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div></li>';
+            children_div += `<input type="checkbox" id="${item.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div></li>`;
         });
         children_div += '</ul></div>';
         return children_div;
@@ -2950,14 +2966,14 @@
             children_div += '홀수'; 
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nHBetCode + '"> ' + item.m_fHRate.toFixed(2) + ' </span>';
-            children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+            children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
             children_div += '<div name="' + sub_idx + '_div" style="display:none">';
             children_div += '<input type="checkbox" name="ch" value="3"></div>';
             children_div += "<div class='st_wd50_l txt_cut selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.m_nABetCode + "')>";
             children_div += '짝수'; 
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nABetCode + '"> ' + item.m_fARate.toFixed(2) + ' </span>';
-            children_div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div></li>';
+            children_div += `<input type="checkbox" id="${item.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div></li>`;
         });
         children_div += '</ul></div>';
         return children_div;
@@ -3000,7 +3016,7 @@
             children_div += item.m_strHName;
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nHBetCode + '">' + item.m_fHRate.toFixed(2) + '</span>';
-            children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+            children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
             children_div += '<div name="' + sub_idx + '_div" style="display:none">';
             children_div += '<input type="checkbox" name="ch" value="3"></div>';
             children_div += "<div name='" + sub_idx + "_div' style='display:none'>";
@@ -3071,7 +3087,7 @@
             
             children_div += '<span class="txt_co5 st_padl5">( ' +  item.m_strHLine + ' )</span>'; 
             children_div += '<span class="f_right" id="' + item.m_nHBetCode + '">' + item.m_fHRate.toFixed(2) + '</span>';
-            children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+            children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
             children_div += '<div name="' + sub_idx + '_div" style="display:none">';
             children_div += '<input type="checkbox" name="ch" value="3"></div>';
             children_div += "<div name='" + sub_idx + "_div' style='display:none'>";
@@ -3116,17 +3132,17 @@
             children_div += '승무'; 
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nHBetCode + '">' + item.m_fHRate.toFixed(2) + '</span>';
-            children_div += '<input type="checkbox" name="ch" value="1" style="display:none;"></div>';
+            children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
             children_div += "<div class='st_wd33_l  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','1','" + item.m_nDBetCode + "')>";
             children_div += '무패'; 
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nDBetCode + '">' +  item.m_fDRate.toFixed(2) + '</span>';
-            children_div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
+            children_div += `<input type="checkbox" id="${item.m_nDBetCode}_chk" name="ch" value="3" style="display:none;"></div>`;
             children_div += "<div class='st_wd33_l  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.m_nABetCode + "')>";
             children_div += '승패';  
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nABetCode + '">' +  item.m_fARate.toFixed(2) + '</span>';
-            children_div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div></li>';
+            children_div += `<input type="checkbox" id="${item.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div></li>`;
         });
         children_div += '</ul></div>';
         return children_div;

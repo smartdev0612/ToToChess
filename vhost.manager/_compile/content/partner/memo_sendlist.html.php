@@ -47,9 +47,9 @@ function go_del(url)
 	<h3>파트너 쪽지</h3>
 
 	<ul id="tab">
-		<li><a href="/partner/memolist" id="partner_memo_box">받은 쪽지함</a></li>
-		<li><a href="/partner/memosendlist" id="partner_memo">보낸 쪽지함</a></li>
-		<li><a href="/partner/memoadd" id="partner_memo_add">쪽지 쓰기</a></li>
+		<li><a href="/partner/memolist?p_type=<?=$TPL_VAR["p_type"]?>" id="partner_memo_box">받은 쪽지함</a></li>
+		<li><a href="/partner/memosendlist?p_type=<?=$TPL_VAR["p_type"]?>" id="partner_memo">보낸 쪽지함</a></li>
+		<li><a href="/partner/memoadd?p_type=<?=$TPL_VAR["p_type"]?>" id="partner_memo_add">쪽지 쓰기</a></li>
 	</ul>
 
 	<form id="form1" name="form1" method="post" action="?act=alldel">

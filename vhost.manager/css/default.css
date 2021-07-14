@@ -498,11 +498,11 @@ background:url("../img/option_bg.gif") left bottom repeat-x;}
 #board_5 #freeboard,
 #board_2 #notice,
 #board_7 #event,
+#board_8 #betting_rule,
 #board_9 #jackpot,
 #question_list #question_list,
 #write #write,
 #rule_1 #member_rule,
-#rule_2 #betting_rule,
 #betting_1 #sport_1,
 #betting_2 #sport_2
 {color:#ffffff;background-position:100% 0px;font-weight:bold}

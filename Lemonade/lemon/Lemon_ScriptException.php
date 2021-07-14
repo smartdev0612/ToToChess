@@ -11,11 +11,10 @@ class Lemon_ScriptException extends Exception
 	var $action;
 	
 	var $header = "<html>
-<head>
-	<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />
-</head>
-<body>
-	";
+						<head>
+							<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />
+						</head>
+						<body>";
 	var $footer = "</body></html>";
 
 	/*

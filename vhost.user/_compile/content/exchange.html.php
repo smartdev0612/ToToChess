@@ -5,25 +5,6 @@
 <link rel="stylesheet" href="/10bet/css/common.css" type="text/css" />
 <link rel="stylesheet" href="/10bet/css/charge.css" type="text/css" />
 
-<script language="javascript">
-    // 글자수 제한
-    var char_min = parseInt(0); // 최소
-    var char_max = parseInt(0); // 최대
-</script>
-<script>
-    var VarBoTable = "a10";
-    var VarBoTable2 = "a25";
-    var VarCaId = "";
-    var VarColspan = "7";
-    $j().ready(function(){
-        path = '/ajax.list.php?bo_table=a10&ca=1&sca=&sfl=&stx=&b_type=2';
-        init("" + g4_path + path);
-        
-        path2 = '/ajax.list.php?bo_table=a25&ca=1&sca=&sfl=&stx=';
-        init2("" + g4_path + path2);
-        //setInterval("init('"+g4_path+ path +"')", 30000);
-    });
-</script>
 <script type="text/javascript" src="/10bet/js/left.js?1610769619"></script>
 		
 <form name="frm" method="post" action="/member/exchangeProcess" enctype="multipart/form-data" style="margin:0px;">
@@ -122,7 +103,7 @@
                                 }
                             ?>
                         </td>
-                        <td class="th-mini"><?php	if($TPL_V1["state"]==0){echo "-";} else if ( $TPL_V1["state"] == 1 ) {?><a href="/member/exchangelist?exchange_sn=<?php echo $TPL_V1["sn"]?>"><img src="/images/bt_del_1.png" alt="삭제"/></a><?php	}?></td>
+                        <td class="th-mini"><?php	if($TPL_V1["state"]==0){echo "-";} else if ( $TPL_V1["state"] > 0 ) {?><a href="/member/exchangelist?exchange_sn=<?php echo $TPL_V1["sn"]?>"><img src="/images/bt_del_1.png" alt="삭제"/></a><?php	}?></td>
                     </tr>
                 <?php
                     }

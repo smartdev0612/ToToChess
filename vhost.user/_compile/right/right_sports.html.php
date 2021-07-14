@@ -4,16 +4,17 @@
         if(count((array)$_SESSION['member']) > 0) { ?>
             <!-- 유저 정보 -->
             <div class="user_box box_type01">
-                <div class="point">
-                    <img src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png'>&nbsp; <?=$TPL_VAR["nick"]?>
-                    <span class="change" onClick="location.href='/member/member'">나의 정보</span>
+                <div class="point"  style="display:flex;">
+                    <img class="img-height" src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png'>&nbsp; 
+                    <p class="_limit _w100 p-name"><?=$TPL_VAR["nick"]?></p>
+                    <span class="change" onClick="location.href='/member/member'">내 정보</span>
                 </div>
                 <div class="money">
                     <span class="head"><img src="/10bet/images/10bet/ico_01.png" alt="" /> 보유머니</span> 
                     <span class="member_inmoney"><?php echo number_format($TPL_VAR["cash"],0)?></span>				
                 </div>
                 <div class="point"><span class="head"><img src="/10bet/images/10bet/ico_01.png" alt="" /> 포인트</span> 
-                <span id="member_mileage"><?php echo number_format($TPL_VAR["mileage"],0)?></span>&nbsp;P
+                <span class="member_mileage"><?php echo number_format($TPL_VAR["mileage"],0)?></span>&nbsp;P
                 <span class="change" onClick="location.href='/member/mileage?type=6'">포인트전환</span>
                 </div>
                 <div class="btn_list">

@@ -144,7 +144,7 @@
 
 	.minigame_main_m .box01 .play {bottom:-35px !important;}
 
-	.user_box .user_name .change {position: relative; top: 0; left: 70px; color:#ffffff;}
+	.user_box .user_name .change {position: relative; top: 0; color:#ffffff;}
 }
 
 /* 미니게임 사이즈 */

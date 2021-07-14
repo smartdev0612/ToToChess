@@ -45,6 +45,20 @@ class EtcModel extends Lemon_Model
 		echo $array[0];
 
 	}
+
+	function getUnreadMemoCnt($id) {
+		$sql = "select count(*) as tot_cnt 
+				from ".$this->db_qz."memoboard 
+				where kubun = 1 and isdelete != 1 and newreadnum = 0 and logo = '".$this->logo."' and toid='".$id."'";
+
+		$rs = $this->db->exeSql($sql);
+
+		$cnt = 0;
+		if(count((array)$rs) > 0)
+			$cnt = $rs[0]["tot_cnt"];
+
+		return $cnt;
+	}
 	
 	//▶ 탑메뉴 리플레시
 	function getRefresh()

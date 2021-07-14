@@ -23,7 +23,7 @@
 	
 	<div id="contents">
 		<div class="board_box">
-			<h2>나의 정보</h2>
+			<h2>내 정보</h2>
             <!-- 회원가입 폼 -->
             <form action="?mode=modify" method="post" name="form1" id="form1">
                 <div class="member_section">
@@ -46,14 +46,14 @@
                             </div>
                             <div class="input_area">
                                 <div class="box_left">
-                                    <h3>기존비밀번호</h3>
+                                    <h3>기존비밀번호 *</h3>
                                     <div class="input_box">
                                         <input type="password" id="pass" name="pass"/>
                                         <p>※ 개인정보보호를 위해 자주 변경해주세요.</p>
                                     </div>
                                 </div>
                                 <div class="box_left">
-                                    <h3>변경비밀번호</h3>
+                                    <h3>변경비밀번호 *</h3>
                                     <div class="input_box">
                                         <input type="password" id="newpass" name="newpass"/>
                                         <p>※ 비밀번호를 변경하시려면 입력하세요.</p>
@@ -62,15 +62,43 @@
                             </div>
                             <div class="input_area">
                                 <div class="box_left">
-                                    <h3>전화번호</h3>
+                                    <h3>은행명</h3>
                                     <div class="input_box">
-                                        <p>전화번호 변경은 1:1고객센터에 문의하시기 바랍니다.</p>
+                                        <input type="text" value="<?php echo $TPL_VAR["bank_name"]?>" disabled/>
                                     </div>
                                 </div>
                                 <div class="box_left">
+                                    <h3>예금주</h3>
+                                    <div class="input_box">
+                                        <input type="text" value="<?php echo substr($TPL_VAR["bank_member"], 0, -3) . "*"?>" disabled/>
+                                        <p>예금주명은 변경이 불가하며 계좌 변경은 1:1고객센터에 문의하시기 바랍니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input_area">
+                                <div class="box_left">
                                     <h3>출금계좌</h3>
                                     <div class="input_box">
-                                        <p>예금주명은 변경이 불가하며 계좌 변경은 1:1고객센터에 문의하시기 바랍니다.</p>
+                                        <input type="text" value="<?php echo substr($TPL_VAR["bank_account"], 0, -3) . "***"?>" disabled/>
+                                        <p>출금계좌는 변경이 불가하며 1:1고객센터에 문의하시기 바랍니다.</p>
+                                    </div>
+                                </div>
+                                <div class="box_left">
+                                    <h3>출금비번 *</h3>
+                                    <div class="input_box">
+                                        <input type="password" id="exchange_pass" name="exchange_pass" value="<?php echo $TPL_VAR["exchange_pass"]?>"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input_area">
+                                <div class="box_left">
+                                    <h3>전화번호</h3>
+                                    <div class="input_box">
+                                        <?php 
+                                            $phone = explode("-", $TPL_VAR["phone"]);
+                                        ?>
+                                        <input type="text" value="<?php echo $phone[0] . " - " . substr($phone[1], 0, 4) . " - ****"?>" disabled/>
+                                        <p>전화번호 변경은 1:1고객센터에 문의하시기 바랍니다.</p>
                                     </div>
                                 </div>
                             </div>

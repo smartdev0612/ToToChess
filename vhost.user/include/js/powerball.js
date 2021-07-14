@@ -71,6 +71,7 @@
 	}
 
 	function realTime(strPacket) {
+		console.log(strPacket);
 		strPacket = strPacket + "";
 		var arrTime = strPacket.split('|');
 		yyyy = arrTime[0];
@@ -262,7 +263,19 @@
 		
 		if ( bettingSubmitFlag == 0 ) {
 			bettingSubmitFlag = 1;
-			confirm_popup("정말 배팅하시겠습니까?");
+			var betMoney = $j("#betMoney").val();
+			var totalMoney = $j("#sp_total").text();
+			var gameType = $j("#stGameTitle").text();
+			var betRate = $j("#sp_bet").text();
+			var content = `게임종류: ${gameType} <br>
+							배당: ${betRate} <br>
+							배팅액: ${betMoney} <br>
+							예상당첨금액: ${totalMoney}
+							<br><br>
+							위내용이 맞는지 확인하십시오.
+							<br><br>
+							확인클릭후 배팅 완료됩니다.`;
+			sports_popup(content);
 		} else {
 			//warning_popup("배팅 처리중입니다. 잠시기다려주세요.\n\n장시간 응답이 없으면 F5를 눌러 새로고침 후 재배팅 부탁드립니다.");
 		}

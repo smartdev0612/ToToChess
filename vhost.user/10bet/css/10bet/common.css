@@ -1,4 +1,4 @@
-@import url("common_800.css?v=69");
+@import url("common_800.css?v=70");
 @import url("common_800_1200.css?v=1");
 
 @charset "utf-8";
@@ -404,7 +404,7 @@ header .mobile_user_section .logo img {height:50px;}
 .user_box .point {height:30px;border:1px solid #434347;color:#f2ae53;background:#222227;border-radius:3px;font-size:12px;box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px;
 	padding:0px 10px;line-height:26px;font-weight:bold;margin-bottom:4px;cursor:pointer;position:relative;transition:200ms all;}
 .user_box .point:hover {background:#3f404b;}
-.user_box .point img {vertical-align:middle;margin-bottom:2px;}
+.user_box .point img {vertical-align:middle;}
 .user_box .point .head {display:inline-block;color:#ffffff;width:75px;}
 .user_box .point .change {position:absolute;top:0;right:20px;color:#ffffff;}
 .user_box .btn_list {margin:0px 0px 5px -5px;*zoom:1;}

@@ -476,7 +476,7 @@ class MemberController extends WebServiceController
         $pageMaker->setListNum(10);
         $pageMaker->setPageNum(10);
         $pageMaker->setPage($page, $total);
-        $pagelist = $pageMaker->pageList("mode=".$mode."&begin_date=".$beginDate."&end_date=".$endDate."&sorttype=".$sortType);
+        $pagelist = $pageMaker->pageList("&begin_date=".$beginDate."&end_date=".$endDate."&sorttype=".$sortType);
 
         $list  = $moneyModel->getMemberChargeList($this->auth->getSn(), "", $where, $pageMaker->first, $pageMaker->listNum);
         $cash  = $memberModel->getMemberField($this->auth->getSn(), 'g_money');
@@ -902,7 +902,7 @@ class MemberController extends WebServiceController
 
 		$userPoint = $memberModel->getMemberRow($sn, "point");
 		$userPoint = $userPoint["point"];
-
+		
 		if ( $userPoint > 0 ) {
 			$moneyModel->ajaxMileage2Cash($sn, $userPoint);
 			echo(json_encode(array("result"=>"ok")));
@@ -1357,6 +1357,11 @@ class MemberController extends WebServiceController
 		$sn = $this->auth->getSn();
 	
 		$uphone = explode("-",$model->getMemberField($sn,'phone'));
+		$exchange_pass = $model->getMemberField($sn,'exchange_pass');
+		$bank_name = $model->getMemberField($sn,'bank_name');
+		$bank_account = $model->getMemberField($sn,'bank_account');
+		$bank_member = $model->getMemberField($sn,'bank_member');
+		$phone = $model->getMemberField($sn,'phone');
 
 		if($mode=="modify")
 		{
@@ -1379,6 +1384,11 @@ class MemberController extends WebServiceController
 		}
 
 		$this->view->assign('uphone', $uphone);
+		$this->view->assign('exchange_pass', $exchange_pass);
+		$this->view->assign('bank_name', $bank_name);
+		$this->view->assign('bank_account', $bank_account);
+		$this->view->assign('bank_member', $bank_member);
+		$this->view->assign('phone', $phone);
 		$this->display();
 	}
 	

@@ -29,7 +29,7 @@ function goDel(idx)
 ?>
 		<li><a href="/board/write" id="write">게시물 쓰기</a></li>
 		<li><a href="/board/site_rule_edit?type=1" id="member_rule">회원약관 수정</a></li>
-		<li><a href="/board/site_rule_edit?type=2" id="betting_rule">배팅규정 수정</a></li>
+		<li><a href="/board/list?province=8" id="betting_rule">배팅규정 수정</a></li>
 <?php
 	}
 ?>

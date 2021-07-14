@@ -13,5 +13,6 @@
 			<dd><div class='item' id='item4' ><a href="/charge/list" >입금내역</a></div></dd>
 			<dd><div class='item' id='item5' ><a href="/exchange/list" >출금내역</a></div></dd>			
 			<dd><div class='item' id='item6' ><a href="/statMoney/list" >입출금통계</a></div></dd>
+			<dd><div class='item' id='item6' ><a href="javascript:void(0)" onclick="javascript:open_window('/memo/popup_list','800','620')">쪽지 (<span id="memoCnt"><?=$TPL_VAR["memoCnt"]?></span>)</a></div></dd>
 			</dl>
 		</div>

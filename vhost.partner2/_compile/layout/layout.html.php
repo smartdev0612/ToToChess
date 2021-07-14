@@ -1,15 +1,5 @@
 <?php $this->print_("header",$TPL_SCP,1);?>
 
-	<script>
-			
-		window.onload = function()
-		{
-			
-			refreshContent();
-			beginTimer();
-		}
-	
-	</script>	
 </head>
 
 <body>

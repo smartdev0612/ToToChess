@@ -75,8 +75,8 @@ function stringSplit(strData, strIndex)
 
 function mileage2Cash()
 {
-	amount = parseInt($j('#member_mileage').text().replace(/^\$|,/g, ""));
-	amount_text = $j('#member_mileage').text();
+	amount = parseInt($j('.member_mileage').first().text().replace(/^\$|,/g, ""));
+	amount_text = $j('.member_mileage').first().text();
 
 	if(amount < 1)
 	{
@@ -133,11 +133,17 @@ function onMileage2Cash(jsonText)
 	newCash = moneyFormat(newCash);
 		
 	$j("#member_cash").text(moneyFormat(newCash));
- 	$j("#member_mileage").text(moneyFormat(newMileage));
+ 	$j(".member_mileage").text(moneyFormat(newMileage));
 */
-	warning_popup("전환이 완료 되었습니다.");
+	
+	if(jsonText.result == "ok") {
+		warning_popup("전환이 완료되였습니다.");
+	} else {
+		warning_popup("전환에 실패하였습니다.");
+	}
+	
 	top.location.reload();	
-  return true;
+  	// return true;
 }
 
 /*
@@ -149,7 +155,7 @@ function onCash2Mileage(jsonText)
 	newCash = moneyFormat(newCash);
 		
 	$j("#member_cash").text(moneyFormat(newCash));
-  	$j("#member_mileage").text(moneyFormat(newMileage));
+  	$j(".member_mileage").text(moneyFormat(newMileage));
   	
   	$j('#wrap_pop').hide();
 

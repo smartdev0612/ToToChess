@@ -135,7 +135,7 @@
 			</tr>
 			<tr>
 			  <th>예금주</th>
-			  <td colspan="3"><input type="input" name="rec_bankusername" value="<?php echo $TPL_VAR["list"]["rec_bankusername"]?>" class="inputStyle2"></td>
+			  <td colspan="3"><input type="password" name="rec_bankusername" value="<?php echo $TPL_VAR["list"]["rec_bankusername"]?>" class="inputStyle2"></td>
 			</tr>
 			<tr>
 			  <th>총입금액</th>
@@ -145,7 +145,7 @@
 			</tr>
 			<tr>
 			  <th>계좌번호</th>
-			  <td><input type="input" name="rec_banknum" value="<?php echo $TPL_VAR["list"]["rec_banknum"]?>" class="inputStyle2"></td>
+			  <td><input type="password" name="rec_banknum" value="<?php echo $TPL_VAR["list"]["rec_banknum"]?>" class="inputStyle2"></td>
 			  <th>가입날짜</th>
 			  <td><?php echo $TPL_VAR["list"]["reg_date"]?></td>
 			</tr>

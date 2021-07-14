@@ -242,7 +242,7 @@ function changeAuthor(val)
 		<li><a href="/board/questionlist" id="question_list">고객센터</a></li>
 		<li><a href="/board/write" id="write">게시물 쓰기</a></li>
 		<li><a href="/board/site_rule_edit?type=1" id="member_rule">회원약관 수정</a></li>
-		<li><a href="/board/site_rule_edit?type=2" id="betting_rule">배팅규정 수정</a></li>
+		<li><a href="/board/list?province=8" id="betting_rule">배팅규정</a></li>
 	</ul>
 
 	<form action="/board/writeProcess?id=<?php echo $TPL_VAR["id"]?>" method="post" name="Form1">
@@ -826,8 +826,10 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count((array)$T
 			<th>내용</th>
 			<td>
 			<textarea id="on" name="content" cols="80" rows="4" onmouseover="this.focus()">
-				<?php echo str_replace("/upload/images/",$TPL_VAR["UPLOAD_URL"],$TPL_VAR["list"]["content"])?>
-
+				<?php 
+					//echo str_replace("/upload/images/",$TPL_VAR["UPLOAD_URL"],$TPL_VAR["list"]["content"]);
+					echo $TPL_VAR["list"]["content"];
+				?>
 			</textarea>
 			<script>       
 				KE.show({   id 			: "on", 

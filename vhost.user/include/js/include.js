@@ -252,6 +252,17 @@ function login_popup_close(){
     $j("#coverBG").fadeOut();
 }
 
+function betting_ready_popup(text) {
+    $j("#betting_ready_popup .pop_message").text(text);
+    $j("#betting_ready_popup").fadeIn();
+    $j("#coverBG").fadeIn();
+}
+
+function betting_ready_popup_close() {
+    $j("#betting_ready_popup").fadeOut();
+    $j("#coverBG").fadeOut();
+}
+
 function warning_popup(text) {
     $j("#warning_popup .pop_message").text(text);
     $j("#warning_popup").fadeIn();
@@ -417,6 +428,7 @@ function getUserInfo() {
             return;
             
         $j(".member_inmoney").html(addCommas(json.member.g_money));
+        $j(".member_mileage").html(addCommas(json.member.point));
 
         var url = window.location.href;
         if(json.memo > 0) {
@@ -501,8 +513,13 @@ ws.onopen = function (event) {
     console.log("WebSocket Opened");
 };
 
+ws.onerror = function (event) {
+    console.log("WebSocket Error");
+    ws = new WebSocket("ws://211.115.107.17:3002");
+}
+
 ws.onmessage = function (event) {
-    // try {
+    try {
         var objPacket = JSON.parse(event.data);
         
         if(objPacket.m_nPacketCode == PACKET_SPORT_LIST) {
@@ -527,10 +544,10 @@ ws.onmessage = function (event) {
         else if(objPacket.m_nPacketCode == PACKET_POWERBALL_TIME) {
             realTime(objPacket.m_strPacket);
         }
-    // }
-    // catch(err) {
-    //     console.log(err.message);
-    // }
+    }
+    catch(err) {
+        console.log(err.message);
+    }
 }
 
 function sendPacket(nPacketCode, strPacket) {

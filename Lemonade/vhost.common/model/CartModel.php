@@ -1117,6 +1117,17 @@ class CartModel extends Lemon_Model
 		return $this->db->exeSql($sql);
 	}
 
+	//▶ 취소된 베팅내역 상태변화
+	function modifyCancelViewState($memberSn, $bettingNo, $isHide=1)
+	{
+		if($isHide==1)
+			$sql = "update ".$this->db_qz."total_cart_cancel set user_del='Y' where betting_no = '". $bettingNo ."'and member_sn=". $memberSn;
+		else
+			$sql = "update ".$this->db_qz."total_cart_cancel set user_del='N' where betting_no = '". $bettingNo ."'and member_sn=". $memberSn;
+
+		return $this->db->exeSql($sql);
+	}
+
 	//-> 유저 배팅내역 숨김	(선택형)
 	function hide_betting($member_sn, $betting_list) {
 		$sql = "update tb_total_cart set user_del = 'Y' where member_sn = '".$member_sn."' and betting_no = '".$betting_list."'";
@@ -1131,9 +1142,9 @@ class CartModel extends Lemon_Model
 	}
 	
 	//▶ 베팅삭제
-	function delCart($bettingNo)
+	function delCart($bettingNo, $cancel_id = "관리자")
 	{
-		$this->copyCartCancelToCart($bettingNo);
+		$this->copyCartCancelToCart($bettingNo, $cancel_id);
 		$sql = "delete from ".$this->db_qz."total_cart 
 				where betting_no = '". $bettingNo ."'";
 		$this->db->exeSql($sql);
@@ -1144,14 +1155,14 @@ class CartModel extends Lemon_Model
 	}
 	
 	//▶ 취소배팅내역 복사
-	function copyCartCancelToCart($bettingNo)
+	function copyCartCancelToCart($bettingNo, $cancel_id = "관리자")
 	{
 		//취소배팅카트복사
 		$sql = "INSERT INTO ".$this->db_qz."total_cart_cancel select * from ".$this->db_qz."total_cart where betting_no='".$bettingNo."'";
 		$this->db->exeSql($sql);
 		
-		//취소시간 업데이트
-		$sql = "update ".$this->db_qz."total_cart_cancel set operdate=now() where betting_no = '".$bettingNo."'";
+		//취소시간, 취소한 유저 업데이트
+		$sql = "update ".$this->db_qz."total_cart_cancel set operdate = now(), cancel_by = '" . $cancel_id . "' where betting_no = '".$bettingNo."'";
 		$this->db->exeSql($sql);
 		
 		//취소배팅토탈복사

@@ -2381,11 +2381,11 @@ class GameListModel extends Lemon_Model
 			$limit = " limit ".$page.", ".$page_size;
 			
 		$sql = "select	a.betting_no, a.regdate, a.operdate, a.betting_cnt, a.result_rate, a.bet_date, a.logo,
-										a.before_money, a.betting_money, a.result, a.result_money, a.member_sn, a.betting_ip
-						from ".$this->db_qz."total_cart_cancel a,".$this->db_qz."total_betting_cancel b, ".$this->db_qz."member c
-						where 	a.betting_no=b.betting_no and a.member_sn=c.sn
-										and a.kubun ='Y' ".$where." 
-						group by a.betting_no ".$orderby.$limit;
+						a.before_money, a.betting_money, a.result, a.result_money, a.member_sn, a.betting_ip, a.cancel_by
+				from ".$this->db_qz."total_cart_cancel a,".$this->db_qz."total_betting_cancel b, ".$this->db_qz."member c
+				where 	a.betting_no=b.betting_no and a.member_sn=c.sn
+								and a.kubun ='Y' ".$where." 
+				group by a.betting_no ".$orderby.$limit;
 		$rs = $this->db->exeSql($sql);
 
 		$list = array();
@@ -2396,11 +2396,13 @@ class GameListModel extends Lemon_Model
 			{
 				$bettingSn = $rs[$i]["betting_no"];
 
-				$sql = "select a.sn as total_betting_sn, a.sub_child_sn, a.select_no, a.home_rate, a.away_rate, a.draw_rate, a.select_rate, a.game_type, a.result,
-								b.sn as child_sn, b.home_team, b.away_team, b.home_score, b.away_score, b.special, b.gameDate, b.gameHour, b.gameTime,
-								c.name as league_name,c.lg_img as league_image, d.win
-								from ".$this->db_qz."total_betting_cancel a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d 
-								where a.betting_no='".$bettingSn."' and a.sub_child_sn=d.sn and b.league_sn=c.sn and b.sn=d.child_sn order by gameDate, gameHour, gameTime";
+				$sql = "SELECT 	tb_temp.*, tb_markets.mid, tb_markets.mname_ko, tb_markets.mfamily FROM (
+								SELECT a.sn as total_betting_sn, a.sub_child_sn, a.select_no, a.home_rate, a.away_rate, a.draw_rate, a.select_rate, a.game_type, a.result, a.score, a.live, 
+										b.sn as child_sn, b.home_team, b.away_team, b.home_score, b.away_score, b.special, b.gameDate, b.gameHour, b.gameTime, b.sport_id, 
+										b.notice as league_name, IFNULL(b.league_img, '') as league_image, d.home_line, d.away_line, d.draw_line, d.home_name, d.away_name, d.draw_name, d.win
+								FROM ".$this->db_qz."total_betting_cancel a, ".$this->db_qz."child b, ".$this->db_qz."subchild d 
+								WHERE a.betting_no='".$bettingSn."' and a.sub_child_sn=d.sn and b.sn=d.child_sn order by gameDate, gameHour, gameTime ) AS tb_temp 
+						LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
 
 				$rsi = $this->db->exeSql($sql);
 				

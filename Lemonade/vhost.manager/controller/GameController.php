@@ -1155,6 +1155,7 @@ class GameController extends WebServiceController
 			throw new Lemon_ScriptException("해당 권한이 제한되었습니다");			
 			exit();
 		}
+
 		$pModel  = $this->getModel("ProcessModel");
 		
 		$bettingNo 	= $this->request("betting_no");
@@ -1178,10 +1179,66 @@ class GameController extends WebServiceController
 			$url = "/game/betlist?perpage=".$perpage."&select_keyword=".$select_keyword."&keyword=".$keyword."&page=".$page."&show_detail=".$show_detail."&sel_result=".$sel_result."&mode=search";
 			//"&active_bet=".$activeBet.;
 		}
+
+		/* $res = $this->checkbettingCancel($bettingNo);
+
+		if($res["status"] > 0) {
+			throw new Lemon_ScriptException($res["msg"]);			
+			exit();
+		} */
 		
-		$pModel->bettingCancelProcess($bettingNo);
+		$pModel->bettingCancelProcess($bettingNo, '관리자');
 		
-		$this->alertRedirect("삭제 되었습니다", $url);
+		$this->alertRedirect("취소 되었습니다", $url);
+	}
+
+	public function checkbettingCancel($bettingNo) 
+	{
+		$configModel = $this->getModel("ConfigModel");
+		$gameModel = $this->getModel("GameModel");
+
+		$config = $configModel->getAdminConfig();
+		$cancelAfterTime = $config["bettingcanceltime"];
+		$cancelBeforeTime = $config["bettingcancelbeforetime"];
+		$cancelCnt = $config["bettingcancelcnt"];
+
+		$game_info = $gameModel->getGameByBettingNo($bettingNo);
+		$gameStartTime = strtotime($game_info[0]["gameDate"] . " " . $game_info[0]["gameHour"] . ":" . $game_info[0]["gameTime"] . ":00");
+		$bettingTime = strtotime($game_info[0]["regdate"]);
+		$nowTime = time();
+		$special = $game_info[0]["last_special_code"];
+		$live = $game_info[0]["live"];
+		$todayCancelCnt = $gameModel->getTodayBettingCancelCnt();
+		
+		$res["status"] = 0;
+		$res["msg"] = "";
+
+		if($live == 1) {
+			$res["status"] = 4; 
+			$res["msg"] = "라이브배팅은 취소가 불가능합니다.";
+			return $res;
+		}
+		
+		if($todayCancelCnt >= $cancelCnt) {
+			$res["status"] = 3; 
+			$res["msg"] = "배팅취소는 하루 {$cancelCnt}번만 가능합니다.";
+			return $res;
+		}
+		
+		if($special < 5) {
+			if(($nowTime - $bettingTime) > $cancelAfterTime * 60) {
+				$res["status"] = 1; 
+				$res["msg"] = "배팅후 {$cancelAfterTime}분이내에만 취소가 가능합니다.";
+				return $res;
+			} else if (($gameStartTime - $nowTime) < $cancelBeforeTime * 60) {
+				$res["status"] = 2; 
+				$res["msg"] = "경기시작 {$cancelBeforeTime}분전까지만 취소가 가능합니다.";
+				return $res;
+			}
+		}
+
+		return $res;
+
 	}
 
 	//▶ 베팅 취소 (다기준)

@@ -9,7 +9,7 @@
     $bonus_list = $TPL_VAR["bonus_list"];
 ?>
 <!-- <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/bootstrap-ko.css?v=511"> -->
-<link rel="stylesheet" type="text/css" href="/BET38/mo/_css/default.css?v=515">
+<link rel="stylesheet" type="text/css" href="/BET38/mo/_css/default.css?v=516">
 <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/m_layout.css?v=525">
 <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/btns.css?v=511">
 <link rel="stylesheet" type="text/css" href="/BET38/css/etc.m.css?v=510">
@@ -533,8 +533,8 @@
             var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid, $market_name, $home_line, $away_line, $home_name, $home_betid, $away_betid, $draw_betid);
             m_betList.addItem(item);
 
-            if(localStorage.getItem(`selected_${$betid}`) === null)
-                localStorage.setItem(`selected_${$betid}`, $betid);
+            // if(localStorage.getItem(`selected_${$betid}`) === null)
+            //     localStorage.setItem(`selected_${$betid}`, $betid);
 
             //betcon = betcon.add_element($game_index + "|" + $index + "&" + $home_team + "  VS " + $away_team);
             var isdisabled = true;
@@ -545,8 +545,8 @@
             //betcon = betcon.del_element($game_index + "|" + $index + "&" + $home_team + "  VS " + $away_team);
             var isdisabled = false;
 
-            if(localStorage.getItem(`selected_${$betid}`) !== null)
-                localStorage.removeItem(`selected_${$betid}`);
+            // if(localStorage.getItem(`selected_${$betid}`) !== null)
+            //     localStorage.removeItem(`selected_${$betid}`);
         }
 
         bonus_del();
@@ -768,28 +768,33 @@
                     }
                 }
 
-                var market12;
-                switch(json.m_nSports) {
-                    case 6046: // 축구
-                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
-                        break;
-                    case 48242: // 농구
-                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
-                        break;
-                    case 154914: // 야구
-                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
-                        break;
-                    case 154830: // 배구
-                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
-                        break;
-                    case 35232: // 아이스 하키
-                        market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
-                        break;    
-                }
-                if(market12.m_nStatus > 1 || json.m_nStatus == 9) {
+                if(json.m_nStatus == 9) {
                     $("#lock_" + json.m_nGame).css("display", "block");
-                } else {
-                    $("#lock_" + json.m_nGame).css("display", "none");
+                } else if(json.m_lstDetail.length > 0) {
+                    var market12;
+                    switch(json.m_nSports) {
+                        case 6046: // 축구
+                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
+                            break;
+                        case 48242: // 농구
+                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                            break;
+                        case 154914: // 야구
+                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                            break;
+                        case 154830: // 배구
+                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
+                            break;
+                        case 35232: // 아이스 하키
+                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                            break;    
+                    }
+                    
+                    if(market12.m_nStatus > 1) {
+                        $("#lock_" + json.m_nGame).css("display", "block");
+                    } else {
+                        $("#lock_" + json.m_nGame).css("display", "none");
+                    }
                 }
             }
         }

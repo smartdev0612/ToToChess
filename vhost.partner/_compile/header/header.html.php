@@ -16,30 +16,23 @@
 		<script src="/js/is_show.js"></script>
 		<script src="/js/lendar.js?v=<?=time();?>"></script>
 		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="/js/jBeep/jBeep.min.js"></script>
+
 		<script language="JavaScript">
-			
-		function refreshContent() 
-		{ 
-			var oBao = new ActiveXObject("Microsoft.XMLHTTP"); 
-			
-			oBao.open("POST","/etc/refresh",false); 
-			oBao.send(); 
-				
-			var strResult = unescape(oBao.responseText); 
-			var arrResult = strResult.split("###");
-			for(var i=0;i<arrResult.length;i++) 
-			{ 
-				arrTmp = arrResult[i].split("@@@"); 
-				num1 = arrTmp[0];
-				num2 = arrTmp[1];
-				num3 = arrTmp[2];					
-			}		
-			$("#top_user").html("환영합니다.<b> "+num1+" </b>님");				
-			$("#top_va").html("("+num2+"/"+num3+")쪽지함");
-		}
-			
-		function beginTimer() 
-		{ 
-			timer = window.setInterval("refreshContent()",1000*60); 	
-		}
+			$(document).ready(function(){
+				var refresh = setInterval(refreshAction, 5000);
+			});
+
+			function refreshAction() {
+				$.ajax("/etc/refresh")
+					.done(function(response) {
+						var arrResult = response.split("@@@"); 
+						num1 = arrResult[0];
+						num2 = arrResult[1];
+						num3 = arrResult[2];
+						$("#memoCnt").text(num2);
+						if(parseInt(num2) > 0)
+							try { jBeep('/snd/msg_recv_alarm.mp3'); } catch(e) {};
+					});
+			}
 		</script>

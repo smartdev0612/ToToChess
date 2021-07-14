@@ -129,6 +129,8 @@ function mainchgna(vii)
 				<ul>
 					<li><a href='/partner/list_top'>부본사목록</a></li>
 					<li><a href='/partner/list_tex_top'>부본사정산</a></li>
+					<li><a href='/partner/memolist?p_type=1'>부본사쪽지</a></li>
+                    <li><a href='/partner/memoadd?p_type=1'>쪽지쓰기</a></li>
 				</ul>
 			</div>
 			<p class="m_menu" onclick="mainchgna('11')"><a href="javascript:void();">총판 관리</a></p>
@@ -136,8 +138,8 @@ function mainchgna(vii)
 				<ul>
 					<li><a href='/partner/list'>총판목록</a></li>
                     <li><a href='/partner/list_tex'>총판정산</a></li>
-                    <li><a href='/partner/memolist'>총판쪽지</a></li>
-                    <li><a href='/partner/memoadd'>쪽지쓰기</a></li>
+                    <li><a href='/partner/memolist?p_type=2'>총판쪽지</a></li>
+                    <li><a href='/partner/memoadd?p_type=2'>쪽지쓰기</a></li>
 				</ul>
 			</div>
 			<p class="m_menu" onclick="mainchgna('12')"><a href="javascript:void();">통계</a></p>

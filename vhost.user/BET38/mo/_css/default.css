@@ -49,7 +49,7 @@ img { border: 0; }
 
 textarea, select {font-family:Nanum Gothic;}
 select {margin:0}
-p {margin:0 !important;padding:0 !important;word-break:break-all}
+p {margin:0;padding:0;word-break:break-all}
  pre {overflow-x:scroll;}
 a:link, a:visited {color:#fff;text-decoration:none}
 a:hover, a:focus, a:active {color:#22b486;text-decoration:none}

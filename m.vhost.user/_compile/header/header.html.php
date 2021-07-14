@@ -464,7 +464,7 @@ var $j = jQuery;
                             </div>
                             <div class="point">
                                 <span class="head"><img src="/10bet/images/10bet/ico_01.png" alt="" /> 포인트</span> 
-                                <span id="member_mileage"><?php echo number_format($TPL_VAR["mileage"],0)?></span>&nbsp;P						
+                                <span class="member_mileage"><?php echo number_format($TPL_VAR["mileage"],0)?></span>&nbsp;P						
                                 <span class="change" onClick="mileage2Cash();">포인트전환</span>
                             </div>
                             <div class="btn_list">

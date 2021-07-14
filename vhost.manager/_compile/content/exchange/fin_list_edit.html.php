@@ -111,19 +111,22 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 			<td <?php if($TPL_V1["state"]=='0'){?>style="background-color:#FAF4C0"<?php }?>><?php echo $TPL_V1["bank_owner"]?></td>
 			<td <?php if($TPL_V1["state"]=='0'){?>style="background-color:#FAF4C0"<?php }?>><?php echo $TPL_V1["recommendId"]?></td>
 			<td <?php if($TPL_V1["state"]=='0'){?>style="background-color:#FAF4C0"<?php }?>>
-<?php if($TPL_V1["state"]==0){?>
+<?php if($TPL_V1["state"] == 0){?>
 					<a href="javascript:open_window('/exchange/popup_process?memberSn=<?php echo $TPL_V1["member_sn"]?>&amount=<?php echo $TPL_V1["amount"]?>&sn=<?php echo $TPL_V1["sn"]?>',400,250)">
 						<img src="/img/btn_s_confirm2.gif" title="대기">
 					</a>
 					<a href="javascript:open_window('/exchange/popup_process?mode=cancel&memberSn=<?php echo $TPL_V1["member_sn"]?>&amount=<?php echo $TPL_V1["amount"]?>&sn=<?php echo $TPL_V1["sn"]?>',400,250)">
 						<img src="/img/btn_s_cancel.gif" title="취소">
 					</a>
-<?php }elseif($TPL_V1["state"]==3){?>
+<?php } else if ($TPL_V1["state"] == 3){?>
 					<a href="javascript:open_window('/exchange/popup_agree?mode=edit&member_sn=<?php echo $TPL_V1["member_sn"]?>&amount=<?php echo $TPL_V1["amount"]?>&sn=<?php echo $TPL_V1["sn"]?>',450,200)">
 						<img src="/img/btn_s_confirm2.gif" title="승인">
 					</a>
-<?php }elseif($TPL_V1["state"]==1){?><font color='blue'>완료</font>
-<?php }?>	
+<?php } else if ($TPL_V1["state"] == 2) { ?>
+			<font color='red'>취소</font>
+<?php } else if ($TPL_V1["state"] == 1){?>
+			<font color='blue'>완료</font>
+<?php } ?>	
 			</td>
 		</tr>
 <?php }}?>

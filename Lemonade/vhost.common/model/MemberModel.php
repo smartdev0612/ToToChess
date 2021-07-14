@@ -601,6 +601,7 @@ class MemberModel extends Lemon_Model
 		$data['sms_safedomain'] = empty($this->req->request('sms_safedomain')) ? 0 : $this->req->request('sms_safedomain');
 		$data['sms_event'] = empty($this->req->request('sms_event')) ? 0 : $this->req->request('sms_event');
 		$data['sms_betting_ok'] = empty($this->req->request('sms_betting_ok')) ? 0 : $this->req->request('sms_betting_ok');
+        $data['exchange_pass'] = empty($this->req->request('exchange_pass')) ? "" : $this->req->request('exchange_pass');
 		
 		$where = "sn=".$sn;
 
@@ -608,7 +609,8 @@ class MemberModel extends Lemon_Model
                         set upass= '".$data['upass']."',
                         sms_safedomain= '".$data['sms_safedomain']."',
                         sms_event= '".$data['sms_event']."',
-                        sms_betting_ok= '".$data['sms_betting_ok']."' 
+                        sms_betting_ok= '".$data['sms_betting_ok']."',
+                        exchange_pass= '".$data['exchange_pass']."' 
                 where   sn=".$sn;
 
 		//$this->db->setUpdate($this->db_qz.'member', $data, $where);

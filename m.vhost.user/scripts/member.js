@@ -51,7 +51,7 @@ function stringSplit(strData, strIndex)
 
 function mileage2Cash()
 {
-	amount = parseInt($('#member_mileage').text().replace(/^\$|,/g, ""));
+	amount = parseInt($('.member_mileage').text().replace(/^\$|,/g, ""));
 	if(amount == 0)
 	{
 		alert('포인트가 없습니다.');
@@ -96,7 +96,7 @@ function onMileage2Cash(jsonText)
 	newCash = moneyFormat(newCash);
 		
 	$("#member_cash").text(moneyFormat(newCash));
-  $("#member_mileage").text(moneyFormat(newMileage));
+  $(".member_mileage").text(moneyFormat(newMileage));
 	
     return true;
 }

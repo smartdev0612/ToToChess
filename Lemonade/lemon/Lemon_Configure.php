@@ -8,6 +8,7 @@ class Lemon_Configure
 		global $vhost;
 
 		$filename = dirname(__file__)."/../".$vhost."/config/".($userPath===false?"":"user/").$kind.".ini";
+	
 		if(is_file($filename))
 		{
 			if(!array_key_exists($kind,self::$config))

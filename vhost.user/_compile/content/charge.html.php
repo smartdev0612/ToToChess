@@ -5,25 +5,6 @@
 <link rel="stylesheet" href="/10bet/css/common.css" type="text/css" />
 <link rel="stylesheet" href="/10bet/css/charge.css" type="text/css" />
 
-<script language="javascript">
-    // 글자수 제한
-    var char_min = parseInt(0); // 최소
-    var char_max = parseInt(0); // 최대
-</script>
-<script>
-    var VarBoTable = "a10";
-    var VarBoTable2 = "a25";
-    var VarCaId = "";
-    var VarColspan = "7";
-    $j().ready(function(){
-        path = '/ajax.list.php?bo_table=a10&ca=&sca=&sfl=&stx=&b_type=2';
-        init("" + g4_path + path);
-        
-        path2 = '/ajax.list.php?bo_table=a25&ca=&sca=&sfl=&stx=';
-        init2("" + g4_path + path2);
-        //setInterval("init('"+g4_path+ path +"')", 30000);
-    });
-</script>
 <script type="text/javascript" src="/10bet/js/left.js?1610763509"></script>
 		
 <form name="frm" method="post" action="/member/chargeProcess" enctype="multipart/form-data" style="margin:0px;">
@@ -103,8 +84,26 @@
                 <td class="th-mini"><?php echo number_format($TPL_V1["amount"])?></td>
                 <td class="th-mini"><?php echo $TPL_V1["bank_owner"]?></td>
                 <td class="th-mini"><?php echo $chargeDate?></td>
-                <td class="th-mini"><?php if($TPL_V1["state"]==0){?>처리중<?php }elseif($TPL_V1["state"]==1){?>완료<?php }?></td>
-                <td class="th-mini"><?php	if($TPL_V1["state"]==0){echo "-";} else if ( $TPL_V1["state"] == 1 ) {?><a href="/member/chargelist?charge_sn=<?php echo $TPL_V1["sn"]?>"><img src="/images/bt_del_1.png" alt="삭제"/></a><?php	}?></td>
+                <td class="th-mini">
+                    <?php 
+                        if($TPL_V1["state"] == 0) { 
+                            echo "처리중"; 
+                        } else if ($TPL_V1["state"] == 1) {
+                            echo "완료";
+                        } else if ($TPL_V1["state"] == 9) {
+                            echo "취소";
+                        }
+                    ?>
+                </td>
+                <td class="th-mini">
+                    <?php	
+                        if($TPL_V1["state"] == 0) { 
+                            echo "-"; 
+                        } else if ( $TPL_V1["state"] > 0) {
+                            echo '<a href="/member/chargelist?charge_sn=' . $TPL_V1["sn"] . '"><img src="/images/bt_del_1.png" alt="삭제"/></a>';
+                        }
+                    ?>
+                </td>
             </tr>
         <?php
             }
@@ -114,7 +113,11 @@
             </tr>
         </tbody>
     </table>
-    
+    <div class="page_skip">
+        <span class="num">&nbsp;
+            <?php echo $TPL_VAR["pagelist"]?>
+        </span>
+    </div>
 </div>
 </div>
 

@@ -310,20 +310,27 @@
                                                       foreach ($bonus_list as $bonus) { ?>
                                                    <ul class="bonus_ul">
                                                       <li id="num_-3">
-                                                         <div class="bet_area bonus_div" name="<?php echo $bonus["sn"]?>_div">
-                                                            <div class="home" style="width:100%;"  onclick="onTeamSelected('<?php echo $bonus["sn"]?>','0','0')">
+                                                         <div class="bet_area bonus_div" name="<?=$bonus["sn"]?>_div">
+                                                            <div class="home" style="width:100%;"  onclick="onTeamSelected('<?=$bonus["sn"]?>','0','0','0')">
                                                                <div style="display:none">
-                                                                  <input type="hidden" id="<?php echo $bonus["sn"]?>_sport_name" value="<?php echo $bonus["sport_name"]?>">
-                                                                  <input type="hidden" id="<?php echo $bonus["sn"]?>_game_type" value="<?php echo $bonus["betting_type"]?>">
-                                                                  <input type="hidden" id="<?php echo $bonus["sn"]?>_sub_sn" 	value="<?php echo $bonus["sn"]?>">
-                                                                  <input type="hidden" id="<?php echo $bonus["sn"]?>_home_team" value="<?php echo trim($bonus["home_team"])?>">
-                                                                  <input type="hidden" id="<?php echo $bonus["sn"]?>_home_rate" value="<?php echo $bonus["home_rate"]?>">
-                                                                  <input type="hidden" id="<?php echo $bonus["sn"]?>_draw_rate" value="<?php echo $bonus["draw_rate"]?>">
-                                                                  <input type="hidden" id="<?php echo $bonus["sn"]?>_away_team" value="<?php echo trim($bonus["away_team"])?>">
-                                                                  <input type="hidden" id="<?php echo $bonus["sn"]?>_away_rate" value="<?php echo $bonus["away_rate"]?>">
-                                                                  <input type="hidden" id="<?php echo $bonus["sn"]?>_is_specified_special" value="<?php echo $bonus["is_specified_special"]?>">
-                                                                  <input type="hidden" id="<?=$bonus["sn"]?>_game_date" value="<?=$bonus["gameDate"]?>">
-                                                                  <input type="hidden" id="<?=$bonus["sn"]?>_league_sn" value="<?=$bonus["league_sn"]?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_sport_name" value="<?=$bonus["sport_name"]?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_game_type" value="<?=$bonus["betting_type"]?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_sub_sn" 	value="<?=$bonus["sn"]?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_home_team" value="<?=trim($bonus["home_team"])?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_home_rate" value="<?=$bonus["home_rate"]?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_draw_rate" value="<?=$bonus["draw_rate"]?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_away_team" value="<?=trim($bonus["away_team"])?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_away_rate" value="<?=$bonus["away_rate"]?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_is_specified_special" value="<?=$bonus["is_specified_special"]?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_game_date" value="<?=$bonus["gameDate"]?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_league_sn" value="<?=$bonus["league_sn"]?>">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_market_name" value="">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_home_betid" value="0">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_away_betid" value="0">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_draw_betid" value="0">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_home_line" value="">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_away_line" value="">
+                                                                    <input type="hidden" id="<?=$bonus["sn"]?>_home_name" value="">
                                                                </div>
                                                                <?=$bonus["home_team"]?> 
                                                                <span class="bed"><?=$bonus["home_rate"]?></span>
@@ -396,6 +403,7 @@
    </script>
    <script language="javascript">
         $j(document).ready(function() {
+            localStorage.clear();
             var sport_type = '<?php echo $TPL_VAR["sport_type"]?>';
             // getBonusList();
             setTimeout(() => {
@@ -690,16 +698,28 @@
                             if(document.getElementById(`${djson.m_nHBetCode}_cart`) != null) {
                                 document.getElementById(`${djson.m_nHBetCode}_cart`).innerHTML = djson.m_fHRate.toFixed(2);
                                 updateCart(0, djson.m_nHBetCode, djson.m_fHRate);
+                                if(localStorage.getItem(`selected_${djson.m_nHBetCode}`) !== null) {
+                                    $j(`#${djson.m_nHBetCode}_chk`).parent().addClass("on");
+                                    $j(`#${djson.m_nHBetCode}_chk`).prop("checked", true);
+                                }
                             }
 
                             if(document.getElementById(`${djson.m_nDBetCode}_cart`) != null) {
                                 document.getElementById(`${djson.m_nDBetCode}_cart`).innerHTML = djson.m_fDRate.toFixed(2);
                                 updateCart(1, djson.m_nDBetCode, djson.m_fDRate);
+                                if(localStorage.getItem(`selected_${djson.m_nDBetCode}`) !== null) {
+                                    $j(`#${djson.m_nDBetCode}_chk`).parent().addClass("on");
+                                    $j(`#${djson.m_nDBetCode}_chk`).prop("checked", true);
+                                }
                             }
 
                             if(document.getElementById(`${djson.m_nABetCode}_cart`) != null) { 
                                 document.getElementById(`${djson.m_nABetCode}_cart`).innerHTML = djson.m_fARate.toFixed(2);
                                 updateCart(2, djson.m_nABetCode, djson.m_fARate);
+                                if(localStorage.getItem(`selected_${djson.m_nABetCode}`) !== null) {
+                                    $j(`#${djson.m_nABetCode}_chk`).parent().addClass("on");
+                                    $j(`#${djson.m_nABetCode}_chk`).prop("checked", true);
+                                }
                             }
                         }
                     }
@@ -718,7 +738,7 @@
             for(var i = 0; i < newJson.length; i++) {
                 var league_div = $j(`#${newJson[i].m_strDate}_${newJson[i].m_strHour}_${newJson[i].m_strMin}_${newJson[i].m_nLeague}`);
                 if(league_div != null && league_div != undefined) {
-                    var form = $j(`#game_${json.m_nFixtureID}`);
+                    var form = $j(`#game_${newJson[i].m_nFixtureID}`);
                     if(form == null || form == undefined)
                         appendGameDiv(newJson[i]);
                 } else {
@@ -1089,17 +1109,17 @@
             div += "<div class='" + (is_child ? "child-home" : "home") + " menuOff home-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','0','" + 0 + "'," + detail.m_nHBetCode + ")>";
             div += '<font class="team_name">' + homeTeamName + '</font>';
             div += '<span class="bed" id="' + detail.m_nHBetCode + '">' + detail.m_fHRate.toFixed(2) + '</span>';
-            div += '<input type="checkbox" name="ch" value="1" style="display:none;">';
+            div += `<input type="checkbox" id="${detail.m_nHBetCode}_chk" name="ch" value="1" style="display:none;">`;
             div += '</div>';
         
             div += "<div class='" + (is_child ? "child-draw" : "draw") + " menuOff draw-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','1','" + 0 + "','" + detail.m_nDBetCode + "')>";
             div += '<span class="bed" id="' + detail.m_nDBetCode + '">' + detail.m_fDRate.toFixed(2) + '</span>';
-            div += '<input type="checkbox" name="ch" value="3" style="display:none;"></div>';
+            div += `<input type="checkbox" id="${detail.m_nDBetCode}_chk" name="ch" value="3" style="display:none;"></div>`;
         
             div += "<div class='" + (is_child ? "child-away" : "away") + " menuOff away-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','2','" + 0 + "','" + detail.m_nABetCode + "')>";
             div += '<font class="team_name">' + awayTeamName + '</font>';
             div += '<span class="bed" id="' + detail.m_nABetCode + '">' + detail.m_fARate.toFixed(2) + '</span>';
-            div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div>';
+            div += `<input type="checkbox" id="${detail.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div>`;
             
             if(!is_child) {
                 div += '<div class="toggle-width"><span class="toggle-icon" id="game_title_' + game_sn_code + '" onclick="onExpand(' + game_sn_code + ')">+</span></div>';
@@ -1152,7 +1172,7 @@
             div += "<div class='" + (is_child ? "child-home" : "home") + " menuOff home-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','0','" + 0 + "','" + detail.m_nHBetCode + "')>";
             div += '<font class="team_name">' + homeTeamName + '</font>';
             div += '<span class="bed" id="' + detail.m_nHBetCode + '">' + detail.m_fHRate.toFixed(2) + '</span>';
-            div += '<input type="checkbox" name="ch" value="1" style="display:none;">';
+            div += `<input type="checkbox" id="${detail.m_nHBetCode}_chk" name="ch" value="1" style="display:none;">`;
             div += '</div>';
         
             div += "<div class='" + (is_child ? "child-draw" : "draw") + " menuOff draw-width' name='" + sub_idx + "_div'>";
@@ -1162,7 +1182,7 @@
             div += "<div class='" + (is_child ? "child-away" : "away") + " menuOff away-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','2','" + 0 + "','" + detail.m_nABetCode + "')>";
             div += '<font class="team_name">' + awayTeamName + '</font>';
             div += '<span class="bed" id="' + detail.m_nABetCode + '">' + detail.m_fARate.toFixed(2) + '</span>';
-            div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div>';
+            div += `<input type="checkbox" id="${detail.m_nABetCode}_chk"  name="ch" value="2" style="display:none;"></div>`;
             
             if(!is_child) {
                 div += '<div class="toggle-width"><span class="toggle-icon" id="game_title_' + game_sn_code + '" onclick="onExpand(' + game_sn_code + ')">+</span></div>';
@@ -1214,7 +1234,7 @@
             div += "<div class='" + (is_child ? "child-home" : "home") + " menuOff home-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','0','" + 0 + "','" + detail.m_nHBetCode + "')>";
             div += '<font class="team_name">' + homeTeamName + '</font>';
             div += '<span class="bed" id="' + detail.m_nHBetCode + '">' + detail.m_fHRate.toFixed(2) + '</span>';
-            div += '<input type="checkbox" name="ch" value="1" style="display:none;">';
+            div += `<input type="checkbox" id="${detail.m_nHBetCode}_chk" name="ch" value="1" style="display:none;">`;
             div += '</div>';
         
             div += "<div class='" + (is_child ? "child-draw" : "draw") + " menuOff draw-width' name='" + sub_idx + "_div'>";
@@ -1224,7 +1244,7 @@
             div += "<div class='" + (is_child ? "child-away" : "away") + " menuOff away-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','2','" + 0 + "','" + detail.m_nABetCode + "')>";
             div += '<font class="team_name">' + awayTeamName + '</font>';
             div += '<span class="bed" id="' + detail.m_nABetCode + '">' + detail.m_fARate.toFixed(2) + '</span>';
-            div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div>';
+            div += `<input type="checkbox" id="${detail.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div>`;
             
             if(!is_child) {
                 div += '<div class="toggle-width"><span class="toggle-icon" id="game_title_' + game_sn_code + '" onclick="onExpand(' + game_sn_code + ')">+</span></div>';
@@ -1276,7 +1296,7 @@
             div += "<div class='" + (is_child ? "child-home" : "home") + " menuOff home-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','0','" + 0 + "','" + detail.m_nHBetCode + "')>";
             div += '<font class="team_name">' + homeTeamName + '</font>';
             div += '<span class="bed" id="' + detail.m_nHBetCode + '">' + detail.m_fHRate.toFixed(2) + '</span>';
-            div += '<input type="checkbox" name="ch" value="1" style="display:none;">';
+            div += `<input type="checkbox" id="${detail.m_nHBetCode}_chk" name="ch" value="1" style="display:none;">`;
             div += '</div>';
         
             div += "<div class='" + (is_child ? "child-draw" : "draw") + " menuOff draw-width' name='" + sub_idx + "_div'>";
@@ -1287,7 +1307,7 @@
             div += "<div class='" + (is_child ? "child-away" : "away") + " menuOff away-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','2','" + 0 + "','" + detail.m_nABetCode + "')>";
             div += '<font class="team_name">' + awayTeamName + '</font>';
             div += '<span class="bed" id="' + detail.m_nABetCode + '">' + detail.m_fARate.toFixed(2) + '</span>';
-            div += '<input type="checkbox" name="ch" value="2" style="display:none;"></div>';
+            div += `<input type="checkbox" id="${detail.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div>`;
             
             if(!is_child) {
                 div += '<div class="toggle-width"><span class="toggle-icon" id="game_title_' + game_sn_code + '" onclick="onExpand(' + game_sn_code + ')">+</span></div>';

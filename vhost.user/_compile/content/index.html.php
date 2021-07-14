@@ -217,7 +217,7 @@
                             echo "<img src=\"/images/ibet/sporticons_bk.png\" style=\"vertical-align:middle; height:20px;\">";
                         else if( $TPL_V1["sport_name"] == "배구")
                             echo "<img src=\"/images/ibet/sporticons_vb.png\" style=\"vertical-align:middle; height:20px;\">";
-                        else if( $TPL_V1["sport_name"] == "아이스하키")
+                        else if( $TPL_V1["sport_name"] == "아이스 하키")
                             echo "<img src=\"/images/ibet/sporticons_ih.png\" style=\"vertical-align:middle; height:20px;\">";
                         else if( $TPL_V1["sport_name"] == "테니스")
                             echo "<img src=\"/images/ibet/spo_2.png\" style=\"vertical-align:middle; height:20px;\">";

@@ -649,24 +649,25 @@ class PartnerController extends WebServiceController
 	
 		$model 	= $this->getModel("PartnerModel");
 		$mModel = $this->getModel("MemoModel");
+
+		$toid=$this->request('toid');
+		$reply_id = empty($this->request('reply_id')) ? 0 : $this->request('reply_id');
+		$p_type = empty($this->request('p_type')) ? 0 : $this->request('p_type');
+		$title=trim($this->request('title'));
+		$time=trim($this->request('time'));
+		$content=trim($this->request('content'));
+		$content=htmlspecialchars($content);
 		
 		$act = $this->request('act');
 		if(isset($act) && $act=="add")
 		{
-			$title=trim($this->request('title'));
-			$toid=$this->request('toid');
-			$time=trim($this->request('time'));
-			$content=trim($this->request('content'));
-			$content=htmlspecialchars($content);
-			
-			$mModel->writePartnerMemo($toid, $title, $content);
-			
-			echo "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' ><script>alert('발송되었습니다.');window.close();</script>";
-			echo "<META HTTP-EQUIV='Refresh' CONTENT='0;URL=/partner/list'>";
+			$mModel->writePartnerMemo($toid, $title, $content, $p_type);
+			$mModel->modifyMemoRead($reply_id);
+			throw new Lemon_ScriptException("","","script","alert('성공적으로 발송되였습니다.'); opener.document.location.reload(); self.close();");
 			exit;
 		}
 	
-		if($this->request('toid')!="")
+		if($toid != "")
 		{
 			$send = $this->request('toid');
 		}
@@ -678,8 +679,8 @@ class PartnerController extends WebServiceController
 		}	
 		
 		$this->view->assign('send', $send);
-		
-		
+		$this->view->assign('reply_id', $reply_id);
+		$this->view->assign('p_type', $p_type);
 		$this->display();
 	}
 	
@@ -869,26 +870,27 @@ class PartnerController extends WebServiceController
 		$mModel = $this->getModel("MemoModel");
 		
 		$act	= $this->request('act');
+		$p_type	= empty($this->request('p_type')) ? 0 : $this->request('p_type');
 				
 		if(isset($act)&&$act == "del")
 		{
 			$id = $this->request('id');
 			$mModel->delMemoByMemberSn( $id );
 		}		
-		$where = " and toid='운영팀' and kubun='1' ";
+		$where = " and toid = '운영팀' and kubun='1' and p_type = '" . $p_type . "'";
 		$total = $mModel->getMemoTotal($where);
 		$pageMaker = $this->displayPage($total, 10);
 		$list = $mModel->getMemoList($where, $pageMaker->first, $pageMaker->listNum, " writeday desc ");
 		
 		$this->view->assign('list', $list);
+		$this->view->assign('p_type', $p_type);
 		
 		$this->display();
 	}
 	 
 	/*
-	 *  쪽지쓰기
+	 *  파트너 쪽지쓰기
 	 */ 
-	 
 	function memoaddAction()
 	{
 		$this->commonDefine();
@@ -904,18 +906,21 @@ class PartnerController extends WebServiceController
 		$mModel = $this->getModel("MemoModel");
 		
 		$act = $this->request('act');
+		$p_type	= empty($this->request('p_type')) ? 0 : $this->request('p_type');
+
+		$partnerList = $model->getPartnerIdList('', $p_type);
 
 		if(isset($act) && $act=="add")
 		{
 			$title		= trim( $this->request('title') );
-			$toid			=	$this->request('toid');
-			$time			=	trim($this->request('time'));
+			$toid		= $this->request('toid');
+			$time		= trim($this->request('time'));
 			$content	= trim($this->request('content'));
 			$content	= htmlspecialchars($content);
 			
-			$mModel->writePartnerMemo($toid, $title, $content);
+			$mModel->writePartnerMemo($toid, $title, $content, $p_type);
 			
-			throw new Lemon_ScriptException("성공적으로 등록 되였습니다.", "", "go", "/partner/memoadd");
+			throw new Lemon_ScriptException("성공적으로 등록 되였습니다.", "", "go", "/partner/memoadd?p_type={$p_type}");
 			exit;
 		}
 		
@@ -927,6 +932,8 @@ class PartnerController extends WebServiceController
 		}
 		
 		$this->view->assign('send', $send);
+		$this->view->assign('partnerList', $partnerList);
+		$this->view->assign('p_type', $p_type);
 	
 		$this->display();
 		
@@ -949,7 +956,9 @@ class PartnerController extends WebServiceController
 		$model 	= $this->getModel("PartnerModel");
 		$mModel = $this->getModel("MemoModel");
 		
-		$act = $this->request('act');		
+		$act = $this->request('act');
+		$p_type	= empty($this->request('p_type')) ? 0 : $this->request('p_type');
+
 		if(isset($act) && $act == "del")
 		{
 			$id = $this->request('id');
@@ -967,12 +976,14 @@ class PartnerController extends WebServiceController
 			$mModel->delMemoByMemberSn($str);
 		}
 		
-		$where = "and fromid='운영팀' and kubun='1' ";
+		$where = "and fromid = '운영팀' and kubun='1' and p_type = '" . $p_type . "'";
 		$total = $mModel->getMemoTotal($where);
 		$pageMaker = $this->displayPage($total, 10);
 		$list = $mModel->getMemoList($where, $pageMaker->first, $pageMaker->listNum, " writeday desc ");
 		
 		$this->view->assign('list', $list);
+		$this->view->assign('p_type', $p_type);
+
 		$this->display();
 	}
 	 

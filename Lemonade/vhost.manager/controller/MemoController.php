@@ -232,7 +232,7 @@ class MemoController extends WebServiceController
 		}
 		
 		$levelList 		= $configModel->getLevelConfigRows("lev,lev_name");
-		$partnerList 	= $partnerModel->getPartnerIdList();
+		$partnerList 	= $partnerModel->getPartnerIdList('', 2);
 		$domainList 	= $configModel->getDomainList();
 		
 		$this->view->assign("level_list", $levelList);

@@ -133,7 +133,7 @@ function stringSplit(strData, strIndex)
 
 function mileage2Cash()
 {
-	amount = parseInt($j('#member_mileage').text().replace(/^\$j|,/g, ""));
+	amount = parseInt($j('.member_mileage').text().replace(/^\$j|,/g, ""));
 	if(amount < 1)
 	{
 		warning_popup('포인트가 없습니다.');
@@ -186,7 +186,7 @@ function onMileage2Cash(jsonText)
 	newCash = moneyFormat(newCash);
 		
 	$j("#member_cash").text(moneyFormat(newCash));
- 	$j("#member_mileage").text(moneyFormat(newMileage));
+ 	$j(".member_mileage").text(moneyFormat(newMileage));
 
 	top.location.reload();	
   return true;
@@ -200,7 +200,7 @@ function onCash2Mileage(jsonText)
 	newCash = moneyFormat(newCash);
 		
 	$j("#member_cash").text(moneyFormat(newCash));
-  	$j("#member_mileage").text(moneyFormat(newMileage));
+  	$j(".member_mileage").text(moneyFormat(newMileage));
   	
   	$j('#wrap_pop').hide();
 

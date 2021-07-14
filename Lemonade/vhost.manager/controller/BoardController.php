@@ -812,8 +812,8 @@ class BoardController extends WebServiceController
 			$logo=$this->logo;
 		
 		$ip = $commonModel->getIp();
-		$content = str_replace($config_upload_url,"", $content);
-		$imgsrc = str_replace($config_upload_url,"",$imgsrc);
+		// $content = str_replace($config_upload_url,"", $content);
+		// $imgsrc = str_replace($config_upload_url,"",$imgsrc);
 		
 		if($imgsrc!="0")
 		{

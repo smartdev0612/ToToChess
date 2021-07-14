@@ -5,9 +5,9 @@
     <title>체스</title>
     <link rel="shortcut icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345896" />
+    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345898" />
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
-    <link rel="stylesheet" type="text/css" href="/include/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/include/css/style.css?v=2" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
     <script type="text/javascript">var $j = jQuery.noConflict(); jQuery.ajaxSetup({cache:false});</script>
@@ -127,6 +127,29 @@
             </div>
         </div>
     </div>
+    <div id="betting_ready_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;display:none;">
+        <div class="pop_box">
+            <h2>알림</h2>
+            <div class="pop_message">
+                배팅중입니다...
+            </div>
+        </div>
+    </div>
+    <!-- 배팅취소 팝업 -->
+    <div id="betcancel_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;display:none;top:12%;">
+        <div class="pop_box">
+            <h2>알림</h2>
+            <input type="hidden" id="betting_no" value="0">
+            <input type="hidden" id="type" value="0">
+            <div class="pop_message">
+                정말 취소하시겠습니까?
+            </div>
+            <div class="btn-center">
+                <button type="button" class="confirm-yes" id="btnConfirm">예</button>
+                <button type="button" class="confirm-no" id="btnCancel">아니오</button>
+            </div>
+        </div>
+    </div>
     <!-- 확인 팝업 -->
     <div id="confirm_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;display:none;top:12%;">
         <div class="pop_box">
@@ -135,8 +158,8 @@
                 정말 배팅하시겠습니까?
             </div>
             <div class="btn-center">
-                <button type="button" class="confirm-yes confirmBetting">예</button>
-                <button type="button" class="confirm-no confirmNoBetting">아니오</button>
+                <button type="button" class="confirm-yes">예</button>
+                <button type="button" class="confirm-no">아니오</button>
             </div>
         </div>
     </div>
@@ -261,7 +284,7 @@
                             <li  onClick="location.href='/cs/cs_list'"><img src="/10bet/images/10bet/ico/top_ico10.png" alt="Chess 로고" />고객센터</li>
                             <li  onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico11.png" alt="Chess 로고" />공지사항</li>
                             <li  onClick="location.href='/board/?bbsNo=7'"><img src="/10bet/images/10bet/ico/top_ico12.png" alt="Chess 로고" />이벤트</li>
-                            <li  onClick="location.href='/game_guide'"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="Chess 로고" />배팅규정</li>
+                            <li  onClick="location.href='/board/?bbsNo=8'"><img src="/10bet/images/10bet/ico/top_ico13.png" alt="Chess 로고" />배팅규정</li>
                         <?php } else { ?>
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico14.png" alt="Chess 로고" />카지노</li>
                             <li  onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico6.png" alt="Chess 로고" />슬롯머신</li>
@@ -337,7 +360,7 @@
                                 <li class="button_type01 " onClick="location.href='/cs/cs_list'"><img src="/10bet/images/10bet/ico/top_ico_min10.png" alt="Chess 로고" />&nbsp;고객센터</li>
                                 <li class="button_type01 " onClick="location.href='/board/'"><img src="/10bet/images/10bet/ico/top_ico_min11.png" alt="Chess 로고" />&nbsp;공지사항</li>
                                 <li class="button_type01 " onClick="location.href='/board/?bbsNo=7'"><img src="/10bet/images/10bet/ico/top_ico_min12.png" alt="Chess 로고" />&nbsp;이벤트</li>
-                                <li class="button_type01 " onClick="location.href='/game_guide'"><img src="/10bet/images/10bet/ico/top_ico_min13.png" alt="Chess 로고" />&nbsp;배팅규정</li>
+                                <li class="button_type01 " onClick="location.href='/board/?bbsNo=8'"><img src="/10bet/images/10bet/ico/top_ico_min13.png" alt="Chess 로고" />&nbsp;배팅규정</li>
                             <?php } else { ?>
                                 <!-- <li class="button_type01 " onClick="login_open();">경기결과</li> -->
                                 <li class="button_type01 " onClick="login_open();"><img src="/10bet/images/10bet/ico/top_ico_min9.png" alt="Chess 로고" />&nbsp;배팅내역</li>
@@ -372,9 +395,10 @@
                         <? if (count((array)$_SESSION['member']) > 0) {?>
                         <!-- 유저 정보 -->
                         <div class="user_box box_type02">
-                            <div class="user_name">
-                                <img src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png' >&nbsp; <?=$TPL_VAR["nick"]?>
-                                <span class="change" onClick="location.href='/member/member'">나의 정보</span>
+                            <div class="user_name" style="display:flex;">
+                                <img class="img-height" src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png' >&nbsp; 
+                                <p class="_limit _w100 p-name"><?=$TPL_VAR["nick"]?></p>
+                                <span class="change" onClick="location.href='/member/member'">내 정보</span>
                             </div>
                             <div class="money">
                                 <span class="head">
@@ -384,9 +408,9 @@
                             </div>
                             <div class="point">
                                 <span class="head"><img src="/10bet/images/10bet/ico_01.png" alt="" /> 포인트</span> 
-                                <span id="member_mileage"><?php echo number_format($TPL_VAR["mileage"],0)?></span>&nbsp;P						
+                                <span class="member_mileage"><?php echo number_format($TPL_VAR["mileage"],0)?></span>&nbsp;P						
                                 <!-- <span class="change" onClick="mileage2Cash();">포인트전환</span> -->
-                                <span class="change" onClick="location.href='/xpoint'">포인트전환</span>
+                                <span class="change" onClick="location.href='/member/mileage?type=6'">포인트전환</span>
                             </div>
                             <div class="btn_list">
                                 <button type="button" onClick="location.href='/member/memolist'">쪽지 <span><?php echo $TPL_VAR["new_memo_count"]?></span></button>

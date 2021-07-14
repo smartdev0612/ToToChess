@@ -68,31 +68,33 @@ function Form_ok()
 		<p><img src="/img/btn_s_close.gif" onclick="window.close()" title="창닫기"></p>
 	</div>
 	<form action="?act=add" method="post"  name="FormData" id="FormData" >
-	<table cellspacing="1" class="tableStyle_membersWrite" summary="쪽지 쓰기">
-	<legend class="blind">쪽지 쓰기</legend>
-		<tr>
-			<th>제목</th>
-			<td><input name="title" type="text" class="inputStyle2" maxlength="45"/></td>
-		</tr>
-		<tr>
-			<th>받는이</th>
-			<td><input type="text" value="<?php echo $TPL_VAR["send"]?>" name="toid" readonly size="10"  class="inputStyle2"></td>
-		</tr>
-		<tr>
-			<th>날짜</th>
-			<td><input type="text" name="time" value="<?php echo date("Y-m-d H:i:s")?>" /></td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td><textarea cols="70" name="content" rows="10" ></textarea></td>
-		</tr>
-	</table>
-	<div id="wrap_btn">
-		<input type="button" name="Submit" value="발  송" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'" onclick="Form_ok();"/>
-        <input type="reset" name="Submit2" value="초기화" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'"/>		
-	</div>
-   
-  </form>
+		<input type="hidden" id="reply_id" name="reply_id" value=<?=$TPL_VAR["reply_id"]?>>
+		<input type="hidden" id="p_type" name="p_type" value=<?=$TPL_VAR["p_type"]?>>
+		<table cellspacing="1" class="tableStyle_membersWrite" summary="쪽지 쓰기">
+		<legend class="blind">쪽지 쓰기</legend>
+			<tr>
+				<th>제목</th>
+				<td><input name="title" type="text" class="inputStyle2" maxlength="45"/></td>
+			</tr>
+			<tr>
+				<th>받는이</th>
+				<td><input type="text" value="<?php echo $TPL_VAR["send"]?>" name="toid" readonly size="10"  class="inputStyle2"></td>
+			</tr>
+			<tr>
+				<th>날짜</th>
+				<td><input type="text" name="time" value="<?php echo date("Y-m-d H:i:s")?>" /></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><textarea cols="70" name="content" rows="10" ></textarea></td>
+			</tr>
+		</table>
+		<div id="wrap_btn">
+			<input type="button" name="Submit" value="발  송" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'" onclick="Form_ok();"/>
+			<input type="reset" name="Submit2" value="초기화" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'"/>		
+		</div>
+	
+	</form>
 </div>
 <?php 
 //include "../main_foot.php";

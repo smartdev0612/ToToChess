@@ -185,6 +185,9 @@ class RaceController extends WebServiceController
 								case 35232: // 아이스 하키
 									$table .= '<td>' . $pieces[4] . '</td>';
 									break;
+								default:
+									$table .= '<td>' . $pieces[0] . '</td>';
+									break;
 							}
 							$table .= '<td class="txt_ac st_padl5">';
 							switch($TPL_V2["mfamily"]) {
@@ -259,7 +262,7 @@ class RaceController extends WebServiceController
 							else if($TPL_V2["result"] == "2")
 								$table .= '<td rowspan="1"><span class="bt_none3 bt_45_none">낙첨</span></td>';
 							else if($TPL_V2["result"] == "4")
-								$table .= '<td rowspan="1"><span class="bt_none5 bt_45_none">취소</span></td>';
+								$table .= '<td rowspan="1"><span class="bt_none5 bt_45_none" style="color:#e44e4e !important;">취소</span></td>';
 							else 
 								$table .= '<td rowspan="1"><span class="bt_none1 bt_45_none">진행</span></td>';
 							$table .= '</tr>';
@@ -273,15 +276,20 @@ class RaceController extends WebServiceController
 					$table .= '베팅접수시간 : <span class="txt_co3 st_padr10">' . $TPL_V1["bet_date"] . '</span>';
 					$table .= '예상당첨금액 : <span class="txt_co3 st_padr10">(베팅 ' . $TPL_V1["betting_money"] . ' x 배당 ' . $TPL_V1["result_rate"] .') = ' . $TPL_V1["win_money"] . '</span>';
 					$table .= '결과당첨금액 : <span class="txt_co3 st_padr10">' . $TPL_V1["result_money"] . '</span>';
-					$table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('/race/betlisthideProcess?betting_no=" . $TPL_K1 . "')>베팅내역삭제</span>";
-					if($TPL_V2["result"] == "1")
+					if($TPL_V1["result"] == "1") {
+						$table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('" . $TPL_K1 . "')>베팅내역삭제</span>";
 						$table .= '<span class="bt_45_none bt_none6 f_right st_mart5">당첨</span>';
-					else if($TPL_V2["result"] == "2")
+					} else if($TPL_V1["result"] == "2") {
+						$table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('" . $TPL_K1 . "')>베팅내역삭제</span>";
 						$table .= '<span class="bt_45_none bt_none3 f_right st_mart5">낙첨</span>';
-					else if($TPL_V2["result"] == "4")
-						$table .= '<span class="bt_45_none bt_none5 f_right st_mart5">취소</span>';
-					else
+					} else if($TPL_V1["result"] == "4") {
+						$table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('" . $TPL_K1 . "')>베팅내역삭제</span>";
+						$table .= '<span class="bt_45_none bt_none5 f_right st_mart5" style="color:#e44e4e !important;">취소</span>';
+					} else {
+						if($type != 2)
+							$table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=cancel_bet('" . $TPL_K1 . "')>베팅취소</span>";
 						$table .= '<span class="bt_45_none bt_none1 f_right st_mart5">진행</span>';
+					}
 					$table .= '</td></div>';
 				}
 			}
@@ -340,6 +348,9 @@ class RaceController extends WebServiceController
 							case 35232: // 아이스 하키
 								$table .= '<td>' . $pieces[4] . '</td>';
 								break;
+							default:
+								$table .= '<td>' . $pieces[0] . '</td>';
+								break;
 						}
 						$table .= '<td class="td_de" rowspan="2">';
 						if($battingJT)
@@ -349,7 +360,7 @@ class RaceController extends WebServiceController
 						else if($TPL_V2["result"] == "2")
 							$table .= '<span class="bt_none3 bt_45_none txt_co23">낙첨</span>';
 						else if($TPL_V2["result"] == "4")
-							$table .= '<span class="bt_none5 bt_45_none txt_co23">취소</span>';
+							$table .= '<span class="bt_none5 bt_45_none txt_co23" style="color:#e44e4e !important;">취소</span>';
 						else 
 							$table .= '<span class="bt_none1 bt_45_none txt_co23">진행</span>';
 						$table .= '</td></tr>';
@@ -439,13 +450,18 @@ class RaceController extends WebServiceController
 				else if($TPL_V1["result"] == "2")
 					$table .= '<span class="st_marl5 bt_none3 bt_45_none txt_none3">낙첨</span>';
 				else if($TPL_V1["result"] == "4")
-					$table .= '<span class="st_marl5 bt_none5 bt_45_none txt_none3">취소</span>';
+					$table .= '<span class="st_marl5 bt_none5 bt_45_none txt_none3" style="color:#e44e4e !important;">취소</span>';
 				else
 					$table .= '<span class="st_marl5 bt_none1 bt_45_none txt_none3">진행</span>';
 				
 				$table .= '</li>';
 				$table .= '<li class="betting_cart_20 betting_cart_bgno">';
-				$table .= "<span class='st_marl5 bt_none5 bt_45_none txt_none3' onclick=hide_bet('/race/betlisthideProcess?betting_no=" . $TPL_K1 . "')>내역삭제</span>";
+				if($TPL_V1["result"] > 0)
+					$table .= "<span class='st_marl5 bt_none5 bt_45_none txt_none3' onclick=hide_bet('" . $TPL_K1 . "')>내역삭제</span>";
+				else {
+					if($type != 2)
+						$table .= "<span class='st_marl5 bt_none5 bt_45_none txt_none3' onclick=cancel_bet('" . $TPL_K1 . "')>배팅취소</span>";
+				}
 				$table .= '</li></ul>
 						</div>';
 			}
@@ -745,17 +761,91 @@ class RaceController extends WebServiceController
 		
 		if(empty($bettingNo) || $bettingNo=='' || !$this->req->isNumberParameter($bettingNo))
 		{
-			throw new Lemon_ScriptException("잘못된 인자입니다");
+			echo "잘못된 인자입니다";
 			exit;
 		}
 		
 		$cartModel 	= $this->getModel("CartModel");
 		$rs = $cartModel->modifyViewState($sn, $bettingNo);
-		if($rs>0)
-			throw new Lemon_ScriptException("배팅내역이 삭제되었습니다.");
-		else
-			throw new Lemon_ScriptException("배팅내역 삭제에 실패하였습니다.");
+		if($rs > 0)
+			echo "배팅내역이 삭제되었습니다.";
+		else {
+			$rs = $cartModel->modifyCancelViewState($sn, $bettingNo);
+			if($rs > 0)
+				echo "배팅내역이 삭제되었습니다.";
+			else 
+				echo "배팅내역 삭제에 실패하였습니다.";
+		}
+			
 	}
+
+	public function betCancelProcessAction() {
+		$bettingNo 	= empty($this->request('betting_no')) ? 0 : $this->request('betting_no');
+		$res = $this->checkbettingCancel($bettingNo);
+		if($res["status"] > 0) {
+			echo $res["msg"];
+		} else {
+			$uid = $this->auth->getId();
+			$pModel  = $this->getModel("ProcessModel");
+			$pModel->bettingCancelProcess($bettingNo, $uid);
+			echo "배팅이 취소되였습니다.";
+		}
+		
+	}
+
+	
+	public function checkbettingCancel($bettingNo) 
+	{
+		$configModel = $this->getModel("ConfigModel");
+		$gameModel = $this->getModel("GameModel");
+
+		$config = $configModel->getAdminConfig();
+		$cancelAfterTime = $config["bettingcanceltime"];
+		$cancelBeforeTime = $config["bettingcancelbeforetime"];
+		$cancelCnt = $config["bettingcancelcnt"];
+
+		$game_info = $gameModel->getGameByBettingNo($bettingNo);
+		$gameStartTime = strtotime($game_info[0]["gameDate"] . " " . $game_info[0]["gameHour"] . ":" . $game_info[0]["gameTime"] . ":00");
+		$bettingTime = strtotime($game_info[0]["regdate"]);
+		$nowTime = time();
+		$special = $game_info[0]["last_special_code"];
+		$live = $game_info[0]["live"];
+
+		$sn = $this->auth->getSn();
+		$todayCancelCnt = $gameModel->getTodayBettingCancelCnt($sn);
+		
+		$res["status"] = 0;
+		$res["msg"] = "";
+
+		if($live == 1) {
+			$res["status"] = 4; 
+			$res["msg"] = "라이브배팅은 취소가 불가능합니다.";
+			return $res;
+		}
+		
+		if($todayCancelCnt >= $cancelCnt) {
+			$res["status"] = 3; 
+			$res["msg"] = "배팅취소는 하루 {$cancelCnt}번만 가능합니다.";
+			//$res["msg"] = "미안하지만 하루 배팅취소회수를 초과하였습니다.";
+			return $res;
+		}
+		
+		if($special < 5) {
+			if(($nowTime - $bettingTime) > $cancelAfterTime * 60) {
+				$res["status"] = 1; 
+				$res["msg"] = "배팅후 {$cancelAfterTime}분이내에만 취소가 가능합니다.";
+				return $res;
+			} else if (($gameStartTime - $nowTime) < $cancelBeforeTime * 60) {
+				$res["status"] = 2; 
+				$res["msg"] = "경기시작 {$cancelBeforeTime}분전까지만 취소가 가능합니다.";
+				return $res;
+			}
+		}
+
+		return $res;
+
+	}
+
 
 	public function hide_bettingAction() {
 		$this->req->xssClean();

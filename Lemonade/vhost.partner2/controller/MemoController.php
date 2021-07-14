@@ -89,7 +89,7 @@ class MemoController extends WebServiceController
 		
 		if($this->request("act") == "add")
 		{
-			$model->writeMemo($partner_id, "운영팀", htmlspecialchars($this->request("title")), htmlspecialchars($this->request("content")),1);
+			$model->writeMemo($partner_id, "운영팀", htmlspecialchars($this->request("title")), htmlspecialchars($this->request("content")), 1, '', 1);
 			throw new Lemon_ScriptException("발송 되였습니다.","","go","/memo/popup_list");
 		}
 		$this->display();

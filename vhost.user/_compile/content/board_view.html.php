@@ -10,6 +10,8 @@
                     echo "공지사항";
                 } else if ($TPL_VAR["bbsNo"] == 7) {
                     echo "이벤트";
+                } else if ($TPL_VAR["bbsNo"] == 8) {
+                    echo "배팅규정";
                 }
             ?>
             </h2>
@@ -52,9 +54,10 @@
             <div class="board_view">
                 <div class="view_text">
                     <!-- 내용 출력 -->
-                    <?php echo $TPL_VAR["item"]["content"] . "<br>";?>
+                    <div style="text-align: center; width: 100%;">
+                        <?php echo $TPL_VAR["item"]["content"] . "<br>";?>
+                    </div>
                     <table cellpadding="0" cellspacing="0" border="0">
-                        <colgroup><col width="23%" /><col width="*" /></colgroup>
                         <?php
                         if ( count($TPL_VAR["bettingItem"][0]["betting"]) > 0 ) {
                             foreach ( $TPL_VAR["bettingItem"] as $TPL_V1 ) {
@@ -221,7 +224,7 @@
                 </div>
 
                 <div class="btn_center">
-                    <button type="button" class="button_type01" onClick="location.href='/board/'">목록보기</button>
+                    <button type="button" class="button_type01" onClick="location.href='/board/?bbsNo=<?=$TPL_VAR["bbsNo"]?>'">목록보기</button>
                 </div>
             </div>
 

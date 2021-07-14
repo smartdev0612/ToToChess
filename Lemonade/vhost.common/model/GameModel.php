@@ -179,6 +179,27 @@ class GameModel extends Lemon_Model
         return $this->db->exeSql($sql);
     }
 
+	function getGameByBettingNo($betting_no) {
+		$sql = "SELECT
+					a.regdate,
+					a.last_special_code,
+					b.live,
+					d.gameDate,
+					d.gameHour,
+					d.gameTime
+				FROM
+					tb_total_cart a
+					INNER JOIN tb_total_betting b
+					ON a.betting_no = b.betting_no
+					LEFT JOIN tb_subchild c
+					ON b.`sub_child_sn` = c.sn
+					LEFT JOIN tb_child d
+					ON c.child_sn = d.sn
+				WHERE a.betting_no = '{$betting_no}'";
+		
+		return $this->db->exeSql($sql);
+	}
+
 	//▶ 경기 결과 취소
 	function cancelResultChild($child_sn, $s_type = 0)
 	{
@@ -2654,6 +2675,19 @@ class GameModel extends Lemon_Model
 		$sql = "DELETE FROM tb_cross_limit WHERE limit_id = " . $limit_id;
 		$res = $this->db->exeSql($sql);
 		return $res;
+	}
+
+	function getTodayBettingCancelCnt($member_sn) {
+		$sql = "SELECT COUNT(*) AS cancelCnt 
+				FROM tb_total_cart_cancel 
+				WHERE operdate BETWEEN CONCAT('" . date('Y-m-d') . "', ' 00:00:00') AND CONCAT('" . date('Y-m-d') . "', ' 23:59:59')
+						AND member_sn = " . $member_sn;
+		$res = $this->db->exeSql($sql);
+		$cancelCnt = 0;
+		if(count((array)$res) > 0)
+			$cancelCnt = $res[0]["cancelCnt"];
+
+		return $cancelCnt;
 	}
 
 	// 라이브구독개수 얻기
