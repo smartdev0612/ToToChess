@@ -158,6 +158,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 							<tr>				  
 								<th>게임타입</th>
 								<th>경기시간</th>
+								<th>종목</th>
 								<th>리그</th>
 								<th colspan="2" >홈팀</th>
 								<th>무</th>
@@ -170,11 +171,26 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 <?php if($TPL_item_2){foreach($TPL_V1["item"] as $TPL_V2){?>
 								<tr bgcolor="#ede8e8" border=1>				
 									<td width="60" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666">
-<?php if($TPL_V2["type"]==1){?>[승무패]
-<?php }elseif($TPL_V2["type"]==2){?>[핸디캡]
-<?php }elseif($TPL_V2["type"]==3){?>[홀짝]
-<?php }elseif($TPL_V2["type"]==4){?>[언더오버]
-<?php }?>
+									<?php
+										$pieces = explode("|", $TPL_V2["mname_ko"]);
+										switch($TPL_V2["sport_id"]) {
+											case 6046: // 축구
+												echo $pieces[0];
+												break;
+											case 48242: // 농구
+												echo $pieces[1];
+												break;
+											case 154914: // 야구
+												echo $pieces[2];
+												break;
+											case 154830: // 배구
+												echo $pieces[3];
+												break;
+											case 35232: // 아이스 하키
+												echo $pieces[4];
+												break;
+										}
+									?>
 									</td>
 <?php 
 	if ( strtotime($TPL_V1["bet_date"]) >= strtotime($TPL_V2["game_date"]) ) {
@@ -189,6 +205,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 <?php
 	}
 ?>
+									<td width="50" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666"><?php echo $TPL_V2["sport_name"]?></td>
 									<td width="100" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666"><?php echo $TPL_V2["league_name"]?></td>
 									<td width="100" align="" style="border-bottom:1px #CCCCCC solid;color: #666666? <?php if($TPL_V2["select_no"]==1){?>;background :#fff111<?php }?>"><?php echo $TPL_V2["home_team"]?></td>
 									<td width="20" align="" style="border-bottom:1px #CCCCCC solid;color: #666666"><?php echo $TPL_V2["home_rate"]?></td>

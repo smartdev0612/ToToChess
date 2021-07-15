@@ -125,9 +125,17 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	
 	function autoCheck_check($i)
 	{
+		var chk_cancel = document.getElementsByName('check_cancel[]');
 		var y_id = document.getElementsByName('y_id[]');
 
-		y_id[$i].checked=true;
+		if(chk_cancel[$i].checked)
+		{
+			y_id[$i].checked=true;
+		}
+		else
+		{
+			y_id[$i].checked=false;
+		}
 	}
 
 	function select_all()
@@ -136,6 +144,10 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 		for (i=0;i<document.all.length;i++) 
 		{
 			if (document.all[i].name=="y_id[]") 
+			{
+				document.all[i].checked = check_state;
+			}
+			if (document.all[i].name=="y_id_back[]") 
 			{
 				document.all[i].checked = check_state;
 			}
@@ -173,6 +185,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 				<input name="perpage" type="text" id="perpage"  class="sortInput" onkeyup="if(event.keyCode !=37 && event.keyCode != 39) value=value.replace(/\D/g,'');" maxlength="3" size="5" value="<?php echo $TPL_VAR["perpage"]?>" onmouseover="this.focus()">
 				
 				<span>설정</span>
+				<input type="radio" name="state" value=3 <?php if($TPL_VAR["state"]==3){?>checked<?php }?> class="radio">배당수정
+				<input type="radio" name="state" value=21 <?php if($TPL_VAR["state"]==21){?>checked<?php }?> class="radio">발매(배팅가능)
 				<input type="radio" name="state" value=22 <?php if($TPL_VAR["state"]==22){?>checked<?php }?> class="radio">발매(배팅종료)
 				&nbsp;
 
@@ -248,7 +262,11 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 				<span class="rightSort">
 					<span>선택 항목을</span>
 					<input type="hidden" name="mode">
+<?php if($TPL_VAR["state"]==3){?>
+					<input type="button" value="선택게임수정" onclick="onModifyGameClick()" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
+<?php }else{?>
 					<input type="button" value="일괄정산처리" onclick="onGameResultClick()" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
+<?php }?>
 				</span>
 			</form>
 		</div>
@@ -286,9 +304,14 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						<th>승(홈팀)</th>
 						<th>VS</th>
 						<th>패(원정팀)</th>
+						<th>홈배당</th>
+						<th>무배당</th>
+						<th>원정배당</th>
 	<?php if($TPL_VAR["state"]!=3){?>
-						<th>결과</th>
+						<th>취소</th>
+						<th>스코어</th>
 	<?php }?>
+						<th class="check" width="5"></th>
 				</tr>
 	 		</thead>
 			<tbody>
@@ -353,44 +376,33 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						<? if($TPL_V1["special"] < 5) { ?>
 							<td class="homeName">
 								<font color=blue><?php echo mb_strimwidth($TPL_V1["home_team"],0,20,"..","utf-8")?></font>
-								[<?php echo $TPL_V1["home_rate"]?>]
 								<br><?php echo number_format($TPL_V1["home_total_betting"],0)?>
 							</td>
-							<td>
-								<b><font color='red'>VS</font></b>
-								[<?php echo $TPL_V1["draw_rate"]?>]
-								<br><?php echo number_format($TPL_V1["draw_total_betting"],0)?></td>
+							<td><b><font color='red'>VS</font></b><br><?php echo number_format($TPL_V1["draw_total_betting"],0)?></td>
 							<td class="awayName">
 								<font color=blue><b><?php echo mb_strimwidth($TPL_V1["away_team"],0,20,"..","utf-8")?></b></font>
-								[<?php echo $TPL_V1["away_rate"]?>]
 								<br><?php echo number_format($TPL_V1["away_total_betting"],0)?>
 							</td>
 						<? } else { ?>
 							<td class="homeName">
 								<font color=blue><?=$TPL_V1["home_team"]?></font>
-								[<?php echo $TPL_V1["home_rate"]?>]
 								<br><?php echo number_format($TPL_V1["home_total_betting"],0)?>
 							</td>
-							<td>
-								<b><font color='red'>VS</font></b>
-								[<?php echo $TPL_V1["draw_rate"]?>]
-								<br><?php echo number_format($TPL_V1["draw_total_betting"],0)?></td>
-							<td class="awayName">
-								<font color=blue><b><?=$TPL_V1["away_team"]?></b></font>
-								[<?php echo $TPL_V1["away_rate"]?>]
-								<br><?php echo number_format($TPL_V1["away_total_betting"],0)?>
-							</td>
+							<td><b><font color='red'>VS</font></b></td>
+							<td class="awayName"><font color=blue><b><?=$TPL_V1["away_team"]?></b></font></td>
 						<? } ?>
+						<td><input type="text" id="home_rate" name="home_rate[]" size="5" value="<?php echo $TPL_V1["home_rate"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'><br><?php echo number_format($TPL_V1["home_total_betting"],0)?></td>
+						<td><input type="text" id="draw_rate" name="draw_rate[]" size="5" value="<?php echo $TPL_V1["draw_rate"]?>" style="border:1px #97ADCE solid;"><br><?php echo number_format($TPL_V1["draw_total_betting"],0)?></td>
+						<td><input type="text" id="away_rate" name="away_rate[]" size="5" value="<?php echo $TPL_V1["away_rate"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'><br><?php echo number_format($TPL_V1["away_total_betting"],0)?></td>
 <?php if($TPL_VAR["state"]!=3){?>
+						<td><input type="checkbox" name="check_cancel[]" onclick='autoCheck_check(<?php echo $TPL_I1?>)' ></td>
 						<td>
-							<select name="game_result[]" onchange='autoCheck_check(<?php echo $TPL_I1?>)'>
-								<option value="1">홈승</option>
-								<option value="2">원정승</option>
-								<option value="3">무승부</option>
-								<option value="4">취소</option>
-							</select>
+							<input type="text" name="home_score[]" size="5" value="<?php echo $TPL_V1["sub_home_score"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")' onblur='autoCheck(<?php echo $TPL_I1?>, this.value)'>
+							:
+							<input type="text" name="away_score[]" size="5" value="<?php echo $TPL_V1["sub_away_score"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'>
 						</td>
 <?php }?>
+						<td><input name="y_id_back[]" type="checkbox" value="<?php echo $TPL_V1["sn"]?>" onClick="select_to(this);"/></td>
 					</tr>
 <?php }}?>
 			</tbody>

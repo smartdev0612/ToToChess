@@ -635,12 +635,10 @@ class GameUploadController extends WebServiceController
 			for($i=0; $i<count((array)$gameSnList); ++$i)
 			{
 				$subchildSn = $gameSnList[$i]["subchild_sn"];
-				$homeScore = $gameSnList[$i]["home_score"];
-				$awayScore = $gameSnList[$i]["away_score"];
-				$gameCancel = $gameSnList[$i]["is_cancel"];
+				$game_result = $gameSnList[$i]["game_result"];
 				if($subchildSn!="")
 				{
-					$processModel->resultGameProcess($subchildSn, $homeScore, $awayScore, $gameCancel);
+					$processModel->resultGameProcess($subchildSn, $game_result);
 				}
 			}
 			
@@ -867,50 +865,42 @@ class GameUploadController extends WebServiceController
 		else if($act=="modify_result")
 		{
 			$arraySubChildSn 	= $this->request("y_id");
-			$arrayHomeScore	= $this->request("home_score");
-			$arrayAwayScore	= $this->request("away_score");
-			$arrayCancel		= $this->request("check_cancel");
-			$arrayType			= $this->request("game_types");
+			$arrayGameResult	= $this->request("game_result");
 			$arrayDrawRate 	= $this->request("draw_rate");
 
 			$data = array();
 			$betData = array();
 
 			for ( $i = 0 ; $i < count((array)$arraySubChildSn) ; ++$i ) {
-				$isCancel	 = $arrayCancel[$i];
 				$subchildSn 	 = $arraySubChildSn[$i];
-				$homeScore = $arrayHomeScore[$i];
-				$awayScore = $arrayAwayScore[$i];
-				
-				if ( (strlen(trim($homeScore)) > 0 and strlen(trim($awayScore)) > 0) or $isCancel ) {
-					$childSn = $model->getChildSn($subchildSn);
-					$childRs = $model->getChildRow($childSn, '*');
-					if ( $childRs['kubun'] == 1 ) {
-						throw new Lemon_ScriptException("이미 처리된 게임이 포함되어 있습니다.");
-						exit;
-					}
-
-					$dataArray = $processModel->resultPreviewProcess($subchildSn, $homeScore, $awayScore, $isCancel, $betData);
-				
-					$list_temp = $dataArray["list"];
-					$betData_temp = $dataArray["betData"];
-				
-					if ( count((array)$list_temp) > 0 ) {
-						if ( count((array)$data) <= 0 ) {
-							$data = $list_temp;
-						} else {
-							$data = array_merge($data, $list_temp);
-						}
-					}
-					
-					if ( count((array)$betData) <= 0 ) {
-						$betData = $betData_temp;
-					} else {
-						$betData = array_merge($betData, $betData_temp);
-					}
-
-					$gameSnList[] = array("subchild_sn" => $subchildSn, "home_score" => $homeScore, "away_score" => $awayScore, "is_cancel" => $isCancel);
+				$game_result = $arrayGameResult[$i];
+				$childSn = $model->getChildSn($subchildSn);
+				$childRs = $model->getChildRow($childSn, '*');
+				if ( $childRs['kubun'] == 1 ) {
+					throw new Lemon_ScriptException("이미 처리된 게임이 포함되어 있습니다.");
+					exit;
 				}
+
+				$dataArray = $processModel->resultPreviewProcess($subchildSn, $game_result);
+			
+				$list_temp = $dataArray["list"];
+				$betData_temp = $dataArray["betData"];
+			
+				if ( count((array)$list_temp) > 0 ) {
+					if ( count((array)$data) <= 0 ) {
+						$data = $list_temp;
+					} else {
+						$data = array_merge($data, $list_temp);
+					}
+				}
+				
+				if ( count((array)$betData) <= 0 ) {
+					$betData = $betData_temp;
+				} else {
+					$betData = array_merge($betData, $betData_temp);
+				}
+
+				$gameSnList[] = array("subchild_sn" => $subchildSn, "game_result" => $game_result);
 			}// end of for
 		}
 		
