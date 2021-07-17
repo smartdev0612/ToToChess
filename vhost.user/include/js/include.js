@@ -264,7 +264,7 @@ function betting_ready_popup_close() {
 }
 
 function warning_popup(text) {
-    $j("#warning_popup .pop_message").text(text);
+    $j("#warning_popup .pop_message").html(text);
     $j("#warning_popup").fadeIn();
     $j("#coverBG").fadeIn();
     // setTimeout(warning_popup_close, 1500);
@@ -355,52 +355,6 @@ function check_pincode() {
                 return false;
             } else {
                 document.next.submit();
-            }
-        });
-    }
-    return false;
-}
-
-// 회원가입시 중복아이디 체크
-function checkDuplicatedID() {
-    var userid = $j('#userid').val();
-    if ( userid == "" ) {
-        warning_popup('사용자아이디를 입력하세요');
-        $j('#userid').focus();
-        return false;
-    } else {
-        $j.ajaxSetup({async:false});
-        var param={userid:userid};
-
-        $j.post("/member/checkDuplicatedID", param, function(result) {
-            if(result > 0) {
-                warning_popup("현재 아이디는 이용가능합니다.");
-            } else {
-                $j("#userid").focus();
-                warning_popup("미안하지만 이미 존재하는 아이디입니다.");
-            }
-        });
-    }
-    return false;
-}
-
-// 회원가입시 중복닉네임 체크
-function checkDuplicatedNickName() {
-    var nick = $j('#nick').val();
-    if ( nick == "" ) {
-        warning_popup('닉네임을 입력하세요');
-        $j('#nick').focus();
-        return false;
-    } else {
-        $j.ajaxSetup({async:false});
-        var param={nick:nick};
-
-        $j.post("/member/checkDuplicatedNickName", param, function(result) {
-            if(result > 0) {
-                warning_popup("현재 닉네임은 이용가능합니다.");
-            } else {
-                $j("#nick").focus();
-                warning_popup("미안하지만 이미 존재하는 닉네임입니다.");
             }
         });
     }

@@ -344,6 +344,8 @@ class MemberModel extends Lemon_Model
 	function joinAdd($uid, $pwd, $exchangePwd, $nick, $name, $phone, $freeMoney, $state, $joinerSn, $partnerSn, $bank_name, $bank_account, $bank_member, $ip, $logo='', $birthday='')
 	{
 		if ( !$logo ) $logo = $this->logo;
+        $rollingSn = 0;
+        $email = "";
 		if($partnerSn!="")
 		{
 			$levelModel 	= Lemon_Instance::getObject("LevelCodeModel",true);
@@ -2250,6 +2252,70 @@ class MemberModel extends Lemon_Model
         $status = 1;
         if(count((array)$rs) > 0) {
             $status = 0;
+        }
+        return $status;
+    }
+
+    function insertPhoneInfo($uid = "", $receiver = "", $verification_code = "") {
+        $sql = "SELECT uid FROM tb_sms WHERE uid LIKE '" . $uid . "' AND phone LIKE '" . $receiver . "'";
+        $rs = $this->db->exeSql($sql);
+
+        if(count((array)$rs) == 0) {
+            $sql = "INSERT INTO tb_sms (uid, phone, code, time) VALUES ('" . $uid . "', '" . $receiver . "', '" . $verification_code . "', NOW())";       
+        } else {
+            $sql = "UPDATE tb_sms SET code = '" . $verification_code . "', count = 0, status = 0 WHERE uid LIKE '" . $uid . "' AND phone LIKE '" . $receiver . "'";
+        }
+
+        $rs = $this->db->exeSql($sql);
+
+        return $rs;
+    }
+
+    function checkPhoneNumberUsed($phone_num = "") {
+        $sql = "SELECT count(phone) AS cnt FROM tb_sms WHERE phone LIKE '" . $phone_num . "'";
+        $rs = $this->db->exeSql($sql);
+        $cnt = 0;
+
+        if(count((array)$rs) > 0) 
+            $cnt = $rs[0]["cnt"];
+            
+        return $cnt;
+    }
+
+    function compareCheckCode($userid = "", $phone_num = "", $check_code = "") {
+        $sql = "SELECT status FROM tb_sms WHERE uid LIKE '" . $userid . "' AND phone LIKE '" . $phone_num . "' AND code LIKE '" . $check_code . "'";
+        $rs = $this->db->exeSql($sql);
+
+        $status = 0;
+        if(count((array)$rs) > 0) {
+            $sql = "UPDATE tb_sms SET status = 1 WHERE uid LIKE '" . $userid . "' AND phone LIKE '" . $phone_num . "' AND code LIKE '" . $check_code . "'";
+            $status = 1;
+        } else {
+            $sql = "UPDATE tb_sms SET count = count + 1 WHERE uid LIKE '" . $userid . "' AND phone LIKE '" . $phone_num . "'";
+            $status = 0;
+        }
+
+        $this->db->exeSql($sql);
+
+        return $status;
+    }
+
+    function getCheckCnt($userid = "", $phone_num = "") {
+        $sql = "SELECT tb_sms.`count` AS cnt FROM tb_sms WHERE uid LIKE '" . $userid . "' AND phone LIKE '" . $phone_num . "'";
+        $rs = $this->db->exeSql($sql);
+        $count = 0;
+        if(count((array)$rs) > 0) {
+            $count = $rs[0]["cnt"];
+        }
+        return $count;
+    }
+
+    function checkPhoneNumberVerification($uid = "", $phone_num = "") {
+        $sql = "SELECT status FROM tb_sms WHERE uid LIKE '" . $uid . "' AND phone LIKE '" . $phone_num . "'";
+        $rs = $this->db->exeSql($sql);
+        $status = 0;
+        if(count((array)$rs) > 0) {
+            $status = $rs[0]["status"];
         }
         return $status;
     }

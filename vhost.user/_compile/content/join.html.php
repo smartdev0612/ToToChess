@@ -29,6 +29,7 @@
 				<div class="member_box">
 					
 					<div class="box01" style="width:100%">
+						<input type="hidden" id="isCheckPhoneNum" value="0">
 						<!-- 입력 박스 -->
 						<div class="input_area" >
 							<div class="box_left">
@@ -118,7 +119,9 @@
 						</div>
 						<div class="input_area">
 							<div class="box_left">
-								<h3>연락처</h3>
+								<div class="userbox" style="display:flex;">
+									<h3>휴대폰번호</h3><button type="button" class="checkBtn" onclick="submitPhoneNum()" style="height:35px; padding-left:10px; padding-right:10px;">전송</button>
+								</div>
 								<div class="input_box">
 									<span class="select_box">
 										<select id="phone1" name="phone1">
@@ -130,14 +133,22 @@
 											<option>019</option>
 										</select>
 									</span>
-									<input type="text" id="phone2" name="phone2" class="right01" style="width:64%"/>&nbsp;
+									<input type="text" id="phone2" name="phone2" value="" class="right01" style="width:64%"/>&nbsp;
+									<p style="color:#ff0012">※ 회원가입전 휴대폰번호인증을 먼저 해주세요.</p>
+								</div>
+							</div>
+							<div class="box_left" id="div_checkCode" style="display:none;">
+								<h3 style="color:#ff0012">인증코드 *</h3>
+								<div class="input_box">
+									<input type="text" id="check_code" name="check_code" value="" style="width:70%;"/>
+									<button type="button" class="checkCodeBtn" onclick="submitCheckCode()">전송</button>
 								</div>
 							</div>
 						</div>
 						<div class="input_area">
 							<div class="box_left" style="float:none;margin:0 auto;">
 								<div class="btn_join">
-									<button type="button" onClick="joinAction();">회원가입</button>
+									<button type="button" id="joinBtn" onClick="joinAction();">회원가입</button>
 									<button type="button" onClick="location.href='/';">취소</button>
 								</div>
 							</div>

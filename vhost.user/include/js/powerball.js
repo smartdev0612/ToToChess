@@ -71,7 +71,7 @@
 	}
 
 	function realTime(strPacket) {
-		console.log(strPacket);
+		// console.log(strPacket);
 		strPacket = strPacket + "";
 		var arrTime = strPacket.split('|');
 		yyyy = arrTime[0];

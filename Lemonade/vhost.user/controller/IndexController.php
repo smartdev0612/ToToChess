@@ -984,7 +984,7 @@ class IndexController extends WebServiceController
 			$this->view->assign( "miniSetting", $settingList);
 			//$betting_list = [];
 			//-> named 보안서버 구동 여부.
-			$named_security_flag = $etcModel->namedSecurityState();
+			// $named_security_flag = $etcModel->namedSecurityState();
 		}
 		
 		if(count((array)$_SESSION['member']) > 0) {
@@ -1007,7 +1007,7 @@ class IndexController extends WebServiceController
 
 		$nodatetime = date("YmdHis");
         $this->view->assign("title", $title);
-		$this->view->assign("named_security_flag", $named_security_flag);
+		// $this->view->assign("named_security_flag", $named_security_flag);
 		$this->view->assign("betting_list", $betting_list);
 		//$this->view->assign("power_result_list", $power_result_list);
 		//$this->view->assign('sadari_result', $sadari_result);

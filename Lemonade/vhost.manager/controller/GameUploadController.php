@@ -865,27 +865,24 @@ class GameUploadController extends WebServiceController
 		else if($act=="modify_result")
 		{
 			$arraySubChildSn 	= $this->request("y_id");
-			$arrayGameResult	= $this->request("game_result");
 			$arrayDrawRate 	= $this->request("draw_rate");
-
 			$data = array();
 			$betData = array();
-
 			for ( $i = 0 ; $i < count((array)$arraySubChildSn) ; ++$i ) {
 				$subchildSn 	 = $arraySubChildSn[$i];
-				$game_result = $arrayGameResult[$i];
+				$game_result = $this->request( "game_result_" . $subchildSn );
 				$childSn = $model->getChildSn($subchildSn);
 				$childRs = $model->getChildRow($childSn, '*');
 				if ( $childRs['kubun'] == 1 ) {
 					throw new Lemon_ScriptException("이미 처리된 게임이 포함되어 있습니다.");
 					exit;
 				}
-
+				
 				$dataArray = $processModel->resultPreviewProcess($subchildSn, $game_result);
-			
+				
 				$list_temp = $dataArray["list"];
 				$betData_temp = $dataArray["betData"];
-			
+				print_r($betData_temp);
 				if ( count((array)$list_temp) > 0 ) {
 					if ( count((array)$data) <= 0 ) {
 						$data = $list_temp;
@@ -903,7 +900,7 @@ class GameUploadController extends WebServiceController
 				$gameSnList[] = array("subchild_sn" => $subchildSn, "game_result" => $game_result);
 			}// end of for
 		}
-		
+
 		$categoryName = $this->request("categoryName");
 
 		$total_info = $model->getListTotal($filterState, $categoryName, "", $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '');

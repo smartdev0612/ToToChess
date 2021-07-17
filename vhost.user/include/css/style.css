@@ -206,6 +206,23 @@
     background: #ff0000;
 }
 
+.checkCodeBtn {
+    width: 24% !important;
+    height: 48px;
+    border: 1px solid #ff0012;
+    background: #501a1a;
+    border-radius: 3px;
+    padding: 5px;
+    position: relative;
+    top: -4px;
+    margin-left: 15px;
+}
+
+.checkCodeBtn:hover {
+    border: 1px solid #ff0000;
+    background: #ff0000;
+}
+
 img {
     vertical-align: middle;
 }

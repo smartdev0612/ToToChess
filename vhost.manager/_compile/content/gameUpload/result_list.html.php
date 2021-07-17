@@ -383,7 +383,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						<? } ?>
 <?php if($TPL_VAR["state"]!=3){?>
 						<td>
-							<select name="game_result[]" onchange='autoCheck_check(<?php echo $TPL_I1?>)'>
+							<select name="game_result_<?php echo $TPL_V1["sn"]?>" onchange='autoCheck_check(<?php echo $TPL_I1?>)'>
 								<option value="1">홈승</option>
 								<option value="2">원정승</option>
 								<option value="3">무승부</option>

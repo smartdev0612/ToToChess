@@ -1,10 +1,3 @@
-Lemonade/lemon/Lemon_Configure.php
-Lemonade/vhost.common/model/EtcModel.php
-Lemonade/vhost.common/model/LoginModel.php
-Lemonade/vhost.manager/config
-Lemonade/vhost.partner/config
-Lemonade/vhost.partner2/config
-Lemonade/vhost.user/config
 vhost.user/session/*
 vhost.user/upload/images/*
 vhost.manager/session/*

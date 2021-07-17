@@ -1,4 +1,5 @@
 <?php
+
 class MemberController extends WebServiceController 
 {
 	function layoutDefine($type='')
@@ -1572,6 +1573,7 @@ class MemberController extends WebServiceController
 		echo json_encode($rs);
 	}
 
+	// 중복아이디 체크
 	function checkDuplicatedIDAction() {
 		$userid = empty($this->req->post('userid')) ? "" : $this->req->post('userid');
 		$mModel = $this->getModel("MemberModel");
@@ -1579,6 +1581,7 @@ class MemberController extends WebServiceController
 		echo $res;
 	}
 
+	// 중복닉네임 체크
 	function checkDuplicatedNickNameAction() {
 		$nick = empty($this->req->post('nick')) ? "" : $this->req->post('nick');
 		$mModel = $this->getModel("MemberModel");
@@ -1595,5 +1598,68 @@ class MemberController extends WebServiceController
 			$status = 1; // 처리되지 않은 충전요청이 있음
 		echo $status;
 	}
+
+	// 전화번호인증
+	function phoneNumCheckAjaxAction() {
+		$nickName = empty($this->req->post('nick_name')) ? "" : $this->req->post('nick_name');
+		$uid = empty($this->req->post('uid')) ? "" : $this->req->post('uid');
+		$receiver = empty($this->req->post('phone_num')) ? "" : $this->req->post('phone_num');
+				
+		$verification_code = random_int(100000, 999999);
+
+		$msg = $this->submitPhoneNumber($uid, $nickName, $receiver, $verification_code);
+
+		echo json_encode($msg);
+	}
+
+	function countSubmitCodeAjaxAction() {
+		$userid = empty($this->req->post('userid')) ? "" : $this->req->post('userid');
+		$phone_num = empty($this->req->post('phone_num')) ? "" : $this->req->post('phone_num');
+		
+		$mModel = $this->getModel("MemberModel");
+		$count = $mModel->getCheckCnt($userid, $phone_num);
+
+		echo $count;
+	}
+
+	function checkCodeAjaxAction() {
+		$userid = empty($this->req->post('userid')) ? "" : $this->req->post('userid');
+		$check_code = empty($this->req->post('check_code')) ? "" : $this->req->post('check_code');
+		$phone_num = empty($this->req->post('phone_num')) ? "" : $this->req->post('phone_num');
+		
+		$mModel = $this->getModel("MemberModel");
+		$status = $mModel->compareCheckCode($userid, $phone_num, $check_code);
+		echo $status;
+	}
+
+	function checkPhoneNumberVerificationAction() {
+		$uid = empty($this->req->post('uid')) ? "" : $this->req->post('uid');
+		$phone_num = empty($this->req->post('phone_num')) ? "" : $this->req->post('phone_num');
+		
+		$mModel = $this->getModel("MemberModel");
+		$status = $mModel->checkPhoneNumberVerification($uid, $phone_num);
+		echo $status;
+	}
+
+	function submitPhoneNumber($uid = "", $nickName = "", $receiver = "", $verification_code = "") {
+		$mModel = $this->getModel("MemberModel");
+		$cntUsed = $mModel->checkPhoneNumberUsed($receiver);
+		if($cntUsed > 3) {
+			$msg["status"] = 2;
+			$msg["code"] = "";
+		} else {
+			$mModel->insertPhoneInfo($uid, $receiver, $verification_code);
+
+			$sender = "01051294371";
+			
+			$res = $this->curl_send($nickName, $verification_code, $sender, $receiver);
+			
+			$msg["status"] = $res->result_code;
+			$msg["code"] = $verification_code;
+		}
+
+		return $msg;
+	}
+
 }
 ?>
