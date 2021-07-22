@@ -119,9 +119,7 @@
 						</div>
 						<div class="input_area">
 							<div class="box_left">
-								<div class="userbox" style="display:flex;">
-									<h3>휴대폰번호</h3><button type="button" class="checkBtn" onclick="submitPhoneNum()" style="height:35px; padding-left:10px; padding-right:10px;">전송</button>
-								</div>
+								<h3>휴대폰번호</h3>
 								<div class="input_box">
 									<span class="select_box">
 										<select id="phone1" name="phone1">
@@ -137,11 +135,17 @@
 									<p style="color:#ff0012">※ 회원가입전 휴대폰번호인증을 먼저 해주세요.</p>
 								</div>
 							</div>
-							<div class="box_left" id="div_checkCode" style="display:none;">
-								<h3 style="color:#ff0012">인증코드 *</h3>
+							<div class="box_left" id="div_submitPhoneNum">
+								<h3></h3><br>
 								<div class="input_box">
-									<input type="text" id="check_code" name="check_code" value="" style="width:70%;"/>
-									<button type="button" class="checkCodeBtn" onclick="submitCheckCode()">전송</button>
+									<button type="button" class="checkCodeBtn" id="submitPhoneNumBtn" onclick="submitPhoneNum()" style="margin-top:-6px;">전 송</button>
+								</div>
+							</div>
+							<div class="box_left" id="div_checkCode" style="display:none;">
+								<h3 style="color:#ff0012">인증번호 *</h3>
+								<div class="input_box">
+									<input type="text" id="check_code" name="check_code" value="" style="width:60%;"/>
+									<button type="button" class="checkCodeBtn" onclick="submitCheckCode()">인증번호확인</button>
 								</div>
 							</div>
 						</div>

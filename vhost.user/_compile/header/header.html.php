@@ -7,7 +7,7 @@
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345898" />
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
-    <link rel="stylesheet" type="text/css" href="/include/css/style.css?v=6" />
+    <link rel="stylesheet" type="text/css" href="/include/css/style.css?v=7" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
     <script type="text/javascript">var $j = jQuery.noConflict(); jQuery.ajaxSetup({cache:false});</script>
@@ -136,7 +136,7 @@
         </div>
     </div>
     <!-- 배팅취소 팝업 -->
-    <div id="betcancel_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;display:none;top:12%;">
+    <div id="betUserCancel_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;display:none;top:12%;">
         <div class="pop_box">
             <h2>알림</h2>
             <input type="hidden" id="betting_no" value="0">
@@ -195,7 +195,7 @@
             <span class="count02"></span>
         </div>
     </div>
-    <!-- 배팅취소알림 팝업 -->
+    <!-- 관리자 배팅취소알림 팝업 -->
     <div id="betCancel_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;display:none;top:12%;">
         <div class="pop_box">
             <h2>알림</h2>

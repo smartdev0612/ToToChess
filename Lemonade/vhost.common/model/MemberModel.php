@@ -346,7 +346,7 @@ class MemberModel extends Lemon_Model
 		if ( !$logo ) $logo = $this->logo;
         $rollingSn = 0;
         $email = "";
-		if($partnerSn!="")
+		if($partnerSn > 0)
 		{
 			$levelModel 	= Lemon_Instance::getObject("LevelCodeModel",true);
 			$partnerModel = Lemon_Instance::getObject("PartnerModel",true);
@@ -2256,14 +2256,14 @@ class MemberModel extends Lemon_Model
         return $status;
     }
 
-    function insertPhoneInfo($uid = "", $receiver = "", $verification_code = "") {
-        $sql = "SELECT uid FROM tb_sms WHERE uid LIKE '" . $uid . "' AND phone LIKE '" . $receiver . "'";
+    function insertPhoneInfo($receiver = "", $verification_code = "") {
+        $sql = "SELECT * FROM tb_sms WHERE phone LIKE '" . $receiver . "'";
         $rs = $this->db->exeSql($sql);
 
         if(count((array)$rs) == 0) {
-            $sql = "INSERT INTO tb_sms (uid, phone, code, time) VALUES ('" . $uid . "', '" . $receiver . "', '" . $verification_code . "', NOW())";       
+            $sql = "INSERT INTO tb_sms (phone, code, time) VALUES ('" . $receiver . "', '" . $verification_code . "', NOW())";       
         } else {
-            $sql = "UPDATE tb_sms SET code = '" . $verification_code . "', count = 0, status = 0 WHERE uid LIKE '" . $uid . "' AND phone LIKE '" . $receiver . "'";
+            $sql = "UPDATE tb_sms SET code = '" . $verification_code . "', count = 0, status = 0 WHERE phone LIKE '" . $receiver . "'";
         }
 
         $rs = $this->db->exeSql($sql);
@@ -2282,16 +2282,16 @@ class MemberModel extends Lemon_Model
         return $cnt;
     }
 
-    function compareCheckCode($userid = "", $phone_num = "", $check_code = "") {
-        $sql = "SELECT status FROM tb_sms WHERE uid LIKE '" . $userid . "' AND phone LIKE '" . $phone_num . "' AND code LIKE '" . $check_code . "'";
+    function compareCheckCode($phone_num = "", $check_code = "") {
+        $sql = "SELECT status FROM tb_sms WHERE phone LIKE '" . $phone_num . "' AND code LIKE '" . $check_code . "'";
         $rs = $this->db->exeSql($sql);
 
         $status = 0;
         if(count((array)$rs) > 0) {
-            $sql = "UPDATE tb_sms SET status = 1 WHERE uid LIKE '" . $userid . "' AND phone LIKE '" . $phone_num . "' AND code LIKE '" . $check_code . "'";
+            $sql = "UPDATE tb_sms SET status = 1 WHERE phone LIKE '" . $phone_num . "' AND code LIKE '" . $check_code . "'";
             $status = 1;
         } else {
-            $sql = "UPDATE tb_sms SET count = count + 1 WHERE uid LIKE '" . $userid . "' AND phone LIKE '" . $phone_num . "'";
+            $sql = "UPDATE tb_sms SET count = count + 1 WHERE phone LIKE '" . $phone_num . "'";
             $status = 0;
         }
 
@@ -2300,8 +2300,8 @@ class MemberModel extends Lemon_Model
         return $status;
     }
 
-    function getCheckCnt($userid = "", $phone_num = "") {
-        $sql = "SELECT tb_sms.`count` AS cnt FROM tb_sms WHERE uid LIKE '" . $userid . "' AND phone LIKE '" . $phone_num . "'";
+    function getCheckCnt($phone_num = "") {
+        $sql = "SELECT tb_sms.`count` AS cnt FROM tb_sms WHERE phone LIKE '" . $phone_num . "'";
         $rs = $this->db->exeSql($sql);
         $count = 0;
         if(count((array)$rs) > 0) {
@@ -2310,8 +2310,8 @@ class MemberModel extends Lemon_Model
         return $count;
     }
 
-    function checkPhoneNumberVerification($uid = "", $phone_num = "") {
-        $sql = "SELECT status FROM tb_sms WHERE uid LIKE '" . $uid . "' AND phone LIKE '" . $phone_num . "'";
+    function checkPhoneNumberVerification($phone_num = "") {
+        $sql = "SELECT status FROM tb_sms WHERE phone LIKE '" . $phone_num . "'";
         $rs = $this->db->exeSql($sql);
         $status = 0;
         if(count((array)$rs) > 0) {

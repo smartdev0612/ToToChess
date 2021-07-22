@@ -98,7 +98,7 @@
                     <?php } ?>
                 </div>
             </li>
-            <li class="swiper-slide bg06">
+            <!-- <li class="swiper-slide bg06">
                 <div class="box01">
                     <h3>그래프
                         <strong>GRAPH</strong>
@@ -108,9 +108,9 @@
                         the life changing jackpot. Or maybe you just want to have fun <br/>
                         for a couple of minutes. And yes, gambling is both fun and exciting. A
                     </p>
-                    <!-- <button onClick="location.href='/graph'">PLAY NOW</button> -->
+                    <button onClick="location.href='/graph'">PLAY NOW</button>
                 </div>
-            </li>
+            </li> -->
             <li class="swiper-slide bg07">
                 <div class="box01">
                     <h3>해외스포츠

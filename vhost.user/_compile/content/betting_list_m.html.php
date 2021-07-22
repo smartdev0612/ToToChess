@@ -2,7 +2,7 @@
     <div id="container">
 
     <script type="text/javascript" src="/10bet/js/left.js?1610345806"></script>
-    <script type="text/javascript" src="/include/js/betting_list.js?v=1"></script>
+    <script type="text/javascript" src="/include/js/betting_list.js?v=2"></script>
     <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/default.css?v=510">
     <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/m_layout.css?v=525">
     <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/btns.css?v=511">

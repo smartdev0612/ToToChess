@@ -38,7 +38,6 @@
                     <thead>
                         <tr>
                             <th class="th-mini">제목</th>
-                            <th class="ta_left th-mini">작성자</th>
                             <th class="th-mini">작성일</th>
                         </tr>
                     </thead>
@@ -56,7 +55,6 @@
                                     <a href="#" onClick="login_open();" style="color:#858585;padding-left:20px;"><?php echo $TPL_V1["title"]?></a>
                                 <?php } ?> 
                             </td>
-                            <td class="ta_left th-mini"><span class='member'>관리자</span></td>
                             <td class="th-mini"><?php echo str_replace("-","/",substr($TPL_V1["time"],0,10))?></td>
                         </tr>
                     <?php
@@ -68,7 +66,7 @@
                                 $TPL_I1++;
                     ?>
                         <tr height="51">
-                            <td class="ta_left">
+                            <td class="ta_left th-mini">
                                 <?php 
                                 if(count((array)$_SESSION['member']) > 0) { ?>
                                     <a href="/board/view?bbsNo=<?php echo $TPL_VAR["bbsNo"]?>&Article_id=<?php echo $TPL_V1["id"]?>" style="color:#858585;padding-left:20px;"><?php echo $TPL_V1["title"]?></a>
@@ -76,7 +74,7 @@
                                     <a href="#" onClick="login_open();" style="color:#858585;padding-left:20px;"><?php echo $TPL_V1["title"]?></a>
                                 <?php } ?> 
                             </td>
-                            <td class="ta_left">
+                            <!-- <td class="ta_left">
                                 <span class='member' style='color:#ffffff;'>
                                     <?php if($TPL_V1["author"]=='관리자'){?>관리자<?php }else{?><img src='/images/level_icon_<?php echo $TPL_V1["mem_lev"]?>.png' align="absmiddle"><?php }?>
                                     &nbsp;&nbsp;
@@ -88,8 +86,8 @@
                                         }
                                     ?>
                                 </span>
-                            </td>
-                            <td><?php echo str_replace("-","/",substr($TPL_V1["time"],0,10))?></td>
+                            </td> -->
+                            <td class="th-mini"><?php echo str_replace("-","/",substr($TPL_V1["time"],0,10))?></td>
                         </tr>
                     <?php
                             }

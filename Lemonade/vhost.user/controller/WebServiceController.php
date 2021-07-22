@@ -541,7 +541,7 @@ class WebServiceController extends Lemon_Controller
 
 
 	// 전화번호인증 curl
-	function curl_send($nickName = "", $checkCode = "", $sender = "", $receiver = "") {
+	function curl_send($checkCode = "", $sender = "", $receiver = "") {
 		/****************** 인증정보 시작 ******************/
 		$sms_url = "https://apis.aligo.in/send/"; // 전송요청 URL
 		$sms['user_id'] = "kr5073"; // SMS 아이디
@@ -549,7 +549,7 @@ class WebServiceController extends Lemon_Controller
 		/****************** 인증정보 끝 ********************/
 
 		/****************** 전송정보 설정시작 ****************/
-		$_POST['msg'] = $nickName . ' 님, 안녕하세요. 인증코드입니다. [' . $checkCode . ']'; // 메세지 내용 : euc-kr로 치환이 가능한 문자열만 사용하실 수 있습니다. (이모지 사용불가능)
+		$_POST['msg'] = '고객님, 안녕하세요. 인증코드입니다. [' . $checkCode . ']'; // 메세지 내용 : euc-kr로 치환이 가능한 문자열만 사용하실 수 있습니다. (이모지 사용불가능)
 		$_POST['receiver'] = $receiver; // 수신번호
 		$_POST['destination'] = ''; // 수신인 %고객명% 치환
 		$_POST['sender'] = $sender; // 발신번호

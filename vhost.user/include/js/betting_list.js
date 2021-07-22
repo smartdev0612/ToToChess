@@ -1,6 +1,6 @@
 $j().ready(function(){
     $j("#btnConfirm").on("click", function() {
-        betcancel_popup_close();
+        betUserCancel_popup_close();
         var betting_no = $j("#betting_no").val();
         var type = $j("#type").val();
         var url = "";
@@ -11,6 +11,7 @@ $j().ready(function(){
         }
     
         var data = {'betting_no': betting_no};
+
         $j.ajax({
             url : url,
             data : data,
@@ -27,7 +28,7 @@ $j().ready(function(){
     });
     
     $j("#btnCancel").on("click", function() {
-        betcancel_popup_close();
+        betUserCancel_popup_close();
     })    
 });
 
@@ -194,12 +195,12 @@ function cancel_betting(gid,mode){
 
 function cancel_bet(betting_no)
 {
-    betcancel_popup("정말 취소하시겠습니까?", betting_no, 1);
+    betUserCancel_popup("정말 취소하시겠습니까?", betting_no, 1);
 }
 
 function hide_bet(betting_no)
 {
-    betcancel_popup("정말 삭제하시겠습니까?", betting_no, 2);
+    betUserCancel_popup("정말 삭제하시겠습니까?", betting_no, 2);
 }
 
 function hide_all_betting() {
@@ -223,17 +224,17 @@ function on_upload(bettings) {
 }
 
 
-function betcancel_popup(text, betting_no, type) {
+function betUserCancel_popup(text, betting_no, type) {
     console.log(betting_no);
-    $j("#betcancel_popup .pop_message").text(text);
-    $j("#betcancel_popup").fadeIn();
+    $j("#betUserCancel_popup .pop_message").text(text);
+    $j("#betUserCancel_popup").fadeIn();
     $j("#coverBG").fadeIn();
     $j("#betting_no").val(betting_no);
     $j("#type").val(type);
     // setTimeout(warning_popup_close, 1500);
 }
 
-function betcancel_popup_close() {
-    $j("#betcancel_popup").fadeOut();
+function betUserCancel_popup_close() {
+    $j("#betUserCancel_popup").fadeOut();
     $j("#coverBG").fadeOut();
 }

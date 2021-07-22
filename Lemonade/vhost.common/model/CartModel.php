@@ -1176,8 +1176,10 @@ class CartModel extends Lemon_Model
 		if(count((array)$res) > 0)
 			$member_sn = $res[0]["member_sn"];
 
-		$sql = "UPDATE tb_member SET bet_cancel_cnt = bet_cancel_cnt + 1 WHERE sn = " . $member_sn;
-		$this->db->exeSql($sql);
+		if($cancel_id == "관리자") {
+			$sql = "UPDATE tb_member SET bet_cancel_cnt = bet_cancel_cnt + 1 WHERE sn = " . $member_sn;
+			$this->db->exeSql($sql);
+		}
 
 		// 취소한 경기들의 상태를 진행중에서 취소로 업데이트
 		$sql = "UPDATE ".$this->db_qz."total_cart_cancel SET result = 4 WHERE betting_no='".$bettingNo."'";

@@ -87,12 +87,13 @@
     <h3>스포츠 배팅제한설정</h3>
     <div style="display: flex;">
         <div style="width:5%;"></div>
-        <div  style="width:20%;">
+        <div  style="width:40%;">
             <table cellspacing="1" class="tableStyle_gameList" style="margin-top:40px;">
                 <thead>
                     <tr>
                         <th>아이디</th>
-                        <th>마켓종류</th>
+                        <th>종목</th>
+                        <th>마켓명</th>
                     </tr>
                 </thead>
                 <tbody>

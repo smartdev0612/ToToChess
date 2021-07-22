@@ -430,6 +430,7 @@
         var bettingendtime =<?php echo $TPL_VAR["betEndTime"]?>;
         var bettingcanceltime =<?php echo $TPL_VAR["betCancelTime"]?>;
         var bettingcancelbeforetime =<?php echo $TPL_VAR["betCancelBeforeTime"]?>;
+        var crossLimitCnt =<?php echo $TPL_VAR["crossLimitCnt"]?>;
         var game_kind = "<?php echo $gameType?>";
         var s_type = "<?=$s_type?>";
         var showJosn = null;
@@ -490,7 +491,7 @@
             else if (2 == $index) selectedRate = $away_rate;
         
             //토글
-            var toggle_action = toggle($game_index + '_div', $index, selectedRate);
+            var toggle_action = toggle_multi($game_index + '_div', $index, selectedRate, crossLimitCnt);
 
             //insert game
             if (toggle_action == 'inserted') {

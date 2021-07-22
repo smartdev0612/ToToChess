@@ -190,7 +190,7 @@ function toggle($tr, $index, selectedRate)
  * Update Checkbox Attribute and BackGround Css
  * return : 'inserted' or 'deleted'
  */
-function toggle_multi($tr, $index, selectedRate)
+function toggle_multi($tr, $index, selectedRate, crossLimitCnt = 0)
 { 
 	var toggle_action = "";
 	var pieces = $tr.split("_div");
@@ -199,27 +199,59 @@ function toggle_multi($tr, $index, selectedRate)
 	var gameSn = parts[0];
 	var market_id = parts[1];
 	var family_id = parts[2];
-
+	
 	if(m_betList._items.length > 0) {
-		for(i=0; i<m_betList._items.length; ++i)
+		for(i = 0; i < m_betList._items.length; ++i)
 		{
 			var temps = m_betList._items[i]._game_index.split("_");
 			var temp_game_sn = temps[0];
 			var temp_market_id = temps[1];
 			var temp_family_id = temps[2];
 			var temp_game_index = m_betList._items[i]._game_index;
-			
-			if(game_index != temp_game_index) {
-				if(family_id == 11 && temp_family_id == 11) { // || family_id == 7 || family_id == 8 || family_id == 47
-					del_bet(temp_game_index);
-				} else if (temp_family_id == 7 || temp_family_id == 8 || temp_family_id == 47) {
-					if(gameSn == temp_game_sn && market_id == temp_market_id && family_id == temp_family_id) {
+
+			if(crossLimitCnt > 0) {
+				if(game_index != temp_game_index) {
+					if(family_id == 11 && temp_family_id == 11) { // || family_id == 7 || family_id == 8 || family_id == 47
+						del_bet(temp_game_index);
+					} else if (temp_family_id == 7 || temp_family_id == 8 || temp_family_id == 47) {
+						if(gameSn == temp_game_sn && market_id == temp_market_id && family_id == temp_family_id) {
+							del_bet(temp_game_index);
+						}
+					}
+				}
+			} else {
+				if(m_betList._items[i]._game_index != game_index) {
+					if(gameSn == temp_game_sn) {
 						del_bet(temp_game_index);
 					}
 				}
 			}
 		}
 	}
+
+	if(crossLimitCnt == 0) {
+		var selected_betid = 0;
+		if(m_betList._items.length > 0) {
+			for(i = 0; i < m_betList._items.length; ++i)
+			{
+				var temps = m_betList._items[i]._game_index.split("_");
+				if(m_betList._items[i]._game_index == game_index) {
+					if($index == 0) 
+						selected_betid = m_betList._items[i]._home_betid;
+					else if($index == 1)
+						selected_betid = m_betList._items[i]._draw_betid;
+					else if($index == 2)
+						selected_betid = m_betList._items[i]._away_betid;
+				}
+					
+			}
+		}
+		
+		if(localStorage.getItem(`selected_${selected_betid}`) !== null) {
+			$j('div[name='+$tr+'] input:checkbox:eq('+$index+')').prop("checked", true);
+		}
+	}
+	
 
 	$j('div[name='+$tr+'] input:checkbox').each( function(index) {		
 		if(index != $index) { 
@@ -2068,7 +2100,7 @@ function folder_bonus(val) {
 	for ( i = 0 ; i < m_betList._items.length ; i++ ) {
 		var item = m_betList._items[i];
 		if ( item._home_team.indexOf("폴더") > -1 ) {
-			toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate);
+			toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate, crossLimitCnt);
 			m_betList.removeItem(item._game_index);
 			betcon=betcon.del_element(item._game_index+"|"+item._index+"&"+item._home_team+"  VS "+item._away_team);
 		}
@@ -2108,7 +2140,7 @@ function bonus_del(){
 		for ( i = 0 ; i < m_betList._items.length ; i++ ) {
 			var item = m_betList._items[i];
 			if ( item._home_team.indexOf("폴더") > -1 ) {
-				toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate);
+				toggle_action = toggle_multi(item._game_index+'_div', item._index, item._selectedRate, crossLimitCnt);
 				m_betList.removeItem(item._game_index);
 				betcon=betcon.del_element(item._game_index+"|"+item._index+"&"+item._home_team+"  VS "+item._away_team);
 			}	

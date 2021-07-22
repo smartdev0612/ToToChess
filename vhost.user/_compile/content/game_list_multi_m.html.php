@@ -415,6 +415,7 @@
     var bettingendtime =<?php echo $TPL_VAR["betEndTime"]?>;
     var bettingcanceltime =<?php echo $TPL_VAR["betCancelTime"]?>;
     var bettingcancelbeforetime =<?php echo $TPL_VAR["betCancelBeforeTime"]?>;
+    var crossLimitCnt =<?php echo $TPL_VAR["crossLimitCnt"]?>;
     var game_kind = "<?php echo $gameType?>";
 
     function inArray(needle, haystack) {
@@ -474,7 +475,7 @@
         else if (2 == $index) selectedRate = $away_rate;
 
         //토글
-        var toggle_action = toggle_multi($game_index + '_div', $index, selectedRate);
+        var toggle_action = toggle_multi($game_index + '_div', $index, selectedRate, crossLimitCnt);
         //insert game
         if (toggle_action == 'inserted') {
             var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid, $market_name, $home_line, $away_line, $home_name, $home_betid, $away_betid, $draw_betid);
@@ -2611,7 +2612,7 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + item.m_strALine + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
-            children_div += "<div class='st_wd50_l2  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.home_betid + "')>";
+            children_div += "<div class='st_wd50_l2  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.m_nHBetCode + "')>";
             children_div += '<span class="listName list_wd_65">';
             children_div += item.m_strHomeTeam;   
             var home_points = item.m_strHLine.split(" ");
@@ -2620,7 +2621,7 @@
             children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
             children_div += '<div name="' + sub_idx + '_div" style="display:none">';
             children_div += '<input type="checkbox" name="ch" value="3"></div>';
-            children_div += "<div class='st_wd50_l2 selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.away_betid + "')>";
+            children_div += "<div class='st_wd50_l2 selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.m_nABetCode + "')>";
             children_div += '<span class="listName list_wd_65">';
             children_div += item.m_strAwayTeam;
             var away_points = item.m_strALine.split(" ");

@@ -882,7 +882,7 @@ class GameUploadController extends WebServiceController
 				
 				$list_temp = $dataArray["list"];
 				$betData_temp = $dataArray["betData"];
-				print_r($betData_temp);
+				
 				if ( count((array)$list_temp) > 0 ) {
 					if ( count((array)$data) <= 0 ) {
 						$data = $list_temp;
@@ -903,12 +903,12 @@ class GameUploadController extends WebServiceController
 
 		$categoryName = $this->request("categoryName");
 
-		$total_info = $model->getListTotal($filterState, $categoryName, "", $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '');
+		$total_info = $model->getResultListTotal($filterState, $categoryName, "", $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '');
 		$total = $total_info["cnt"];
 		$leagueList = $total_info["league_list"];
 
 		$pageMaker = $this->displayPage($total, $perpage, $page_act);
-		$list = $model->getList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, "", $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '');
+		$list = $model->getResultList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, "", $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '');
 
 		for($i=0; $i<count((array)$list); ++$i)
 		{

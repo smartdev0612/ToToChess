@@ -4,7 +4,7 @@
 	var rec_tex_money = <?php echo $TPL_VAR["parentInfo"]["rec_money"]+0;?>;
     window.onload = function()
     {
-        beginTimer2();
+        // beginTimer2();
     }
 
     function beginTimer2() {

@@ -626,7 +626,7 @@ class MemberController extends WebServiceController
 				exit;
 			}
 			
-			$rs = $memberModel->joinAdd($uid, $pwd, "1234", $nick, $name, $phone, 0, "G", "", "", "", "", "", "127.0.0.1", $logo);
+			$rs = $memberModel->joinAdd($uid, $pwd, "1234", $nick, $name, $phone, 0, "G", 0, 0, "", "", "", "127.0.0.1", $logo);
 			
 			if($rs>0)
 				throw new Lemon_ScriptException("새로운 회원이 등록 되였습니다.","","go","/member/add");

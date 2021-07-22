@@ -571,6 +571,11 @@ class IndexController extends WebServiceController
 			$this->loginAction();
 			exit;
 		}
+
+		$gameListModel = $this->getModel("GameListModel");
+		$leagueModel = $this->getModel("LeagueModel");
+		$etcModel = $this->getModel("EtcModel");
+		$configModel = $this->getModel("ConfigModel");
 		
 		$game = $this->request('game');
 		$sport = $this->request('sport');
@@ -579,10 +584,12 @@ class IndexController extends WebServiceController
 		$perpage = empty($this->request('perpage')) ? 100 : $this->request('perpage');
 		$page_index = empty($this->request('page_index')) ? 0 : $this->request('page_index');
         $title = "";
+		$crossLimitCnt = 0;
 		
 		if ( $game == "multi" ) {
 			$specialType = "1";
             $title = "<span class=\"board_mini_title\">국내형</span>";
+			$crossLimitCnt = $configModel->getCrossLimitCount(1);
 			$this->commonDefine('winlose');
 			$this->view->define(array("content"=>"content/game_list.html"));
 			$this->displayRight("multi");
@@ -601,6 +608,7 @@ class IndexController extends WebServiceController
 		} else if ( $game == "abroad" ) {
 			$specialType = "2";
             $title = "Abroad<span class=\"board_mini_title\">해외형</span>";
+			$crossLimitCnt = $configModel->getCrossLimitCount(2);
 			$this->commonDefine('abroad');
 			
 			if($this->isMobile() == "pc") {
@@ -612,6 +620,7 @@ class IndexController extends WebServiceController
 		} else if ( $game == "live" ) {
 			$specialType = "4";
 			//$title = "Live<span class=\"board_mini_title\">라이브</span>";
+			$crossLimitCnt = $configModel->getCrossLimitCount(3);
 			$this->commonDefine('live');
 			if($this->isMobile() == "pc") {
 				$this->view->define(array("content"=>"content/game_list_live.html"));
@@ -837,10 +846,7 @@ class IndexController extends WebServiceController
 			exit;
 		}
 		
-		$gameListModel = $this->getModel("GameListModel");
-		$leagueModel = $this->getModel("LeagueModel");
-		$etcModel = $this->getModel("EtcModel");
-		$configModel = $this->getModel("ConfigModel");
+		
 		$filterLeagues = $this->request('league_keyword_panel');
 
 		//-> 스포츠일 경우. (미니게임은 패스) + 가상축구
@@ -1014,6 +1020,7 @@ class IndexController extends WebServiceController
 		$this->view->assign('popup_list', $popupList);
 		//$this->view->assign("game_list", $gameList);
 		$this->view->assign("bonus_list", $bonus_list);
+		$this->view->assign("crossLimitCnt", $crossLimitCnt);
 		//$this->view->assign("title_image", $titleImage);
 		$this->view->assign("special_type", $specialType);
 		$this->view->assign("game_type", $game);

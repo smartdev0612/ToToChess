@@ -835,7 +835,9 @@ class RaceController extends WebServiceController
 				$res["status"] = 1; 
 				$res["msg"] = "배팅후 {$cancelAfterTime}분이내에만 취소가 가능합니다.";
 				return $res;
-			} else if (($gameStartTime - $nowTime) < $cancelBeforeTime * 60) {
+			} 
+			
+			if (($gameStartTime - $nowTime) < $cancelBeforeTime * 60) {
 				$res["status"] = 2; 
 				$res["msg"] = "경기시작 {$cancelBeforeTime}분전까지만 취소가 가능합니다.";
 				return $res;

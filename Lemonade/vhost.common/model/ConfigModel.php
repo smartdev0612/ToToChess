@@ -749,6 +749,16 @@ class ConfigModel extends Lemon_Model
 		
         return $this->db->exeSql($sql);
     }
+
+	function getCrossLimitCount($type = 0) {
+		$sql = "SELECT count(*) as cnt FROM tb_cross_limit WHERE type_id = " . $type;
+		$res = $this->db->exeSql($sql);
+		$count = 0;
+		if(count((array)$res) > 0) {
+			$count = $res[0]["cnt"];
+		}
+		return $count;
+	}
 }
 
 ?>

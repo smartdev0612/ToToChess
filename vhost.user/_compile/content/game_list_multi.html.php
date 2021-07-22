@@ -500,6 +500,7 @@
     var bettingendtime =<?php echo $TPL_VAR["betEndTime"]?>;
     var bettingcanceltime =<?php echo $TPL_VAR["betCancelTime"]?>;
     var bettingcancelbeforetime =<?php echo $TPL_VAR["betCancelBeforeTime"]?>;
+    var crossLimitCnt =<?php echo $TPL_VAR["crossLimitCnt"]?>;
     var game_kind = "<?php echo $gameType?>";
     var member_sn = "<?=$member_sn?>";
     var gameList;
@@ -559,9 +560,9 @@
         if (0 == $index) selectedRate = $home_rate;
         else if (1 == $index) selectedRate = $draw_rate;
         else if (2 == $index) selectedRate = $away_rate;
-    
+        
         //토글
-        var toggle_action = toggle_multi($game_index + '_div', $index, selectedRate);
+        var toggle_action = toggle_multi($game_index + '_div', $index, selectedRate, crossLimitCnt);
         //insert game
         if (toggle_action == 'inserted') {
             var item = new Item($game_index, $home_team, $away_team, $index, selectedRate, $home_rate, $draw_rate, $away_rate, $game_type, $sub_sn, $is_specified_special, $game_date, $league_sn, $sport_name, 0, $betid, $market_name, $home_line, $away_line, $home_name, $home_betid, $away_betid, $draw_betid);
