@@ -10,6 +10,58 @@
 			return;
 		}
 	}
+
+    function searchMarket() {
+        var sport_id = $("#sport_id").val();
+        var market_name = $("#market_name").val();
+        console.log(sport_id);
+        console.log(market_name);
+        var data = { sport_id: sport_id, market_name: market_name};
+        $.ajax({
+            type: 'POST',
+            url: "/config/getCrossMarkets",
+            dataType : 'json',
+            data: data,
+            success: function(result) {
+                if(result.length > 0) {
+                    $("#tbody_markets").empty();
+                    $.each(result, function(idx, e) {
+                        var tr = "";
+                        tr += "<tr><td>" + e.market_id + "</td>";
+                        tr += "<td>" + e.name + "</td>";
+                        var pieces = e.mname_ko.split("|");
+                        switch(e.sport_id) {
+                            case 6046:
+                                tr += "<td>" + pieces[0] + "</td>";
+                                break;
+                            case 48242:
+                                tr += "<td>" + pieces[1] + "</td>";
+                                break;
+                            case 154914:
+                                tr += "<td>" + pieces[2] + "</td>";
+                                break;
+                            case 35232:
+                                tr += "<td>" + pieces[4] + "</td>";
+                                break;
+                            case 154830:
+                                tr += "<td>" + pieces[3] + "</td>";
+                                break;
+                            default: 
+                                tr += "<td>" + pieces[0] + "</td>";
+                                break;
+                        }
+                        tr += "</tr>"
+                        $("#tbody_markets").append(tr);
+                    });
+                } else {
+                    alert("미안하지만 검색자료가 없습니다.");
+                }
+            },
+            error: function(e) {
+                console.log(e.responseText);
+            }
+        });
+    }
 </script>
 
 <style>
@@ -21,7 +73,7 @@
     }
 
     /* Style the buttons that are used to open the tab content */
-    .tab button {
+    .tab button { 
         background-color: inherit;
         float: left;
         border: none;
@@ -77,6 +129,11 @@
         border-top: none;
     }
 
+    .search-position {
+        position: relative;
+        top: 7px;
+    }
+
 </style>
 <div class="wrap" style="width: 100%">
 
@@ -88,7 +145,18 @@
     <div style="display: flex;">
         <div style="width:5%;"></div>
         <div  style="width:40%;">
-            <table cellspacing="1" class="tableStyle_gameList" style="margin-top:40px;">
+            <label class="search-position">종목</label>
+            <select  class="search-position" id="sport_id">
+                <option value=""> 전체</option>
+                <?
+                foreach($TPL_VAR["sportlist"] as $sport) { ?>
+                <option value="<?=$sport["sn"]?>"><?=$sport["name"]?></option>
+                <? } ?>
+            </select>
+            <label  class="search-position">마켓명</label>
+            <input  class="search-position" type="text" id="market_name" value="">
+            <button type="button" onclick="searchMarket();" style="float:right; width:60px; height:30px;">검색</button>
+            <table cellspacing="1" class="tableStyle_gameList" style="margin-top:22px;">
                 <thead>
                     <tr>
                         <th>아이디</th>
@@ -96,12 +164,37 @@
                         <th>마켓명</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody_markets">
                 <?php
                 foreach($TPL_VAR["list"] as $TPL_V) { ?>
                     <tr>
-                        <td><?=$TPL_V["family_id"]?></td>
-                        <td><?=$TPL_V["family_name"]?></td>
+                        <td><?=$TPL_V["market_id"]?></td>
+                        <td><?=$TPL_V["name"]?></td>
+                        <td>
+                            <?php 
+                            $pieces = explode("|", $TPL_V["mname_ko"]);
+                            switch($TPL_V["sport_id"]) {
+                                case 6046: // 축구
+                                    echo $pieces[0];
+                                    break;
+                                case 48242: // 농구
+                                    echo $pieces[1];
+                                    break;
+                                case 154914: // 야구
+                                    echo $pieces[2];
+                                    break;
+                                case 35232: // 아이스 하키
+                                    echo $pieces[4];
+                                    break;
+                                case 154830: // 배구
+                                    echo $pieces[3];
+                                    break;
+                                default:
+                                    echo $pieces[0];
+                                    break;
+                            }
+                            ?>
+                        </td>
                     </tr>
                 <?php }
                 ?>
@@ -109,7 +202,7 @@
             </table>
         </div>
         <div style="width:5%;"></div>
-        <div style="width:50%;">
+        <div style="width:40%;">
             <button type="button" onclick="window.open('/config/popup_limit_edit','','scrollbars=yes,width=450,height=250,left=5,top=0');" style="float:right; width:60px; height:30px; margin-bottom:10px;">+ 추가</button>
             <table cellspacing="1" class="tableStyle_gameList">
                 <thead>

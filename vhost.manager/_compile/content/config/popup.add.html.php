@@ -8,12 +8,12 @@ function chk_form()
 		FormData.P_SUBJECT.focus();
 		return (false);
 	}
-	if (FormData.P_CONTENT.value=="")
-	{
-		alert("내용을 입력하십시오.")
-		FormData.P_CONTENT.focus();
-		return (false);
-	}
+	// if (FormData.P_CONTENT.value=="")
+	// {
+	// 	alert("내용을 입력하십시오.")
+	// 	FormData.P_CONTENT.focus();
+	// 	return (false);
+	// }
 	if (FormData.P_POPUP_U.value=="")
 		{
 		alert("사용여무을 선택하십시오.")
@@ -32,30 +32,30 @@ function chk_form()
 		FormData.P_ENDDAY.focus();
 		return (false);
 		}
-	if (FormData.P_WIN_LEFT.value=="" )
-		{
-		alert("left를 입력하십시오.")
-		FormData.P_WIN_LEFT.focus();
-		return (false);
-		}
-	if (FormData.P_WIN_TOP.value=="" )
-		{
-		alert("top를 입력하십시오.")
-		FormData.P_WIN_TOP.focus();
-		return (false);
-		}
-	if (FormData.P_WIN_WIDTH.value=="" )
-		{
-		alert("width를 입력하십시오.")
-		FormData.P_WIN_WIDTH.focus();
-		return (false);
-		}
-	if (FormData.P_WIN_HEIGHT.value=="" )
-		{
-		alert("height를 입력하십시오.")
-		FormData.P_WIN_HEIGHT.focus();
-		return (false);
-		}
+	// if (FormData.P_WIN_LEFT.value=="" )
+	// 	{
+	// 	alert("left를 입력하십시오.")
+	// 	FormData.P_WIN_LEFT.focus();
+	// 	return (false);
+	// 	}
+	// if (FormData.P_WIN_TOP.value=="" )
+	// 	{
+	// 	alert("top를 입력하십시오.")
+	// 	FormData.P_WIN_TOP.focus();
+	// 	return (false);
+	// 	}
+	// if (FormData.P_WIN_WIDTH.value=="" )
+	// 	{
+	// 	alert("width를 입력하십시오.")
+	// 	FormData.P_WIN_WIDTH.focus();
+	// 	return (false);
+	// 	}
+	// if (FormData.P_WIN_HEIGHT.value=="" )
+	// 	{
+	// 	alert("height를 입력하십시오.")
+	// 	FormData.P_WIN_HEIGHT.focus();
+	// 	return (false);
+	// 	}
 	return (true);
 }
 </script>
@@ -108,10 +108,10 @@ function chk_form()
 				<th>게재 기간 설정</th>
 				<td>시작일 <input name="P_STARTDAY" type="text" class="date" value="<?php echo $TPL_VAR["list"]["P_STARTDAY"]?>" maxlength="10" onclick="new Calendar().show(this);"/> 마감일 <input name="P_ENDDAY" type="text" class="date"  value="<?php echo $TPL_VAR["list"]["P_ENDDAY"]?>" maxlength="10" onclick="new Calendar().show(this);"/></td>
 			 </tr>
-			  <tr>
+			  <!-- <tr>
 				<th>위치/크기 설정</th>
 				<td>left <input name="P_WIN_LEFT" type="text" class="w60" id="x" value="<?php echo $TPL_VAR["list"]["P_WIN_LEFT"]?>" maxlength="5" /> top <input name="P_WIN_TOP" type="text" class="w60"id="y" value="<?php echo $TPL_VAR["list"]["P_WIN_TOP"]?>" maxlength="5" /> width <input name="P_WIN_WIDTH" type="text" class="w60" id="w" value="<?php echo $TPL_VAR["list"]["P_WIN_WIDTH"]?>" maxlength="5" /> height <input name="P_WIN_HEIGHT" type="text" class="w60" id="h" value="<?php echo $TPL_VAR["list"]["P_WIN_HEIGHT"]?>" maxlength="5" /></td>
-			  </tr>
+			  </tr> -->
 			  <tr>
 				<th>이미지</th>
 				<td><input type="file" name="P_FILE" class="w600" onkeydown="alert('열기를 클릭하여 이미지를 선택하십시오!');return false"/><?php if($TPL_VAR["act"]=="edit"){?> <br><font color='red'>이미지 수정을 안할 경우 공백을 남겨주십시오.</font><?php }?></td>

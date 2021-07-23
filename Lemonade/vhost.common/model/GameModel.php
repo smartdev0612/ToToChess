@@ -2865,6 +2865,30 @@ class GameModel extends Lemon_Model
 		return $this->db->exeSql($sql);
 	}
 
+	function getCrossMarkets($sport_id = 0, $market_name = "") {
+		$sql = "SELECT
+					*
+				FROM
+					tb_cross_markets a
+					LEFT JOIN tb_sports b
+					ON a.sport_id = b.sn
+					LEFT JOIN tb_markets c
+					ON a.`market_id` = c.`mid`
+				WHERE b.`use` = 1
+					AND c.`muse` = 1 ";
+					
+		if($sport_id > 0)
+			$sql .= " AND a.sport_id = " . $sport_id;
+
+		if($market_name != "")
+			$sql .= " AND c.mname_ko LIKE '%" . $market_name . "%'";
+
+		$sql .= " ORDER BY b.nOrder,
+					c.`mname_ko`;";
+
+		return $this->db->exeSql($sql);
+	}
+
 	function getCrossLimitList() {
 		$sql = "SELECT
 					tb_cross_limit.*,

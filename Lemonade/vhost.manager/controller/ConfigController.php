@@ -156,15 +156,27 @@ class ConfigController extends WebServiceController
 		}
 		
 	
-		$list = $model->getMarketFamily();
-
+		$list = $model->getCrossMarkets();
+		$sportlist = $model->getSportList();
 		$crossLimitList = $model->getCrossLimitList();
 
         $this->view->assign( "list", $list);
+		$this->view->assign( "sportlist", $sportlist);
 		$this->view->assign( "crossLimitList", $crossLimitList);
 
         $this->display();
     }
+
+	// 배팅제한을 위한 마켓목록 가져오기
+	function getCrossMarketsAction() {
+		$sport_id = empty($this->request('sport_id')) ? 0 : $this->request('sport_id');
+		$market_name = empty($this->request('market_name')) ? "" : $this->request('market_name');
+
+		$model 	= $this->getModel("GameModel");
+
+		$list = $model->getCrossMarkets($sport_id, $market_name);
+		echo json_encode($list);
+	}
 
 	// 배팅제한 (원기준)
     function sportlimitAction()

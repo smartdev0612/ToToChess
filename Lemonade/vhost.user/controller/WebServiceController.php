@@ -161,6 +161,8 @@ class WebServiceController extends Lemon_Controller
 		if($gameType == "abroad" || $gameType == "live" || strpos($request_url, '/race/betting_list') !== false)
 			$style_type = 1; // bet38 디자인
 
+		$checkAgent = $this->isMobile();
+
 		$this->view->assign("ad", $ad);
 		$this->view->assign('jackpot', $jackpot);
 		$this->view->assign("user_agent", $userAgent);		
@@ -168,6 +170,7 @@ class WebServiceController extends Lemon_Controller
 		$this->view->assign("live_game_count", $live_game_count);
 		$this->view->assign("style_type",  $style_type);
 		$this->view->assign('ads', $ads);
+		$this->view->assign('checkAgent', $checkAgent);
 	}
 	
 	/*
