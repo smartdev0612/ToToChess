@@ -672,23 +672,23 @@ class PartnerModel extends Lemon_Model
 
 	//-> partner. 부본사가 정산금 데이터를 조회	
 	function getTexDataPartnerTop($recommendSn = 0, $startDate = "", $endDate = "") {
-		$sql = "select regdate,
-							DATE_FORMAT(regdate,'%Y-%m-%d') as regdates,
-							sum(money_to_charge) as money_to_charge,
-							sum(money_to_exchange) as money_to_exchange,
-							sum(betting_to_ready) as betting_to_ready,
-							sum(betting_to_win) as betting_to_win,
-							sum(betting_to_lose) as betting_to_lose,
-							sum(result_to_win) as result_to_win,
-							sum(mileage_to_charge) as mileage_to_charge,
-							sum(mileage_to_recomm_lose) as mileage_to_recomm_lose,
-							sum(mileage_to_multi_folder) as mileage_to_multi_folder,
-							sum(mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
-							sum(mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
-							sum(get_tex_money_top) as get_tex_money_top
-						from ".$this->db_qz."recommend_tex
-						where rec_sn_top = '".$recommendSn."' and regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' 
-						group by regdates order by regdate asc";
+		$sql = "select 	regdate,
+						DATE_FORMAT(regdate,'%Y-%m-%d') as regdates,
+						sum(money_to_charge) as money_to_charge,
+						sum(money_to_exchange) as money_to_exchange,
+						sum(betting_to_ready) as betting_to_ready,
+						sum(betting_to_win) as betting_to_win,
+						sum(betting_to_lose) as betting_to_lose,
+						sum(result_to_win) as result_to_win,
+						sum(mileage_to_charge) as mileage_to_charge,
+						sum(mileage_to_recomm_lose) as mileage_to_recomm_lose,
+						sum(mileage_to_multi_folder) as mileage_to_multi_folder,
+						sum(mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
+						sum(mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
+						sum(get_tex_money_top) as get_tex_money_top
+				from ".$this->db_qz."recommend_tex
+				where rec_sn_top = '".$recommendSn."' and regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' 
+				group by regdates order by regdate asc";
 		return $this->db->exeSql($sql);
 	}
 

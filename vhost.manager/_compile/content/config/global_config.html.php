@@ -96,6 +96,10 @@ function onlyNumDecimalInput(){
 				<th width="20%">환전최소금액</th>
 				<td><input name="exchange_money" type="text"  class="w60" id="admin_id" value="<?php echo $TPL_VAR["list"]["exchange_money"]?>" maxlength="30" /></td>
 	    </tr>
+		<tr>
+			<th>환전시 자동쪽지 문구</th>
+			<td><textarea name="exchange_memo" rows="10" cols="55"><?php echo $TPL_VAR["list"]["exchange_memo"]?></textarea>
+	    </tr>
 	    <tr>
 			<th>은행계좌</th>
 			<td>은행명 : <input type="text" class="w120" name="bank" value="<?php echo $TPL_VAR["list"]["bank"]?>" size="10" /> 계좌번호 : <input type="text" class="w120" name="bank_num" value="<?php echo $TPL_VAR["list"]["bank_num"]?>" size="10" onKeyUp="value=value.replace(/[^\d]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" /> 예금주 : <input type="text" class="w60" name="name" value="<?php echo $TPL_VAR["list"]["name"]?>" size="10" />

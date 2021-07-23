@@ -132,12 +132,12 @@
     text-align: center;
 }
 
-.confirm-yes:hover {
+.confirm-no:hover {
     border: 1px solid #ff0000;
     background: #ff0000;
 }
 
-.confirm-yes {
+.confirm-no {
     width: 20%;
     height: 30px;
     border: 1px solid #ff0012;
@@ -149,12 +149,12 @@
     transition: 200ms all;
 }
 
-.confirm-no:hover {
+.confirm-yes:hover {
     border: 1px solid #00bfff;
     background: #00bfff;
 }
 
-.confirm-no {
+.confirm-yes {
     width: 20%;
     height: 30px;
     border: 1px solid #00bfff;

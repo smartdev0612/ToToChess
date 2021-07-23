@@ -291,7 +291,9 @@ class ExchangeController extends WebServiceController
 		}
 		$this->view->define("content","content/exchange/popup_process.html");
 		$model 	= $this->getModel("MoneyModel");
+		$cModel 	= $this->getModel("ConfigModel");
 		$mModel = $this->getModel("MemberModel");
+		$memoModel = $this->getModel("MemoModel");
 		$pModel = $this->getModel("ProcessModel");
 
 		$memberSn	= $this->request("memberSn");
@@ -321,6 +323,12 @@ class ExchangeController extends WebServiceController
 				throw new Lemon_ScriptException("","","script","alert('이미 대기중으로 이전되였습니다.');opener.document.location.reload(); self.close();");				
 				exit;
 			}
+
+			$exchangeMemoTitle 	= "환전이 완료되었습니다.";
+			$exchangeMemoContent = html_entity_decode($cModel->getAdminConfigField('exchange_memo'));
+			$mem_id = $mModel->getMemberField($memberSn, "uid");
+
+			$memoModel->writeMemo('운영팀', $mem_id, $exchangeMemoTitle, $exchangeMemoContent);
 			
 			throw new Lemon_ScriptException("","","script","alert('처리 되였습니다.');opener.document.location.reload(); self.close();");			
 		}
