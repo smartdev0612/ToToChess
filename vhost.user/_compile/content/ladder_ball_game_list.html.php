@@ -117,7 +117,7 @@
                                                                                         </div>
                                                                                         <div class="bet_moeny">
                                                                                             배팅금액
-                                                                                            <input type="text" id="betMoney" name="betMoney" class="input_betmoney" value="0" onkeyUp="javascript:this.value=onMoneyChange(this.value);" placeholder="0">
+                                                                                            <input type="text" id="betMoney" name="betMoney" class="input_betmoney" value="0" onkeyUp="moneyPlusManual(this.value);" placeholder="0">
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="btn_minigame">

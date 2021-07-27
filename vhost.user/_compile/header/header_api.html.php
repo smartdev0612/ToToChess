@@ -249,7 +249,7 @@
     </form>
     <div id="wrap">
         <!-- 해더 웹 -->
-        <header>
+        <header style="display:none;">
             <div class="header_box">
                 <h1><a href="/"><img src="/10bet/images/10bet/logo_01.png?v01" alt="Chess 로고" /></a></h1>
                 
@@ -460,85 +460,73 @@
     var member_sn = "<?=$TPL_VAR["member_sn"]?>";
     var style_type = <?=$TPL_VAR["style_type"]?>;
 </script>
-<div class="popup_section" id="layer_36" style="position:absolute; left:50px; top:130px; width:490px; z-index:1036;" onmouseover="dragObj=layer_36; drag=1;move=0" onmouseout="drag=0">
-	<div class="pop_box">
-		<h2>
-            <input type="checkbox" name="gigan" value="1" onclick="set_cookie('cookie_36','Y', 24,'/');layer_36.style.display='none';" align="absmiddle"> 오늘하루 그만보기
-        </h2>
-		<span class="close_pop"><img src="/10bet/images/10bet/ico_close_01.png" alt="창닫기" onclick="layer_36.style.display='none';"></span>
-		<div class="event_img">
-            <img src="https://i.imgur.com/mhCAjxK.png">    				    		
-        </div>
-	</div>
-</div>
-<div class="popup_section" id="layer_33" style="position:absolute; left:540px; top:130px; width:490px; z-index:1033;" onmouseover="dragObj=layer_33; drag=1;move=0" onmouseout="drag=0">
-	<div class="pop_box">
-		<h2>
-            <input type="checkbox" name="gigan" value="1" onclick="set_cookie('cookie_33','Y', 24,'/');layer_33.style.display='none';" align="absmiddle"> 오늘하루 그만보기
-        </h2>
-		<span class="close_pop"><img src="/10bet/images/10bet/ico_close_01.png" alt="창닫기" onclick="layer_33.style.display='none';"></span>
-		<div class="event_img">
-            <img src="https://i.imgur.com/p09EHCK.jpg">    				    		
-        </div>
-	</div>
-</div>
-<div class="popup_section" id="layer_37" style="position:absolute; left:1025px; top:130px; width:490px; z-index:1037;" onmouseover="dragObj=layer_37; drag=1;move=0" onmouseout="drag=0">
-	<div class="pop_box">
-		<h2>
-            <input type="checkbox" name="gigan" value="1" onclick="set_cookie('cookie_37','Y', 24,'/');layer_37.style.display='none';" align="absmiddle"> 오늘하루 그만보기
-        </h2>
-		<span class="close_pop"><img src="/10bet/images/10bet/ico_close_01.png" alt="창닫기" onclick="layer_37.style.display='none';"></span>
-		<div class="event_img">
-            <img src="https://i.imgur.com/CojW5vC.png">    				    		
-        </div>
-	</div>
-</div>
-<div class="popup_section" id="layer_32" style="position:absolute; left:1505px; top:130px; width:490px; z-index:1032;" onmouseover="dragObj=layer_32; drag=1;move=0" onmouseout="drag=0">
-	<div class="pop_box">
-		<h2>
-            <input type="checkbox" name="gigan" value="1" onclick="set_cookie('cookie_32','Y', 24,'/');layer_32.style.display='none';" align="absmiddle"> 오늘하루 그만보기
-        </h2>
-		<span class="close_pop"><img src="/10bet/images/10bet/ico_close_01.png" alt="창닫기" onclick="layer_32.style.display='none';"></span>
-		<div class="event_img">
-            <img src="https://i.imgur.com/ONMhW1u.png">
-        </div>
-	</div>
-</div>
 <?php
 if ( isset($TPL_VAR["popup_list"]) && count($TPL_VAR["popup_list"]) > 0 ) {
+    $index = 0;
+    $z_index = 900000;
     foreach ( $TPL_VAR["popup_list"] as $TPL_V1 ) {
         $checkCookie = "popup_".$TPL_V1["IDX"];
         if($TPL_V1["P_LOGIN_POPUP_U"] == "N" && count((array)$_SESSION['member']) > 0) {
-            if ( !$_COOKIE[$checkCookie] ) { ?>
-            <div class="popup_section" id="<?php echo $checkCookie?>" style="position:absolute; top:<?php echo $TPL_V1["P_WIN_TOP"]?>px; left:<?php echo $TPL_V1["P_WIN_LEFT"]?>px; width:<?php echo $TPL_V1["P_WIN_WIDTH"]?>px; height:<?php echo $TPL_V1["P_WIN_HEIGHT"]?>px; z-index:900000000;" >
+            if ( !$_COOKIE[$checkCookie] ) { 
+                if($TPL_VAR["checkAgent"] == "pc") {
+                    $width = "450px";
+                    $top = 95;
+                    $left = 280 + $index * 450;
+                } else {
+                    $width = "100%";
+                    $top = 0;
+                    $left = 0;
+                }
+            ?>
+            <div class="popup_section" id="<?php echo $checkCookie?>" style="position:absolute; left:<?=$left?>px;  top:<?=$top?>px; width:<?=$width?>; z-index:<?=$z_index?>;" onmouseover="dragObj=<?php echo $checkCookie?>; drag=1; move=0" onmouseout="drag=0">
                 <div class="pop_box">
                     <h2>
                         <input type=checkbox name="gigan" value="1" onclick="setCookie('popup_'+<?php echo $TPL_V1['IDX']?>,'done',1); $j('#<?php echo $checkCookie?>').hide();" align=absmiddle> 
                         오늘하루 그만보기
                     </h2>
                     <span class="close_pop"><img src="/10bet/images/10bet/ico_close_01.png" alt="창닫기" onClick="$j('#<?php echo $checkCookie?>').hide();" /></span>
-                    <div style="width: 100%;height: 100%;background-image: url('<?php echo $TPL_V1["P_FILE"];?>'); background-repeat: no-repeat; background-position: center center; margin-bottom: 10px;" >
-                        <span class="popup-content"><?php echo $TPL_V1["P_CONTENT"]?></span>    				    		
+                    <span class="popup-content"><?php echo $TPL_V1["P_CONTENT"]?></span> 
+                    <div class="event_img">
+                        <img src="<?php echo $TPL_V1["P_FILE"];?>">   				    		
                     </div>
                 </div>
             </div>
-            <? } ?>
-        <?php 
+            <? 
+                $index++;
+                $z_index++;
+                if($index == 3)
+                    $index = 0;
+            } 
         } else if ($TPL_V1["P_LOGIN_POPUP_U"] == "Y" && count((array)$_SESSION['member']) == 0) { 
-            if ( !$_COOKIE[$checkCookie] ) { ?>
-            <div class="popup_section" id="<?php echo $checkCookie?>" style="position:absolute; top:<?php echo $TPL_V1["P_WIN_TOP"]?>px; left:<?php echo $TPL_V1["P_WIN_LEFT"]?>px; width:<?php echo $TPL_V1["P_WIN_WIDTH"]?>px; height:<?php echo $TPL_V1["P_WIN_HEIGHT"]?>px; z-index:900000000;">
+            if ( !$_COOKIE[$checkCookie] ) {
+                if($TPL_VAR["checkAgent"] == "pc") {
+                    $width = "450px";
+                    $top = 95;
+                    $left = 280 + $index * 450;
+                } else {
+                    $width = "100%";
+                    $top = 0;
+                    $left = 0;
+                }
+            ?>
+            <div class="popup_section" id="<?php echo $checkCookie?>" style="position:absolute; left:<?=$left?>px; top:<?=$top?>px; width:<?=$width?>; z-index:<?=$z_index?>;" onmouseover="dragObj=<?php echo $checkCookie?>; drag=1; move=0" onmouseout="drag=0">
                 <div class="pop_box">
                     <h2>
                         <input type=checkbox name="gigan" value="1" onclick="setCookie('popup_'+<?php echo $TPL_V1['IDX']?>,'done',1); $j('#<?php echo $checkCookie?>').hide();" align=absmiddle> 
                         오늘하루 그만보기
                     </h2>
                     <span class="close_pop"><img src="/10bet/images/10bet/ico_close_01.png" alt="창닫기" onClick="$j('#<?php echo $checkCookie?>').hide();" /></span>
-                    <div style="width: 100%;height: 100%;background-image: url('<?php echo $TPL_V1["P_FILE"];?>'); background-repeat: no-repeat; background-position: center center; margin-bottom: 10px;">
-                        <span class="popup-content"><?php echo $TPL_V1["P_CONTENT"]?></span> 				    		
+                    <span class="popup-content"><?php echo $TPL_V1["P_CONTENT"]?></span> 
+                    <div class="event_img">
+                        <img src="<?php echo $TPL_V1["P_FILE"];?>">   				    		
                     </div>
                 </div>
             </div>
             <?php 
+                $index++;
+                $z_index++;
+                if($index == 3)
+                    $index = 0;
             }
         }
     }

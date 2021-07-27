@@ -58,7 +58,12 @@
                 foreach($marketList as $market) { ?>
                 <tr>
                     <td style="text-align:center;"><?=$market["mid"]?></td>
-                    <td style="text-align:center;"><?=$market["mname_ko"]?></td>
+                    <td style="text-align:center;">
+                        <?
+                            $pieces = explode("|", $market["mname_ko"]);
+                            echo $pieces[0];
+                        ?>
+                    </td>
                     <td style="text-align:center;"><?=$market["mname_en"]?></td>
                     <td style="text-align:center;"><input type="text" id="fRate_<?=$market["mid"]?>" name="fRate_<?=$market["mid"]?>" value="<?=$market["fRate"]?>" style="text-align:right;"></td>
                 </tr>

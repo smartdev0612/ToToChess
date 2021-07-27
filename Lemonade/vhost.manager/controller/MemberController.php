@@ -1142,17 +1142,21 @@ class MemberController extends WebServiceController
 			
 			if($radio == 0)
 			{
-				if($type=="money")
+				if($type=="money") {
 					$pModel->modifyMoneyProcess($idx, $g_money, "7", "관리자수정", $memo);
-				else
+					$pModel->chargeReqProcess($idx, $g_money, 1);
+				} else {
 					$pModel->modifyMileageProcess($idx, $g_money, "7", "관리자수정", 0, '', $memo);
+				}
 			}
 			else
 			{
-				if($type=="money")	
+				if($type=="money") {	
 					$pModel->modifyMoneyProcess($idx, -$g_money, "7", "관리자수정", $memo);
-				else
+					$pModel->chargeReqProcess($idx, -$g_money, 1);
+				} else {
 					$pModel->modifyMileageProcess($idx, -$g_money, "7", "관리자수정", 0, '', $memo);
+				}
 			}
 			/*
 			if($radio == 0)

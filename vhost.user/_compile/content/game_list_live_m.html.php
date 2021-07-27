@@ -1493,8 +1493,8 @@
                             // header1 = "승패";
                             // children1.push(item);
                             break;
-                        case 866:
-                            header2 = "핸디캡";
+                        case 1558:
+                            header2 = "핸디캡 [스코어]";
                             children2.push(item);
                             break;
                         case 2:
@@ -1618,11 +1618,11 @@
                             // children1.push(item);
                             break;
                         case 342:
-                            header2 = "핸디캡";
+                            header2 = "핸디캡 (연장포함)";
                             children2.push(item);
                             break;
                         case 28:
-                            header3 = "언더오버";
+                            header3 = "언더오버 (연장포함)";
                             children3.push(item);
                             break;
                         case 221:
@@ -1706,11 +1706,11 @@
                             // children2.push(item);
                             break;
                         case 342:
-                            header3 = "핸디캡";
+                            header3 = "핸디캡 (연장포함)";
                             children3.push(item);
                             break;
                         case 28:
-                            header4 = "언더오버";
+                            header4 = "언더오버 (연장포함)";
                             children4.push(item);
                             break;
                         case 7:
@@ -2292,7 +2292,7 @@
                 children_div += div_12(children1, header1);
             }
 
-            // 핸디캡
+            // 핸디캡 [스코어]
             if(children2.length > 0) {
                 children_div += div_handi(children2, header2);
             }

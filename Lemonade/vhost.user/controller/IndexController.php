@@ -595,10 +595,10 @@ class IndexController extends WebServiceController
 			$this->displayRight("multi");
 		} else if ( $game == "handi" ) {
 			$specialType = "0";
-            $title = "Handicap<span class=\"board_mini_title\">핸디캡</span>";
-			$this->commonDefine('handi');
+            $title = "";
+			$this->commonDefine('winlose');
 			$this->view->define(array("content"=>"content/game_list.html"));
-			$this->displayRight("handi");
+			$this->displayRight("multi");
 		} else if ( $game == "special" ) {
 			$specialType = "1";
             $title = "Special<span class=\"board_mini_title\">스페셜</span>";
@@ -2345,6 +2345,29 @@ class IndexController extends WebServiceController
 			$betting_list = $gameListModel->getMinigameResult($this->auth->getSn(), $special_type, $today);
 		}
 		echo json_encode((array)$betting_list);
+	}
+
+	function apiAction() {		
+		if(!$this->auth->isLogin())
+		{
+			// $this->redirect("/login");
+			$this->loginAction();
+			exit;
+		}
+
+		$game = $this->request('game');
+		
+		if ( $game == "sports" ) {
+			$this->commonDefine('winlose');
+			$this->view->define(array("content"=>"content/game_list.html"));
+			$this->displayRight("multi");
+		} 
+
+		$crossLimitCnt = 0;
+
+		$this->view->assign("crossLimitCnt", $crossLimitCnt);
+
+		$this->display();
 	}
 }
 ?>

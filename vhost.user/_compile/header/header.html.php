@@ -5,9 +5,9 @@
     <title>체스</title>
     <link rel="shortcut icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345898" />
+    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345902" />
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
-    <link rel="stylesheet" type="text/css" href="/include/css/style.css?v=8" />
+    <link rel="stylesheet" type="text/css" href="/include/css/style.css?v=9" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
     <script type="text/javascript">var $j = jQuery.noConflict(); jQuery.ajaxSetup({cache:false});</script>
@@ -35,6 +35,7 @@
         } else {
             echo "<script type=\"text/javascript\" src=\"/include/js/sport.js??v={$vTime}\"></script>";
         }
+        $qString = isset($_GET["game"]) ? $_GET["game"] : "";
     ?>
     <script type="text/javascript" src="/include/js/common.js?v=<?=$vTime?>"></script>
     <script type="text/javascript" src="/include/js/include.js?v=<?=$vTime?>"></script>
@@ -249,7 +250,7 @@
     </form>
     <div id="wrap">
         <!-- 해더 웹 -->
-        <header>
+        <header style="display:<?=($qString == "sports") ? "none" : "block"?>;">
             <div class="header_box">
                 <h1><a href="/"><img src="/10bet/images/10bet/logo_01.png?v01" alt="Chess 로고" /></a></h1>
                 

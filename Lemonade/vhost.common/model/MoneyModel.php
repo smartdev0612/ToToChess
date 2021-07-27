@@ -173,8 +173,8 @@ class MoneyModel extends Lemon_Model
 		if($state!="") $where.= " and a.state=".$state;
 		
 		$sql = "select count(*) as cnt
-						from ".$this->db_qz."charge_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
-						where a.member_sn=b.sn".$where;
+				from ".$this->db_qz."charge_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+				where a.member_sn=b.sn".$where;
 					
 		$rs = $this->db->exeSql($sql);
 		
@@ -183,11 +183,15 @@ class MoneyModel extends Lemon_Model
 
     function getChargeTotal2($beginDate, $endDate)
     {
-        $sql = "select count(*) as mem_cnt, IFNULL(sum(amt),0) as amount, IFNULL(sum(cnt),0) as charge_cnt from (select member_sn, sum(amount) as amt, count(*) as cnt  from tb_charge_log 
-                where state=1
-                and operdate >= '{$beginDate}'
-                and operdate <= '{$endDate}' 
-                group by member_sn order by member_sn) a";
+        $sql = "select count(*) as mem_cnt, IFNULL(sum(amt),0) as amount, IFNULL(sum(cnt),0) as charge_cnt 
+				from 	(select member_sn, sum(amount) as amt, count(*) as cnt  
+						from tb_charge_log 
+							left join tb_member on tb_charge_log.member_sn = tb_member.sn
+						where state = 1
+							and tb_member.mem_status != 'G'
+							and operdate >= '{$beginDate}'
+							and operdate <= '{$endDate}' 
+						group by member_sn order by member_sn) a";
 
         $rs = $this->db->exeSql($sql);
         return $rs[0];
@@ -195,11 +199,15 @@ class MoneyModel extends Lemon_Model
 
     function getExchangeTotal2($beginDate, $endDate)
     {
-        $sql = "select count(*) as mem_cnt, IFNULL(sum(amt),0) as amount, IFNULL(sum(cnt),0) as exchange_cnt from (select member_sn, sum(amount) as amt, count(*) as cnt  from tb_exchange_log 
-                where state=1
-                and operdate >= '{$beginDate}'
-                and operdate <= '{$endDate}' 
-                group by member_sn order by member_sn) a";
+        $sql = "select count(*) as mem_cnt, IFNULL(sum(amt),0) as amount, IFNULL(sum(cnt),0) as exchange_cnt 
+				from (select member_sn, sum(amount) as amt, count(*) as cnt  
+					from tb_exchange_log 
+						left join tb_member on tb_exchange_log.member_sn = tb_member.sn	
+					where state=1
+						and tb_member.mem_status != 'G'
+						and operdate >= '{$beginDate}'
+						and operdate <= '{$endDate}' 
+					group by member_sn order by member_sn) a";
 
         $rs = $this->db->exeSql($sql);
         return $rs[0];

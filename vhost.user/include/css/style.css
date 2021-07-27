@@ -247,6 +247,11 @@ img {
     margin-left:0px;
 }
 
+.board-content {
+    text-align: center; 
+    width: 100%;
+}
+
 @media screen and (max-width: 900px) { 
     .hidden-xs {
         display: none !important;
@@ -270,5 +275,9 @@ img {
 
     .calendar-comment {
         font-size: 12px;
+    }
+
+    .board-content img {
+        width: 100%;
     }
 }

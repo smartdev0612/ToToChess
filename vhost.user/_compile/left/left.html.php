@@ -1,6 +1,8 @@
-<!-- <script type="text/javascript" src="/10bet/js/left.js?1610361882"></script> -->
+<?php 
+$qString = isset($_GET["game"]) ? $_GET["game"] : "";
+?>
 <!-- left 메뉴 -->
-<div id="left_section">
+<div id="left_section" style="top:<?=$qString == 'sports' ? '0px' : '70px'?>">
     <div class="left_box">
         <!-- 스포츠 리스트 -->
         <div class="sports_menu_list box_type01" style="font-size: 14px !important; padding-top: 0px;">

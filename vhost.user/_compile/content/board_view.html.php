@@ -54,7 +54,7 @@
             <div class="board_view">
                 <div class="view_text">
                     <!-- 내용 출력 -->
-                    <div style="text-align: center; width: 100%;">
+                    <div class="board-content">
                         <?php echo $TPL_VAR["item"]["content"] . "<br>";?>
                     </div>
                     <table cellpadding="0" cellspacing="0" border="0">

@@ -95,6 +95,7 @@ class RaceController extends WebServiceController
 
 		//$list = $gameListModel->getBettingList($sn, $pageMaker->first, $pageMaker->listNum, $chk_folder, $state, $queryBeginDate, $queryEndDate, $specialCode, 1);
 		$list = $gameListModel->getUserBettingList($sn, $type, 0, 20);
+		$listTotal = $gameListModel->getUserBettingListTotal($sn, $type);
 		
 		$this->view->assign("game", $game);
 		$this->view->assign("begin_date", $beginDate);
@@ -103,6 +104,7 @@ class RaceController extends WebServiceController
 		$this->view->assign("specialCode", $specialCode);
 		$this->view->assign("type", $type);
 		$this->view->assign("list", $list);
+		$this->view->assign("listTotal", $listTotal);
 	
 		$this->display();
 	}
@@ -114,6 +116,7 @@ class RaceController extends WebServiceController
 		$sn = $this->auth->getSn();
 		$gameListModel = Lemon_Instance::getObject("GameListModel",true);
 		$list = $gameListModel->getUserBettingList($sn, $type, $page_index, 20);
+		$listTotal = $gameListModel->getUserBettingListTotal($sn, $type);
 
 		$table = "";
 		if($pc > 0) {
@@ -1288,7 +1291,7 @@ class RaceController extends WebServiceController
 		if ( $ckbet_max_money > 0 && $total_ckbet_money != 0) {
 			//-> 현재 배당금 + 축벳 배당금이 축벳 제한 금액을 초과 할 경우.
 			if ( ( $this_bedang_money + $total_ckbet_money ) > $ckbet_max_money ) {
-				throw new Lemon_ScriptException("축배팅 제한상환가는 ".number_format($ckbet_max_money)."원입니다 배팅금액을 조정해주세요.", "\\n[ 현재 배팅 배당금 : ".number_format($this_bedang_money)."원 ]\\n[ 보유 축뱃 배당금 : ".number_format($total_ckbet_money)."원 ]\\n\\n합계 : ".number_format($this_bedang_money)." + ".number_format($total_ckbet_money)." = ".number_format($this_bedang_money+$total_ckbet_money)."원", "go", $go_path);
+				throw new Lemon_ScriptException("축배팅 제한상환가는 ".number_format($ckbet_max_money)."원입니다.<br>배팅금액을 조정해주세요.<br>[ 현재 배팅 배당금 : ".number_format($this_bedang_money)."원 ]<br>[ 보유 축뱃 배당금 : ".number_format($total_ckbet_money)."원 ]<br><br>합계 : ".number_format($this_bedang_money)." + ".number_format($total_ckbet_money)." = ".number_format($this_bedang_money+$total_ckbet_money)."원", "go", $go_path);
 				exit();
 			}
 		}

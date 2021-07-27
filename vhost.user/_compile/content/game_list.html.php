@@ -10,6 +10,24 @@
       $bonus_list = $TPL_VAR["bonus_list"];
    ?>
 <div class="mask"></div>
+<!-- <div class="modal fade bd-modal-lg in" data-backdrop="static" data-keyboard="false" tabindex="-1" style="padding-right: 17px;">
+    <div class="modal-dialog">
+        <div class="modal-live-content">
+            <span class="fa fa-spinner fa-spin" style="color: #cecece;"></span>
+        </div>
+        <div class="modal-text modal-loading loading01">
+            <span>C</span>
+            <span>H</span>
+            <span>E</span>
+            <span>C</span>
+            <span>K</span>
+            <span>I</span>
+            <span>N</span>
+            <span>G</span>
+        </div>
+
+    </div>
+</div> -->
 <div id="container">
 <style>
    .ko_sports_game img {vertical-align:middle;}
@@ -986,14 +1004,14 @@
                             div += div_12(json.m_strSportName, json.m_strDate, json.m_strHour, json.m_strMin, json.m_nLeague, detail[j], is_child, json.m_nFixtureID, json.m_strHomeTeam, json.m_strAwayTeam, sub_idx);
         
                             marketCnt++;
-                        } else if (detail[j].m_nMarket == 866) {
+                        } else if (detail[j].m_nMarket == 1558) {
                             is_child = true;
                             homeTeamAdd = '&nbsp;<font color="#adff2f">[H]</font>';
                             awayTeamAdd = '<font color="#adff2f">[H]</font>&nbsp;';
                             homeTeamName = json.m_strHomeTeam + homeTeamAdd;
                             awayTeamName = awayTeamAdd + json.m_strAwayTeam;
                             if(cntHandi == 0) {
-                                subItem = chooseProperItem(detail.filter(value => value.m_nMarket == 866));
+                                subItem = chooseProperItem(detail.filter(value => value.m_nMarket == 1558));
                                 if(subItem.m_strHLine !== null && subItem.m_strALine !== null) {
                                     handiDiv += div_handi(json.m_strSportName, json.m_strDate, json.m_strHour, json.m_strMin, json.m_nLeague, subItem, is_child, json.m_nFixtureID, json.m_strHomeTeam, json.m_strAwayTeam, homeTeamName, awayTeamName, sub_idx);
                                     marketCnt++;
@@ -1167,7 +1185,10 @@
             }
             div += '</div>';
             div += '<div class="type01 1">';
-            div += '승패';
+            if(detail.m_nMarket == 226)
+                div += '승패 (연장포함)';
+            else 
+                div += '승패';
             div += '</div>';
             div += '<div class="bet_area">';
             div += "<div class='" + (is_child ? "child-home" : "home") + " menuOff home-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','0','" + 0 + "','" + detail.m_nHBetCode + "')>";
@@ -1229,7 +1250,10 @@
             }
             div += '</div>';
             div += '<div class="type01 1">';
-            div += '언더오버';
+            if(detail.m_nMarket == 28)
+                div += '언더오버 (연장포함)';
+            else 
+                div += '언더오버';
             div += '</div>';
             div += '<div class="bet_area">';
             div += "<div class='" + (is_child ? "child-home" : "home") + " menuOff home-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','0','" + 0 + "','" + detail.m_nHBetCode + "')>";
@@ -1291,7 +1315,14 @@
             }
             div += '</div>';
             div += '<div class="type01 1">';
-            div += '핸디캡';
+            if(sport_name == "배구")
+                div += '핸디캡[스코어]';
+            else {
+                if(detail.m_nMarket == 342)
+                    div += '핸디캡 (연장포함)';
+                else 
+                    div += '핸디캡';
+            }
             div += '</div>';
             div += '<div class="bet_area">';
             div += "<div class='" + (is_child ? "child-home" : "home") + " menuOff home-width' name='" + sub_idx + "_div' onclick=onTeamSelected('" + sub_idx + "','0','" + 0 + "','" + detail.m_nHBetCode + "')>";

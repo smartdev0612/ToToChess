@@ -7,7 +7,7 @@
 			<!--<li><span class="ico_chetting"><img src="/10bet/images/10bet/ico_chetting_01.png" alt="라이브채팅" /></span></li>-->
             <li>
                 <span class="ico_cart">
-                    배팅카트
+                    BETSLIP
                     <img src="/10bet/images/10bet/ico_cart_01.png" alt="배팅카트" />
                 </span>
             </li>

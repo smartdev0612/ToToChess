@@ -173,8 +173,7 @@
 	//-> 배팅금액수동입력
 	function moneyPlusManual(amount) {
 		this_money = amount.replace(/,/g,"");
-		$j("#btMoney").val(MoneyFormat(this_money));
-		$j("#mulMoney").val(MoneyFormat(this_money));
+		$j("#betMoney").val(MoneyFormat(this_money));
 		calHitMoney();
 	}
 

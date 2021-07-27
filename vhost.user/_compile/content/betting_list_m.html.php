@@ -249,8 +249,8 @@
                 <div class="pagination pagination-centered">
                     <ul>
                         <?php
-                        if(count($TPL_VAR["list"]) > 0) { 
-                            for($i = 0; $i < count($TPL_VAR["list"]) / 20; $i++) { 
+                        if(count($TPL_VAR["listTotal"]) > 0) { 
+                            for($i = 0; $i < count($TPL_VAR["listTotal"]) / 20; $i++) { 
                                 if($i == 0) { ?>
                                     <li class="page p_<?=$i?> active"><a href="javascript:void(0)" onclick="goPage(0,<?=$i?>)"><?=$i + 1?></a></li>
                         <?php   } else { ?>

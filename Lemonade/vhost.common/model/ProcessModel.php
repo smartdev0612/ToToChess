@@ -2457,7 +2457,7 @@ class ProcessModel extends Lemon_Model
 	}
 	
 	//▶ 충전요청
-	function chargeReqProcess($member_sn, $amount)
+	function chargeReqProcess($member_sn, $amount, $state = 0)
 	{
 		$charge_list = $this->getRows("*", $this->db_qz."charge_log", "member_sn=".$member_sn);
 		
@@ -2466,12 +2466,12 @@ class ProcessModel extends Lemon_Model
 		if(count((array)$charge_list)==0)
 		{
 			$sql = "insert into ".$this->db_qz."charge_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
-							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), 0, 0, 0, '".$this->logo."')";
+							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
 		}
 		else
 		{
 			$sql = "insert into ".$this->db_qz."charge_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
-							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(),0, 0, 0, '".$this->logo."')";
+							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
 		}
 				
 		return $this->db->exeSql($sql);

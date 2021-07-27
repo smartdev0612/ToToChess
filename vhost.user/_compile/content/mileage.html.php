@@ -12,7 +12,6 @@
                     <!-- 포인트전환 -->
                     <div class="point_change">
                         <div class="my_point">
-                            <span class="head">마이포인트</span>
                             <div class="point01">
                                 <span class="member_mileage"><?php echo number_format($TPL_VAR["mileage"],0)?></span> P
                             </div>

@@ -46,7 +46,6 @@
 		gameTh = arrTime[6];
 		secTemp = arrTime[7];
 		gameDh = arrTime[8];
-
 		if(secTemp >= limit_time) {
 			limitMin = parseInt((secTemp - limit_time) / 60);
 			if(limitMin < 10)
@@ -138,7 +137,6 @@
 	function moneyPlusManual(amount) {
 		this_money = amount.replace(/,/g,"");
 		$j("#btMoney").val(MoneyFormat(this_money));
-		$j("#mulMoney").val(MoneyFormat(this_money));
 		calHitMoney();
 	}
 

@@ -1208,6 +1208,62 @@ class GameListModel extends Lemon_Model
 
 		return $itemList;
 	}
+
+	public function getUserBettingListTotal($member_sn = 0, $type = 0) {
+		$sql = "SELECT 	cart.betting_no
+						,cart.regdate
+						,cart.betting_cnt
+						,cart.result_rate
+						,cart.betting_money
+						,cart.result
+						,cart.bet_date
+						,cart.result_money
+				FROM 	tb_total_cart cart
+						LEFT JOIN tb_total_betting bet
+						ON cart.betting_no = bet.betting_no
+				WHERE 	cart.logo = 'gadget'
+					AND cart.user_del <> 'Y'
+					AND cart.kubun = 'Y'
+					AND cart.member_sn = {$member_sn}";
+		if($type == 1) 
+			$sql .= " AND bet.live = 0 AND (bet.betid != '' OR bet.betid = 'bonus') ";
+		else if($type == 2)
+			$sql .= " AND bet.live = 1 ";
+		else if($type == 3)
+			$sql .= " AND bet.betid = '' ";
+
+		$sql .= " GROUP BY cart.betting_no
+				UNION
+				SELECT 	cart1.betting_no
+						,cart1.regdate
+						,cart1.betting_cnt
+						,cart1.result_rate
+						,cart1.betting_money
+						,cart1.result
+						,cart1.bet_date
+						,cart1.result_money 
+				FROM 	tb_total_cart_cancel cart1
+						LEFT JOIN tb_total_betting_cancel bet1
+						ON cart1.betting_no = bet1.betting_no
+				WHERE 	cart1.logo = 'gadget'
+						AND cart1.user_del <> 'Y'
+						AND cart1.kubun = 'Y'
+						AND cart1.member_sn = {$member_sn}";
+		
+		if($type == 1) 
+			$sql .= " AND bet1.live = 0 AND (bet1.betid != '' OR bet1.betid = 'bonus') ";
+		else if($type == 2)
+			$sql .= " AND bet1.live = 1 ";
+		else if($type == 3)
+			$sql .= " AND bet1.betid = '' ";
+
+		$sql .= " 	GROUP BY cart1.betting_no
+					ORDER BY regdate DESC";
+		
+		$rs = $this->db->exeSql($sql);
+
+		return count((array)$rs);
+	}
 	
 	//▶ 관리자 배팅목록
 	public function _bettingList_admin($memberSn='', $page=0, $page_size=0, $state=-1, $event=0, $beginDate='', $endDate='', $orderby='', $bettingNo='')
@@ -2703,10 +2759,11 @@ class GameListModel extends Lemon_Model
         $sql = "select count(*) mem_cnt, IFNULL(sum(bet_count),0) as bet_cnt, IFNULL(sum(betting_money),0) as bet_money, 
 	                   ifnull(sum(win_cnt),0) as win_cnt, IFNULL(sum(win_money),0) as win_money  
                 from (
-                select member_sn, count(betting_no) as bet_count, sum(betting_money) as betting_money, sum(IF(result=1, 1, 0)) as win_cnt, sum(result_money) as win_money
-                from tb_total_cart 
-                where bet_date >= '{$beginDate}' and bet_date <= '{$endDate}'
-                group by member_sn) a;";
+						select member_sn, count(betting_no) as bet_count, sum(betting_money) as betting_money, sum(IF(result=1, 1, 0)) as win_cnt, sum(result_money) as win_money
+						from tb_total_cart 
+						where bet_date >= '{$beginDate}' and bet_date <= '{$endDate}' and is_account = 1
+						group by member_sn
+					) a;";
 
         $rs = $this->db->exeSql($sql);
         return $rs[0];
@@ -2714,9 +2771,9 @@ class GameListModel extends Lemon_Model
 
     public function bettingCancelListTotal2($beginDate='', $endDate='')
     {
-        $sql = "select count(sn) as cancel_count, IFNULL(sum(betting_money),0) as betting_money
-                from tb_total_cart_cancel 
-                where operdate >= '$beginDate' and operdate <= '{$endDate}'";
+        $sql = "select count(tb_total_cart_cancel.sn) as cancel_count, IFNULL(sum(betting_money),0) as betting_money
+                from tb_total_cart_cancel
+                where operdate >= '$beginDate' and operdate <= '{$endDate}' and is_account = 1";
 
         $rs = $this->db->exeSql($sql);
         return $rs[0];
@@ -2742,6 +2799,7 @@ class GameListModel extends Lemon_Model
 					tb_total_cart.last_special_code < 5
 					OR tb_total_cart.last_special_code = 50
 					)
+					AND tb_total_cart.is_account = 1
 				GROUP BY tb_temp.live";
 
         $rs = $this->db->exeSql($sql);
@@ -2753,10 +2811,11 @@ class GameListModel extends Lemon_Model
         $sql = "select sum(c.betting_money) as bet_amt, count(c.sn) as bet_cnt, b.select_no, ch.special, ch.game_code
                 from tb_total_cart c, tb_total_betting b, tb_subchild s, tb_child ch
                 where c.last_special_code > 2 and c.last_special_code != 50
-                and c.bet_date >= '{$beginDate}' and c.bet_date <= '{$endDate}'
-                and c.betting_no = b.betting_no
-                and b.sub_child_sn = s.sn
-                and s.child_sn = ch.sn
+						and c.bet_date >= '{$beginDate}' and c.bet_date <= '{$endDate}'
+						and c.is_account = 1 
+						and c.betting_no = b.betting_no
+						and b.sub_child_sn = s.sn
+						and s.child_sn = ch.sn
                 GROUP BY ch.game_code, b.select_no
                 order by game_code, b.select_no";
 

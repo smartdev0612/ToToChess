@@ -169,7 +169,8 @@ class StatModel extends Lemon_Model
 				
 				// 출금총액
 				$sql = "select count(*) as count_exchange, (case when sum(agree_amount) is null then 0 else sum(agree_amount) end) as sum_exchange 
-								from ".$this->db_qz."exchange_log where date(regdate)=date('".$currentDate."') and state=1".$logo;			
+						from ".$this->db_qz."exchange_log left join tb_member on tb_exchange_log.member_sn = tb_member.sn
+						where date(tb_exchange_log.regdate)=date('".$currentDate."') and tb_member.mem_status != 'G' and state=1".$logo;			
 				if($partnerSn!='')
 					$sql.= " and member_sn in(select sn from ".$this->db_qz."member where recommend_sn=".$partnerSn.") ";
 			
@@ -180,7 +181,8 @@ class StatModel extends Lemon_Model
 				
 				// 입금총액
 				$sql = "select count(*) as count_charge, (case when sum(agree_amount) is null then 0 else sum(agree_amount) end) as sum_charge 
-								from ".$this->db_qz."charge_log where date(regdate)=date('".$currentDate."') and state=1".$logo;
+						from ".$this->db_qz."charge_log left join tb_member on tb_charge_log.member_sn = tb_member.sn
+						where date(tb_charge_log.regdate)=date('".$currentDate."') and tb_member.mem_status != 'G' and state=1".$logo;
 				if($partnerSn!='')
 					$sql.= " and member_sn in(select sn from ".$this->db_qz."member where recommend_sn=".$partnerSn.") ";
 				
