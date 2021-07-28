@@ -1784,6 +1784,24 @@ vertical-align:top;}
 #loading img {
 	width : 120px;
 }
+
+#betLoading {
+	position:fixed;
+	left:45%;
+	margin-left:-60px;
+	top:40%;
+	margin-top:-33px;
+	z-index:999999;
+}
+#betLoading img {
+	width : 150px;
+}
+
+.betting-span {
+	font-size:21px; 
+	margin-left: 16px;
+}
+
 .display_none {display:none;}
 
 .line-team {

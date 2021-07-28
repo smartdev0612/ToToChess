@@ -5,7 +5,7 @@
     <title>체스</title>
     <link rel="shortcut icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345902" />
+    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345910" />
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
     <link rel="stylesheet" type="text/css" href="/include/css/style.css?v=9" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
@@ -116,6 +116,10 @@
     <div id="loading">
         <img src="/10bet/images/10bet/loading.png">
     </div>
+    <div id="betLoading" style="display:none;">
+        <img src="/10bet/images/Spinner.svg">
+        <div class="betting-span"><span>배팅중... <span id="bettingSecond">7</span>초</div>
+    </div>
     <div id="coverBG"></div>
     <div id="coverBG2"></div>
     <!-- 레이어 팝업 -->
@@ -125,14 +129,6 @@
             <span class="close_pop" onClick="warning_popup_close();"><img src="/10bet/images/10bet/ico_close_01.png" alt="창닫기" /></span>
             <div class="pop_message">
                 잘못된 경로 입니다.
-            </div>
-        </div>
-    </div>
-    <div id="betting_ready_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;display:none;">
-        <div class="pop_box">
-            <h2>알림</h2>
-            <div class="pop_message">
-                배팅중입니다...
             </div>
         </div>
     </div>

@@ -252,14 +252,13 @@ function login_popup_close(){
     $j("#coverBG").fadeOut();
 }
 
-function betting_ready_popup(text) {
-    $j("#betting_ready_popup .pop_message").text(text);
-    $j("#betting_ready_popup").fadeIn();
+function betting_ready_popup() {
+    $j("#betLoading").fadeIn();
     $j("#coverBG").fadeIn();
 }
 
 function betting_ready_popup_close() {
-    $j("#betting_ready_popup").fadeOut();
+    $j("#betLoading").fadeOut("fast");
     $j("#coverBG").fadeOut();
 }
 

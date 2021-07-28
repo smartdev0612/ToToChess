@@ -28,6 +28,9 @@ var m_single_max_bet = 0;
 
 var m_betList 	= new BetList();
 
+var timer;
+var waiting = 7;
+
 Array.prototype.remove = function(from, to)
 {
 	var rest = this.slice((to || from)+1 || this.length);
@@ -2014,11 +2017,23 @@ function confirmBet() {
 
 	sendPacket(PACKET_SPORT_BET, JSON.stringify(v_packet));
 
-	betting_ready_popup("배팅중입니다...");
+	betting_ready_popup();
+
+	timer = setInterval(bettingTimer, 1000);
+}
+
+function bettingTimer() {
+	waiting = waiting - 1;
+	if(waiting > 0)
+		$j("#bettingSecond").text(waiting);
+	else 
+		$j("#bettingSecond").text(0);
 }
 
 function onRecvBetting(objPacket) {
 	betting_ready_popup_close();
+	clearInterval(timer);
+	waiting = 7;
 	bettingSubmitFlag = 0;
 	bet_clear(0);
 	$j("#betMoney").val(0);

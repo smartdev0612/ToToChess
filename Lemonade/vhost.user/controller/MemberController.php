@@ -1645,7 +1645,7 @@ class MemberController extends WebServiceController
 		} else {
 			$mModel->insertPhoneInfo($receiver, $verification_code);
 
-			$sender = "01051294371";
+			$sender = "01076658222";
 			
 			$res = $this->curl_send($verification_code, $sender, $receiver);
 			

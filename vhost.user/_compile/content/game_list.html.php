@@ -9,25 +9,6 @@
       
       $bonus_list = $TPL_VAR["bonus_list"];
    ?>
-<div class="mask"></div>
-<!-- <div class="modal fade bd-modal-lg in" data-backdrop="static" data-keyboard="false" tabindex="-1" style="padding-right: 17px;">
-    <div class="modal-dialog">
-        <div class="modal-live-content">
-            <span class="fa fa-spinner fa-spin" style="color: #cecece;"></span>
-        </div>
-        <div class="modal-text modal-loading loading01">
-            <span>C</span>
-            <span>H</span>
-            <span>E</span>
-            <span>C</span>
-            <span>K</span>
-            <span>I</span>
-            <span>N</span>
-            <span>G</span>
-        </div>
-
-    </div>
-</div> -->
 <div id="container">
 <style>
    .ko_sports_game img {vertical-align:middle;}

@@ -547,8 +547,8 @@ class WebServiceController extends Lemon_Controller
 	function curl_send($checkCode = "", $sender = "", $receiver = "") {
 		/****************** 인증정보 시작 ******************/
 		$sms_url = "https://apis.aligo.in/send/"; // 전송요청 URL
-		$sms['user_id'] = "kr5073"; // SMS 아이디
-		$sms['key'] = "tu99gh3jjxn97ns9bwldee4yds9vy4de";//인증키
+		$sms['user_id'] = "show123123"; // SMS 아이디
+		$sms['key'] = "zq412i09m5kqs8pmey2c8n4pzs5ctnmc";//인증키
 		/****************** 인증정보 끝 ********************/
 
 		/****************** 전송정보 설정시작 ****************/
