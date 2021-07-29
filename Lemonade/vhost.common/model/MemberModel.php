@@ -2272,14 +2272,17 @@ class MemberModel extends Lemon_Model
     }
 
     function checkPhoneNumberUsed($phone_num = "") {
-        $sql = "SELECT count(phone) AS cnt FROM tb_sms WHERE phone LIKE '" . $phone_num . "'";
+        $sql = "SELECT phone FROM tb_member WHERE phone LIKE '" . $phone_num . "'";
         $rs = $this->db->exeSql($sql);
-        $cnt = 0;
-
+        $loginUsed = 0;
         if(count((array)$rs) > 0) 
-            $cnt = $rs[0]["cnt"];
+            $loginUsed = 1;
+        else {
+            $sql = "DELETE FROM tb_sms WHERE phone LIKE '" . $phone_num . "'";
+            $this->db->exeSql($sql);
+        }
             
-        return $cnt;
+        return $loginUsed;
     }
 
     function compareCheckCode($phone_num = "", $check_code = "") {

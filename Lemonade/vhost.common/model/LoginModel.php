@@ -417,11 +417,23 @@ class LoginModel extends Lemon_Model
 		return $this->db->exeSql($sql);
 	}
 	
+	//▶ 로그인한 관리자가 유령관리자인지 아닌지 검사
+	function isGhostManger($sn) {
+		$sql = "SELECT is_ghost FROM tb_head WHERE idx = " . $sn;
+		$res = $this->db->exeSql($sql);
+		$isGhost = 0;
+		if(count((array)$res) > 0)
+			$isGhost = $res[0]["is_ghost"];
+		return $isGhost;		
+	}
+
 	//▶ 관리자 로그인 로그 총합
 	function getAdminLoginTotal($where)
 	{
 		$sql = "select count(*) as cnt
-				from ".$this->db_qz."admin_log where logo='".$this->logo."' ".$where;
+				from ".$this->db_qz."admin_log 
+					left join tb_head on tb_admin_log.admin_id = tb_head.head_id 
+				where tb_admin_log.logo='".$this->logo."' ".$where;
 				
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['cnt'];
@@ -433,9 +445,10 @@ class LoginModel extends Lemon_Model
 		$eModel = Lemon_Instance::getObject("EtcModel",true);
 		
 		$sql = "select * 
-				from ".$this->db_qz."admin_log  
-					where logo='".$this->logo."' ".$where." 
-						order by login_date desc limit ".$page.",".$page_size;
+				from ".$this->db_qz."admin_log 
+						left join tb_head on tb_admin_log.admin_id = tb_head.head_id 
+				where tb_admin_log.logo='".$this->logo."' ".$where." 
+				order by login_date desc limit ".$page.",".$page_size;
 						
 		$rs = $this->db->exeSql($sql);
 
@@ -445,7 +458,7 @@ class LoginModel extends Lemon_Model
 			$rs[$i]['country_code'] = $eModel->getNationByIp($ip);
 		}
 
-		return $rs;;
-	}
+		return $rs;
+    }
 }
 ?>

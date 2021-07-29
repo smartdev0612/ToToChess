@@ -1030,8 +1030,8 @@ class MemberController extends WebServiceController
 		$rs = $model->joinAdd($uid, $upass, $exchange_pass, $nick, $bank_member, $phone, $freeMoney, "W", $joinRecommendSn, $partnerSn, $bank_name, $bank_account, $bank_member, $ip, "", $birthday);
 		if ( $rs > 0 ) {
 			$configModel->modifyAlramFlag("new_member", 1);
-			$welcomeMemoTitle 	= addslashes($cModel->getAdminConfigField('wel_memo_title'));
-			$welcomeMemoContent = addslashes($cModel->getAdminConfigField('wel_memo_content'));
+			$welcomeMemoTitle 	= html_entity_decode($cModel->getAdminConfigField('wel_memo_title'));
+			$welcomeMemoContent = html_entity_decode($cModel->getAdminConfigField('wel_memo_content'));
 			
 			$memoModel->writeMemo('운영팀', $uid, $welcomeMemoTitle, $welcomeMemoContent);
 
@@ -1610,6 +1610,7 @@ class MemberController extends WebServiceController
 		echo json_encode($msg);
 	}
 
+	// 인증코드 전송한 회수
 	function countSubmitCodeAjaxAction() {
 		$phone_num = empty($this->req->post('phone_num')) ? "" : $this->req->post('phone_num');
 		
@@ -1619,6 +1620,7 @@ class MemberController extends WebServiceController
 		echo $count;
 	}
 
+	// 인증코드가 정확한지 체크
 	function checkCodeAjaxAction() {
 		$check_code = empty($this->req->post('check_code')) ? "" : $this->req->post('check_code');
 		$phone_num = empty($this->req->post('phone_num')) ? "" : $this->req->post('phone_num');
@@ -1628,6 +1630,7 @@ class MemberController extends WebServiceController
 		echo $status;
 	}
 
+	// 전화번호가 인증되였는지 체크
 	function checkPhoneNumberVerificationAction() {
 		$phone_num = empty($this->req->post('phone_num')) ? "" : $this->req->post('phone_num');
 		
@@ -1636,6 +1639,7 @@ class MemberController extends WebServiceController
 		echo $status;
 	}
 
+	// 전화번호가 이미 인증에 이용되였는지 검사, 이용되지 않았으면 해당 폰번호로 인증코드 발송
 	function submitPhoneNumber($receiver = "", $verification_code = "") {
 		$mModel = $this->getModel("MemberModel");
 		$cntUsed = $mModel->checkPhoneNumberUsed($receiver);

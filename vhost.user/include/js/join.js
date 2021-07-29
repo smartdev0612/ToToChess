@@ -104,6 +104,8 @@ function joinAction() {
 
 	if(isCheckPhoneNum == 1) {
 		//submitFlag = 1;
+		phone_num = $j('#phone1').val() + $j('#phone2').val();
+
 		var param = {"recode":recode, "uid":uid, "nick":nick, "upass":upass, "confirm_upass":confirm_upass, "phone":phone_num, "bank_name":bank_name, 
 					"bank_account":bank_account, "bank_member":bank_member, "exchange_pass":exchange_pass, "partnerSn":partnerSn, "recommendUid":recommendUid};
 
@@ -183,7 +185,7 @@ function registerPhoneNum(param) {
 		$j("#phone1").prop("disabled", false);
 		$j("#phone2").prop("disabled", false);
 		$j("#check_code").val("");
-		warning_popup("입력하신 번호는 인증되었던 번호입니다.");
+		warning_popup("입력하신 번호는 가입에 이용되었던 번호입니다.");
 		return false;
 	}
 }

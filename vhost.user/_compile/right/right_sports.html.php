@@ -1,7 +1,7 @@
 <?php 
 $qString = isset($_GET["game"]) ? $_GET["game"] : "";
 ?>
-<div id="right_section" style="top:<?=$qString == 'sports' ? '0px' : '70px'?>">
+<div id="right_section">
     <div class="right_box">
         <?php
         if(count((array)$_SESSION['member']) > 0) { ?>

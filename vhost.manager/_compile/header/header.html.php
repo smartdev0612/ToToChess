@@ -365,13 +365,13 @@
                     $("span[id=bet_fx]").html("FX게임[0]");
                 }
 
-				if( sportBetBig_cnt > 0 || sportBetBig_m_cnt > 0 || vfootballBetBig_cnt > 0) {
+				if( sportBetBig_cnt > 0 || vfootballBetBig_cnt > 0) {
 					try { jBeep('/voice/s_betting_big.mp3'); } catch(e) {};
 				} else if ( sadariBetBig_cnt > 0 || dariBetBig_cnt > 0 || raceBetBig_cnt > 0 || powerBetBig_cnt > 0 ||
                     lowhiBetBig_cnt > 0 || aladinBetBig_cnt > 0 || mgmoddevenBetBig_cnt > 0 || mgmbacaraBetBig_cnt > 0 || nineBetBig_cnt > 0 ||
                     twodariBetBig_cnt > 0 || threedariBetBig_cnt > 0 || choiceBetBig_cnt > 0 || rouletteBetBig_cnt > 0 || pharaohBetBig_cnt > 0 || fxBetBig_cnt > 0) {
 					try { jBeep('/voice/m_betting_big.mp3'); } catch(e) {};
-				} else if( sportBet_cnt > 0 || sportBet_m_cnt > 0 || vfootballBet_cnt > 0) {
+				} else if( sportBet_cnt > 0 || vfootballBet_cnt > 0) {
 					try { jBeep('/voice/s_betting.mp3'); } catch(e) {};
 				} else if ( sadariBet_cnt > 0 || dariBet_cnt > 0 || raceBet_cnt > 0 || powerBet_cnt > 0 || lowhiBet_cnt > 0 ||
                     aladinBet_cnt > 0 || mgmoddevenBet_cnt > 0 || mgmbacaraBet_cnt > 0 || nineBet_cnt > 0 ||

@@ -15,8 +15,12 @@ class StatController extends WebServiceController
 		}
 		$this->view->define("content","content/stat/admin_log.html");
 		
+		$sn = $this->auth->getSn();
+		
 		$model 	= $this->getModel("StatModel");
 		$lModel 	= $this->getModel("LoginModel");
+
+		$isGhost = $lModel->isGhostManger($sn);
 		
 		$perpage = $this->request("perpage");
 		$beginDate = $this->request("begin_date");
@@ -29,6 +33,9 @@ class StatController extends WebServiceController
 			if($where==""){$where="and login_date <='".$endDate."'";}
 			$where=$where." and login_date <='".$endDate."'";
 		}
+
+		if($isGhost == 0) 
+			$where .= " and tb_head.is_ghost = " . $isGhost;
 	
 		$page_act = "begin_date=".$beginDate."&end_date=".$endDate."&keyword=".$keyword."&perpage=".$perpage;
 		$total 			= $lModel->getAdminLoginTotal($where);
