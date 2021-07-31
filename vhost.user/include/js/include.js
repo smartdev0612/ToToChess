@@ -180,7 +180,7 @@ function showSportsTotalCount(json, isOther = false) {
 function appendCntInfo(sports, json, isOther = false) {
     var div_id = `id_${sports}-${json.m_nCountry}`;
     var div_obj = document.getElementById(div_id);
-    if(div_obj != null && div_obj != undefined) {
+    if(div_obj != undefined) {
         document.getElementById(`id_${sports}-${json.m_nCountry}_value`).innerHTML = json.m_nCount;
         for(var j = 0; j < json.m_lstLeagueCnt.length; j++){
             var obj = document.getElementById(`id_${sports}-${json.m_nCountry}-${json.m_lstLeagueCnt[j].m_nLeague}_value`);
@@ -193,7 +193,7 @@ function appendCntInfo(sports, json, isOther = false) {
                 }
                 div += '<a href="javascript:void(0)">';
                 div += '<p class="txt_line1 _limit _w180 p-badge">' + json.m_lstLeagueCnt[j].m_strName + '</p>';
-                div += `<span class="badge badge-info f_right _center w35 ${style_type > 0 ? 'span-badge-abroad' : 'span-badge'}" id="id_${sports}-${json.m_nCountry}-${json.m_lstLeagueCnt[j].m_nLeague}">` + json.m_lstLeagueCnt[j].m_nCount + `</span>`;
+                div += `<span class="badge badge-info f_right _center w35 ${style_type > 0 ? 'span-badge-abroad' : 'span-badge'}" id="id_${sports}-${json.m_nCountry}-${json.m_lstLeagueCnt[j].m_nLeague}_value">` + json.m_lstLeagueCnt[j].m_nCount + `</span>`;
                 div += '</a>';
                 div += '</li>';
 
@@ -379,7 +379,8 @@ function getUserInfo() {
         var json = JSON.parse(result);
         if(json.length == 0) 
             return;
-            
+        
+        VarMoney = json.member.g_money;
         $j(".member_inmoney").html(addCommas(json.member.g_money));
         $j(".member_mileage").html(addCommas(json.member.point));
 

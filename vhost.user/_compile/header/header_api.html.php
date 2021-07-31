@@ -427,7 +427,7 @@
                         <? } else { ?>
                         <!-- 로그인 -->
                         <div class="user_box box_type02">
-                            <h3>Memer Login</h3>
+                            <h3>Member Login</h3>
                             <form name="login" method="post" action="/loginProcess" onSubmit="return loginCheck();">
                                 <input type="hidden" name="sitecode" value="site-a">
                                 <input type="hidden" name="returl" value="<?php echo $TPL_VAR["returl"]?>">

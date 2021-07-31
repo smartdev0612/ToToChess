@@ -1497,6 +1497,39 @@ class CartModel extends Lemon_Model
 		return $rs;
 	}
 	
+	/* function getLiveGameMemberBettingListTotal($member_sn, $begin_date="", $end_date="")
+	{
+		$sql = "select count(*) as cnt from ".$this->db_qz."live_betting
+						where member_sn=".$member_sn;
+	
+		if( $begin_date!="" && $end_date!="") 
+		{
+			$sql.= " and (reg_time between '".$begin_date."' and '".$end_date."')";	
+		}
+		$rows = $this->db->exeSql($sql);
+
+		return $rows[0]['cnt'];
+	}
+	
+	function getLiveGameMemberBettingList($member_sn, $page=0, $page_size=0, $begin_date='', $end_date='')
+	{
+		$sql = "select * from ".$this->db_qz."member a,  ".$this->db_qz."live_game b,  ".$this->db_qz."live_betting c, ".$this->db_qz."live_game_detail d, ".$this->db_qz."live_game_template e
+						where a.sn=c.member_sn and b.sn=c.live_sn and d.sn=c.live_detail_sn and d.template=e.template and a.sn =".$member_sn;
+	
+		if( $begin_date!="" && $end_date!="") 
+		{
+			$sql.= " and (c.reg_time between '".$begin_date."' and '".$end_date."')";	
+		}
+		
+		$sql.= " order by c.betting_no desc";
+		if($page_size>0)
+			$sql.= " limit ".$page.",".$page_size;
+		
+		$rows = $this->db->exeSql($sql);
+		
+		return $rows;
+	} */
+
 	function getLiveGameMemberBettingListTotal($member_sn, $begin_date="", $end_date="")
 	{
 		$sql = "select count(*) as cnt from ".$this->db_qz."live_betting

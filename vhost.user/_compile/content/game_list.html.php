@@ -551,7 +551,6 @@
         
         function onRecvAjaxList(strPacket) {
             var json = JSON.parse(strPacket);
-            // console.log(json);
             if(json.length > 0) {
                 var jsonCountInfo = json[0].m_lstSportsCnt;
                 showSportsTotalCount(jsonCountInfo);
@@ -656,6 +655,7 @@
         }
         
         function showAjaxList(newJson) {
+            console.log("Ajax");
             if(showJson == null) {
                 return;
             }
@@ -736,11 +736,12 @@
         
             var group_id = 0;
             for(var i = 0; i < newJson.length; i++) {
-                var league_div = $j(`#${newJson[i].m_strDate}_${newJson[i].m_strHour}_${newJson[i].m_strMin}_${newJson[i].m_nLeague}`);
-                if(league_div != null && league_div != undefined) {
-                    var form = $j(`#game_${newJson[i].m_nFixtureID}`);
-                    if(form == null || form == undefined)
+                var league_div = document.getElementById(`${newJson[i].m_strDate}_${newJson[i].m_strHour}_${newJson[i].m_strMin}_${newJson[i].m_nLeague}`);
+                if(league_div != undefined) {
+                    var form = document.getElementById(`game_${newJson[i].m_nFixtureID}`);
+                    if(form == null || form == undefined) {
                         appendGameDiv(newJson[i]);
+                    }
                 } else {
                     appendLeagueDiv(newJson[i]);
                     appendGameDiv(newJson[i]);
