@@ -1,5 +1,7 @@
 <?php
-$TPL_category_list_1=empty($TPL_VAR["category_list"])||!is_array($TPL_VAR["category_list"])?0:count($TPL_VAR["category_list"]);?>
+$TPL_category_list_1=empty($TPL_VAR["category_list"])||!is_array($TPL_VAR["category_list"])?0:count($TPL_VAR["category_list"]);
+$TPL_nation_list_1=empty($TPL_VAR["nation_list"]) || !is_array($TPL_VAR["nation_list"]) ? 0 : count($TPL_VAR["nation_list"]);
+?>
 <script language="JavaScript">
 function This_Check()
 {
@@ -13,6 +15,7 @@ function This_Check()
 	f.submit();
 
 }
+
 function nation_flag(url)
 {
 	window.open(url,'','resizable=no width=650 height=600 scrollbars=yes');
@@ -36,6 +39,17 @@ function nation_flag(url)
 					<option value="">경기종류선택</option>
 <?php if($TPL_category_list_1){foreach($TPL_VAR["category_list"] as $TPL_V1){?>
 						<option value="<?php echo $TPL_V1["name"]?>" <?php if($TPL_VAR["item"]["kind"]==$TPL_V1["name"]){?> selected <?php }?>><?php echo $TPL_V1["name"]?></option>
+<?php }}?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>국가명</th>
+			<td>
+				<select name="nation_sn">
+					<option value="">국가명</option>
+<?php if($TPL_nation_list_1){foreach($TPL_VAR["nation_list"] as $TPL_V1){?>
+					<option value="<?php echo $TPL_V1["sn"]?>" <?php if($TPL_VAR["item"]["nation_sn"]==$TPL_V1["sn"]){?> selected <?php }?>><?php echo $TPL_V1["name"]?></option>
 <?php }}?>
 				</select>
 			</td>
@@ -77,9 +91,16 @@ function nation_flag(url)
 			<th>리그이미지</th>
 			<td>
 				<p class="paddingTd">
-					<img src="<?php echo $TPL_VAR["UPLOAD_URL"]?><?php echo $TPL_VAR["item"]["lg_img"]?>" width="40" height="30"><?php echo $TPL_VAR["item"]["lg_img"]?><br>
+					<img src="<?php echo $TPL_VAR["item"]["lg_img"]?>" width="40" height="30"><br>
 					<input type="file" name="upLoadFile" size="50">
 				</p>
+			</td>
+		</tr>
+		<tr>
+			<th>사용여부</th>
+			<td>
+				<input type="radio" name="is_use" value="1" <?=$TPL_VAR["item"]["is_use"] == 1 ? "checked" : ""?>>사용
+				<input type="radio" name="is_use" value="0" <?=$TPL_VAR["item"]["is_use"] == 0 ? "checked" : ""?>>미사용
 			</td>
 		</tr>
 		<!--

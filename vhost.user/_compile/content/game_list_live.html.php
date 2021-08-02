@@ -690,7 +690,7 @@
             "m_nPageSize"   :   50
         };
 
-        console.log(packet);
+        // console.log(packet);
         onLoadingScreen();
 
         onSendReqListPacket(packet);
@@ -714,11 +714,19 @@
             if(json != null && json != undefined) {
                 var isExist = checkExist1x2(json);
                 if(document.getElementById(`cnt_${json.m_nGame}`) != null && document.getElementById(`cnt_${json.m_nGame}`) != undefined) {
-                    if(json.m_nStatus == 9)
+                    if(json.m_nStatus == 1 || json.m_nStatus == 9)
                         document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+0";
                     else 
                         document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
                 }
+
+                if(document.getElementById(`F${json.m_nGame}`) != null && document.getElementById(`F${json.m_nGame}`) != undefined) {
+                    if(json.m_nStatus == 1 || json.m_nStatus == 9)
+                        $j(`#F${json.m_nGame}`).prop("disabled", true);
+                    else 
+                        $j(`#F${json.m_nGame}`).prop("disabled", false);
+                }
+
                 if(document.getElementById(`period_${json.m_nGame}`) != null && document.getElementById(`period_${json.m_nGame}`) != undefined)
                     document.getElementById(`period_${json.m_nGame}`).innerHTML = json.m_strPeriod;
                 if(document.getElementById(`homescore_${json.m_nGame}`) != null && document.getElementById(`homescore_${json.m_nGame}`) != undefined)
@@ -807,8 +815,8 @@
                     // }
                 }
 
-                if(json.m_nStatus == 9) {
-                    $("#lock_" + json.m_nGame).css("display", "block");
+                if(json.m_nStatus == 1 || json.m_nStatus == 9) {
+                    $j("#lock_" + json.m_nGame).css("display", "block");
                 } else if(json.m_lstDetail.length > 0) {
                     var market12;
                     switch(json.m_nSports) {
@@ -830,9 +838,9 @@
                     }
                     
                     if(market12.m_nStatus > 1) {
-                        $("#lock_" + json.m_nGame).css("display", "block");
+                        $j("#lock_" + json.m_nGame).css("display", "block");
                     } else {
-                        $("#lock_" + json.m_nGame).css("display", "none");
+                        $j("#lock_" + json.m_nGame).css("display", "none");
                     }
                 }
 
@@ -2583,12 +2591,12 @@
     }
 
     function appendGameDiv(item, index) {
-        //console.log(item);
+        // console.log(item);
         var details = item.m_lstDetail;
         var isExist12 = false;
 
         isExist12 = checkExist1x2(item);
-
+        console.log("isExist12 -> " + isExist12);
         if(item.m_lstDetail.length > 0) {
             $.each(details, function(i, detail) {
                 switch(item.m_strSportName) {
@@ -2597,19 +2605,13 @@
                             if(detail.m_nMarket == 1) {
                                 getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
-                        } else {
-                            getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
-                            return false;
-                        }
+                        } 
                         break;
                     case "농구":
                         if(isExist12) {
                             if(detail.m_nMarket == 226) {
                                 getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
-                        } else {
-                            getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
-                            return false;
                         }
                         break;
                     case "야구":
@@ -2617,9 +2619,6 @@
                             if(detail.m_nMarket == 226) {
                                 getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
-                        } else {
-                            getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
-                            return false;
                         }
                         break;
                     case "배구":
@@ -2627,9 +2626,6 @@
                             if(detail.m_nMarket == 52) {
                                 getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
-                        } else {
-                            getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
-                            return false;
                         }
                         break;
                     case "아이스 하키":
@@ -2637,10 +2633,7 @@
                             if(detail.m_nMarket == 226) {
                                 getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
-                        } else {
-                            getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
-                            return false;
-                        }
+                        } 
                         break;
                 }
             });
@@ -2663,7 +2656,7 @@
         var homeAdd = "";
         var awayAdd = "";
         var sub_idx = `${item.m_nGame}_${detail.m_nMarket}_${detail.m_nFamily}`;
-        if(index == 0 && item.m_nStatus != 9) {
+        if(index == 0 && item.m_nStatus != 1 && item.m_nStatus != 9) {
             getBtns(item.m_nGame);
         }
         
@@ -2673,7 +2666,7 @@
             div += '<div class="list_st7 clearfix live-div" id="div_' + item.m_nGame + '">';
         }
        
-        if(!isExist12 || item.m_nStatus == 9 || detail.m_nStatus > 1) {
+        if(!isExist12 || item.m_nStatus == 1 || item.m_nStatus == 9 || detail.m_nStatus > 1) {
             div += `<div id="lock_${item.m_nGame}" class="st_real_lock" style="display:block"></div>`;
         } else {
             div += `<div id="lock_${item.m_nGame}" class="st_real_lock" style="display:none"></div>`;
@@ -2690,9 +2683,9 @@
         div += item.m_strLeagueName;
         div += '</div>';
         if(index == 0) {
-            div += `<button class="Bn6931381 gBtn st_mart3 st_marr5 bt_game_more act" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ${item.m_nStatus == 9 ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${item.m_nStatus == 9 ? 0 : childCnt}</span></button>`;
+            div += `<button class="Bn6931381 gBtn st_mart3 st_marr5 bt_game_more act" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ${(item.m_nStatus == 1 || item.m_nStatus == 9) ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${(item.m_nStatus == 1 || item.m_nStatus == 9) ? 0 : childCnt}</span></button>`;
         } else {
-            div += `<button class="Bn6931381 gBtn st_mart3 st_marr5 bt_game_more" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ${item.m_nStatus == 9 ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${item.m_nStatus == 9 ? 0 : childCnt}</span></button>`;
+            div += `<button class="Bn6931381 gBtn st_mart3 st_marr5 bt_game_more" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ${(item.m_nStatus == 1 || item.m_nStatus == 9) ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${(item.m_nStatus == 1 || item.m_nStatus == 9) ? 0 : childCnt}</span></button>`;
         }
         div += '<span class="f_right st_mart3 st_marr10">' + item.m_strDate.substring(5,10) + ' ' + item.m_strHour + ':' + item.m_strMin + '</span>';
         div += '</li>';

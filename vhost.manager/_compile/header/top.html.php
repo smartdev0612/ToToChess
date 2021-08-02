@@ -21,7 +21,7 @@
             </ul>
             <ul class="top_m" style="width: 40%">
                 <li><a href="/game/betlist?mode=search&last_special_code=0"><span id="bet_sport">스포츠 [0]</span></a></li>
-                <!-- <li><a href="/game/betlist_multi?mode=search"><span id="bet_sport2">스포츠 II [0]</span></a></li> -->
+                <li><a href="/game/betlist?mode=search&last_special_code=4"><span id="bet_live">라이브 [0]</span></a></li>
                 <!--<li><a href="/game/betlist?mode=search&last_special_code=22"><span id="bet_vfootball">가상축구[0]</span></a></li>
                 <li><a href="/game/betlist?mode=search&last_special_code=3"><span id="bet_sadari">사다리[0]</span></a></li>
                 <li><a href="/game/betlist?mode=search&last_special_code=6"><span id="bet_dari">다리다리[0]</span></a></li>

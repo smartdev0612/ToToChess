@@ -62,13 +62,14 @@ function mainchgna(vii)
 					<li><a href='/gameUpload/gamelist?state=20&parsing_type=ALL'>게임등록</a></li>
 					<li><a href='/league/list'>리그관리</a></li>
                     <li><a href='/gameUpload/result_list'>게임마감</a></li>
-					<li><a href='/league/category_list'>종목관리</a></li>
+					<li><a href='/team/list'>팀관리</a></li>
 
 					<li><a href='/gameUpload/modify_rate'>배당수정</a></li>
+					<li><a href='/league/category_list'>종목관리</a></li>
 					<!-- <li><a href='/gameBlock/list'>경기차단</a></li> -->
-					<li><a href='/gameBlock/gamelist'>경기차단</a></li>
 					<li><a href='/config/crosslimit'>스포츠배팅제한</a></li>
 					<li><a href='/gameUpload/liveList?state=40&parsing_type=ALL'>라이브구독</a></li>
+					<li><a href='/gameBlock/gamelist'>경기차단</a></li>
 				</ul>
 			</div>
 			<p class="m_menu" onclick="mainchgna('5')"><a href="javascript:void();"><font color='orange'>게임 관리</font></a></p>

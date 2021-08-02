@@ -22,9 +22,9 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 </script>
 	
 	<div id="route">
-		<h5>관리자 시스템 - 리그관리</h5>
+		<h5>관리자 시스템 - 팀관리</h5>
 	</div>
-	<h3>리그관리</h3>
+	<h3>팀관리</h3>
 
 	<div id="search2">
 		<form action="?" method="get" name="form2" id="form2">
@@ -47,9 +47,9 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 <?php }}?>
 			</select>
 			
-			<!-- 리그 -->
-			<span class="icon">리그명</span>
-			<input name="league_name" type="text" class="name" value="<?=$TPL_VAR["league_name"]?>" maxlength="20" onmouseover="this.focus()"/>
+			<!-- 팀 -->
+			<span class="icon">팀명</span>
+			<input name="team_name" type="text" class="name" value="<?=$TPL_VAR["team_name"]?>" maxlength="20" onmouseover="this.focus()"/>
 			<input name="Submit4" type="image" src="/img/btn_search.gif" class="imgType" title="검색" />
 		</div>
 		</form>
@@ -58,45 +58,38 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 	<form id="form1" name="form1" method="get" action="?">
 		<input type="hidden" name="act" value="del">
 		<table cellspacing="1" class="tableStyle_normal add">
-			<legend class="blind">등록 리그 목록</legend>
+			<legend class="blind">등록 팀 목록</legend>
 			<thead>
 			<tr>
 				<th class="check"><input type="checkbox" name="chkAll" onClick="selectAll()"/></th>
 				<th>번호</th>
-				<th>리그이미지</th>
+				<th>팀이미지</th>
 				<th>종목</th>
 				<th>국가</th>
 				<th>리그명</th>
-				<th>스타일</th>
-				<th>매칭 리그명</th>
-				<th>사용여부</th>
+				<th>팀명</th>
 				<th>처리</th>
 			</tr>
 			</thead>
 			<tbody>
 <?php if($TPL_list_1){foreach($TPL_VAR["list"] as $TPL_V1){?>
 					<tr>
-						<td><input name="y_id[]" type="checkbox" id="y_id" value="<?php echo $TPL_V1["lsports_league_sn"]?>" onclick="javascript:chkRow(this);"/></td>
-						<td><?php echo $TPL_V1["lsports_league_sn"]?></td>
-						<td title="<?php echo $TPL_V1["name"]?>"><img src="<?php echo $TPL_V1["lg_img"]?>" border="0" width="40" height="30"></td>
-						<td><?php echo $TPL_V1["kind"]?></td>
-						<td><?php echo $TPL_V1["nation_name"]?></td>
-						<td><?php echo $TPL_V1["name"]?></td>
+						<td><input name="y_id[]" type="checkbox" id="y_id" value="<?php echo $TPL_V1["Team_Id"]?>" onclick="javascript:chkRow(this);"/></td>
+						<td><?php echo $TPL_V1["Team_Id"]?></td>
+						<td title="<?php echo $TPL_V1["Sport_Name"]?>">
+                            <?php
+                            if($TPL_V1["Team_Img"] != "") { ?>
+                            <img src="<?php echo $TPL_V1["Team_Img"]?>" border="0" width="40" height="30">
+                            <?php }
+                            ?>
+                        </td>
+						<td><?php echo $TPL_V1["Sport_Name"]?></td>
+						<td><?php echo $TPL_V1["Location_Name_Kor"]?></td>
+                        <td><?php echo $TPL_V1["League_Name_Kor"]?></td>
+						<td><?php echo $TPL_V1["Team_Name_Kor"]?></td>
 						<td>
-<?php if($TPL_V1["view_style"]=='0'){?>초록색
-<?php }elseif($TPL_V1["view_style"]=='1'){?>형광색
-<?php }elseif($TPL_V1["view_style"]=='2'){?>하늘색
-<?php }elseif($TPL_V1["view_style"]=='5'){?>TOP경기
-<?php }elseif($TPL_V1["view_style"]=='10'){?>링크리그
-<?php }else{?>일반<?php }?>
-						</td>
-						<td><?php echo $TPL_V1["alias_name"]?></td>
-						<td>
-							<?=$TPL_V1["is_use"] == 0 ? "미사용" : "사용"?>
-						</td>
-						<td>
-							<a href="#" onclick="window.open('/league/popup_edit?league_sn=<?php echo $TPL_V1["lsports_league_sn"]?>','','scrollbars=yes,width=600,height=400,left=5,top=0');"><img src="/img/btn_s_modify.gif" title="수정"></a>
-							<a href="#" onclick="go_del('/league/list?act=delete&idx=<?php echo $TPL_V1["lsports_league_sn"]?>');" ><img src="/img/btn_s_del.gif" title="삭제"></a>
+							<a href="#" onclick="window.open('/team/popup_edit?team_sn=<?php echo $TPL_V1["Team_Id"]?>','','scrollbars=yes,width=600,height=400,left=5,top=0');"><img src="/img/btn_s_modify.gif" title="수정"></a>
+                            <a href="#" onclick="go_del('/team/list?act=delete&idx=<?php echo $TPL_V1["Team_Id"]?>');" ><img src="/img/btn_s_del.gif" title="삭제"></a>
 						</td>
 					 </tr>
 <?php }}?>
@@ -107,7 +100,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 
 		</div>
 		<div id="wrap_btn">
-			<input type="button" name="box" value="리그등록" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'"  onclick="window.open('/league/popup_add','','scrollbars=yes,width=600,height=400,left=5,top=0');">
+			<!-- <input type="button" name="box" value="리그등록" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'"  onclick="window.open('/league/popup_add','','scrollbars=yes,width=600,height=400,left=5,top=0');"> -->
 			<input type="button" name="open" value="삭  제" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="isChm()"/>
 		</div>
 	</form>

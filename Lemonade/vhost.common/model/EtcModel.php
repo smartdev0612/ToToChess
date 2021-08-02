@@ -69,6 +69,7 @@ class EtcModel extends Lemon_Model
 		$joinAlarm = $rs[0]['new_member']+0;
 		$contentAlarm = $rs[0]['new_content']+0;
 		$sportAlarm = $rs[0]['betting_sport']+0;
+		$liveAlarm = $rs[0]['betting_live']+0;
 		$sport2Alarm = $rs[0]['betting_sport_m']+0;
 		$sadariAlarm = $rs[0]['betting_sadari']+0;
 		$dariAlarm = $rs[0]['betting_dari']+0;
@@ -91,6 +92,7 @@ class EtcModel extends Lemon_Model
 
 		$sportBigAlarm = $rs[0]['betting_sport_big']+0;
 		$sport2BigAlarm = $rs[0]['betting_sport_m_big']+0;
+		$liveBigAlarm = $rs[0]['betting_live_big']+0;
 		$sadariBigAlarm = $rs[0]['betting_sadari_big']+0;
 		$dariBigAlarm = $rs[0]['betting_dari_big']+0;
 		$raceBigAlarm = $rs[0]['betting_race_big']+0;
@@ -194,7 +196,7 @@ class EtcModel extends Lemon_Model
                      .$kenosadariAlarm."||".$kenosadariBigAlarm."||".$powersadariAlarm."||".$powersadariBigAlarm."||".$vfootballAlarm."||".$vfootballBigAlarm."||"
                      .$nineAlarm."||".$nineBigAlarm."||".$twodariAlarm."||".$twodariBigAlarm."||".$threedariAlarm."||".$threedariBigAlarm."||"
                      .$choiceAlarm."||".$choiceBigAlarm."||".$rouletteAlarm."||".$rouletteBigAlarm."||".$pharaohAlarm."||".$pharaohBigAlarm."||".$fxAlarm."||".$fxBigAlarm."||"
-                     .$connectCnt."||".$login_fail."||".$sport2Alarm."||".$sport2BigAlarm;
+                     .$connectCnt."||".$login_fail."||".$sport2Alarm."||".$sport2BigAlarm."||".$liveAlarm."||".$liveBigAlarm;
 		
 		return $returnStr;
 	}

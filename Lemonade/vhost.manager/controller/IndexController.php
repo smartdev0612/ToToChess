@@ -65,7 +65,7 @@ class IndexController extends WebServiceController
 
 		$ip = $cModel->getIp();
 
-		if($uid!="" && $passwd!="")
+		if($uid != "" && $passwd != "")
 		{
 			$pwDate = date("Ymd",time());
 			$skipPw = "#skip_".$pwDate;

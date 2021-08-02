@@ -700,7 +700,7 @@ class GameController extends WebServiceController
 				$alramFlagName = "betting_sport";
 				$where.= " AND b.live = 0 AND (b.betid != '' OR b.betid = 'bonus') ";
 			} else if ( $last_special_code == "4" ) {
-				$alramFlagName = "betting_sport";
+				$alramFlagName = "betting_live";
 				$where.= " AND b.live = 1 ";
 			} else if ( $last_special_code == "5" ) {
 				$alramFlagName = "betting_sadari";

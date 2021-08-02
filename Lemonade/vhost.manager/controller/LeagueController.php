@@ -16,9 +16,13 @@ class LeagueController extends WebServiceController
 		$this->view->define("content","content/league/list.html");
 		
 		$model  	= $this->getModel("LeagueModel");
+		$nationModel  	= $this->getModel("NationModel");
 		
-		$act		 	= $this->request("act");
-		$category	= $this->request("category");
+		$act		= $this->request("act");
+		$category	= empty($this->request("category")) ? "" : $this->request("category");
+		$nation_sn	= empty($this->request("nation_sn")) ? 0 : $this->request("nation_sn");
+		$keyword 	= empty($this->request("league_name")) ? "" : $this->request("league_name");
+
 		
 		$ph_path		 = "";
 		$new_ph_path = "../vhost.user";
@@ -46,30 +50,37 @@ class LeagueController extends WebServiceController
 			
 			$model->delProcess($idx);
 		}
+
+		$where = " tb_league.sn > 0 ";
 		
-		$keyword = $this->request("username");
-		
-		//keyword
-		if($keyword!="")										$where.= " name like '%".$keyword."%'";
-		
-		if($keyword!="" && $category!="")		$where.= " and kind='".$category."'";
-		else if($category!="")							$where.= " kind='".$category."'";
+		if($keyword != "")
+			$where .= " and tb_league.name like '%" . $keyword . "%'";
+
+		if($category != "")	
+			$where .= " and tb_league.kind = '" . $category . "'";	
+
+		if($nation_sn != 0)
+			$where .= " and tb_league.nation_sn = " . $nation_sn;
 
 		$conf = Lemon_Configure::readConfig('config');
+
 		if($conf['site']!='')
 			$UPLOAD_URL = $conf['site']['upload_url'];
 			
-		$page_act= "username=".$keyword."&category=".$category;
+		$page_act= "league_name=".$keyword."&category=".$category."&nation_sn=".$nation_sn;
 		
 		$total 			= $model->getTotal($where);
 		$pageMaker 	= $this->displayPage($total, 10, $page_act);
 		$list 			= $model->getList($where, $pageMaker->first, $pageMaker->listNum);
 		
 		$categoryList = $model->getCategoryList();
+		$nationList = $nationModel->getNationList();
 		
 		$this->view->assign('category', $category);
-		$this->view->assign('username', $keyword);
+		$this->view->assign('league_name', $keyword);
 		$this->view->assign('category_list', $categoryList);
+		$this->view->assign('nation_sn', $nation_sn);
+		$this->view->assign('nation_list', $nationList);
 		$this->view->assign('UPLOAD_URL', $UPLOAD_URL);
 		$this->view->assign('list', $list);
 		
@@ -131,11 +142,12 @@ class LeagueController extends WebServiceController
 		$this->view->define("content","content/league/popup.edit.html");
 			
 		$leagueModel = $this->getModel("LeagueModel");
-		$leagueSn = $this->request("league_sn");
+		$nationModel  	= $this->getModel("NationModel");
+		$leagueSn = empty($this->request("league_sn")) ? 0 : $this->request("league_sn");
 		$mode = trim($this->request("mode"));
 				
 		if ( $mode == "edit" ) {	
-			$leagueSn = $this->request("league_sn");
+			$leagueSn = empty($this->request("league_sn")) ? 0 : $this->request("league_sn");
 			$before_kind = $this->request("before_kind");
 			$kind = $this->request("league_kind");
 			$name = $this->request("league_name");
@@ -143,8 +155,11 @@ class LeagueController extends WebServiceController
 			$nationflag = $this->request("nationflag");
 			$viewStyle = $this->request("view_style");
 			$linkUrl = $this->request("link_url");
+			$is_use = $this->request("is_use");
+			$nation_sn = empty($this->request("nation_sn")) ? 0 : $this->request("nation_sn");
 
-			$leagueModel->modify($leagueSn, $kind, $name, $viewStyle, $linkUrl, $alias);
+			$leagueModel->modify($leagueSn, $kind, $name, $viewStyle, $linkUrl, $alias, $is_use, $nation_sn);
+
 			if ( $_FILES["upLoadFile"]["size"] > 0 and $_FILES["upLoadFile"]["error"] == 0 ) {
 				$uploadImgUrl = $this->leagueImgUpload($leagueSn, $_FILES["upLoadFile"]);
 				if ( $uploadImgUrl ) {
@@ -165,10 +180,12 @@ class LeagueController extends WebServiceController
 		}	
 
 		$categoryList = $leagueModel->getCategoryList();
+		$nationList = $nationModel->getNationList();
 		
 		$this->view->assign('SITE_DOMAIN', $SITE_DOMAIN);
 		$this->view->assign('UPLOAD_URL', $UPLOAD_URL);
 		$this->view->assign('category_list',$categoryList);
+		$this->view->assign('nation_list',$nationList);
 		$this->view->assign('league_sn', $leagueSn);
 		$this->view->assign('item', $item);
 		

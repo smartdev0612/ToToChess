@@ -47,7 +47,7 @@ class LeagueModel extends Lemon_Model
 	function getCategoryList()
 	{
 		$sql = "select * 
-				from ".$this->db_qz."sport_list order by name asc";
+				from ".$this->db_qz."sport_list order by priority asc";
 				
 		return $this->db->exeSql($sql);
 	}
@@ -78,9 +78,9 @@ class LeagueModel extends Lemon_Model
 	{
 		$where='';
 		if($addWhere!='') {$where=" where ".$addWhere;}
-		$sql = "select * 
-						from ".$this->db_qz."league".$where." order by kind, name limit ".$page.",".$page_size."";
-				
+		$sql = "select tb_league.*, tb_nation.name as nation_name  
+				from ".$this->db_qz."league left join tb_nation on tb_league.nation_sn = tb_nation.sn ".$where." order by tb_league.kind, tb_league.name limit ".$page.",".$page_size."";
+		
 		return $this->db->exeSql($sql);
 	}
 	
@@ -147,7 +147,7 @@ class LeagueModel extends Lemon_Model
 	function getListBySn($sn="")
 	{
 		$sql = "select * from ".$this->db_qz."league";
-		if($sn!="")	$sql.=" where sn=".$sn;
+		if($sn!="")	$sql.=" where lsports_league_sn=".$sn;
 		
 		
 		$rs = $this->db->exeSql($sql);
@@ -194,26 +194,34 @@ class LeagueModel extends Lemon_Model
 	}
 	
 	//▶ 리그 변경
-	function modify($sn, $category, $name, $viewStyle, $linkUrl, $alias = "") {
+	function modify($sn, $category, $name, $viewStyle, $linkUrl, $alias = "", $is_use = 0, $nation_sn = 0) {
 		$set = "";
 		if ( $alias != "" ) $set = ", alias_name='".$alias."'";
 		$set .= ", view_style='".$viewStyle."'";
 		$set .= ", link_url='".$linkUrl."'";
+		$set .= ", is_use='".$is_use."'";
+		$set .= ", nation_sn='".$nation_sn."'";
 		
-		$sql = "update tb_league set kind = '{$category}', name = '{$name}' ".$set." where sn = '{$sn}'";
+		$sql = "update tb_league set kind = '{$category}', name = '{$name}' ".$set." where lsports_league_sn = '{$sn}'";
+		$this->db->exeSql($sql);
+
+		$sql = "update tb_child set notice = '{$name}' where league_sn = '{$sn}'";
+		$this->db->exeSql($sql);
+
+		$sql = "update tb_team set League_Name_Kor = '{$name}' where League_Id = '{$sn}'";
 		return $this->db->exeSql($sql);
 	}
 
 	//-> ▶ 기존 종목명 변경
 	function modify_league_kind($leagueSn, $before_kind, $kind) {
-		$sql = "update ".$this->db_qz."child set sport_name='".$kind."' where league_sn = '".$leagueSn."' and sport_name='".$before_kind."'";
+		$sql = "update ".$this->db_qz."child set sport_name='".$kind."' where lsports_league_sn = '".$leagueSn."' and sport_name='".$before_kind."'";
 		return $this->db->exeSql($sql);
 	}
 
 	//▶ 리그 삭제
 	function del($sn)
 	{
-		$sql = "delete from ".$this->db_qz."league where sn in(".$sn.")";
+		$sql = "delete from ".$this->db_qz."league where lsports_league_sn in(".$sn.")";
 		return $this->db->exeSql($sql);
 	}
 	
@@ -227,14 +235,14 @@ class LeagueModel extends Lemon_Model
 	//▶ 국가 목록
 	function getNationList()
 	{
-		$sql = "select * from ".$this->db_qz."nation order by name asc"; 
+		$sql = "select * from ".$this->db_qz."nation where  order by name asc"; 
 		return $this->db->exeSql($sql);
 	}
 	
 	//▶ 국가 목록
 	function getNationByName($name)
 	{
-		$sql ="select * from ".$this->db_qz."nation where name like '%".$name."%'";
+		$sql ="select * from ".$this->db_qz."nation where is_use = 1 and name like '%".$name."%'";
 		return $this->db->exeSql($sql);
 	}
 
