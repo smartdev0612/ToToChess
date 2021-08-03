@@ -258,6 +258,15 @@ class LoginModel extends Lemon_Model
 		
 		if(count((array)$rs)>0)
 		{
+			$sql = "select * from ".$this->db_qz."head_ip where head_idx = '".$rs[0]['idx']."' and login_ip = '" . $ip . "'"; 
+			$ip_list = $this->db->exeSql($sql);
+			if(count((array)$ip_list) == 0) {
+				$sql = "insert into ".$this->db_qz."admin_log (admin_id,admin_pw,login_ip,login_date,result,status,logo) 
+						values ('".$uid."','".$inputPwd."','".$ip."',now(),'접속 불가능한 아이피','1','".$this->logo."')";
+				$this->db->exeSql($sql);
+				return 3; // 접속불가능한 아이피
+			}
+				
 			$_SESSION["quanxian"] = $rs[0]["part_num"];
 		
 			$sql = "update ".$this->db_qz."head 
@@ -272,29 +281,34 @@ class LoginModel extends Lemon_Model
 			$_SESSION["member"]["id"] = $uid;
 			$_SESSION["member"]["sn"]	= $rs[0]['idx']; 
 
-			return true;
+			return 1; // 로그인 성공
 		}
 		else
 		{
 			$sql = "insert into ".$this->db_qz."admin_log (admin_id,admin_pw,login_ip,login_date,result,status,logo) 
 				values ('".$uid."','".$inputPwd."','".$ip."',now(),'로그인 실패','1','".$this->logo."')";
 			$this->db->exeSql($sql);
-			return false;
+			return 2; // 로그인 실패 (아이디 혹은 비번 틀림)
 		}
 	}
 
 	//▶ 로그인
-	function login_skip($uid)
+	function login_skip($uid, $ip = "")
 	{
 		$sql = "select * from ".$this->db_qz."head where logo='".$this->logo."' and binary head_id = '".$uid."'"; 
 		$rs = $this->db->exeSql($sql);
 		if ( count((array)$rs) > 0 ) {
+			$sql = "select * from ".$this->db_qz."head_ip where head_idx = '".$rs[0]['idx']."' and login_ip = '" . $ip . "'"; 
+			$ip_list = $this->db->exeSql($sql);
+			if(count((array)$ip_list) == 0)
+				return 3;
+
 			$_SESSION["quanxian"] = $rs[0]["part_num"];		
 			$_SESSION["member"]["id"] = $uid;
 			$_SESSION["member"]["sn"]	= $rs[0]['idx']; 
-			return true;
+			return 1;
 		}
-		return false;
+		return 2;
 	}
 
 	//▶ 로그인 로그 목록

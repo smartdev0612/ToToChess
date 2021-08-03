@@ -85,7 +85,7 @@
 		if(secTemp <= 290) {
 			if(getResultFlag == 0) {
 				getResultFlag = 1;
-				console.log(secTemp);
+				// console.log(secTemp);
 				getMiniGameResult();
 			}
 		} else {
@@ -99,7 +99,7 @@
         var param = { special_type : 25 };
 
         $j.get("/getMiniGameResult", param, function(result) {
-            console.log(result);
+            // console.log(result);
             var json = JSON.parse(result);
             for(var i = 0; i < json.length; i++) {
                 if(json[i]["result"] == 1) {

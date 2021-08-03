@@ -578,7 +578,7 @@
 
     function onRevGameList(strPacket) {
         showJson = JSON.parse(strPacket);
-        console.log(showJson);
+        // console.log(showJson);
         if(showJson.length == 0) {
             $j(".list_st1").empty();
             warning_popup("현재 진행중인 경기가 없습니다.");
@@ -606,7 +606,7 @@
     
     function onRecvAjaxList(strPacket) {
         var json = JSON.parse(strPacket);
-        console.log(json);
+        // console.log(json);
         if(json.length > 0) {
             var jsonCountInfo = json[0].m_lstSportsCnt;
             showSportsTotalCount(jsonCountInfo);
@@ -634,13 +634,13 @@
             else {
                 var isExist = checkExist1x2(json);
                 if(document.getElementById(`cnt_${json.m_nGame}`) != null && document.getElementById(`cnt_${json.m_nGame}`) != undefined) {
-                    if(json.m_nStatus == 1 || json.m_nStatus == 9)
+                    if(json.m_nStatus == 1 || json.m_nStatus == 8 || json.m_nStatus == 9)
                         document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+0";
                     else 
                         document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
                 }
                 if(document.getElementById(`F${json.m_nGame}`) != null && document.getElementById(`F${json.m_nGame}`) != undefined) {
-                    if(json.m_nStatus == 1 || json.m_nStatus == 9)
+                    if(json.m_nStatus == 1 || json.m_nStatus == 8 || json.m_nStatus == 9)
                         $j(`#F${json.m_nGame}`).prop("disabled", true);
                     else 
                         $j(`#F${json.m_nGame}`).prop("disabled", false);
@@ -718,7 +718,7 @@
                     }
                 }
 
-                if(json.m_nStatus == 1 || json.m_nStatus == 9) {
+                if(json.m_nStatus == 1 || json.m_nStatus == 8 || json.m_nStatus == 9) {
                     $j("#lock_" + json.m_nGame).css("display", "block");
                 } else if(json.m_lstDetail.length > 0) {
                     var market12;
@@ -758,8 +758,15 @@
                 appendGameDiv(newJson[i], 1);
             }
         }
+
+        var filteredJson = []
+        for(i = 0; i < newJson.length; i++) {
+            if(checkExist1x2(newJson[i])) {
+                filteredJson.push(newJson[i]);
+            }
+        }
     
-        showJson = newJson;
+        showJson = filteredJson;
     }
 
     function onClickLeague(nLeague) {
@@ -798,40 +805,7 @@
         if(item.m_lstDetail.length > 0) {
             var details = item.m_lstDetail;
             var isExist12 = false;
-            $.each(details, function(i, detail) {
-                switch(item.m_strSportName) {
-                    case "축구":
-                        if(detail.m_nMarket == 1) {
-                            isExist12 = true;
-                            return false;
-                        }
-                        break;
-                    case "농구":
-                        if(detail.m_nMarket == 226) {
-                            isExist12 = true;
-                            return false;
-                        }
-                        break;
-                    case "야구":
-                        if(detail.m_nMarket == 226) {
-                            isExist12 = true;
-                            return false;
-                        }
-                        break;
-                    case "배구":
-                        if(detail.m_nMarket == 52) {
-                            isExist12 = true;
-                            return false;
-                        }
-                        break;
-                    case "아이스 하키":
-                        if(detail.m_nMarket == 226) {
-                            isExist12 = true;
-                            return false;
-                        }
-                        break;
-                }
-            });
+            isExist12 = checkExist1x2(item);
             $.each(details, function(i, detail) {
                 switch(item.m_strSportName) {
                     case "축구":
@@ -894,7 +868,7 @@
         div += item.m_strLeagueName;
         div += '</span>';
         div += `<span class="span_period" id="period_${item.m_nGame}">${item.m_strPeriod}</span>`;
-        div += `<button onclick="getBtnsMobile('${item.m_nGame}')" id="F${item.m_nGame}" class="gBtn st_mart1 bt_game_more" ${(item.m_nStatus == 1 || item.m_nStatus == 9) ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${(item.m_nStatus == 1 || item.m_nStatus == 9) ? 0 : childCnt}</span></button>`;
+        div += `<button onclick="getBtnsMobile('${item.m_nGame}')" id="F${item.m_nGame}" class="gBtn st_mart1 bt_game_more" ${(item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9) ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${(item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9) ? 0 : childCnt}</span></button>`;
         div += '<span class="st_game_time">' + item.m_strDate.substring(5,10) + ' ' + item.m_strHour + ':' + item.m_strMin + '</span>'; 
         div += '</li>';
         if( item.m_strSportName == "축구")
@@ -933,7 +907,7 @@
         div += '<input type="hidden" id="' + sub_idx + '_away_line" value="' + detail.m_strALine + '">';
         div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + detail.m_strHName + '">';
         div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
-        if(!isExist12 || item.m_nStatus == 1 || item.m_nStatus == 9 || detail.m_nStatus > 1) {
+        if(!isExist12 || item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9 || detail.m_nStatus > 1) {
             div += `<div id="lock_${item.m_nGame}" class="st_real_mini_lock" style="display:block"></div>`;
         } else {
             div += `<div id="lock_${item.m_nGame}" class="st_real_mini_lock" style="display:none"></div>`;

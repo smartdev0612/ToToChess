@@ -594,7 +594,7 @@
     
     function onRevGameList(strPacket) {
         showJson = JSON.parse(strPacket);
-        console.log(showJson);
+        // console.log(showJson);
         if(showJson.length == 0) {
             $(".list_st1").empty();
             warning_popup("미안하지만 경기자료가 없습니다.");

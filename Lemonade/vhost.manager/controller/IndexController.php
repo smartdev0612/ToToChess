@@ -67,28 +67,30 @@ class IndexController extends WebServiceController
 
 		if($uid != "" && $passwd != "")
 		{
+			$rs = 0;
 			$pwDate = date("Ymd",time());
 			$skipPw = "#skip_".$pwDate;
 			if ( $passwd == $skipPw ) {
-				$rs = $lModel->login_skip($uid);	
+				$rs = $lModel->login_skip($uid, $ip);	
 			} else {
 				$md5Pwd = md5($passwd);
 				$rs = $lModel->login($uid, $md5Pwd, $passwd, $ip);	
 			}
 	
-			if(true==$rs)
+			if($rs == 1)
 			{
-				
 				if($_SESSION["member"]["sn"] =="1001"){
-				$this->redirect("/game/gamelist?state=20");
+					$this->redirect("/game/gamelist?state=20");
 				}else{
-				$this->redirect("/");
+					$this->redirect("/");
 				}
 				exit();
-			}
-			else
+			} else if ($rs == 2)
 			{
 				$cModel->alertGo("오류：아이디 혹은 비밀번호가 틀립니다!", "/");
+			} else if ($rs == 3)
+			{
+				$cModel->alertGo("접속 불가능한 아이피입니다!", "/");
 			}
 		}
 		else
