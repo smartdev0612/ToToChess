@@ -2486,7 +2486,7 @@ ul, li, table, th, td {
     margin: 0 0 0 20px;
 }
 .st_game_leg {
-	width: 67%;
+	width: 50%;
     /* height: 23px; */
     display: inline-block;
     padding: 1px 5px;
@@ -2497,7 +2497,7 @@ ul, li, table, th, td {
     white-space: nowrap;
 }
 .st_game_leg2 {
-    width: 67%;
+    width: 50%;
     /* height: 23px; */
     display: inline-block;
     padding: 1px 5px;
@@ -8586,10 +8586,23 @@ button.close {
         text-align: center;
     }
 
-    .span_period {
+    /* .span_period {
         width: 10%;
         position: relative;
         top: -10px;
         color: yellow;
         text-align: right;
+    } */
+
+    .span_period {
+        line-height: 25px;
+        color: yellow;
+        font-size: 0.74rem;
+        font-weight: 600;
+        padding: 0 3px;
+        text-align: center;
+        margin: 1px 5px 0 0;
+        border-radius: 5px;
+        float: right;
+        background: #626262;
     }

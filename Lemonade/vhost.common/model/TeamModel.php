@@ -22,6 +22,7 @@ class TeamModel extends Lemon_Model
                     tb_team.`Team_Id`,
                     tb_team.Sport_Name,
                     tb_team.`Team_Name_Kor`,
+					tb_team.`Team_Name`,
                     tb_team.Location_Name_Kor,
                     tb_team.Team_Img,
                     tb_team.League_Name_Kor
@@ -84,6 +85,12 @@ class TeamModel extends Lemon_Model
 	//▶ 팀 변경
 	function modify($sn = 0, $name = "") {
 		$sql = "update tb_team set Team_Name_Kor = '{$name}' where Team_Id = '{$sn}'";
+		$this->db->exeSql($sql);
+
+		$sql = "update tb_child set home_team = '{$name}' where home_team_id = '{$sn}'";
+		$this->db->exeSql($sql);
+
+		$sql = "update tb_child set away_team = '{$name}' where away_team_id = '{$sn}'";
 		return $this->db->exeSql($sql);
 	}
 

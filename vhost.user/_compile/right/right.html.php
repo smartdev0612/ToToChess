@@ -1,4 +1,10 @@
-<div id="right_section">
+<?php 
+$isApi = isset($TPL_VAR["api"]) ? $TPL_VAR["api"] : "";
+if($isApi == "true")  {?>
+    <div id="right_section" style="top:0px;">
+<?php } else { ?>
+    <div id="right_section">
+<?php } ?>
     <div class="right_box">
         <?php
         if(count((array)$_SESSION['member']) > 0) { ?>

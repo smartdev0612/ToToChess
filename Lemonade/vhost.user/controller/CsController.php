@@ -323,7 +323,17 @@ class CsController extends WebServiceController
 			$this->redirect("/");
 			exit;
 		}
-		
+
+		$idx = empty($this->request("idx")) ? 0 : $this->request("idx");
+
+		$boardModel = Lemon_Instance::getObject("BoardModel", true);
+		$question_content = $boardModel->getQuestion($idx);
+		$reply_content = $boardModel->getCsReply($idx);
+
+		$this->view->assign('idx', $idx);
+		$this->view->assign('question', $question_content);
+		$this->view->assign('reply', $reply_content);
+
 		$this->display();
 	}
 	

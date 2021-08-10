@@ -872,8 +872,8 @@ class BoardModel extends Lemon_Model
 	function getMemberCsList($uid, $page, $page_size, $where="")
 	{
 		$sql = "select * 
-						from ".$this->db_qz."question 
-						where logo='".$this->logo."' and  mem_id = '".$uid."' and reply = 0".$where." order by result asc,regdate desc  limit ".$page.",".$page_size;
+				from ".$this->db_qz."question 
+				where logo='".$this->logo."' and  mem_id = '".$uid."' and reply = 0".$where." order by result asc,regdate desc  limit ".$page.",".$page_size;
 				
 		$rs = $this->db->exeSql($sql);
 		

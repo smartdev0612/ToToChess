@@ -153,7 +153,7 @@ class MemberModel extends Lemon_Model
 								(select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1) as charge_sum,
 								(select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1) as exchange_sum,
 								(select sum(betting_money) from ".$this->db_qz."total_cart where member_sn=a.sn) as bet_total,
-								ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) as benefit,
+								ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) - ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0) as benefit,
 								(select count(*) from ".$this->db_qz."visit where member_id=a.uid) as visit_count
 						from ".$this->db_qz."member a LEFT OUTER JOIN ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
 						where a.is_store=0 and a.sn>0".$logo.$where.$orderby."

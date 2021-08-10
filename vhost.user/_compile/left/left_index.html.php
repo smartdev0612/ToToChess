@@ -1,6 +1,12 @@
 <!-- <script type="text/javascript" src="/10bet/js/left.js?1610361882"></script> -->
 <!-- left 메뉴 -->
-<div id="left_section">
+<?php 
+$isApi = isset($TPL_VAR["api"]) ? $TPL_VAR["api"] : "";
+if($isApi == "true")  {?>
+    <div id="left_section" style="top:0px;">
+<?php } else { ?>
+    <div id="left_section">
+<?php } ?>
     <div class="left_box">
         <div class="sports_menu_list box_type01" style="font-size: 14px !important; padding-top: 0px;">
             <h3>오늘의 경기 

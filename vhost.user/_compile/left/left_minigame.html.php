@@ -1,5 +1,11 @@
 <!-- left 메뉴 -->
-<div id="left_section">
+<?php 
+$isApi = isset($TPL_VAR["api"]) ? $TPL_VAR["api"] : "";
+if($isApi == "true")  {?>
+    <div id="left_section" style="top:0px;">
+<?php } else { ?>
+    <div id="left_section">
+<?php } ?>
     <div class="left_box">
         <div class="other_menu_list	box_type01">
             <!-- 메뉴 리스트	-->

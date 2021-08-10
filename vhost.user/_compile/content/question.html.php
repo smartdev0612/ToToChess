@@ -1,8 +1,6 @@
 
 	<div class="mask"></div>
 	<div id="container">
-	
-
 <script language="javascript">
     // 글자수 제한
     var char_min = parseInt(0); // 최소
@@ -13,21 +11,26 @@
     .board_write select#geditor_content_geditor_status {width:60px;height:20px;margin:0;color:#000;}
     .board_write input.option_chk {width:15px;height:15px;margin:0;}
     .board_write select.event_name {width:120px;height:20px;margin:0;color:#000;}
-    </style>
-<script>
-    var VarBoTable = "a10";
-    var VarBoTable2 = "a25";
-    var VarCaId = "";
-    var VarColspan = "7";
-    $j().ready(function(){
-        path = '/ajax.list.php?bo_table=a10&ca=&sca=&sfl=&stx=&b_type=2';
-        init("" + g4_path + path);
-        
-        path2 = '/ajax.list.php?bo_table=a25&ca=&sca=&sfl=&stx=';
-        init2("" + g4_path + path2);
-        //setInterval("init('"+g4_path+ path +"')", 30000);
-    });
-</script>
+    .cs-content {
+        width: 90%; 
+        word-break:break-all; 
+        border:1px #100e0f solid; 
+        color:#333333; 
+        margin: 0px 5% 0px 5% !important;
+    }
+    .td-margin {
+        margin: 0px 5% 0px 5% !important;
+    }
+    .answer-content {
+        width: 90%; 
+        background: #2d2e35;
+        box-shadow: rgb(0 0 0 / 35%) 0px 2px 3px, rgb(255 255 255 / 22%) 1px 1px 1px -2px inset;
+        border-radius: 5px;
+        border: 1px solid transparent;
+        margin: 0px 5% 0px 5% !important;
+        padding: 10px;
+    }
+</style>
 <script type="text/javascript" src="/10bet/js/left.js?1611022477"></script>
 		
 <form name="fwrite" id="fwrite" method="post" onsubmit="return fwrite_check(this);" enctype="multipart/form-data" style="margin:0px;">
@@ -40,19 +43,55 @@
             <div class="board_write">
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                        <td colspan="2"><input type="text" name=title id="title" placeholder="제목" value="" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
+                        <td colspan="2">
+                        <?php 
+                        if($TPL_VAR["idx"] > 0) { ?>
+                            <p class="answer-content"><?=$TPL_VAR["question"][0]["subject"]?></p>
+                        <?php } else { ?>
+                            <input type="text" name=title id="title" placeholder="제목" value="" />
+                        <?php 
+                            }
+                        ?>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <textarea id="content" name="content"  style='width: 100%; word-break:break-all; background:#ffffff; border:1px #100e0f solid; color:#333333;' rows=15 itemname="내용"></textarea>
+                            <p class="td-margin">문의:</p>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="2">
+                            <?php 
+                            if($TPL_VAR["idx"] > 0) { ?>
+                                <p class="answer-content"><?=$TPL_VAR["question"][0]["content"]?></p>
+                            <?php } else { ?>
+                                <textarea id="content" name="content" class="cs-content" rows=15 itemname="내용"></textarea>
+                            <?php 
+                                }
+                            ?>
+                        </td>
+                    </tr>
+                    <?php 
+                    if($TPL_VAR["idx"] > 0 && count($TPL_VAR["reply"]) > 0) {
+                    ?>
+                    <tr>
+                        <td colspan="2"> 
+                            <p class="td-margin">답변:</p> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p class="answer-content"><?=nl2br(html_entity_decode($TPL_VAR["reply"][0]["content"]))?></p>
+                        </td>
+                    </tr>
+                    <?php } ?>
                 </table>
                 <div class="btn_center">
+                    <?php 
+                    if($TPL_VAR["idx"] == 0) {
+                    ?>
                     <button type="submit" class="button_type01">문의등록</button>
+                    <?php } ?>
                     <button type="button" class="button_type01" onClick="location.href='./cs_list'">목록보기</button>
                 </div>
             </div>
@@ -60,58 +99,8 @@
     </div>
 </form>
 
-	<!-- 베팅카트 -->
-	<!-- 모바일 푸터 메뉴 -->
-	<div id="mobile_foot_menu">
-		<ul class="foot_menu">
-			<li><span class="ico_customer"><a href="https://t.me/tenbetkorea" target="_blank"><img src="/10bet/images/10bet/ico_telegram_01.png" alt="텔레그램" /></a></span></li>
-			<li><span class="ico_customer"><a href="/bbs/board.php?bo_table=z10"><img src="/10bet/images/10bet/ico_customer_01.png" alt="고객문의" /></a></span></li>
-			<!--<li><span class="ico_chetting"><img src="/10bet/images/10bet/ico_chetting_01.png" alt="라이브채팅" /></span></li>-->
-    					<li><span class="ico_cart" id="ico_betting_cart"><img src="/10bet/images/10bet/ico_cart_01.png" alt="배팅카트" /></span></li>
-						<li><span class="ico_bottom_menu" id="ico_bottom_menu">
-								SPORT
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 35" fill="currentColor">
-					<rect width="33" height="7" rx="3.5" ry="3.5"></rect>
-					<rect y="14" width="33" height="7" rx="3.5" ry="3.5"></rect>
-					<rect y="28" width="33" height="7" rx="3.5" ry="3.5"></rect>
-				</svg>
-				</span>
-			</li>
-		</ul>
-	</div>
-		
-<!-- 모바일 하단 메뉴 -->
-<script language='javascript'> var g4_cf_filter = ''; </script>
-<script language='javascript' src='/10bet/js/filter.js'></script>
-<script>
-    $j(function(){ 
-        var ww2 = window.innerWidth;
-        if(ww2 <= 1200) {
-            $j("#pc_betting_cart").empty();
-        }else {
-            $j("#mobile_betting_cart").empty();
-        }
-    });
-    $j(window).resize(function() { 
-        var ww2 = window.innerWidth;
-        if(ww2 <= 1200) {
-            $j("#pc_betting_cart").empty();
-        }else {
-            $j("#mobile_betting_cart").empty();
-        }
-    });
-</script>
-
-
 <script language="javascript">
-    // with (document.fwrite) {
-    //     if (typeof(wr_name) != "undefined")
-    //         wr_name.focus();
-    //     else if (typeof(title) != "undefined")
-    //         title.focus();
-    //     else if (typeof(content) != "undefined")
-    //         content.focus();
-    // }
+    
     function clickNotice(v){
         var msg='';
         if( v ==1 ) {

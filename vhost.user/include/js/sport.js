@@ -2034,6 +2034,7 @@ function onRecvBetting(objPacket) {
 	betting_ready_popup_close();
 	clearInterval(timer);
 	waiting = 7;
+	$j("#bettingSecond").text(waiting);
 	bettingSubmitFlag = 0;
 	bet_clear(0);
 	$j("#betMoney").val(0);

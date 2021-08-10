@@ -1,7 +1,12 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=euc-kr">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="pragma" content="no-store">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
     <title>체스</title>
     <link rel="shortcut icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
@@ -35,7 +40,7 @@
         } else {
             echo "<script type=\"text/javascript\" src=\"/include/js/sport.js??v={$vTime}\"></script>";
         }
-        $qString = isset($_GET["game"]) ? $_GET["game"] : "";
+        $isApi = isset($TPL_VAR["api"]) ? $TPL_VAR["api"] : "";
     ?>
     <script type="text/javascript" src="/include/js/common.js?v=<?=$vTime?>"></script>
     <script type="text/javascript" src="/include/js/include.js?v=<?=$vTime?>"></script>
@@ -246,7 +251,7 @@
     </form>
     <div id="wrap">
         <!-- 해더 웹 -->
-        <header style="display:<?=($qString == "sports") ? "none" : "block"?>;">
+        <header style="display:<?=($isApi == "true") ? "none" : "block"?>;">
             <div class="header_box">
                 <h1><a href="/"><img src="/10bet/images/10bet/logo_01.png?v01" alt="Chess 로고" /></a></h1>
                 

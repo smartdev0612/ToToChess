@@ -57,7 +57,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 				  <th scope="col">총판</th>
 				  <th scope="col">당시금액</th>
 				  <th scope="col">변동금액</th>
-				  <th scope="col">최종금액</th>
+				  <th scope="col">최종잔액</th>
 				  <th scope="col">사유</th>
 				  <th scope="col">비고</th>
 			</tr>

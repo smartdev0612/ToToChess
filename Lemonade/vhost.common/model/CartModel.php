@@ -971,6 +971,10 @@ class CartModel extends Lemon_Model
 		$bettingNo = $rs[0]['betting_no'];
 		$selectRate = $rs[0]['select_rate'];
 
+		$sql = "select * from tb_total_cart where sn=".$total_betting_sn;
+		$rs = $this->db->exeSql($sql);
+		$specialCode = $rs[0]['last_special_code'];
+
 		if ( $selectRate == "1.00") {
 			return;
 		}
@@ -1061,7 +1065,7 @@ class CartModel extends Lemon_Model
 			//-> 낙첨카운트가 있거나 폴더수가 1개일 경우.
 			if( $loseCount > 0 or $sportFolderCnt == 1 ) {
 				//미니게임은 지급하지 않는다.
-				if ( $specialCode < 3 ) {
+				if ( $specialCode < 5 ) {
 					//-> 2폴 이상이 아니면 낙첨 마일리지가 지급됬는지 확인.
 					if ( $sportFolderCnt < 2 ) {
 						//-> 낙첨마일리지가 지급됬다면 회수.

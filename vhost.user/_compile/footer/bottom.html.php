@@ -62,6 +62,7 @@
                         <li>보유머니<span class="member_inmoney"><?php echo number_format($TPL_VAR["cash"],0)?> 원</span></li>
                         <li>예상적중배당<span id="sp_bet">00.00</span></li>
                         <li>최대배팅금액<span><?php echo number_format($TPL_VAR["betMaxMoney"])?></span></li>
+                        <li>최대당첨금액<span><?php echo number_format($TPL_VAR["maxBonus"])?></span></li>
                         <li>배팅금액<span><input type="text" class="text-right" name="betMoney" id="betMoney" value="0" onKeyUp="javascript:this.value=onMoneyChange(this.value);" onMouseOver="this.focus()"/> 원</span></li>
                         <li>예상적중금액<span id="sp_total">0</span></li>
                     </ul>

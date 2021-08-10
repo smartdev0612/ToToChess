@@ -66,7 +66,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 				<th>리그이미지</th>
 				<th>종목</th>
 				<th>국가</th>
-				<th>리그명</th>
+				<th>리그명(국문)</th>
+				<th>리그명(영문)</th>
 				<th>스타일</th>
 				<th>매칭 리그명</th>
 				<th>사용여부</th>
@@ -82,6 +83,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 						<td><?php echo $TPL_V1["kind"]?></td>
 						<td><?php echo $TPL_V1["nation_name"]?></td>
 						<td><?php echo $TPL_V1["name"]?></td>
+						<td><?php echo $TPL_V1["name_en"]?></td>
 						<td>
 <?php if($TPL_V1["view_style"]=='0'){?>초록색
 <?php }elseif($TPL_V1["view_style"]=='1'){?>형광색

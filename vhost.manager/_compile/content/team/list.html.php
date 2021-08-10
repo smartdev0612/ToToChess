@@ -67,7 +67,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 				<th>종목</th>
 				<th>국가</th>
 				<th>리그명</th>
-				<th>팀명</th>
+				<th>팀명(국문)</th>
+				<th>팀명(영문)</th>
 				<th>처리</th>
 			</tr>
 			</thead>
@@ -87,6 +88,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 						<td><?php echo $TPL_V1["Location_Name_Kor"]?></td>
                         <td><?php echo $TPL_V1["League_Name_Kor"]?></td>
 						<td><?php echo $TPL_V1["Team_Name_Kor"]?></td>
+						<td><?php echo $TPL_V1["Team_Name"]?></td>
 						<td>
 							<a href="#" onclick="window.open('/team/popup_edit?team_sn=<?php echo $TPL_V1["Team_Id"]?>','','scrollbars=yes,width=600,height=400,left=5,top=0');"><img src="/img/btn_s_modify.gif" title="수정"></a>
                             <a href="#" onclick="go_del('/team/list?act=delete&idx=<?php echo $TPL_V1["Team_Id"]?>');" ><img src="/img/btn_s_del.gif" title="삭제"></a>

@@ -1,8 +1,12 @@
-<?php 
-$qString = isset($_GET["game"]) ? $_GET["game"] : "";
-?>
+
 <!-- left 메뉴 -->
-<div id="left_section">
+<?php 
+$isApi = isset($TPL_VAR["api"]) ? $TPL_VAR["api"] : "";
+if($isApi == "true")  {?>
+    <div id="left_section" style="top:0px;">
+<?php } else { ?>
+    <div id="left_section">
+<?php } ?>
     <div class="left_box">
         <!-- 스포츠 리스트 -->
         <div class="sports_menu_list box_type01" style="font-size: 14px !important; padding-top: 0px;">
@@ -83,6 +87,20 @@ $qString = isset($_GET["game"]) ? $_GET["game"] : "";
                     <span class="count count-top on total_count_volleyball">0</span></a>
                 </li>
                 <div class="div_val">
+                </div>
+
+                <li class="espo li-height">
+                    <img src="/10bet/images/10bet/ico/esport-ico.png" alt="ico"  style="margin-top:14px;"/> 
+                    <?php if(count((array)$_SESSION['member']) > 0) { ?>
+                        <a href="/game_list?game=<?=$TPL_VAR['game_type']?>&sport=esports" style="color: white;">
+                    <?php } else { ?>
+                        <a href="javascript:login_open();" style="color: white;">
+                    <?php } ?>
+                    
+                    <span class="name pc-name">E스포츠</span>
+                    <span class="count count-top on total_count_espo">0</span></a>
+                </li>
+                <div class="div_espo">
                 </div>
 
                 <li class="tenn li-height">
@@ -183,17 +201,6 @@ $qString = isset($_GET["game"]) ? $_GET["game"] : "";
                     
                     <span class="name pc-name">배드민턴</span>
                     <span class="count count-top ton">0</span></a>
-                </li>
-                <li class="espo li-height">
-                    <img src="/10bet/images/10bet/ico/esport-ico.png" alt="ico"  style="margin-top:14px;"/> 
-                    <?php if(count((array)$_SESSION['member']) > 0) { ?>
-                        <a href="/game_list?game=<?=$TPL_VAR['game_type']?>&sport=esports" style="color: white;">
-                    <?php } else { ?>
-                        <a href="javascript:login_open();" style="color: white;">
-                    <?php } ?>
-                    
-                    <span class="name pc-name">이스포츠</span>
-                    <span class="count count-top espo">0</span></a>
                 </li>
                 <li class="etc li-height">
                     <img src="/10bet/images/10bet/logo_01.png" alt="ico"  style="margin-top:14px;"/> 

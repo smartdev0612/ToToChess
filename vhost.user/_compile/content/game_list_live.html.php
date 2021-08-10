@@ -481,10 +481,10 @@
     var Bet_Rule_vu = '<?php echo $TPL_VAR["vu"]?>';
     var Bet_Rule_hu = '<?php echo $TPL_VAR["hu"]?>';
 
-    var bettingendtime =<?php echo $TPL_VAR["betEndTime"]?>;
-    var bettingcanceltime =<?php echo $TPL_VAR["betCancelTime"]?>;
-    var bettingcancelbeforetime =<?php echo $TPL_VAR["betCancelBeforeTime"]?>;
-    var crossLimitCnt =<?php echo $TPL_VAR["crossLimitCnt"]?>;
+    var bettingendtime = '<?php echo $TPL_VAR["betEndTime"]?>';
+    var bettingcanceltime = '<?php echo $TPL_VAR["betCancelTime"]?>';
+    var bettingcancelbeforetime = '<?php echo $TPL_VAR["betCancelBeforeTime"]?>';
+    var crossLimitCnt = '<?php echo $TPL_VAR["crossLimitCnt"]?>';
     var game_kind = "<?php echo $gameType?>";
     var s_type = "<?=$s_type?>";
     function inArray(needle, haystack) {
@@ -606,7 +606,7 @@
 
     function onRecvAjaxList(strPacket) {
         var json = JSON.parse(strPacket);
-        // console.log(json);
+        console.log(json);
         if(json.length > 0) {
             var jsonCountInfo = json[0].m_lstSportsCnt;
             showSportsTotalCount(jsonCountInfo);
@@ -1706,45 +1706,49 @@
                             header10 = "승무패 (4이닝)";
                             children10.push(item);
                             break;
-                        case 524:
-                            header11 = "승무패 (1~7이닝)";
+                        case 349:
+                            header11 = "승무패 (7이닝)";
                             children11.push(item);
                             break;
-                        case 281:
-                            header12 = "핸디캡 (1~5이닝)";
+                        case 524:
+                            header12 = "승무패 (1~7이닝)";
                             children12.push(item);
                             break;
-                        case 526:
-                            header13 = "핸디캡 (1~7이닝)";
+                        case 281:
+                            header13 = "핸디캡 (1~5이닝)";
                             children13.push(item);
                             break;
-                        case 21:
-                            header14 = "언더오버 (1이닝)";
+                        case 526:
+                            header14 = "핸디캡 (1~7이닝)";
                             children14.push(item);
                             break;
-                        case 45:
-                            header15 = "언더오버 (2이닝)";
+                        case 21:
+                            header15 = "언더오버 (1이닝)";
                             children15.push(item);
                             break;
-                        case 46:
-                            header16 = "언더오버 (3이닝)";
+                        case 45:
+                            header16 = "언더오버 (2이닝)";
                             children16.push(item);
                             break;
-                        case 47:
-                            header17 = "언더오버 (4이닝)";
+                        case 46:
+                            header17 = "언더오버 (3이닝)";
                             children17.push(item);
                             break;
-                        case 48:
-                            header18 = "언더오버 (5이닝)";
+                        case 47:
+                            header18 = "언더오버 (4이닝)";
                             children18.push(item);
                             break;
-                        case 236:
-                            header19 = "언더오버 (1~5이닝)";
+                        case 48:
+                            header19 = "언더오버 (5이닝)";
                             children19.push(item);
                             break;
-                        case 525:
-                            header20 = "언더오버 (1~7이닝)";
+                        case 236:
+                            header20 = "언더오버 (1~5이닝)";
                             children20.push(item);
+                            break;
+                        case 525:
+                            header21 = "언더오버 (1~7이닝)";
+                            children21.push(item);
                             break;
                     }
                     break;
@@ -2290,54 +2294,59 @@
                 children_div += div_1x2(children10, header10);
             }
 
-            // 승무패 (1~7이닝)
+            // 승무패 (7이닝)
             if(children11.length > 0) {
                 children_div += div_1x2(children11, header11);
             }
 
-            // 핸디캡 (1~5이닝)
+            // 승무패 (1~7이닝)
             if(children12.length > 0) {
-                children_div += div_handi(children12, header12);
+                children_div += div_1x2(children12, header12);
             }
 
-            // 핸디캡 (1~7이닝)
+            // 핸디캡 (1~5이닝)
             if(children13.length > 0) {
                 children_div += div_handi(children13, header13);
             }
 
-            // 언더오버 (1이닝)
+            // 핸디캡 (1~7이닝)
             if(children14.length > 0) {
-                children_div += div_unover(children14, header14);
+                children_div += div_handi(children14, header14);
             }
 
-            // 언더오버 (2이닝)
+            // 언더오버 (1이닝)
             if(children15.length > 0) {
                 children_div += div_unover(children15, header15);
             }
 
-            // 언더오버 (3이닝)
+            // 언더오버 (2이닝)
             if(children16.length > 0) {
                 children_div += div_unover(children16, header16);
             }
 
-            // 언더오버 (4이닝)
+            // 언더오버 (3이닝)
             if(children17.length > 0) {
                 children_div += div_unover(children17, header17);
             }
 
-            // 언더오버 (5이닝)
+            // 언더오버 (4이닝)
             if(children18.length > 0) {
                 children_div += div_unover(children18, header18);
             }
 
-            // 언더오버 (1~5이닝)
+            // 언더오버 (5이닝)
             if(children19.length > 0) {
                 children_div += div_unover(children19, header19);
             }
 
-            // 언더오버 (1~7이닝)
+            // 언더오버 (1~5이닝)
             if(children20.length > 0) {
                 children_div += div_unover(children20, header20);
+            }
+
+            // 언더오버 (1~7이닝)
+            if(children21.length > 0) {
+                children_div += div_unover(children21, header21);
             }
         } else if(res.m_strSportName == "배구") {
             // 승패

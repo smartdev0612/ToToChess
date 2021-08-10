@@ -113,7 +113,7 @@ class EtcModel extends Lemon_Model
         $fxBigAlarm = $rs[0]['betting_fx_big']+0;
 	
 		//-> 고객센터
-		$sql = "select idx, is_read from tb_question where result = 0 and reply = 0 and is_read = 0";
+		$sql = "select idx, is_read from tb_question where result = 0 and reply = 0";
 		$rs = $this->db->exeSql($sql);
 		$questionSn = $rs[0]['idx']+0;
 		$questionAlarm = count((array)$rs)+0;

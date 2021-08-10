@@ -426,10 +426,10 @@
         var Bet_Rule_vu = '<?php echo $TPL_VAR["vu"]?>';
         var Bet_Rule_hu = '<?php echo $TPL_VAR["hu"]?>';
         
-        var bettingendtime =<?php echo $TPL_VAR["betEndTime"]?>;
-        var bettingcanceltime =<?php echo $TPL_VAR["betCancelTime"]?>;
-        var bettingcancelbeforetime =<?php echo $TPL_VAR["betCancelBeforeTime"]?>;
-        var crossLimitCnt =<?php echo $TPL_VAR["crossLimitCnt"]?>;
+        var bettingendtime = '<?php echo $TPL_VAR["betEndTime"]?>';
+        var bettingcanceltime = '<?php echo $TPL_VAR["betCancelTime"]?>';
+        var bettingcancelbeforetime = '<?php echo $TPL_VAR["betCancelBeforeTime"]?>';
+        var crossLimitCnt = '<?php echo $TPL_VAR["crossLimitCnt"]?>';
         var game_kind = "<?php echo $gameType?>";
         var s_type = "<?=$s_type?>";
         var showJosn = null;
@@ -529,7 +529,7 @@
         
             if(showJson.length == 0) {
                 $j("#gamelist").empty();
-                warning_popup("미안하지만 경기자료가 없습니다.");
+                warning_popup("현재 진행중인 경기가 없습니다.");
             } else {
                 $j("#gamelist").empty();
                 $j(".num").empty();

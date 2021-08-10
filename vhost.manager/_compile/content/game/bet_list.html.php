@@ -377,7 +377,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 							<th>스코어</th>
 							<th>결과</th>
 							<th>상태</th>
-							<th>적특</th>
+							<th>처리</th>
 						</tr>
 					<?php
 						if ( $TPL_item_2 ) {
@@ -416,6 +416,9 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
                                         case 35232: // 아이스 하키
                                             echo $pieces[4];
                                             break;
+										case 687890: // E스포츠
+											echo $pieces[5];
+											break;
                                     }
 								?>
 								</td>
@@ -573,8 +576,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 							?>
 							<?php if($TPL_VAR["membervip"] != "1"){?>
 							<input type="button" value="적특"  class="btnStyle3" onClick="onExceptionBetClick(<?php echo $TPL_V2["total_betting_sn"]?>);"></td>
-							<?php }?>
-							<?php
+							<?php }
 								}
 							?>
 							</tr>															

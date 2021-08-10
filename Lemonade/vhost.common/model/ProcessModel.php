@@ -2785,7 +2785,7 @@ class ProcessModel extends Lemon_Model
 				$rsi = $this->db->exeSql($sql);
 
 				//-> 미니게임은 지급하지 않는다.
-				if ( $specialCode < 3 ) {
+				if ( $specialCode < 5 ) {
 					//-> 낙첨 마일리지는 미니게임은 제외하고 스포츠 1폴더 이상부터 지급
 					if ( ($winCount + $loseCount - $bonusGameCount) > 1 ) {
 						$this->modifyMileageProcess($memberSn, $betMoney, "4", $bettingNo);

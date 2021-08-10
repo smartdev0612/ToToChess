@@ -261,7 +261,7 @@
 			$j("#hitMoney").html("0");
 			$j("#btMoney").val("0");
 			$j(".btnBet").removeClass("on");
-			sendPacket(PACKET_POWERLADDER_BET, JSON.stringify(postData));
+			sendMiniPacket(PACKET_POWERLADDER_BET, JSON.stringify(postData));
 		}
 	}
 

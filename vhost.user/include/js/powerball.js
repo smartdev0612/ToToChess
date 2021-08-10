@@ -289,11 +289,12 @@
 			$j("#betMoney").val("0");
 			$j(".btnBet").removeClass("on");
 			selectGameType = null;
-			sendPacket(PACKET_POWERBALL_BET, JSON.stringify(postData));
+			sendMiniPacket(PACKET_POWERBALL_BET, JSON.stringify(postData));
 		}
 	}
 
 	function onRecvBetting(objPacket) {
+		console.log(objPacket);
 		bettingSubmitFlag = 0;
 		warning_popup(objPacket.m_strPacket);
 		reloadUserInfo();

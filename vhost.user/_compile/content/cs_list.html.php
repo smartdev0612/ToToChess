@@ -35,11 +35,11 @@
                                         $reCallFalg++;
                                     }
                         ?>
-                        <tr height="51" <?php if(count((array)$TPL_V1["reply"])>0){?> onclick="onTitleClick(<?php echo $TPL_I1+1?>);" style="cursor:pointer;"<?php }?>>
-                            <td class="ta_left th-mini"><?php echo nl2br($TPL_V1["subject"])?></td>
-                            <td class="th-mini"><span class='member' style='color:#ffffff;'><?php echo substr($TPL_V1["regdate"], 5)?></span></td>
-                            <td class="th-mini"><?php if(count((array)$TPL_V1["reply"])<=0){?>준비중<?php }else{?>완료<?php }?></td>
-                            <td class="th-mini"><a href="/cs/cs_list?act=del&amp;idx=<?php echo $TPL_V1["idx"]?>" class="btn btn-danger btnstyle_s" style="color: red;" >삭제</a></td>
+                        <tr height="51" style="cursor:pointer;">
+                            <td class="th-mini" onclick="goURL('/cs/question?idx=<?php echo $TPL_V1["idx"]?>')"><?php echo nl2br($TPL_V1["subject"])?></td>
+                            <td class="th-mini" onclick="goURL('/cs/question?idx=<?php echo $TPL_V1["idx"]?>')"><span class='member' style='color:#ffffff;'><?php echo substr($TPL_V1["regdate"], 5)?></span></td>
+                            <td class="th-mini" onclick="goURL('/cs/question?idx=<?php echo $TPL_V1["idx"]?>')"><?php if(count((array)$TPL_V1["reply"])<=0){?>준비중<?php }else{?>완료<?php }?></td>
+                            <td class="th-mini"><a onclick="godel('/cs/cs_list?act=del&amp;idx=<?php echo $TPL_V1["idx"]?>')" lass="btn btn-danger btnstyle_s" style="color: red;" >삭제</a></td>
                         </tr>
                         <?php if(count((array)$TPL_V1["reply"])>0){?>
 	
@@ -109,6 +109,10 @@
 			document.location.href=url;
 		}
 	}
+
+    function goURL(url) {
+        document.location.href=url;
+    }
 
 	function ask_account() {
 		if ( reCallFalg > 0 ) {

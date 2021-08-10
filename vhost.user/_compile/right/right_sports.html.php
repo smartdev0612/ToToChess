@@ -1,7 +1,10 @@
 <?php 
-$qString = isset($_GET["game"]) ? $_GET["game"] : "";
-?>
-<div id="right_section">
+$isApi = isset($TPL_VAR["api"]) ? $TPL_VAR["api"] : "";
+if($isApi == "true")  {?>
+    <div id="right_section" style="top:0px;">
+<?php } else { ?>
+    <div id="right_section">
+<?php } ?>
     <div class="right_box">
         <?php
         if(count((array)$_SESSION['member']) > 0) { ?>
@@ -77,6 +80,7 @@ $qString = isset($_GET["game"]) ? $_GET["game"] : "";
                                 <li>보유머니<span><?php echo number_format($TPL_VAR["cash"],0)?> 원</span></li>
                                 <li>예상적중배당<span id="sp_bet">00.00</span></li>
                                 <li>최대배팅금액<span><?php echo number_format($TPL_VAR["betMaxMoney"])?></span></li>
+                                <li>최대당첨금액<span><?php echo number_format($TPL_VAR["maxBonus"])?></span></li>
                                 <li>배팅금액<span><input type="text" name="betMoney" id="betMoney" value="0" onKeyUp="javascript:this.value=onMoneyChange(this.value);" onMouseOver="this.focus()" style="text-align: right; font-weight: bold;"/> 원</span></li>
                                 <li>예상적중금액<span id="sp_total">0</span></li>
                             </ul>

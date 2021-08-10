@@ -1207,13 +1207,13 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['exchange_sum'] = $rsi[0]['total_exchange'];
 			
 			//회원출금횟수,금액
-			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
-						from ".$this->db_qz."exchange_log 
-						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.")) and agree_amount > 0";
-			$rsi = $this->db->exeSql($sql);
+			// $sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
+			// 			from ".$this->db_qz."exchange_log 
+			// 			where member_sn in (select sn from ".$this->db_qz."member where recommend_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.")) and agree_amount > 0";
+			// $rsi = $this->db->exeSql($sql);
 			
-			$rs[$i]['exchange_count'] = $rs[$i]['exchange_count'] + $rsi[0]['cnt'];
-			$rs[$i]['exchange_sum'] = $rs[$i]['exchange_sum'] + $rsi[0]['total_exchange'];
+			// $rs[$i]['exchange_count'] = $rs[$i]['exchange_count'] + $rsi[0]['cnt'];
+			// $rs[$i]['exchange_sum'] = $rs[$i]['exchange_sum'] + $rsi[0]['total_exchange'];
 
 			//배팅금액, 당첨금액
 /*
@@ -1661,13 +1661,13 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['exchange_sum'] = $rsi[0]['total_exchange'];
 
 			//회원출금횟수,금액 (+매장)
-			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
-						from ".$this->db_qz."exchange_log 
-						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN ( SELECT sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))) and agree_amount > 0";
+			// $sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
+			// 			from ".$this->db_qz."exchange_log 
+			// 			where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN ( SELECT sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))) and agree_amount > 0";
 			
-			$rsi = $this->db->exeSql($sql);
-			$rs[$i]['exchange_count'] = $rs[$i]['exchange_count'] + $rsi[0]['cnt'];
-			$rs[$i]['exchange_sum'] = $rs[$i]['exchange_sum'] + $rsi[0]['total_exchange'];
+			// $rsi = $this->db->exeSql($sql);
+			// $rs[$i]['exchange_count'] = $rs[$i]['exchange_count'] + $rsi[0]['cnt'];
+			// $rs[$i]['exchange_sum'] = $rs[$i]['exchange_sum'] + $rsi[0]['total_exchange'];
 /*			
 			//배팅금액, 당첨금액
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result

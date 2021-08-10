@@ -258,14 +258,15 @@ class LoginModel extends Lemon_Model
 		
 		if(count((array)$rs)>0)
 		{
-			$sql = "select * from ".$this->db_qz."head_ip where head_idx = '".$rs[0]['idx']."' and login_ip = '" . $ip . "'"; 
-			$ip_list = $this->db->exeSql($sql);
-			if(count((array)$ip_list) == 0) {
-				$sql = "insert into ".$this->db_qz."admin_log (admin_id,admin_pw,login_ip,login_date,result,status,logo) 
-						values ('".$uid."','".$inputPwd."','".$ip."',now(),'접속 불가능한 아이피','1','".$this->logo."')";
-				$this->db->exeSql($sql);
-				return 3; // 접속불가능한 아이피
-			}
+			// 관리자 아이피가 접속가능 아이피목록에 있는지 체크.
+			// $sql = "select * from ".$this->db_qz."head_ip where head_idx = '".$rs[0]['idx']."' and login_ip = '" . $ip . "'"; 
+			// $ip_list = $this->db->exeSql($sql);
+			// if(count((array)$ip_list) == 0) {
+			// 	$sql = "insert into ".$this->db_qz."admin_log (admin_id,admin_pw,login_ip,login_date,result,status,logo) 
+			// 			values ('".$uid."','".$inputPwd."','".$ip."',now(),'접속 불가능한 아이피','1','".$this->logo."')";
+			// 	$this->db->exeSql($sql);
+			// 	return 3; // 접속불가능한 아이피
+			// }
 				
 			$_SESSION["quanxian"] = $rs[0]["part_num"];
 		
@@ -298,10 +299,11 @@ class LoginModel extends Lemon_Model
 		$sql = "select * from ".$this->db_qz."head where logo='".$this->logo."' and binary head_id = '".$uid."'"; 
 		$rs = $this->db->exeSql($sql);
 		if ( count((array)$rs) > 0 ) {
-			$sql = "select * from ".$this->db_qz."head_ip where head_idx = '".$rs[0]['idx']."' and login_ip = '" . $ip . "'"; 
-			$ip_list = $this->db->exeSql($sql);
-			if(count((array)$ip_list) == 0)
-				return 3;
+			// 관리자 아이피가 접속가능 아이피목록에 있는지 체크.
+			// $sql = "select * from ".$this->db_qz."head_ip where head_idx = '".$rs[0]['idx']."' and login_ip = '" . $ip . "'"; 
+			// $ip_list = $this->db->exeSql($sql);
+			// if(count((array)$ip_list) == 0)
+			// 	return 3;
 
 			$_SESSION["quanxian"] = $rs[0]["part_num"];		
 			$_SESSION["member"]["id"] = $uid;

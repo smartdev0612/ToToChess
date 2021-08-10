@@ -174,6 +174,14 @@ function showSportsTotalCount(json, isOther = false) {
             appendCntInfo("hock", icehocky.m_lstCountryCnt[i], isOther);
         }
     }
+
+    var esports = json.find(value => value.m_strName == "E스포츠");
+    if(esports != null) {
+        $j(".total_count_espo").text(esports.m_nCount);
+        for(var i = 0; i < esports.m_lstCountryCnt.length; i++) {
+            appendCntInfo("espo", esports.m_lstCountryCnt[i], isOther);
+        }
+    }
 }
 
 // 국가별 리그 현시.
@@ -485,18 +493,6 @@ ws.onmessage = function (event) {
         else if(objPacket.m_nPacketCode == PACKET_SPORT_AJAX) {
             onRecvAjaxList(objPacket.m_strPacket);
         }
-        else if(objPacket.m_nPacketCode == PACKET_POWERBALL_BET) {
-            onRecvBetting(objPacket);
-        }
-        else if(objPacket.m_nPacketCode == PACKET_POWERLADDER_BET) {
-            onRecvBetting(objPacket);
-        }
-        else if(objPacket.m_nPacketCode == PACKET_POWERLADDER_BET) {
-            onRecvBetting(objPacket);   
-        }
-        else if(objPacket.m_nPacketCode == PACKET_POWERBALL_TIME) {
-            realTime(objPacket.m_strPacket);
-        }
     }
     catch(err) {
         console.log(err.message);
@@ -510,6 +506,60 @@ function sendPacket(nPacketCode, strPacket) {
     };
 
     ws.send(JSON.stringify(packet));
+}
+
+function onSendReqListPacket(param) {
+	console.log("Send initial packet");
+	if(ws.readyState === WebSocket.OPEN) {
+		onLoadingScreen();
+		sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
+	} else {
+        setTimeout(() => {
+            ws = new WebSocket("ws://211.115.107.17:3002");
+            sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
+        }, 5000);
+    }
+}
+
+var wsMini = new WebSocket("ws://211.115.107.17:3102");
+
+wsMini.onopen = function (event) {
+    console.log("Minigame WebSocket Opened");
+};
+
+wsMini.onerror = function (event) {
+    console.log("Minigame WebSocket Error");
+}
+
+wsMini.onmessage = function (event) {
+    try {
+        var objPacket = JSON.parse(event.data);
+        if(objPacket.m_nPacketCode == PACKET_SPORT_BET) {
+            onRecvBetting(objPacket);
+        }
+        else if(objPacket.m_nPacketCode == PACKET_POWERBALL_BET) {
+            onRecvBetting(objPacket);
+        }
+        else if(objPacket.m_nPacketCode == PACKET_POWERLADDER_BET) {
+            onRecvBetting(objPacket);
+        }
+        else if(objPacket.m_nPacketCode == PACKET_POWERBALL_TIME) {
+            realTime(objPacket.m_strPacket);
+        }
+    }
+    catch(err) {
+        console.log(err.message);
+    }
+}
+
+function sendMiniPacket(nPacketCode, strPacket) {
+    console.log("Send Mini Packet");
+    var packet = {
+        "m_nPacketCode"     :   nPacketCode,
+        "m_strPacket"       :   strPacket
+    };
+
+    wsMini.send(JSON.stringify(packet));
 }
 
 
@@ -528,20 +578,6 @@ function onLoadingScreen() {
         $j("#loading img").css({'transition':'transform 1s ease' , 'transform' : 'rotateY(0deg)'});
     },3000);
 }
-
-
-function onSendReqListPacket(param) {
-	console.log("Send initial packet");
-	if(ws.readyState === WebSocket.OPEN) {
-		onLoadingScreen();
-		sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
-	} else {
-        setTimeout(() => {
-            sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
-        }, 1000);
-    }
-}
-
 
 // 해당 경기에 승무패 또는 승패마켓이 존재하는지 검사
 function checkExist1x2(item) {
@@ -563,6 +599,9 @@ function checkExist1x2(item) {
             break;
         case "아이스 하키":
             findID = 226;
+            break;
+        case "E스포츠":
+            findID = 52;
             break;
     }
     var findResult = details.filter(value => value.m_nMarket == findID);
@@ -591,10 +630,13 @@ function getMarketsCnt(sport_name, children, isExist12 = true) {
             marketArray = [52, 1558, 2, 202, 203, 204, 205, 206, 64, 65, 66, 67, 68, 21, 45, 46, 47, 101, 102, 5, 72, 73, 74, 75, 76, 6, 153, 154, 155, 156];
             break;
         case "야구":
-            marketArray = [226, 342, 28, 220, 221, 235, 41, 42, 43, 44, 524, 281, 526, 21, 45, 46, 47, 48, 236, 525];
+            marketArray = [226, 342, 28, 220, 221, 235, 41, 42, 43, 44, 524, 281, 526, 21, 45, 46, 47, 48, 236, 525, 6, 349];
             break;
         case "아이스 하키":
             marketArray = [226, 3, 342, 28, 7, 202, 41, 42, 43, 44, 64, 65, 66, 221, 220, 21, 45, 46, 51];
+            break;
+        case "E스포츠":
+            marketArray = [52, 3, 6, 202, 203];
             break;
     }
    

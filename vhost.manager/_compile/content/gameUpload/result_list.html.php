@@ -345,6 +345,9 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 									case 35232: // 아이스 하키
 										echo $pieces[4];
 										break;
+									case 687890: // E스포츠
+										echo $pieces[5];
+										break;
 								}
 							?>
 						</td>
@@ -357,8 +360,35 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 								<br><?php echo number_format($TPL_V1["home_total_betting"],0)?>
 							</td>
 							<td>
-								<b><font color='red'>VS</font></b>
-								[<?php echo $TPL_V1["draw_rate"]?>]
+								[<?php 
+								switch($TPL_V1["mfamily"]) {
+									case 1:
+										echo $TPL_V1["draw_rate"]; 
+										break;
+									case 2:
+										echo "VS";
+										break;
+									case 7:
+										echo $TPL_V1["home_line"];
+										break;
+									case 8:
+										$home_line = explode(" ", $TPL_V1["home_line"]);
+										echo $home_line[0];
+										break;
+									case 10:
+										echo "VS";
+										break;
+									case 11:
+										echo $TPL_V1["home_name"];
+										break;
+									case 12:
+										echo $TPL_V1["draw_rate"];
+										break;
+									case 47:
+										echo $TPL_V1["home_line"];
+										break;
+								}
+								?>]
 								<br><?php echo number_format($TPL_V1["draw_total_betting"],0)?></td>
 							<td class="awayName">
 								<font color=blue><b><?php echo mb_strimwidth($TPL_V1["away_team"],0,20,"..","utf-8")?></b></font>
@@ -372,7 +402,6 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 								<br><?php echo number_format($TPL_V1["home_total_betting"],0)?>
 							</td>
 							<td>
-								<b><font color='red'>VS</font></b>
 								[<?php echo $TPL_V1["draw_rate"]?>]
 								<br><?php echo number_format($TPL_V1["draw_total_betting"],0)?></td>
 							<td class="awayName">

@@ -27,7 +27,7 @@
         }
     </style>
     <div id="contents">
-        <div class="st_container" id="centerPage" style="position:relative; overflow-y:scroll; height: 617px; padding-bottom:120px;">
+        <div class="st_container" id="centerPage" style="position:relative; overflow-y:scroll; max-height: 617px; padding-bottom:120px;">
             <!-- TITLE -->
             <div class="st_tit_bg">베팅내역 BETTING  LIST</div>
             <!--// TITLE -->
