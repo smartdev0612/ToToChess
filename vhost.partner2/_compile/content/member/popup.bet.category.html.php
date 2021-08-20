@@ -101,7 +101,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 					</tr>
 				</table>				
 				
-				<table width="800" border="0" cellpadding="0" cellspacing="1" bgcolor="#FFFFFF" style="display:none;margin-left:153px;" id="d_<?php echo $TPL_V1["betting_no"]?>">
+				<table width="90%" border="0" cellpadding="0" cellspacing="1" bgcolor="#FFFFFF" style="display:none;margin-left:50px;" id="d_<?php echo $TPL_V1["betting_no"]?>">
 					<tr style="padding-left:8px;">				  
 						<td width="70" align="center" bgcolor="#D0E2F7" >게임타입</td>
 						<td width="105" align="center"  bgcolor="#D0E2F7">경기시간</td>

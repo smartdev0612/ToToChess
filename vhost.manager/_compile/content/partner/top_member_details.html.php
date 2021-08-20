@@ -59,13 +59,13 @@
 			  <td>
 					<select name="tex_type">
 						<option value="Swin_Mbet" <?php if($TPL_VAR["list"]["rec_tex_type"]=="Swin_Mbet"){ echo "selected";}?>>스포낙첨+미니롤링</option>
-						<!--<option value="Sbet_Mlose" <?php /*if($TPL_VAR["list"]["rec_tex_type"]=="Sbet_Mlose"){ echo "selected";}*/?>>S배팅+M낙첨</option>
-						<option value="in" <?php /*if($TPL_VAR["list"]["rec_tex_type"]=="in"){ echo "selected";}*/?>>입금</option>-->
+						<option value="Sbet_Mlose" <?php if($TPL_VAR["list"]["rec_tex_type"]=="Sbet_Mlose"){ echo "selected";}?>>S배팅+M낙첨</option>
+						<option value="in" <?php if($TPL_VAR["list"]["rec_tex_type"]=="in"){ echo "selected";}?>>입금</option>
 						<option value="inout" <?php if($TPL_VAR["list"]["rec_tex_type"]=="inout"){ echo "selected";}?>>입금-출금</option>
-						<!--<option value="betting" <?php /*if($TPL_VAR["list"]["rec_tex_type"]=="betting"){ echo "selected";}*/?>>배팅금(미니게임제외)</option>
-						<option value="betting_m" <?php /*if($TPL_VAR["list"]["rec_tex_type"]=="betting_m"){ echo "selected";}*/?>>배팅금(미니게임포함)</option>
-						<option value="fail" <?php /*if($TPL_VAR["list"]["rec_tex_type"]=="fail"){ echo "selected";}*/?>>낙첨금(미니게임제외)</option>
-						<option value="fail_m" <?php /*if($TPL_VAR["list"]["rec_tex_type"]=="fail_m"){ echo "selected";}*/?>>낙첨금(미니게임포함)</option>-->
+						<option value="betting" <?php if($TPL_VAR["list"]["rec_tex_type"]=="betting"){ echo "selected";}?>>배팅금(미니게임제외)</option>
+						<option value="betting_m" <?php if($TPL_VAR["list"]["rec_tex_type"]=="betting_m"){ echo "selected";}?>>배팅금(미니게임포함)</option>
+						<option value="fail" <?php if($TPL_VAR["list"]["rec_tex_type"]=="fail"){ echo "selected";}?>>낙첨금(미니게임제외)</option>
+						<option value="fail_m" <?php if($TPL_VAR["list"]["rec_tex_type"]=="fail_m"){ echo "selected";}?>>낙첨금(미니게임포함)</option>
 					</select>
 				</td>
 			  <th>단폴더정산</th>

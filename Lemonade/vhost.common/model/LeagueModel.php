@@ -114,7 +114,7 @@ class LeagueModel extends Lemon_Model
 
 	//▶ 리그 이미지 저장
 	function updateLeagueImg($leagueSn, $leagueImage) {
-		$sql = "update tb_league set lg_img = '{$leagueImage}' where sn = '{$leagueSn}'";
+		$sql = "update tb_league set lg_img = '{$leagueImage}' where lsports_league_sn = '{$leagueSn}'";
 		return $this->db->exeSql($sql);
 	}
 

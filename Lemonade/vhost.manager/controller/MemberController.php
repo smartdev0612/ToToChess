@@ -262,7 +262,7 @@ class MemberController extends WebServiceController
 				$list[$i]['permit_domain_list'] = $domainList;
 			}
 		}
-		$partnerList = $partnerModel->getPartnerIdList();
+		$partnerList = $partnerModel->getPartnerIdList("", 1);
 		
 		$this->view->assign('quanxian', $_SESSION["quanxian"]);
 		$this->view->assign('arr_mem_lev', $arr_mem_lev);
@@ -512,7 +512,7 @@ class MemberController extends WebServiceController
 		$page_act = "act=".$act."&field=".$field."&keyword=".$keyword."&perpage=".$perpage."&partner_idx=".$filter_partnerIdx."&domain_name=".$filter_domainName."&isDuplication_connection=".$isDuplication_connection."&isLogin_fail=".$isLogin_fail."&filter_logo=".$filter_logo;
 		$total 		= $loginModel->getTotal($where);
 		$pageMaker 	= $this->displayPage($total, $perpage, $page_act);
-		$partnerList	= $partnerModel->getPartnerIdList();
+		$partnerList	= $partnerModel->getPartnerIdList("", 1);
 		$domainList	 = $configModel->getDomainList();
 		$list 		= $loginModel->getList($where, $pageMaker->first, $pageMaker->listNum);
 
@@ -715,7 +715,7 @@ class MemberController extends WebServiceController
 		
 		$levelList		= $eModel->getLevel();
 		$country_code	= $eModel->getNationByIp($list['mem_ip']);
-		$partnerList = $partnerModel->getPartnerIdList($list['logo']);
+		$partnerList = $partnerModel->getPartnerIdList($list['logo'], 1);
 		$joiner_sn = $model->getJoiner($memberSn);
 		
 		$joiner = $model->getBySn($joiner_sn);
