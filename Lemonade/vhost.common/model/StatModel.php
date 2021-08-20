@@ -82,7 +82,7 @@ class StatModel extends Lemon_Model
 
 				//환전 횟수, 총합		
 				$sql="select count(a.sn) as countexchange, sum(agree_amount) as sumexchange from ".$this->db_qz."exchange_log a inner join ".$this->db_qz."member b on a.member_sn=b.sn";
-				$sql.=" where state = 1 and date(a.regdate)=date('".$currentDate."')".$logo.$partnerWhere;
+				$sql.=" where state = 1 and b.mem_status != 'G' and date(a.regdate)=date('".$currentDate."')".$logo.$partnerWhere;
 				$rs = $this->db->exeSql($sql);
 				
 				$item[$i]['exchange_count'] = $rs[0]['countexchange'];
@@ -90,7 +90,7 @@ class StatModel extends Lemon_Model
 				
 				//충전 횟수, 총합		
 				$sql="select count(a.sn) as countcharge, sum(agree_amount) as sumcharge from ".$this->db_qz."charge_log a inner join ".$this->db_qz."member b on a.member_sn=b.sn";
-				$sql.=" where state = 1 and date(a.regdate)=date('".$currentDate."')".$logo.$partnerWhere;
+				$sql.=" where state = 1 and b.mem_status != 'G' and date(a.regdate)=date('".$currentDate."')".$logo.$partnerWhere;
 
 				$rs = $this->db->exeSql($sql);
 				

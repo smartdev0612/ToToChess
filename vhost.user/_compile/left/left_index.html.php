@@ -88,6 +88,20 @@ if($isApi == "true")  {?>
                 </li>
                 <div class="div_val">
                 </div>
+
+                <li class="espo li-height">
+                    <img src="/10bet/images/10bet/ico/esport-ico.png" alt="ico"  style="margin-top:14px;"/> 
+                    <?php if(count((array)$_SESSION['member']) > 0) { ?>
+                        <a href="javascript:void(0)" style="color: white;">
+                    <?php } else { ?>
+                        <a href="javascript:login_open();" style="color: white;">
+                    <?php } ?>
+                    
+                    <span class="name pc-name">E-sports</span>
+                    <span class="count count-top on total_count_espo">0</span></a>
+                </li>
+                <div class="div_espo">
+                </div>
                 
                 <li class="tenn li-height">
                     <img src="/10bet/images/10bet/ico/tennis-ico.png" alt="ico"  style="margin-top:14px;"/> 
@@ -188,17 +202,6 @@ if($isApi == "true")  {?>
                     <span class="name pc-name">배드민턴</span>
                     <span class="count count-top ton">0</span></a>
                 </li>
-                <li class="espo li-height">
-                    <img src="/10bet/images/10bet/ico/esport-ico.png" alt="ico"  style="margin-top:14px;"/> 
-                    <?php if(count((array)$_SESSION['member']) > 0) { ?>
-                        <a href="javascript:void(0)" style="color: white;">
-                    <?php } else { ?>
-                        <a href="javascript:login_open();" style="color: white;">
-                    <?php } ?>
-                    
-                    <span class="name pc-name">이스포츠</span>
-                    <span class="count count-top espo">0</span></a>
-                </li>
                 <li class="etc li-height">
                     <img src="/10bet/images/10bet/logo_01.png" alt="ico"  style="margin-top:14px;"/> 
                     <?php if(count((array)$_SESSION['member']) > 0) { ?>
@@ -234,7 +237,7 @@ if($isApi == "true")  {?>
     
         if(showJson.length > 0) {
             var jsonCountInfo = showJson[0].m_lstSportsCnt;
-            showSportsTotalCount(jsonCountInfo, true);
+            showSportsTotalCount(jsonCountInfo, true, api, uid);
         }
     }
 
@@ -242,7 +245,7 @@ if($isApi == "true")  {?>
         var json = JSON.parse(strPacket);
         if(json.length > 0) {
             var jsonCountInfo = json[0].m_lstSportsCnt;
-            showSportsTotalCount(jsonCountInfo, true);
+            showSportsTotalCount(jsonCountInfo, true, api, uid);
         } 
     }
 

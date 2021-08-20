@@ -72,30 +72,43 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 				<tr>
 					<th width="2%"><input type="checkbox" name="chkAll" title="전체선택" onClick="selectAll()"/></th>
 				  	<th width="10%">배팅번호</th>
-					 <th width="5%">아이디</th>
-					 <th width="5%">닉네임</th>
-					 <th width="5%">게임</th>
-					 <th width="8%">당시금액</th>
-					 <th width="5%">배팅금액</th>
-					 <th width="5%">배당율</th>
-					 <th width="5%">예상금액</th>
-					 <th width="5%">배당금액</th>
-					 <th width="12%">배팅시간</th>
-					 <th width="15%">처리시간</th>
-					 <th width="5%">보너스</th>
-					 <th width="5%">결과</th>
-					 
+					<th width="5%">유형</th>
+					<th width="5%">아이디</th>
+					<th width="5%">닉네임</th>
+					<th width="5%">게임</th>
+					<th width="8%">당시금액</th>
+					<th width="5%">배팅금액</th>
+					<th width="5%">배당율</th>
+					<th width="5%">예상금액</th>
+					<th width="5%">배당금액</th>
+					<th width="12%">배팅시간</th>
+					<th width="15%">처리시간</th>
+					<th width="5%">보너스</th>
+					<th width="5%">결과</th>
 				</tr>
 			</thead>
 		</table>
 <?php if($TPL_list_1){foreach($TPL_VAR["list"] as $TPL_V1){
-$TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["item"]);?>
+	$isLive = $TPL_V1["item"][0]["live"];
+	$TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["item"]);?>
 			<table cellspacing="1" class="tableStyle_normal">
 				<tbody>
 					<!--<tr id="t_<?php echo $TPL_V1["betting_no"]?>" onclick="on_click('d_<?php echo $TPL_V1["betting_no"]?>','t_<?php echo $TPL_V1["betting_no"]?>')">-->
 					<tr id="t_<?php echo $TPL_V1["betting_no"]?>" >
 						<td width="2%"><input name="y_id[]" type="checkbox" id="y_id" value="1"  onclick="javascript:chkRow(this);"/></td>
-						<td onclick="toggle('d_<?php echo $TPL_V1["betting_no"]?>')" width="10%"><?php echo $TPL_V1["betting_no"]?></td>	
+						<td onclick="toggle('d_<?php echo $TPL_V1["betting_no"]?>')" width="10%"><?php echo $TPL_V1["betting_no"]?></td>
+						<td onclick="toggle('d_<?php echo $TPL_V1["betting_no"]?>')"  width="5%">
+							<?php 
+							if($isLive > 0)
+								echo "라이브";
+							else if ( $isLive == 0 && $TPL_V1["last_special_code"] < 5)
+								echo "스포츠";
+							else if ( $TPL_V1["last_special_code"] == 7)
+								echo "파워볼";
+							else if ( $TPL_V1["last_special_code"] == 25)
+								echo "파워사다리";
+							?>
+						</td>		
 						<td onclick="toggle('d_<?php echo $TPL_V1["betting_no"]?>')"  width="5%"><?php echo $TPL_V1["member"]["uid"]?></td>					
 						<td onclick="toggle('d_<?php echo $TPL_V1["betting_no"]?>')" width="5%"><?php echo $TPL_V1["member"]["nick"]?></td>
 						<td onclick="toggle('d_<?php echo $TPL_V1["betting_no"]?>')" width="5%"><?php echo $TPL_V1["betting_cnt"]?></td>
@@ -127,7 +140,6 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 			<table cellspacing="1" class="tableStyle_memo" id="d_<?php echo $TPL_V1["betting_no"]?>" style="display:none;width:90%;margin:0 auto;margin-top:5px;margin-bottom:5px">
 				<thead>
 					<tr>				  
-						<th>게임종류</th>
 						<th>게임타입</th>
 						<th>경기시간</th>
 						<th>리그</th>
@@ -142,40 +154,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 				</thead>
 				<tbody>
 <?php if($TPL_item_2){foreach($TPL_V1["item"] as $TPL_V2){?>
-						<tr>				
-							<td align="center">
-								<?php if($TPL_V2["special"] < 5 && $TPL_V2["live"] == 0){?>
-									스포츠
-								<?php }elseif($TPL_V2["special"] < 5 && $TPL_V2["live"] == 1){?>
-									라이브
-								<?php }elseif($TPL_V2["special"] == 5){?>
-									사다리
-								<?php }elseif($TPL_V2["special"] == 6){?>
-									달팽이
-								<?php }elseif($TPL_V2["special"] == 7){?>
-									파워볼
-								<?php }elseif($TPL_V2["special"] == 8){?>
-									다리다리
-								<?php }elseif($TPL_V2["special"] == 24){?>
-									키노사다리
-								<?php }elseif($TPL_V2["special"] == 25){?>
-									파워사다리
-								<?php }elseif($TPL_V2["special"] == 28){?>
-									로하이
-								<?php }elseif($TPL_V2["special"] == 29){?>
-									알라딘
-								<?php }elseif($TPL_V2["special"] == 30){?>
-									이다리
-								<?php }elseif($TPL_V2["special"] == 31){?>
-									삼다리
-								<?php }elseif($TPL_V2["special"] == 32){?>
-									초이스
-								<?php }elseif($TPL_V2["special"] == 33){?>
-									룰렛
-								<?php }elseif($TPL_V2["special"] == 34){?>
-									파라오
-								<?php } ?>
-							</td>
+						<tr>
 							<td align="center">
 							<?php
 								$pieces = explode("|", $TPL_V2["mname_ko"]);
@@ -194,6 +173,9 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 										break;
 									case 35232: // 아이스 하키
 										echo $pieces[4];
+										break;
+									case 687890: // E스포츠
+										echo $pieces[5];
 										break;
 								}
 							?>

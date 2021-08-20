@@ -5,6 +5,8 @@
 	<div id="container">
 	
 <script>
+    sendPacket(PACKET_SPORT_LIST, JSON.stringify(packet));
+    
 	function dodel(url)
 	{ 
 		var r=confirm("정말로 삭제 하시겠습니까?");

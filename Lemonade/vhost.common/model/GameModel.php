@@ -1579,9 +1579,9 @@ class GameModel extends Lemon_Model
 
 		if($minBettingMoney!='')
 		{	
-			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.sport_id, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
+			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid, tb_markets.mfamily from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.sport_id, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
 							a.gameDate, a.gameHour, a.gameTime, a.notice as league_name, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
-							a.type, a.special, a.bet_money,
+							a.type, a.special, a.bet_money, b.home_name, b.home_line,
 							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 
 							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
@@ -1589,17 +1589,17 @@ class GameModel extends Lemon_Model
 							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
 							where c.betting_no=d.betting_no and c.is_account=1 
 							group by sub_child_sn) as c on b.sn=c.sub_child_sn
-					where a.sn=b.child_sn and a.view_flag = '1' ".$where."
-					order by a.gameDate ".$sort.", a.gameHour ".$sort.", a.gameTime ".$sort.", league_name, a.home_team, a.special, a.sn asc " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid" ;
+					where a.sn=b.child_sn and a.view_flag = '1' ".$where . " " . $limit .") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid
+					order by tb_temp.gameDate ".$sort.", tb_temp.gameHour ".$sort.", tb_temp.gameTime ".$sort.", tb_temp.league_name, tb_temp.home_team, tb_temp.special, tb_temp.sn asc ";
 		} else {
-			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.sport_id, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
+			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid, tb_markets.mfamily from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.sport_id, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
 							a.gameDate, a.gameHour, a.gameTime, a.notice as league_name, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
-							a.type, a.special, a.bet_money, 
+							a.type, a.special, a.bet_money, b.home_name, b.home_line,
 							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 
 							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b 
-					where a.sn=b.child_sn and a.view_flag = '1' ".$where."
-					order by a.gameDate ".$sort.", a.gameHour ".$sort.", a.gameTime ".$sort.", league_name, a.home_team, a.special, a.sn asc " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid";
+					where a.sn=b.child_sn and a.view_flag = '1' ".$where." " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid
+					order by tb_temp.gameDate ".$sort.", tb_temp.gameHour ".$sort.", tb_temp.gameTime ".$sort.", tb_temp.league_name, tb_temp.home_team, tb_temp.special, tb_temp.sn asc";
 		}
 		
 		return $this->db->exeSql($sql);
@@ -2462,7 +2462,7 @@ class GameModel extends Lemon_Model
 		
 		if($addWhere!='') {$where .=' and '.$addWhere;}
 		
-		$sql = "select a.*, b.*, b.sn as subchild_sn from ".$this->db_qz."child_m a, ".$this->db_qz."subchild_m b
+		$sql = "select a.*, b.*, b.sn as subchild_sn from ".$this->db_qz."child a, ".$this->db_qz."subchild b
 				where a.sn = b.child_sn " . $where;
 
 		$item = $this->db->exeSql($sql);
@@ -2797,7 +2797,7 @@ class GameModel extends Lemon_Model
 
 	// 라이브경기 구독하기
 	function orderFixture($child_sn) {
-		$res = $this->updateLiveField($child_sn, 2);
+		$res = $this->updateLiveField($child_sn, -1);
 		$this->updateOrderCnt(1);
 		$result["msg"] = "라이브구독에 성공하였습니다.";
 		$result["status"] = 1;
@@ -2978,6 +2978,21 @@ class GameModel extends Lemon_Model
 			$cancelCnt = $res[0]["cancelCnt"];
 
 		return $cancelCnt;
+	}
+
+	function existBettingResult($bettingNo) {
+		$sql = "SELECT * FROM tb_total_betting WHERE betting_no = '" . $bettingNo . "'";
+		$res = $this->db->exeSql($sql);
+		$existResult = 0;
+		if(count((array)$res) > 0) {
+			foreach($res as $info) {
+				if($info["result"] > 0) {
+					$existResult = 1;
+					break;
+				}					
+			}
+		}
+		return $existResult;
 	}
 
 	// 라이브구독개수 얻기

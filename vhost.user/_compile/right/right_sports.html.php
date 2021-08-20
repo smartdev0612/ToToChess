@@ -9,7 +9,7 @@ if($isApi == "true")  {?>
         <?php
         if(count((array)$_SESSION['member']) > 0) { ?>
             <!-- 유저 정보 -->
-            <div class="user_box box_type01">
+            <div class="user_box box_type01" style="visibility: <?=$TPL_VAR["api"] == "true" ? "hidden" : "visible"?>">
                 <div class="point"  style="display:flex;">
                     <img class="img-height" src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png'>&nbsp; 
                     <p class="_limit _w100 p-name"><?=$TPL_VAR["nick"]?></p>
@@ -104,10 +104,13 @@ if($isApi == "true")  {?>
                 </form>
             </div>
             <!-- 배너 -->
+            <?php 
+            if($TPL_VAR["api"] != "true") { ?>
             <div class="banner_area">
                 <div><a href="https://telegram.me/<?=$TPL_VAR["telegramID"]?>" target="_blank"><img src="/10bet/images/10bet/ico_telegram_01.gif" alt="텔레그램" /></a></div><br>
                 <div><img src="/10bet/images/10bet/kakao.png?v=2" alt="카카오톡 아이디"/><span style="position:relative; top:-47px; left:90px; color:#381e1e; font-size:25px; font-weight:bold;"><?=$TPL_VAR["kakaoID"]?></span></div><br>
             </div>
+            <?php } ?>
         </div>
     </div>
 </div>

@@ -2044,9 +2044,15 @@ function onRecvBetting(objPacket) {
 	else {
 		var game_type = betForm.game_type.value;
 		if(game_type == "live") {
-			location.href = "/race/betting_list?type=2";
+			if(api == "true")
+				location.href = "/api/betting_list?type=2&userid=" + uid;
+			else 
+				location.href = "/race/betting_list?type=2";
 		} else {
-			location.href = "/race/betting_list?type=1";
+			if(api == "true")
+				location.href = "/api/betting_list?type=1&userid=" + uid;
+			else
+				location.href = "/race/betting_list?type=1";
 		}
 	}
 	

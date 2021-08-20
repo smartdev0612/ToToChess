@@ -115,6 +115,21 @@ $j().ready(function(){
         }
     });
 
+    // E스포츠
+    $j(".espo").on( "click", function() {
+        
+        var submenu = $j(".li-espo");
+        var submenu1 = $j(".ul-espo");
+
+        // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+        if( submenu.is(":visible") ){
+            submenu.slideUp("fast");
+            submenu1.slideUp("fast");
+        }else{
+            submenu.slideDown("fast");
+        }
+    });
+
 });
 
 /*********************** 왼쪽 오늘의 경기 스포츠 개수 현시 ****************************/
@@ -132,7 +147,6 @@ function showLeagues(className) {
 
 // 종목별 경기개수 현시
 function showSportsTotalCount(json, isOther = false) {
-    
     if(json == null || json.length == 0)
         return;
     var soccer = json.find(value => value.m_strName == "축구");
@@ -195,7 +209,10 @@ function appendCntInfo(sports, json, isOther = false) {
             if(obj == null || obj == undefined) {
                 var div = "";
                 if(isOther) {
-                    div += `<li class="ss_bl1 li-bg" onClick="location.href='/game_list?game=abroad&league_sn=${json.m_lstLeagueCnt[j].m_nLeague}'">`;
+                    if(api == "true")
+                        div += `<li class="ss_bl1 li-bg" onClick="location.href='/api/game_list?game=abroad&league_sn=${json.m_lstLeagueCnt[j].m_nLeague}&userid=${uid}'">`;
+                    else 
+                        div += `<li class="ss_bl1 li-bg" onClick="location.href='/game_list?game=abroad&league_sn=${json.m_lstLeagueCnt[j].m_nLeague}'">`;
                 } else {
                     div += `<li class="ss_bl1 li-bg" onClick="onClickLeague('${json.m_lstLeagueCnt[j].m_nLeague}')">`;
                 }
@@ -226,7 +243,10 @@ function appendCntInfo(sports, json, isOther = false) {
         div += `<ul class="ul-${sports} ul-${sports}-${json.m_nCountry} sub-ul" style="display:none;" id="id_${sports}-${json.m_nCountry}_ul">`;
         for(var j = 0; j < json.m_lstLeagueCnt.length; j++){
             if(isOther) {
-                div += `<li class="ss_bl1 li-bg" onClick="location.href='/game_list?game=abroad&league_sn=${json.m_lstLeagueCnt[j].m_nLeague}'">`;
+                if(api == "true")
+                    div += `<li class="ss_bl1 li-bg" onClick="location.href='/api/game_list?game=abroad&league_sn=${json.m_lstLeagueCnt[j].m_nLeague}&userid=${uid}'">`;
+                else 
+                    div += `<li class="ss_bl1 li-bg" onClick="location.href='/game_list?game=abroad&league_sn=${json.m_lstLeagueCnt[j].m_nLeague}'">`;
             } else {
                 div += `<li class="ss_bl1 li-bg" onClick="onClickLeague('${json.m_lstLeagueCnt[j].m_nLeague}')">`;
             }
@@ -394,7 +414,7 @@ function getUserInfo() {
 
         var url = window.location.href;
         if(json.memo > 0) {
-            if(url.indexOf('/member/memolist') == -1) {
+            if(url.indexOf('/member/memolist') == -1 && api != "true") {
                 try { jBeep('/public/snd/msg_recv_alarm.mp3'); } catch(e) {};
                 $j(".count01").text(json.memo);
                 $j(".count02").text(json.memo);
@@ -515,7 +535,6 @@ function onSendReqListPacket(param) {
 		sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
 	} else {
         setTimeout(() => {
-            ws = new WebSocket("ws://211.115.107.17:3002");
             sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
         }, 5000);
     }
@@ -636,7 +655,7 @@ function getMarketsCnt(sport_name, children, isExist12 = true) {
             marketArray = [226, 3, 342, 28, 7, 202, 41, 42, 43, 44, 64, 65, 66, 221, 220, 21, 45, 46, 51];
             break;
         case "E스포츠":
-            marketArray = [52, 3, 6, 202, 203];
+            marketArray = [52, 3, 2, 6, 202, 203, 204, 205, 206, 64, 65, 66, 67, 68, 1149, 1150, 1151, 1152, 1153, 989, 990, 991, 1165, 1166, 1167, 1168, 1169, 669, 670, 671, 1170, 1171, 1172, 1173, 1174, 1251, 1252, 1253, 1254, 1255, 672, 673, 674, 666, 667, 668, 679, 680, 681 ];
             break;
     }
    

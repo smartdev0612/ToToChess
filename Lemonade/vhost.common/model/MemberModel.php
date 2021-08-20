@@ -421,7 +421,7 @@ class MemberModel extends Lemon_Model
 		$sql.= "now(),";
 		$sql.= "'".$_SERVER['HTTP_HOST']."',";
         $sql.= "'".$logo."', 0)";
-        $memberSn = $this->db->exeSql($sql);
+        $this->db->exeSql($sql);
 
 	    if ( $memberSn <= 0 ) return 0;
 
@@ -2147,7 +2147,7 @@ class MemberModel extends Lemon_Model
     {
         $sql = "select count(sn) as member_count
                 from tb_member 
-                where regdate > '$beginDate' and regdate < '$endDate}3'";
+                where (mem_status='N' or mem_status='W') and regdate > '$beginDate' and regdate < '$endDate}3'";
 
         $rs = $this->db->exeSql($sql);
         return $rs[0]['member_count'];

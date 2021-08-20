@@ -749,7 +749,6 @@ class MemberController extends WebServiceController
 		$model 	= Lemon_Instance::getObject("MemberModel", true);
 		$memberSn 	= $this->request("sn");
 		
-		$joiner = $model->getBySn($joiner_sn);
 		$joiners = $model->getJoiners($memberSn);
 	
 		$this->view->assign('joiners', $joiners);
@@ -1144,7 +1143,7 @@ class MemberController extends WebServiceController
 			{
 				if($type=="money") {
 					$pModel->modifyMoneyProcess($idx, $g_money, "7", "관리자수정", $memo);
-					$pModel->chargeReqProcess($idx, $g_money, 1);
+					// $pModel->chargeReqProcess($idx, $g_money, 1);
 				} else {
 					$pModel->modifyMileageProcess($idx, $g_money, "7", "관리자수정", 0, '', $memo);
 				}
@@ -1153,7 +1152,7 @@ class MemberController extends WebServiceController
 			{
 				if($type=="money") {	
 					$pModel->modifyMoneyProcess($idx, -$g_money, "7", "관리자수정", $memo);
-					$pModel->chargeReqProcess($idx, -$g_money, 1);
+					// $pModel->chargeReqProcess($idx, -$g_money, 1);
 				} else {
 					$pModel->modifyMileageProcess($idx, -$g_money, "7", "관리자수정", 0, '', $memo);
 				}

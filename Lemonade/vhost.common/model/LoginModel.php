@@ -253,7 +253,7 @@ class LoginModel extends Lemon_Model
 		$sql = "select *
 						from ".$this->db_qz."head 
 						where logo='".$this->logo."' and binary head_id = '".$uid."' and head_pw='".$passwd."'"; 
-				
+			
 		$rs = $this->db->exeSql($sql);
 		
 		if(count((array)$rs)>0)
@@ -291,6 +291,122 @@ class LoginModel extends Lemon_Model
 			$this->db->exeSql($sql);
 			return 2; // 로그인 실패 (아이디 혹은 비번 틀림)
 		}
+	}
+
+	//▶ 로그인
+	function api_loginMember($id = "", $passwd = "")
+	{
+		if ( strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) > 0 and strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) < 16 ) {
+			$remoteip = $_SERVER["HTTP_INCAP_CLIENT_IP"];
+		} else if ( strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) > 0 and strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) < 16 ) {
+			$remoteip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+		} else if ( strlen(trim($_SERVER["HTTP_X_REAL_IP"])) > 0 and strlen(trim($_SERVER["HTTP_X_REAL_IP"])) < 16 ) {
+			$remoteip = $_SERVER["HTTP_X_REAL_IP"];
+		} else {
+			$remoteip = $_SERVER["REMOTE_ADDR"];
+		}
+		
+		$passwd = trim($passwd);
+
+		//-> 짧은시간 많은 로그인 (10분에 20회 이상이면 IP 차단등록)
+		$hDate = date("Y-m-d H:i:s",time());
+		$prvDate = date("Y-m-d H:i:s",time()-600);
+		$sql = "select count(idx) as cnt from tb_visit where status = 1 and visit_ip = '{$remoteip}' and visit_date >= '{$prvDate}' and visit_date <= '{$hDate}'";
+		$rs = $this->db->exeSql($sql);
+		if ( $rs[0]['cnt'] > 20 ) {
+			$sql = "select count(id) as ip_cnt from sql_sqlin where SqlIn_IP = '{$remoteip}' and kill_ip = 'true'";
+			$ipRes = $this->db->exeSql($sql);
+			if ( $ipRes[0]["ip_cnt"] > 0 ) {
+				$sql = "update sql_sqlin set kill_ip = 'true' where SqlIn_IP = '{$remoteip}'";
+				$this->db->exeSql($sql);
+			} else {
+				$sql = "insert into sql_sqlin (SqlIn_IP, SqlIn_WEB, SqlIn_TIME, Kill_ip) values ('{$remoteip}','짧은시간 많은 로그인','{$hDate}','true')";
+				$this->db->exeSql($sql);
+			}
+		}
+
+		//-> 짧은시간 많은 로그인 (1분에 5회 이상이면 경고 메세지)
+		$hDate = date("Y-m-d H:i:s",time());
+		$prvDate = date("Y-m-d H:i:s",time()-60);
+		$sql = "select count(idx) as cnt from tb_visit where status = 1 and visit_ip = '{$remoteip}' and visit_date >= '{$prvDate}' and visit_date <= '{$hDate}'";
+		$rs = $this->db->exeSql($sql);
+		if ( $rs[0]['cnt'] > 5 ) return 7;
+
+		//-> 차단아이피 확인
+		$sql = "select count(*) as cnt from sql_sqlin	where kill_ip = 'true' and SqlIn_IP = '{$remoteip}'";
+		$rs = $this->db->exeSql($sql);
+		if ( $rs[0]['cnt'] != 0 ) return 2;
+		
+		$sql = "select count(*) as cnt from tb_member where uid = '{$id}'";
+		$rs = $this->db->exeSql($sql);
+		
+		/*등급에 설정된 도메인과 접속 도메인이 틀릴경우 회원 접속 제한
+		$configModel = Lemon_Instance::getObject("ConfigModel",true);
+		$lev_domain=$configModel->getLevelConfigField($rs[0]['mem_lev'], 'lev_domain');
+		
+		if(($lev_domain!=$_SERVER['HTTP_HOST'])||($lev_domain!="www.".$_SERVER['HTTP_HOST']))
+		{
+			return 6;
+		}
+		*/
+
+		if($rs[0]['cnt']<=0) 
+		{
+			$result = "아이디 틀림";
+			
+			$sql = "insert into ".$this->db_qz."visit(member_id,visit_ip,visit_date,result,status,logo, is_read) 
+					values('".$id."','".$remoteip."','".$hDate."','".$result."','1','".$this->logo."', 0)";
+			$this->db->exeSql($sql);
+			return 0;
+		}
+		
+		$sql = "select * from tb_member where uid = '{$id}' and upass = '{$passwd}'";
+		$rs = $this->db->exeSql($sql);
+		if($rs[0]['uid']!='')
+		{
+			if($rs[0]['mem_status']=='S') 			{return 4;}
+			else if($rs[0]['mem_status']=='D')	{return 5;}
+			else if($rs[0]['mem_status']=='W')	{return 3;}
+			else // login success
+			{
+				$result = "로그인 성공";
+				
+				$_SESSION['member']['id']						= $rs[0]['uid'];
+				$_SESSION['member']['sn']						= $rs[0]['sn'];
+				$_SESSION['member']['name']					= $rs[0]['nick'];
+				$_SESSION['member']['level']				= $rs[0]['mem_lev'];
+				$_SESSION['member']['recommender']	= $rs[0]['recommend_sn'];
+				$_SESSION['member']['state']				= $rs[0]['mem_status'];
+				
+				$config = Lemon_Configure::readConfig('config');
+				$_SESSION['conf'] = $config ;
+				
+				$sql = "update ".$this->db_qz."member 
+								set last_date = now(), 
+										sessionid='".session_id()."', 
+										login_domain='".$_SERVER['HTTP_HOST']."',
+										mem_ip='".$remoteip."'
+								where logo='".$this->logo."' and uid = '".$id."' "; 
+				$this->db->exeSql($sql); 
+				
+				$sql = "insert into ".$this->db_qz."visit(member_id,visit_ip,visit_date,result,status,logo)
+								values('".$id."','".$remoteip."','".$hDate."','".$result."','0','".$this->logo."')";
+						
+				$this->db->exeSql($sql);
+								
+				return 1;
+			}
+		}
+		else
+		{
+			$result = "비밀번호 틀림";
+			
+			$sql = "insert into ".$this->db_qz."visit(member_id,visit_ip,visit_date,result,status,logo,is_read) 
+					values('".$id."','".$remoteip."','".$hDate."','".$result."','1','".$this->logo."', 0)";
+					
+			$this->db->exeSql($sql);
+		}
+		return 0;
 	}
 
 	//▶ 로그인

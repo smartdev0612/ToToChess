@@ -32,11 +32,11 @@
     var endMin = parseInt(pieces[1]);
     var strEndTime = getStrDatetime(now, endHour, endMin);
     console.log(strEndTime);
-    <?php if($TPL_VAR["mini_config"]["powersadari"] == 0) {?>
+    <?php if($TPL_VAR["mini_config"]["powersadari"] == 0 && $TPL_VAR["api"] != "true") {?>
         warning_popup('파워사다리 미니게임은 현재 점검중입니다.\n이용에 불편을 드려 죄송합니다.');
         document.location.href='/';
     <?php }  else { ?>
-        if(new Date(strStartTime) < now && now < new Date(strEndTime)) {
+        if(new Date(strStartTime) < now && now < new Date(strEndTime) && $TPL_VAR["api"] != "true") {
             warning_popup('파워사다리 미니게임은 현재 점검중입니다.\n이용에 불편을 드려 죄송합니다.');
             document.location.href='/';
         }
@@ -351,11 +351,6 @@
 	var VarMinBet = '<?php echo $TPL_VAR["betMinMoney"]?>';		//-> 최소배팅머니
 	var VarMaxBet = '<?php echo $TPL_VAR["betMaxMoney"]?>';		//-> 최고배팅머니
 	var VarMaxAmount = '<?php echo $TPL_VAR["maxBonus"]?>';		//-> 최대당첨금
-
-	$j(document).ready(function() {
-        //-> 타이머 시작
-        getServerTime();
-    });
 </script>
 <script>
     $j(function(){

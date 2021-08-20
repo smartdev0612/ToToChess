@@ -398,7 +398,7 @@ class CartModel extends Lemon_Model
 		}
 
 		//order by, limit
-		$sql.=  " order by betting_no desc";
+		$sql.=  " order by regdate desc";
 		if($page_size > 0)
 		{
 			$sql.= " limit ".$page.",".$page_size;
@@ -1584,6 +1584,33 @@ class CartModel extends Lemon_Model
 		{
 			return 1;
 		}
+	}
+
+	function getBettingInfoBySn($sn = 0) 
+	{
+		$sql = "SELECT * FROM tb_total_betting WHERE sn = " . $sn;
+		$rs = $this->db->exeSql($sql);
+		$betting_info = [];
+
+		if(count((array)$rs) > 0) {
+			$betting_info = $rs[0];
+		}
+		return $betting_info;
+	}
+
+	//-> 배팅수동처리 2021.08.10
+	function modifyBetResult($total_betting_sn, $result)
+	{
+
+		$sql = "select * from tb_total_betting where sn=".$total_betting_sn;
+		$rs = $this->db->exeSql($sql);
+		$bettingNo = $rs[0]['betting_no'];
+
+		//-> 배팅결과 변환.
+		$sql = "update tb_total_betting set result = '" . $result . "' where sn = ".$total_betting_sn;
+		$this->db->exeSql($sql);	
+		
+		return $bettingNo;
 	}
 }
 ?>

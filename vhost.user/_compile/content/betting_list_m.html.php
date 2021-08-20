@@ -2,7 +2,7 @@
     <div id="container">
 
     <script type="text/javascript" src="/10bet/js/left.js?1610345806"></script>
-    <script type="text/javascript" src="/include/js/betting_list.js?v=2"></script>
+    <script type="text/javascript" src="/include/js/betting_list.js?v=<?=time()?>"></script>
     <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/default.css?v=510">
     <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/m_layout.css?v=525">
     <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/btns.css?v=511">
@@ -80,6 +80,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>';
+                                $enableBettingCancel = 0;
                                 if(count($TPL_V1["item"]) > 0) {
                                     $battingJT = "0";
                                     foreach ( $TPL_V1["item"] as $TPL_V2 ) {
@@ -116,6 +117,9 @@
                                                 break;
                                             case 35232: // 아이스 하키
                                                 $table .= '<td>' . $pieces[4] . '</td>';
+                                                break;
+                                            case 687890: // E스포츠
+                                                $table .= '<td>' . $pieces[5] . '</td>';
                                                 break;
                                             default:
                                                 $table .= '<td>' . $pieces[0] . '</td>';
@@ -199,6 +203,9 @@
                                         $table .= '<td>점수 : <span class="txt_co6">' . $TPL_V2["home_score"] . ':' . $TPL_V2["away_score"] . '</span></td>';
                                         $table .= '</tr>';
                                         $table .= '<tr id="Fid3628815" class="st_hide_list"></tr>';
+
+                                        if($TPL_V2["result"] > 0) 
+                                            $enableBettingCancel = 1;
                                     }
                                 }
                                 $table .= '</tbody>
@@ -224,7 +231,7 @@
                                 $table .= '</li>';
                                 $table .= '<li class="betting_cart_20 betting_cart_bgno">';
                                 if($TPL_V1["result"] == 0) {
-                                    if($TPL_VAR["type"] != 2)
+                                    if($TPL_VAR["type"] < 2 && $enableBettingCancel == 0)
                                         $table .= "<span class='st_marl5 bt_none5 bt_45_none txt_none3' onclick=cancel_bet('" . $TPL_K1 . "')>배팅취소</span>";
                                 } else {
                                     $table .= "<span class='st_marl5 bt_none5 bt_45_none txt_none3' onclick=hide_bet('" . $TPL_K1 . "')>내역삭제</span>";

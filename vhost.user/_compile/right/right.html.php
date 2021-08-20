@@ -34,10 +34,13 @@ if($isApi == "true")  {?>
             </div>
 
             <!-- 배너 -->
+            <?php 
+            if($TPL_VAR["api"] != "true") { ?>
             <div class="banner_area">
                 <div><a href="https://telegram.me/<?=$TPL_VAR["telegramID"]?>" target="_blank"><img src="/10bet/images/10bet/ico_telegram_01.gif" alt="텔레그램" /></a></div><br>
                 <div><img src="/10bet/images/10bet/kakao.png?v=2" alt="카카오톡 아이디"/><span style="position:relative; top:-47px; left:90px; color:#381e1e; font-size:25px; font-weight:bold;"><?=$TPL_VAR["kakaoID"]?></span></div><br>
             </div>
+            <?php } ?>
 
         <?php } else { ?>
             <!-- 로그인 -->

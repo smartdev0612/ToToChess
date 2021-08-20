@@ -265,6 +265,7 @@
 			<tr>					
 				<th>사이트</th>
 				<th>배팅번호</th>
+				<th>유형</th>
 				<th>아이디</th>
 				<th>닉네임</th>
 				<th>게임</th>
@@ -282,7 +283,8 @@
 		<tbody>
 			<!-- 12.10.30 "종료" (list.blnGameEnd=="Y") 경우 tr class="gameEnd" / "진행중" 경우 tr class="gameGoing" -->
 <?php if($TPL_list_1){foreach($TPL_VAR["list"] as $TPL_V1){
-$TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["item"]);?>
+	$isLive = $TPL_V1["item"][0]["live"];
+	$TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["item"]);?>
 <?php if($TPL_V1["betting_cnt"]==1){?>
 			<tr id="t_<?php echo $TPL_V1["betting_no"]?>" class="singleFolder" >
 <?php }else{?>
@@ -293,7 +295,19 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 <?php }?>
 <?php }?>
 				<td><?php echo $TPL_V1["logo"];?></td>
-				<td onclick="toggle('d_<?php echo $TPL_V1["betting_no"]?>')"><?php echo $TPL_V1["betting_no"]?></td>			    
+				<td onclick="toggle('d_<?php echo $TPL_V1["betting_no"]?>')"><?php echo $TPL_V1["betting_no"]?></td>	
+				<td>
+					<?php 
+					if($isLive > 0)
+						echo "라이브";
+					else if ( $isLive == 0 && $TPL_V1["special"] < 5)
+						echo "스포츠";
+					else if ( $TPL_V1["special"] == 7)
+						echo "파워볼";
+					else if ( $TPL_V1["special"] == 25)
+						echo "파워사다리";
+					?>
+				</td>		    
 				<?php if($TPL_VAR["membervip"] != "1"){?>
 				<td><a href="javascript:open_window('/member/popup_detail?idx=<?php echo $TPL_V1["member_sn"]?>',1024,600)"><?php echo $TPL_V1["member"]["uid"]?></a></td>			
 				<?php }else{?>
@@ -362,7 +376,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 			</tr>
 			
 			<tr id="d_<?php echo $TPL_V1["betting_no"]?>" <?php if($TPL_VAR["show_detail"]==0){?>style="display:none;"<?php }?> class="gameDetail">
-				<td colspan="14">
+				<td colspan="15">
 					<table cellspacing="1" id="d_<?php echo $TPL_V1["betting_no"]?>">
 						<tr>				  
 							<th>게임타입</th>
@@ -560,25 +574,19 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 							<?php }?>
 								</td>
 								<td width="65" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666" id="<?php echo $TPL_V1["betting_no"].'_'.$TPL_V2["total_betting_sn"]?>_status">
-							<?php if($TPL_V2["result"]==0){?><font color=#666666>배팅중</font>
-							<?php }elseif($TPL_V2["result"]==1){?><font color=red>적중</font>
-							<?php }elseif($TPL_V2["result"]==2){?><font color=blue>낙첨</font>
-							<?php }elseif($TPL_V2["result"]==4){?><font color=green>취소</font>
+							<?php if($TPL_V2["result"]==0){?><font color="#666666">배팅중</font>
+							<?php }elseif($TPL_V2["result"]==1){?><font color="red">적중</font>
+							<?php }elseif($TPL_V2["result"]==2){?><font color="blue">낙첨</font>
+							<?php }elseif($TPL_V2["result"]==4){?><font color="green">취소</font>
 							<?php }?>
 								</td>
 								<td width="30">
-							<?php 
-								if ( $TPL_V2["home_rate"] < 1.01 and $TPL_V2["draw_rate"] < 1.1 and $TPL_V2["away_rate"] < 1.1 ) {
-							?>
-							<span style="color:#D9418C;"><b>적특됨</b></span>
-							<?php
-								} else {
-							?>
-							<?php if($TPL_VAR["membervip"] != "1"){?>
-							<input type="button" value="적특"  class="btnStyle3" onClick="onExceptionBetClick(<?php echo $TPL_V2["total_betting_sn"]?>);"></td>
-							<?php }
-								}
-							?>
+									<?php if($TPL_V2["result"]==0 || $TPL_V2["result"]==3){?>
+										<input type="button" value="결과처리" style="color:red; font-weight:bold;" class="btnStyle3" onclick="window.open('/game/result_process?sn=<?php echo $TPL_V2["total_betting_sn"]?>','','scrollbars=yes,width=600,height=200,left=5,top=0');">
+									<?php } else { ?>
+										<input type="button" value="적특"  class="btnStyle3" onClick="onExceptionBetClick(<?php echo $TPL_V2["total_betting_sn"]?>);"></td>
+									<?php } ?>
+								</td>
 							</tr>															
 							<?php }}?>
 						</table>

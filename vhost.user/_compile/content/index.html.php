@@ -164,23 +164,25 @@
                         <h4>
                         <?php
                         if( $TPL_V1["sport_name"] == "축구")
-                            echo "<img src=\"/images/ibet/sporticons_f.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_f.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         else if( $TPL_V1["sport_name"] == "야구")
-                            echo "<img src=\"/images/ibet/sporticons_b.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_b.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         else if( $TPL_V1["sport_name"] == "농구")
-                            echo "<img src=\"/images/ibet/sporticons_bk.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_bk.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         else if( $TPL_V1["sport_name"] == "배구")
-                            echo "<img src=\"/images/ibet/sporticons_vb.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_vb.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         else if( $TPL_V1["sport_name"] == "아이스 하키")
-                            echo "<img src=\"/images/ibet/sporticons_ih.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_ih.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         else if( $TPL_V1["sport_name"] == "테니스")
-                            echo "<img src=\"/images/ibet/spo_2.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/spo_2.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
+                        else if( $TPL_V1["sport_name"] == "E스포츠")
+                            echo '<img src="/10bet/images/10bet/ico/esport-ico.png" align="absmiddle" border="0" style="width:24px">&nbsp';
                         else
-                            echo "<img src=\"/images/ibet/sporticons_e.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_e.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         ?>
                             <?php echo $TPL_V1['sport_name'] ."&nbsp;"?>			
                             <img src="/10bet/images/10bet/arrow_01.png" class="arrow" alt="" /> 
-                            <img src="<?=$TPL_V1['lg_img']?>" width="20" height="16" style="margin-top:3px;">&nbsp;&nbsp;
+                            <img src="<?=$TPL_V1['lg_img']?>" width="20" height="16">&nbsp;&nbsp;
                             <?php echo $TPL_V1['league_name']?>		
                         </h4>
                         <ul>
@@ -210,23 +212,25 @@
                         <h4>
                         <?php
                         if( $TPL_V1["sport_name"] == "축구")
-                            echo "<img src=\"/images/ibet/sporticons_f.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_f.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         else if( $TPL_V1["sport_name"] == "야구")
-                            echo "<img src=\"/images/ibet/sporticons_b.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_b.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         else if( $TPL_V1["sport_name"] == "농구")
-                            echo "<img src=\"/images/ibet/sporticons_bk.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_bk.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         else if( $TPL_V1["sport_name"] == "배구")
-                            echo "<img src=\"/images/ibet/sporticons_vb.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_vb.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         else if( $TPL_V1["sport_name"] == "아이스 하키")
-                            echo "<img src=\"/images/ibet/sporticons_ih.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_ih.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         else if( $TPL_V1["sport_name"] == "테니스")
-                            echo "<img src=\"/images/ibet/spo_2.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/spo_2.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
+                        else if( $TPL_V1["sport_name"] == "E스포츠")
+                            echo '<img src="/10bet/images/10bet/ico/esport-ico.png" align="absmiddle" border="0" style="width:24px">&nbsp';
                         else
-                            echo "<img src=\"/images/ibet/sporticons_e.png\" style=\"vertical-align:middle; height:20px;\">";
+                            echo "<img src=\"/images/ibet/sporticons_e.png\" style=\"vertical-align:middle; height:20px;\">&nbsp";
                         ?>
                             <?php echo $TPL_V1['sport_name'] ."&nbsp;"?>			
                             <img src="/10bet/images/10bet/arrow_01.png" class="arrow" alt="" /> 
-                            <img src="<?=$TPL_V1['lg_img']?>" width="20" height="16" style="margin-top:3px;">&nbsp;&nbsp;
+                            <img src="<?=$TPL_V1['lg_img']?>" width="20" height="16">&nbsp;&nbsp;
                             <?php echo $TPL_V1['league_name']?>		
                         </h4>
                         <ul>

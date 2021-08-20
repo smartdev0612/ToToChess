@@ -173,6 +173,18 @@
                     </li>
                     <div class="div_val"></div>
 
+                    <li class="espo">
+                        <img src="/10bet/images/10bet/ico/esport-ico.png" alt="ico"  style="margin-top:4px;"/> 
+                        <?php if(count((array)$_SESSION['member']) > 0) { ?>
+                            <a href="javascript:void(0)" style="color: white;">
+                        <?php } else { ?>
+                            <a href="javascript:login_open();" style="color: white;">
+                        <?php } ?>
+                        <span class="name">E-sports</span>
+                        <span class="count on total_count_espo">0</span></a>
+                    </li>
+                    <div class="div_espo"></div>
+
                     <li>
                         <img src="/10bet/images/10bet/ico/tennis-ico.png" alt="ico" style="margin-top:4px;" /> 
                         <?php if(count((array)$_SESSION['member']) > 0) { ?>
@@ -264,16 +276,6 @@
                         <?php } ?>
                         <span class="name">배드민턴</span>
                         <span class="count ton">00</span></a>
-                    </li>
-                    <li class="espo">
-                        <img src="/10bet/images/10bet/ico/esport-ico.png" alt="ico"  style="margin-top:4px;"/> 
-                        <?php if(count((array)$_SESSION['member']) > 0) { ?>
-                            <a href="javascript:void(0)" style="color: white;">
-                        <?php } else { ?>
-                            <a href="javascript:login_open();" style="color: white;">
-                        <?php } ?>
-                        <span class="name">이스포츠</span>
-                        <span class="count espo">00</span></a>
                     </li>
                     <li class="etc">
                         <img src="/10bet/images/10bet/logo_01.png" alt="ico"  style="margin-top:4px;"/> 

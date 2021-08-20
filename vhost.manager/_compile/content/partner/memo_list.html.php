@@ -77,7 +77,7 @@ function go_del(url)
 			<td><input name="y_id[]" type="checkbox" id="y_id" value="<?php echo $idx?>"  onclick="javascript:chkRow(this);"/></td>
 			<td><?php echo $TPL_V1["fromid"]?></td>
 			<td><?php echo $TPL_V1["writeday"]?></td>
-			<td><?php echo $TPL_V1["title"]?></td>
+			<td onclick="show('content<?php echo $idx?>')" style="cursor:pointer"><?php echo $TPL_V1["title"]?></td>
 			<td><?php echo $state?></td>
 			<td ><a href="javascript:void(0)" onclick="javascript:open_window('/partner/memoAdd_Acc?toid=<?php echo $TPL_V1["fromid"]?>&reply_id=<?php echo $idx?>&p_type=<?=$TPL_VAR["p_type"]?>','800','620')" ><img src="/img/btn_s_answer.gif" title="답변"></a>&nbsp;&nbsp<a href="javascript:void(0);" onclick="go_del('?act=del&id=<?php echo $idx?>');"><img src="/img/btn_s_del.gif" title="삭제"></a></td>   
 		</tr>

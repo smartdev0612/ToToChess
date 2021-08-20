@@ -255,21 +255,21 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	</div>
 	
 	<form id="form1" name="form1" method="post" action="?">
-  	<input type="hidden" name="act">
-  	<input type="hidden" name="select_home_score[]">
-  	<input type="hidden" name="select_away_score[]">
-  	<input type="hidden" name="select_game_type[]">
-  	
-  	<input type="hidden" name="page" value=<?php echo $TPL_VAR["page"]?>>
-  	<input type="hidden" name="perpage" value=<?php echo $TPL_VAR["perpage"]?>>
-  	<input type="hidden" name="state" value=<?php echo $TPL_VAR["state"]?>>
-  	<input type="hidden" name="special_type" value=<?php echo $TPL_VAR["special_type"]?>>
-  	<input type="hidden" name="categoryName" value=<?php echo $TPL_VAR["categoryName"]?>>
-  	<input type="hidden" name="begin_date" value=<?php echo $TPL_VAR["begin_date"]?>>
-  	<input type="hidden" name="end_date" value=<?php echo $TPL_VAR["end_date"]?>>
-  	<input type="hidden" name="filter_team_type" value=<?php echo $TPL_VAR["filter_team_type"]?>>
-  	<input type="hidden" name="filter_team" value=<?php echo $TPL_VAR["filter_team"]?>>
-  	<input type="hidden" name="winner_list" value=<?php echo $TPL_VAR["winner_list"]?>>
+		<input type="hidden" name="act">
+		<input type="hidden" name="select_home_score[]">
+		<input type="hidden" name="select_away_score[]">
+		<input type="hidden" name="select_game_type[]">
+		
+		<input type="hidden" name="page" value=<?php echo $TPL_VAR["page"]?>>
+		<input type="hidden" name="perpage" value=<?php echo $TPL_VAR["perpage"]?>>
+		<input type="hidden" name="state" value=<?php echo $TPL_VAR["state"]?>>
+		<input type="hidden" name="special_type" value=<?php echo $TPL_VAR["special_type"]?>>
+		<input type="hidden" name="categoryName" value=<?php echo $TPL_VAR["categoryName"]?>>
+		<input type="hidden" name="begin_date" value=<?php echo $TPL_VAR["begin_date"]?>>
+		<input type="hidden" name="end_date" value=<?php echo $TPL_VAR["end_date"]?>>
+		<input type="hidden" name="filter_team_type" value=<?php echo $TPL_VAR["filter_team_type"]?>>
+		<input type="hidden" name="filter_team" value=<?php echo $TPL_VAR["filter_team"]?>>
+		<input type="hidden" name="winner_list" value=<?php echo $TPL_VAR["winner_list"]?>>
   	
 		<table cellspacing="1" class="tableStyle_gameList" summary="항목보기">
 		<legend class="blind">항목보기</legend>

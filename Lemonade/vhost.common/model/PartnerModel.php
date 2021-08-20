@@ -1628,9 +1628,9 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['member_count'] = $rsi[0]['cnt'];
 			
 			//회원수
-			$sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn IN ( SELECT sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))";
-			$rsi = $this->db->exeSql($sql);
-			$rs[$i]['member_count'] = $rs[$i]['member_count'] + $rsi[0]['cnt'];
+			// $sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn IN ( SELECT sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))";
+			// $rsi = $this->db->exeSql($sql);
+			// $rs[$i]['member_count'] = $rs[$i]['member_count'] + $rsi[0]['cnt'];
 
 			//매장입금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_charge

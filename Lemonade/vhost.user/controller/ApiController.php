@@ -9,24 +9,25 @@ class ApiController extends WebServiceController
 	function layoutDefine($type='')
 	{
 		//-> 중복로그인 체크 전체 페이지 적용
-		if ( $this->auth->getSn() > 0 ) {
-			$mModel = $this->getModel("MemberModel");
-			$dbSessionId = $mModel->getMemberField($this->auth->getSn(), 'sessionid');
-			if($dbSessionId!=session_id()) {
-				if($this->auth->isLogin()) {
-					session_destroy();
-				}
-				throw new Lemon_ScriptException("중복접속 되었습니다. 다시 로그인 해 주세요.", "", "go", "/");
-				exit;
-			}
-		}
+		// if ( $this->auth->getSn() > 0 ) {
+		// 	$mModel = $this->getModel("MemberModel");
+		// 	$dbSessionId = $mModel->getMemberField($this->auth->getSn(), 'sessionid');
+		// 	if($dbSessionId!=session_id()) {
+		// 		if($this->auth->isLogin()) {
+		// 			session_destroy();
+		// 		}
+		// 		throw new Lemon_ScriptException("중복접속 되었습니다. 다시 로그인 해 주세요.", "", "go", "/");
+		// 		exit;
+		// 	}
+		// }
 
-		if($type=='type')
-		{
-			$this->view->define("index","layout/layout.type.index.html");
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", "top" => "header/top.html", "right" => "right/right.html"));
-		}
-		else if($type=='maintain')
+		// if($type=='type')
+		// {
+		// 	$this->view->define("index","layout/layout.type.index.html");
+		// 	$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", "top" => "header/top.html", "right" => "right/right.html"));
+		// }
+		// else 
+		if($type=='maintain')
 		{
 			$this->view->define("index","layout/layout.iframe.html");
 			$this->view->define(array("content" => "content/maintain.html", "header"=>"header/header.html"));
@@ -72,15 +73,15 @@ class ApiController extends WebServiceController
 		$cartModel 		= $this->getModel("CartModel");
 		
 		$dbSessionId = $mModel->getMemberField($sn, 'sessionid');				
-		if($dbSessionId!=session_id())
-		{
-			if($this->auth->isLogin())
-			{
-				session_destroy();
-			}
-			throw new Lemon_ScriptException("중복접속 되었습니다. 다시 로그인 해 주세요.", "", "go", "/");
-			exit;
-		}
+		// if($dbSessionId!=session_id())
+		// {
+		// 	if($this->auth->isLogin())
+		// 	{
+		// 		session_destroy();
+		// 	}
+		// 	throw new Lemon_ScriptException("중복접속 되었습니다. 다시 로그인 해 주세요.", "", "go", "/");
+		// 	exit;
+		// }
 
 		if ( $type == "sadari" or $type == "dari" or $type == "race" or $type == "power" or $type == "nine"
             or $type == "mgmoddeven" or $type == "mgmbacara" or $type == "powersadari" or $type == "kenosadari"
@@ -248,343 +249,31 @@ class ApiController extends WebServiceController
 		$this->view->assign("maxBonus", $maxBonus);
 	}
 	
-	/*
-	 * 메인 페이지
-	 */
-	public function indexAction($id='')
-	{
-		$this->commonDefine("index");
-		//$this->view->define("index","layout/layout.index.html");
-		$this->view->define(array("content"=>"content/index.html"));
-
-		// $mode = $this->request('mode');
-		// $m_to_pc = $this->request('v');
-		// if ( $m_to_pc == "pc" ) {
-		// 	setcookie("m_to_pc",$m_to_pc,0,"/");
-		// }
-		
-		// /*접속기기 (PC, mobile) 확인*/		
-		// $mobileArray = array("Android", "iPhone", "BlackBerry", "Windows CE", "LG", "SAMSUNG", "MOT", "SonyEricsson");
-		// $userAgent = 'pc';
-
-		// foreach ($mobileArray as $key=> $value)
-		// {
-		// 	if(preg_match("/{$value}/", $_SERVER['HTTP_USER_AGENT']))
-		// 	{
-		// 		$userAgent = 'mobile';
-        //     }
-		// }
-
-		/*접속 도메인 확인*/
-		$conDomain = $_SERVER['HTTP_HOST'];
-
-		/*if(preg_match("/www./", $_SERVER['HTTP_HOST']))
-		{
-			$conDomain = str_replace("www.","",$conDomain);
-		} else if(preg_match("/m./", $_SERVER['HTTP_HOST'])){
-            $conDomain = str_replace("m.", "", $conDomain);
-		}*/
-
-        //-> PC버전 고정
-		$userAgent = 'pc';
-
-		/*if ( $m_to_pc != "pc" and $_COOKIE["m_to_pc"] != "pc" ) {
-			$count = preg_match("/m./", $_SERVER['HTTP_HOST']);
-			if($userAgent == 'pc' && preg_match("/m./", $_SERVER['HTTP_HOST']))
-			{
-				echo "<script>document.location.href='http://".$conDomain."'</script>";
-			}
-			if($userAgent == 'mobile' && !preg_match("/m./", $_SERVER['HTTP_HOST']))
-			{
-				echo "<script>document.location.href='http://m.".$conDomain."'</script>";
-			}
-		}*/
-
-        if(preg_match("/www./", $_SERVER['HTTP_HOST']))
-        {
-            $conDomain = str_replace("www.","",$conDomain);
-        } else if(strpos($_SERVER['HTTP_HOST'], "m.") === 0){
-            $conDomain = substr($conDomain, 2, strlen($conDomain) - 2);
-        }
-
-        if ( $m_to_pc != "pc" and $_COOKIE["m_to_pc"] != "pc" ) {
-            if($userAgent == 'pc' && strpos($_SERVER['HTTP_HOST'], "m.") === 0)
-            {
-                echo "<script>document.location.href='http://".$conDomain."'</script>";
-            }
-            if($userAgent == 'mobile' && strpos($_SERVER['HTTP_HOST'], "m.") !== 0)
-            {
-                echo "<script>document.location.href='http://m.".$conDomain."'</script>";
-            }
-        }
-
-		$ConfigModel=Lemon_Instance::getObject("ConfigModel", true);
-		$rs = $ConfigModel->getAdminConfigRow();
-		
-		// if(!$this->auth->isLogin() && $rs['maintain']==2)
-		// {
-		// 	$this->loginAction();
-		// 	exit;
-		// }
-
-		$etcModel = $this->getModel("EtcModel");
-		$boardModel = $this->getModel("BoardModel");
-        $gameListModel = $this->getModel("GameListModel");
-
-		//-> 팝업 공지
-		$popupList = $etcModel->getPopup();		
-
-		//-> 공지 게시판
-		$noticeList = $boardModel->getNoticeList();
-
-        /*$where = " and b.name <> '*보너스배당*'";
-        $where .= " and a.user_view_flag=1";
-        $where .= " and a.gameDate >= '".date("Y-m-d",time()-86400)."'";
-        $gameList = $gameListModel->getNewGameList($where,'', 2);*/
-
-        $var_date = date("Y-m-d",time()-86400);
-        $leagueGameList = $gameListModel->_getLeagueGameList();
-		$leagueGameListMulti = $gameListModel->_getLeagueGameListMulti();
-        /*$football_game_list = $gameListModel->_getCatagoryGame('축구', $var_date);
-        $basketball_game_list = $gameListModel->_getCatagoryGame('농구', $var_date);
-        $volleyball_game_list = $gameListModel->_getCatagoryGame('배구', $var_date);*/
-
-        /*$football_game = array('sport_name'=>'축구','home_team'=>'','away_team'=>'',
-			'gameDate'=>'','gameHour'=>'', 'gameTime'=>'',
-			'league_name'=>'', 'home_rate'=>'', 'draw_rate'=>'', 'away_rate'=>'');
-
-        $basketball_game = array('sport_name'=>'농구','home_team'=>'','away_team'=>'',
-            'gameDate'=>'','gameHour'=>'', 'gameTime'=>'',
-            'league_name'=>'', 'home_rate'=>'', 'draw_rate'=>'', 'away_rate'=>'');
-
-        $volleyball_game = array('sport_name'=>'배구','home_team'=>'','away_team'=>'',
-            'gameDate'=>'','gameHour'=>'', 'gameTime'=>'',
-            'league_name'=>'', 'home_rate'=>'', 'draw_rate'=>'', 'away_rate'=>'');*/
-
-        /*if(count($football_game_list) > 0)
-            $football_game = $football_game_list[0];
-
-        if(count($basketball_game_list) > 0)
-            $basketball_game = $basketball_game_list[0];
-
-        if(count($volleyball_game_list) > 0)
-            $volleyball_game = $volleyball_game_list[0];*/
-
-        $game_result_list = $gameListModel->_gameResult();
-
-		$this->view->assign('popup_list', $popupList);
-		$this->view->assign('notice_list', $noticeList);
-        $this->view->assign('game_result_list', $game_result_list);
-        $this->view->assign('league_game_list', $leagueGameList);
-		$this->view->assign('league_game_list_multi', $leagueGameListMulti);
-		$this->view->assign("api", "true");
-        /*$this->view->assign('football_game', $football_game);
-        $this->view->assign('basketball_game', $basketball_game);
-        $this->view->assign('volleyball_game', $volleyball_game);*/
-
-		//$this->redirect('/game_list?game=multi');
-		$this->display();
-	}
-
-	public function refreshOddsAction() {
-		$this->req->xssClean();
-
-		//$idArray = $this->request('id');
-		$sport = $this->request('sport');
-		$gameListModel = $this->getModel("GameListModel");
-
-		$childList = array();
-		$where ='';
-		switch($sport) {
-			case "soccer":
-				$where.= " and c.sport_name = '축구'";
-				break;
-			case "baseball":
-				$where.= " and c.sport_name = '야구'";
-				break;
-			case "basketball":
-				$where.= " and c.sport_name = '농구'";
-				break;
-			case "volleyball":
-				$where.= " and c.sport_name = '배구'";
-				break;
-			case "hockey":
-				$where.= " and (c.sport_name like '%하키%')";
-				break;
-			case "tennis":
-				$where.= " and c.sport_name = '테니스'";
-				break;
-			case "esports":
-				$where.= " and c.sport_name = 'E스포츠'";
-				break;
-			case "etc":
-				$where.= " and (c.sport_name = '' or c.sport_name = '미분류') ";
-				break;
-		}
-
-		$childList = $gameListModel->getItemOdds($where);
-
-		echo json_encode(array("result"=>"success", "data"=>$childList));
-	}
-
-	// ****************** new Added part ***********************
-	public function calendarAction() {
-		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
-		}
-
-		$member_sn = $this->auth->getSn();
-		$today= date("Y-m-d",(time()));
-
-		$memberModel = $this->getModel("MemberModel");
-		$configModel = $this->getModel("ConfigModel");
-
-		$config = $configModel->getPointConfigRow("*");
-		$checkAmt = $config['check_money'];
-
-		$chargeAmt = $memberModel->todayChargeAmount($member_sn, $today);
-		$todayPresense = $memberModel->todayPresenseCheck($member_sn, $today);
-
-
-		$is_enable_check = 1;
-
-		if($chargeAmt < $checkAmt)
-		{
-			$is_enable_check = 0;
-		}
-
-		$is_checked = 0;
-		if(is_array($todayPresense) && count($todayPresense) > 0)
-		{
-			$is_checked = 1;
-		}
-
-		$this->commonDefine('join');
-		$this->view->define(array("content"=>"content/calendar.html"));
-		$this->view->assign('is_enable_check', $is_enable_check);
-		$this->view->assign('is_checked', $is_checked);
-
-		$this->display();
-	}
-
-	function calendarAjax_procAction()
-	{
-		$member_sn = $this->auth->getSn();
-		$today= date("Y-m-d",(time()));
-
-		$memberModel = Lemon_Instance::getObject("MemberModel",true);
-
-
-		$todayPresense = $memberModel->todayPresenseCheck($member_sn, $today);
-
-		if ( count((array)$todayPresense) > 0) {
-			echo "ReOK";
-		} else {
-			$rlt = $memberModel->checkPresense($member_sn);
-			if($rlt > 0)
-			{
-				$this->modifyPresenseMileageProcess($member_sn);
-				echo "OK";
-			} else {
-				echo "NoOK";
-			}
-		}
-	}
-
-	function getUserMoneyAction() {
-		$sn = $this->auth->getSn();
-		$cash = 0;
-		if($sn != "") {
-			$mModel = $this->getModel("MemberModel");
-			$rs = $mModel->getMemberRow($sn);
-			$cash = $rs['g_money'];
-		}
-
-		echo $cash;
-	}
-
-	function modifyPresenseMileageProcess($member_sn)
-	{
-		$processModel 	= Lemon_Instance::getObject("ProcessModel", true);
-		$memberModel 	= Lemon_Instance::getObject("MemberModel", true);
-
-		// day check
-		$processModel->modifyPresenseCheckMileageProcess($member_sn, 0);
-
-		$today = date('Y-m-d',time());
-		$currMonth= date("m");
-		$currYear = date("Y");
-		$currDay = date("j");
-
-		// week check
-		$day = date("N");
-		$startDate = date('Y-m-d', (time()- (3600 * 24 * ($day-1))));
-		$endDate = date('Y-m-d', (time()+ (3600 * 24 * (7-$day))));
-
-		if($day == 7)
-		{
-			$count = $memberModel->presenseCount($member_sn, $startDate, $endDate);
-			if($count == 7)
-			{
-				$processModel->modifyPresenseCheckMileageProcess($member_sn, 1);
-			}
-		}
-
-		// month check
-		$startDate = date('Y-m-d', strtotime($currYear . "-" . $currMonth . "-01 00:00:01"));
-		$daysInMonth = cal_days_in_month(CAL_GREGORIAN, date("m", $startDate), date( "Y", $startDate));
-		$endDate = date('Y-m-d', strtotime($currYear . "-" . $currMonth . "-" .  $daysInMonth ." 00:00:01"));
-
-		if($endDate == $today)
-		{
-			$count = $memberModel->presenseCount($member_sn, $startDate, $endDate);
-			if($count == $daysInMonth)
-			{
-				$processModel->modifyPresenseCheckMileageProcess($member_sn, 2);
-			}
-		}
-	}
-
-	public function live_casinoAction() {
-		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
-		}
-
-		$this->commonDefine('livecasino');
-		$this->view->define(array("content"=>"content/live_casino.html"));
-
-		$mModel = $this->getModel("MemberModel");
-		$dbSessionId = $mModel->getMemberField($this->auth->getSn(), 'sessionid');
-
-		$this->view->assign("sessionid", $dbSessionId);
-
-		$this->display();
-	}
-	//*************** end Added part ************************************** */
 	
 	//▶ 승무패,핸디캡,스페셜 배팅
 	public function game_listAction() {		
-		
-		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
-		}
-
 		$gameListModel = $this->getModel("GameListModel");
+		$loginModel = $this->getModel("LoginModel");
 		$leagueModel = $this->getModel("LeagueModel");
 		$etcModel = $this->getModel("EtcModel");
 		$configModel = $this->getModel("ConfigModel");
 		
 		$game = $this->request('game');
 		$sport = $this->request('sport');
+		$user_id = empty($this->request('userid')) ? "" : $this->request('userid');
 		$league_sn = empty($this->request('league_sn')) ? 0 : $this->request('league_sn');
 		$today = empty($this->request('today')) ? 0 : $this->request('today');
 		$perpage = empty($this->request('perpage')) ? 100 : $this->request('perpage');
 		$page_index = empty($this->request('page_index')) ? 0 : $this->request('page_index');
         $title = "";
 		$crossLimitCnt = 0;
+
+		if ( !$this->auth->isLogin() ) {
+			$loginModel->api_loginMember($user_id);
+			
+			$this->auth = Lemon_Instance::getObject("Lemon_Auth");
+			$this->auth->rSession = $_SESSION;
+		}
 		
 		if ( $game == "multi" ) {
 			$specialType = "1";
@@ -1009,11 +698,612 @@ class ApiController extends WebServiceController
 		$this->view->assign("league_sn", $league_sn);
 		$this->view->assign("today", $today);
         $this->view->assign("api", "true");
+		$this->view->assign("uid", $user_id);
 
 		$this->display();
 	}
 
+	public function betting_listAction()
+	{
+		$user_id = empty($this->request('userid')) ? "" : $this->request('userid');
+
+		$loginModel = $this->getModel("LoginModel");
+
+		if ( !$this->auth->isLogin() ) {
+			$loginModel->api_loginMember($user_id);
+			
+			$this->auth = Lemon_Instance::getObject("Lemon_Auth");
+			$this->auth->rSession = $_SESSION;
+		}
+		
+		$this->commonDefine('type');
+		
+		if($this->isMobile() == "pc") {
+			$this->view->define(array("content"=>"content/betting_list.html"));
+		} else {
+			$this->view->define(array("content"=>"content/betting_list_m.html"));
+		}
+
+		$specialCode = trim($this->req->request("special_code"));
+		$game = trim($this->req->request("game"));
+		$beginDate = trim($this->req->request("begin_date"));
+		$endDate = trim($this->req->request("end_date"));
+		$sortType = $this->req->request("sort_type");
+		$type = empty($this->req->request("type")) ? 1 : $this->req->request("type");
+		
+		if ( !$beginDate ) $beginDate = date("Y-m-d",time());
+		if ( !$endDate ) $endDate = date("Y-m-d",time());
+	
+		$mModel = Lemon_Instance::getObject("MemberModel",true);
+		$gameListModel = Lemon_Instance::getObject("GameListModel",true);
+		$cModel = Lemon_Instance::getObject("CartModel",true);
+		$sn = $this->auth->getSn();
+
+		// 유저의 배팅취소개수 초기화
+		$mModel->clearBetCancelCnt($sn);
+
+		if ( !$specialCode ) $specialCode = "all";
+		//if($s_type != 0) $specialCode = $s_type;
+		//if ( $game == "sadari" ) $specialCode = 3;
+		//else if ( $game == "race" ) $specialCode = 4;
+		//else if ( $game == "powerball" ) $specialCode = 5;
+
+		switch( $sortType ) {
+			case 0: 	$total= $gameListModel->getBettingListTotal($sn, -1,  0, $queryBeginDate, $queryEndDate, $specialCode); $state = -1; 	break; // 전체 배팅내역
+			case 1: 	$total= $gameListModel->getBettingListTotal($sn,  0,  0, $queryBeginDate, $queryEndDate, $specialCode); $state = 0;		break; // 게임진행중 배팅내역
+			case 2: 	$total= $gameListModel->getBettingListTotal($sn,  1,  0, $queryBeginDate, $queryEndDate, $specialCode); $state = 1; 	break; // 게임완료 배팅내역	
+			case 10:	$total= $gameListModel->getBettingListTotal($sn,  10, 0, $queryBeginDate, $queryEndDate, $specialCode); $state = 10; 	break; // 당첨 배팅내역
+			case 11:	$total= $gameListModel->getBettingListTotal($sn,  11, 0, $queryBeginDate, $queryEndDate, $specialCode); $state = 11; 	break; // 낙첨 배팅내역
+		}
+
+		$page_act = "game=".$game."&begin_date=".$beginDate."&end_date=".$endDate."&sort_type=".$sortType;
+		
+		$pageMaker = $this->displayPage($total, 20, $page_act);
+
+		//$list = $gameListModel->getBettingList($sn, $pageMaker->first, $pageMaker->listNum, $chk_folder, $state, $queryBeginDate, $queryEndDate, $specialCode, 1);
+		$list = $gameListModel->getUserBettingList($sn, $type, 0, 20);
+		$listTotal = $gameListModel->getUserBettingListTotal($sn, $type);
+		
+		$this->view->assign("game", $game);
+		$this->view->assign("begin_date", $beginDate);
+		$this->view->assign("end_date", $endDate);
+		$this->view->assign("sort_type", $sortType);
+		$this->view->assign("specialCode", $specialCode);
+		$this->view->assign("type", $type);
+		$this->view->assign("list", $list);
+		$this->view->assign("listTotal", $listTotal);
+		$this->view->assign("api", "true");
+		$this->view->assign("uid", $user_id);
+		
+		$this->display();
+	}
+
+	public function betCancelProcessAction() {
+		$user_id = empty($this->request('userid')) ? "" : $this->request('userid');
+
+		$loginModel = $this->getModel("LoginModel");
+
+		if ( !$this->auth->isLogin() ) {
+			$loginModel->api_loginMember($user_id);
+			
+			$this->auth = Lemon_Instance::getObject("Lemon_Auth");
+			$this->auth->rSession = $_SESSION;
+		}
+
+		$bettingNo 	= empty($this->request('betting_no')) ? 0 : $this->request('betting_no');
+		$res = $this->checkbettingCancel($bettingNo);
+		if($res["status"] > 0) {
+			echo $res["msg"];
+		} else {
+			$uid = $this->auth->getId();
+			$pModel  = $this->getModel("ProcessModel");
+			$pModel->bettingCancelProcess($bettingNo, $uid);
+			echo "배팅이 취소되였습니다.";
+		}
+		
+	}
+
+	
+	public function checkbettingCancel($bettingNo) 
+	{
+		$configModel = $this->getModel("ConfigModel");
+		$gameModel = $this->getModel("GameModel");
+
+		$config = $configModel->getAdminConfig();
+		$cancelAfterTime = $config["bettingcanceltime"];
+		$cancelBeforeTime = $config["bettingcancelbeforetime"];
+		$cancelCnt = $config["bettingcancelcnt"];
+
+		$game_info = $gameModel->getGameByBettingNo($bettingNo);
+		$gameStartTime = strtotime($game_info[0]["gameDate"] . " " . $game_info[0]["gameHour"] . ":" . $game_info[0]["gameTime"] . ":00");
+		$bettingTime = strtotime($game_info[0]["regdate"]);
+		$nowTime = time();
+		$special = $game_info[0]["last_special_code"];
+		$live = $game_info[0]["live"];
+
+		$sn = $this->auth->getSn();
+		$todayCancelCnt = $gameModel->getTodayBettingCancelCnt($sn);
+
+		$existResult = $gameModel->existBettingResult($bettingNo);
+		
+		$res["status"] = 0;
+		$res["msg"] = "";
+
+		if($live == 1) {
+			$res["status"] = 4; 
+			$res["msg"] = "라이브배팅은 취소가 불가능합니다.";
+			return $res;
+		}
+		
+		if($todayCancelCnt >= $cancelCnt) {
+			$res["status"] = 3; 
+			$res["msg"] = "배팅취소는 하루 {$cancelCnt}번만 가능합니다.";
+			//$res["msg"] = "미안하지만 하루 배팅취소회수를 초과하였습니다.";
+			return $res;
+		}
+		
+		if($special < 5) {
+			if(($nowTime - $bettingTime) > $cancelAfterTime * 60) {
+				$res["status"] = 1; 
+				$res["msg"] = "배팅후 {$cancelAfterTime}분이내에만 취소가 가능합니다.";
+				return $res;
+			} 
+			
+			if (($gameStartTime - $nowTime) < $cancelBeforeTime * 60) {
+				$res["status"] = 2; 
+				$res["msg"] = "경기시작 {$cancelBeforeTime}분전까지만 취소가 가능합니다.";
+				return $res;
+			}
+		}
+
+		if($existResult > 0) {
+			$res["status"] = 5; 
+			$res["msg"] = "결과처리된 배팅은 취소가 불가능합니다.";
+			return $res;
+		}
+
+		return $res;
+
+	}
+
+	//▶ 내역삭제
+	public function betlisthideProcessAction()
+	{
+		$user_id = empty($this->request('userid')) ? "" : $this->request('userid');
+
+		$loginModel = $this->getModel("LoginModel");
+		
+		if ( !$this->auth->isLogin() ) {
+			$loginModel->api_loginMember($user_id);
+			
+			$this->auth = Lemon_Instance::getObject("Lemon_Auth");
+			$this->auth->rSession = $_SESSION;
+		}
+		
+		$sn = $this->auth->getSn();
+		$bettingNo 	= Trim($this->request('betting_no'));
+		
+		if(empty($bettingNo) || $bettingNo=='' || !$this->req->isNumberParameter($bettingNo))
+		{
+			echo "잘못된 인자입니다";
+			exit;
+		}
+		
+		$cartModel 	= $this->getModel("CartModel");
+		$rs = $cartModel->modifyViewState($sn, $bettingNo);
+		if($rs > 0)
+			echo "배팅내역이 삭제되었습니다.";
+		else {
+			$rs = $cartModel->modifyCancelViewState($sn, $bettingNo);
+			if($rs > 0)
+				echo "배팅내역이 삭제되었습니다.";
+			else 
+				echo "배팅내역 삭제에 실패하였습니다.";
+		}
+			
+	}
+
+	public function getBettingListAction() {
+
+		$user_id = empty($this->request('userid')) ? "" : $this->request('userid');
+
+		$loginModel = $this->getModel("LoginModel");
+		
+		if ( !$this->auth->isLogin() ) {
+			$loginModel->api_loginMember($user_id);
+			
+			$this->auth = Lemon_Instance::getObject("Lemon_Auth");
+			$this->auth->rSession = $_SESSION;
+		}
+
+		$type = empty($this->req->request("type")) ? 0 : $this->req->request("type");
+		$pc = empty($this->req->request("pc")) ? 0 : $this->req->request("pc");
+		$page_index = empty($this->req->request("page_index")) ? 0 : $this->req->request("page_index");
+		$sn = $this->auth->getSn();
+		$gameListModel = Lemon_Instance::getObject("GameListModel",true);
+		$list = $gameListModel->getUserBettingList($sn, $type, $page_index, 20);
+		$listTotal = $gameListModel->getUserBettingListTotal($sn, $type);
+
+		$table = "";
+		if($pc > 0) {
+			if(count((array)$list) > 0) {
+				foreach($list as $TPL_K1 => $TPL_V1) {
+					$table .= '<table class="st10">
+								<colgroup>
+									<col style="width: 12%;">
+									<col style="width: 22%;">
+									<col style="width: 19%;">
+									<col style="width: 11%;">
+									<col style="width: 17%;">
+									<col style="width: 6%;">
+									<col style="width: 6%;">
+									<col>
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">경기시간</th>
+										<th scope="col">리그명</th>
+										<th scope="col">홈팀 VS 원정팀</th>
+										<th scope="col">타입</th>
+										<th scope="col">베팅팀</th>
+										<th scope="col">스코어</th>
+										<th scope="col">배당</th>
+										<th class="last" scope="col">상태</th>
+									</tr>
+								</thead>
+								<tbody>';
+					$enableBettingCancel = 0;  		
+					if(count((array)$TPL_V1["item"]) > 0) {
+						$battingJT = "0";
+						foreach ( $TPL_V1["item"] as $TPL_V2 ) {
+							if ( $TPL_V2["home_rate"] < 1.01 and $TPL_V2["draw_rate"] < 1.1 and $TPL_V2["away_rate"] < 1.1  ) {
+								$TPL_V2["home_rate"] = $TPL_V2["game_home_rate"];
+								$TPL_V2["draw_rate"] = $TPL_V2["game_draw_rate"];
+								$TPL_V2["away_rate"] = $TPL_V2["game_away_rate"];
+								$battingJT = "1";
+							}
+							$table .= '<tr data-game_id="1731940" data-fid="6967104" data-mid="1" data-gb_id="25322682" data-betid="20609690316967104">';
+							$table .= '<td>' . $TPL_V2["gameDate"] . ' ' . $TPL_V2["gameHour"] . ' : ' . $TPL_V2["gameTime"] . '</td>';
+							$table .= '<td class="txt_left st_padl5">';
+							$table .= '<img src="/BET38/_icon/sport/S' . $TPL_V2["sport_id"] . '.png" width="23">&nbsp;';
+							if($TPL_V2["league_image"] == "")
+								$table .= '<img src="/BET38/_icon/etc.svg" width="23">&nbsp;';
+							else 
+								$table .= '<img src="' . $TPL_V2["league_image"] . '" width="23" >&nbsp;&nbsp;';
+							$table .= '<span>' . $TPL_V2["league_name"] . '</span>'; 
+							$table .= '</td>';
+							$table .= '<td class="txt_left st_padl5">';
+							$table .= '<div>';
+							$table .= '<span class="txt_co6">홈팀</span> : ' . $TPL_V2["home_team"];
+							$table .= '</div>';
+							$table .= '<div class="padding-top-5"><span class="txt_co71">원팀</span> : ' . $TPL_V2["away_team"]  . '</td></div>';
+							$pieces = explode("|", $TPL_V2["mname_ko"]);
+							switch($TPL_V2["sport_id"]) {
+								case 6046: // 축구
+									$table .= '<td>' . $pieces[0] . '</td>';
+									break;
+								case 48242: // 농구
+									$table .= '<td>' . $pieces[1] . '</td>';
+									break;
+								case 154914: // 야구
+									$table .= '<td>' . $pieces[2] . '</td>';
+									break;
+								case 154830: // 배구
+									$table .= '<td>' . $pieces[3] . '</td>';
+									break;
+								case 35232: // 아이스 하키
+									$table .= '<td>' . $pieces[4] . '</td>';
+									break;
+								case 687890: // E스포츠
+									$table .= '<td>' . $pieces[5] . '</td>';
+									break;
+								default:
+									$table .= '<td>' . $pieces[0] . '</td>';
+									break;
+							}
+							$table .= '<td class="txt_ac st_padl5">';
+							switch($TPL_V2["mfamily"]) {
+								case "1":
+								case "2":
+									if($TPL_V2["select_no"] == "1")
+										$table .= '<span class="txt_co6">(홈)</span>  ' . $TPL_V2["home_team"];
+									else if($TPL_V2["select_no"] == "2") 
+										$table .= '<span class="txt_co6">(원)</span>  ' . $TPL_V2["away_team"];                       
+									else if($TPL_V2["select_no"] == "3")                        
+										$table .= '(무) 무승부'; 
+									break;
+								case "7":
+									if($TPL_V2["select_no"] == "1") {
+										$table .= '언더 <span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+									} else if($TPL_V2["select_no"] == "2") {
+										$table .= '오버 <span class="txt_co6">(' . $TPL_V2["away_line"] . ')</span>'; 
+									}
+									break;
+								case "8":
+									if($TPL_V2["select_no"] == "1") {
+										$home_line = explode(" ", $TPL_V2["home_line"]);
+										$table .= $TPL_V2["home_team"] . '<span class="txt_co6">(' . $home_line[0] . ')</span>';
+									} else if($TPL_V2["select_no"] == "2") {
+										$away_line = explode(" ", $TPL_V2["away_line"]);
+										$table .= $TPL_V2["away_team"] . '<span class="txt_co6">(' . $away_line[0] . ')</span>'; 
+									}
+									break;
+								case "10":
+									if($TPL_V2["select_no"] == "1")
+										$table .= '홀수';
+									else if($TPL_V2["select_no"] == "2") 
+										$table .= '짝수'; 
+									break;
+								case "11":
+									$table .= $TPL_V2["home_name"];
+									break;
+								case "12":
+									if($TPL_V2["select_no"] == "1")
+										$table .= '승무';
+									else if($TPL_V2["select_no"] == "2") 
+										$table .= '무패';                       
+									else if($TPL_V2["select_no"] == "3")                        
+										$table .= '승패'; 
+									break;
+								case "47":
+									if($TPL_V2["home_name"] == "1 And Under")
+										$table .= '홈승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+									else if($TPL_V2["home_name"] == "1 And Over") 
+										$table .= '홈승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';                       
+									else if($TPL_V2["home_name"] == "2 And Under")                        
+										$table .= '원정승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>'; 
+									else if($TPL_V2["home_name"] == "2 And Over")
+										$table .= '원정승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+									else if($TPL_V2["home_name"] == "3 And Under")
+										$table .= '무 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+									else if($TPL_V2["home_name"] == "3 And Over")
+										$table .= '무 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+									break;
+							}
+										
+							$table .= '</td>';
+							if($type == 2) 
+								$table .= '<td><span class="txt_co6">' . $TPL_V2["score"] . '</span></td>';
+							else 
+								$table .= '<td><span class="txt_co6">' . $TPL_V2["home_score"] . ':' . $TPL_V2["away_score"] . '</span></td>';
+							$table .= '<td>' . $TPL_V2["select_rate"] . ' 배</td>';
+							if($battingJT)
+								$table .= '<td rowspan="1"><span class="bt_none5 bt_45_none">적특</span></td>';
+							else if($TPL_V2["result"] == "1")
+								$table .= '<td rowspan="1"><span class="bt_none6 bt_45_none">당첨</span></td>';
+							else if($TPL_V2["result"] == "2")
+								$table .= '<td rowspan="1"><span class="bt_none3 bt_45_none">낙첨</span></td>';
+							else if($TPL_V2["result"] == "4")
+								$table .= '<td rowspan="1"><span class="bt_none5 bt_45_none" style="color:#e44e4e !important;">취소</span></td>';
+							else 
+								$table .= '<td rowspan="1"><span class="bt_none1 bt_45_none">진행</span></td>';
+							$table .= '</tr>';
+							$table .= '<tr id="Fid2996007" class="st_hide_list"></tr>'; 
+							
+							if($TPL_V2["result"] > 0) 
+								$enableBettingCancel = 1;
+						} 
+					}
+					
+					$table .= '</tbody>
+							</table>
+							<div class="st_b_result" data-oid="1605133">';
+					$table .= '베팅접수시간 : <span class="txt_co3 st_padr10">' . $TPL_V1["bet_date"] . '</span>';
+					$table .= '예상당첨금액 : <span class="txt_co3 st_padr10">(베팅 ' . $TPL_V1["betting_money"] . ' x 배당 ' . $TPL_V1["result_rate"] .') = ' . $TPL_V1["win_money"] . '</span>';
+					$table .= '결과당첨금액 : <span class="txt_co3 st_padr10">' . $TPL_V1["result_money"] . '</span>';
+					if($TPL_V1["result"] == "1") {
+						$table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('" . $TPL_K1 . "')>베팅내역삭제</span>";
+						$table .= '<span class="bt_45_none bt_none6 f_right st_mart5">당첨</span>';
+					} else if($TPL_V1["result"] == "2") {
+						$table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('" . $TPL_K1 . "')>베팅내역삭제</span>";
+						$table .= '<span class="bt_45_none bt_none3 f_right st_mart5">낙첨</span>';
+					} else if($TPL_V1["result"] == "4") {
+						$table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=hide_bet('" . $TPL_K1 . "')>베팅내역삭제</span>";
+						$table .= '<span class="bt_45_none bt_none5 f_right st_mart5" style="color:#e44e4e !important;">취소</span>';
+					} else {
+						if($type < 2 && $enableBettingCancel == 0)
+							$table .= "<span class='bt_100 bt_gray f_right txt_size st_mart5 st_marl5 pointer' onclick=cancel_bet('" . $TPL_K1 . "')>베팅취소</span>";
+						$table .= '<span class="bt_45_none bt_none1 f_right st_mart5">진행</span>';
+					}
+					$table .= '</td></div>';
+				}
+			}
+		} else {
+			foreach($list as $TPL_K1 => $TPL_V1) { 
+				$table .= '<table class="st10">
+								<colgroup>
+									<col style="width:30%">
+									<col style="width:30%">
+									<col style="width:30%">
+									<col style="width:10%">
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">리그/시간</th>
+										<th scope="col">팀명/베팅항목</th>
+										<th scope="col">타입/상태</th>
+										<th scope="col" class="last">결과</th>
+									</tr>
+								</thead>
+								<tbody>';
+
+				$enableBettingCancel = 0; 
+				if(count((array)$TPL_V1["item"]) > 0) {
+					$battingJT = "0";
+					foreach ( $TPL_V1["item"] as $TPL_V2 ) {
+						if ( $TPL_V2["home_rate"] < 1.01 and $TPL_V2["draw_rate"] < 1.1 and $TPL_V2["away_rate"] < 1.1  ) {
+							$TPL_V2["home_rate"] = $TPL_V2["game_home_rate"];
+							$TPL_V2["draw_rate"] = $TPL_V2["game_draw_rate"];
+							$TPL_V2["away_rate"] = $TPL_V2["game_away_rate"];
+							$battingJT = "1";
+						}
+						$table .= '<tr><td>';
+						$table .= '<img src="/BET38/_icon/sport/S' . $TPL_V2["sport_id"] . '.png" width="20">&nbsp;';
+						if($TPL_V2["league_image"] == "")
+							$table .= '<img src="/BET38/_icon/etc.svg" width="20">&nbsp;';
+						else 
+							$table .= '<img src="' . $TPL_V2["league_image"] . '" width="20">&nbsp;';
+						$table .= $TPL_V2["league_name"];
+						$table .= '</td>';
+						$table .= '<td class="_left">';
+						$table .= '<span class="txt_co6">홈팀</span> : ' . $TPL_V2["home_team"] . '<br>';
+						$table .= '<span class="txt_co71">원팀</span> : ' . $TPL_V2["away_team"] . '</td>';			
+						$pieces = explode("|", $TPL_V2["mname_ko"]);
+						switch($TPL_V2["sport_id"]) {
+							case 6046: // 축구
+								$table .= '<td>' . $pieces[0] . '</td>';
+								break;
+							case 48242: // 농구
+								$table .= '<td>' . $pieces[1] . '</td>';
+								break;
+							case 154914: // 야구
+								$table .= '<td>' . $pieces[2] . '</td>';
+								break;
+							case 154830: // 배구
+								$table .= '<td>' . $pieces[3] . '</td>';
+								break;
+							case 35232: // 아이스 하키
+								$table .= '<td>' . $pieces[4] . '</td>';
+								break;
+							case 687890: // E스포츠
+								$table .= '<td>' . $pieces[5] . '</td>';
+								break;
+							default:
+								$table .= '<td>' . $pieces[0] . '</td>';
+								break;
+						}
+						$table .= '<td class="td_de" rowspan="2">';
+						if($battingJT)
+							$table .= '<span class="bt_none5 bt_45_none txt_co23">적특</span>';
+						else if($TPL_V2["result"] == "1")
+							$table .= '<span class="bt_none6 bt_45_none txt_co23">당첨</span>';
+						else if($TPL_V2["result"] == "2")
+							$table .= '<span class="bt_none3 bt_45_none txt_co23">낙첨</span>';
+						else if($TPL_V2["result"] == "4")
+							$table .= '<span class="bt_none5 bt_45_none txt_co23" style="color:#e44e4e !important;">취소</span>';
+						else 
+							$table .= '<span class="bt_none1 bt_45_none txt_co23">진행</span>';
+						$table .= '</td></tr>';
+						
+						$table .= '<tr>';
+						$table .= '<td>' . $TPL_V2["gameDate"] . ' ' . $TPL_V2["gameHour"] . ' : ' . $TPL_V2["gameTime"] . '</td>';
+						$table .= '<td class="_left">';		 
+						switch($TPL_V2["mfamily"]) {
+							case "1":
+							case "2":
+								if($TPL_V2["select_no"] == "1")
+									$table .= '<span class="txt_co6">(홈)</span>  ' . $TPL_V2["home_team"];
+								else if($TPL_V2["select_no"] == "2") 
+									$table .= '<span class="txt_co6">(원)</span>  ' . $TPL_V2["away_team"];                       
+								else if($TPL_V2["select_no"] == "3")                        
+									$table .= '(무) 무승부'; 
+								break;
+							case "7":
+								if($TPL_V2["select_no"] == "1") {
+									$table .= '언더 <span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+								} else if($TPL_V2["select_no"] == "2") {
+									$table .= '오버 <span class="txt_co6">(' . $TPL_V2["away_line"] . ')</span>'; 
+								}
+								break;
+							case "8":
+								if($TPL_V2["select_no"] == "1") {
+									$home_line = explode(" ", $TPL_V2["home_line"]);
+									$table .= $TPL_V2["home_team"] . '<span class="txt_co6">(' . $home_line[0] . ')</span>';
+								} else if($TPL_V2["select_no"] == "2") {
+									$away_line = explode(" ", $TPL_V2["away_line"]);
+									$table .= $TPL_V2["away_team"] . '<span class="txt_co6">(' . $away_line[0] . ')</span>'; 
+								}
+								break;
+							case "10":
+								if($TPL_V2["select_no"] == "1")
+									$table .= '홀수';
+								else if($TPL_V2["select_no"] == "2") 
+									$table .= '짝수'; 
+								break;
+							case "11":
+								$table .= $TPL_V2["home_name"];
+								break;
+							case "12":
+								if($TPL_V2["select_no"] == "1")
+									$table .= '승무';
+								else if($TPL_V2["select_no"] == "2") 
+									$table .= '무패';                       
+								else if($TPL_V2["select_no"] == "3")                        
+									$table .= '승패'; 
+								break;
+							case "47":
+								if($TPL_V2["home_name"] == "1 And Under")
+									$table .= '홈승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+								else if($TPL_V2["home_name"] == "1 And Over") 
+									$table .= '홈승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';                       
+								else if($TPL_V2["home_name"] == "2 And Under")                        
+									$table .= '원정승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>'; 
+								else if($TPL_V2["home_name"] == "2 And Over")
+									$table .= '원정승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+								else if($TPL_V2["home_name"] == "3 And Under")
+									$table .= '무 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+								else if($TPL_V2["home_name"] == "3 And Over")
+									$table .= '무 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
+								break;
+						}
+						$table .= '</td>';
+						if($type == 2) 
+							$table .= '<td><span class="txt_co6">' . $TPL_V2["score"] . '</span></td>';
+						else 
+							$table .= '<td><span class="txt_co6">' . $TPL_V2["home_score"] . ':' . $TPL_V2["away_score"] . '</span></td>';
+						$table .= '</tr>';
+						$table .= '<tr id="Fid3628815" class="st_hide_list"></tr>';
+
+						if($TPL_V2["result"] > 0) 
+							$enableBettingCancel = 1;
+					}
+				}
+				$table .= '</tbody>
+						</table>
+						<div class="betting_cart_btn4 clearfix"><ul>';
+				$table .= '<li class="betting_cart_40 betting_cart_bgno">베팅시간 : <span class="txt_co6">' . substr($TPL_V1["bet_date"], 5) . '</span></li>';
+				$table .= '<li class="betting_cart_40 betting_cart_bgno">베팅금 : <span class="txt_co6 st_marr15">' . $TPL_V1["betting_money"] . ' 원</span></li>';
+				$table .= '<li class="betting_cart_40 betting_cart_bgno">배당률 : <span class="txt_co6">' . $TPL_V1["result_rate"] .'</span></li>';
+				$table .= '<li class="betting_cart_40 betting_cart_bgno">예상당첨금 : <span class="txt_co3  st_marr15">' . $TPL_V1["win_money"] . ' 원</span></li>';
+				$table .= '<li class="betting_cart_40 betting_cart_bgno">당첨금 : <span class="txt_co3">' . $TPL_V1["result_money"] . ' 원</span></li>';
+				$table .= '<li class="betting_cart_40 betting_cart_bgno">상태 : ';
+
+				if($TPL_V1["result"] == "1")
+					$table .= '<span class="st_marl5 bt_none6 bt_45_none txt_none3">당첨</span>';
+				else if($TPL_V1["result"] == "2")
+					$table .= '<span class="st_marl5 bt_none3 bt_45_none txt_none3">낙첨</span>';
+				else if($TPL_V1["result"] == "4")
+					$table .= '<span class="st_marl5 bt_none5 bt_45_none txt_none3" style="color:#e44e4e !important;">취소</span>';
+				else
+					$table .= '<span class="st_marl5 bt_none1 bt_45_none txt_none3">진행</span>';
+				
+				$table .= '</li>';
+				$table .= '<li class="betting_cart_20 betting_cart_bgno">';
+				if($TPL_V1["result"] > 0)
+					$table .= "<span class='st_marl5 bt_none5 bt_45_none txt_none3' onclick=hide_bet('" . $TPL_K1 . "')>내역삭제</span>";
+				else {
+					if($type < 2 && $enableBettingCancel == 0)
+						$table .= "<span class='st_marl5 bt_none5 bt_45_none txt_none3' onclick=cancel_bet('" . $TPL_K1 . "')>배팅취소</span>";
+				}
+				$table .= '</li></ul>
+						</div>';
+			}
+		}
+		echo $table;
+	}
+
 	public function getRecentBettingListAction() {
+		$user_id = empty($this->request('userid')) ? "" : $this->request('userid');
+
+		$loginModel = $this->getModel("LoginModel");
+		
+		if ( !$this->auth->isLogin() ) {
+			$loginModel->api_loginMember($user_id);
+			
+			$this->auth = Lemon_Instance::getObject("Lemon_Auth");
+			$this->auth->rSession = $_SESSION;
+		}
+
 		$game = $this->request('game');
 
 		$specialType = 0;
@@ -1287,564 +1577,30 @@ class ApiController extends WebServiceController
 		echo $dom;
 	}
 
-	//-> 파워볼 최근경기 결과 5개.
-	public function powerball_result_graphAction() {
-		$this->commonDefine('ladder_graph');
+	function getMiniGameResultAction() {
+		$user_id = empty($this->request('userid')) ? "" : $this->request('userid');
+
+		$loginModel = $this->getModel("LoginModel");
 		
 		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
+			$loginModel->api_loginMember($user_id);
+			
+			$this->auth = Lemon_Instance::getObject("Lemon_Auth");
+			$this->auth->rSession = $_SESSION;
 		}
 
-		$gameListModel = $this->getModel("GameListModel");
-		$power_result_list = $gameListModel->getPowerResultList(5);
-		echo json_encode($power_result_list);
-	}
+		date_default_timezone_set("Asia/Seoul");
 
-	//-> 사다리 그래프
-	public function sadari_result_graphAction() {
-		$this->commonDefine('ladder_graph');
-		
-		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
+		$sn = $this->auth->getSn();
+		$betting_list = [];
+		if($sn != "") {
+			$gameListModel = $this->getModel("GameListModel");
+			$special_type = empty($this->request("special_type")) ? 0 : $this->request("special_type");
+			$today = date("Y-m-d");
+			$betting_list = $gameListModel->getMinigameResult($this->auth->getSn(), $special_type, $today);
 		}
-
-		$gameListModel = $this->getModel("GameListModel");
-		$sadari_result = json_encode($gameListModel->getSadariResult());
-		if ( !$sadari_result ) $sadari_result = "[]";
-
-		$this->view->assign('sadari_result', $sadari_result);
-		$this->display();
+		echo json_encode((array)$betting_list);
 	}
 
-	//-> 다리다리 그래프
-	public function dari_result_graphAction() {
-		$this->commonDefine('ladder_graph');
-		
-		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
-		}
-
-		$gameListModel = $this->getModel("GameListModel");
-		$sadari_result = json_encode($gameListModel->getDariResult());
-		if ( !$sadari_result ) $sadari_result = "[]";
-
-		$this->view->assign('sadari_result', $sadari_result);
-		$this->display();
-	}
-
-    //-> 알라딘 그래프
-    public function aladin_result_graphAction() {
-        $this->commonDefine('ladder_graph_aladin');
-
-        if ( !$this->auth->isLogin() ) {
-            $this->loginAction();
-            exit;
-        }
-
-        $gameListModel = $this->getModel("GameListModel");
-        $result = json_encode($gameListModel->getAladinResult());
-        if ( !$result ) $result = "[]";
-
-        $this->view->assign('graphData', $result);
-        $this->display();
-    }
-
-    //-> 2다리 그래프
-    public function dari2_result_graphAction() {
-        $this->commonDefine('ladder_graph_2dari');
-
-        if ( !$this->auth->isLogin() ) {
-            $this->loginAction();
-            exit;
-        }
-
-        $gameListModel = $this->getModel("GameListModel");
-        $result = json_encode($gameListModel->get2DariResult());
-        if ( !$result ) $result = "[]";
-
-        $this->view->assign('graphData', $result);
-        $this->display();
-    }
-
-    //-> 3다리 그래프
-    public function dari3_result_graphAction() {
-        $this->commonDefine('ladder_graph_3dari');
-
-        if ( !$this->auth->isLogin() ) {
-            $this->loginAction();
-            exit;
-        }
-
-        $gameListModel = $this->getModel("GameListModel");
-        $result = json_encode($gameListModel->get3DariResult());
-        if ( !$result ) $result = "[]";
-
-        $this->view->assign('graphData', $result);
-        $this->display();
-    }
-
-	//▶ 라이브스코어
-	public function livescoreAction() {
-		$this->commonDefine('ladder');
-		
-		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
-		}	
-
-		$this->view->define(array("content"=>"content/livescore.html"));
-		$this->displayRight();
-		$this->display();
-	}
-
-    //-> 파워사다리 그래프
-    public function powersadari_result_graphAction() {
-        $this->commonDefine('ladder_graph_powersadari');
-
-        if ( !$this->auth->isLogin() ) {
-            $this->loginAction();
-            exit;
-        }
-
-        $gameListModel = $this->getModel("GameListModel");
-        $result = json_encode($gameListModel->getPowerSadariResult());
-        if ( !$result ) $result = "[]";
-
-        $this->view->assign('graphData', $result);
-        $this->display();
-    }
-
-	public function fx1_result_graphAction() {
-		$this->commonDefine('ladder_graph_fx');
-
-		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
-		}
-
-		$gameListModel = $this->getModel("GameListModel");
-		$result = json_encode($gameListModel->getFxResult("1"));
-		if ( !$result ) $result = "[]";
-
-		$this->view->assign('graphData', $result);
-		$this->display();
-	}
-
-    //-> 키노사다리 그래프
-    public function kenosadari_result_graphAction() {
-        $this->commonDefine('ladder_graph_kenosadari');
-
-        if ( !$this->auth->isLogin() ) {
-            $this->loginAction();
-            exit;
-        }
-
-        $gameListModel = $this->getModel("GameListModel");
-        $result = json_encode($gameListModel->getKenoSadariResult());
-        if ( !$result ) $result = "[]";
-
-        $this->view->assign('graphData', $result);
-        $this->display();
-    }
-
-	//▶ FAQ 페이지
-	public function game_faqAction() {
-		$this->commonDefine('ladder');
-		
-		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
-		}	
-
-		$this->view->define(array("content"=>"content/game_faq.html"));
-		$this->displayRight();
-		$this->display();
-	}
-
-    //▶ 게임가이드 페이지
-    public function bet365_soccerAction() {
-        $this->popupDefine();
-
-        if ( !$this->auth->isLogin() ) {
-            $this->loginAction();
-            exit;
-        }
-
-        $game = $this->request('src');
-        $this->view->assign("src", $game);
-        $this->view->define(array("content"=>"content/bet365_soccer.html"));
-        $this->display();
-    }
-
-	//▶ 게임가이드 페이지
-	public function game_guideAction() {
-		$this->commonDefine('graph');
-		
-		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
-		}	
-		
-		$boardModel = Lemon_Instance::getObject("BoardModel", true);
-		$list = $boardModel->getGuide();
-		$this->view->assign("list", $list);
-		$this->view->define(array("content"=>"content/game_guide.html"));
-		$this->displayRight();
-		$this->display();
-	}
-
-	//▶ 로그아웃
-	function logoutAction()
-	{
-		if($this->auth->isLogin())
-			session_destroy();
-		
-		$this->redirect('/');
-	}
-
-	//▶ 로그인 처리
-	public function loginProcessAction()
-	{
-		$model 		= Lemon_Instance::getObject("LoginModel",true);
-
-		$id = $this->req->post('uid');
-		$passwd = $this->req->post('upasswd');
-
-		if(strpos($id, "'")!==false)
-		{
-			throw new Lemon_ScriptException("잘못된 인자입니다");
-			exit;
-		}
-
-		$result = $model->loginMember($id, $passwd);
-
-		if ( 1 == $result ) {
-			$this->redirect("/");
-		} else if ( 0 == $result ) {
-			throw new Lemon_ScriptException("계정정보를 확인 바랍니다");
-		} else if ( 2 == $result ) {
-			throw new Lemon_ScriptException("접근금지 아이피입니다. 관리자에게 문의 하십시요.");
-		} else if ( 3 == $result ) {
-			throw new Lemon_ScriptException('죄송합니다. 고객님은 신규회원으로서 관리자 검토후 로그인가능합니다. \\n \\n검토중이니 잠시뒤에 다시 로그인 시도를 하여주십시오.');
-		} else if ( 4 == $result ) {
-			throw new Lemon_ScriptException('죄송합니다. 고객님은 사용 중지 상태입니다. 관리자에게 문의하십시오!');
-		} else if ( 5 == $result) {
-			throw new Lemon_ScriptException('계정정보를 확인 바랍니다.');
-		} else if ( 6 == $result ) {
-			throw new Lemon_ScriptException('제한된 도메인 입니다.');
-		} else if ( 7 == $result ) {
-			throw new Lemon_ScriptException('너무 짧은 시간에 많은 로그인을 하셨습니다.\n\n잠시후에 다시 시도해주세요.');
-		}
-	}
-	
-	//▶ 메모 목록
-	function memoProcessAction()
-	{
-		if(!$this->auth->isLogin())
-		{
-			$this->loginAction();
-			exit;
-		}
-	
-		$memoModel = Lemon_Instance::getObject("MemoModel", true);
-		$mode 	= $this->request('mode');
-		
-		
-		if($mode=="delete")
-		{
-			$sn 	= $this->request('memo_sn');
-			$rs = $memoModel->delMemo($sn);	
-			if($rs>0)
-			{
-				throw new Lemon_ScriptException("삭제 되였습니다",'','go','/');
-				exit;
-			}
-			else
-			{
-				throw new Lemon_ScriptException("오류가 있습니다.");				
-				exit;
-			}
-		}
-		elseif($mode=="confirm")
-		{
-			$sn 	= $this->request('memo_sn');
-			$rs = $memoModel->modifyMemoRead($sn);
-			if($rs>0)
-			{
-				throw new Lemon_ScriptException("확인처리 되었습니다",'','go','/');
-				exit;
-			}
-			else
-			{
-				throw new Lemon_ScriptException("오류가 있습니다.");				
-				exit;
-			}
-		}
-		else
-			throw new Lemon_ScriptException("잘못된 인자입니다.",'','go','/');
-	}
-
-	function maintainAction()
-	{
-		$this->commonDefine('maintain');
-		$this->view->define(array("content"=>"content/maintain.html"));
-		
-		$this->display();
-	}
-
-	public function getServerTimeAction() {
-		$result = array();
-		$result["result"]	= "error";
-		$result["h_time"] = (time()+30)."000";
-		$result["result"]	= "ok";
-		echo json_encode($result);
-	}
-
-	function eventAction()
-	{
-		$this->commonDefine('event');
-		$this->view->define(array("content"=>"content/event.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$configModel = Lemon_Instance::getObject("ConfigModel", true);
-		$list = $configModel->getEventRows("*", " is_use='Y'");
-
-		$this->view->assign('list', $list);
-
-		$this->display();
-	}
-
-	function slotAction()
-	{
-		$this->commonDefine('slot');
-		$this->view->define(array("content"=>"content/slot.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$this->display();
-	}
-
-	function graphAction()
-	{
-		$this->commonDefine('graph');
-		$this->view->define(array("content"=>"content/graph.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$configModel = Lemon_Instance::getObject("ConfigModel", true);
-		$list = $configModel->getEventRows("*", " is_use='Y'");
-
-		$this->view->assign('list', $list);
-
-		$this->display();
-	}
-
-	
-	function pokerAction()
-	{
-		$this->commonDefine('poker');
-		$this->view->define(array("content"=>"content/poker.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$this->display();
-	}
-
-	function casino_slotAction()
-	{
-		$this->commonDefine('casino');
-		$this->view->define(array("content"=>"content/casino_slot.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$this->display();
-	}
-
-	function virtualgameAction()
-	{
-		$this->commonDefine('virtualgame');
-		$this->view->define(array("content"=>"content/virtualgame.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$this->display();
-	}
-
-	function minigameAction()
-	{
-		$this->commonDefine('login');
-
-		if($this->isMobile() == "pc") {
-			$this->view->define(array("content"=>"content/minigame.html"));
-		} else {
-			$this->view->define(array("content"=>"content/minigame_m.html"));
-		}
-		
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$logo = $this->request('logo');
-
-        if($logo=='')
-            $logo = $this->logo;
-
-		$model = $this->getModel("ConfigModel");
-        $list = $model->getMiniConfigRow("*", "", $logo);
-
-        $this->view->assign( "miniSetting", $list);
-        $this->view->assign("api", "true");
-
-		$this->display();
-	}
-
-	function bokAction()
-	{
-		$this->commonDefine('graph');
-		$this->view->define(array("content"=>"content/bok.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$this->display();
-	}
-
-	function couponAction()
-	{
-		$this->commonDefine('join');
-		$this->view->define(array("content"=>"content/coupon.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$this->display();
-	}
-
-	function xpointAction()
-	{
-		$this->commonDefine('join');
-		$this->view->define(array("content"=>"content/xpoint.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$this->display();
-	}
-
-	function recommandAction()
-	{
-		$this->commonDefine('graph');
-		$this->view->define(array("content"=>"content/recommand.html"));
-
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$this->display();
-	}
-	
-	function recent_resultAction() {
-        echo file_get_contents('http://ntry.com/data/json/games/powerball/recent_result.json');
-    }
-
-    function nchat_room_listAction() {
-        echo file_get_contents('http://ntry.com/data/json/games/nchat_room_list.json');
-    }
-
-    function distAction() {
-        echo file_get_contents('http://ntry.com/data/json/games/dist.json');
-    }
-
-    function sync_clockAction() {
-        echo '[]';
-    }
-
-    function abc_bannerAction() {
-        echo file_get_contents('http://ntry.com/data/json/games/abc_banner.json');
-    }
-
-    function cautionAction() {
-        echo file_get_contents('http://ntry.com/data/json/games/powerball/caution.json');
-    }
-
-    function resultAction() {
-        echo file_get_contents('http://ntry.com/data/json/games/powerball/result.json');
-    }
-
-	function apiAction() {		
-		if(!$this->auth->isLogin())
-		{
-			// $this->redirect("/login");
-			$this->loginAction();
-			exit;
-		}
-
-		$game = $this->request('game');
-		
-		if ( $game == "sports" ) {
-			$this->commonDefine('winlose');
-			$this->view->define(array("content"=>"content/game_list.html"));
-			$this->displayRight("multi");
-		} 
-
-		$crossLimitCnt = 0;
-
-		$this->view->assign("crossLimitCnt", $crossLimitCnt);
-
-		$this->display();
-	}
 }
 ?>

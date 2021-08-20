@@ -92,12 +92,12 @@ if($isApi == "true")  {?>
                 <li class="espo li-height">
                     <img src="/10bet/images/10bet/ico/esport-ico.png" alt="ico"  style="margin-top:14px;"/> 
                     <?php if(count((array)$_SESSION['member']) > 0) { ?>
-                        <a href="/game_list?game=<?=$TPL_VAR['game_type']?>&sport=esports" style="color: white;">
+                        <a href="javascript:void(0)" style="color: white;">
                     <?php } else { ?>
                         <a href="javascript:login_open();" style="color: white;">
                     <?php } ?>
                     
-                    <span class="name pc-name">E스포츠</span>
+                    <span class="name pc-name">E-sports</span>
                     <span class="count count-top on total_count_espo">0</span></a>
                 </li>
                 <div class="div_espo">

@@ -13,7 +13,11 @@ if($isApi == "true")  {?>
             <?php 
             if($TPL_VAR["miniSetting"]["power_use"]==1){?>
                 <li>
-                    <a href="/game_list?game=power">
+                    <?php if($TPL_VAR["api"] == "true") { ?>
+                        <a href="/api/game_list?game=power&userid=<?=$TPL_VAR["uid"]?>">
+                    <?php } else { ?>
+                        <a href="/game_list?game=power">
+                    <?php } ?>
                         <div class="menu01 <?= $TPL_VAR["game_type"] == 'power' ? 'on' : ''; ?>">
                             <img src="/10bet/images/10bet/ico/ico_powerball_01.png" alt="ico" /> 
                             파워볼									
@@ -23,7 +27,11 @@ if($isApi == "true")  {?>
             <?php } 
             if($TPL_VAR["miniSetting"]["powersadari_use"]==1){?>
                 <li>
-                    <a href="/game_list?game=psadari">
+                    <?php if($TPL_VAR["api"] == "true") { ?>
+                        <a href="/api/game_list?game=psadari&userid=<?=$TPL_VAR["uid"]?>">
+                    <?php } else { ?>
+                        <a href="/game_list?game=psadari">
+                    <?php } ?>
                         <div class="menu01 <?= $TPL_VAR["game_type"] == 'psadari' ? 'on' : ''; ?>">
                             <img src="/10bet/images/10bet/ico/ico_powersadari_01.png" alt="ico" /> 
                             파워사다리									

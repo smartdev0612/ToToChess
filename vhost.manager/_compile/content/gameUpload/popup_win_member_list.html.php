@@ -189,6 +189,9 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 											case 35232: // 아이스 하키
 												echo $pieces[4];
 												break;
+											case 687890: // E스포츠
+												echo $pieces[5];
+												break;
 										}
 									?>
 									</td>

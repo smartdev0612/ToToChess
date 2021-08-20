@@ -46,6 +46,9 @@
                             case 154830:
                                 tr += "<td>" + pieces[3] + "</td>";
                                 break;
+                            case 687890:
+                                tr += "<td>" + pieces[5] + "</td>";
+                                break;
                             default: 
                                 tr += "<td>" + pieces[0] + "</td>";
                                 break;
@@ -188,6 +191,9 @@
                                     break;
                                 case 154830: // 배구
                                     echo $pieces[3];
+                                    break;
+                                case 687890: // E스포츠
+                                    echo $pieces[5];
                                     break;
                                 default:
                                     echo $pieces[0];

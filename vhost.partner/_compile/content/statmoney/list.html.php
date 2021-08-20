@@ -55,7 +55,7 @@
 		<div style="float:right;">
 			<form method='post' name='texForm' action='?act=tex_exchange' onSubmit="return submit_tex_money(this);">
 			보유정산금 : <font color="red"><?php echo number_format($TPL_VAR["parentInfo"]["rec_money"],0);?></font> 원 | 
-			<input type="text" name="tex_exchange_money" value="<?php echo $TPL_VAR["parentInfo"]["rec_money"];?>" style="width:80px;"> <input type="submit" name="tex_submit" value="출금신청">
+			<input type="text" name="tex_exchange_money" value="<?php echo $TPL_VAR["parentInfo"]["rec_money"];?>" style="width:80px;"> <input type="submit" name="tex_submit" value="출금신청" <?=($TPL_VAR["parentInfo"]["rec_money"] < 0) ? "disabled" : ""?>>
 			</form>
 		</div>
 	</div> 

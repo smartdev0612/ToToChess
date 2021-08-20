@@ -1,15 +1,23 @@
 $j().ready(function(){
+    sendPacket(PACKET_SPORT_LIST, JSON.stringify(packet));
+
     $j("#btnConfirm").on("click", function() {
         betUserCancel_popup_close();
         var betting_no = $j("#betting_no").val();
         var type = $j("#type").val();
         var url = "";
         if(type == 1) {
-            url = "/race/betCancelProcess";
+            if(api == "true")
+                url = "/api/betCancelProcess?userid=" + uid;
+            else
+                url = "/race/betCancelProcess";
         } else if (type == 2) {
-            url = "/race/betlisthideProcess";
+            if(api == "true")
+                url = "/api/betlisthideProcess?userid=" + uid;
+            else
+                url = "/race/betlisthideProcess";
         }
-    
+       
         var data = {'betting_no': betting_no};
 
         $j.ajax({
@@ -45,8 +53,14 @@ function getBettingList(type, pc, page_index) {
         $j(".tab_minigame").addClass("act");
         $j("#betType").text("미니게임");
     }
+
+    var url = "/race/getBettingList";
+
+    if(api == "true")
+        url = "/api/getBettingList?userid=" + uid;
+
     $j.ajax({
-        url : "/race/getBettingList",
+        url : url,
         type : "get",
         data: {
             type : type,

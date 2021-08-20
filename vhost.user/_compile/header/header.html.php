@@ -33,12 +33,10 @@
             echo "<script type=\"text/javascript\" src=\"/include/js/sadari.js?v={$vTime}\"></script>";
         } else if ( $_SERVER["REQUEST_URI"] == "/game_list?game=race" ) {
             echo "<script type=\"text/javascript\" src=\"/include/js/race.js?v={$vTime}\"></script>";
-        } else if ( $_SERVER["REQUEST_URI"] == "/game_list?game=power" ) {
-            echo "<script type=\"text/javascript\" src=\"/include/js/powerball.js?v={$vTime}\"></script>";
         } else if ( $_SERVER["REQUEST_URI"] == "/game_list?game=dari" ) {
             echo "<script type=\"text/javascript\" src=\"/include/js/dari.js?v={$vTime}\"></script>";
         } else {
-            echo "<script type=\"text/javascript\" src=\"/include/js/sport.js??v={$vTime}\"></script>";
+            echo "<script type=\"text/javascript\" src=\"/include/js/sport.js?v={$vTime}\"></script>";
         }
         $isApi = isset($TPL_VAR["api"]) ? $TPL_VAR["api"] : "";
     ?>
@@ -47,6 +45,11 @@
 </head>
 
 <script type="text/javascript">
+    var member_sn = "<?=$TPL_VAR["member_sn"]?>";
+    var style_type = <?=$TPL_VAR["style_type"]?>;
+    var api = '<?=$TPL_VAR["api"]?>';
+    var uid = '<?=$TPL_VAR["uid"]?>';
+
     // F12 버튼 방지
     $j(document).ready(function(){
         $j(document).bind('keydown',function(e){
@@ -458,12 +461,9 @@
             </div>
         </header>
         <!-- <marquee scrollamount="3"><span style="line-height:normal;"><?=$TPL_VAR["ads"]?></span></marquee> -->
-<script>
-    var member_sn = "<?=$TPL_VAR["member_sn"]?>";
-    var style_type = <?=$TPL_VAR["style_type"]?>;
-</script>
+
 <?php
-if ( isset($TPL_VAR["popup_list"]) && count($TPL_VAR["popup_list"]) > 0 ) {
+if ( $TPL_VAR["api"] != "true" && isset($TPL_VAR["popup_list"]) && count($TPL_VAR["popup_list"]) > 0 ) {
     $index = 0;
     $z_index = 900000;
     foreach ( $TPL_VAR["popup_list"] as $TPL_V1 ) {

@@ -11,228 +11,238 @@
    ?>
 <div id="container">
 <style>
-   .ko_sports_game img {vertical-align:middle;}
-   .ko_sports_game .bonus_ul {width:33%;display:inline-block;margin:0;}
-   .ko_sports_game .bonus_div {width:100%; border-radius: 5px;}
-   .bonus_item {width:99%;}
-   .bonus_item.on {background-color: #ff0000 !important; border: 1px solid #ff0000 !important;} 
-   .bonus_item:hover {background-color: #501a1a !important; border: 1px solid #ff0000 !important;} 
-   .display_none {display:none;}
-   .title_area h4 {width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-   .icon_up {
-   width: 9px;
-   height: 10px;
-   padding: 2px;
-   margin: 0 2px 0 2px;
-   background: url(/images/icon_up.gif) center 50% no-repeat !important;
-   }
-   .icon_down {
-   width: 9px;
-   height: 10px;
-   padding: 2px;
-   margin: 0 2px 0 2px;
-   background: url(/images/icon_down.gif) center 50% no-repeat !important;
-   }
-   .search_main {
-   float: left;
-   padding-bottom: 15px;
-   padding-left: 15px;
-   position: relative;
-   vertical-align: middle;
-   width: 80%;
-   }
-   .row {
-   margin-right: -15px;
-   margin-left: -15px;
-   }
-   .search1 {
-   width: 20%;
-   }
-   .fl {
-   float: left;
-   }
-   .search_dd {
-   background-color: #1e2024;
-   border: solid 1px #111;
-   border-radius: 2px;
-   color: #e9e9e9;
-   cursor: pointer;
-   display: table;
-   font-weight: bold;
-   height: 42px;
-   list-style: none;
-   padding-left: 15px;
-   position: relative;
-   text-align: left;
-   vertical-align: middle;
-   width: 100%;
-   }
-   .search_dd_pointer {
-   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #26262a), color-stop(100%, #111111));
-   background: -webkit-linear-gradient(top, #26262a 0%, #111111 100%);
-   background: -o-linear-gradient(top, #26262a 0%, #111111 100%);
-   background: -ms-linear-gradient(top, #26262a 0%, #111111 100%);
-   background: linear-gradient(to bottom, #26262a 0%, #111111 100%);
-   border-left: 1px solid #111;
-   color: #e9e9e9;
-   display: table-cell;
-   height: 100%;
-   right: -1px;
-   text-align: center;
-   vertical-align: middle;
-   width: 45px;
-   }
-   .btn-primary-outline {
-   background-color: transparent;
-   border-color: transparent;
-   }
-   .sb_item {
-   display: table;
-   height: 40px;
-   width: 100%;
-   }
-   .sb_item div {
-   color: #e9e9e9;
-   display: table-cell;
-   text-align: left;
-   vertical-align: middle;
-   }
-   .scrollable-menu {
-   height: auto;
-   max-height: 340px;
-   overflow-x: hidden;
-   }
-   .dropdown-menu {
-   padding: 0px;
-   }
-   .search_box {
-   background-color: #1e2024;
-   border: 1px solid #111;
-   border-radius: 2px;
-   margin-left: -1px;
-   margin-top: 2px;
-   width: 100%;
-   }
-   .dropdown-menu {
-   position: absolute;
-   top: 100%;
-   left: 0;
-   z-index: 1000;
-   display: none;
-   float: left;
-   min-width: 160px;
-   padding: 5px 0;
-   margin: 2px 0 0;
-   font-size: 14px;
-   text-align: left;
-   list-style: none;
-   background-color: #fff;
-   -webkit-background-clip: padding-box;
-   background-clip: padding-box;
-   border: 1px solid #ccc;
-   border: 1px solid rgba(0,0,0,.15);
-   border-radius: 4px;
-   -webkit-box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
-   box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
-   }
-   .search4 {
-   width: 25%;
-   }
-   .search2 {
-   width: 25%;
-   }
-   .search3 {
-   width: 30%;
-   }
-   .pl5 {
-   padding-left: 5px;
-   }
-   .search_dd_input {
-   background-color: #1e2024;
-   border: solid 1px #111;
-   border-radius: 2px;
-   color: #e9e9e9;
-   cursor: pointer;
-   display: table;
-   font-weight: bold;
-   height: 42px;
-   list-style: none;
-   position: relative;
-   text-align: left;
-   vertical-align: middle;
-   width: 100%;
-   }
-   .search_dd_icon {
-   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #26262a), color-stop(100%, #111111));
-   background: -webkit-linear-gradient(top, #26262a 0%, #111111 100%);
-   background: -o-linear-gradient(top, #26262a 0%, #111111 100%);
-   background: -ms-linear-gradient(top, #26262a 0%, #111111 100%);
-   background: linear-gradient(to bottom, #26262a 0%, #111111 100%);
-   border-right: 1px solid #111;
-   color: #e9e9e9;
-   display: table-cell;
-   height: 100%;
-   left: -1px;
-   text-align: center;
-   vertical-align: middle;
-   width: 45px;
-   }
-   .search_dd_input {
-   background-color: #1e2024;
-   border: solid 1px #111;
-   border-radius: 2px;
-   color: #e9e9e9;
-   cursor: pointer;
-   display: table;
-   font-weight: bold;
-   height: 42px;
-   list-style: none;
-   position: relative;
-   text-align: left;
-   vertical-align: middle;
-   width: 100%;
-   }
-   .margin-left-175 {
-   margin-left: 235px;
-   }
-   .toggle-width {
-   width: 4% !important;
-   }
-   .toggle-icon {
-   font-size: 32px; 
-   cursor: pointer
-   }
-   .sport_title {
-   position: absolute;
-   color: #22b486;
-   letter-spacing: -1px;
-   padding-left: 15px;
-   font-size: 1.6rem;
-   font-weight: 600;
-   line-height: 48px;
-   }
-   @media screen and (max-width: 900px) { 
-   .ko_sports_game .bonus_ul {width:32.5%;display:inline-block;margin:0;}
-   .search_main {
-   display:none;
-   } 
-   .sports_head {
-   height:55px !important;
-   }
-   .margin-left-175 {
-   margin-left: 0px;
-   }
-   .area-width {
-   width: 90% !important;
-   }
-   .toggle-width {
-   width: 9% !important;
-   padding-top: 14px;
-   }
-   .sport_title {
-   display: none;
-   }
-   }
+    .ko_sports_game img {vertical-align:middle;}
+    .ko_sports_game .bonus_ul {width:33%;display:inline-block;margin:0;}
+    .ko_sports_game .bonus_div {width:100%; border-radius: 5px;}
+    .bonus_item {width:99%;}
+    .bonus_item.on {background-color: #ff0000 !important; border: 1px solid #ff0000 !important;} 
+    .bonus_item:hover {background-color: #501a1a !important; border: 1px solid #ff0000 !important;} 
+    .display_none {display:none;}
+    .title_area h4 {width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+    .icon_up {
+        width: 9px;
+        height: 10px;
+        padding: 2px;
+        margin: 0 2px 0 2px;
+        background: url(/images/icon_up.gif) center 50% no-repeat !important;
+    }
+    .icon_down {
+        width: 9px;
+        height: 10px;
+        padding: 2px;
+        margin: 0 2px 0 2px;
+        background: url(/images/icon_down.gif) center 50% no-repeat !important;
+    }
+    .search_main {
+        float: left;
+        padding-bottom: 15px;
+        padding-left: 15px;
+        position: relative;
+        vertical-align: middle;
+        width: 80%;
+    }
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+    .search1 {
+        width: 20%;
+    }
+    .fl {
+        float: left;
+    }
+    .search_dd {
+        background-color: #1e2024;
+        border: solid 1px #111;
+        border-radius: 2px;
+        color: #e9e9e9;
+        cursor: pointer;
+        display: table;
+        font-weight: bold;
+        height: 42px;
+        list-style: none;
+        padding-left: 15px;
+        position: relative;
+        text-align: left;
+        vertical-align: middle;
+        width: 100%;
+    }
+    .search_dd_pointer {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #26262a), color-stop(100%, #111111));
+        background: -webkit-linear-gradient(top, #26262a 0%, #111111 100%);
+        background: -o-linear-gradient(top, #26262a 0%, #111111 100%);
+        background: -ms-linear-gradient(top, #26262a 0%, #111111 100%);
+        background: linear-gradient(to bottom, #26262a 0%, #111111 100%);
+        border-left: 1px solid #111;
+        color: #e9e9e9;
+        display: table-cell;
+        height: 100%;
+        right: -1px;
+        text-align: center;
+        vertical-align: middle;
+        width: 45px;
+    }
+    .btn-primary-outline {
+        background-color: transparent;
+        border-color: transparent;
+    }
+    .sb_item {
+        display: table;
+        height: 40px;
+        width: 100%;
+    }
+    .sb_item div {
+        color: #e9e9e9;
+        display: table-cell;
+        text-align: left;
+        vertical-align: middle;
+    }
+    .scrollable-menu {
+        height: auto;
+        max-height: 340px;
+        overflow-x: hidden;
+    }
+    .dropdown-menu {
+        padding: 0px;
+    }
+    .search_box {
+        background-color: #1e2024;
+        border: 1px solid #111;
+        border-radius: 2px;
+        margin-left: -1px;
+        margin-top: 2px;
+        width: 100%;
+    }
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        float: left;
+        min-width: 160px;
+        padding: 5px 0;
+        margin: 2px 0 0;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+        box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+    }
+    .search4 {
+        width: 25%;
+    }
+    .search2 {
+        width: 25%;
+    }
+    .search3 {
+        width: 30%;
+    }
+    .pl5 {
+        padding-left: 5px;
+    }
+    .search_dd_input {
+        background-color: #1e2024;
+        border: solid 1px #111;
+        border-radius: 2px;
+        color: #e9e9e9;
+        cursor: pointer;
+        display: table;
+        font-weight: bold;
+        height: 42px;
+        list-style: none;
+        position: relative;
+        text-align: left;
+        vertical-align: middle;
+        width: 100%;
+    }
+    .search_dd_icon {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #26262a), color-stop(100%, #111111));
+        background: -webkit-linear-gradient(top, #26262a 0%, #111111 100%);
+        background: -o-linear-gradient(top, #26262a 0%, #111111 100%);
+        background: -ms-linear-gradient(top, #26262a 0%, #111111 100%);
+        background: linear-gradient(to bottom, #26262a 0%, #111111 100%);
+        border-right: 1px solid #111;
+        color: #e9e9e9;
+        display: table-cell;
+        height: 100%;
+        left: -1px;
+        text-align: center;
+        vertical-align: middle;
+        width: 45px;
+    }
+    .search_dd_input {
+        background-color: #1e2024;
+        border: solid 1px #111;
+        border-radius: 2px;
+        color: #e9e9e9;
+        cursor: pointer;
+        display: table;
+        font-weight: bold;
+        height: 42px;
+        list-style: none;
+        position: relative;
+        text-align: left;
+        vertical-align: middle;
+        width: 100%;
+    }
+    .margin-left-175 {
+        margin-left: 235px;
+    }
+    .toggle-width {
+        width: 4% !important;
+    }
+    .toggle-icon {
+        font-size: 32px; 
+        cursor: pointer
+    }
+    .sport_title {
+        position: absolute;
+        color: #22b486;
+        letter-spacing: -1px;
+        padding-left: 15px;
+        font-size: 1.6rem;
+        font-weight: 600;
+        line-height: 48px;
+    }
+    @media screen and (max-width: 900px) { 
+        .ko_sports_game .bonus_ul {
+            width:32.5%;
+            display:inline-block;
+            margin:0;
+        }
+        .search_main {
+            display:none;
+        } 
+        .sports_head {
+            height:55px !important;
+        }
+        .margin-left-175 {
+            margin-left: 0px;
+        }
+        .area-width {
+            width: 90% !important;
+        }
+        .toggle-width {
+            width: 9% !important;
+            padding-top: 14px;
+        }
+        .sport_title {
+            display: none;
+        }
+        .sports_head .menu_list2 ul button {
+            height: 40px;
+        }
+        .sports_head .menu_list2 .list02 li {
+            width: 40px;
+        }
+    }
 </style>
 <div id="contents">
    <!-- 스포츠 컨텐츠 상단 -->
@@ -266,6 +276,7 @@
             <li><button type="button" class="button_type01 btn_baseball <?= $TPL_VAR['sport_type'] == 'baseball' ? 'on' : ''; ?>" onClick="getClassicGameList('0','baseball')"><img src="/10bet/images/10bet/ico/baseball-ico.png" alt="야구" /></button></li>
             <li><button type="button" class="button_type01 btn_hockey <?= $TPL_VAR['sport_type'] == 'hockey' ? 'on' : ''; ?>" onClick="getClassicGameList('0','hockey')"><img src="/10bet/images/10bet/ico/hockey-ico.png" alt="아이스 하키" /></button></li>
             <li><button type="button" class="button_type01 btn_volleyball <?= $TPL_VAR['sport_type'] == 'volleyball' ? 'on' : ''; ?>" onClick="getClassicGameList('0','volleyball')"><img src="/10bet/images/10bet/ico/volleyball-ico.png" alt="배구" /></button></li>
+            <li><button type="button" class="button_type01 btn_esports <?= $TPL_VAR['sport_type'] == 'esports' ? 'on' : ''; ?>" onClick="getClassicGameList('0','esports')"><img src="/10bet/images/10bet/ico/esport-ico.png" alt="E스포츠" /></button></li>
             <!-- <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'tennis' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=tennis'"><img src="/10bet/images/10bet/ico/tennis-ico.png" alt="테니스" /></button></li>
                <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'handball' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=handball'"><img src="/10bet/images/10bet/ico/handball-ico.png" alt="핸드볼" /></button></li>
                <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'mortor' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=mortor'"><img src="/10bet/images/10bet/ico/motor-sport-ico.png" alt="모터 스포츠" /></button></li>
@@ -580,6 +591,7 @@
                     $j(".btn_baseball").removeClass("on");
                     $j(".btn_hockey").removeClass("on");
                     $j(".btn_volleyball").removeClass("on");
+                    $j(".btn_esports").removeClass("on");
                     break;
                 case "soccer":
                     $j(".btn_soccer").addClass("on");
@@ -615,6 +627,15 @@
                     break;
                 case "volleyball":
                     $j(".btn_volleyball").addClass("on");
+                    $j(".btn_soccer").removeClass("on");
+                    $j(".btn_basketball").removeClass("on");
+                    $j(".btn_baseball").removeClass("on");
+                    $j(".btn_hockey").removeClass("on");
+                    $j(".btn_all").removeClass("on");
+                    break;
+                case "esports":
+                    $j(".btn_esports").addClass("on");
+                    $j(".btn_volleyball").removeClass("on");
                     $j(".btn_soccer").removeClass("on");
                     $j(".btn_basketball").removeClass("on");
                     $j(".btn_baseball").removeClass("on");
@@ -811,6 +832,9 @@
                     break;
                 case "아이스 하키":
                     div += '<img src="/10bet/images/10bet/ico/hockey-ico.png" align="absmiddle" border="0" style="width:18px">&nbsp;';
+                    break;
+                case "E스포츠":
+                    div += '<img src="/10bet/images/10bet/ico/esport-ico.png" align="absmiddle" border="0" style="width:24px">&nbsp';
                     break;
                 default:
                     div += '<img src="/images/ibet/sporticons_e.png" align="absmiddle" border="0">';
@@ -1034,6 +1058,44 @@
                             }
                             cntHandi++;
                         } else if(detail[j].m_nMarket == 226) {
+                            is_child = false;
+                            div += div_12(json.m_strSportName, json.m_strDate, json.m_strHour, json.m_strMin, json.m_nLeague, detail[j], is_child, json.m_nFixtureID, json.m_strHomeTeam, json.m_strAwayTeam, sub_idx);
+                            div += handiDiv + unoverDiv;
+                            unoverDiv = "";
+                            handiDiv = "";
+        
+                            marketCnt++;
+                        } 
+                        break;
+                    case "E스포츠":
+                        if(detail[j].m_nMarket == 2) {
+                            is_child = true;
+                            homeTeamAdd = '&nbsp;<font class="gameType"></font><span class="icon_down">&nbsp;&nbsp;</span>';
+                            awayTeamAdd = '<span class="icon_up">&nbsp;&nbsp;</span><font class="gameType"></font>&nbsp;';
+                            homeTeamName = json.m_strHomeTeam + homeTeamAdd;
+                            awayTeamName = awayTeamAdd + json.m_strAwayTeam;
+                            
+                            if(cntUnover == 0) {
+                                subItem = chooseProperItem(detail.filter(value => value.m_nMarket == 2));
+                                unoverDiv += div_unover(json.m_strSportName, json.m_strDate, json.m_strHour, json.m_strMin, json.m_nLeague, subItem, is_child, json.m_nFixtureID, json.m_strHomeTeam, json.m_strAwayTeam, homeTeamName, awayTeamName, sub_idx);
+                                marketCnt++;
+                            }
+                            cntUnover++;
+                        } else if (detail[j].m_nMarket == 3) {
+                            is_child = true;
+                            homeTeamAdd = '&nbsp;<font color="#adff2f">[H]</font>';
+                            awayTeamAdd = '<font color="#adff2f">[H]</font>&nbsp;';
+                            homeTeamName = json.m_strHomeTeam + homeTeamAdd;
+                            awayTeamName = awayTeamAdd + json.m_strAwayTeam;
+                            if(cntHandi == 0) {
+                                subItem = chooseProperItem(detail.filter(value => value.m_nMarket == 3));
+                                if(subItem.m_strHLine !== null && subItem.m_strALine !== null) {
+                                    handiDiv += div_handi(json.m_strSportName, json.m_strDate, json.m_strHour, json.m_strMin, json.m_nLeague, subItem, is_child, json.m_nFixtureID, json.m_strHomeTeam, json.m_strAwayTeam, homeTeamName, awayTeamName, sub_idx);
+                                    marketCnt++;
+                                }
+                            }
+                            cntHandi++;
+                        } else if(detail[j].m_nMarket == 52) {
                             is_child = false;
                             div += div_12(json.m_strSportName, json.m_strDate, json.m_strHour, json.m_strMin, json.m_nLeague, detail[j], is_child, json.m_nFixtureID, json.m_strHomeTeam, json.m_strAwayTeam, sub_idx);
                             div += handiDiv + unoverDiv;

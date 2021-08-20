@@ -25,10 +25,6 @@
 
 	var getResultFlag = 0;
 
-	function getServerTime() {
-		return;
-	}
-
 	function addZero(str) {
 		if ( String(str).length == 1 ) str = "0" + str;
 		return str;
@@ -98,7 +94,11 @@
         $j.ajaxSetup({async:false});
         var param = { special_type : 25 };
 
-        $j.get("/getMiniGameResult", param, function(result) {
+		var url = "/getMiniGameResult";
+		if(api == "true")
+			url = "/api/getMiniGameResult?userid=" + uid;
+
+        $j.get(url, param, function(result) {
             // console.log(result);
             var json = JSON.parse(result);
             for(var i = 0; i < json.length; i++) {
@@ -273,8 +273,12 @@
 	}
 
 	function  reloadUserInfo() {
+		var url = "/getRecentBettingList";
+		if(api == "true")
+			url = "/api/getRecentBettingList?userid=" + uid;
+
 		$j.ajax({
-			url : "/getRecentBettingList",
+			url : url,
 			type : "get",
 			data: {game:game},
 			success: function(res) {	

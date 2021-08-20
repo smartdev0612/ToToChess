@@ -1120,7 +1120,42 @@ class GameController extends WebServiceController
 		throw new Lemon_ScriptException("처리되었습니다.", "", "go", $url);
 		exit;
 	}
+
+	//▶ 베팅리스트-수동처리팝업
+	public function result_processAction()
+	{
+		$this->popupDefine();
+		
+		if(!$this->auth->isLogin())
+		{
+			$this->loginAction();
+			exit;
+		}
+		$this->view->define("content","content/game/result_process.html");
+		
+		$sn = empty($this->request("sn")) ? 0 : $this->request("sn");
+		$mode = empty($this->request("mode")) ? "" : $this->request("mode");
+		$cartModel = $this->getModel("CartModel");
+		$processModel = $this->getModel("ProcessModel");
+
+		$betting_info = $cartModel->getBettingInfoBySn($sn);
+		
+		if($mode == "edit")
+		{
+			$result = empty($this->request("result")) ? 0 : $this->request("result");
+			$bettingNo = $cartModel->modifyBetResult($sn, $result);
+			if ( $bettingNo > 0 ) {
+				$processModel->modifyResultMoneyProcess($bettingNo);
+			}
+			throw new Lemon_ScriptException("", "" , "script", "alert('처리 되었습니다.'); opener.document.location.reload(); self.close();");
+		}
+
+		$this->view->assign("sn",$sn);
+		$this->view->assign("betting_info",$betting_info);
+		$this->display();
+	}
  
+
 	//▶ 베팅리스트-적특처리 (다기준)
 	public function exceptionBetProcessMultiAction()
 	{
@@ -2127,16 +2162,14 @@ class GameController extends WebServiceController
 		foreach($_REQUEST as $key => $val) {
 			$mid = substr($key, 6);
 			$model->getUpdateMarketRate($mid, $val);
-
 			$obj = (object)["nMarket" => $mid, "fRate" => $val];
 			array_push($arr, $obj);
 		}
 
 		$strValue = json_encode($arr);
-        $strValue = urlencode($strValue);
+        //$strValue = urlencode($strValue);
 		$strUrl = "http://127.0.0.1:3001/api/admin?nCmd=1&strValue=$strValue";
 		file_get_contents($strUrl);
-
 		$this->alertRedirect("성공적으로  보관되었습니다.", $url);
 	}
 }

@@ -70,7 +70,7 @@ class LeagueController extends WebServiceController
 		$page_act= "league_name=".$keyword."&category=".$category."&nation_sn=".$nation_sn;
 		
 		$total 			= $model->getTotal($where);
-		$pageMaker 	= $this->displayPage($total, 10, $page_act);
+		$pageMaker 	= $this->displayPage($total, 40, $page_act);
 		$list 			= $model->getList($where, $pageMaker->first, $pageMaker->listNum);
 		
 		$categoryList = $model->getCategoryList();

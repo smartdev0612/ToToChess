@@ -1246,23 +1246,6 @@ class GameUploadController extends WebServiceController
         $etcModel->updateParsingStatus("new_result");
 
         if($parsingType=='') $parsingType = "ALL";
-        /*if($state=="") $state=22;
-
-        if($state==21)
-        {
-            $bettingEnable=1;
-            $filterState=2;
-        }
-        else if($state==22)
-        {
-            $bettingEnable=-1;
-            $filterState=2;
-        }
-        else if($state==3)
-        {
-            $bettingEnable=1;
-            $filterState=4;
-        }*/
 
         // 종료된 게임만
         $filterState=1;
@@ -1294,101 +1277,44 @@ class GameUploadController extends WebServiceController
         }
         $page_act= "parsing_type=".$parsingType."&filter_team=".$filterTeam."&state=".$state."&game_type=".$gameType."&categoryName=".$categoryName."&special_type=".$specialType."&perpage=".$perpage."&begin_date=".$beginDate."&end_date=".$endDate."&filter_team_type=".$filterTeamType."&filter_betting_total=".$filterBettingTotal;
 
-        /*if($act=="modify")
-        {
-            $arrayChildSn 	= $this->request("y_id");
-            $arrayHomeRate 	= $this->request("home_rate");
-            $arrayDrawRate 	= $this->request("draw_rate");
-            $arrayAwayRate 	= $this->request("away_rate");
-            $arrayHomeScore	= $this->request("home_score");
-            $arrayAwayScore	= $this->request("away_score");
-
-            for($i=0;$i<sizeof($arrayChildSn);++$i)
-            {
-                $isCancel	 = $arrayCancel[$i];
-                $childSn 	 = $arrayChildSn[$i];
-                $homeRate	 = $arrayHomeRate[$childSn];
-                $drawRate	 = $arrayDrawRate[$childSn];
-                $awayRate	 = $arrayAwayRate[$childSn];
-                $homeScore = $arrayHomeScore[$childSn];
-                $awayScore = $arrayAwayScore[$childSn];
-
-                if($homeScore!="" && $awayScore!="")
-                {
-                    $set =	"home_score='".$homeScore."',";
-                    $set.=	"away_score='".$awayScore."'";
-
-                    $where = " sn=".$childSn;
-                    $model->modifyChild($set, $where);
-                }
-
-                if($homeRate!="" && $awayRate!="")
-                {
-                    $set="";
-                    $where="";
-                    $set = "home_rate = '".$homeRate."',";
-                    $set.= "draw_rate = '".$drawRate."',";
-                    $set.= "away_rate = '".$awayRate."',";
-                    $set.= "update_enable = '0'";
-
-                    $where = " child_sn=".$childSn;
-                    $model->modifySubChild($set, $where);
-                }
-            }
-
-            throw new Lemon_ScriptException("","","script","alert('처리가 완료 되었습니다.');top.location.href='/gameUpload/result_list_resettle?page={$currentPage}&{$page_act}';");
-            exit;
-        }*/
-
         //게임정산
         //else if($act=="modify_result")
         if($act=="modify_result")
         {
-            $arrayChildSn 	= $this->request("y_id");
-            $arrayHomeScore	= $this->request("home_score");
-            $arrayAwayScore	= $this->request("away_score");
-            $arrayCancel		= $this->request("check_cancel");
-            $arrayType			= $this->request("game_types");
-            $arrayDrawRate 	= $this->request("draw_rate");
+			$arraySubChildSn 	= $this->request("y_id");
+			$data = array();
+			$betData = array();
+			for ( $i = 0 ; $i < count((array)$arraySubChildSn) ; ++$i ) {
+				$subchildSn 	 = $arraySubChildSn[$i];
+				$game_result = $this->request( "game_result_" . $subchildSn );
+				$childSn = $model->getChildSn($subchildSn);
+				$childRs = $model->getChildRow($childSn, '*');
+				if ( $childRs['kubun'] == 1 ) {
+					// 정산취소모듈 추가
+					$processModel->cancel_resultGameProcessMulti($subchildSn);
+				}
+				
+				$dataArray = $processModel->resultPreviewProcess($subchildSn, $game_result);
+				
+				$list_temp = $dataArray["list"];
+				$betData_temp = $dataArray["betData"];
+				
+				if ( count((array)$list_temp) > 0 ) {
+					if ( count((array)$data) <= 0 ) {
+						$data = $list_temp;
+					} else {
+						$data = array_merge($data, $list_temp);
+					}
+				}
+				
+				if ( count((array)$betData) <= 0 ) {
+					$betData = $betData_temp;
+				} else {
+					$betData = array_merge($betData, $betData_temp);
+				}
 
-            $data = array();
-            $betData = array();
-
-            for ( $i = 0 ; $i < count((array)$arrayChildSn) ; ++$i ) {
-                $isCancel	 = $arrayCancel[$i];
-                $childSn 	 = $arrayChildSn[$i];
-                $homeScore = $arrayHomeScore[$childSn];
-                $awayScore = $arrayAwayScore[$childSn];
-
-                if ( (strlen(trim($homeScore)) > 0 and strlen(trim($awayScore)) > 0) or $isCancel ) {
-                    $childRs = $model->getChildRow($childSn, '*');
-                    if ( $childRs['kubun'] == 1 ) {
-                    	// 정산취소모듈 추가
-                        $processModel->cancel_resultGameProcess($childSn, $homeScore, $awayScore);
-                    }
-
-                    $dataArray = $processModel->resultPreviewProcess($childSn, $homeScore, $awayScore, $isCancel, $betData);
-
-                    $list_temp = $dataArray["list"];
-                    $betData_temp = $dataArray["betData"];
-
-                    if ( count((array)$list_temp) > 0 ) {
-                        if ( count((array)$data) <= 0 ) {
-                            $data = $list_temp;
-                        } else {
-                            $data = array_merge($data, $list_temp);
-                        }
-                    }
-
-                    if ( count((array)$betData) <= 0 ) {
-                        $betData = $betData_temp;
-                    } else {
-                        $betData = array_merge($betData, $betData_temp);
-                    }
-
-                    $gameSnList[] = array("child_sn" => $childSn, "home_score" => $homeScore, "away_score" => $awayScore, "is_cancel" => $isCancel);
-                }
-            }// end of for
+				$gameSnList[] = array("subchild_sn" => $subchildSn, "game_result" => $game_result);
+			}// end of for
         }
 
         $categoryName = $this->request("categoryName");

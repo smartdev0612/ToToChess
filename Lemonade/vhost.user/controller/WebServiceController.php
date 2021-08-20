@@ -158,7 +158,7 @@ class WebServiceController extends Lemon_Controller
 
 		$style_type = 0; // 10bet 디자인
 
-		if($gameType == "abroad" || $gameType == "live" || strpos($request_url, '/race/betting_list') !== false)
+		if($gameType == "abroad" || $gameType == "live" || strpos($request_url, '/betting_list') !== false)
 			$style_type = 1; // bet38 디자인
 
 		$checkAgent = $this->isMobile();

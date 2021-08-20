@@ -88,17 +88,17 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	function account_popup()
 	{
 		var width = 1024;
-        var height = 600;
+    var height = 600;
 
-        var left = (screen.width/2)-(width/2);
-        var top = (screen.height/2)-(height/2);
-            
-        var win = window.open ("", "popupWindow", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width='+width+', height='+height+', top='+top+', left='+left);
-        document.popup.action = "/gameUpload/popup_win_member_list";
-        document.popup.target = "popupWindow";
-        
-        document.popup.submit();
-        win.focus();
+    var left = (screen.width/2)-(width/2);
+    var top = (screen.height/2)-(height/2);
+		
+    var win = window.open ("", "popupWindow", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width='+width+', height='+height+', top='+top+', left='+left);
+    document.popup.action = "/gameUpload/popup_win_member_list";
+    document.popup.target = "popupWindow";
+    
+    document.popup.submit();
+    win.focus();
 	}
 	
 	function autoCheck($i, $data)
@@ -125,9 +125,17 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	
 	function autoCheck_check($i)
 	{
+		var chk_cancel = document.getElementsByName('check_cancel[]');
 		var y_id = document.getElementsByName('y_id[]');
 
-		y_id[$i].checked=true;
+		if(chk_cancel[$i].checked)
+		{
+			y_id[$i].checked=true;
+		}
+		else
+		{
+			y_id[$i].checked=false;
+		}
 	}
 
 	function select_all()
@@ -216,6 +224,14 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
                     <option value="27" <?php if($TPL_VAR["special_type"]==27){?> selected <?php }?>>MGM바카라</option>
 				</select>
 				
+				<select name="game_type">
+					<option value="">종류</option>
+					<option value="1"  <?php if($TPL_VAR["gameType"]==1){?>  selected <?php }?>>승무패</option>
+					<option value="2"  <?php if($TPL_VAR["gameType"]==2){?>  selected <?php }?>>핸디캡</option>
+					<option value="4"  <?php if($TPL_VAR["gameType"]==4){?>  selected <?php }?>>언더오버</option>
+					<option value="24"  <?php if($TPL_VAR["gameType"]==24){?>  selected <?php }?>>핸디+언오버</option>
+				</select>
+				
 				<select name="categoryName">
 					<option value="">종목</option>
 <?php if($TPL_categoryList_1){foreach($TPL_VAR["categoryList"] as $TPL_V1){?>
@@ -302,13 +318,15 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 					<th>무배당</th>
 					<th>원정배당</th>
 					<!--<th>취소</th>-->
+					<th>스코어</th>
 					<th>이긴 팀</th>
+					<th class="check" width="5"></th>
 	    	</tr>
 	 		</thead>
 			<tbody>
 <?php if($TPL_list_1){$TPL_I1=-1;foreach($TPL_VAR["list"] as $TPL_V1){$TPL_I1++;?>
 					<tr>
-						<td><input name="y_id[]" type="checkbox" value="<?php echo $TPL_V1["sn"]?>" onClick="select_to(this);"/></td>
+						<td><input name="y_id[]" type="checkbox" value="<?php echo $TPL_V1["child_sn"]?>" onClick="select_to(this);"/></td>
 						<td><?php echo "타입".$TPL_V1["parsing_site"];?></td>
 						<td><?php if($TPL_V1["update_enable"]==0){?><span style="border-bottom:1px solid red;"><?php }?><?php echo sprintf("%s %s:%s",substr($TPL_V1["gameDate"],5),$TPL_V1["gameHour"],$TPL_V1["gameTime"])?></td>
 						<td>
@@ -341,7 +359,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 <?php }?>
 						</td>
 						<td>
-							<input type="hidden" name="game_types[<?php echo $TPL_V1["sn"]?>]" value=<?php echo $TPL_V1["type"]?>>
+							<input type="hidden" name="game_types[<?php echo $TPL_V1["child_sn"]?>]" value=<?php echo $TPL_V1["type"]?>>
 							<?php
 								$pieces = explode("|", $TPL_V1["mname_ko"]);
 								switch($TPL_V1["sport_id"]) {
@@ -377,48 +395,24 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						<td><b><font color='red'>VS</font></b></td>
 						<td class="awayName"><font color=blue><b><?php echo $TPL_V1["away_team"]?></b></font></td>
 						<? } ?>
-						<td>[<?php echo $TPL_V1["home_rate"]?>]<br><?php echo number_format($TPL_V1["home_total_betting"],0)?></td>
-						<td>[<?php 
-								switch($TPL_V1["mfamily"]) {
-									case 1:
-										echo $TPL_V1["draw_rate"]; 
-										break;
-									case 2:
-										echo "VS";
-										break;
-									case 7:
-										echo $TPL_V1["home_line"];
-										break;
-									case 8:
-										$home_line = explode(" ", $TPL_V1["home_line"]);
-										echo $home_line[0];
-										break;
-									case 10:
-										echo "VS";
-										break;
-									case 11:
-										echo $TPL_V1["home_name"];
-										break;
-									case 12:
-										echo $TPL_V1["draw_rate"];
-										break;
-									case 47:
-										echo $TPL_V1["home_line"];
-										break;
-								}
-                            ?>]
-                            <br><?php echo number_format($TPL_V1["draw_total_betting"],0)?>
-                        </td>
-						<td>[<?php echo $TPL_V1["away_rate"]?>]<br><?php echo number_format($TPL_V1["away_total_betting"],0)?></td>
+						<td><input type="text" id="home_rate" readonly name="home_rate[<?php echo $TPL_V1["child_sn"]?>]" size="5" value="<?php echo $TPL_V1["home_rate"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'><br><?php echo number_format($TPL_V1["home_total_betting"],0)?></td>
+						<td><input type="text" id="draw_rate" readonly name="draw_rate[<?php echo $TPL_V1["child_sn"]?>]" size="5" value="<?php echo $TPL_V1["draw_rate"]?>" style="border:1px #97ADCE solid;"><br><?php echo number_format($TPL_V1["draw_total_betting"],0)?></td>
+						<td><input type="text" id="away_rate" readonly name="away_rate[<?php echo $TPL_V1["child_sn"]?>]" size="5" value="<?php echo $TPL_V1["away_rate"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'><br><?php echo number_format($TPL_V1["away_total_betting"],0)?></td>
 						<!--<td><input type="checkbox" name="check_cancel[]" onclick='autoCheck_check(<?php /*echo $TPL_I1*/?>)' ></td>-->
 						<td>
-							<select name="game_result_<?php echo $TPL_V1["sn"]?>" onchange='autoCheck_check(<?php echo $TPL_I1?>)'>
-								<option value="1" <?=$TPL_V1["win"] == 1 ? "selected" : ""?>>홈승</option>
-								<option value="2" <?=$TPL_V1["win"] == 2 ? "selected" : ""?>>원정승</option>
-								<option value="3" <?=$TPL_V1["win"] == 3 ? "selected" : ""?>>무승부</option>
-								<option value="4" <?=$TPL_V1["win"] == 4 ? "selected" : ""?>>취소</option>
-							</select>
+							<input type="text" name="home_score[<?php echo $TPL_V1["child_sn"]?>]" size="5" value="<?php echo $TPL_V1["home_score"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")' onblur='autoCheck(<?php echo $TPL_I1?>, this.value)'>
+							:
+							<input type="text" name="away_score[<?php echo $TPL_V1["child_sn"]?>]" size="5" value="<?php echo $TPL_V1["away_score"]?>" style="border:1px #97ADCE solid;" onkeyup='this.value=this.value.replace(/[^0-9.]/gi,"")'>
 						</td>
+						<td>
+<?php if($TPL_V1["win"]==1){?> 홈승
+<?php }elseif($TPL_V1["win"]==2){?> 원정승
+<?php }elseif($TPL_V1["win"]==3){?> 무승부
+<?php }elseif($TPL_V1["win"]==4){?> 취소/적특
+<?php }else{?> &nbsp;
+<?php }?>
+						</td>
+						<td><input name="y_id_back[]" type="checkbox" value="<?php echo $TPL_V1["child_sn"]?>" onClick="select_to(this);"/></td>
 					</tr>
 <?php }}?>
 			</tbody>

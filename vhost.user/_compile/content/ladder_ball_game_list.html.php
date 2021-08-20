@@ -27,6 +27,7 @@
     <div class="mask"></div>
 	<div id="container">
 <!-- 게시판 목록 시작 -->
+<script type="text/javascript" src="/include/js/powerball.js?v=<?php echo time();?>"></script>
 <script>
     var limit_time = <?php echo $TPL_VAR["mini_config"]["power_limit"]?>;
     var limit_start = "<?php echo $TPL_VAR["mini_config"]["power_limit_start"]?>";
@@ -42,11 +43,11 @@
     var endMin = parseInt(pieces[1]);
     var strEndTime = getStrDatetime(now, endHour, endMin);
     
-    <?php if($TPL_VAR["mini_config"]["power"] == 0) {?>
+    <?php if($TPL_VAR["mini_config"]["power"] == 0 && $TPL_VAR["api"] != "true") {?>
         warning_popup('파워볼 미니게임은 현재 점검중입니다.\n이용에 불편을 드려 죄송합니다.');
         document.location.href='/';
     <?php }  else { ?>
-        if(new Date(strStartTime) < now && now < new Date(strEndTime)) {
+        if(new Date(strStartTime) < now && now < new Date(strEndTime) && $TPL_VAR["api"] != "true") {
             warning_popup('파워볼 미니게임은 현재 점검중입니다.\n이용에 불편을 드려 죄송합니다.');
             document.location.href='/';
         }
@@ -456,11 +457,6 @@
 	var VarMinBet = '<?php echo $TPL_VAR["betMinMoney"]?>';		//-> 최소배팅머니
 	var VarMaxBet = '<?php echo $TPL_VAR["betMaxMoney"]?>';		//-> 최고배팅머니
 	var VarMaxAmount = '<?php echo $TPL_VAR["maxBonus"]?>';		//-> 최대당첨금	
-
-	$j(document).ready(function() {
-		//-> 타이머 시작
-		getServerTime();
-	});
 </script>
 <style type="text/css">
     .frameScale {

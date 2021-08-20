@@ -303,6 +303,7 @@
             <li><button type="button" class="button_type01 button_border btn_baseball <?= $TPL_VAR['sport_type'] == 'baseball' ? 'on' : ''; ?>" onClick="getGameList('0','baseball')"><img src="/10bet/images/10bet/ico/baseball-ico.png" alt="야구" /></button></li>
             <li><button type="button" class="button_type01 button_border btn_hockey <?= $TPL_VAR['sport_type'] == 'hockey' ? 'on' : ''; ?>" onClick="getGameList('0','hockey')"><img src="/10bet/images/10bet/ico/hockey-ico.png" alt="아이스 하키" /></button></li>
             <li><button type="button" class="button_type01 button_border btn_volleyball <?= $TPL_VAR['sport_type'] == 'volleyball' ? 'on' : ''; ?>" onClick="getGameList('0','volleyball')"><img src="/10bet/images/10bet/ico/volleyball-ico.png" alt="배구" /></button></li>
+            <li><button type="button" class="button_type01 button_border btn_esports <?= $TPL_VAR['sport_type'] == 'esports' ? 'on' : ''; ?>" onClick="getGameList('0','esports')"><img src="/10bet/images/10bet/ico/esport-ico.png" alt="E스포츠" /></button></li>
             <!-- <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'tennis' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=tennis'"><img src="/10bet/images/10bet/ico/tennis-ico.png" alt="테니스" /></button></li>
                <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'handball' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=handball'"><img src="/10bet/images/10bet/ico/handball-ico.png" alt="핸드볼" /></button></li>
                <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'mortor' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=mortor'"><img src="/10bet/images/10bet/ico/motor-sport-ico.png" alt="모터 스포츠" /></button></li>
@@ -648,6 +649,7 @@
                 $(".btn_baseball").removeClass("on");
                 $(".btn_hockey").removeClass("on");
                 $(".btn_volleyball").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "soccer":
                 $(".btn_soccer").addClass("on");
@@ -683,6 +685,15 @@
                 break;
             case "volleyball":
                 $(".btn_volleyball").addClass("on");
+                $(".btn_soccer").removeClass("on");
+                $(".btn_basketball").removeClass("on");
+                $(".btn_baseball").removeClass("on");
+                $(".btn_hockey").removeClass("on");
+                $(".btn_all").removeClass("on");
+                break;
+            case "esports":
+                $(".btn_esports").addClass("on");
+                $(".btn_volleyball").removeClass("on");
                 $(".btn_soccer").removeClass("on");
                 $(".btn_basketball").removeClass("on");
                 $(".btn_baseball").removeClass("on");
@@ -1784,6 +1795,202 @@
                             break;
                     }
                     break;
+                case "E스포츠":
+                    switch (detail.m_nMarket) {
+                        case 52:
+                            header2 = "승패";
+                            // children2.push(item);
+                            break;
+                        case 3:
+                            header3 = "핸디캡";
+                            children3.push(item);
+                            break;
+                        case 2:
+                            header4 = "언더오버";
+                            children4.push(item);
+                            break;
+                        case 202:
+                            header5 = "승패 (1피리어드)";
+                            children5.push(item);
+                            break;
+                        case 64:
+                            header6 = "핸디캡 (1피리어드)";
+                            children6.push(item);
+                            break;
+                        case 1149:
+                            header7 = "핸디캡 - 킬 (1피리어드)";
+                            children7.push(item);
+                            break;
+                        case 989:
+                            header8 = "언더오버 - 킬 (1피리어드)";
+                            children8.push(item);
+                            break;
+                        case 1165:
+                            header9 = "첫 바론 (1피리어드)";
+                            children9.push(item);
+                            break;
+                        case 669:
+                            header10 = "첫 블라드 (1피리어드)";
+                            children10.push(item);
+                            break;
+                        case 1170:
+                            header11 = "첫 드래곤 (1피리어드)";
+                            children11.push(item);
+                            break;
+                        case 1251:
+                            header12 = "첫 억제기 (1피리어드)";
+                            children12.push(item);
+                            break;
+                        case 672:
+                            header13 = "첫 탑 (1피리어드)";
+                            children13.push(item);
+                            break;
+                        case 666:
+                            header14 = "첫 로샨 (1피리어드)";
+                            children14.push(item);
+                            break;
+                        case 679:
+                            header15 = "첫 터렛 (1피리어드)";
+                            children15.push(item);
+                            break;
+                        case 203:
+                            header16 = "승패 (2피리어드)";
+                            children16.push(item);
+                            break;
+                        case 65:
+                            header17 = "핸디캡 (2피리어드)";
+                            children17.push(item);
+                            break;
+                        case 1150:
+                            header18 = "핸디캡 - 킬 (2피리어드)";
+                            children18.push(item);
+                            break;
+                        case 990:
+                            header19 = "언더오버 - 킬 (2피리어드)";
+                            children19.push(item);
+                            break;
+                        case 1166:
+                            header20 = "첫 바론 (2피리어드)";
+                            children20.push(item);
+                            break;
+                        case 670:
+                            header21 = "첫 블라드 (2피리어드)";
+                            children21.push(item);
+                            break;
+                        case 1171:
+                            header22 = "첫 드래곤 (2피리어드)";
+                            children22.push(item);
+                            break;
+                        case 1252:
+                            header23 = "첫 억제기 (2피리어드)";
+                            children23.push(item);
+                            break;
+                        case 673:
+                            header24 = "첫 탑 (2피리어드)";
+                            children24.push(item);
+                            break;
+                        case 667:
+                            header25 = "첫 로샨 (2피리어드)";
+                            children25.push(item);
+                            break;
+                        case 680:
+                            header26 = "첫 터렛 (2피리어드)";
+                            children26.push(item);
+                            break;
+                        case 204:
+                            header27 = "승패 (3피리어드)";
+                            children27.push(item);
+                            break;
+                        case 66:
+                            header28 = "핸디캡 (3피리어드)";
+                            children28.push(item);
+                            break;
+                        case 1151:
+                            header29 = "핸디캡 - 킬 (3피리어드)";
+                            children29.push(item);
+                            break;
+                        case 991:
+                            header30 = "언더오버 - 킬 (3피리어드)";
+                            children30.push(item);
+                            break;
+                        case 1167:
+                            header31 = "첫 바론 (3피리어드)";
+                            children31.push(item);
+                            break;
+                        case 671:
+                            header32 = "첫 블라드 (3피리어드)";
+                            children32.push(item);
+                            break;
+                        case 1172:
+                            header33 = "첫 드래곤 (3피리어드)";
+                            children33.push(item);
+                            break;
+                        case 1253:
+                            header34 = "첫 억제기 (3피리어드)";
+                            children34.push(item);
+                            break;
+                        case 674:
+                            header35 = "첫 탑 (3피리어드)";
+                            children35.push(item);
+                            break;
+                        case 668:
+                            header36 = "첫 로샨 (3피리어드)";
+                            children36.push(item);
+                            break;
+                        case 681:
+                            header37 = "첫 터렛 (3피리어드)";
+                            children37.push(item);
+                            break;
+                        case 205:
+                            header38 = "승패 (4피리어드)";
+                            children38.push(item);
+                            break;
+                        case 67:
+                            header39 = "핸디캡 (4피리어드)";
+                            children39.push(item);
+                            break;
+                        case 1152:
+                            header40 = "핸디캡 - 킬 (4피리어드)";
+                            children40.push(item);
+                            break;
+                        case 1168:
+                            header41 = "첫 바론 (4피리어드)";
+                            children41.push(item);
+                            break;
+                        case 1173:
+                            header42 = "첫 드래곤 (4피리어드)";
+                            children42.push(item);
+                            break;
+                        case 1254:
+                            header43 = "첫 억제기 (4피리어드)";
+                            children43.push(item);
+                            break;
+                        case 206:
+                            header44 = "승패 (5피리어드)";
+                            children44.push(item);
+                            break;
+                        case 68:
+                            header45 = "핸디캡 (5피리어드)";
+                            children45.push(item);
+                            break;
+                        case 1153:
+                            header46 = "핸디캡 - 킬 (5피리어드)";
+                            children46.push(item);
+                            break;
+                        case 1169:
+                            header47 = "첫 바론 (5피리어드)";
+                            children47.push(item);
+                            break;
+                        case 1174:
+                            header48 = "첫 드래곤 (5피리어드)";
+                            children48.push(item);
+                            break;
+                        case 1255:
+                            header49 = "첫 억제기 (5피리어드)";
+                            children49.push(item);
+                            break;
+                    }
+                    break;
             }
             if(detail.m_nMarket == 6) {
                 correctScoreItems.push(item);
@@ -2546,6 +2753,247 @@
             if(children19.length > 0) {
                 children_div += div_oddeven(children19, header19);
             }
+        } else if(res.m_strSportName == "E스포츠") {
+            // 승패
+            if(children2.length > 0) {
+                children_div += div_12(children2, header2);
+            }
+
+            // 핸디캡
+            if(children3.length > 0) {
+                children_div += div_handi(children3, header3);
+            }
+
+            // 언더오버
+            if(children4.length > 0) {
+                children_div += div_unover(children4, header4);
+            }
+
+            // 승패 (1피리어드)
+            if(children5.length > 0) {
+                children_div += div_12(children5, header5);
+            }
+
+            // 핸디캡 (1피리어드)
+            if(children6.length > 0) {
+                children_div += div_handi(children6, header6);
+            }
+
+            // 핸디캡 - 킬 (1피리어드)
+            if(children7.length > 0) {
+                children_div += div_handi(children7, header7);
+            }
+            
+            // 언더오버 - 킬 (1피리어드)
+            if(children8.length > 0) {
+                children_div += div_unover(children8, header8);
+            }
+            
+            // 첫 바론 (1피리어드)
+            if(children9.length > 0) {
+                children_div += div_12(children9, header9);
+            }
+
+            // 첫 블라드 (1피리어드)
+            if(children10.length > 0) {
+                children_div += div_12(children10, header10);
+            }
+            
+            // 첫 드래곤 (1피리어드)
+            if(children11.length > 0) {
+                children_div += div_12(children11, header11);
+            }
+            
+            // 첫 억제기 (1피리어드)
+            if(children12.length > 0) {
+                children_div += div_12(children12, header12);
+            }
+
+            // 첫 탑 (1피리어드)
+            if(children13.length > 0) {
+                children_div += div_12(children13, header13);
+            }
+            
+            // 첫 로샨 (1피리어드)
+            if(children14.length > 0) {
+                children_div += div_12(children14, header14);
+            }
+            
+            // 첫 터렛 (1피리어드)
+            if(children15.length > 0) {
+                children_div += div_12(children15, header15);
+            }
+
+            // 승패 (2피리어드)
+            if(children16.length > 0) {
+                children_div += div_12(children16, header16);
+            }
+
+            // 핸디캡 (2피리어드)
+            if(children17.length > 0) {
+                children_div += div_handi(children17, header17);
+            }
+
+            // 핸디캡 - 킬 (2피리어드)
+            if(children18.length > 0) {
+                children_div += div_handi(children18, header18);
+            }
+
+            // 언더오버 - 킬 (2피리어드)
+            if(children19.length > 0) {
+                children_div += div_unover(children19, header19);
+            }
+
+            // 첫 바론 (2피리어드)
+            if(children20.length > 0) {
+                children_div += div_12(children20, header20);
+            }
+
+            // 첫 블라드 (2피리어드)
+            if(children21.length > 0) {
+                children_div += div_12(children21, header21);
+            }
+
+            // 첫 드래곤 (2피리어드)
+            if(children22.length > 0) {
+                children_div += div_12(children22, header22);
+            }
+
+            // 첫 억제기 (2피리어드)
+            if(children23.length > 0) {
+                children_div += div_12(children23, header23);
+            }
+
+            // 첫 탑 (2피리어드)
+            if(children24.length > 0) {
+                children_div += div_12(children24, header24);
+            }
+
+            // 첫 로샨 (2피리어드)
+            if(children25.length > 0) {
+                children_div += div_12(children25, header25);
+            }
+
+            // 첫 터렛 (2피리어드)
+            if(children26.length > 0) {
+                children_div += div_12(children26, header26);
+            }
+
+            // 승패 (3피리어드)
+            if(children27.length > 0) {
+                children_div += div_12(children27, header27);
+            }
+
+            // 핸디캡 (3피리어드)
+            if(children28.length > 0) {
+                children_div += div_handi(children28, header28);
+            }
+
+            // 핸디캡 - 킬 (3피리어드)
+            if(children29.length > 0) {
+                children_div += div_handi(children29, header29);
+            }
+
+            // 언더오버 - 킬 (3피리어드)
+            if(children30.length > 0) {
+                children_div += div_unover(children30, header30);
+            }
+
+            // 첫 바론 (3피리어드)
+            if(children31.length > 0) {
+                children_div += div_12(children31, header31);
+            }
+
+            // 첫 블라드 (3피리어드)
+            if(children32.length > 0) {
+                children_div += div_12(children32, header32);
+            }
+
+            // 첫 드래곤 (3피리어드)
+            if(children33.length > 0) {
+                children_div += div_12(children33, header33);
+            }
+
+            // 첫 억제기 (3피리어드)
+            if(children34.length > 0) {
+                children_div += div_12(children34, header34);
+            }
+            
+            // 첫 탑 (3피리어드)
+            if(children35.length > 0) {
+                children_div += div_12(children35, header35);
+            }
+
+            // 첫 로샨 (3피리어드)
+            if(children36.length > 0) {
+                children_div += div_12(children36, header36);
+            }
+
+            // 첫 터렛 (3피리어드)
+            if(children37.length > 0) {
+                children_div += div_12(children37, header37);
+            }
+
+            // 승패 (4피리어드)
+            if(children38.length > 0) {
+                children_div += div_12(children38, header38);
+            }
+
+            // 핸디캡 (4피리어드)
+            if(children39.length > 0) {
+                children_div += div_handi(children39, header39);
+            }
+
+            // 핸디캡 - 킬 (4피리어드)
+            if(children40.length > 0) {
+                children_div += div_handi(children40, header40);
+            }
+
+            // 첫 바론 (4피리어드)
+            if(children41.length > 0) {
+                children_div += div_12(children41, header41);
+            }
+
+            // 첫 드래곤 (4피리어드)
+            if(children42.length > 0) {
+                children_div += div_12(children42, header42);
+            }
+
+            // 첫 억제기 (4피리어드)
+            if(children43.length > 0) {
+                children_div += div_12(children43, header43);
+            }
+
+            // 승패 (5피리어드)
+            if(children44.length > 0) {
+                children_div += div_12(children44, header44);
+            }
+
+            // 핸디캡 (5피리어드)
+            if(children45.length > 0) {
+                children_div += div_handi(children45, header45);
+            }
+
+            // 핸디캡 - 킬 (5피리어드)
+            if(children46.length > 0) {
+                children_div += div_handi(children46, header46);
+            }
+
+            // 첫 바론 (5피리어드)
+            if(children47.length > 0) {
+                children_div += div_12(children47, header47);
+            }
+
+            // 첫 드래곤 (5피리어드)
+            if(children48.length > 0) {
+                children_div += div_12(children48, header48);
+            }
+
+            // 첫 억제기 (5피리어드)
+            if(children49.length > 0) {
+                children_div += div_12(children49, header49);
+            }
+
         }
         if(correctScoreItems.length > 0) {
             children_div += div_correctScore(correctScoreItems, "정확한 스코어");
@@ -2589,6 +3037,12 @@
                             return false;
                         }
                         break;
+                    case "E스포츠":
+                        if(detail.m_nMarket == 52) {
+                            isExist12 = true;
+                            return false;
+                        }
+                        break;
                 }
             });
             $.each(details, function(i, detail) {
@@ -2628,6 +3082,13 @@
                             }
                         } 
                         break;
+                    case "E스포츠":
+                        if(isExist12) {
+                            if(detail.m_nMarket == 52) {
+                                getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
+                            }
+                        } 
+                        break;
                 }
             });
 
@@ -2640,6 +3101,7 @@
     }
     
     function showGameList() {
+        console.log(showJson);
         gameList = showJson;
         $('#gameRight').html('');
         $.each(showJson, function(index, item) {

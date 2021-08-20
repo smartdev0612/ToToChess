@@ -26,7 +26,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 	</div>
 	<h3>리그관리</h3>
 
-	<div id="search2">
+	<div id="search2" style="width:100%;">
 		<form action="?" method="get" name="form2" id="form2">
 		<div>
 			<!-- 종목 -->
@@ -57,7 +57,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 
 	<form id="form1" name="form1" method="get" action="?">
 		<input type="hidden" name="act" value="del">
-		<table cellspacing="1" class="tableStyle_normal add">
+		<table cellspacing="1" class="tableStyle_normal">
 			<legend class="blind">등록 리그 목록</legend>
 			<thead>
 			<tr>

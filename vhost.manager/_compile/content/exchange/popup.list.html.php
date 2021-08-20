@@ -49,8 +49,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						<font color='red'>신청</font>
 <?php }elseif($TPL_V1["state"]==1){?>
 						<font color='blue'>완료</font>
-<?php }else{?>
-						<font color='Purple'>대기</font>
+<?php }elseif($TPL_V1["state"]==2){?>
+						<font color='red'>취소</font>
 <?php }?>	
 				</td>
 			  </tr>
