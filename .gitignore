@@ -1,7 +1,9 @@
 vhost.user/session/*
 vhost.user/upload/images/*
+vhost.user/upload/popup/*
 vhost.manager/session/*
 vhost.manager/upload/images/*
+vhost.manager/upload/popup/*
 vhost.partner2/session/*
 vhost.partner/session/*
 cron_bet
