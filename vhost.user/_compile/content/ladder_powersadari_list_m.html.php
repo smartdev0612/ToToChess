@@ -354,11 +354,24 @@
 </script>
 <script>
     $j(function(){
-        var ww = window.innerWidth;
-        if(ww >= 375 && ww < 450  ) {
-            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-260","top":"-160"});
-        } else if ( ww >= 360 && ww < 376 ) {
-            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-310","top":"-160"});
+        var ww = $j(window).width();
+        
+        if(ww >= 450 && ww < 900  ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-312px","top":"-160px"});
+        } else if(ww > 375 && ww < 450  ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-270px","top":"-160px"});
+        } else if ( ww <= 375 ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-310px","top":"-160px"});
+        }
+    });
+    $j(window).resize(function() { 
+        var ww = $j(window).width();
+        if(ww >= 450 && ww < 900  ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-312px","top":"-160px"});
+        } else if(ww > 375 && ww < 450  ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-270px","top":"-160px"});
+        } else if ( ww <= 375 ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-310px","top":"-160px"});
         }
     });
 </script>

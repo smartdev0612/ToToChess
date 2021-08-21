@@ -1030,7 +1030,11 @@
                         } 
                         break;
                     case "아이스 하키":
-                        if(detail[j].m_nMarket == 2) {
+                        if(detail[j].m_nMarket == 1) {
+                            is_child = false;
+                            div += div_1x2(json.m_strSportName, json.m_strDate, json.m_strHour, json.m_strMin, json.m_nLeague, detail[j], is_child, json.m_nFixtureID, json.m_strHomeTeam, json.m_strAwayTeam, sub_idx);
+                            marketCnt++;
+                        } else if(detail[j].m_nMarket == 28) {
                             is_child = true;
                             homeTeamAdd = '&nbsp;<font class="gameType"></font><span class="icon_down">&nbsp;&nbsp;</span>';
                             awayTeamAdd = '<span class="icon_up">&nbsp;&nbsp;</span><font class="gameType"></font>&nbsp;';
@@ -1038,33 +1042,28 @@
                             awayTeamName = awayTeamAdd + json.m_strAwayTeam;
                             
                             if(cntUnover == 0) {
-                                subItem = chooseProperItem(detail.filter(value => value.m_nMarket == 2));
+                                subItem = chooseProperItem(detail.filter(value => value.m_nMarket == 28));
                                 unoverDiv += div_unover(json.m_strSportName, json.m_strDate, json.m_strHour, json.m_strMin, json.m_nLeague, subItem, is_child, json.m_nFixtureID, json.m_strHomeTeam, json.m_strAwayTeam, homeTeamName, awayTeamName, sub_idx);
                                 marketCnt++;
                             }
                             cntUnover++;
-                        } else if (detail[j].m_nMarket == 3) {
+                        } else if (detail[j].m_nMarket == 342) {
                             is_child = true;
                             homeTeamAdd = '&nbsp;<font color="#adff2f">[H]</font>';
                             awayTeamAdd = '<font color="#adff2f">[H]</font>&nbsp;';
                             homeTeamName = json.m_strHomeTeam + homeTeamAdd;
                             awayTeamName = awayTeamAdd + json.m_strAwayTeam;
                             if(cntHandi == 0) {
-                                subItem = chooseProperItem(detail.filter(value => value.m_nMarket == 3));
+                                subItem = chooseProperItem(detail.filter(value => value.m_nMarket == 342));
                                 if(subItem.m_strHLine !== null && subItem.m_strALine !== null) {
                                     handiDiv += div_handi(json.m_strSportName, json.m_strDate, json.m_strHour, json.m_strMin, json.m_nLeague, subItem, is_child, json.m_nFixtureID, json.m_strHomeTeam, json.m_strAwayTeam, homeTeamName, awayTeamName, sub_idx);
                                     marketCnt++;
                                 }
                             }
                             cntHandi++;
-                        } else if(detail[j].m_nMarket == 226) {
-                            is_child = false;
-                            div += div_12(json.m_strSportName, json.m_strDate, json.m_strHour, json.m_strMin, json.m_nLeague, detail[j], is_child, json.m_nFixtureID, json.m_strHomeTeam, json.m_strAwayTeam, sub_idx);
                             div += handiDiv + unoverDiv;
                             unoverDiv = "";
                             handiDiv = "";
-        
-                            marketCnt++;
                         } 
                         break;
                     case "E스포츠":

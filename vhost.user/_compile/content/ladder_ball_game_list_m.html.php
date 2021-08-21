@@ -474,53 +474,24 @@
 </script>
 <script>
     $j(function(){
-        // var game_view_width = 635;
-        // var game_view_width2 = $j("#game_view").width();
-        // var left=((game_view_width - game_view_width2)*-1)-160;
-        // if(left > -200) left = -200;
-        // $j(".frameScale").css("left",left);
-            
-        var ww = window.innerWidth;
-        // if(ww > 1710) {
-        //     $j(".frameScale").css("transform","scale(1,1)");
-        // }
-        // if(ww > 1610 && ww < 1710  ) {
-        //     $j(".frameScale").css("transform","scale(0.9,0.9)");
-        // }
-        // if(ww > 1590 && ww < 1610  ) {
-        //     $j(".frameScale").css("transform","scale(0.88,0.88)");
-        // }
-        // if(ww > 1560 && ww < 1590  ) {
-        //     $j(".frameScale").css({"transform":"scale(0.87,0.87)","left":"-312"});
-        // }
-        if(ww > 360 && ww < 450  ) {
-            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-265","top":"-160"});
-        } else if ( ww <= 360 ) {
-            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-310","top":"-160"});
+        var ww = $j(window).width();
+        
+        if(ww >= 450 && ww < 900  ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-312px","top":"-160px"});
+        } else if(ww > 375 && ww < 450  ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-270px","top":"-160px"});
+        } else if ( ww <= 375 ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-310px","top":"-160px"});
         }
     });
     $j(window).resize(function() { 
-        // var game_view_width = 635;
-        // var game_view_width2 = $j("#game_view").width();
-        // var left=((game_view_width - game_view_width2)*-1)-160;
-        // if(left > -200) left = -200;
-        // $j(".frameScale").css("left",left);
-
-        var ww = window.innerWidth;
-        // if(ww > 1710) {
-        //     $j(".frameScale").css("transform","scale(1,1)");
-        // }
-        // if(ww > 1610 && ww < 1710  ) {
-        //     $j(".frameScale").css("transform","scale(0.9,0.9)");
-        // }
-        // if(ww > 1590 && ww < 1610  ) {
-        //     $j(".frameScale").css("transform","scale(0.88,0.88)");
-        // }
-        // if(ww > 1560 && ww < 1590  ) {
-        //     $j(".frameScale").css({"transform":"scale(0.87,0.87)","left":"-312"});
-        // }
-        if(ww < 900  ) {
-            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-312","top":"-160"});
+        var ww = $j(window).width();
+        if(ww >= 450 && ww < 900  ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-312px","top":"-160px"});
+        } else if(ww > 375 && ww < 450  ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-270px","top":"-160px"});
+        } else if ( ww <= 375 ) {
+            $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-310px","top":"-160px"});
         }
     });
 </script>
