@@ -1,4 +1,10 @@
 $j().ready(function(){
+    // 스포츠 소켓창조
+    sportsSocket(); 
+
+    // 미니게임 소켓창조
+    miniSocket();
+
     $j(function(){ 
         var ww2 = window.innerWidth;
         if(ww2 <= 1200) {
@@ -463,23 +469,11 @@ function scrollToTopDiv(div_id) {
 }
 
 /******************************************* Web Socket *******************************************/
-
-// 스포츠
-const PACKET_SPORT_LIST = 0x01;         // 첫 페지로딩시 보내는 파켓코드
-const PACKET_SPORT_BET = 0x02;          // 스포츠배팅시 보내는 파켓코드
-const PACKET_SPORT_AJAX = 0x03;         // 실시간으로 스포츠자료 가져오는 파켓코드
-
-//Powerball
-const PACKET_POWERBALL_TIME = 0x11;
-const PACKET_POWERBALL_BET = 0x12;
-
-//파워사다리
-const PACKET_POWERLADDER_BET = 0x22;
-
-//키노사다리
-const PACKET_KENOLADDER_BET = 0x32;
-
 var showJson;
+
+var ws; // 스포츠 소켓
+
+var wsMini; // 미니게임 소켓
 
 var packet = {
     "m_strSports"   :   "",
@@ -489,33 +483,82 @@ var packet = {
     "m_nPageSize"   :   50
 };
 
-var ws = new WebSocket("ws://211.115.107.17:3002");
+function sportsSocket() {
+    ws = new WebSocket(WS_SPORTS_ADDRESS);
 
-ws.onopen = function (event) {
-    console.log("WebSocket Opened");
-};
+    ws.onopen = function (event) {
+        console.log("WebSocket Opened");
+    };
+    
+    ws.onerror = function (event) {
+        console.log("WebSocket Error");
+        sportsSocket();
+    }
 
-ws.onerror = function (event) {
-    console.log("WebSocket Error");
-}
-
-ws.onmessage = function (event) {
-    try {
-        var objPacket = JSON.parse(event.data);
-        
-        if(objPacket.m_nPacketCode == PACKET_SPORT_LIST) {
-            // console.log(objPacket);
-            onRevGameList(objPacket.m_strPacket);
+    ws.onclose = function (event) {
+        console.log("WebSocket Closed");
+        sportsSocket();
+    }
+    
+    ws.onmessage = function (event) {
+        try {
+            var objPacket = JSON.parse(event.data);
+            
+            if(objPacket.m_nPacketCode == PACKET_SPORT_LIST) {
+                // console.log(objPacket);
+                onRevGameList(objPacket.m_strPacket);
+            }
+            else if(objPacket.m_nPacketCode == PACKET_SPORT_BET) {
+                onRecvBetting(objPacket);
+            }
+            else if(objPacket.m_nPacketCode == PACKET_SPORT_AJAX) {
+                onRecvAjaxList(objPacket.m_strPacket);
+            }
         }
-        else if(objPacket.m_nPacketCode == PACKET_SPORT_BET) {
-            onRecvBetting(objPacket);
-        }
-        else if(objPacket.m_nPacketCode == PACKET_SPORT_AJAX) {
-            onRecvAjaxList(objPacket.m_strPacket);
+        catch(err) {
+            console.log(err.message);
         }
     }
-    catch(err) {
-        console.log(err.message);
+    
+}
+
+function miniSocket() {
+
+    wsMini = new WebSocket(WS_MINI_ADDRESS);
+
+    wsMini.onopen = function (event) {
+        console.log("Minigame WebSocket Opened");
+    };
+    
+    wsMini.onerror = function (event) {
+        console.log("Minigame WebSocket Error");
+        miniSocket();
+    }
+
+    wsMini.onclose = function (event) {
+        console.log("Minigame WebSocket closed");
+        miniSocket();
+    }
+    
+    wsMini.onmessage = function (event) {
+        try {
+            var objPacket = JSON.parse(event.data);
+            if(objPacket.m_nPacketCode == PACKET_SPORT_BET) {
+                onRecvBetting(objPacket);
+            }
+            else if(objPacket.m_nPacketCode == PACKET_POWERBALL_BET) {
+                onRecvBetting(objPacket);
+            }
+            else if(objPacket.m_nPacketCode == PACKET_POWERLADDER_BET) {
+                onRecvBetting(objPacket);
+            }
+            else if(objPacket.m_nPacketCode == PACKET_POWERBALL_TIME) {
+                realTime(objPacket.m_strPacket);
+            }
+        }
+        catch(err) {
+            console.log(err.message);
+        }
     }
 }
 
@@ -537,37 +580,6 @@ function onSendReqListPacket(param) {
         setTimeout(() => {
             sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
         }, 5000);
-    }
-}
-
-var wsMini = new WebSocket("ws://211.115.107.17:3102");
-
-wsMini.onopen = function (event) {
-    console.log("Minigame WebSocket Opened");
-};
-
-wsMini.onerror = function (event) {
-    console.log("Minigame WebSocket Error");
-}
-
-wsMini.onmessage = function (event) {
-    try {
-        var objPacket = JSON.parse(event.data);
-        if(objPacket.m_nPacketCode == PACKET_SPORT_BET) {
-            onRecvBetting(objPacket);
-        }
-        else if(objPacket.m_nPacketCode == PACKET_POWERBALL_BET) {
-            onRecvBetting(objPacket);
-        }
-        else if(objPacket.m_nPacketCode == PACKET_POWERLADDER_BET) {
-            onRecvBetting(objPacket);
-        }
-        else if(objPacket.m_nPacketCode == PACKET_POWERBALL_TIME) {
-            realTime(objPacket.m_strPacket);
-        }
-    }
-    catch(err) {
-        console.log(err.message);
     }
 }
 

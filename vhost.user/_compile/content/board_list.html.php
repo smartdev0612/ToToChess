@@ -7,7 +7,6 @@
 
 <script>
     $j(document).ready(function(){
-        sendPacket(PACKET_SPORT_LIST, JSON.stringify(packet));
         // 게시판 페이징 맨끝 없애기
         $j('.next_end').hide();
     });

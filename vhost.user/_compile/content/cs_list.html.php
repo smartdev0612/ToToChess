@@ -73,8 +73,6 @@
     </div>
 </form>            
 <script language="JavaScript">
-    sendPacket(PACKET_SPORT_LIST, JSON.stringify(packet));
-    
     var reCallFalg = <?=$reCallFalg+0;?>;
 	function view_write() {
 		if ( reCallFalg > 0 ) {

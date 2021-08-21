@@ -118,8 +118,6 @@
 <script type="text/javascript" src="/10bet/js/left.js?1610709439"></script>
 <script type="text/javascript">
     $j(document).ready(function(){
-        sendPacket(PACKET_SPORT_LIST, JSON.stringify(packet));
-        
         <?php if($is_checked == 0) { ?>
             warning_popup("오늘 출석체크 하세요.");
         <?php } ?>

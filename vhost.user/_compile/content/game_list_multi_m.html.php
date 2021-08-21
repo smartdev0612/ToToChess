@@ -587,7 +587,7 @@
             "m_nLeague"     :   league_sn,
             "m_nLive"       :   1,
             "m_nPageIndex"  :   page_index,
-            "m_nPageSize"   :   50
+            "m_nPageSize"   :   100
         };
 
         if(ws.readyState === WebSocket.OPEN)
@@ -612,7 +612,7 @@
             var jsonCountInfo = showJson[0].m_lstSportsCnt;
             showSportsTotalCount(jsonCountInfo);
             showGameList();
-            var page_count = parseInt(showJson[0].m_nTotalCnt) / 50;
+            var page_count = parseInt(showJson[0].m_nTotalCnt) / 100;
             var page_item = "";
             for(var i = 0; i < page_count; i++) {
                 page_item += `<li class="page page_${i + 1} ${packet.m_nPageIndex == i ? 'active' : ''}"><a href="javascript:void(0)" onclick="getPage('${i}')">${i + 1}</a></li>`;

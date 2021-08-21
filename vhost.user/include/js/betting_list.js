@@ -1,6 +1,4 @@
 $j().ready(function(){
-    sendPacket(PACKET_SPORT_LIST, JSON.stringify(packet));
-
     $j("#btnConfirm").on("click", function() {
         betUserCancel_popup_close();
         var betting_no = $j("#betting_no").val();

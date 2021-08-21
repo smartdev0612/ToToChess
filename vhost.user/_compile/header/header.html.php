@@ -41,6 +41,7 @@
         $isApi = isset($TPL_VAR["api"]) ? $TPL_VAR["api"] : "";
     ?>
     <script type="text/javascript" src="/include/js/common.js?v=<?=$vTime?>"></script>
+    <script type="text/javascript" src="/include/js/constant.js?v=<?=$vTime?>"></script>
     <script type="text/javascript" src="/include/js/include.js?v=<?=$vTime?>"></script>
 </head>
 
