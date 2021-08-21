@@ -838,7 +838,7 @@
                         break;
                     case "아이스 하키":
                         if(isExist12) {
-                            if(detail.m_nMarket == 226) {
+                            if(detail.m_nMarket == 1) {
                                 getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         } 

@@ -629,7 +629,7 @@ function checkExist1x2(item) {
             findID = 52;
             break;
         case "아이스 하키":
-            findID = 226;
+            findID = 1;
             break;
         case "E스포츠":
             findID = 52;
