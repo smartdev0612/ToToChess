@@ -2830,7 +2830,7 @@ class ProcessModel extends Lemon_Model
 						$nMode = 2;
 					} 
 
-					$sql = "INSERT INTO api_betting (strUserID, nStoreSn, nWinCash, nMode, strTime) VALUES ('".$strUserID."', '".$recommend_sn."', '".$winMoney."', '".$nMode."', NOW())";
+					$sql = "INSERT INTO api_betting (strUserID, nStoreSn, nWinCash, nMode, strBetTime) VALUES ('".$strUserID."', '".$recommend_sn."', '".$winMoney."', '".$nMode."', NOW())";
 					$this->db->exeSql($sql);	
 
 				  	$this->modifyMoneyProcess($memberSn, $winMoney, 5, $bettingNo);
@@ -2862,7 +2862,7 @@ class ProcessModel extends Lemon_Model
 						$nMode = 2;
 					} 
 					
-					$sql = "INSERT INTO api_betting (strUserID, nStoreSn, nWinCash, nMode, strTime) VALUES ('".$strUserID."', '".$recommend_sn."', '".$winMoney."', '".$nMode."', NOW())";
+					$sql = "INSERT INTO api_betting (strUserID, nStoreSn, nWinCash, nMode, strBetTime) VALUES ('".$strUserID."', '".$recommend_sn."', '".$winMoney."', '".$nMode."', NOW())";
 					$this->db->exeSql($sql);	
 
 					$this->modifyMoneyProcess($memberSn, $winMoney, 4, $bettingNo);
