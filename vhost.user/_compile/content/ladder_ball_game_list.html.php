@@ -32,6 +32,7 @@
     var limit_time = <?php echo $TPL_VAR["mini_config"]["power_limit"]?>;
     var limit_start = "<?php echo $TPL_VAR["mini_config"]["power_limit_start"]?>";
     var limit_end = "<?php echo $TPL_VAR["mini_config"]["power_limit_end"]?>";
+    var api = "<?=$TPL_VAR["api"]?>";
     var now = new Date();
     var pieces = limit_start.split(":");
     var startHour = parseInt(pieces[0]);
@@ -42,12 +43,12 @@
     var endHour = parseInt(pieces[0]);
     var endMin = parseInt(pieces[1]);
     var strEndTime = getStrDatetime(now, endHour, endMin);
-    
+   
     <?php if($TPL_VAR["mini_config"]["power"] == 0 && $TPL_VAR["api"] != "true") {?>
         warning_popup('파워볼 미니게임은 현재 점검중입니다.\n이용에 불편을 드려 죄송합니다.');
         document.location.href='/';
     <?php }  else { ?>
-        if(new Date(strStartTime) < now && now < new Date(strEndTime) && $TPL_VAR["api"] != "true") {
+        if(new Date(strStartTime) < now && now < new Date(strEndTime) && api != "true") {
             warning_popup('파워볼 미니게임은 현재 점검중입니다.\n이용에 불편을 드려 죄송합니다.');
             document.location.href='/';
         }

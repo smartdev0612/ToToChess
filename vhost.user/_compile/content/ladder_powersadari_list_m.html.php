@@ -21,6 +21,7 @@
     var limit_time = <?php echo $TPL_VAR["mini_config"]["powersadari_limit"]?>;
     var limit_start = "<?php echo $TPL_VAR["mini_config"]["powersadari_limit_start"]?>";
     var limit_end = "<?php echo $TPL_VAR["mini_config"]["powersadari_limit_end"]?>";
+    var api = "<?=$TPL_VAR["api"]?>";
     var now = new Date();
     var pieces = limit_start.split(":");
     var startHour = parseInt(pieces[0]);
@@ -36,7 +37,7 @@
         warning_popup('파워사다리 미니게임은 현재 점검중입니다.\n이용에 불편을 드려 죄송합니다.');
         document.location.href='/';
     <?php }  else { ?>
-        if(new Date(strStartTime) < now && now < new Date(strEndTime) && $TPL_VAR["api"] != "true") {
+        if(new Date(strStartTime) < now && now < new Date(strEndTime) && api != "true") {
             warning_popup('파워사다리 미니게임은 현재 점검중입니다.\n이용에 불편을 드려 죄송합니다.');
             document.location.href='/';
         }
