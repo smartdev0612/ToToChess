@@ -1274,7 +1274,7 @@ class GameModel extends Lemon_Model
 				from ".$this->db_qz."child a left join ".$this->db_qz."league b on a.league_sn = b.lsports_league_sn
 				where 	a.view_flag = 1 
 						and b.is_use = 1
-						and a.live > 0 ".$where;
+						and (a.live = -1 or a.live = 1) ".$where;
 		$rs = $this->db->exeSql($sql);
 		
 		$returnData['cnt'] = $rs[0]['cnt'];
@@ -1912,7 +1912,7 @@ class GameModel extends Lemon_Model
 						a.gameDate, a.gameHour, a.gameTime, a.notice as league_name, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
 						a.type, a.special, a.bet_money, a.live
 				from ".$this->db_qz."child a left join ".$this->db_qz."league b on a.league_sn = b.lsports_league_sn 
-				where a.view_flag = '1' and a.live > 0 and b.is_use = 1 ".$where."
+				where a.view_flag = '1' and (a.live = -1 or a.live = 1) and b.is_use = 1 ".$where."
 				group by a.sn) tbl_temp
 				order by tbl_temp.gameDate ".$sort.", tbl_temp.gameHour ".$sort.", tbl_temp.gameTime ".$sort.", tbl_temp.league_name, tbl_temp.home_team asc " .$limit;
 		

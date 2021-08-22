@@ -175,8 +175,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
                             </table>
 						</td>
                         <td>
-                            <button type="button" id="orderBtn_<?=$TPL_V1['child_sn']?>" <?=($TPL_V1['live'] < 2) ? '' : 'disabled' ?> onclick=orderFixture(<?=$TPL_V1['child_sn']?>)>구독</button>
-                            <button type="button" id="cancelBtn_<?=$TPL_V1['child_sn']?>" <?=($TPL_V1['live'] == 2) ? '' : 'disabled' ?> onclick=cancelOrder(<?=$TPL_V1['child_sn']?>)>취소</button>
+                            <button type="button" id="orderBtn_<?=$TPL_V1['child_sn']?>" <?=($TPL_V1['live'] == -1) ? 'disabled' : '' ?> onclick=orderFixture(<?=$TPL_V1['child_sn']?>)>구독</button>
+                            <button type="button" id="cancelBtn_<?=$TPL_V1['child_sn']?>" <?=($TPL_V1['live'] == -1) ? '' : 'disabled' ?> onclick=cancelOrder(<?=$TPL_V1['child_sn']?>)>취소</button>
                         </td>
 					</tr>
 <?php }}?>
