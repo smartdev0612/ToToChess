@@ -5,7 +5,7 @@
             <!-- 유저 정보 -->
             <div class="user_box box_type01">
                 <div class="point">
-                    <img src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png'>&nbsp; <?=$TPL_VAR["nick"]?>
+                    <img src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png?v=1'>&nbsp; <?=$TPL_VAR["nick"]?>
                     <span class="change" onClick="location.href='/member/member'">나의 정보</span>
                 </div>
                 <div class="money">

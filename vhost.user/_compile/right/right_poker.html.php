@@ -3,7 +3,7 @@
     <div class="right_box">
         <!-- 유저 정보 -->
         <div class="user_box box_type01">
-            <div class="user_name"><img src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png' style="margin-top:6px;">&nbsp; <?=$TPL_VAR["nick"]?></div>
+            <div class="user_name"><img src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png?v=1' style="margin-top:6px;">&nbsp; <?=$TPL_VAR["nick"]?></div>
             <div class="money">
                 <span class="head"><img src="/10bet/images/10bet/ico_01.png" alt="" /> 보유머니</span> 
                 <span class="member_inmoney"><?php echo number_format($TPL_VAR["cash"],0)?></span>					
