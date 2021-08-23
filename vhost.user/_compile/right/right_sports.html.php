@@ -11,7 +11,7 @@ if($isApi == "true")  {?>
             <!-- 유저 정보 -->
             <div class="user_box box_type01" style="visibility: <?=$TPL_VAR["api"] == "true" ? "hidden" : "visible"?>">
                 <div class="point"  style="display:flex;">
-                    <img class="img-height" src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png?v=1'>&nbsp; 
+                    <img class="img-height" src='/images/level_icon_<?php echo $TPL_VAR["level"]?>.png?v=1'>&nbsp;&nbsp;&nbsp; 
                     <p class="_limit _w100 p-name"><?=$TPL_VAR["nick"]?></p>
                     <span class="change" onClick="location.href='/member/member'">내 정보</span>
                 </div>
