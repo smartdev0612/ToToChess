@@ -12,7 +12,7 @@
 
 		.pn { -webkit-text-security: disc; -moz-text-security:circle; text-security:circle; }
 		.pn::-webkit-inner-spin-button, .pn::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        .changable {
+        .changeable {
             background-color: white !important;
             color: black !important;
         }
@@ -52,14 +52,14 @@
                                 <div class="box_left">
                                     <h3>기존비밀번호 *</h3>
                                     <div class="input_box">
-                                        <input type="password" class="changable" id="pass" name="pass"/>
+                                        <input type="password" class="changeable" id="pass" name="pass"/>
                                         <p>※ 개인정보보호를 위해 자주 변경해주세요.</p>
                                     </div>
                                 </div>
                                 <div class="box_left">
                                     <h3>변경비밀번호 *</h3>
                                     <div class="input_box">
-                                        <input type="password" class="changable" id="newpass" name="newpass"/>
+                                        <input type="password" class="changeable" id="newpass" name="newpass"/>
                                         <p>※ 비밀번호를 변경하시려면 입력하세요.</p>
                                     </div>
                                 </div>
