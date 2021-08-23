@@ -547,9 +547,9 @@
 												$selectedTeam = '원정승 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>'; 
 											else if($TPL_V2["home_name"] == "2 And Over")
 												$selectedTeam = '원정승 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
-											else if($TPL_V2["home_name"] == "3 And Under")
+											else if($TPL_V2["home_name"] == "X And Under")
 												$selectedTeam = '무 & 언더' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
-											else if($TPL_V2["home_name"] == "3 And Over")
+											else if($TPL_V2["home_name"] == "X And Over")
 												$selectedTeam = '무 & 오버' . '<span class="txt_co6">(' . $TPL_V2["home_line"] . ')</span>';
 											break;
 									}

@@ -1659,9 +1659,9 @@ function add_bet_list(item)
 				selectedTeam = market_name + ' (원정승 & 언더) ' + '(' + home_line + ')'; 
 			else if(home_name == "2 And Over")
 				selectedTeam = market_name + ' (원정승 & 오버) ' + '(' + home_line + ')';
-			else if(home_name == "3 And Under")
+			else if(home_name == "X And Under")
 				selectedTeam = market_name + ' (무 & 언더) ' + '(' + home_line + ')';
-			else if(home_name == "3 And Over")
+			else if(home_name == "X And Over")
 				selectedTeam = market_name + ' (무 & 오버) ' + '(' + home_line + ')';
 			break;
 		default:

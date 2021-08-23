@@ -321,6 +321,7 @@
                 <li><button type="button" class="button_type01 button_border btn_baseball <?= $TPL_VAR['sport_type'] == 'baseball' ? 'on' : ''; ?>" onClick="getLiveGameList('0','baseball')"><img src="/10bet/images/10bet/ico/baseball-ico.png" alt="야구" /></button></li>
                 <li><button type="button" class="button_type01 button_border btn_hockey <?= $TPL_VAR['sport_type'] == 'hockey' ? 'on' : ''; ?>" onClick="getLiveGameList('0','hockey')"><img src="/10bet/images/10bet/ico/hockey-ico.png" alt="아이스 하키" /></button></li>
                 <li><button type="button" class="button_type01 button_border btn_volleyball <?= $TPL_VAR['sport_type'] == 'volleyball' ? 'on' : ''; ?>" onClick="getLiveGameList('0','volleyball')"><img src="/10bet/images/10bet/ico/volleyball-ico.png" alt="배구" /></button></li>
+                <li><button type="button" class="button_type01 button_border btn_esports <?= $TPL_VAR['sport_type'] == 'esports' ? 'on' : ''; ?>" onClick="getLiveGameList('0','esports')"><img src="/10bet/images/10bet/ico/esport-ico.png" alt="E스포츠" /></button></li>
                 <!-- <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'tennis' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=tennis'"><img src="/10bet/images/10bet/ico/tennis-ico.png" alt="테니스" /></button></li>
                 <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'handball' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=handball'"><img src="/10bet/images/10bet/ico/handball-ico.png" alt="핸드볼" /></button></li>
                 <li><button class="button_type01 <?= $TPL_VAR['sport_type'] == 'mortor' ? 'on' : ''; ?>" onClick="location.href='/game_list?game=<?php echo $gameType;?>&s_type=<?=$s_type?>&sport=mortor'"><img src="/10bet/images/10bet/ico/motor-sport-ico.png" alt="모터 스포츠" /></button></li>
@@ -674,6 +675,15 @@
                 break;
             case "volleyball":
                 $(".btn_volleyball").addClass("on");
+                $(".btn_soccer").removeClass("on");
+                $(".btn_basketball").removeClass("on");
+                $(".btn_baseball").removeClass("on");
+                $(".btn_hockey").removeClass("on");
+                $(".btn_all").removeClass("on");
+                break;
+            case "esports":
+                $(".btn_esports").addClass("on");
+                $(".btn_volleyball").removeClass("on");
                 $(".btn_soccer").removeClass("on");
                 $(".btn_basketball").removeClass("on");
                 $(".btn_baseball").removeClass("on");
@@ -2651,6 +2661,13 @@
                             }
                         } 
                         break;
+                    case "E스포츠":
+                        if(isExist12) {
+                            if(detail.m_nMarket == 52) {
+                                getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
+                            }
+                        } 
+                        break;
                 }
             });
         }
@@ -2715,6 +2732,8 @@
         else if( item.m_strSportName == "야구")
             div += '<div class="st_real_l-4">';
         else if( item.m_strSportName == "아이스 하키")
+            div += '<div class="st_real_l-5">';
+        else if( item.m_strSportName == "E스포츠")
             div += '<div class="st_real_l-5">';
         div += '<ul>';
         div += '<li></li>';

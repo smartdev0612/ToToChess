@@ -552,7 +552,7 @@
         }
     
         if ($game_type == 0) {
-            warning_popup("올바른 배팅이 아닙니다.");
+            warning_popup("옳바른 배팅이 아닙니다.");
             return;
         }
     
