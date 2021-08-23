@@ -12,6 +12,10 @@
 
 		.pn { -webkit-text-security: disc; -moz-text-security:circle; text-security:circle; }
 		.pn::-webkit-inner-spin-button, .pn::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        .changable {
+            background-color: white !important;
+            color: black !important;
+        }
 	</style>
 	<script type="text/javascript">
 		var recode = '<?=$_SESSION["recode"]?>';
@@ -48,14 +52,14 @@
                                 <div class="box_left">
                                     <h3>기존비밀번호 *</h3>
                                     <div class="input_box">
-                                        <input type="password" id="pass" name="pass"/>
+                                        <input type="password" class="changable" id="pass" name="pass"/>
                                         <p>※ 개인정보보호를 위해 자주 변경해주세요.</p>
                                     </div>
                                 </div>
                                 <div class="box_left">
                                     <h3>변경비밀번호 *</h3>
                                     <div class="input_box">
-                                        <input type="password" id="newpass" name="newpass"/>
+                                        <input type="password" class="changable" id="newpass" name="newpass"/>
                                         <p>※ 비밀번호를 변경하시려면 입력하세요.</p>
                                     </div>
                                 </div>
@@ -86,7 +90,7 @@
                                 <div class="box_left">
                                     <h3>출금비번 *</h3>
                                     <div class="input_box">
-                                        <input type="password" id="exchange_pass" name="exchange_pass" value="<?php echo $TPL_VAR["exchange_pass"]?>"/>
+                                        <input type="password" id="exchange_pass" name="exchange_pass" value="<?php echo $TPL_VAR["exchange_pass"]?>" disabled/>
                                     </div>
                                 </div>
                             </div>
