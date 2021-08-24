@@ -597,10 +597,11 @@
         showJson = JSON.parse(strPacket);
         // console.log(showJson);
         if(showJson.length == 0) {
-            $(".list_st1").empty();
+            $j(".list_st1").empty();
+            $j("#gameRight").empty();
             warning_popup("현재 진행중인 경기가 없습니다.");
         } else {
-            $(".list_st1").empty();
+            $j(".list_st1").empty();
             $j(".pagination ul").empty();
             var jsonCountInfo = showJson[0].m_lstSportsCnt;
             showSportsTotalCount(jsonCountInfo);
@@ -658,6 +659,7 @@
                 $(".btn_baseball").removeClass("on");
                 $(".btn_hockey").removeClass("on");
                 $(".btn_volleyball").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "basketball":
                 $(".btn_basketball").addClass("on");
@@ -666,6 +668,7 @@
                 $(".btn_baseball").removeClass("on");
                 $(".btn_hockey").removeClass("on");
                 $(".btn_volleyball").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "baseball":
                 $(".btn_baseball").addClass("on");
@@ -674,6 +677,7 @@
                 $(".btn_all").removeClass("on");
                 $(".btn_hockey").removeClass("on");
                 $(".btn_volleyball").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "hockey":
                 $(".btn_hockey").addClass("on");
@@ -682,6 +686,7 @@
                 $(".btn_baseball").removeClass("on");
                 $(".btn_all").removeClass("on");
                 $(".btn_volleyball").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "volleyball":
                 $(".btn_volleyball").addClass("on");
@@ -690,6 +695,7 @@
                 $(".btn_baseball").removeClass("on");
                 $(".btn_hockey").removeClass("on");
                 $(".btn_all").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "esports":
                 $(".btn_esports").addClass("on");
@@ -788,10 +794,10 @@
 
                     }
 
-                    // djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket);
-                    // if(djson == null || djson == undefined) {
-                    //     removeMarketDiv(showJson[i], showJson[i].m_lstDetail[j]);
-                    // }
+                    djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket);
+                    if(djson == null || djson == undefined) {
+                        removeMarketDiv(showJson[i], showJson[i].m_lstDetail[j]);
+                    }
 
                     // djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket && val.m_strHLine == showJson[i].m_lstDetail[j].m_strHLine);
                     // if(djson == null || djson == undefined) {
@@ -995,10 +1001,11 @@
         if(obj != null && obj != undefined) {
             console.log("remove Game");
             $j(`#div_${item.m_nGame}`).remove();
-            var game_sn = $j("#game_sn").val();
-            if(item.m_nGame == game_sn) 
-                $j('#gameRight').html('');
         }
+        var game_sn = $j("#game_sn").val();
+        console.log("game_sn => " + game_sn);
+        if(item.m_nGame == game_sn) 
+            $j('#gameRight').html('');
        
     }
    
@@ -1825,169 +1832,205 @@
                             header8 = "언더오버 - 킬 (1피리어드)";
                             children8.push(item);
                             break;
-                        case 1165:
-                            header9 = "첫 바론 (1피리어드)";
+                        case 1129:
+                            header9 = "언더오버 - 바론 슬레인 (1피리어드)";
                             children9.push(item);
                             break;
-                        case 669:
-                            header10 = "첫 블라드 (1피리어드)";
+                        case 1133:
+                            header10 = "언더오버 - 드래곤 슬레인 (1피리어드)";
                             children10.push(item);
                             break;
-                        case 1170:
-                            header11 = "첫 드래곤 (1피리어드)";
+                        case 1162:
+                            header11 = "언더오버 - 파괴된 탑 (1피리어드)";
                             children11.push(item);
                             break;
-                        case 1251:
-                            header12 = "첫 억제기 (1피리어드)";
+                        case 1165:
+                            header12 = "첫 바론 (1피리어드)";
                             children12.push(item);
                             break;
-                        case 672:
-                            header13 = "첫 탑 (1피리어드)";
+                        case 669:
+                            header13 = "첫 블라드 (1피리어드)";
                             children13.push(item);
                             break;
-                        case 666:
-                            header14 = "첫 로샨 (1피리어드)";
+                        case 1170:
+                            header14 = "첫 드래곤 (1피리어드)";
                             children14.push(item);
                             break;
-                        case 679:
-                            header15 = "첫 터렛 (1피리어드)";
+                        case 1251:
+                            header15 = "첫 억제기 (1피리어드)";
                             children15.push(item);
                             break;
-                        case 203:
-                            header16 = "승패 (2피리어드)";
+                        case 672:
+                            header16 = "첫 탑 (1피리어드)";
                             children16.push(item);
                             break;
-                        case 65:
-                            header17 = "핸디캡 (2피리어드)";
+                        case 666:
+                            header17 = "첫 로샨 (1피리어드)";
                             children17.push(item);
                             break;
-                        case 1150:
-                            header18 = "핸디캡 - 킬 (2피리어드)";
+                        case 679:
+                            header18 = "첫 터렛 (1피리어드)";
                             children18.push(item);
                             break;
-                        case 990:
-                            header19 = "언더오버 - 킬 (2피리어드)";
+                        case 203:
+                            header19 = "승패 (2피리어드)";
                             children19.push(item);
                             break;
-                        case 1166:
-                            header20 = "첫 바론 (2피리어드)";
+                        case 65:
+                            header20 = "핸디캡 (2피리어드)";
                             children20.push(item);
                             break;
-                        case 670:
-                            header21 = "첫 블라드 (2피리어드)";
+                        case 1150:
+                            header21 = "핸디캡 - 킬 (2피리어드)";
                             children21.push(item);
                             break;
-                        case 1171:
-                            header22 = "첫 드래곤 (2피리어드)";
+                        case 990:
+                            header22 = "언더오버 - 킬 (2피리어드)";
                             children22.push(item);
                             break;
-                        case 1252:
-                            header23 = "첫 억제기 (2피리어드)";
+                        case 1130:
+                            header23 = "언더오버 - 바론 슬레인 (2피리어드)";
                             children23.push(item);
                             break;
-                        case 673:
-                            header24 = "첫 탑 (2피리어드)";
+                        case 1134:
+                            header24 = "언더오버 - 드래곤 슬레인 (2피리어드)";
                             children24.push(item);
                             break;
-                        case 667:
-                            header25 = "첫 로샨 (2피리어드)";
+                        case 1163:
+                            header25 = "언더오버 - 파괴된 탑 (2피리어드)";
                             children25.push(item);
                             break;
-                        case 680:
-                            header26 = "첫 터렛 (2피리어드)";
+                        case 1166:
+                            header26 = "첫 바론 (2피리어드)";
                             children26.push(item);
                             break;
-                        case 204:
-                            header27 = "승패 (3피리어드)";
+                        case 670:
+                            header27 = "첫 블라드 (2피리어드)";
                             children27.push(item);
                             break;
-                        case 66:
-                            header28 = "핸디캡 (3피리어드)";
+                        case 1171:
+                            header28 = "첫 드래곤 (2피리어드)";
                             children28.push(item);
                             break;
-                        case 1151:
-                            header29 = "핸디캡 - 킬 (3피리어드)";
+                        case 1252:
+                            header29 = "첫 억제기 (2피리어드)";
                             children29.push(item);
                             break;
-                        case 991:
-                            header30 = "언더오버 - 킬 (3피리어드)";
+                        case 673:
+                            header30 = "첫 탑 (2피리어드)";
                             children30.push(item);
                             break;
-                        case 1167:
-                            header31 = "첫 바론 (3피리어드)";
+                        case 667:
+                            header31 = "첫 로샨 (2피리어드)";
                             children31.push(item);
                             break;
-                        case 671:
-                            header32 = "첫 블라드 (3피리어드)";
+                        case 680:
+                            header32 = "첫 터렛 (2피리어드)";
                             children32.push(item);
                             break;
-                        case 1172:
-                            header33 = "첫 드래곤 (3피리어드)";
+                        case 204:
+                            header33 = "승패 (3피리어드)";
                             children33.push(item);
                             break;
-                        case 1253:
-                            header34 = "첫 억제기 (3피리어드)";
+                        case 66:
+                            header34 = "핸디캡 (3피리어드)";
                             children34.push(item);
                             break;
-                        case 674:
-                            header35 = "첫 탑 (3피리어드)";
+                        case 1151:
+                            header35 = "핸디캡 - 킬 (3피리어드)";
                             children35.push(item);
                             break;
-                        case 668:
-                            header36 = "첫 로샨 (3피리어드)";
+                        case 991:
+                            header36 = "언더오버 - 킬 (3피리어드)";
                             children36.push(item);
                             break;
-                        case 681:
-                            header37 = "첫 터렛 (3피리어드)";
+                        case 1131:
+                            header37 = "언더오버 - 바론 슬레인 (3피리어드)";
                             children37.push(item);
                             break;
-                        case 205:
-                            header38 = "승패 (4피리어드)";
+                        case 1135:
+                            header38 = "언더오버 - 드래곤 슬레인 (3피리어드)";
                             children38.push(item);
                             break;
-                        case 67:
-                            header39 = "핸디캡 (4피리어드)";
+                        case 1164:
+                            header39 = "언더오버 - 파괴된 탑 (3피리어드)";
                             children39.push(item);
                             break;
-                        case 1152:
-                            header40 = "핸디캡 - 킬 (4피리어드)";
+                        case 1167:
+                            header40 = "첫 바론 (3피리어드)";
                             children40.push(item);
                             break;
-                        case 1168:
-                            header41 = "첫 바론 (4피리어드)";
+                        case 671:
+                            header41 = "첫 블라드 (3피리어드)";
                             children41.push(item);
                             break;
-                        case 1173:
-                            header42 = "첫 드래곤 (4피리어드)";
+                        case 1172:
+                            header42 = "첫 드래곤 (3피리어드)";
                             children42.push(item);
                             break;
-                        case 1254:
-                            header43 = "첫 억제기 (4피리어드)";
+                        case 1253:
+                            header43 = "첫 억제기 (3피리어드)";
                             children43.push(item);
                             break;
-                        case 206:
-                            header44 = "승패 (5피리어드)";
+                        case 674:
+                            header44 = "첫 탑 (3피리어드)";
                             children44.push(item);
                             break;
-                        case 68:
-                            header45 = "핸디캡 (5피리어드)";
+                        case 668:
+                            header45 = "첫 로샨 (3피리어드)";
                             children45.push(item);
                             break;
-                        case 1153:
-                            header46 = "핸디캡 - 킬 (5피리어드)";
+                        case 681:
+                            header46 = "첫 터렛 (3피리어드)";
                             children46.push(item);
                             break;
-                        case 1169:
-                            header47 = "첫 바론 (5피리어드)";
+                        case 205:
+                            header47 = "승패 (4피리어드)";
                             children47.push(item);
                             break;
-                        case 1174:
-                            header48 = "첫 드래곤 (5피리어드)";
+                        case 67:
+                            header48 = "핸디캡 (4피리어드)";
                             children48.push(item);
                             break;
-                        case 1255:
-                            header49 = "첫 억제기 (5피리어드)";
+                        case 1152:
+                            header49 = "핸디캡 - 킬 (4피리어드)";
                             children49.push(item);
+                            break;
+                        case 1168:
+                            header50 = "첫 바론 (4피리어드)";
+                            children50.push(item);
+                            break;
+                        case 1173:
+                            header51 = "첫 드래곤 (4피리어드)";
+                            children51.push(item);
+                            break;
+                        case 1254:
+                            header52 = "첫 억제기 (4피리어드)";
+                            children52.push(item);
+                            break;
+                        case 206:
+                            header53 = "승패 (5피리어드)";
+                            children53.push(item);
+                            break;
+                        case 68:
+                            header54 = "핸디캡 (5피리어드)";
+                            children54.push(item);
+                            break;
+                        case 1153:
+                            header55 = "핸디캡 - 킬 (5피리어드)";
+                            children55.push(item);
+                            break;
+                        case 1169:
+                            header56 = "첫 바론 (5피리어드)";
+                            children56.push(item);
+                            break;
+                        case 1174:
+                            header57 = "첫 드래곤 (5피리어드)";
+                            children57.push(item);
+                            break;
+                        case 1255:
+                            header58 = "첫 억제기 (5피리어드)";
+                            children58.push(item);
                             break;
                     }
                     break;
@@ -2788,210 +2831,255 @@
             if(children8.length > 0) {
                 children_div += div_unover(children8, header8);
             }
-            
-            // 첫 바론 (1피리어드)
+
+            // 언더오버 - 바론 슬레인 (1피리어드)
             if(children9.length > 0) {
-                children_div += div_12(children9, header9);
+                children_div += div_unover(children9, header9);
             }
 
-            // 첫 블라드 (1피리어드)
+            // 언더오버 - 드래곤 슬레인 (1피리어드)
             if(children10.length > 0) {
-                children_div += div_12(children10, header10);
+                children_div += div_unover(children10, header10);
             }
-            
-            // 첫 드래곤 (1피리어드)
+
+            // 언더오버 - 파괴된 탑 (1피리어드)
             if(children11.length > 0) {
-                children_div += div_12(children11, header11);
+                children_div += div_unover(children11, header11);
             }
             
-            // 첫 억제기 (1피리어드)
+            // 첫 바론 (1피리어드)
             if(children12.length > 0) {
                 children_div += div_12(children12, header12);
             }
 
-            // 첫 탑 (1피리어드)
+            // 첫 블라드 (1피리어드)
             if(children13.length > 0) {
                 children_div += div_12(children13, header13);
             }
             
-            // 첫 로샨 (1피리어드)
+            // 첫 드래곤 (1피리어드)
             if(children14.length > 0) {
                 children_div += div_12(children14, header14);
             }
             
-            // 첫 터렛 (1피리어드)
+            // 첫 억제기 (1피리어드)
             if(children15.length > 0) {
                 children_div += div_12(children15, header15);
             }
 
-            // 승패 (2피리어드)
+            // 첫 탑 (1피리어드)
             if(children16.length > 0) {
                 children_div += div_12(children16, header16);
             }
+            
+            // 첫 로샨 (1피리어드)
+            if(children17.length > 0) {
+                children_div += div_12(children17, header17);
+            }
+            
+            // 첫 터렛 (1피리어드)
+            if(children18.length > 0) {
+                children_div += div_12(children18, header18);
+            }
+
+            // 승패 (2피리어드)
+            if(children19.length > 0) {
+                children_div += div_12(children19, header19);
+            }
 
             // 핸디캡 (2피리어드)
-            if(children17.length > 0) {
-                children_div += div_handi(children17, header17);
+            if(children20.length > 0) {
+                children_div += div_handi(children20, header20);
             }
 
             // 핸디캡 - 킬 (2피리어드)
-            if(children18.length > 0) {
-                children_div += div_handi(children18, header18);
+            if(children21.length > 0) {
+                children_div += div_handi(children21, header21);
             }
 
             // 언더오버 - 킬 (2피리어드)
-            if(children19.length > 0) {
-                children_div += div_unover(children19, header19);
+            if(children22.length > 0) {
+                children_div += div_unover(children22, header22);
+            }
+
+            // 언더오버 - 바론 슬레인 (2피리어드)
+            if(children23.length > 0) {
+                children_div += div_unover(children23, header23);
+            }
+
+            // 언더오버 - 드래곤 슬레인 (2피리어드)
+            if(children24.length > 0) {
+                children_div += div_unover(children24, header24);
+            }
+
+            // 언더오버 - 파괴된 탑 (2피리어드)
+            if(children25.length > 0) {
+                children_div += div_unover(children25, header25);
             }
 
             // 첫 바론 (2피리어드)
-            if(children20.length > 0) {
-                children_div += div_12(children20, header20);
-            }
-
-            // 첫 블라드 (2피리어드)
-            if(children21.length > 0) {
-                children_div += div_12(children21, header21);
-            }
-
-            // 첫 드래곤 (2피리어드)
-            if(children22.length > 0) {
-                children_div += div_12(children22, header22);
-            }
-
-            // 첫 억제기 (2피리어드)
-            if(children23.length > 0) {
-                children_div += div_12(children23, header23);
-            }
-
-            // 첫 탑 (2피리어드)
-            if(children24.length > 0) {
-                children_div += div_12(children24, header24);
-            }
-
-            // 첫 로샨 (2피리어드)
-            if(children25.length > 0) {
-                children_div += div_12(children25, header25);
-            }
-
-            // 첫 터렛 (2피리어드)
             if(children26.length > 0) {
                 children_div += div_12(children26, header26);
             }
 
-            // 승패 (3피리어드)
+            // 첫 블라드 (2피리어드)
             if(children27.length > 0) {
                 children_div += div_12(children27, header27);
             }
 
-            // 핸디캡 (3피리어드)
+            // 첫 드래곤 (2피리어드)
             if(children28.length > 0) {
-                children_div += div_handi(children28, header28);
+                children_div += div_12(children28, header28);
             }
 
-            // 핸디캡 - 킬 (3피리어드)
+            // 첫 억제기 (2피리어드)
             if(children29.length > 0) {
-                children_div += div_handi(children29, header29);
+                children_div += div_12(children29, header29);
             }
 
-            // 언더오버 - 킬 (3피리어드)
+            // 첫 탑 (2피리어드)
             if(children30.length > 0) {
-                children_div += div_unover(children30, header30);
+                children_div += div_12(children30, header30);
             }
 
-            // 첫 바론 (3피리어드)
+            // 첫 로샨 (2피리어드)
             if(children31.length > 0) {
                 children_div += div_12(children31, header31);
             }
 
-            // 첫 블라드 (3피리어드)
+            // 첫 터렛 (2피리어드)
             if(children32.length > 0) {
                 children_div += div_12(children32, header32);
             }
 
-            // 첫 드래곤 (3피리어드)
+            // 승패 (3피리어드)
             if(children33.length > 0) {
                 children_div += div_12(children33, header33);
             }
 
-            // 첫 억제기 (3피리어드)
+            // 핸디캡 (3피리어드)
             if(children34.length > 0) {
-                children_div += div_12(children34, header34);
+                children_div += div_handi(children34, header34);
             }
-            
-            // 첫 탑 (3피리어드)
+
+            // 핸디캡 - 킬 (3피리어드)
             if(children35.length > 0) {
-                children_div += div_12(children35, header35);
+                children_div += div_handi(children35, header35);
             }
 
-            // 첫 로샨 (3피리어드)
+            // 언더오버 - 킬 (3피리어드)
             if(children36.length > 0) {
-                children_div += div_12(children36, header36);
+                children_div += div_unover(children36, header36);
             }
 
-            // 첫 터렛 (3피리어드)
+            // 언더오버 - 바론 슬레인 (3피리어드)
             if(children37.length > 0) {
-                children_div += div_12(children37, header37);
+                children_div += div_unover(children37, header37);
             }
 
-            // 승패 (4피리어드)
+            // 언더오버 - 드래곤 슬레인 (3피리어드)
             if(children38.length > 0) {
-                children_div += div_12(children38, header38);
+                children_div += div_unover(children38, header38);
             }
 
-            // 핸디캡 (4피리어드)
+            // 언더오버 - 파괴된 탑 (3피리어드)
             if(children39.length > 0) {
-                children_div += div_handi(children39, header39);
+                children_div += div_unover(children39, header39);
             }
 
-            // 핸디캡 - 킬 (4피리어드)
+            // 첫 바론 (3피리어드)
             if(children40.length > 0) {
-                children_div += div_handi(children40, header40);
+                children_div += div_12(children40, header40);
             }
 
-            // 첫 바론 (4피리어드)
+            // 첫 블라드 (3피리어드)
             if(children41.length > 0) {
                 children_div += div_12(children41, header41);
             }
 
-            // 첫 드래곤 (4피리어드)
+            // 첫 드래곤 (3피리어드)
             if(children42.length > 0) {
                 children_div += div_12(children42, header42);
             }
 
-            // 첫 억제기 (4피리어드)
+            // 첫 억제기 (3피리어드)
             if(children43.length > 0) {
                 children_div += div_12(children43, header43);
             }
-
-            // 승패 (5피리어드)
+            
+            // 첫 탑 (3피리어드)
             if(children44.length > 0) {
                 children_div += div_12(children44, header44);
             }
 
-            // 핸디캡 (5피리어드)
+            // 첫 로샨 (3피리어드)
             if(children45.length > 0) {
-                children_div += div_handi(children45, header45);
+                children_div += div_12(children45, header45);
             }
 
-            // 핸디캡 - 킬 (5피리어드)
+            // 첫 터렛 (3피리어드)
             if(children46.length > 0) {
-                children_div += div_handi(children46, header46);
+                children_div += div_12(children46, header46);
             }
 
-            // 첫 바론 (5피리어드)
+            // 승패 (4피리어드)
             if(children47.length > 0) {
                 children_div += div_12(children47, header47);
             }
 
-            // 첫 드래곤 (5피리어드)
+            // 핸디캡 (4피리어드)
             if(children48.length > 0) {
-                children_div += div_12(children48, header48);
+                children_div += div_handi(children48, header48);
+            }
+
+            // 핸디캡 - 킬 (4피리어드)
+            if(children49.length > 0) {
+                children_div += div_handi(children49, header49);
+            }
+
+            // 첫 바론 (4피리어드)
+            if(children50.length > 0) {
+                children_div += div_12(children50, header50);
+            }
+
+            // 첫 드래곤 (4피리어드)
+            if(children51.length > 0) {
+                children_div += div_12(children51, header51);
+            }
+
+            // 첫 억제기 (4피리어드)
+            if(children52.length > 0) {
+                children_div += div_12(children52, header52);
+            }
+
+            // 승패 (5피리어드)
+            if(children53.length > 0) {
+                children_div += div_12(children53, header53);
+            }
+
+            // 핸디캡 (5피리어드)
+            if(children54.length > 0) {
+                children_div += div_handi(children54, header54);
+            }
+
+            // 핸디캡 - 킬 (5피리어드)
+            if(children55.length > 0) {
+                children_div += div_handi(children55, header55);
+            }
+
+            // 첫 바론 (5피리어드)
+            if(children56.length > 0) {
+                children_div += div_12(children56, header56);
+            }
+
+            // 첫 드래곤 (5피리어드)
+            if(children57.length > 0) {
+                children_div += div_12(children57, header57);
             }
 
             // 첫 억제기 (5피리어드)
-            if(children49.length > 0) {
-                children_div += div_12(children49, header49);
+            if(children58.length > 0) {
+                children_div += div_12(children58, header58);
             }
 
         }
@@ -3140,7 +3228,7 @@
         div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="25" class="st_marr3 st_marb1 st_game_ico">`;
         div += '&nbsp';
         if(item.m_strLeagueImg != "") {
-            div += '<img src="' + item.m_strLeagueImg + '" width="25" class="st_marr3 st_marb1 st_game_ico">';
+            div += '<img src="' + item.m_strLeagueImg + '?v=1" width="25" class="st_marr3 st_marb1 st_game_ico">';
         }
         div += '&nbsp';
         div += item.m_strLeagueName;
@@ -3292,7 +3380,7 @@
             children_div += '<input type="hidden" id="' + sub_idx + '_home_name" value="' + item.m_strHName + '">';
             children_div += '<input type="hidden" id="' + sub_idx + '_league_sn" value="' + item.m_nLeague + '"></div>';
             children_div += "<div class='st_wd33_l  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','0','" + item.m_nHBetCode + "')>";
-            children_div += item.m_strHomeTeam; 
+            children_div += `<span class="txt_cut">${item.m_strHomeTeam}</span>`; 
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nHBetCode + '">' + item.m_fHRate.toFixed(2) + '</span>';
             children_div += `<input type="checkbox" id="${item.m_nHBetCode}_chk" name="ch" value="1" style="display:none;"></div>`;
@@ -3302,7 +3390,7 @@
             children_div += '<span class="f_right" id="' + item.m_nDBetCode + '">' +  item.m_fDRate.toFixed(2) + '</span>';
             children_div += `<input type="checkbox" id="${item.m_nDBetCode}_chk" name="ch" value="3" style="display:none;"></div>`;
             children_div += "<div class='st_wd33_l  selectable' name='" + sub_idx + "_div' onclick=onMultiTeamSelected('" + sub_idx + "','2','" + item.m_nABetCode + "')>";
-            children_div += item.m_strAwayTeam;  
+            children_div += `<span class="txt_cut">${item.m_strAwayTeam}</span>`;  
             children_div += '<span class="txt_co5 st_padl5"></span>'; 
             children_div += '<span class="f_right" id="' + item.m_nABetCode + '">' +  item.m_fARate.toFixed(2) + '</span>';
             children_div += `<input type="checkbox" id="${item.m_nABetCode}_chk" name="ch" value="2" style="display:none;"></div></li>`;

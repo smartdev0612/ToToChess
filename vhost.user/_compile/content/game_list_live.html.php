@@ -640,6 +640,7 @@
                 $(".btn_baseball").removeClass("on");
                 $(".btn_hockey").removeClass("on");
                 $(".btn_volleyball").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "soccer":
                 $(".btn_soccer").addClass("on");
@@ -648,6 +649,7 @@
                 $(".btn_baseball").removeClass("on");
                 $(".btn_hockey").removeClass("on");
                 $(".btn_volleyball").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "basketball":
                 $(".btn_basketball").addClass("on");
@@ -656,6 +658,7 @@
                 $(".btn_baseball").removeClass("on");
                 $(".btn_hockey").removeClass("on");
                 $(".btn_volleyball").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "baseball":
                 $(".btn_baseball").addClass("on");
@@ -664,6 +667,7 @@
                 $(".btn_all").removeClass("on");
                 $(".btn_hockey").removeClass("on");
                 $(".btn_volleyball").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "hockey":
                 $(".btn_hockey").addClass("on");
@@ -672,6 +676,7 @@
                 $(".btn_baseball").removeClass("on");
                 $(".btn_all").removeClass("on");
                 $(".btn_volleyball").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "volleyball":
                 $(".btn_volleyball").addClass("on");
@@ -680,6 +685,7 @@
                 $(".btn_baseball").removeClass("on");
                 $(".btn_hockey").removeClass("on");
                 $(".btn_all").removeClass("on");
+                $(".btn_esports").removeClass("on");
                 break;
             case "esports":
                 $(".btn_esports").addClass("on");
@@ -713,187 +719,194 @@
         }
         
         var game_sn = $("#game_sn").val();
-       
-        var newData = newJson.find(val => val.m_nGame == game_sn);
 
-        if(newData != null && newData != undefined)
-            drawRightDiv(newData);
+        if(newJson.length > 0) {
+            var newData = newJson.find(val => val.m_nGame == game_sn);
 
-        for(var i = 0; i < showJson.length; i++) {
-            var json = newJson.find(val => val.m_nGame == showJson[i].m_nGame);
-            if(json != null && json != undefined) {
-                var isExist = checkExist1x2(json);
-                if(document.getElementById(`cnt_${json.m_nGame}`) != null && document.getElementById(`cnt_${json.m_nGame}`) != undefined) {
-                    if(json.m_nStatus == 1 || json.m_nStatus == 8 || json.m_nStatus == 9)
-                        document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+0";
-                    else 
-                        document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
-                }
+            if(newData != null && newData != undefined)
+                drawRightDiv(newData);
 
-                if(document.getElementById(`F${json.m_nGame}`) != null && document.getElementById(`F${json.m_nGame}`) != undefined) {
-                    if(json.m_nStatus == 1 || json.m_nStatus == 8 || json.m_nStatus == 9)
-                        $j(`#F${json.m_nGame}`).prop("disabled", true);
-                    else 
-                        $j(`#F${json.m_nGame}`).prop("disabled", false);
-                }
-
-                if(document.getElementById(`period_${json.m_nGame}`) != null && document.getElementById(`period_${json.m_nGame}`) != undefined)
-                    document.getElementById(`period_${json.m_nGame}`).innerHTML = json.m_strPeriod;
-                if(document.getElementById(`homescore_${json.m_nGame}`) != null && document.getElementById(`homescore_${json.m_nGame}`) != undefined)
-                    document.getElementById(`homescore_${json.m_nGame}`).innerHTML = json.m_nHomeScore;
-                if(document.getElementById(`awayscore_${json.m_nGame}`) != null && document.getElementById(`awayscore_${json.m_nGame}`) != undefined)
-                    document.getElementById(`awayscore_${json.m_nGame}`).innerHTML = json.m_nAwayScore;
-
-                for(var j=0; j < showJson[i].m_lstDetail.length; j++) {
-                    var djson = json.m_lstDetail.find(val => val.m_nHBetCode == showJson[i].m_lstDetail[j].m_nHBetCode && val.m_nDBetCode == showJson[i].m_lstDetail[j].m_nDBetCode && val.m_nABetCode == showJson[i].m_lstDetail[j].m_nABetCode);
-                    // updateGameInfo(djson);
-                    if(djson != null && djson != undefined) {
-                        //배당자료업데이트
-                        var sub_idx = `${json.m_nGame}_${djson.m_nMarket}_${djson.m_nFamily}`;
-                        if(djson.m_fHRate != showJson[i].m_lstDetail[j].m_fHRate) {
-                            var obj = document.getElementById(`${djson.m_nHBetCode}`);
-                            if(obj != null && obj != undefined) {
-                                document.getElementById(`${djson.m_nHBetCode}`).innerHTML = djson.m_fHRate.toFixed(2);
-                            }
-                            if(document.getElementById(`${sub_idx}_home_rate`) != null && document.getElementById(`${sub_idx}_home_rate`) != undefined)
-                                document.getElementById(`${sub_idx}_home_rate`).value = djson.m_fHRate.toFixed(2);
-                        }
-                        if(djson.m_fDRate != showJson[i].m_lstDetail[j].m_fDRate) {
-                            var obj = document.getElementById(`${djson.m_nDBetCode}`);
-                            if(obj != null && obj != undefined) {
-                                document.getElementById(`${djson.m_nDBetCode}`).innerHTML = djson.m_fDRate.toFixed(2);
-                            }
-                            if(document.getElementById(`${sub_idx}_draw_rate`) != null && document.getElementById(`${sub_idx}_draw_rate`) != undefined)
-                                document.getElementById(`${sub_idx}_draw_rate`).value = djson.m_fDRate.toFixed(2);
-                        }
-                        if(djson.m_fARate != showJson[i].m_lstDetail[j].m_fARate) {
-                            var obj = document.getElementById(`${djson.m_nABetCode}`);
-                            if(obj != null && obj != undefined) {
-                                document.getElementById(`${djson.m_nABetCode}`).innerHTML = djson.m_fARate.toFixed(2);
-                            }
-                            if(document.getElementById(`${sub_idx}_away_rate`) != null && document.getElementById(`${sub_idx}_away_rate`) != undefined)
-                                document.getElementById(`${sub_idx}_away_rate`).value = djson.m_fARate.toFixed(2);
-                        }
-
-                        // 배팅카트의 배당 업데이트
-                        if(document.getElementById(`${djson.m_nHBetCode}_cart`) != null) {
-                            document.getElementById(`${djson.m_nHBetCode}_cart`).innerHTML = djson.m_fHRate.toFixed(2);
-                            updateCart(0, djson.m_nHBetCode, djson.m_fHRate);
-                            if(localStorage.getItem(`selected_${djson.m_nHBetCode}`) !== null) {
-                                $j(`#${djson.m_nHBetCode}_chk`).parent().addClass("on");
-                                $j(`#${djson.m_nHBetCode}_chk`).prop("checked", true);
-                            }
-                        }
-
-                        if(document.getElementById(`${djson.m_nDBetCode}_cart`) != null) {
-                            document.getElementById(`${djson.m_nDBetCode}_cart`).innerHTML = djson.m_fDRate.toFixed(2);
-                            updateCart(1, djson.m_nDBetCode, djson.m_fDRate);
-                            if(localStorage.getItem(`selected_${djson.m_nDBetCode}`) !== null) {
-                                $j(`#${djson.m_nDBetCode}_chk`).parent().addClass("on");
-                                $j(`#${djson.m_nDBetCode}_chk`).prop("checked", true);
-                            }
-                        }
-
-                        if(document.getElementById(`${djson.m_nABetCode}_cart`) != null) { 
-                            document.getElementById(`${djson.m_nABetCode}_cart`).innerHTML = djson.m_fARate.toFixed(2);
-                            updateCart(2, djson.m_nABetCode, djson.m_fARate);
-                            if(localStorage.getItem(`selected_${djson.m_nABetCode}`) !== null) {
-                                $j(`#${djson.m_nABetCode}_chk`).parent().addClass("on");
-                                $j(`#${djson.m_nABetCode}_chk`).prop("checked", true);
-                            }
-                        }
-
+            for(var i = 0; i < showJson.length; i++) {
+                var json = newJson.find(val => val.m_nGame == showJson[i].m_nGame);
+                if(json != null && json != undefined) {
+                    var isExist = checkExist1x2(json);
+                    if(document.getElementById(`cnt_${json.m_nGame}`) != null && document.getElementById(`cnt_${json.m_nGame}`) != undefined) {
+                        if(json.m_nStatus == 1 || json.m_nStatus == 8 || json.m_nStatus == 9)
+                            document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+0";
+                        else 
+                            document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
                     }
 
-                    // djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket);
-                    // if(djson == null || djson == undefined) {
-                    //     removeMarketDiv(showJson[i], showJson[i].m_lstDetail[j]);
-                    // }
+                    if(document.getElementById(`F${json.m_nGame}`) != null && document.getElementById(`F${json.m_nGame}`) != undefined) {
+                        if(json.m_nStatus == 1 || json.m_nStatus == 8 || json.m_nStatus == 9)
+                            $j(`#F${json.m_nGame}`).prop("disabled", true);
+                        else 
+                            $j(`#F${json.m_nGame}`).prop("disabled", false);
+                    }
 
-                    // djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket && val.m_strHLine == showJson[i].m_lstDetail[j].m_strHLine);
-                    // if(djson == null || djson == undefined) {
-                    //     removeSubMarketDiv(showJson[i], showJson[i].m_lstDetail[j], showJson[i].m_lstDetail[j].m_strHLine);
-                    // } else {
-                    //     appendSubMarketDiv(showJson[i], showJson[i].m_lstDetail[j], showJson[i].m_lstDetail[j].m_strHLine);
-                    // }
+                    if(document.getElementById(`period_${json.m_nGame}`) != null && document.getElementById(`period_${json.m_nGame}`) != undefined)
+                        document.getElementById(`period_${json.m_nGame}`).innerHTML = json.m_strPeriod;
+                    if(document.getElementById(`homescore_${json.m_nGame}`) != null && document.getElementById(`homescore_${json.m_nGame}`) != undefined)
+                        document.getElementById(`homescore_${json.m_nGame}`).innerHTML = json.m_nHomeScore;
+                    if(document.getElementById(`awayscore_${json.m_nGame}`) != null && document.getElementById(`awayscore_${json.m_nGame}`) != undefined)
+                        document.getElementById(`awayscore_${json.m_nGame}`).innerHTML = json.m_nAwayScore;
 
-                    // djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket && val.m_strHName == showJson[i].m_lstDetail[j].m_strHName);
-                    // if(djson == null || djson == undefined) {
-                    //     removeSubMarketDiv(showJson[i], showJson[i].m_lstDetail[j], showJson[i].m_lstDetail[j].m_strHName);
-                    // } else {
-                    //     appendSubMarketDiv(showJson[i], showJson[i].m_lstDetail[j], showJson[i].m_lstDetail[j].m_strHName);
-                    // }
-                }
+                    for(var j=0; j < showJson[i].m_lstDetail.length; j++) {
+                        var djson = json.m_lstDetail.find(val => val.m_nHBetCode == showJson[i].m_lstDetail[j].m_nHBetCode && val.m_nDBetCode == showJson[i].m_lstDetail[j].m_nDBetCode && val.m_nABetCode == showJson[i].m_lstDetail[j].m_nABetCode);
+                        // updateGameInfo(djson);
+                        if(djson != null && djson != undefined) {
+                            //배당자료업데이트
+                            var sub_idx = `${json.m_nGame}_${djson.m_nMarket}_${djson.m_nFamily}`;
+                            if(djson.m_fHRate != showJson[i].m_lstDetail[j].m_fHRate) {
+                                var obj = document.getElementById(`${djson.m_nHBetCode}`);
+                                if(obj != null && obj != undefined) {
+                                    document.getElementById(`${djson.m_nHBetCode}`).innerHTML = djson.m_fHRate.toFixed(2);
+                                }
+                                if(document.getElementById(`${sub_idx}_home_rate`) != null && document.getElementById(`${sub_idx}_home_rate`) != undefined)
+                                    document.getElementById(`${sub_idx}_home_rate`).value = djson.m_fHRate.toFixed(2);
+                            }
+                            if(djson.m_fDRate != showJson[i].m_lstDetail[j].m_fDRate) {
+                                var obj = document.getElementById(`${djson.m_nDBetCode}`);
+                                if(obj != null && obj != undefined) {
+                                    document.getElementById(`${djson.m_nDBetCode}`).innerHTML = djson.m_fDRate.toFixed(2);
+                                }
+                                if(document.getElementById(`${sub_idx}_draw_rate`) != null && document.getElementById(`${sub_idx}_draw_rate`) != undefined)
+                                    document.getElementById(`${sub_idx}_draw_rate`).value = djson.m_fDRate.toFixed(2);
+                            }
+                            if(djson.m_fARate != showJson[i].m_lstDetail[j].m_fARate) {
+                                var obj = document.getElementById(`${djson.m_nABetCode}`);
+                                if(obj != null && obj != undefined) {
+                                    document.getElementById(`${djson.m_nABetCode}`).innerHTML = djson.m_fARate.toFixed(2);
+                                }
+                                if(document.getElementById(`${sub_idx}_away_rate`) != null && document.getElementById(`${sub_idx}_away_rate`) != undefined)
+                                    document.getElementById(`${sub_idx}_away_rate`).value = djson.m_fARate.toFixed(2);
+                            }
 
-                if(json.m_nStatus == 1 || json.m_nStatus == 8 || json.m_nStatus == 9) {
-                    $j("#lock_" + json.m_nGame).css("display", "block");
-                } else if(json.m_lstDetail.length > 0) {
-                    var market12;
-                    switch(json.m_nSports) {
-                        case 6046: // 축구
-                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
-                            break;
-                        case 48242: // 농구
-                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
-                            break;
-                        case 154914: // 야구
-                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
-                            break;
-                        case 154830: // 배구
-                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
-                            break;
-                        case 35232: // 아이스 하키
-                            market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
-                            break;    
+                            // 배팅카트의 배당 업데이트
+                            if(document.getElementById(`${djson.m_nHBetCode}_cart`) != null) {
+                                document.getElementById(`${djson.m_nHBetCode}_cart`).innerHTML = djson.m_fHRate.toFixed(2);
+                                updateCart(0, djson.m_nHBetCode, djson.m_fHRate);
+                                if(localStorage.getItem(`selected_${djson.m_nHBetCode}`) !== null) {
+                                    $j(`#${djson.m_nHBetCode}_chk`).parent().addClass("on");
+                                    $j(`#${djson.m_nHBetCode}_chk`).prop("checked", true);
+                                }
+                            }
+
+                            if(document.getElementById(`${djson.m_nDBetCode}_cart`) != null) {
+                                document.getElementById(`${djson.m_nDBetCode}_cart`).innerHTML = djson.m_fDRate.toFixed(2);
+                                updateCart(1, djson.m_nDBetCode, djson.m_fDRate);
+                                if(localStorage.getItem(`selected_${djson.m_nDBetCode}`) !== null) {
+                                    $j(`#${djson.m_nDBetCode}_chk`).parent().addClass("on");
+                                    $j(`#${djson.m_nDBetCode}_chk`).prop("checked", true);
+                                }
+                            }
+
+                            if(document.getElementById(`${djson.m_nABetCode}_cart`) != null) { 
+                                document.getElementById(`${djson.m_nABetCode}_cart`).innerHTML = djson.m_fARate.toFixed(2);
+                                updateCart(2, djson.m_nABetCode, djson.m_fARate);
+                                if(localStorage.getItem(`selected_${djson.m_nABetCode}`) !== null) {
+                                    $j(`#${djson.m_nABetCode}_chk`).parent().addClass("on");
+                                    $j(`#${djson.m_nABetCode}_chk`).prop("checked", true);
+                                }
+                            }
+
+                        }
+
+                        // djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket);
+                        // if(djson == null || djson == undefined) {
+                        //     removeMarketDiv(showJson[i], showJson[i].m_lstDetail[j]);
+                        // }
+
+                        // djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket && val.m_strHLine == showJson[i].m_lstDetail[j].m_strHLine);
+                        // if(djson == null || djson == undefined) {
+                        //     removeSubMarketDiv(showJson[i], showJson[i].m_lstDetail[j], showJson[i].m_lstDetail[j].m_strHLine);
+                        // } else {
+                        //     appendSubMarketDiv(showJson[i], showJson[i].m_lstDetail[j], showJson[i].m_lstDetail[j].m_strHLine);
+                        // }
+
+                        // djson = json.m_lstDetail.find(val => val.m_nMarket == showJson[i].m_lstDetail[j].m_nMarket && val.m_strHName == showJson[i].m_lstDetail[j].m_strHName);
+                        // if(djson == null || djson == undefined) {
+                        //     removeSubMarketDiv(showJson[i], showJson[i].m_lstDetail[j], showJson[i].m_lstDetail[j].m_strHName);
+                        // } else {
+                        //     appendSubMarketDiv(showJson[i], showJson[i].m_lstDetail[j], showJson[i].m_lstDetail[j].m_strHName);
+                        // }
+                    }
+
+                    if(json.m_nStatus == 1 || json.m_nStatus == 8 || json.m_nStatus == 9) {
+                        $j("#lock_" + json.m_nGame).css("display", "block");
+                    } else if(json.m_lstDetail.length > 0) {
+                        var market12;
+                        switch(json.m_nSports) {
+                            case 6046: // 축구
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
+                                break;
+                            case 48242: // 농구
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                                break;
+                            case 154914: // 야구
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                                break;
+                            case 154830: // 배구
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
+                                break;
+                            case 35232: // 아이스 하키
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
+                                break;
+                            case 687890: // E스포츠
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
+                                break;    
+                        }
+                        
+                        if(market12.m_nStatus > 1) {
+                            $j("#lock_" + json.m_nGame).css("display", "block");
+                        } else {
+                            $j("#lock_" + json.m_nGame).css("display", "none");
+                        }
                     }
                     
-                    if(market12.m_nStatus > 1) {
-                        $j("#lock_" + json.m_nGame).css("display", "block");
-                    } else {
-                        $j("#lock_" + json.m_nGame).css("display", "none");
-                    }
+                } else {
+                    removeGameDiv(showJson[i]);
                 }
-
-                
-            } else {
-                removeGameDiv(showJson[i]);
             }
-        }
 
 
-        // var newMarketID = 0;
-        // var oldData = showJson.find(val => val.m_nGame == game_sn);
+            // var newMarketID = 0;
+            // var oldData = showJson.find(val => val.m_nGame == game_sn);
 
-        // if(newData != null && newData != undefined && oldData != null && oldData != undefined) {
-        //     for(var j = 0; j < newData.m_lstDetail.length ; j++) {
-        //         if(newMarketID != newData.m_lstDetail[j].m_nMarket) {
-        //             var djson = oldData.m_lstDetail.find(val => val.m_nMarket == newData.m_lstDetail[j].m_nMarket);
-        //             if(djson == null || djson == undefined) {
-        //                 //새배당추가
-        //                 newMarketID = json.m_lstDetail[j].m_nMarket;
-        //                 appendMarketDiv(newData, newData.m_lstDetail.filter(val => val.m_nMarket == newMarketID));
-        //             }
-        //         }
-        //     }
-        // }
-    
-        for(var i = 0; i < newJson.length; i++) {
-            var json = showJson.find(val => val.m_nGame == newJson[i].m_nGame);
-            if(json == null || json == undefined) {
-                //새게임추가
-                console.log("append Game");
-                appendGameDiv(newJson[i], 1);
+            // if(newData != null && newData != undefined && oldData != null && oldData != undefined) {
+            //     for(var j = 0; j < newData.m_lstDetail.length ; j++) {
+            //         if(newMarketID != newData.m_lstDetail[j].m_nMarket) {
+            //             var djson = oldData.m_lstDetail.find(val => val.m_nMarket == newData.m_lstDetail[j].m_nMarket);
+            //             if(djson == null || djson == undefined) {
+            //                 //새배당추가
+            //                 newMarketID = json.m_lstDetail[j].m_nMarket;
+            //                 appendMarketDiv(newData, newData.m_lstDetail.filter(val => val.m_nMarket == newMarketID));
+            //             }
+            //         }
+            //     }
+            // }
+        
+            for(var i = 0; i < newJson.length; i++) {
+                var json = showJson.find(val => val.m_nGame == newJson[i].m_nGame);
+                if(json == null || json == undefined) {
+                    //새게임추가
+                    console.log("append Game");
+                    appendGameDiv(newJson[i], 1);
+                }
             }
-        }
 
-        var filteredJson = []
-        for(i = 0; i < newJson.length; i++) {
-            if(checkExist1x2(newJson[i])) {
-                filteredJson.push(newJson[i]);
+            var filteredJson = []
+            for(i = 0; i < newJson.length; i++) {
+                if(checkExist1x2(newJson[i])) {
+                    filteredJson.push(newJson[i]);
+                }
             }
+        
+            showJson = filteredJson;
+        } else {
+            $j("#left_flow").empty();
+            showJson = newJson;
         }
-      
-        showJson = filteredJson;
     }
 
     function appendSubMarketDiv(game, market, type) {
@@ -1842,6 +1855,238 @@
                             break;
                     }
                     break;
+                case "E스포츠":
+                    switch (detail.m_nMarket) {
+                        case 52:
+                            header2 = "승패";
+                            // children2.push(item);
+                            break;
+                        case 3:
+                            header3 = "핸디캡";
+                            children3.push(item);
+                            break;
+                        case 2:
+                            header4 = "언더오버";
+                            children4.push(item);
+                            break;
+                        case 202:
+                            header5 = "승패 (1피리어드)";
+                            children5.push(item);
+                            break;
+                        case 64:
+                            header6 = "핸디캡 (1피리어드)";
+                            children6.push(item);
+                            break;
+                        case 1149:
+                            header7 = "핸디캡 - 킬 (1피리어드)";
+                            children7.push(item);
+                            break;
+                        case 989:
+                            header8 = "언더오버 - 킬 (1피리어드)";
+                            children8.push(item);
+                            break;
+                        case 1129:
+                            header9 = "언더오버 - 바론 슬레인 (1피리어드)";
+                            children9.push(item);
+                            break;
+                        case 1133:
+                            header10 = "언더오버 - 드래곤 슬레인 (1피리어드)";
+                            children10.push(item);
+                            break;
+                        case 1162:
+                            header11 = "언더오버 - 파괴된 탑 (1피리어드)";
+                            children11.push(item);
+                            break;
+                        case 1165:
+                            header12 = "첫 바론 (1피리어드)";
+                            children12.push(item);
+                            break;
+                        case 669:
+                            header13 = "첫 블라드 (1피리어드)";
+                            children13.push(item);
+                            break;
+                        case 1170:
+                            header14 = "첫 드래곤 (1피리어드)";
+                            children14.push(item);
+                            break;
+                        case 1251:
+                            header15 = "첫 억제기 (1피리어드)";
+                            children15.push(item);
+                            break;
+                        case 672:
+                            header16 = "첫 탑 (1피리어드)";
+                            children16.push(item);
+                            break;
+                        case 666:
+                            header17 = "첫 로샨 (1피리어드)";
+                            children17.push(item);
+                            break;
+                        case 679:
+                            header18 = "첫 터렛 (1피리어드)";
+                            children18.push(item);
+                            break;
+                        case 203:
+                            header19 = "승패 (2피리어드)";
+                            children19.push(item);
+                            break;
+                        case 65:
+                            header20 = "핸디캡 (2피리어드)";
+                            children20.push(item);
+                            break;
+                        case 1150:
+                            header21 = "핸디캡 - 킬 (2피리어드)";
+                            children21.push(item);
+                            break;
+                        case 990:
+                            header22 = "언더오버 - 킬 (2피리어드)";
+                            children22.push(item);
+                            break;
+                        case 1130:
+                            header23 = "언더오버 - 바론 슬레인 (2피리어드)";
+                            children23.push(item);
+                            break;
+                        case 1134:
+                            header24 = "언더오버 - 드래곤 슬레인 (2피리어드)";
+                            children24.push(item);
+                            break;
+                        case 1163:
+                            header25 = "언더오버 - 파괴된 탑 (2피리어드)";
+                            children25.push(item);
+                            break;
+                        case 1166:
+                            header26 = "첫 바론 (2피리어드)";
+                            children26.push(item);
+                            break;
+                        case 670:
+                            header27 = "첫 블라드 (2피리어드)";
+                            children27.push(item);
+                            break;
+                        case 1171:
+                            header28 = "첫 드래곤 (2피리어드)";
+                            children28.push(item);
+                            break;
+                        case 1252:
+                            header29 = "첫 억제기 (2피리어드)";
+                            children29.push(item);
+                            break;
+                        case 673:
+                            header30 = "첫 탑 (2피리어드)";
+                            children30.push(item);
+                            break;
+                        case 667:
+                            header31 = "첫 로샨 (2피리어드)";
+                            children31.push(item);
+                            break;
+                        case 680:
+                            header32 = "첫 터렛 (2피리어드)";
+                            children32.push(item);
+                            break;
+                        case 204:
+                            header33 = "승패 (3피리어드)";
+                            children33.push(item);
+                            break;
+                        case 66:
+                            header34 = "핸디캡 (3피리어드)";
+                            children34.push(item);
+                            break;
+                        case 1151:
+                            header35 = "핸디캡 - 킬 (3피리어드)";
+                            children35.push(item);
+                            break;
+                        case 991:
+                            header36 = "언더오버 - 킬 (3피리어드)";
+                            children36.push(item);
+                            break;
+                        case 1131:
+                            header37 = "언더오버 - 바론 슬레인 (3피리어드)";
+                            children37.push(item);
+                            break;
+                        case 1135:
+                            header38 = "언더오버 - 드래곤 슬레인 (3피리어드)";
+                            children38.push(item);
+                            break;
+                        case 1164:
+                            header39 = "언더오버 - 파괴된 탑 (3피리어드)";
+                            children39.push(item);
+                            break;
+                        case 1167:
+                            header40 = "첫 바론 (3피리어드)";
+                            children40.push(item);
+                            break;
+                        case 671:
+                            header41 = "첫 블라드 (3피리어드)";
+                            children41.push(item);
+                            break;
+                        case 1172:
+                            header42 = "첫 드래곤 (3피리어드)";
+                            children42.push(item);
+                            break;
+                        case 1253:
+                            header43 = "첫 억제기 (3피리어드)";
+                            children43.push(item);
+                            break;
+                        case 674:
+                            header44 = "첫 탑 (3피리어드)";
+                            children44.push(item);
+                            break;
+                        case 668:
+                            header45 = "첫 로샨 (3피리어드)";
+                            children45.push(item);
+                            break;
+                        case 681:
+                            header46 = "첫 터렛 (3피리어드)";
+                            children46.push(item);
+                            break;
+                        case 205:
+                            header47 = "승패 (4피리어드)";
+                            children47.push(item);
+                            break;
+                        case 67:
+                            header48 = "핸디캡 (4피리어드)";
+                            children48.push(item);
+                            break;
+                        case 1152:
+                            header49 = "핸디캡 - 킬 (4피리어드)";
+                            children49.push(item);
+                            break;
+                        case 1168:
+                            header50 = "첫 바론 (4피리어드)";
+                            children50.push(item);
+                            break;
+                        case 1173:
+                            header51 = "첫 드래곤 (4피리어드)";
+                            children51.push(item);
+                            break;
+                        case 1254:
+                            header52 = "첫 억제기 (4피리어드)";
+                            children52.push(item);
+                            break;
+                        case 206:
+                            header53 = "승패 (5피리어드)";
+                            children53.push(item);
+                            break;
+                        case 68:
+                            header54 = "핸디캡 (5피리어드)";
+                            children54.push(item);
+                            break;
+                        case 1153:
+                            header55 = "핸디캡 - 킬 (5피리어드)";
+                            children55.push(item);
+                            break;
+                        case 1169:
+                            header56 = "첫 바론 (5피리어드)";
+                            children56.push(item);
+                            break;
+                        case 1174:
+                            header57 = "첫 드래곤 (5피리어드)";
+                            children57.push(item);
+                            break;
+                        case 1255:
+                            header58 = "첫 억제기 (5피리어드)";
+                            children58.push(item);
+                            break;
+                    }
+                    break;
             }
             if(detail.m_nMarket == 6) {
                 correctScoreItems.push(item);
@@ -2609,6 +2854,291 @@
             if(children19.length > 0) {
                 children_div += div_oddeven(children19, header19);
             }
+        } else if(res.m_strSportName == "E스포츠") {
+            // 승패
+            if(children2.length > 0) {
+                children_div += div_12(children2, header2);
+            }
+
+            // 핸디캡
+            if(children3.length > 0) {
+                children_div += div_handi(children3, header3);
+            }
+
+            // 언더오버
+            if(children4.length > 0) {
+                children_div += div_unover(children4, header4);
+            }
+
+            // 승패 (1피리어드)
+            if(children5.length > 0) {
+                children_div += div_12(children5, header5);
+            }
+
+            // 핸디캡 (1피리어드)
+            if(children6.length > 0) {
+                children_div += div_handi(children6, header6);
+            }
+
+            // 핸디캡 - 킬 (1피리어드)
+            if(children7.length > 0) {
+                children_div += div_handi(children7, header7);
+            }
+            
+            // 언더오버 - 킬 (1피리어드)
+            if(children8.length > 0) {
+                children_div += div_unover(children8, header8);
+            }
+
+            // 언더오버 - 바론 슬레인 (1피리어드)
+            if(children9.length > 0) {
+                children_div += div_unover(children9, header9);
+            }
+
+            // 언더오버 - 드래곤 슬레인 (1피리어드)
+            if(children10.length > 0) {
+                children_div += div_unover(children10, header10);
+            }
+
+            // 언더오버 - 파괴된 탑 (1피리어드)
+            if(children11.length > 0) {
+                children_div += div_unover(children11, header11);
+            }
+            
+            // 첫 바론 (1피리어드)
+            if(children12.length > 0) {
+                children_div += div_12(children12, header12);
+            }
+
+            // 첫 블라드 (1피리어드)
+            if(children13.length > 0) {
+                children_div += div_12(children13, header13);
+            }
+            
+            // 첫 드래곤 (1피리어드)
+            if(children14.length > 0) {
+                children_div += div_12(children14, header14);
+            }
+            
+            // 첫 억제기 (1피리어드)
+            if(children15.length > 0) {
+                children_div += div_12(children15, header15);
+            }
+
+            // 첫 탑 (1피리어드)
+            if(children16.length > 0) {
+                children_div += div_12(children16, header16);
+            }
+            
+            // 첫 로샨 (1피리어드)
+            if(children17.length > 0) {
+                children_div += div_12(children17, header17);
+            }
+            
+            // 첫 터렛 (1피리어드)
+            if(children18.length > 0) {
+                children_div += div_12(children18, header18);
+            }
+
+            // 승패 (2피리어드)
+            if(children19.length > 0) {
+                children_div += div_12(children19, header19);
+            }
+
+            // 핸디캡 (2피리어드)
+            if(children20.length > 0) {
+                children_div += div_handi(children20, header20);
+            }
+
+            // 핸디캡 - 킬 (2피리어드)
+            if(children21.length > 0) {
+                children_div += div_handi(children21, header21);
+            }
+
+            // 언더오버 - 킬 (2피리어드)
+            if(children22.length > 0) {
+                children_div += div_unover(children22, header22);
+            }
+
+            // 언더오버 - 바론 슬레인 (2피리어드)
+            if(children23.length > 0) {
+                children_div += div_unover(children23, header23);
+            }
+
+            // 언더오버 - 드래곤 슬레인 (2피리어드)
+            if(children24.length > 0) {
+                children_div += div_unover(children24, header24);
+            }
+
+            // 언더오버 - 파괴된 탑 (2피리어드)
+            if(children25.length > 0) {
+                children_div += div_unover(children25, header25);
+            }
+
+            // 첫 바론 (2피리어드)
+            if(children26.length > 0) {
+                children_div += div_12(children26, header26);
+            }
+
+            // 첫 블라드 (2피리어드)
+            if(children27.length > 0) {
+                children_div += div_12(children27, header27);
+            }
+
+            // 첫 드래곤 (2피리어드)
+            if(children28.length > 0) {
+                children_div += div_12(children28, header28);
+            }
+
+            // 첫 억제기 (2피리어드)
+            if(children29.length > 0) {
+                children_div += div_12(children29, header29);
+            }
+
+            // 첫 탑 (2피리어드)
+            if(children30.length > 0) {
+                children_div += div_12(children30, header30);
+            }
+
+            // 첫 로샨 (2피리어드)
+            if(children31.length > 0) {
+                children_div += div_12(children31, header31);
+            }
+
+            // 첫 터렛 (2피리어드)
+            if(children32.length > 0) {
+                children_div += div_12(children32, header32);
+            }
+
+            // 승패 (3피리어드)
+            if(children33.length > 0) {
+                children_div += div_12(children33, header33);
+            }
+
+            // 핸디캡 (3피리어드)
+            if(children34.length > 0) {
+                children_div += div_handi(children34, header34);
+            }
+
+            // 핸디캡 - 킬 (3피리어드)
+            if(children35.length > 0) {
+                children_div += div_handi(children35, header35);
+            }
+
+            // 언더오버 - 킬 (3피리어드)
+            if(children36.length > 0) {
+                children_div += div_unover(children36, header36);
+            }
+
+            // 언더오버 - 바론 슬레인 (3피리어드)
+            if(children37.length > 0) {
+                children_div += div_unover(children37, header37);
+            }
+
+            // 언더오버 - 드래곤 슬레인 (3피리어드)
+            if(children38.length > 0) {
+                children_div += div_unover(children38, header38);
+            }
+
+            // 언더오버 - 파괴된 탑 (3피리어드)
+            if(children39.length > 0) {
+                children_div += div_unover(children39, header39);
+            }
+
+            // 첫 바론 (3피리어드)
+            if(children40.length > 0) {
+                children_div += div_12(children40, header40);
+            }
+
+            // 첫 블라드 (3피리어드)
+            if(children41.length > 0) {
+                children_div += div_12(children41, header41);
+            }
+
+            // 첫 드래곤 (3피리어드)
+            if(children42.length > 0) {
+                children_div += div_12(children42, header42);
+            }
+
+            // 첫 억제기 (3피리어드)
+            if(children43.length > 0) {
+                children_div += div_12(children43, header43);
+            }
+            
+            // 첫 탑 (3피리어드)
+            if(children44.length > 0) {
+                children_div += div_12(children44, header44);
+            }
+
+            // 첫 로샨 (3피리어드)
+            if(children45.length > 0) {
+                children_div += div_12(children45, header45);
+            }
+
+            // 첫 터렛 (3피리어드)
+            if(children46.length > 0) {
+                children_div += div_12(children46, header46);
+            }
+
+            // 승패 (4피리어드)
+            if(children47.length > 0) {
+                children_div += div_12(children47, header47);
+            }
+
+            // 핸디캡 (4피리어드)
+            if(children48.length > 0) {
+                children_div += div_handi(children48, header48);
+            }
+
+            // 핸디캡 - 킬 (4피리어드)
+            if(children49.length > 0) {
+                children_div += div_handi(children49, header49);
+            }
+
+            // 첫 바론 (4피리어드)
+            if(children50.length > 0) {
+                children_div += div_12(children50, header50);
+            }
+
+            // 첫 드래곤 (4피리어드)
+            if(children51.length > 0) {
+                children_div += div_12(children51, header51);
+            }
+
+            // 첫 억제기 (4피리어드)
+            if(children52.length > 0) {
+                children_div += div_12(children52, header52);
+            }
+
+            // 승패 (5피리어드)
+            if(children53.length > 0) {
+                children_div += div_12(children53, header53);
+            }
+
+            // 핸디캡 (5피리어드)
+            if(children54.length > 0) {
+                children_div += div_handi(children54, header54);
+            }
+
+            // 핸디캡 - 킬 (5피리어드)
+            if(children55.length > 0) {
+                children_div += div_handi(children55, header55);
+            }
+
+            // 첫 바론 (5피리어드)
+            if(children56.length > 0) {
+                children_div += div_12(children56, header56);
+            }
+
+            // 첫 드래곤 (5피리어드)
+            if(children57.length > 0) {
+                children_div += div_12(children57, header57);
+            }
+
+            // 첫 억제기 (5피리어드)
+            if(children58.length > 0) {
+                children_div += div_12(children58, header58);
+            }
         }
         if(correctScoreItems.length > 0) {
             children_div += div_correctScore(correctScoreItems, "정확한 스코어");
@@ -2710,7 +3240,7 @@
         div += `<img src="/BET38/_icon/sport/S${item.m_nSports}.png" width="25" class="st_marr3 st_marb1 st_game_ico">`;
         div += '&nbsp';
         if(item.m_strLeagueImg != "") {
-            div += '<img src="' + item.m_strLeagueImg + '" width="25" class="st_marr3 st_marb1 st_game_ico">';
+            div += '<img src="' + item.m_strLeagueImg + '?v=1" width="25" class="st_marr3 st_marb1 st_game_ico">';
         }
         div += '&nbsp';
         div += item.m_strLeagueName;
