@@ -125,6 +125,7 @@ function open_window(url,width,height){
 <?php }elseif($TPL_V1["mem_status"]=='B'){?>불량
 <?php }elseif($TPL_V1["mem_status"]=='W'){?>신규
 <?php }elseif($TPL_V1["mem_status"]=='G'){?>테스터
+<?php }elseif($TPL_V1["mem_status"]=='D'){?>탈퇴
 <?php }?>
 			</td>
 		</tr>

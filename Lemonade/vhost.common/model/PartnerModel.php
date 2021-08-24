@@ -360,7 +360,7 @@ class PartnerModel extends Lemon_Model
 	function getPartnerInMemberTotal($partner_sn, $where)
 	{
 		$sql = "select count(*) as cnt from ".$this->db_qz."member 
-						where is_store=0 and recommend_sn IN (select sn from ".$this->db_qz."member where recommend_sn = ".$partner_sn.") ".$where;
+						where recommend_sn = ".$partner_sn." ".$where;
 					
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['cnt'];
