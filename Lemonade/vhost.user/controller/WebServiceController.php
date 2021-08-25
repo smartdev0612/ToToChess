@@ -54,11 +54,12 @@ class WebServiceController extends Lemon_Controller
 
 		if($rs['maintain']==2)
 		{
-			session_destroy();
-			$this->view->define("index","layout/layout.iframe.html");
-			$this->view->define("index","content/maintain.html");
-			$this->view->assign("maintain_ment", $rs['maintain_ment']);		
+			// session_destroy();
+			// $this->view->define("index","layout/layout.iframe.html");
+			// $this->view->define("index","content/maintain.html");
+			// $this->view->assign("maintain_ment", $rs['maintain_ment']);		
 		}
+
 		// xssClean
 		$this->req->xssClean();
 		

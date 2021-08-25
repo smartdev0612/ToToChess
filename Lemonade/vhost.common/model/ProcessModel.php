@@ -2811,12 +2811,12 @@ class ProcessModel extends Lemon_Model
 		   //모든게임종료
 		   if ( $ingGameCount == 0 ) {
 			   $memberSn = $rs[$i]['member_sn'];
-			   $sql = "select logo from ".$this->db_qz."member where sn=".$memberSn;
+			   $sql = "select logo, uid, recommend_sn from ".$this->db_qz."member where sn=".$memberSn;
 			   $rsi = $this->db->exeSql($sql);					
 			   $logo = $rsi[0]['logo'];
 			   $strUserID = $rsi[0]['uid'];
 			   $recommend_sn = $rsi[0]['recommend_sn'];
-			   
+
 			   //모두 취소된 게임
 			   if ( $total == $cancelCount ) {
 					$winRate  = bcmul($winRate,1,2);
