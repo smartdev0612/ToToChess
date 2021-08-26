@@ -497,7 +497,7 @@ function sportsSocket() {
 
     ws.onclose = function (event) {
         console.log("WebSocket Closed");
-        sportsSocket();
+        //sportsSocket();
     }
     
     ws.onmessage = function (event) {
@@ -537,7 +537,7 @@ function miniSocket() {
 
     wsMini.onclose = function (event) {
         console.log("Minigame WebSocket closed");
-        miniSocket();
+        //miniSocket();
     }
     
     wsMini.onmessage = function (event) {
