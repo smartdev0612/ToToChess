@@ -390,6 +390,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 										echo $TPL_V1["home_line"];
 										break;
 									case 8:
+									case 9:
 										$home_line = explode(" ", $TPL_V1["home_line"]);
 										echo $home_line[0];
 										break;

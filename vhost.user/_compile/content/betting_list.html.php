@@ -166,6 +166,7 @@
                                             }
                                             break;
                                         case "8":
+                                        case "9":
                                             if($TPL_V2["select_no"] == "1") {
                                                 $home_line = explode(" ", $TPL_V2["home_line"]);
                                                 $table .= $TPL_V2["home_team"] . '<span class="txt_co6">(' . $home_line[0] . ')</span>';

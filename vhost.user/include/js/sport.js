@@ -1625,6 +1625,7 @@ function add_bet_list(item)
 			}
 			break;
 		case "8":
+		case "9":
 			if(selectedTeam == "0") {
 				home_line = home_line.split(" ");
 				selectedTeam = market_name + ' (홈) - ' + home_team + ' (' + home_line[0] + ')';

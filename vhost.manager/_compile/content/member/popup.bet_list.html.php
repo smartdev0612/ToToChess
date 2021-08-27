@@ -197,6 +197,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 										echo $TPL_V2["home_line"];
 										break;
 									case 8:
+									case 9:
 										$home_line = explode(" ", $TPL_V2["home_line"]);
 										echo $home_line[0];
 										break;
@@ -247,6 +248,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 											}
 											break;
 										case 8:
+										case 9:
 											if($TPL_V2["select_no"] == "1") {
 												$home_line = explode(" ", $TPL_V2["home_line"]);
 												$selectedTeam = $TPL_V2["home_team"] . '<span class="txt_co6">(' . $home_line[0] . ')</span>';
