@@ -242,6 +242,13 @@
    color: #fff;
    text-decoration: none;
    }
+
+    .header_text {
+        margin-top:30px; 
+        text-align: center; 
+        font-size: 18px;
+        line-height: 150% !important;
+    }
    
    @media screen and (max-width: 900px) { 
    .search_main {
@@ -3298,10 +3305,10 @@
     function drawRightDiv(res) {
         var details = res.m_lstDetail;
         if(details.length > 0) {
-            var div_header = '<div class="st_b_tit4"><div class="st_wd42 f_left txt_cut" style="margin-top:30px; text-align: center; font-size: 18px;">';
+            var div_header = '<div class="st_b_tit4"><div class="st_wd42 f_left txt_cut header_text">';
             div_header += res.m_strHomeTeam;
             div_header += '</div><div class="st_wd16 txt_ac" style="margin-top:10px;"><img src="/BET38/pc/_img/ico_vs.png"></div>';
-            div_header += '<div class="st_wd42 f_right txt_cut" style="margin-top:30px; text-align: center; font-size: 18px;">';
+            div_header += '<div class="st_wd42 f_right txt_cut header_text">';
             div_header += res.m_strAwayTeam;
             div_header += "</div></div>";
             $('#gameRight').html( div_header );
