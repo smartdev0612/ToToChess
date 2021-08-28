@@ -874,6 +874,13 @@
                             }
                         } 
                         break;
+                    case "E스포츠":
+                        if(isExist12) {
+                            if(detail.m_nMarket == 52) {
+                                getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
+                            }
+                        } 
+                        break;
                 }
             });
         }
