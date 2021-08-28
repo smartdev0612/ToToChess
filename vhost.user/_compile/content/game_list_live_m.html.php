@@ -919,6 +919,8 @@
             div += '<div class="st_real_l-4">';
         else if( item.m_strSportName == "아이스 하키")
             div += '<div class="st_real_l-5">';
+        else if( item.m_strSportName == "E스포츠")
+            div += '<div class="st_real_l-5">';
         div += `<span class="no_st1" id="homescore_${item.m_nGame}">${item.m_nHomeScore}</span>`;
         div += '<span class="no_st2">VS</span>';
         div += `<span class="no_st1" id="awayscore_${item.m_nGame}">${item.m_nAwayScore}</span>`;
