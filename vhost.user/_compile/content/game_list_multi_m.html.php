@@ -1043,6 +1043,21 @@
         var header58 = "";
         var header59 = "";
         var header60 = "";
+        var header61 = "";
+        var header62 = "";
+        var header63 = "";
+        var header64 = "";
+        var header65 = "";
+        var header66 = "";
+        var header67 = "";
+        var header68 = "";
+        var header69 = "";
+        var header70 = "";
+        var header71 = "";
+        var header72 = "";
+        var header73 = "";
+        var header74 = "";
+        var header75 = "";
 
         var children1 = [];
         var children2 = [];
@@ -1104,6 +1119,21 @@
         var children58 = [];
         var children59 = [];
         var children60 = [];
+        var children61 = [];
+        var children62 = [];
+        var children63 = [];
+        var children64 = [];
+        var children65 = [];
+        var children66 = [];
+        var children67 = [];
+        var children68 = [];
+        var children69 = [];
+        var children70 = [];
+        var children71 = [];
+        var children72 = [];
+        var children73 = [];
+        var children74 = [];
+        var children75 = [];
         var correctScoreItems = [];
         var correctScoreItems1 = [];
         var correctScoreItems2 = [];
@@ -1958,41 +1988,89 @@
                             header49 = "핸디캡 - 킬 (4세트)";
                             children49.push(item);
                             break;
-                        case 1168:
-                            header50 = "첫 바론 (4세트)";
+                        case 1147:
+                            header50 = "언더오버 - 킬 (4세트)";
                             children50.push(item);
                             break;
-                        case 1173:
-                            header51 = "첫 드래곤 (4세트)";
+                        case 1523:
+                            header51 = "언더오버 - 바론 슬레인 (4세트)";
                             children51.push(item);
                             break;
-                        case 1254:
-                            header52 = "첫 억제기 (4세트)";
+                        case 1525:
+                            header52 = "언더오버 - 드래곤 슬레인 (4세트)";
                             children52.push(item);
                             break;
-                        case 206:
-                            header53 = "승패 (5세트)";
+                        case 1714:
+                            header53 = "언더오버 - 파괴된 탑 (4세트)";
                             children53.push(item);
                             break;
-                        case 68:
-                            header54 = "핸디캡 (5세트)";
+                        case 1168:
+                            header54 = "첫 바론 (4세트)";
                             children54.push(item);
                             break;
-                        case 1153:
-                            header55 = "핸디캡 - 킬 (5세트)";
+                        case 1123:
+                            header55 = "첫 킬 (4세트)";
                             children55.push(item);
                             break;
-                        case 1169:
-                            header56 = "첫 바론 (5세트)";
+                        case 1173:
+                            header56 = "첫 드래곤 (4세트)";
                             children56.push(item);
                             break;
-                        case 1174:
-                            header57 = "첫 드래곤 (5세트)";
+                        case 1254:
+                            header57 = "첫 억제기 (4세트)";
                             children57.push(item);
                             break;
-                        case 1255:
-                            header58 = "첫 억제기 (5세트)";
+                        case 1550:
+                            header58 = "첫 탑 (4세트)";
                             children58.push(item);
+                            break;
+                        case 206:
+                            header59 = "승패 (5세트)";
+                            children59.push(item);
+                            break;
+                        case 68:
+                            header60 = "핸디캡 (5세트)";
+                            children60.push(item);
+                            break;
+                        case 1153:
+                            header61 = "핸디캡 - 킬 (5세트)";
+                            children61.push(item);
+                            break;
+                        case 1148:
+                            header62 = "언더오버 - 킬 (5세트)";
+                            children62.push(item);
+                            break;
+                        case 1524:
+                            header63 = "언더오버 - 바론 슬레인 (5세트)";
+                            children63.push(item);
+                            break;
+                        case 1526:
+                            header64 = "언더오버 - 드래곤 슬레인 (5세트)";
+                            children64.push(item);
+                            break;
+                        case 1715:
+                            header65 = "언더오버 - 파괴된 탑 (5세트)";
+                            children65.push(item);
+                            break;
+                        case 1169:
+                            header66 = "첫 바론 (5세트)";
+                            children66.push(item);
+                            break;
+                        case 1124:
+                            header67 = "첫 킬 (5세트)";
+                            children67.push(item);
+                            break;
+                        case 1174:
+                            header68 = "첫 드래곤 (5세트)";
+                            children68.push(item);
+                            break;
+                        case 1255:
+                            header69 = "첫 억제기 (5세트)";
+                            children69.push(item);
+                            break;
+                        case 1551:
+                            header70 = "첫 탑 (5세트)";
+                            children70.push(item);
                             break;
                     }
                     break;
@@ -2999,49 +3077,109 @@
                 children_div += div_handi(children49, header49);
             }
 
-            // 첫 바론 (4세트)
+            // 언더오버 - 킬 (4세트)
             if(children50.length > 0) {
-                children_div += div_12(children50, header50);
+                children_div += div_unover(children50, header50);
+            }
+
+            // 언더오버 - 바론 슬레인 (4세트)
+            if(children51.length > 0) {
+                children_div += div_unover(children51, header51);
+            }
+
+            // 언더오버 - 드래곤 슬레인 (4세트)
+            if(children52.length > 0) {
+                children_div += div_unover(children52, header52);
+            }
+
+            // 언더오버 - 파괴된 탑 (4세트)
+            if(children53.length > 0) {
+                children_div += div_unover(children53, header53);
+            }
+
+            // 첫 바론 (4세트)
+            if(children54.length > 0) {
+                children_div += div_12(children54, header54);
+            }
+
+            // 첫 킬 (4세트)
+            if(children55.length > 0) {
+                children_div += div_12(children55, header55);
             }
 
             // 첫 드래곤 (4세트)
-            if(children51.length > 0) {
-                children_div += div_12(children51, header51);
-            }
-
-            // 첫 억제기 (4세트)
-            if(children52.length > 0) {
-                children_div += div_12(children52, header52);
-            }
-
-            // 승패 (5세트)
-            if(children53.length > 0) {
-                children_div += div_12(children53, header53);
-            }
-
-            // 핸디캡 (5세트)
-            if(children54.length > 0) {
-                children_div += div_handi(children54, header54);
-            }
-
-            // 핸디캡 - 킬 (5세트)
-            if(children55.length > 0) {
-                children_div += div_handi(children55, header55);
-            }
-
-            // 첫 바론 (5세트)
             if(children56.length > 0) {
                 children_div += div_12(children56, header56);
             }
 
-            // 첫 드래곤 (5세트)
+            // 첫 억제기 (4세트)
             if(children57.length > 0) {
                 children_div += div_12(children57, header57);
             }
 
-            // 첫 억제기 (5세트)
+            // 첫 탑 (4세트)
             if(children58.length > 0) {
                 children_div += div_12(children58, header58);
+            }
+
+            // 승패 (5세트)
+            if(children59.length > 0) {
+                children_div += div_12(children59, header59);
+            }
+
+            // 핸디캡 (5세트)
+            if(children60.length > 0) {
+                children_div += div_handi(children60, header60);
+            }
+
+            // 핸디캡 - 킬 (5세트)
+            if(children61.length > 0) {
+                children_div += div_handi(children61, header61);
+            }
+
+            // 언더오버 - 킬 (5세트)
+            if(children62.length > 0) {
+                children_div += div_unover(children62, header62);
+            }
+
+            // 언더오버 - 바론 슬레인 (5세트)
+            if(children63.length > 0) {
+                children_div += div_unover(children63, header63);
+            }
+
+            // 언더오버 - 드래곤 슬레인 (5세트)
+            if(children64.length > 0) {
+                children_div += div_unover(children64, header64);
+            }
+
+            // 언더오버 - 파괴된 탑 (5세트)
+            if(children65.length > 0) {
+                children_div += div_unover(children65, header65);
+            }
+
+            // 첫 바론 (5세트)
+            if(children66.length > 0) {
+                children_div += div_12(children66, header66);
+            }
+
+            // 첫 킬 (5세트)
+            if(children67.length > 0) {
+                children_div += div_12(children67, header67);
+            }
+
+            // 첫 드래곤 (5세트)
+            if(children68.length > 0) {
+                children_div += div_12(children68, header68);
+            }
+
+            // 첫 억제기 (5세트)
+            if(children69.length > 0) {
+                children_div += div_12(children69, header69);
+            }
+
+            // 첫 탑 (5세트)
+            if(children70.length > 0) {
+                children_div += div_12(children70, header70);
             }
         }
         if(correctScoreItems.length > 0) {
