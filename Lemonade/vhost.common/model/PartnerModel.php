@@ -723,7 +723,7 @@ class PartnerModel extends Lemon_Model
 					where a.rec_sn = b.Idx and a.regdate between '".$texDate." 00:00:00' and '".$texDate." 23:59:59' 
 					group by a.rec_sn order by a.rec_id asc";
 			return $this->db->exeSql($sql);
-		} else if ( strlen($startDate) > 1 and strlen($endDate) > 1 ) {
+		} else if ( strlen($startDate) > 1 && strlen($endDate) > 1 ) {
 			$sql = "select
 						b.rec_money,
 						a.rec_sn,

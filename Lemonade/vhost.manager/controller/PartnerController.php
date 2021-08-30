@@ -410,7 +410,7 @@ class PartnerController extends WebServiceController
 		$startDate = $this->request("startDate");
 		$endDate = $this->request("endDate");
 
-		if ( $startDate and $endDate ) {
+		if ( $startDate != "" && $endDate != "") {
 			$texDate = "";
 		} else {
 			//if ( !$texDate ) $texDate = date("Y-m-d",time()-86400);
