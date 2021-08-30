@@ -2579,20 +2579,20 @@ class GameListModel extends Lemon_Model
 			$limit = "limit ".$page.",".$page_size;
 		
 		$sql = "select 	a.member_sn, a.betting_no, a.betting_money, a.betting_ip, a.regDate,
-										a.result_money, a.result_rate, a.result as aresult, a.betting_cnt, 
-										e.uid, e.nick, e.recommend_sn
-						from "	.$this->db_qz."total_cart a,"
-										.$this->db_qz."total_betting b,"
-										.$this->db_qz."child c,"
-										.$this->db_qz."subchild d,"
-										.$this->db_qz."member e
-						where		a.betting_no=b.betting_no
-										and b.sub_child_sn=d.sn
-										and d.child_sn=c.sn
-										and a.member_sn=e.sn
-										and a.is_account=1 and a.kubun='Y'
-										and c.sn=".$gameSn.$where."
-						order by a.betting_no desc ".$limit;
+						a.result_money, a.result_rate, a.result as aresult, a.betting_cnt, 
+						e.uid, e.nick, e.recommend_sn
+				from "	.$this->db_qz."total_cart a,"
+						.$this->db_qz."total_betting b,"
+						.$this->db_qz."child c,"
+						.$this->db_qz."subchild d,"
+						.$this->db_qz."member e
+				where	a.betting_no=b.betting_no
+						and b.sub_child_sn=d.sn
+						and d.child_sn=c.sn
+						and a.member_sn=e.sn
+						and a.is_account=1 and a.kubun='Y'
+						and c.sn=".$gameSn.$where."
+				order by a.betting_no desc ".$limit;
 										/*
 										a.betting_no in(
 										select betting_no from
@@ -2629,11 +2629,12 @@ class GameListModel extends Lemon_Model
 	
 	function getMemberBetDetailList($betting_no, $member_sn)
 	{		
-		$sql = "select a.sn as total_betting_sn, a.sub_child_sn,a.select_no,a.select_rate,a.game_type,a.result,b.win_team,
+		$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mfamily from 
+					(select a.sn as total_betting_sn, a.sub_child_sn,a.select_no,a.select_rate,a.game_type,a.result,b.win_team,b.sport_id,
 						b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, 
-						c.name as league_name,c.lg_img as league_image, d.win,a.home_rate,a.away_rate,a.draw_rate
-						from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."total_cart e 
-						where a.betting_no='".$betting_no."' and a.sub_child_sn=d.sn and b.league_sn=c.sn and b.sn=d.child_sn and a.betting_no = e.betting_no and e.member_sn = ".$member_sn;
+						b.notice AS league_name, d.win,a.home_rate,a.away_rate,a.draw_rate, d.home_line, d.home_name
+				from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d  
+				where a.betting_no='".$betting_no."' and a.sub_child_sn=d.sn and b.sn=d.child_sn and a.member_sn = ".$member_sn.") AS tb_temp INNER JOIN tb_markets on tb_temp.game_type = tb_markets.mid ";
 										
 		$rs = $this->db->exeSql($sql);
 		

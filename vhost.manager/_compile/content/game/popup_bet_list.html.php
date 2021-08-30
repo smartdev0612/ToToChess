@@ -142,7 +142,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 				<td onclick="toggle('d_<?php echo $TPL_V1["betting_no"]?>')">
 <?php
 	$gameLoseFlag = 0;
-	for ( $i = 0 ; $i < count($TPL_V1["item"]) ; $i++ ) {
+	for ( $i = 0 ; $i < count((array)$TPL_V1["item"]) ; $i++ ) {
 		if ( $TPL_V1["item"][$i]["result"] == 2 ) $gameLoseFlag = 1;
 	}
 
@@ -164,7 +164,7 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 				<td><?php echo $TPL_V1["betting_ip"]?></td>
 			</tr>
 			<tr id="d_<?php echo $TPL_V1["betting_no"]?>" <?php if($TPL_VAR["show_detail"]==0){?>style="display:none;"<?php }?> class="gameDetail">
-				<td colspan="12">
+				<td colspan="13">
 					<table cellspacing="1" id="d_<?php echo $TPL_V1["betting_no"]?>">
 						<tr>				  
 							<th>게임타입</th>
@@ -181,17 +181,69 @@ $TPL_item_2=empty($TPL_V1["item"])||!is_array($TPL_V1["item"])?0:count($TPL_V1["
 <?php if($TPL_item_2){foreach($TPL_V1["item"] as $TPL_V2){?>
 							<tr bgcolor="#ede8e8" border=1>				
 								<td width="60" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666">
-<?php if($TPL_V2["game_type"]==1){?>[승무패]
-<?php }elseif($TPL_V2["game_type"]==2){?>[핸디캡]
-<?php }elseif($TPL_V2["game_type"]==3){?>[홀짝]
-<?php }elseif($TPL_V2["game_type"]==4){?>[언더오버]
-<?php }?>
+								<?php
+									$pieces = explode("|", $TPL_V2["mname_ko"]);
+                                    switch($TPL_V2["sport_id"]) {
+                                        case 6046: // 축구
+                                            echo $pieces[0];
+                                            break;
+                                        case 48242: // 농구
+                                            echo $pieces[1];
+                                            break;
+                                        case 154914: // 야구
+                                            echo $pieces[2];
+                                            break;
+                                        case 154830: // 배구
+                                            echo $pieces[3];
+                                            break;
+                                        case 35232: // 아이스 하키
+                                            echo $pieces[4];
+                                            break;
+										case 687890: // E스포츠
+											echo $pieces[5];
+											break;
+                                    }
+								?>
 								</td>
 								<td width="105" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666"><?php echo $TPL_V2["g_date"]?></td>
 								<td width="100" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666"><?php echo $TPL_V2["league_name"]?></td>
 								<td width="100" align="" style="border-bottom:1px #CCCCCC solid;color: #666666? <?php if($TPL_V2["select_no"]==1){?>;background :#fff111<?php }?>"><?php echo $TPL_V2["home_team"]?></td>
 								<td width="20" align="" style="border-bottom:1px #CCCCCC solid;color: #666666<?php if($TPL_V2["select_no"]==1){?>;background :#fff111<?php }?>"><?php echo $TPL_V2["home_rate"]?></td>
-								<td width="60" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666<?php if($TPL_V2["select_no"]==3){?>;background :#fff111<?php }?>"><?php echo $TPL_V2["draw_rate"]?></td>
+								<td width="60" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666<?php if($TPL_V2["select_no"]==3){?>;background :#fff111<?php }?>">
+								<?php 
+									switch($TPL_V2["mfamily"]) {
+										case 1:
+											if ( $TPL_V2["select_no"] == 3 and $TPL_V2["game_draw_rate"] != $TPL_V2["select_rate"] ) 
+												echo $TPL_V2["draw_rate"]." <span style='color:red;'>[<b>".$TPL_V2["game_draw_rate"]."</b>]</span>";
+											else 
+												echo $TPL_V2["draw_rate"]; 
+											break;
+										case 2:
+											echo "VS";
+											break;
+										case 7:
+											echo $TPL_V2["home_line"];
+											break;
+										case 8:
+										case 9:
+											$home_line = explode(" ", $TPL_V2["home_line"]);
+											echo $home_line[0];
+											break;
+										case 10:
+											echo "VS";
+											break;
+										case 11:
+											echo $TPL_V2["home_name"];
+											break;
+										case 12:
+											echo $TPL_V2["draw_rate"];
+											break;
+										case 47:
+											echo $TPL_V2["home_line"];
+											break;
+									}			
+								?>
+								</td>
 								<td width="20" align="" style="border-bottom:1px #CCCCCC solid;color: #666666<?php if($TPL_V2["select_no"]==2){?>;background :#fff111<?php }?>"><?php echo $TPL_V2["away_rate"]?></td>
 								<td width="100" align="" style="border-bottom:1px #CCCCCC solid;color: #666666<?php if($TPL_V2["select_no"]==2){?>;background :#fff111<?php }?>"><?php echo $TPL_V2["away_team"]?></td>
 								<td width="40" align="center" style="border-bottom:1px #CCCCCC solid;color: #666666"><?php echo $TPL_V2["home_score"]?>:<?php echo $TPL_V2["away_score"]?></td>
