@@ -241,13 +241,6 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 					</select>
 					<?php }?>
 					
-					<select name="game_type" id="game_type" onchange="submit()">
-						<option value="">종류</option>
-						<option value="1"  <?php if($TPL_VAR["gameType"]==1){?>  selected <?php }?>>승무패</option>
-						<option value="2"  <?php if($TPL_VAR["gameType"]==2){?>  selected <?php }?>>핸디캡</option>
-						<option value="4"  <?php if($TPL_VAR["gameType"]==4){?>  selected <?php }?>>언더오버</option>
-						<option value="24"  <?php if($TPL_VAR["gameType"]==24){?>  selected <?php }?>>핸디+언오버</option>
-					</select>
 					<?php if($TPL_VAR["membervip"] != "1"){?>
 					<select name="categoryName" id="categoryName" onchange="submit()">
 						<option value="">종목</option>
