@@ -696,61 +696,61 @@ class PartnerModel extends Lemon_Model
 	function getTexData($texDate = "", $startDate = "", $endDate = "") {
 		if ( strlen($texDate) > 1 ) {
 			$sql = "select
-								b.rec_money,
-								a.rec_sn,
-								a.rec_id,
-								a.save_rate_type,
-								a.save_rate,
-								a.save_one_folder_flag,
-								sum(a.money_to_charge) as money_to_charge,
-								sum(a.money_to_exchange) as money_to_exchange,
-								sum(a.betting_to_ready) as betting_to_ready,
-								sum(a.betting_to_win) as betting_to_win,
-								sum(a.betting_to_win_mgame) as betting_to_win_mgame,
-								sum(a.betting_to_lose) as betting_to_lose,
-								sum(a.betting_to_lose_mgame) as betting_to_lose_mgame,
-								sum(a.result_to_win) as result_to_win,
-								sum(a.result_to_win_mgame) as result_to_win_mgame,
-								sum(a.mileage_to_charge) as mileage_to_charge,
-								sum(a.mileage_to_recomm_lose) as mileage_to_recomm_lose,
-								sum(a.mileage_to_multi_folder) as mileage_to_multi_folder,
-								sum(a.mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
-								sum(a.mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
-								sum(a.tex_money) as tex_money,
-								sum(a.get_tex_money) as get_tex_money,
-								sum(a.betting_to_ready) as betting_to_ready
-							from ".$this->db_qz."recommend_tex a, ".$this->db_qz."recommend b
-							where a.rec_sn = b.Idx and a.regdate between '".$texDate." 00:00:00' and '".$texDate." 23:59:59' 
-							group by a.rec_sn order by a.rec_id asc";
+						b.rec_money,
+						a.rec_sn,
+						a.rec_id,
+						a.save_rate_type,
+						a.save_rate,
+						a.save_one_folder_flag,
+						sum(a.money_to_charge) as money_to_charge,
+						sum(a.money_to_exchange) as money_to_exchange,
+						sum(a.betting_to_ready) as betting_to_ready,
+						sum(a.betting_to_win) as betting_to_win,
+						sum(a.betting_to_win_mgame) as betting_to_win_mgame,
+						sum(a.betting_to_lose) as betting_to_lose,
+						sum(a.betting_to_lose_mgame) as betting_to_lose_mgame,
+						sum(a.result_to_win) as result_to_win,
+						sum(a.result_to_win_mgame) as result_to_win_mgame,
+						sum(a.mileage_to_charge) as mileage_to_charge,
+						sum(a.mileage_to_recomm_lose) as mileage_to_recomm_lose,
+						sum(a.mileage_to_multi_folder) as mileage_to_multi_folder,
+						sum(a.mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
+						sum(a.mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
+						sum(a.tex_money) as tex_money,
+						sum(a.get_tex_money) as get_tex_money,
+						sum(a.betting_to_ready) as betting_to_ready
+					from ".$this->db_qz."recommend_tex a, ".$this->db_qz."recommend b
+					where a.rec_sn = b.Idx and a.regdate between '".$texDate." 00:00:00' and '".$texDate." 23:59:59' 
+					group by a.rec_sn order by a.rec_id asc";
 			return $this->db->exeSql($sql);
 		} else if ( strlen($startDate) > 1 and strlen($endDate) > 1 ) {
 			$sql = "select
-								b.rec_money,
-								a.rec_sn,
-								a.rec_id,
-								a.save_rate_type,
-								a.save_rate,
-								a.save_one_folder_flag,
-								sum(a.money_to_charge) as money_to_charge,
-								sum(a.money_to_exchange) as money_to_exchange,
-								sum(a.betting_to_ready) as betting_to_ready,
-								sum(a.betting_to_win) as betting_to_win,
-								sum(a.betting_to_win_mgame) as betting_to_win_mgame,
-								sum(a.betting_to_lose) as betting_to_lose,
-								sum(a.betting_to_lose_mgame) as betting_to_lose_mgame,
-								sum(a.result_to_win) as result_to_win,
-								sum(a.result_to_win_mgame) as result_to_win_mgame,
-								sum(a.mileage_to_charge) as mileage_to_charge,
-								sum(a.mileage_to_recomm_lose) as mileage_to_recomm_lose,
-								sum(a.mileage_to_multi_folder) as mileage_to_multi_folder,
-								sum(a.mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
-								sum(a.mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
-								sum(a.tex_money) as tex_money,
-								sum(a.get_tex_money) as get_tex_money,
-								sum(a.betting_to_ready) as betting_to_ready
-							from ".$this->db_qz."recommend_tex a, ".$this->db_qz."recommend b
-							where a.rec_sn = b.Idx and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' 
-							group by a.rec_sn order by a.rec_id asc";
+						b.rec_money,
+						a.rec_sn,
+						a.rec_id,
+						a.save_rate_type,
+						a.save_rate,
+						a.save_one_folder_flag,
+						sum(a.money_to_charge) as money_to_charge,
+						sum(a.money_to_exchange) as money_to_exchange,
+						sum(a.betting_to_ready) as betting_to_ready,
+						sum(a.betting_to_win) as betting_to_win,
+						sum(a.betting_to_win_mgame) as betting_to_win_mgame,
+						sum(a.betting_to_lose) as betting_to_lose,
+						sum(a.betting_to_lose_mgame) as betting_to_lose_mgame,
+						sum(a.result_to_win) as result_to_win,
+						sum(a.result_to_win_mgame) as result_to_win_mgame,
+						sum(a.mileage_to_charge) as mileage_to_charge,
+						sum(a.mileage_to_recomm_lose) as mileage_to_recomm_lose,
+						sum(a.mileage_to_multi_folder) as mileage_to_multi_folder,
+						sum(a.mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
+						sum(a.mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
+						sum(a.tex_money) as tex_money,
+						sum(a.get_tex_money) as get_tex_money,
+						sum(a.betting_to_ready) as betting_to_ready
+					from ".$this->db_qz."recommend_tex a, ".$this->db_qz."recommend b
+					where a.rec_sn = b.Idx and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' 
+					group by a.rec_sn order by a.rec_id asc";
 			return $this->db->exeSql($sql);
 		}
 	}
@@ -759,60 +759,60 @@ class PartnerModel extends Lemon_Model
 	function getTexDataTop($texDate = "", $startDate = "", $endDate = "") {
 		if ( strlen($texDate) > 1 ) {
 			$sql = "select
-							b.rec_money,
-							a.rec_sn_top,
-							a.rec_id_top,
-							a.save_one_folder_flag,
-							a.save_rate_type,
-							a.save_rate_top,
-							sum(a.money_to_charge) as money_to_charge,
-							sum(a.money_to_exchange) as money_to_exchange,
-							sum(a.betting_to_ready) as betting_to_ready,
-							sum(a.betting_to_win) as betting_to_win,
-							sum(a.betting_to_win_mgame) as betting_to_win_mgame,
-							sum(a.betting_to_lose) as betting_to_lose,
-							sum(a.betting_to_lose_mgame) as betting_to_lose_mgame,
-							sum(a.result_to_win) as result_to_win,
-							sum(a.result_to_win_mgame) as result_to_win_mgame,
-							sum(a.mileage_to_charge) as mileage_to_charge,
-							sum(a.mileage_to_recomm_lose) as mileage_to_recomm_lose,
-							sum(a.mileage_to_multi_folder) as mileage_to_multi_folder,
-							sum(a.mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
-							sum(a.mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
-							sum(a.tex_money_top) as tex_money_top,
-							sum(a.get_tex_money_top) as get_tex_money_top,
-							a.texdate
-						from tb_recommend_tex a LEFT JOIN tb_recommend b ON a.rec_sn_top = b.Idx
-						where a.regdate between '".$texDate." 00:00:00' and '".$texDate." 23:59:59' group by a.rec_sn_top order by a.rec_id_top asc";
+						b.rec_money,
+						a.rec_sn_top,
+						a.rec_id_top,
+						a.save_one_folder_flag,
+						a.save_rate_type,
+						a.save_rate_top,
+						sum(a.money_to_charge) as money_to_charge,
+						sum(a.money_to_exchange) as money_to_exchange,
+						sum(a.betting_to_ready) as betting_to_ready,
+						sum(a.betting_to_win) as betting_to_win,
+						sum(a.betting_to_win_mgame) as betting_to_win_mgame,
+						sum(a.betting_to_lose) as betting_to_lose,
+						sum(a.betting_to_lose_mgame) as betting_to_lose_mgame,
+						sum(a.result_to_win) as result_to_win,
+						sum(a.result_to_win_mgame) as result_to_win_mgame,
+						sum(a.mileage_to_charge) as mileage_to_charge,
+						sum(a.mileage_to_recomm_lose) as mileage_to_recomm_lose,
+						sum(a.mileage_to_multi_folder) as mileage_to_multi_folder,
+						sum(a.mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
+						sum(a.mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
+						sum(a.tex_money_top) as tex_money_top,
+						sum(a.get_tex_money_top) as get_tex_money_top,
+						a.texdate
+					from tb_recommend_tex a LEFT JOIN tb_recommend b ON a.rec_sn_top = b.Idx
+					where a.regdate between '".$texDate." 00:00:00' and '".$texDate." 23:59:59' group by a.rec_sn_top order by a.rec_id_top asc";
 
 			return $this->db->exeSql($sql);
 		} else if ( strlen($startDate) > 1 and strlen($endDate) > 1 ) {
 			$sql = "select
-							b.rec_money,
-							a.rec_sn_top,
-							a.rec_id_top,
-							a.save_one_folder_flag,
-							a.save_rate_type,
-							a.save_rate_top,
-							sum(a.money_to_charge) as money_to_charge,
-							sum(a.money_to_exchange) as money_to_exchange,
-							sum(a.betting_to_ready) as betting_to_ready,
-							sum(a.betting_to_win) as betting_to_win,
-							sum(a.betting_to_win_mgame) as betting_to_win_mgame,
-							sum(a.betting_to_lose) as betting_to_lose,
-							sum(a.betting_to_lose_mgame) as betting_to_lose_mgame,
-							sum(a.result_to_win) as result_to_win,
-							sum(a.result_to_win_mgame) as result_to_win_mgame,
-							sum(a.mileage_to_charge) as mileage_to_charge,
-							sum(a.mileage_to_recomm_lose) as mileage_to_recomm_lose,
-							sum(a.mileage_to_multi_folder) as mileage_to_multi_folder,
-							sum(a.mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
-							sum(a.mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
-							sum(a.tex_money_top) as tex_money_top,
-							sum(a.get_tex_money_top) as get_tex_money_top,
-							a.texdate
-						from tb_recommend_tex a LEFT JOIN tb_recommend b ON a.rec_sn_top = b.Idx
-						where a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' group by a.rec_sn_top order by a.rec_id_top asc";
+						b.rec_money,
+						a.rec_sn_top,
+						a.rec_id_top,
+						a.save_one_folder_flag,
+						a.save_rate_type,
+						a.save_rate_top,
+						sum(a.money_to_charge) as money_to_charge,
+						sum(a.money_to_exchange) as money_to_exchange,
+						sum(a.betting_to_ready) as betting_to_ready,
+						sum(a.betting_to_win) as betting_to_win,
+						sum(a.betting_to_win_mgame) as betting_to_win_mgame,
+						sum(a.betting_to_lose) as betting_to_lose,
+						sum(a.betting_to_lose_mgame) as betting_to_lose_mgame,
+						sum(a.result_to_win) as result_to_win,
+						sum(a.result_to_win_mgame) as result_to_win_mgame,
+						sum(a.mileage_to_charge) as mileage_to_charge,
+						sum(a.mileage_to_recomm_lose) as mileage_to_recomm_lose,
+						sum(a.mileage_to_multi_folder) as mileage_to_multi_folder,
+						sum(a.mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
+						sum(a.mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
+						sum(a.tex_money_top) as tex_money_top,
+						sum(a.get_tex_money_top) as get_tex_money_top,
+						a.texdate
+					from tb_recommend_tex a LEFT JOIN tb_recommend b ON a.rec_sn_top = b.Idx
+					where a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' group by a.rec_sn_top order by a.rec_id_top asc";
 			return $this->db->exeSql($sql);
 		}
 	}
