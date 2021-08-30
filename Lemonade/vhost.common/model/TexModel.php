@@ -552,176 +552,118 @@ class TexModel extends Lemon_Model
             $result = array();
             //-> 결과대기중 배팅합계
             $sql = "select ifnull(sum(betting_money),0) as total_betting_ready
-            from tb_total_cart 
-            where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 0 and 
+                    from tb_total_cart 
+                    where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 0 and 
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'".$add_where;
-            /*$sql = "select ifnull(sum(betting_money),0) as total_betting_ready
-            from tb_total_cart
-            where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 0
-            and regdate > '".$beginDate."' ".$add_where;*/
+           
             $res = $this->db->exeSql($sql);
             $total_betting_ready = $res[0]["total_betting_ready"];
 
             //-> 스포츠 당첨된 배팅합계 + 당첨된 금액(배당)
             $sql = "select ifnull(sum(betting_money),0) as total_betting_win, ifnull(sum(result_money),0) as total_result_win
-            from tb_total_cart 
-            where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code < 3 and
+                    from tb_total_cart 
+                    where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code < 5 and
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'".$add_where;
-            /*$sql = "select ifnull(sum(betting_money),0) as total_betting_win, ifnull(sum(result_money),0) as total_result_win
-            from tb_total_cart
-            where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code < 3 and
-                    regdate > '".$beginDate."' ".$add_where;*/
-
+            
             $res = $this->db->exeSql($sql);
             $total_betting_win = $res[0]["total_betting_win"];
             $total_result_win = $res[0]["total_result_win"];
 
             //-> 스포츠 낙첨된 배팅합계
             $sql = "select ifnull(sum(betting_money),0) as total_betting_lose
-            from tb_total_cart 
-            where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code < 3 and
+                    from tb_total_cart 
+                    where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code < 5 and
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'".$add_where;
-            /*$sql = "select ifnull(sum(betting_money),0) as total_betting_lose
-            from tb_total_cart
-            where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code < 3 and
-                    regdate > '".$beginDate."'".$add_where;*/
-
+            
             $res = $this->db->exeSql($sql);
             $total_betting_lose = $res[0]["total_betting_lose"];
 
             //-> 미니게임 당첨된 배팅합계 + 당첨된 금액(배당)
             $sql = "select ifnull(sum(betting_money),0) as total_betting_win, ifnull(sum(result_money),0) as total_result_win
-            from tb_total_cart 
-            where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code >= 3 and
+                    from tb_total_cart 
+                    where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code >= 5 and
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
-            /*$sql = "select ifnull(sum(betting_money),0) as total_betting_win, ifnull(sum(result_money),0) as total_result_win
-            from tb_total_cart
-            where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code >= 3 and
-                    regdate > '".$beginDate."'";*/
-
+            
             $res = $this->db->exeSql($sql);
             $total_betting_win_mgame = $res[0]["total_betting_win"];
             $total_result_win_mgame = $res[0]["total_result_win"];
 
             //-> 미니게임 낙첨된 배팅합계
             $sql = "select ifnull(sum(betting_money),0) as total_betting_lose
-            from tb_total_cart 
-            where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code >= 3 and
+                    from tb_total_cart 
+                    where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code >= 5 and
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
-            /*$sql = "select ifnull(sum(betting_money),0) as total_betting_lose
-            from tb_total_cart
-            where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code >= 3 and
-                    regdate > '".$beginDate."'";*/
-
+            
             $res = $this->db->exeSql($sql);
             $total_betting_lose_mgame = $res[0]["total_betting_lose"];
 
             //-> 입금 합계
             $sql = "select ifnull(sum(agree_amount),0) as total_charge
-            from tb_charge_log 
-            where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and 
+                    from tb_charge_log 
+                    where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and 
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
-
-            /*$sql = "select ifnull(sum(agree_amount),0) as total_charge
-            from tb_charge_log
-            where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and
-                    regdate > '".$beginDate."'";*/
 
             $res = $this->db->exeSql($sql);
             $total_charge = $res[0]["total_charge"];
 
             //-> 출금 합계
             $sql = "select ifnull(sum(agree_amount),0) as total_exchange
-            from tb_exchange_log 
-            where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and
+                    from tb_exchange_log 
+                    where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
-            /*$sql = "select ifnull(sum(agree_amount),0) as total_exchange
-            from tb_exchange_log
-            where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and
-                    regdate > '".$beginDate."'";*/
-
+            
             $res = $this->db->exeSql($sql);
             $total_exchange = $res[0]["total_exchange"];
 
             //-> 충전(첫충) 포인트 합계
             $sql = "select ifnull(sum(amount),0) as total_mileage_charge
-            from tb_mileage_log
-            where state = 1 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-                    member_sn in(select sn from tb_member where mem_status != 'G') and 
-                    member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
-
-            /*$sql = "select ifnull(sum(amount),0) as total_mileage_charge
-            from tb_mileage_log
-            where state = 1 and amount > 0 and regdate > '".$beginDate."' and
-                    member_sn in(select sn from tb_member where mem_status != 'G') and
-                    member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";*/
+                    from tb_mileage_log
+                    where state = 1 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
+                        member_sn in(select sn from tb_member where mem_status != 'G') and 
+                        member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
 
             $res = $this->db->exeSql($sql);
             $total_mileage_charge = $res[0]["total_mileage_charge"];
 
             //-> 추천인 낙첨 포인트 합계
             $sql = "select ifnull(sum(amount),0) as total_mileage_recommend_lose
-            from tb_mileage_log
-            where state = 12 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-                    member_sn in(select sn from tb_member where mem_status != 'G') and 
-                    member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
-
-            /*$sql = "select ifnull(sum(amount),0) as total_mileage_recommend_lose
-            from tb_mileage_log
-            where state = 12 and amount > 0 and regdate > '".$beginDate."' and
-                    member_sn in(select sn from tb_member where mem_status != 'G') and
-                    member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";*/
+                    from tb_mileage_log
+                    where state = 12 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
+                        member_sn in(select sn from tb_member where mem_status != 'G') and 
+                        member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
 
             $res = $this->db->exeSql($sql);
             $total_mileage_recommend_lose = $res[0]["total_mileage_recommend_lose"];
 
             //-> 다폴더 포인트 합계
             $sql = "select ifnull(sum(amount),0) as total_mileage_multi_folder
-            from tb_mileage_log
-            where state = 3 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-                    member_sn in(select sn from tb_member where mem_status != 'G') and 
-                    member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
-
-            /*$sql = "select ifnull(sum(amount),0) as total_mileage_multi_folder
-            from tb_mileage_log
-            where state = 3 and amount > 0 and regdate > '".$beginDate."' and
-                    member_sn in(select sn from tb_member where mem_status != 'G') and
-                    member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";*/
+                    from tb_mileage_log
+                    where state = 3 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
+                        member_sn in(select sn from tb_member where mem_status != 'G') and 
+                        member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
 
             $res = $this->db->exeSql($sql);
             $total_mileage_multi_folder = $res[0]["total_mileage_multi_folder"];
 
             //-> 다폴더 낙첨 포인트 합계
             $sql = "select ifnull(sum(a.amount),0) as total_mileage_multi_folder_lose
-            from tb_mileage_log a, tb_total_cart b 
-            where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt > 1 and 
-                    a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-                    a.member_sn in(select sn from tb_member where mem_status != 'G') and 
-                    a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
-            /*$sql = "select ifnull(sum(a.amount),0) as total_mileage_multi_folder_lose
-            from tb_mileage_log a, tb_total_cart b
-            where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt > 1 and
-                    a.regdate > '".$beginDate."' and
-                    a.member_sn in(select sn from tb_member where mem_status != 'G') and
-                    a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";*/
-
+                    from tb_mileage_log a, tb_total_cart b 
+                    where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt > 1 and 
+                        a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
+                        a.member_sn in(select sn from tb_member where mem_status != 'G') and 
+                        a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+            
             $res = $this->db->exeSql($sql);
             $total_mileage_multi_folder_lose = $res[0]["total_mileage_multi_folder_lose"];
 
             //-> 단폴더 낙첨 포인트 합계
             $sql = "select ifnull(sum(a.amount),0) as total_mileage_one_folder_lose
-            from tb_mileage_log a, tb_total_cart b 
-            where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt = 1 and 
-                    a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-                    a.member_sn in(select sn from tb_member where mem_status != 'G') and 
-                    a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
-            /*$sql = "select ifnull(sum(a.amount),0) as total_mileage_one_folder_lose
-            from tb_mileage_log a, tb_total_cart b
-            where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt = 1 and
-                    a.regdate > '".$beginDate."' and
-                    a.member_sn in(select sn from tb_member where mem_status != 'G') and
-                    a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";*/
-
+                    from tb_mileage_log a, tb_total_cart b 
+                    where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt = 1 and 
+                        a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
+                        a.member_sn in(select sn from tb_member where mem_status != 'G') and 
+                        a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+            
             $res = $this->db->exeSql($sql);
             $total_mileage_one_folder_lose = $res[0]["total_mileage_one_folder_lose"];
 

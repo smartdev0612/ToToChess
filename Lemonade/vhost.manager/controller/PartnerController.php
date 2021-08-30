@@ -439,7 +439,6 @@ class PartnerController extends WebServiceController
 		$this->view->assign('endDate', $endDate);
 		$this->view->assign('list', $list);
 		$this->view->assign('logo', $logo);
-		$this->view->assign('keyword', $keyword);
 		
 		$this->display();
 	}
