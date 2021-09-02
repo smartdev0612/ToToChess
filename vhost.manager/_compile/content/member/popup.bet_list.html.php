@@ -269,9 +269,9 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 										case 12:
 											if($TPL_V2["select_no"] == "1")
 												$selectedTeam = '승무';
-											else if($TPL_V2["select_no"] == "3") 
+											else if($TPL_V2["select_no"] == "2") 
 												$selectedTeam = '무패';                       
-											else if($TPL_V2["select_no"] == "2")                        
+											else if($TPL_V2["select_no"] == "3")                        
 												$selectedTeam = '승패'; 
 											break;
 										case 47:

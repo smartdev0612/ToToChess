@@ -1647,9 +1647,9 @@ function add_bet_list(item)
 			if(selectedTeam == "0")
 				selectedTeam = market_name + ' (' + '승무' + ')';
 			else if(selectedTeam == "1") 
-				selectedTeam = market_name + ' (' + '무패' + ')';                       
+				selectedTeam = market_name + ' (' + '승패' + ')';                       
 			else if(selectedTeam == "2")                        
-				selectedTeam = market_name + ' (' + '승패' + ')'; 
+				selectedTeam = market_name + ' (' + '무패' + ')'; 
 			break;
 		case "47":
 			if(home_name == "1 And Under")
