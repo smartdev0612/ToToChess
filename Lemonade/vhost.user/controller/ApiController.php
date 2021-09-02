@@ -1040,9 +1040,9 @@ class ApiController extends WebServiceController
 								case "12":
 									if($TPL_V2["select_no"] == "1")
 										$table .= '승무';
-									else if($TPL_V2["select_no"] == "2") 
+									else if($TPL_V2["select_no"] == "3") 
 										$table .= '무패';                       
-									else if($TPL_V2["select_no"] == "3")                        
+									else if($TPL_V2["select_no"] == "2")                        
 										$table .= '승패'; 
 									break;
 								case "47":
@@ -1226,9 +1226,9 @@ class ApiController extends WebServiceController
 							case "12":
 								if($TPL_V2["select_no"] == "1")
 									$table .= '승무';
-								else if($TPL_V2["select_no"] == "2") 
+								else if($TPL_V2["select_no"] == "3") 
 									$table .= '무패';                       
-								else if($TPL_V2["select_no"] == "3")                        
+								else if($TPL_V2["select_no"] == "2")                        
 									$table .= '승패'; 
 								break;
 							case "47":
