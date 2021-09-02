@@ -1678,11 +1678,11 @@
                             break;
                         case 524:
                             header13 = "승무패 (1~7이닝)";
-                            children13.push(item);
+                            //children13.push(item);
                             break;
                         case 2057:
                             header14 = "핸디캡 (1~3이닝)";
-                            children14.push(item);
+                            //children14.push(item);
                             break;
                         case 281:
                             header15 = "핸디캡 (1~5이닝)";
@@ -1698,7 +1698,7 @@
                             break;
                         case 526:
                             header18 = "핸디캡 (1~7이닝)";
-                            children18.push(item);
+                            //children18.push(item);
                             break;
                         case 449:
                             header19 = "핸디캡 (8이닝)";
@@ -1722,7 +1722,7 @@
                             break;
                         case 1562:
                             header24 = "언더오버 (1~3이닝)";
-                            children24.push(item);
+                            //children24.push(item);
                             break;
                         case 47:
                             header25 = "언더오버 (4이닝)";
@@ -1746,7 +1746,7 @@
                             break;
                         case 525:
                             header30 = "언더오버 (1~7이닝)";
-                            children30.push(item);
+                            //children30.push(item);
                             break;
                     }
                     break;

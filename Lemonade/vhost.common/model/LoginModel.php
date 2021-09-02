@@ -51,15 +51,17 @@ class LoginModel extends Lemon_Model
 
 	function loginStoreMember($id, $passwd)
     {
-        if ( strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) > 0 and strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) < 16 ) {
-            $remoteip = $_SERVER["HTTP_INCAP_CLIENT_IP"];
-        } else if ( strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) > 0 and strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) < 16 ) {
-            $remoteip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-        } else if ( strlen(trim($_SERVER["HTTP_X_REAL_IP"])) > 0 and strlen(trim($_SERVER["HTTP_X_REAL_IP"])) < 16 ) {
-            $remoteip = $_SERVER["HTTP_X_REAL_IP"];
-        } else {
-            $remoteip = $_SERVER["REMOTE_ADDR"];
-        }
+        if ( isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) && isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) ) {
+			$remoteip = $_SERVER["HTTP_INCAP_CLIENT_IP"];
+		} else if ( isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ) {
+			$remoteip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+		} else if ( isset($_SERVER["HTTP_X_REAL_IP"]) && isset($_SERVER["HTTP_X_REAL_IP"]) ) {
+			$remoteip = $_SERVER["HTTP_X_REAL_IP"];
+		} else if ( isset($_SERVER["HTTP_CF_CONNECTING_IP"]) ) {
+			$remoteip = $_SERVER["HTTP_CF_CONNECTING_IP"];
+		} else {
+			$remoteip = $_SERVER["REMOTE_ADDR"];
+		}
 
         //$passwd = trim($passwd);
 		
@@ -126,17 +128,26 @@ class LoginModel extends Lemon_Model
         return 0;
     }
 	
-	function loginMember($id, $passwd)
+	function loginMember($id, $passwd, $device = "PC")
 	{
-		if ( strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) > 0 and strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) < 16 ) {
+		if ( isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) && isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) ) {
 			$remoteip = $_SERVER["HTTP_INCAP_CLIENT_IP"];
-		} else if ( strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) > 0 and strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) < 16 ) {
+			//echo "HTTP_INCAP_CLIENT_IP";
+		} else if ( isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ) {
 			$remoteip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-		} else if ( strlen(trim($_SERVER["HTTP_X_REAL_IP"])) > 0 and strlen(trim($_SERVER["HTTP_X_REAL_IP"])) < 16 ) {
+			//echo "HTTP_X_FORWARDED_FOR";
+		} else if ( isset($_SERVER["HTTP_X_REAL_IP"]) && isset($_SERVER["HTTP_X_REAL_IP"]) ) {
 			$remoteip = $_SERVER["HTTP_X_REAL_IP"];
+			//echo "HTTP_X_REAL_IP";
+		} else if ( isset($_SERVER["HTTP_CF_CONNECTING_IP"]) ) {
+			$remoteip = $_SERVER["HTTP_CF_CONNECTING_IP"];
+			//echo "HTTP_CF_CONNECTING_IP";
 		} else {
 			$remoteip = $_SERVER["REMOTE_ADDR"];
+			//echo "REMOTE_ADDR";
 		}
+		//echo "<br>" . $remoteip;
+		//exit;
 		
 		$passwd = trim($passwd);
 
@@ -186,8 +197,8 @@ class LoginModel extends Lemon_Model
 		{
 			$result = "아이디 틀림";
 			
-			$sql = "insert into ".$this->db_qz."visit(member_id,visit_ip,visit_date,result,status,logo, is_read) 
-					values('".$id."','".$remoteip."','".$hDate."','".$result."','1','".$this->logo."', 0)";
+			$sql = "insert into ".$this->db_qz."visit(member_id,visit_ip,visit_date,result,status,logo, is_read, device) 
+					values('".$id."','".$remoteip."','".$hDate."','".$result."','1','".$this->logo."', 0, '" . $device . "')";
 			$this->db->exeSql($sql);
 			return 0;
 		}
@@ -221,8 +232,8 @@ class LoginModel extends Lemon_Model
 								where logo='".$this->logo."' and uid = '".$id."' "; 
 				$this->db->exeSql($sql); 
 				
-				$sql = "insert into ".$this->db_qz."visit(member_id,visit_ip,visit_date,result,status,logo)
-								values('".$id."','".$remoteip."','".$hDate."','".$result."','0','".$this->logo."')";
+				$sql = "insert into ".$this->db_qz."visit(member_id,visit_ip,visit_date,result,status,logo,device)
+								values('".$id."','".$remoteip."','".$hDate."','".$result."','0','".$this->logo."', '" . $device . "')";
 						
 				$this->db->exeSql($sql);
 								
@@ -296,12 +307,14 @@ class LoginModel extends Lemon_Model
 	//▶ 로그인
 	function api_loginMember($id = "", $passwd = "")
 	{
-		if ( strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) > 0 and strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) < 16 ) {
+		if ( isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) && isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) ) {
 			$remoteip = $_SERVER["HTTP_INCAP_CLIENT_IP"];
-		} else if ( strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) > 0 and strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) < 16 ) {
+		} else if ( isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ) {
 			$remoteip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-		} else if ( strlen(trim($_SERVER["HTTP_X_REAL_IP"])) > 0 and strlen(trim($_SERVER["HTTP_X_REAL_IP"])) < 16 ) {
+		} else if ( isset($_SERVER["HTTP_X_REAL_IP"]) && isset($_SERVER["HTTP_X_REAL_IP"]) ) {
 			$remoteip = $_SERVER["HTTP_X_REAL_IP"];
+		} else if ( isset($_SERVER["HTTP_CF_CONNECTING_IP"]) ) {
+			$remoteip = $_SERVER["HTTP_CF_CONNECTING_IP"];
 		} else {
 			$remoteip = $_SERVER["REMOTE_ADDR"];
 		}
@@ -434,9 +447,9 @@ class LoginModel extends Lemon_Model
 	{
 		$eModel = Lemon_Instance::getObject("EtcModel",true);
 		
-		$sql = "select a.logo, a.sn as aidx, a.nick,a.mem_lev,a.g_money, a.login_domain, a.bank_member, (select rec_id from ".$this->db_qz."recommend where Idx=a.recommend_sn) as recommend_id, b.member_id,b.idx,b.visit_date,b.visit_ip,b.result,b.status 
-						from ".$this->db_qz."member a right outer join ".$this->db_qz."visit b on a.uid=b.member_id 
-						where a.mem_status<>'G'".$where." order by b.visit_date desc  limit ".$page.",".$page_size ;
+		$sql = "select a.logo, a.sn as aidx, a.nick,a.mem_lev,a.g_money, a.login_domain, a.bank_member, (select rec_id from ".$this->db_qz."recommend where Idx=a.recommend_sn) as recommend_id, b.member_id,b.idx,b.visit_date,b.visit_ip,b.result,b.status,b.device 
+				from ".$this->db_qz."member a right outer join ".$this->db_qz."visit b on a.uid=b.member_id 
+				where a.mem_status<>'G'".$where." order by b.visit_date desc  limit ".$page.",".$page_size ;
 					
 		$rs = $this->db->exeSql($sql);
 

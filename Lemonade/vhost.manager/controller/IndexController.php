@@ -63,7 +63,7 @@ class IndexController extends WebServiceController
 		$cModel = $this->getModel("CommonModel");
 		$lModel =  $this->getModel("LoginModel");
 
-		$ip = $cModel->getIp();
+		$ip = $cModel->newGetIp();
 
 		if($uid != "" && $passwd != "")
 		{

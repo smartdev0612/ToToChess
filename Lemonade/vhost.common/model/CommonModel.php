@@ -31,12 +31,14 @@ class CommonModel extends Lemon_Model
 	}
 
 	function newGetIp() {
-		if ( strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) > 0 and strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) < 16 ) {
+		if ( isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) && isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) ) {
 			$ip = $_SERVER["HTTP_INCAP_CLIENT_IP"];
-		} else if ( strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) > 0 and strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) < 16 ) {
+		} else if ( isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ) {
 			$ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-		} else if ( strlen(trim($_SERVER["HTTP_X_REAL_IP"])) > 0 and strlen(trim($_SERVER["HTTP_X_REAL_IP"])) < 16 ) {
+		} else if ( isset($_SERVER["HTTP_X_REAL_IP"]) && isset($_SERVER["HTTP_X_REAL_IP"]) ) {
 			$ip = $_SERVER["HTTP_X_REAL_IP"];
+		} else if ( isset($_SERVER["HTTP_CF_CONNECTING_IP"]) ) {
+			$ip = $_SERVER["HTTP_CF_CONNECTING_IP"];
 		} else {
 			$ip = $_SERVER["REMOTE_ADDR"];
 		}

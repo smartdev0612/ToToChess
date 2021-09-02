@@ -80,6 +80,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 			<th scope="col">예금주</td>
 			<th scope="col">등급</td>
 			<th scope="col">보유금액</td>
+			<th scope="col">장치</td>
 			<th scope="col">접속시간</td>
 			<th scope="col">접속IP</td>
 			<th scope="col">접속 도메인</td>
@@ -106,6 +107,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 					<td><?php echo $TPL_VAR["arr_mem_lev"][$TPL_V1["mem_lev"]]?></span></td>
 					
 					<td><?php echo number_format($TPL_V1["g_money"],0)?></td>
+					<td><?php echo $TPL_V1["device"]?></td>
 					<td><?php echo $TPL_V1["visit_date"]?></td>
 					<td <?php if($TPL_V1["duplicate_ip"]==1){?>bgcolor='#0078B7'<?php }?>>[<?php echo $TPL_V1["country_code"]?>]<?php echo $TPL_V1["visit_ip"]?></td>
 					<td><?php echo $TPL_V1["login_domain"]?></td>	

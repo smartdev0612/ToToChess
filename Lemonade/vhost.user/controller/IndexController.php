@@ -1540,7 +1540,13 @@ class IndexController extends WebServiceController
 			exit;
 		}
 
-		$result = $model->loginMember($id, $passwd);
+		if($this->isMobile() == "pc") {
+			$device = "PC";
+		} else {
+			$device = "모바일";
+		}
+
+		$result = $model->loginMember($id, $passwd, $device);
 
 		if ( 1 == $result ) {
 			$this->redirect("/");
