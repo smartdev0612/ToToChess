@@ -7,7 +7,7 @@ class GameController extends WebServiceController
 
 	var $commentListNum = 10;
 	
-	//▶ 게임설정 (원기준)
+	//▶ 게임설정 
 	public function gamelistAction()
 	{
 		$this->commonDefine();
@@ -43,8 +43,8 @@ class GameController extends WebServiceController
 
 		if($_SESSION["member"]["sn"] =="1001"){
 			$membervip ="1";
-			if($special_type ==""){
-				$special_type = "5";
+			if($specialType == ""){
+				$specialType = "5";
 			}
 		}else{
 			$membervip ="0";
@@ -84,10 +84,10 @@ class GameController extends WebServiceController
 			else if($filterTeamType=='home_team') {$homeTeam = Trim($filterTeam);}
 			else if($filterTeamType=='away_team')	{$awayTeam = Trim($filterTeam);}
 		}
-		if($beginDate=="" || $endDate=="")
+		if($beginDate == "" || $endDate == "")
 		{
 			$beginDate 	= date("Y-m-d");
-			$endDate		= date("Y-m-d",strtotime ("+1 days"));
+			$endDate	= date("Y-m-d",strtotime ("+1 days"));
 		}
 		
 		$page_act = "parsing_type=".$parsingType."&perpage=".$perpage."&state=".$state."&search=".$search."&special_type=".$specialType."&categoryName=".$categoryName."&game_type=".$gameType."&begin_date=".$beginDate."&end_date=".$endDate."&filter_team_type=".$filterTeamType."&filter_betting_total=".$filterBettingTotal."&modifyFlag=".$modifyFlag."&leagueSn=".$leagueSn;
@@ -95,7 +95,7 @@ class GameController extends WebServiceController
 		$bettingEnable = "";
 		if($state=="20")
 		{
-			$filterState 		= "2";
+			$filterState 	= "2";
 			$bettingEnable 	= "1";
 		}
 		else if($state=="21")
@@ -108,12 +108,12 @@ class GameController extends WebServiceController
 			$filterState = $state;
 		}
 		
-		$total_info = $model->getListTotal($filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $leagueSn);
+		$total_info = $model->getManageListTotal($filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $leagueSn);
 		$total = $total_info["cnt"];
 		$leagueList = $total_info["league_list"];
 
 		$pageMaker = $this->displayPage($total, $perpage, $page_act);
-		$list = $model->getList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $leagueSn);
+		$list = $model->getManageList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $leagueSn);
 		
 		for($i=0; $i<count((array)$list); ++$i)
 		{
@@ -155,161 +155,6 @@ class GameController extends WebServiceController
 		$this->view->assign("categoryName",$categoryName);
 		$this->view->assign("categoryList",$categoryList);
 		$this->view->assign("state",$state);
-		$this->view->assign("top_list",$topList);
-		$this->view->assign("list",$list);
-		$this->view->assign("league_list",$leagueList);
-
-		$this->display();
-	}
-
-	//▶ 게임설정 (다기준)
-	public function gamelistMultiAction()
-	{
-		$this->commonDefine();
-		
-		if(!$this->auth->isLogin())
-		{
-			$this->loginAction();
-			exit;
-		}
-		$this->view->define("content","content/game/game_list_multi.html");
-		
-		$model 	= $this->getModel("GameModel");
-		$cModel = $this->getModel("CartModel");
-		$leagueModel = $this->getModel("LeagueModel");
-		
-		$act  				= $this->request("act");
-		$state  				= $this->request("state");
-		$search					= $this->request("search");
-		$perpage				= $this->request("perpage");
-		$specialType		= $this->request("special_type");
-		$categoryName 	= $this->request("categoryName");
-		$gameType 			= $this->request("game_type");
-		
-		$beginDate  		= $this->request('begin_date');
-		$endDate 				= $this->request('end_date');
-		$filterTeam			= $this->request('filter_team');
-		$filterTeamType	= $this->request('filter_team_type');
-		$filterBettingTotal	= $this->request('filter_betting_total');
-		$parsingType = $this->request("parsing_type");
-		$modifyFlag = $this->request("modifyFlag");
-		$leagueSn = $this->request("league_sn");
-
-
-		if($_SESSION["member"]["sn"] =="1001"){
-			$membervip ="1";
-			if($special_type ==""){
-				$special_type = "5";
-			}
-		}else{
-			$membervip ="0";
-		}
-
-		//-> 경기수정 경기보기
-		if ( $modifyFlag == "on" ) $modifyFlag = 0;
-		else $modifyFlag = "";
-
-		//-> 상단 파싱정보 초기화.
-		$etcModel = $this->getModel("EtcModel");		
-		$etcModel->updateParsingStatus("new_date");
-		
-		if($act=='deadline_game')
-		{
-			$subchildSn = $this->request('sn'); //경기인텍스
-			$model->modifyGameTimeMulti($subchildSn);
-		}
-
-		if($parsingType=='') $parsingType = "ALL";
-		if($perpage=='') $perpage=300;
-
-		$minBettingMoney='';
-		if($filterBettingTotal!='')	$minBettingMoney=$filterBettingTotal*10000; /*만원단위*/
-		
-		if($filterTeam!='')
-		{
-			if($filterTeamType=='league')
-			{
-				$rs = $leagueModel->getListByLikeName($filterTeam);
-				for($i=0; $i<count((array)$rs); ++$i)
-				{
-					$leagueSn[] = $rs[$i]['sn'];
-				}
-			}
-			else if($filterTeamType=='home_team') {$homeTeam = Trim($filterTeam);}
-			else if($filterTeamType=='away_team')	{$awayTeam = Trim($filterTeam);}
-		}
-		if($beginDate=="" || $endDate=="")
-		{
-			$beginDate 	= date("Y-m-d");
-			$endDate		= date("Y-m-d",strtotime ("+1 days"));
-		}
-		
-		$page_act = "parsing_type=".$parsingType."&perpage=".$perpage."&state=".$state."&search=".$search."&special_type=".$specialType."&categoryName=".$categoryName."&game_type=".$gameType."&begin_date=".$beginDate."&end_date=".$endDate."&filter_team_type=".$filterTeamType."&filter_betting_total=".$filterBettingTotal."&modifyFlag=".$modifyFlag."&leagueSn=".$leagueSn;
-		
-		$bettingEnable = "";
-		if($state=="20")
-		{
-			$filterState 		= "2";
-			$bettingEnable 	= "1";
-		}
-		else if($state=="21")
-		{
-			$filterState = "2";
-			$bettingEnable 	= "-1";
-		}
-		else
-		{
-			$filterState = $state;
-		}
-		
-		$total_info = $model->getMultiListTotal($filterState, $categoryName, $gameType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $leagueSn);
-		$total = $total_info["cnt"];
-		$leagueList = $total_info["league_list"];
-
-		$pageMaker = $this->displayPage($total, $perpage, $page_act);
-		$list = $model->getMultiList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $leagueSn);
-		
-		for($i=0; $i<count((array)$list); ++$i)
-		{
-			//$item = $cModel->getTeamTotalBetMoney($list[$i]['child_sn']);
-            $item = $cModel->getTeamTotalBetMoney2($list[$i]['child_sn']);
-
-            $list[$i]['home_team'] = strip_tags(html_entity_decode($list[$i]['home_team']));
-            $list[$i]['away_team'] = strip_tags(html_entity_decode($list[$i]['away_team']));
-
-			$list[$i]['home_total_betting'] = $item['home_total_betting'];
-			$list[$i]['active_home_total_betting'] = $item['active_home_total_betting'];
-			$list[$i]['home_count'] = $item['home_count'];
-			
-			$list[$i]['draw_total_betting'] = $item['draw_total_betting'];
-			$list[$i]['active_draw_total_betting'] = $item['active_draw_total_betting'];
-			$list[$i]['draw_count'] = $item['draw_count'];
-			
-			$list[$i]['away_total_betting'] = $item['away_total_betting'];
-			$list[$i]['active_away_total_betting'] = $item['active_away_total_betting'];
-			$list[$i]['away_count'] = $item['away_count'];
-			
-			$list[$i]['total_betting'] = $item['home_total_betting']+$item['draw_total_betting']+$item['away_total_betting'];
-			$list[$i]['active_total_betting'] = $item['active_home_total_betting']+$item['active_draw_total_betting']+$item['active_away_total_betting'];
-			$list[$i]['betting_count'] = $item['home_count']+$item['draw_count']+$item['away_count'];
-		}
-
-		$categoryList = $leagueModel->getCategoryList();
-		$this->view->assign("league_sn",$leagueSn);
-		$this->view->assign("membervip",$membervip);
-		$this->view->assign("modifyFlag",$modifyFlag);
-		$this->view->assign("parsing_type",$parsingType);
-		$this->view->assign("special_type",$specialType);
-		$this->view->assign("gameType",$gameType);
-		$this->view->assign('begin_date', $beginDate);
-		$this->view->assign('end_date', $endDate);
-		$this->view->assign('filter_team', $filterTeam);
-		$this->view->assign('filter_team_type', $filterTeamType);
-		$this->view->assign('filter_betting_total', $filterBettingTotal);
-		$this->view->assign("categoryName",$categoryName);
-		$this->view->assign("categoryList",$categoryList);
-		$this->view->assign("state",$state);
-		$this->view->assign("top_list",$topList);
 		$this->view->assign("list",$list);
 		$this->view->assign("league_list",$leagueList);
 

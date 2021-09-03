@@ -40,10 +40,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
             dataType : "json",
             success: function(res) {
                 if ( res != null ) {
-
                     $.each(res, function(key, value) {
                         var child_sn = value["child_sn"];
-
                         $("#home_total_betting_"+child_sn).text(value["home_total_betting"]+"("+value["active_home_total_betting"]+")");
                         $("#draw_total_betting_"+child_sn).text(value["draw_total_betting"]+"("+value["active_draw_total_betting"]+")");
                         $("#away_total_betting_"+child_sn).text(value["away_total_betting"]+"("+value["active_away_total_betting"]+")");
@@ -93,28 +91,29 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	function delall()
 	{
 		var intChildIdx="";
-		var   c   =   document.getElementsByName("intChildIdx");   
+		var c = document.getElementsByName("intChildIdx");   
 		for(i=0;i<c.length;i++)   
 		{   
-		      if(c[i].checked == true )   
-		      {   
-		                intChildIdx += c[i].value+"\,";   
-		      }   
-		 } 
-		 if(intChildIdx.length>0)
-		 {
-			 intChildIdx=intChildIdx.substring(0,(intChildIdx.length)-1);  				
-			 document.location="/game/delchildProcess?idx="+intChildIdx+"&type=<?php echo $TPL_VAR["type"]?>";
-			
-		 }else
-		 {
-		 	alert("발매경기를 선택!");
-		 	return;
-		 }
+			if(c[i].checked == true )   
+			{   
+				intChildIdx += c[i].value+"\,";   
+			}   
+		} 
+		if(intChildIdx.length>0)
+		{
+			intChildIdx=intChildIdx.substring(0,(intChildIdx.length)-1);  				
+			document.location="/game/delchildProcess?idx="+intChildIdx+"&type=<?php echo $TPL_VAR["type"]?>";
+		
+		}
+		else
+		{
+			alert("발매경기를 선택!");
+			return;
+		}
 	}
 	function checkAll()
 	{
-		var   c   =   document.getElementsByName("intChildIdx");
+		var c = document.getElementsByName("intChildIdx");
 		for( i=0;i<c.length;i++)
 		{
 			c[i].checked=true;
@@ -122,7 +121,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	}
 	function clearAll()
 	{
-		var   c   =   document.getElementsByName("intChildIdx");
+		var c = document.getElementsByName("intChildIdx");
 		for(i=0;i<c.length;i++)
 		{
 		    
@@ -141,7 +140,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	}
 	function go_delete(url)
 	{
-		if(confirm("정말 삭제하시겠습니까?  "))
+		if(confirm("정말 삭제하시겠습니까?"))
 		{
 			document.location = url;
 		}
@@ -200,66 +199,66 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 				<input type="checkbox" name="modifyFlag" <?php if($TPL_VAR["modifyFlag"]===0){?>checked<?php }?> > 경기수정
 				&nbsp;&nbsp;
 				
-					<span class="icon">정렬</span>
-					<?php if($TPL_VAR["membervip"] == "1"){?>
-						<select name="special_type" id="special_type" onchange="submit()">
-						<option value="5"  <?php if($TPL_VAR["special_type"]==5){?>  selected <?php }?>>사다리</option>
-						<option value="6"  <?php if($TPL_VAR["special_type"]==6){?>  selected <?php }?>>달팽이</option>
-						<option value="7" <?php if($TPL_VAR["special_type"]==7){?> selected <?php }?>>파워볼</option>
-						<option value="8" <?php if($TPL_VAR["special_type"]==8){?> selected <?php }?>>다리다리</option>
-					</select>
+				<span class="icon">정렬</span>
+				<?php if($TPL_VAR["membervip"] == "1"){?>
+				<select name="special_type" id="special_type" onchange="submit()">
+					<option value="5"  <?php if($TPL_VAR["special_type"]==5){?>  selected <?php }?>>사다리</option>
+					<option value="6"  <?php if($TPL_VAR["special_type"]==6){?>  selected <?php }?>>달팽이</option>
+					<option value="7" <?php if($TPL_VAR["special_type"]==7){?> selected <?php }?>>파워볼</option>
+					<option value="8" <?php if($TPL_VAR["special_type"]==8){?> selected <?php }?>>다리다리</option>
+				</select>
 					
-					<?php }else{?>
-					<select name="parsing_type" id="parsing_type">
-						<option value="ALL" <?php if($TPL_VAR["parsing_type"]=="ALL"){?> selected <?php }?>>전체</option>
-						<option value="A" <?php if($TPL_VAR["parsing_type"]=="A"){?> selected <?php }?>>경기A타입</option>
-						<option value="S" <?php if($TPL_VAR["parsing_type"]=="S"){?> selected <?php }?>>경기S타입</option>
-                        <option value="N" <?php if($TPL_VAR["parsing_type"]=="N"){?> selected <?php }?>>경기N타입</option>
-					</select>
-					<select name="special_type" id="special_type" onchange="submit()">
-						<option value="">대분류</option>
-						<option value="1"  <?php if($TPL_VAR["special_type"]==1){?>  selected <?php }?>>국내형</option>
-						<option value="2"  <?php if($TPL_VAR["special_type"]==2){?>  selected <?php }?>>해외형</option>
-						<option value="4"  <?php if($TPL_VAR["special_type"]==4){?>  selected <?php }?>>라이브</option>
-                        <option value="22" <?php if($TPL_VAR["special_type"]==22){?> selected <?php }?>>가상축구</option>
-                        <option value="5"  <?php if($TPL_VAR["special_type"]==5){?>  selected <?php }?>>사다리</option>
-                        <option value="8" <?php if($TPL_VAR["special_type"]==8){?> selected <?php }?>>다리다리</option>
-                        <option value="6"  <?php if($TPL_VAR["special_type"]==6){?>  selected <?php }?>>달팽이</option>
-						<option value="7" <?php if($TPL_VAR["special_type"]==7){?> selected <?php }?>>파워볼</option>
-                        <option value="24" <?php if($TPL_VAR["special_type"]==24){?> selected <?php }?>>키노사다리</option>
-                        <option value="25" <?php if($TPL_VAR["special_type"]==25){?> selected <?php }?>>파워사다리</option>
-                        <option value="28" <?php if($TPL_VAR["special_type"]==28){?> selected <?php }?>>로하이</option>
-                        <option value="29" <?php if($TPL_VAR["special_type"]==29){?> selected <?php }?>>알라딘</option>
-                        <option value="30" <?php if($TPL_VAR["special_type"]==30){?> selected <?php }?>>이다리</option>
-                        <option value="31" <?php if($TPL_VAR["special_type"]==31){?> selected <?php }?>>삼다리</option>
-                        <option value="32" <?php if($TPL_VAR["special_type"]==32){?> selected <?php }?>>초이스</option>
-                        <option value="33" <?php if($TPL_VAR["special_type"]==33){?> selected <?php }?>>룰렛</option>
-                        <option value="34" <?php if($TPL_VAR["special_type"]==34){?> selected <?php }?>>파라오</option>
-                        <option value="21" <?php if($TPL_VAR["special_type"]==21){?> selected <?php }?>>나인</option>
-                        <option value="26" <?php if($TPL_VAR["special_type"]==26){?> selected <?php }?>>MGM홀짝</option>
-                        <option value="27" <?php if($TPL_VAR["special_type"]==27){?> selected <?php }?>>MGM바카라</option>
-					</select>
-					<?php }?>
+				<?php }else{?>
+				<select name="parsing_type" id="parsing_type">
+					<option value="ALL" <?php if($TPL_VAR["parsing_type"]=="ALL"){?> selected <?php }?>>전체</option>
+					<option value="A" <?php if($TPL_VAR["parsing_type"]=="A"){?> selected <?php }?>>경기A타입</option>
+					<option value="S" <?php if($TPL_VAR["parsing_type"]=="S"){?> selected <?php }?>>경기S타입</option>
+					<option value="N" <?php if($TPL_VAR["parsing_type"]=="N"){?> selected <?php }?>>경기N타입</option>
+				</select>
+				<select name="special_type" id="special_type" onchange="submit()">
+					<option value="">대분류</option>
+					<option value="1"  <?php if($TPL_VAR["special_type"]==1){?>  selected <?php }?>>국내형</option>
+					<option value="2"  <?php if($TPL_VAR["special_type"]==2){?>  selected <?php }?>>해외형</option>
+					<option value="4"  <?php if($TPL_VAR["special_type"]==4){?>  selected <?php }?>>실시간</option>
+					<option value="22" <?php if($TPL_VAR["special_type"]==22){?> selected <?php }?>>가상축구</option>
+					<option value="5"  <?php if($TPL_VAR["special_type"]==5){?>  selected <?php }?>>사다리</option>
+					<option value="8" <?php if($TPL_VAR["special_type"]==8){?> selected <?php }?>>다리다리</option>
+					<option value="6"  <?php if($TPL_VAR["special_type"]==6){?>  selected <?php }?>>달팽이</option>
+					<option value="7" <?php if($TPL_VAR["special_type"]==7){?> selected <?php }?>>파워볼</option>
+					<option value="24" <?php if($TPL_VAR["special_type"]==24){?> selected <?php }?>>키노사다리</option>
+					<option value="25" <?php if($TPL_VAR["special_type"]==25){?> selected <?php }?>>파워사다리</option>
+					<option value="28" <?php if($TPL_VAR["special_type"]==28){?> selected <?php }?>>로하이</option>
+					<option value="29" <?php if($TPL_VAR["special_type"]==29){?> selected <?php }?>>알라딘</option>
+					<option value="30" <?php if($TPL_VAR["special_type"]==30){?> selected <?php }?>>이다리</option>
+					<option value="31" <?php if($TPL_VAR["special_type"]==31){?> selected <?php }?>>삼다리</option>
+					<option value="32" <?php if($TPL_VAR["special_type"]==32){?> selected <?php }?>>초이스</option>
+					<option value="33" <?php if($TPL_VAR["special_type"]==33){?> selected <?php }?>>룰렛</option>
+					<option value="34" <?php if($TPL_VAR["special_type"]==34){?> selected <?php }?>>파라오</option>
+					<option value="21" <?php if($TPL_VAR["special_type"]==21){?> selected <?php }?>>나인</option>
+					<option value="26" <?php if($TPL_VAR["special_type"]==26){?> selected <?php }?>>MGM홀짝</option>
+					<option value="27" <?php if($TPL_VAR["special_type"]==27){?> selected <?php }?>>MGM바카라</option>
+				</select>
+				<?php }?>
 					
-					<?php if($TPL_VAR["membervip"] != "1"){?>
-					<select name="categoryName" id="categoryName" onchange="submit()">
-						<option value="">종목</option>
-	<?php if($TPL_categoryList_1){foreach($TPL_VAR["categoryList"] as $TPL_V1){?>
-							<option value="<?php echo $TPL_V1["name"]?>"  <?php if($TPL_VAR["categoryName"]==$TPL_V1["name"]){?>  selected <?php }?>><?php echo $TPL_V1["name"]?></option>
-	<?php }}?>
-					</select>
-					<select name="league_sn" id="league_sn" onchange="submit()">
-						<option value="">리그</option>
-	<?php 
-		if ( count($TPL_VAR["league_list"]) > 0 ) {
-			foreach ( $TPL_VAR["league_list"] as $leagueInfo ) {
-				if ( $TPL_VAL["league_sn"] == $leagueInfo['league_sn'] ) $selected = "selected";
-				else $selected = "";
-				echo "<option value=\"".$leagueInfo['league_sn']."\" {$selected}>".$leagueInfo['league_name']."</option>";
-			}
+				<?php if($TPL_VAR["membervip"] != "1"){?>
+				<select name="categoryName" id="categoryName" onchange="submit()">
+					<option value="">종목</option>
+<?php if($TPL_categoryList_1){foreach($TPL_VAR["categoryList"] as $TPL_V1){?>
+					<option value="<?php echo $TPL_V1["name"]?>"  <?php if($TPL_VAR["categoryName"]==$TPL_V1["name"]){?>  selected <?php }?>><?php echo $TPL_V1["name"]?></option>
+<?php }}?>
+				</select>
+				<select name="league_sn" id="league_sn" onchange="submit()">
+					<option value="">리그</option>
+<?php 
+	if ( count($TPL_VAR["league_list"]) > 0 ) {
+		foreach ( $TPL_VAR["league_list"] as $leagueInfo ) {
+			if ( $TPL_VAL["league_sn"] == $leagueInfo['league_sn'] ) $selected = "selected";
+			else $selected = "";
+			echo "<option value=\"".$leagueInfo['league_sn']."\" {$selected}>".$leagueInfo['league_name']."</option>";
 		}
-	?>
-					</select>
+	}
+?>
+				</select>
 			<?php }?>		
 					<!--<input type="checkbox" name="money_option" value="" <?php if($TPL_VAR["money_option"]==1){?>checked<?php }?> onClick="onCheckbox(this.form)"><font color='red'> 배팅금액 0↑</font>-->
 
@@ -275,10 +274,10 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						<option value="away_team" <?php if($TPL_VAR["filter_team_type"]=="away_team"){?> selected<?php }?>>원정팀</option>
 						<option value="league" 		<?php if($TPL_VAR["filter_team_type"]=="league"){?> selected<?php }?>>리그명</option>
 					</select>
-					<input type=text" size=10 name="filter_team" id="filter_team" value="<?php echo $TPL_VAR["filter_team"]?>" class="name">
+					<input type="text" size=10 name="filter_team" id="filter_team" value="<?php echo $TPL_VAR["filter_team"]?>" class="name">
 					
 					<!-- 배팅총액 검색-->
-					배팅총액 <input type=text" size=10 name="filter_betting_total" id="filter_betting_total" value="<?php echo $TPL_VAR["filter_betting_total"]?>" onkeypress="javascript:pressNumberCheck();" class="name" style="IME-MODE: disabled;">만원 이상
+					배팅총액 <input type="text" size=10 name="filter_betting_total" id="filter_betting_total" value="<?php echo $TPL_VAR["filter_betting_total"]?>" onkeypress="javascript:pressNumberCheck();" class="name" style="IME-MODE: disabled;">만원 이상
 					
 					<!-- 검색버튼 -->
 					<input name="Submit4" id="search_btn" type="image" src="/img/btn_search.gif" class="imgType" title="검색" />

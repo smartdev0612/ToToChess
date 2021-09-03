@@ -878,34 +878,18 @@ class GameModel extends Lemon_Model
 		
 		if($state!='') 
 		{
-			if($state==1) 			{$where .= " and a.kubun=1";$sort='desc';}
-			else if($state==2) 	$where .= " and a.kubun=0";
+			if($state==1) 			{$where .= " and a.kubun = 1";$sort='desc';}
+			else if($state==2) 	$where .= " and a.kubun = 0";
 			else if($state==3) 	$where .= " and a.kubun is null";
-			else if($state==4) 	$where .= " and (a.kubun is null || a.kubun=0)";
+			else if($state==4) 	$where .= " and (a.kubun is null || a.kubun = 0)";
 		}
 		
 		if($category!='') 
-			$where.=" and a.sport_name='".$category."'";
+			$where.=" and a.sport_name = '".$category."'";
 		
 		if($specialType!=="")	
 		{
-			switch($specialType)
-			{
-                case '1': $where.=" and a.special=0";  break;
-                case '2': $where.=" and a.special=1";  break;
-                case '4': $where.=" and a.special=2";  break;
-                case '5': $where.=" and a.special=3";  break;
-                case '6': $where.=" and a.special=4";  break;
-                case '7': $where.=" and a.special=5";  break;
-                case '8': $where.=" and a.special=6";  break;
-                case '9': $where.=" and a.special=7";  break;
-                /*case '22': $where.=" and a.special=22";  break;
-                case '26': $where.=" and a.special=26";  break;
-                case '27': $where.=" and a.special=27";  break;
-                case '28': $where.=" and a.special=28";  break;
-                case '29': $where.=" and a.special=29";  break;*/
-		        default: $where.=" and a.special=".$specialType;  break;
-			}			
+			$where.=" and a.special = ".$specialType;		
 		}
 
 		//-> 사다리 외 검색시 사다리는 제외.
@@ -926,39 +910,36 @@ class GameModel extends Lemon_Model
 		}
 		//-> 리얼20장 외 검색시 리얼20장 제외.
 		if ($specialType != 9) {
-			$where.=" and a.special != 9";
+			$where .= " and a.special != 9";
 		}
 
-		if($beginDate!='' && $endDate!='') 
-			$where.=" and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) between '".$beginDate."' and '".$endDate." 23:59:59'";
+		if($beginDate != '' && $endDate != '') 
+			$where .= " and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) between '".$beginDate."' and '".$endDate." 23:59:59'";
 			
 		if($bettingEnable=='1')
 		{
 			$now = date("Y-m-d H:i:s");
-			$where.=" and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) >= '".$now."'";
+			$where .= " and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) >= '".$now."'";
 		}
 		else if($bettingEnable=='-1')
 		{
 			$now = date("Y-m-d H:i:s");
-			$where.=" and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) <= '".$now."'";
+			$where .= " and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) <= '".$now."'";
 		}
 			
-		if($minBettingMoney!='')
-			$where .=" and c.total_money >= ".$minBettingMoney;
-			
 		if($homeTeam!='') 
-			$where.=" and a.home_team like('%".$homeTeam."%')";
+			$where .= " and a.home_team like ('%" . $homeTeam . "%')";
 			
 		if($awayTeam!='')
-			$where.=" and a.away_team like('%".$awayTeam."%')";
+			$where .= " and a.away_team like ('%" . $awayTeam . "%')";
 
-		if($modifyFlag===0)
-			$where.=" and b.update_enable = 0";
+		if($modifyFlag === 0)
+			$where .= " and b.update_enable = 0";
 		
-		$league_sql = "select a.league_sn, c.name as league_name, c.alias_name from tb_child a, tb_subchild b, tb_league c
-					   where a.sn=b.child_sn and a.league_sn=c.lsports_league_sn and a.view_flag = '1' ".$where." group by a.league_sn order by c.name asc";
+		$league_sql = "select a.league_sn, a.notice as league_name from tb_child a, tb_subchild b
+					   where a.sn = b.child_sn and a.view_flag = '1' ".$where." group by a.league_sn order by a.notice asc";
 		$league_rs = $this->db->exeSql($league_sql);
-		
+
 		if($leagueSn!='') 
 		{
 			if(!is_array($leagueSn))
@@ -978,18 +959,140 @@ class GameModel extends Lemon_Model
 		}
 
 		if($minBettingMoney!='')
+			$where .=" and c.total_money >= ".$minBettingMoney;
+
+		if($minBettingMoney!='')
 		{	
 			$sql = "select count(*) as cnt
-							from ".$this->db_qz."child a, ".$this->db_qz."league c, ".$this->db_qz."subchild b left outer join
-							(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
-								where c.betting_no=d.betting_no and c.is_account=1 and logo='".$this->logo."'
-								group by sub_child_sn) as c on b.sn=c.sub_child_sn
-							where a.sn=b.child_sn and a.league_sn=c.lsports_league_sn and a.view_flag = '1' ".$where;
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
+					(select sum(betting_money) as total_money, sub_child_sn
+						from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+						where c.betting_no = d.betting_no and c.is_account = 1 and logo='".$this->logo."'
+						group by sub_child_sn) as c on b.sn=c.sub_child_sn
+					where a.sn = b.child_sn and a.view_flag = '1' ".$where;
 		} else {
 			$sql = "select count(*) as cnt
-							from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."league c
-							where a.view_flag = 1 and a.sn=b.child_sn and a.league_sn=c.lsports_league_sn and a.view_flag = '1' ".$where;
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
+					(select sum(betting_money) as total_money, sub_child_sn
+						from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+						where c.betting_no = d.betting_no and c.is_account = 1 and logo='".$this->logo."'
+						group by sub_child_sn) as c on b.sn = c.sub_child_sn
+					where a.sn = b.child_sn and a.view_flag = '1' ".$where;
+		}
+		$rs = $this->db->exeSql($sql);
+		
+		$returnData['cnt'] = $rs[0]['cnt'];
+		$returnData['league_list'] = $league_rs;
+		return $returnData;
+	}
+
+	//▶ 게임 총합
+	public function getManageListTotal($state=''/*kubun*/, $category='', $gameType='', $specialType='', $beginDate='', $endDate='', $minBettingMoney='', $leagueSn='', $homeTeam='', $awayTeam='', $bettingEnable='', $parsingType='ALL', $modifyFlag='')
+	{
+		if ( $parsingType != "ALL" ) $where=" and a.parsing_site = '".$parsingType."'";
+		
+		if($state!='') 
+		{
+			if($state==1) 			{$where .= " and a.kubun = 1";$sort='desc';}
+			else if($state==2) 	$where .= " and a.kubun = 0";
+			else if($state==3) 	$where .= " and a.kubun is null";
+			else if($state==4) 	$where .= " and (a.kubun is null || a.kubun = 0)";
+		}
+		
+		if($category!='') 
+			$where.=" and a.sport_name = '".$category."'";
+		
+		if($specialType!=="")	
+		{
+			$where.=" and a.special = ".$specialType;		
+		}
+
+		//-> 사다리 외 검색시 사다리는 제외.
+		if ($specialType != 5) {
+			$where.=" and a.special != 5";
+		}
+		//-> 달팽이 외 검색시 달팽이는 제외.
+		if ($specialType != 6) {
+			$where.=" and a.special != 6";
+		}
+		//-> 파워볼 외 검색시 파워볼은 제외.
+		if ($specialType != 7) {
+			$where.=" and a.special != 7";
+		}
+		//-> 다리다리 외 검색시 동전게임은 제외.
+		if ($specialType != 8) {
+			$where.=" and a.special != 8";
+		}
+		//-> 리얼20장 외 검색시 리얼20장 제외.
+		if ($specialType != 9) {
+			$where .= " and a.special != 9";
+		}
+
+		if($beginDate != '' && $endDate != '') 
+			$where .= " and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) between '".$beginDate."' and '".$endDate." 23:59:59'";
+			
+		if($bettingEnable=='1')
+		{
+			$now = date("Y-m-d H:i:s");
+			$where .= " and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) >= '".$now."'";
+		}
+		else if($bettingEnable=='-1')
+		{
+			$now = date("Y-m-d H:i:s");
+			$where .= " and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) <= '".$now."'";
+		}
+			
+		if($homeTeam!='') 
+			$where .= " and a.home_team like ('%" . $homeTeam . "%')";
+			
+		if($awayTeam!='')
+			$where .= " and a.away_team like ('%" . $awayTeam . "%')";
+
+		if($modifyFlag === 0)
+			$where .= " and b.update_enable = 0";
+		
+		$league_sql = "select a.league_sn, a.notice as league_name from tb_child a, tb_subchild b
+					   where a.sn = b.child_sn and a.view_flag = '1' ".$where." group by a.league_sn order by a.notice asc";
+		$league_rs = $this->db->exeSql($league_sql);
+
+		if($leagueSn!='') 
+		{
+			if(!is_array($leagueSn))
+			{
+				$where.=" and a.league_sn=".$leagueSn;
+			}
+			else
+			{
+				$where.=" and a.league_sn in(";
+				for($i=0; $i<count((array)$leagueSn); ++$i)
+				{
+					if($i==0)	$where.=$leagueSn[$i];
+					else			$where.=",".$leagueSn[$i];
+				}
+				$where.=")";
+			}
+		}
+
+		if($minBettingMoney!='')
+			$where .=" and c.total_money >= ".$minBettingMoney;
+
+		if($minBettingMoney!='')
+		{	
+			$sql = "select count(*) as cnt
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b inner join
+					(select sum(betting_money) as total_money, sub_child_sn
+						from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+						where c.betting_no = d.betting_no and c.is_account = 1 and logo='".$this->logo."'
+						group by sub_child_sn) as c on b.sn=c.sub_child_sn
+					where a.sn = b.child_sn and a.view_flag = '1' ".$where;
+		} else {
+			$sql = "select count(*) as cnt
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b inner join
+					(select sum(betting_money) as total_money, sub_child_sn
+						from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+						where c.betting_no = d.betting_no and c.is_account = 1 and logo='".$this->logo."'
+						group by sub_child_sn) as c on b.sn = c.sub_child_sn
+					where a.sn = b.child_sn and a.view_flag = '1' ".$where;
 		}
 		$rs = $this->db->exeSql($sql);
 		
@@ -1451,7 +1554,7 @@ class GameModel extends Lemon_Model
             }
         }
 
-        if($minBettingMoney!='')
+        if($minBettingMoney != '')
         {
             $sql = "select count(*) as cnt
 							from ".$this->db_qz."child_m a, ".$this->db_qz."league c, ".$this->db_qz."subchild_m b left outer join
@@ -1480,34 +1583,18 @@ class GameModel extends Lemon_Model
 		
 		if($state!='') 
 		{
-			if($state==1) 			{$where .=" and a.kubun=1";$sort='desc';}
-			else if($state==2) 	$where .=" and a.kubun=0";
+			if($state==1) 			{$where .= " and a.kubun = 1"; $sort='desc';}
+			else if($state==2) 	$where .= " and a.kubun = 0";
 			else if($state==3) 	$where .= " and a.kubun is null";
-			else if($state==4) 	$where .= " and (a.kubun is null || a.kubun=0)";
+			else if($state==4) 	$where .= " and (a.kubun is null || a.kubun = 0)";
 		}
 		
 		if($category!='') 
-			$where.=" and a.sport_name='".$category."'";
+			$where.=" and a.sport_name = '".$category."'";
 
 		if($specialType!=="")	
 		{
-			switch($specialType)
-			{
-                case '1': $where.=" and a.special < 4";  break;
-                case '2': $where.=" and a.special < 4";  break;
-                case '4': $where.=" and a.special=4";  break;
-                case '5': $where.=" and a.special=5";  break;
-                case '6': $where.=" and a.special=6";  break;
-                case '7': $where.=" and a.special=7";  break;
-                case '8': $where.=" and a.special=8";  break;
-                case '9': $where.=" and a.special=9";  break;
-                /*case '22': $where.=" and a.special=22";  break;
-                case '26': $where.=" and a.special=26";  break;
-                case '27': $where.=" and a.special=27";  break;
-                case '28': $where.=" and a.special=28";  break;
-                case '29': $where.=" and a.special=29";  break;*/
-		        default:  $where.=" and a.special=".$specialType;  break;
-			}
+			$where.=" and a.special = ".$specialType;
 		}
 
 		//-> 사다리 외 검색시 사다리는 제외.
@@ -1577,7 +1664,7 @@ class GameModel extends Lemon_Model
 		if($page_size > 0)
 			$limit = "limit ".$page.",".$page_size;
 
-		if($minBettingMoney!='')
+		if($minBettingMoney != '')
 		{	
 			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid, tb_markets.mfamily from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.sport_id, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
 							a.gameDate, a.gameHour, a.gameTime, a.notice as league_name, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
@@ -1597,7 +1684,132 @@ class GameModel extends Lemon_Model
 							a.type, a.special, a.bet_money, b.home_name, b.home_line,
 							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 
 							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
-					from ".$this->db_qz."child a, ".$this->db_qz."subchild b 
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
+							(select sum(betting_money) as total_money, sub_child_sn
+							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+							where c.betting_no=d.betting_no and c.is_account=1 
+							group by sub_child_sn) as c on b.sn = c.sub_child_sn
+					where a.sn=b.child_sn and a.view_flag = '1' ".$where." " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid
+					order by tb_temp.gameDate ".$sort.", tb_temp.gameHour ".$sort.", tb_temp.gameTime ".$sort.", tb_temp.league_name, tb_temp.home_team, tb_temp.special, tb_temp.sn asc";
+		}
+		
+		return $this->db->exeSql($sql);
+	}
+
+	//▶ 게임 목록
+	public function getManageList($page, $page_size, $state=''/*kubun*/, $category='', $gameType='', $specialType='', $beginDate='', $endDate='', $minBettingMoney='', $leagueSn='', $homeTeam='', $awayTeam='', $bettingEnable='', $parsingType='ALL', $modifyFlag='')
+	{
+		if ( $parsingType != "ALL" ) $where=" and a.parsing_site = '".$parsingType."'";
+		$sort='asc';
+		
+		if($state!='') 
+		{
+			if($state==1) 			{$where .= " and a.kubun = 1"; $sort='desc';}
+			else if($state==2) 	$where .= " and a.kubun = 0";
+			else if($state==3) 	$where .= " and a.kubun is null";
+			else if($state==4) 	$where .= " and (a.kubun is null || a.kubun = 0)";
+		}
+		
+		if($category!='') 
+			$where.=" and a.sport_name = '".$category."'";
+
+		if($specialType!=="")	
+		{
+			$where.=" and a.special = ".$specialType;
+		}
+
+		//-> 사다리 외 검색시 사다리는 제외.
+		if ($specialType != 5) {
+			$where.=" and a.special != 5";
+		}
+		//-> 달팽이 외 검색시 달팽이는 제외.
+		if ($specialType != 6) {
+			$where.=" and a.special != 6";
+		}
+		//-> 파워볼 외 검색시 파워볼 제외.
+		if ($specialType != 7) {
+			$where.=" and a.special != 7";
+		}
+		//-> 다리다리 외 검색시 동전게임은 제외.
+		if ($specialType != 8) {
+			$where.=" and a.special != 8";
+		}
+		//-> 리얼20장 외 검색시 리얼20장은 제외.
+		if ($specialType != 9) {
+			$where.=" and a.special != 9";
+		}
+
+		if($beginDate!='' && $endDate!='') 
+			$where.=" and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) between '".$beginDate."' and '".$endDate." 23:59:59'";
+			
+		if($bettingEnable=='1')
+		{
+			$now = date("Y-m-d H:i:s");
+			$where.=" and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) >= '".$now."'";
+		}
+		else if($bettingEnable=='-1')
+		{
+			$now = date("Y-m-d H:i:s");
+			$where.=" and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) <= '".$now."'";
+		}
+			
+		if($minBettingMoney!='')
+			$where .=" and c.total_money >= ".$minBettingMoney;
+			
+		if($leagueSn!='') 
+		{
+			if(!is_array($leagueSn))
+			{
+				$where.=" and a.league_sn=".$leagueSn;
+			}
+			else
+			{
+				$where.=" and a.league_sn in(";
+				for($i=0; $i<count((array)$leagueSn); ++$i)
+				{
+					if($i==0)	$where.=$leagueSn[$i];
+					else			$where.=",".$leagueSn[$i];
+				}
+				$where.=")";
+			}
+		}
+		if($homeTeam!='') 
+			$where.=" and a.home_team like('%".$homeTeam."%')";
+			
+		if($awayTeam!='')
+			$where.=" and a.away_team like('%".$awayTeam."%')";
+
+		if($modifyFlag===0)
+			$where.=" and b.update_enable = 0";
+
+		if($page_size > 0)
+			$limit = "limit ".$page.",".$page_size;
+
+		if($minBettingMoney != '')
+		{	
+			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid, tb_markets.mfamily from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.sport_id, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
+							a.gameDate, a.gameHour, a.gameTime, a.notice as league_name, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
+							a.type, a.special, a.bet_money, b.home_name, b.home_line,
+							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 
+							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b inner join
+							(select sum(betting_money) as total_money, sub_child_sn
+							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+							where c.betting_no=d.betting_no and c.is_account=1 
+							group by sub_child_sn) as c on b.sn=c.sub_child_sn
+					where a.sn=b.child_sn and a.view_flag = '1' ".$where . " " . $limit .") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid
+					order by tb_temp.gameDate ".$sort.", tb_temp.gameHour ".$sort.", tb_temp.gameTime ".$sort.", tb_temp.league_name, tb_temp.home_team, tb_temp.special, tb_temp.sn asc ";
+		} else {
+			$sql = "select tb_temp.*, tb_markets.mname_ko, tb_markets.mid, tb_markets.mfamily from (select a.sn as child_sn, a.parent_sn, a.sport_name, a.sport_id, a.home_team, a.away_team, a.home_score, a.away_score, a.league_sn,
+							a.gameDate, a.gameHour, a.gameTime, a.notice as league_name, a.win_team,a.kubun, a.parsing_site, a.user_view_flag,
+							a.type, a.special, a.bet_money, b.home_name, b.home_line,
+							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 
+							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b inner join
+							(select sum(betting_money) as total_money, sub_child_sn
+							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+							where c.betting_no=d.betting_no and c.is_account=1 
+							group by sub_child_sn) as c on b.sn = c.sub_child_sn
 					where a.sn=b.child_sn and a.view_flag = '1' ".$where." " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid
 					order by tb_temp.gameDate ".$sort.", tb_temp.gameHour ".$sort.", tb_temp.gameTime ".$sort.", tb_temp.league_name, tb_temp.home_team, tb_temp.special, tb_temp.sn asc";
 		}
