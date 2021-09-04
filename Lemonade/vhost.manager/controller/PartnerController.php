@@ -870,7 +870,7 @@ class PartnerController extends WebServiceController
 		
 		$act	= $this->request('act');
 		$p_type	= empty($this->request('p_type')) ? 0 : $this->request('p_type');
-		$perpage	= empty($this->request('perpage')) ? 10 : $this->request('p_typerpagevpe');
+		$perpage	= empty($this->request('perpage')) ? 10 : $this->request('perpage');
 				
 		if(isset($act)&&$act == "del")
 		{
