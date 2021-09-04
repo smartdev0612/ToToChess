@@ -110,6 +110,8 @@
 					connect_cnt = arrTmp[49];
                     login_fail_cnt = arrTmp[50];
                     total_user = arrTmp[51];
+					partner_memo_cnt = arrTmp[55];
+					agent_memo_cnt = arrTmp[56];
 				} else {
 					return false;
 				}
@@ -150,6 +152,22 @@
 					$("#top_question").html("<a href='/board/questionview?idx="+question_sn+"'><font color='yellow' style='font-size:14px;'>고객센터["+question_cnt+"]</font></a>");
 				} else {
 					$("#top_question").html("<a href='/board/questionlist'>고객센터[0]</a>");
+				}
+
+				//-> 총판쪽지
+				if ( partner_memo_cnt > 0 ) {
+					try { jBeep('/voice/center.mp3'); } catch(e) {};
+					$("#top_partner").html("<a href='/partner/memolist?p_type=2'><font color='yellow' style='font-size:14px;'>총판쪽지["+partner_memo_cnt+"]</font></a>");
+				} else {
+					$("#top_partner").html("<a href='/partner/memolist?p_type=2'>총판쪽지[0]</a>");
+				}
+
+				//-> 부본사쪽지
+				if ( agent_memo_cnt > 0 ) {
+					try { jBeep('/voice/center.mp3'); } catch(e) {};
+					$("#top_agent").html("<a href='/partner/memolist?p_type=1'><font color='yellow' style='font-size:14px;'>부본사쪽지["+agent_memo_cnt+"]</font></a>");
+				} else {
+					$("#top_agent").html("<a href='/partner/memolist?p_type=1'>부본사쪽지[0]</a>");
 				}
 				
 				//-> 회원가입

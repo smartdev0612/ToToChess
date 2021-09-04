@@ -118,6 +118,16 @@ class EtcModel extends Lemon_Model
 		$questionSn = $rs[0]['idx']+0;
 		$questionAlarm = count((array)$rs)+0;
 
+		//-> 총판쪽지
+		$sql = "select count(mem_idx) as cnt from tb_memoboard where toid = '운영팀' and newreadnum = 0 and p_type = 2";
+		$rs = $this->db->exeSql($sql);
+		$partner_memo_cnt = $rs[0]['cnt'];
+
+		//-> 부본사쪽지
+		$sql = "select count(mem_idx) as cnt from tb_memoboard where toid = '운영팀' and newreadnum = 0 and p_type = 1";
+		$rs = $this->db->exeSql($sql);
+		$agent_memo_cnt = $rs[0]['cnt'];
+
 		//-> 총판 출금 신청
 		$sql = "select count(sn) as cnt from tb_recommend_money_log where is_read = 0";
 		$rs = $this->db->exeSql($sql);
@@ -196,7 +206,7 @@ class EtcModel extends Lemon_Model
                      .$kenosadariAlarm."||".$kenosadariBigAlarm."||".$powersadariAlarm."||".$powersadariBigAlarm."||".$vfootballAlarm."||".$vfootballBigAlarm."||"
                      .$nineAlarm."||".$nineBigAlarm."||".$twodariAlarm."||".$twodariBigAlarm."||".$threedariAlarm."||".$threedariBigAlarm."||"
                      .$choiceAlarm."||".$choiceBigAlarm."||".$rouletteAlarm."||".$rouletteBigAlarm."||".$pharaohAlarm."||".$pharaohBigAlarm."||".$fxAlarm."||".$fxBigAlarm."||"
-                     .$connectCnt."||".$login_fail."||".$sport2Alarm."||".$sport2BigAlarm."||".$liveAlarm."||".$liveBigAlarm;
+                     .$connectCnt."||".$login_fail."||".$sport2Alarm."||".$sport2BigAlarm."||".$liveAlarm."||".$liveBigAlarm."||".$partner_memo_cnt."||".$agent_memo_cnt;
 		
 		return $returnStr;
 	}

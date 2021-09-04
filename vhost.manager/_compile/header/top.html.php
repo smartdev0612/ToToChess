@@ -6,9 +6,11 @@
 
                 <li id="top_newmember">회원가입[0]</li>
                 <li id="top_question">고객센터[0]</li>
-                <li id="top_rec_money_out">총판출금[0]</li>
-                <li id="top_Withdrawal">출금신청[0]</li>
+                <li id="top_partner">총판쪽지[0]</li>
+                <li id="top_agent">부본사쪽지[0]</li>
                 <li id="top_richer">입금신청[0]</li>
+                <li id="top_Withdrawal">출금신청[0]</li>
+                <li id="top_rec_money_out">총판출금[0]</li>
                 <li id="top_contents">게시판[0]</li>
                 <li><a href="/gameUpload/gamelist?state=20&parsing_type=ALL"><span id="in_games">등록[0]</span></a></li>
                 <li><a href="/gameUpload/gamelist?state=20&parsing_type=ALL"><span id="in_rates">배당[0]</span></a></li>
