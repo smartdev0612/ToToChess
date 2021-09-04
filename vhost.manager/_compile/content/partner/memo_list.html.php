@@ -20,6 +20,45 @@ function show(idx) {
 	}
 }
 
+function select_delete()
+{
+	var memo_sn="";
+	var sn = document.getElementsByName("y_id[]");
+	var cnt = 0;
+	for(i = 0 ; i < sn.length; i++)   
+	{   
+		if(sn[i].checked==true)
+		{
+			if($('#isRead_' + sn[i].value).val() == 0)
+			{
+				alert("읽은 쪽지만 삭제가 가능합니다.");
+				return;
+			}
+			if(cnt == 0) {
+				memo_sn += sn[i].value;   
+			} else {
+				memo_sn += "\," + sn[i].value;   
+			}
+			cnt++;
+		}   
+	}
+	if(memo_sn.length>0)
+	{
+		if ( confirm("정말 삭제하시겠습니까?") ) {
+			var p_type = $("#p_type").val();
+			param="p_type=" + p_type + "&memo_sn=" + memo_sn;
+			document.location="/Partner/deleteSelectedMemo?"+param;
+		} else {
+			return;
+		}
+	}
+	else
+	{
+		alert("쪽지를 선택하세요!");
+		return;
+	}
+}
+
 function high()
 {
 	if(event.srcElement.className=="k")
@@ -38,15 +77,21 @@ function low()
 	}
 }
 
-function go_del(url)
+function go_del(idx)
 {
-	if(confirm("정말 삭제하시겠습니까?  "))
-	{
-			document.location = url;
-	}
-	else
-	{
-		return;
+	var isRead = $("#isRead_" + idx).val();
+	if(isRead == 1) {
+		if(confirm("정말 삭제하시겠습니까?  "))
+		{
+			var p_type = $("#p_type").val();
+			document.location = '?act=del&id=' + idx + '&p_type=' + p_type;
+		}
+		else
+		{
+			return;
+		}
+	} else {
+		alert("읽은 쪽지만 삭제가 가능합니다.");
 	}
 }
 
@@ -67,53 +112,54 @@ function go_del(url)
 	</ul>
 
 	<form id="form1" name="form1" method="post" action="?act=delete_user">
-	<table cellspacing="1" class="tableStyle_normal add" summary="파트너 받은 쪽지함">
-	<legend class="blind">받은 쪽지함</legend>
-	<thead>
-		<tr>
-			<th scope="col" style="width:35px;" class="check"><input type="checkbox" name="chkAll" title="전체선택" onClick="selectAll()"/></th>
-			<th scope="col" style="width:120px;">보낸 사람</th>
-			<th scope="col" style="width:170px;">날짜</th>
-			<th scope="col">내용</th>
-			<th scope="col" style="width:100px;">상태</th>  
-			<th scope="col" style="width:100px;">처리</th> 
-		</tr>
-	</thead>
-	<tbody>
-		
-<?php if($TPL_list_1) {
-		foreach($TPL_VAR["list"] as $TPL_V1) {
-			$idx = $TPL_V1["mem_idx"];
-			if ( $TPL_V1["newreadnum"] == 1 ) $state = "읽음";
-			else $state = "읽지않음";
-?>
-		<tr>
-			<input type="hidden" id="isRead_<?=$idx?>" value="<?=$TPL_V1['newreadnum']?>">
-			<td><input name="y_id[]" type="checkbox" id="y_id" value="<?php echo $idx?>"  onclick="javascript:chkRow(this);"/></td>
-			<td><?php echo $TPL_V1["fromid"]?></td>
-			<td><?php echo $TPL_V1["writeday"]?></td>
-			<td onclick="show('<?php echo $idx?>')" style="cursor:pointer"><?php echo $TPL_V1["title"]?></td>
-			<td id="status_<?=$idx?>"><?php echo $state?></td>
-			<td ><a href="javascript:void(0)" onclick="javascript:open_window('/partner/memoAdd_Acc?toid=<?php echo $TPL_V1["fromid"]?>&reply_id=<?php echo $idx?>&p_type=<?=$TPL_VAR["p_type"]?>','800','620')" ><img src="/img/btn_s_answer.gif" title="답변"></a>&nbsp;&nbsp<a href="javascript:void(0);" onclick="go_del('?act=del&id=<?php echo $idx?>&p_type=<?=$TPL_VAR["p_type"]?>');"><img src="/img/btn_s_del.gif" title="삭제"></a></td>   
-		</tr>
-	 
-		<tr id="content<?php echo $idx?>" style="display:none;" bgcolor="#f1f1f1" >
-			<td colspan="6" align="right"><div class="memo_answer"><?php echo $TPL_V1["content"]?></div></td>
-		</tr>
-<?php }}?>	
-		
-	</tbody>
-	</table>
+		<input type="hidden" id="p_type" value="<?=$TPL_VAR['p_type']?>">
+		<table cellspacing="1" class="tableStyle_normal add" summary="파트너 받은 쪽지함">
+			<legend class="blind">받은 쪽지함</legend>
+			<thead>
+				<tr>
+					<th scope="col" style="width:35px;" class="check"><input type="checkbox" name="chkAll" title="전체선택" onClick="selectAll()"/></th>
+					<th scope="col" style="width:120px;">보낸 사람</th>
+					<th scope="col" style="width:170px;">날짜</th>
+					<th scope="col">내용</th>
+					<th scope="col" style="width:100px;">상태</th>  
+					<th scope="col" style="width:100px;">처리</th> 
+				</tr>
+			</thead>
+			<tbody>
+				
+		<?php if($TPL_list_1) {
+				foreach($TPL_VAR["list"] as $TPL_V1) {
+					$idx = $TPL_V1["mem_idx"];
+					if ( $TPL_V1["newreadnum"] == 1 ) $state = "읽음";
+					else $state = "읽지않음";
+		?>
+				<tr>
+					<input type="hidden" id="isRead_<?=$idx?>" value="<?=$TPL_V1['newreadnum']?>">
+					<td><input name="y_id[]" type="checkbox" id="y_id" value="<?php echo $idx?>"/></td>
+					<td><?php echo $TPL_V1["fromid"]?></td>
+					<td><?php echo $TPL_V1["writeday"]?></td>
+					<td onclick="show('<?php echo $idx?>')" style="cursor:pointer"><?php echo $TPL_V1["title"]?></td>
+					<td id="status_<?=$idx?>"><?php echo $state?></td>
+					<td ><a href="javascript:void(0)" onclick="javascript:open_window('/partner/memoAdd_Acc?toid=<?php echo $TPL_V1["fromid"]?>&reply_id=<?php echo $idx?>&p_type=<?=$TPL_VAR["p_type"]?>','800','620')" ><img src="/img/btn_s_answer.gif" title="답변"></a>&nbsp;&nbsp<a href="javascript:void(0);" onclick="go_del('<?=$idx?>');"><img src="/img/btn_s_del.gif" title="삭제"></a></td>   
+				</tr>
+			
+				<tr id="content<?php echo $idx?>" style="display:none;" bgcolor="#f1f1f1" >
+					<td colspan="6" align="right"><div class="memo_answer"><?php echo $TPL_V1["content"]?></div></td>
+				</tr>
+		<?php }}?>	
+				
+			</tbody>
+		</table>
 
-	<div id="pages2">
-		<?php echo $TPL_VAR["pagelist"]?>
+		<div id="pages2">
+			<?php echo $TPL_VAR["pagelist"]?>
 
-	</div>
+		</div>
 
-	<div id="wrap_btn">
-		<input type="button" name="open" value="선택삭제" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="openLayer('op1','tis')"/>
-        <input type="button" name="Submit22" value="쪽지쓰기" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="window.location='/partner/memoadd?p_type=<?=$TPL_VAR["p_type"]?>'"/>
-	</div>
+		<div id="wrap_btn">
+			<input type="button" name="open" value="선택삭제" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="select_delete()"/>
+			<input type="button" name="Submit22" value="쪽지쓰기" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="window.location='/partner/memoadd?p_type=<?=$TPL_VAR["p_type"]?>'"/>
+		</div>
 	</form>
 
 

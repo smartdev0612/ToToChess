@@ -863,6 +863,42 @@ class PartnerController extends WebServiceController
 			$mModel->updateMemoRead($mem_idx);
 		}
 	}
+
+	/*
+	 * 선택한 파트너 쪽지 삭제
+	 */
+	function deleteSelectedMemoAction()
+	{
+		if($this->auth->isLogin()) {
+			$mModel = $this->getModel("MemoModel");
+
+			$memo_sn = empty($this->request('memo_sn')) ? "" : $this->request('memo_sn');
+			$p_type	= empty($this->request('p_type')) ? 0 : $this->request('p_type');
+
+			$mModel->deleteSelectedMemo($memo_sn);
+
+			throw new Lemon_ScriptException("삭제 되였습니다.", "", "go", "/partner/memolist?p_type={$p_type}");
+			exit;
+		}
+	}
+
+	/*
+	 * 선택한 파트너 보낸 쪽지 삭제
+	 */
+	function deleteSelectedSendMemoAction()
+	{
+		if($this->auth->isLogin()) {
+			$mModel = $this->getModel("MemoModel");
+
+			$memo_sn = empty($this->request('memo_sn')) ? "" : $this->request('memo_sn');
+			$p_type	= empty($this->request('p_type')) ? 0 : $this->request('p_type');
+
+			$mModel->deleteSelectedMemo($memo_sn);
+
+			throw new Lemon_ScriptException("삭제 되였습니다.", "", "go", "/partner/memosendlist?p_type={$p_type}");
+			exit;
+		}
+	}
 	
 	
 	/*

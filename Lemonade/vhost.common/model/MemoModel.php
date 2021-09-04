@@ -19,6 +19,12 @@ class MemoModel extends Lemon_Model
 				WHERE 	mem_idx='".$mem_idx."'";	
 		$this->db->exeSql($sql);
 	}
+
+	//▶ 선택한 파트너 쪽지 삭제
+	function deleteSelectedMemo($memo_sn) {
+		$sql = "delete from ".$this->db_qz."memoboard where mem_idx in (".$memo_sn.")";
+		$this->db->exeSql($sql);
+	}
 	
 	//▶ 쪽지
 	function getMemoList($where, $page, $page_size, $addOrderby='mem_idx desc')
