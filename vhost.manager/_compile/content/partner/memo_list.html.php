@@ -4,6 +4,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 
 function show(c_Str) {
 	$("#"+c_Str).toggle();
+	
 }
 
 function high()
@@ -79,7 +80,7 @@ function go_del(url)
 			<td><?php echo $TPL_V1["writeday"]?></td>
 			<td onclick="show('content<?php echo $idx?>')" style="cursor:pointer"><?php echo $TPL_V1["title"]?></td>
 			<td><?php echo $state?></td>
-			<td ><a href="javascript:void(0)" onclick="javascript:open_window('/partner/memoAdd_Acc?toid=<?php echo $TPL_V1["fromid"]?>&reply_id=<?php echo $idx?>&p_type=<?=$TPL_VAR["p_type"]?>','800','620')" ><img src="/img/btn_s_answer.gif" title="답변"></a>&nbsp;&nbsp<a href="javascript:void(0);" onclick="go_del('?act=del&id=<?php echo $idx?>');"><img src="/img/btn_s_del.gif" title="삭제"></a></td>   
+			<td ><a href="javascript:void(0)" onclick="javascript:open_window('/partner/memoAdd_Acc?toid=<?php echo $TPL_V1["fromid"]?>&reply_id=<?php echo $idx?>&p_type=<?=$TPL_VAR["p_type"]?>','800','620')" ><img src="/img/btn_s_answer.gif" title="답변"></a>&nbsp;&nbsp<a href="javascript:void(0);" onclick="go_del('?act=del&id=<?php echo $idx?>&p_type=<?=$TPL_VAR["p_type"]?>');"><img src="/img/btn_s_del.gif" title="삭제"></a></td>   
 		</tr>
 	 
 		<tr id="content<?php echo $idx?>" style="display:none;" bgcolor="#f1f1f1" >

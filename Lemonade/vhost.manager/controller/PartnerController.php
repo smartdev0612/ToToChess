@@ -875,10 +875,14 @@ class PartnerController extends WebServiceController
 		{
 			$id = $this->request('id');
 			$mModel->delMemoByMemberSn( $id );
+			throw new Lemon_ScriptException("삭제 되였습니다.", "", "go", "/partner/memolist?p_type={$p_type}");
+			exit;
 		}		
 		$where = " and toid = '운영팀' and kubun='1' and p_type = '" . $p_type . "'";
+
+		$page_act = "p_type=".$p_type;
 		$total = $mModel->getMemoTotal($where);
-		$pageMaker = $this->displayPage($total, 10);
+		$pageMaker = $this->displayPage($total, 10, $page_act);
 		$list = $mModel->getMemoList($where, $pageMaker->first, $pageMaker->listNum, " writeday desc ");
 		
 		$this->view->assign('list', $list);
@@ -976,8 +980,10 @@ class PartnerController extends WebServiceController
 		}
 		
 		$where = "and fromid = '운영팀' and kubun='1' and p_type = '" . $p_type . "'";
+
+		$page_act = "p_type=".$p_type;
 		$total = $mModel->getMemoTotal($where);
-		$pageMaker = $this->displayPage($total, 10);
+		$pageMaker = $this->displayPage($total, 10, $page_act);
 		$list = $mModel->getMemoList($where, $pageMaker->first, $pageMaker->listNum, " writeday desc ");
 		
 		$this->view->assign('list', $list);
