@@ -689,6 +689,50 @@ function getMarketsCnt(sport_name, children, isExist12 = true) {
     return cnt;
 }
 
+// 유럽형, 라이브에서 매 경기별 배팅가능한 마켓개수 얻기.
+function getPrematchMarketsCnt(sport_name, children, isExist12 = true) {
+    var temp_id = 0;
+    var cnt = 0;
+    var marketArray = [];
+    switch(sport_name) {
+        case "축구":
+            marketArray = [427, 1, 2, 3, 41, 42, 21, 45, 151, 153, 154, 155, 156, 101, 102, 64, 65, 7, 5, 72, 73, 9, 100, 6, 456, 457];
+            break;
+        case "농구":
+            marketArray = [226, 342, 28, 202, 203, 204, 205, 206, 464, 41, 42, 43, 44, 282, 284, 64, 65, 66, 67, 467, 468, 21, 45, 46, 47, 77, 469, 153, 154, 155, 156, 223, 222, 287, 288, 354, 355, 221, 220, 51, 72, 73, 74, 75, 76, 242, 243, 289, 292, 290, 293, 291, 294, 285, 198, 199];
+            break;
+        case "배구":
+            marketArray = [52, 1558, 2, 202, 203, 204, 205, 206, 64, 65, 66, 67, 68, 21, 45, 46, 47, 101, 102, 5, 72, 73, 74, 75, 76, 6, 153, 154, 155, 156];
+            break;
+        case "야구":
+            marketArray = [226, 342, 28, 220, 221, 235, 41, 42, 43, 44, 348, 349, 281, 447, 448, 449, 450, 21, 45, 46, 47, 48, 236, 352, 353, 6];
+            break;
+        case "아이스 하키":
+            marketArray = [1, 342, 28, 7, 202, 41, 42, 43, 44, 64, 65, 66, 221, 220, 21, 45, 46, 51];
+            break;
+        case "E스포츠":
+            marketArray = [52, 3, 2, 6, 202, 64, 1149, 989, 1162, 1165, 669, 1170, 672, 666, 203, 65, 1150, 990, 1163, 1166, 670, 1171, 673, 667, 204, 66, 1151, 991, 1164, 1167, 671, 1172, 674, 668, 205, 67, 1152, 1147, 1714, 1168, 1123, 1173, 1550, 206, 68, 1153, 1148, 1715, 1169, 1124, 1174, 1551];
+            break;
+    }
+   
+    for(var i = 0; i < children.length; i++) {
+        if(temp_id != children[i].m_nMarket) {
+            temp_id = children[i].m_nMarket;
+            for(var j = 0; j < marketArray.length; j++) {
+                if(temp_id == marketArray[j]){
+                    cnt++;
+                    break;
+                }
+            }
+        }
+    }
+
+    if(isExist12) 
+        return cnt - 1;
+
+    return cnt;
+}
+
 /****************************** 미니게임 ****************************/
 function getStrDatetime(date, hour, min) {
     var month = date.getMonth() + 1;

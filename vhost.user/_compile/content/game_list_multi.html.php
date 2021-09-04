@@ -739,7 +739,7 @@
             } else {
                 var isExist = checkExist1x2(json);
                 if(document.getElementById(`cnt_${json.m_nGame}`) != null && document.getElementById(`cnt_${json.m_nGame}`) != undefined)
-                    document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
+                    document.getElementById(`cnt_${json.m_nGame}`).innerHTML = "+" + getPrematchMarketsCnt(json.m_strSportName, json.m_lstDetail, isExist);
 
                 for(var j=0; j < showJson[i].m_lstDetail.length; j++) {
                     var djson = json.m_lstDetail.find(val => val.m_nHBetCode == showJson[i].m_lstDetail[j].m_nHBetCode && val.m_nDBetCode == showJson[i].m_lstDetail[j].m_nDBetCode && val.m_nABetCode == showJson[i].m_lstDetail[j].m_nABetCode);
@@ -3364,42 +3364,42 @@
                     case "축구":
                         if(isExist12) {
                             if(detail.m_nMarket == 1) {
-                                getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
+                                getSubChildInfo(index, item, detail, getPrematchMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         }
                         break;
                     case "농구":
                         if(isExist12) {
                             if(detail.m_nMarket == 226) {
-                                getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
+                                getSubChildInfo(index, item, detail, getPrematchMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         } 
                         break;
                     case "야구":
                         if(isExist12) {
                             if(detail.m_nMarket == 226) {
-                                getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
+                                getSubChildInfo(index, item, detail, getPrematchMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         } 
                         break;
                     case "배구":
                         if(isExist12) {
                             if(detail.m_nMarket == 52) {
-                                getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
+                                getSubChildInfo(index, item, detail, getPrematchMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         }
                         break;
                     case "아이스 하키":
                         if(isExist12) {
                             if(detail.m_nMarket == 1) {
-                                getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
+                                getSubChildInfo(index, item, detail, getPrematchMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         } 
                         break;
                     case "E스포츠":
                         if(isExist12) {
                             if(detail.m_nMarket == 52) {
-                                getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
+                                getSubChildInfo(index, item, detail, getPrematchMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         } 
                         break;
