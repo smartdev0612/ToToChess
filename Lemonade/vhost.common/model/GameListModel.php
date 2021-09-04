@@ -2534,17 +2534,13 @@ class GameListModel extends Lemon_Model
 			$where.= " and b.select_no=".$selectNo;
 		
 		$sql = "select 	count(*) as cnt
-						from "	.$this->db_qz."total_cart a,"
-										.$this->db_qz."total_betting b,"
-										.$this->db_qz."child c,"
-										.$this->db_qz."subchild d,"
-										.$this->db_qz."member e
-						where		a.betting_no=b.betting_no
-										and b.sub_child_sn=d.sn
-										and d.child_sn=c.sn
-										and a.member_sn=e.sn
-										and a.is_account=1 and a.kubun='Y'
-										and c.sn=".$gameSn.$where;
+				from "	.$this->db_qz."total_cart a,"
+						.$this->db_qz."total_betting b,"
+						.$this->db_qz."member e
+				where	a.betting_no=b.betting_no
+						and a.member_sn=e.sn
+						and a.is_account=1 and a.kubun='Y'
+						and b.sub_child_sn=".$gameSn.$where;
 		
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['cnt'];
@@ -2558,22 +2554,6 @@ class GameListModel extends Lemon_Model
 			
 		if($selectNo!="")
 			$where.= " and b.select_no=".$selectNo;
-			
-			/*
-		if($gameSn!="")
-		{
-			$sql = "select sn from ".$this->db_qz."subchild where child_sn=".$gameSn;
-			$rs = $this->db->exeSql($sql);
-			$subSn = $rs[0]['sn'];
-			
-			$addWhere.= " and betting_no in(select distinct(betting_no) from ".$this->db_qz."total_betting where sub_child_sn=".$subSn;
-			
-			if($selectNo!="")
-				$addWhere.= " and select_no=".$selectNo;
-				
-			$addWhere.= ")";
-		}
-		*/
 		
 		if($page_size!=0)
 			$limit = "limit ".$page.",".$page_size;
@@ -2583,22 +2563,12 @@ class GameListModel extends Lemon_Model
 						e.uid, e.nick, e.recommend_sn
 				from "	.$this->db_qz."total_cart a,"
 						.$this->db_qz."total_betting b,"
-						.$this->db_qz."child c,"
-						.$this->db_qz."subchild d,"
 						.$this->db_qz."member e
 				where	a.betting_no=b.betting_no
-						and b.sub_child_sn=d.sn
-						and d.child_sn=c.sn
 						and a.member_sn=e.sn
 						and a.is_account=1 and a.kubun='Y'
-						and c.sn=".$gameSn.$where."
+						and b.sub_child_sn=".$gameSn.$where."
 				order by a.betting_no desc ".$limit;
-										/*
-										a.betting_no in(
-										select betting_no from
-										(select betting_no from ".$this->db_qz."total_cart where logo='".$this->logo."' and kubun='Y' ".$addWhere."order by betting_no desc ".$limit.") as t)
-										and a.is_account=1".$where." order by a.regdate desc";
-										*/
 		
 		$rs = $this->db->exeSql($sql);		
 	

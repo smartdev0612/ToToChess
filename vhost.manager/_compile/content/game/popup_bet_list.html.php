@@ -6,7 +6,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	{
 		selvalue=document.getElementById("sel_result").value;
 		//alert(selvalue);
-		url="/game/popup_bet_list?mode=search&sel_result="+selvalue+"&child_sn=<?php echo $TPL_VAR["child_sn"]?>&select_no=<?php echo $TPL_VAR["select_no"]?>";
+		url="/game/popup_bet_list?mode=search&sel_result="+selvalue+"&sn=<?php echo $TPL_VAR["sn"]?>&select_no=<?php echo $TPL_VAR["select_no"]?>";
 		document.location=url;
 	}
 	function go_delete(url)
@@ -56,7 +56,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 <div class="wrap">
 	<div id="search">
 		<form action="?" method="GET" name="form3" id="form3">
-			<input type="hidden" name="child_sn" value="<?php echo $TPL_VAR["child_sn"]?>">
+			<input type="hidden" name="sn" value="<?php echo $TPL_VAR["sn"]?>">
 			<input type="hidden" name="select_no" value="<?php echo $TPL_VAR["select_no"]?>">
 			<div class="wrap">
 				<input type="hidden" name="mode" value="search">

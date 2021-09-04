@@ -118,7 +118,7 @@ class GameController extends WebServiceController
 		for($i=0; $i<count((array)$list); ++$i)
 		{
 			//$item = $cModel->getTeamTotalBetMoney($list[$i]['child_sn']);
-            $item = $cModel->getTeamTotalBetMoney2($list[$i]['child_sn']);
+            $item = $cModel->getTeamTotalBetMoney2($list[$i]['sn']);
 
             $list[$i]['home_team'] = strip_tags(html_entity_decode($list[$i]['home_team']));
             $list[$i]['away_team'] = strip_tags(html_entity_decode($list[$i]['away_team']));
@@ -1184,7 +1184,7 @@ class GameController extends WebServiceController
 		$memberModel = $this->getModel("MemberModel");
 		$gameListModel = $this->getModel("GameListModel");
 		
-		$childSn				= $this->request("child_sn");
+		$subchildSn				= $this->request("sn");
 		$selectNo				= $this->request("select_no");
 		$sel_result 		= $this->request("sel_result");
 		$mode 					= $this->request("mode");
@@ -1197,7 +1197,7 @@ class GameController extends WebServiceController
 		$begin_date 			= $this->request("begin_date");
 		$end_date 				= $this->request("end_date");
 
-		if($childSn=="")
+		if($subchildSn=="")
 			exit();
 		
 		if($activeBet=='') 	$activeBet = 0;
@@ -1228,11 +1228,11 @@ class GameController extends WebServiceController
 		
 		$page_act = "perpage=".$perpage."&sel_result=".$sel_result."&mode=".$mode."&active_bet=".$activeBet."&select_keyword=".$selectKeyword."&keyword=".$keyword."&show_detail=".$showDetail."&child_sn=".$childSn."&select_no=".$selectNo;
 		
-		$total 			= $gameListModel->getGameSnBettingListTotal($where, $activeBet, $childSn, $selectNo);
+		$total 			= $gameListModel->getGameSnBettingListTotal($where, $activeBet, $subchildSn, $selectNo);
 		$pageMaker 	= $this->displayPage($total, $perpage, $page_act);
-		$list 			= $gameListModel->getGameSnBettingList($where, $pageMaker->first, $pageMaker->listNum, $activeBet, $childSn, $selectNo);
+		$list 			= $gameListModel->getGameSnBettingList($where, $pageMaker->first, $pageMaker->listNum, $activeBet, $subchildSn, $selectNo);
 		
-		$this->view->assign("child_sn",$childSn);
+		$this->view->assign("sn",$subchildSn);
 		$this->view->assign("select_no",$selectNo);
 		$this->view->assign("show_detail",$showDetail);
 		$this->view->assign("select_keyword",$selectKeyword);

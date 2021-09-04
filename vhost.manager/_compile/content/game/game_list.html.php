@@ -416,17 +416,39 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 ?>
 						</td>
 						<td>
-<?php
-	//-> draw 배당 출력
-	if ( ($TPL_V1["type"] == 1 && $TPL_V1["draw_rate"] == '1.00') || ($TPL_V1["type"] == 1 && $TPL_V1["draw_rate"] == '1') ){
-		echo "VS";
-	} else {
-		echo $TPL_V1["draw_rate"];
-	}
-	if ( $TPL_V1["draw_rate"] != $TPL_V1["new_draw_rate"] and strlen($TPL_V1["new_draw_rate"]) > 0 ) {
-		echo "<br><span style='color:red;font-size:11px;'>".$TPL_V1["new_draw_rate"]."</span>";
-	}
-?>
+						<?php 
+							switch($TPL_V1["mfamily"]) {
+								case 1:
+									if ( $TPL_V1["select_no"] == 3 and $TPL_V1["new_draw_rate"] != $TPL_V1["select_rate"] ) 
+										echo $TPL_V1["draw_rate"]." <span style='color:red;'>[<b>".$TPL_V1["new_draw_rate"]."</b>]</span>";
+									else 
+										echo $TPL_V1["draw_rate"]; 
+									break;
+								case 2:
+									echo "VS";
+									break;
+								case 7:
+									echo $TPL_V1["home_line"];
+									break;
+								case 8:
+								case 9:
+									$home_line = explode(" ", $TPL_V1["home_line"]);
+									echo $home_line[0];
+									break;
+								case 10:
+									echo "VS";
+									break;
+								case 11:
+									echo $TPL_V1["home_name"];
+									break;
+								case 12:
+									echo $TPL_V1["draw_rate"];
+									break;
+								case 47:
+									echo $TPL_V1["home_line"];
+									break;
+							}			
+						?>
 						</td>
 						<td>
 <?php
@@ -476,13 +498,13 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						</td>
 						<td><?php echo $TPL_V1["betting_count"]?></td>
 					<?php if($TPL_VAR["membervip"] != "1"){?>
-        <td><a href="#" onclick="open_window('/game/popup_bet_list?child_sn=<?php echo $TPL_V1["child_sn"]?>&select_no=1','1024','600')"><span id="home_total_betting_<?php echo $TPL_V1["child_sn"]?>"><?php echo number_format($TPL_V1["home_total_betting"],0)?>(<?php echo number_format($TPL_V1["active_home_total_betting"])?>)</span></a></td>
-						<td><a href="#" onclick="open_window('/game/popup_bet_list?child_sn=<?php echo $TPL_V1["child_sn"]?>&select_no=3','1024','600')"><span id="draw_total_betting_<?php echo $TPL_V1["child_sn"]?>"><?php echo number_format($TPL_V1["draw_total_betting"])?>(<?php echo number_format($TPL_V1["active_draw_total_betting"])?>)</span></a></td>
-						<td><a href="#" onclick="open_window('/game/popup_bet_list?child_sn=<?php echo $TPL_V1["child_sn"]?>&select_no=2','1024','600')"><span id="away_total_betting_<?php echo $TPL_V1["child_sn"]?>"><?php echo number_format($TPL_V1["away_total_betting"])?>(<?php echo number_format($TPL_V1["active_away_total_betting"])?>)</span></a></td>
+        				<td><a href="#" onclick="open_window('/game/popup_bet_list?sn=<?php echo $TPL_V1["sn"]?>&select_no=1','1024','600')"><span id="home_total_betting_<?php echo $TPL_V1["sn"]?>"><?php echo number_format($TPL_V1["home_total_betting"],0)?>(<?php echo number_format($TPL_V1["active_home_total_betting"])?>)</span></a></td>
+						<td><a href="#" onclick="open_window('/game/popup_bet_list?sn=<?php echo $TPL_V1["sn"]?>&select_no=3','1024','600')"><span id="draw_total_betting_<?php echo $TPL_V1["sn"]?>"><?php echo number_format($TPL_V1["draw_total_betting"])?>(<?php echo number_format($TPL_V1["active_draw_total_betting"])?>)</span></a></td>
+						<td><a href="#" onclick="open_window('/game/popup_bet_list?sn=<?php echo $TPL_V1["sn"]?>&select_no=2','1024','600')"><span id="away_total_betting_<?php echo $TPL_V1["sn"]?>"><?php echo number_format($TPL_V1["away_total_betting"])?>(<?php echo number_format($TPL_V1["active_away_total_betting"])?>)</span></a></td>
 					<?php }else{?>
-                        <td><span id="home_total_betting_<?php echo $TPL_V1["child_sn"]?>"><?php echo number_format($TPL_V1["home_total_betting"],0)?>(<?php echo number_format($TPL_V1["active_home_total_betting"],0)?>)</span></td>
-						<td><span id="draw_total_betting_<?php echo $TPL_V1["child_sn"]?>"><?php echo number_format($TPL_V1["draw_total_betting"],0)?>(<?php echo number_format($TPL_V1["active_draw_total_betting"],0)?>)</span></td>
-						<td><span id="away_total_betting_<?php echo $TPL_V1["child_sn"]?>"><?php echo number_format($TPL_V1["away_total_betting"],0)?>(<?php echo number_format($TPL_V1["active_away_total_betting"],0)?>)</span></td>
+                        <td><span id="home_total_betting_<?php echo $TPL_V1["sn"]?>"><?php echo number_format($TPL_V1["home_total_betting"],0)?>(<?php echo number_format($TPL_V1["active_home_total_betting"],0)?>)</span></td>
+						<td><span id="draw_total_betting_<?php echo $TPL_V1["sn"]?>"><?php echo number_format($TPL_V1["draw_total_betting"],0)?>(<?php echo number_format($TPL_V1["active_draw_total_betting"],0)?>)</span></td>
+						<td><span id="away_total_betting_<?php echo $TPL_V1["sn"]?>"><?php echo number_format($TPL_V1["away_total_betting"],0)?>(<?php echo number_format($TPL_V1["active_away_total_betting"],0)?>)</span></td>
 					<?php }?>
 					</tr>
 <?php }}?>

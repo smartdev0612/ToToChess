@@ -292,17 +292,15 @@ class CartModel extends Lemon_Model
 	}
 
 
-    //▶ 승,무,패 별 매팅 금액 - 낙첨 금액 제외
-    function getTeamTotalBetMoney2($childSn)
+    //▶ 승,무,패 별 배팅 금액 - 낙첨 금액 제외
+    function getTeamTotalBetMoney2($subchildSn)
     {
         $item = array();
 
         //승 총배팅 금액
         $sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
-						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
-						and a.kubun='Y' and d.sn=".$childSn." and b.select_no=1 
-						and a.is_account=1";
+						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=1 and a.is_account=1";
 
         $rs = $this->db->exeSql($sql);
         $item['home_total_betting'] = $rs[0]['total_betting'];
@@ -310,49 +308,39 @@ class CartModel extends Lemon_Model
 
         //무 총배팅 금액
         $sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
-						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
-						and a.kubun='Y' and d.sn=".$childSn." and b.select_no=3
-						and a.is_account=1";
+						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=3 and a.is_account=1";
         $rs = $this->db->exeSql($sql);
         $item['draw_total_betting'] = $rs[0]['total_betting'];
         $item['draw_count'] = $rs[0]['cnt'];
 
         //패 총배팅 금액
         $sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
-						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
-						and a.kubun='Y' and d.sn=".$childSn." and b.select_no=2
-						and a.is_account=1";
+						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=2 and a.is_account=1";
         $rs = $this->db->exeSql($sql);
         $item['away_total_betting'] = $rs[0]['total_betting'];
         $item['away_count'] = $rs[0]['cnt'];
 
         //승 총배팅 금액 - 낙첨제외
         $sql = "select 	ifnull(sum(a.betting_money * a.result_rate),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
-						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
-						and a.kubun='Y' and d.sn=".$childSn." and b.select_no=1 
-						and a.is_account=1";
+						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=1 and a.is_account=1";
 
         $rs = $this->db->exeSql($sql);
         $item['active_home_total_betting'] = $rs[0]['total_betting'];
 
         //무 총배팅 금액
         $sql = "select 	ifnull(sum(a.betting_money * a.result_rate),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
-						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
-						and a.kubun='Y' and d.sn=".$childSn." and b.select_no=3
-						and a.is_account=1";
+						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=3 and a.is_account=1";
         $rs = $this->db->exeSql($sql);
         $item['active_draw_total_betting'] = $rs[0]['total_betting'];
 
         //패 총배팅 금액
         $sql = "select 	ifnull(sum(a.betting_money * a.result_rate),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
-						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
-						and a.kubun='Y' and d.sn=".$childSn." and b.select_no=2
-						and a.is_account=1";
+						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=2 and a.is_account=1";
         $rs = $this->db->exeSql($sql);
         $item['active_away_total_betting'] = $rs[0]['total_betting'];
 
