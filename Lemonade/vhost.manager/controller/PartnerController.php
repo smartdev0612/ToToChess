@@ -870,6 +870,7 @@ class PartnerController extends WebServiceController
 		
 		$act	= $this->request('act');
 		$p_type	= empty($this->request('p_type')) ? 0 : $this->request('p_type');
+		$perpage	= empty($this->request('perpage')) ? 10 : $this->request('p_typerpagevpe');
 				
 		if(isset($act)&&$act == "del")
 		{
@@ -880,9 +881,9 @@ class PartnerController extends WebServiceController
 		}		
 		$where = " and toid = '운영팀' and kubun='1' and p_type = '" . $p_type . "'";
 
-		$page_act = "p_type=".$p_type;
+		$page_act = "perpage=" . $perpage . "&p_type=".$p_type;
 		$total = $mModel->getMemoTotal($where);
-		$pageMaker = $this->displayPage($total, 10, $page_act);
+		$pageMaker = $this->displayPage($total, $perpage, $page_act);
 		$list = $mModel->getMemoList($where, $pageMaker->first, $pageMaker->listNum, " writeday desc ");
 		
 		$this->view->assign('list', $list);
