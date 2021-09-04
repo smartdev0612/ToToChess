@@ -68,7 +68,7 @@ function comfire_ok(url)
   ?>
 	<tr>
 		<td><?=$fromid?></td>
-		<td><a href="memo_view.php?id=<?=$mem_idx?>" ><?=csubstr($title,0,35)?></td>
+		<td><a href="memo_view.php?id=<?=$mem_idx?>" ><?=substr($title,0,35)?></td>
 		<td><?=$writeday?></td>
 		<td><?=$newreadnum?></td>
 		<td><a href="memo_write.php"><img</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="comfire_ok('?act=del&id=<?=$mem_idx?>');">[삭제]</a></td>

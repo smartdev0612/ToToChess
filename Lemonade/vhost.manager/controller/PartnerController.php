@@ -849,6 +849,20 @@ class PartnerController extends WebServiceController
 			
 		$this->display();
 	} 
+
+	/*
+	 * 파트너 쪽지읽음상태 업데이트
+	 */
+	function updateMemoReadAction() 
+	{
+		if($this->auth->isLogin()) {
+			$mModel = $this->getModel("MemoModel");
+
+			$mem_idx = empty($this->request('mem_idx')) ? 0 : $this->request('mem_idx');
+
+			$mModel->updateMemoRead($mem_idx);
+		}
+	}
 	
 	
 	/*
@@ -870,7 +884,7 @@ class PartnerController extends WebServiceController
 		
 		$act	= $this->request('act');
 		$p_type	= empty($this->request('p_type')) ? 0 : $this->request('p_type');
-		$perpage	= empty($this->request('perpage')) ? 10 : $this->request('perpage');
+		$perpage	= empty($this->request('perpage')) ? 20 : $this->request('perpage');
 				
 		if(isset($act)&&$act == "del")
 		{
@@ -962,12 +976,14 @@ class PartnerController extends WebServiceController
 		
 		$act = $this->request('act');
 		$p_type	= empty($this->request('p_type')) ? 0 : $this->request('p_type');
-		$perpage = empty($this->request("perpage")) ? 10 : $this->request("perpage");
+		$perpage = empty($this->request("perpage")) ? 20 : $this->request("perpage");
 
 		if(isset($act) && $act == "del")
 		{
 			$id = $this->request('id');
 			$mModel->delMemoByMemberSn($id);
+			throw new Lemon_ScriptException("삭제 되였습니다.", "", "go", "/partner/memosendlist?p_type={$p_type}");
+			exit;
 		}
 		
 		if(isset($act)&& $act == "alldel")

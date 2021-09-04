@@ -10,6 +10,15 @@ class MemoModel extends Lemon_Model
 		
 		return $this->db->exeSql($sql);
 	}
+
+	//▶ 메모 읽음상태 업데이트
+	function updateMemoRead($mem_idx) 
+	{
+		$sql = "UPDATE ".$this->db_qz."memoboard 
+				SET 	newreadnum = 1
+				WHERE 	mem_idx='".$mem_idx."'";	
+		$this->db->exeSql($sql);
+	}
 	
 	//▶ 쪽지
 	function getMemoList($where, $page, $page_size, $addOrderby='mem_idx desc')

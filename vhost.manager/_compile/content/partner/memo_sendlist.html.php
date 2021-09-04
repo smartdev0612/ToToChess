@@ -93,9 +93,9 @@ function go_del(url)
 		<div id="pages2">
 			<?php echo $TPL_VAR["pagelist"]?>
 		</div>
-		<div id="wrap_btn">
-			<input type="button" name="open" value="삭  제" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'" onclick="isChm()"/>
-      <input type="button" name="Submit22" value="쪽지쓰기" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'" onclick="window.location='/partner/memoadd'"/>
+		<div id="wrap_btn">	
+			<input type="button" name="open" value="선택삭제" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'" onclick="isChm()"/>
+      		<input type="button" name="Submit22" value="쪽지쓰기" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'" onclick="window.location='/partner/memoadd?p_type=<?=$TPL_VAR["p_type"]?>'"/>
 		</div>
 	</form>
 </div>

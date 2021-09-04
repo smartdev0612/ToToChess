@@ -2,9 +2,22 @@
 $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VAR["list"]);?>
 <script>
 
-function show(c_Str) {
-	$("#"+c_Str).toggle();
-	
+function show(idx) {
+	$("#content" + idx).toggle();
+	var isRead = $("#isRead_" + idx).val();
+	if(isRead == 0) {
+		$.ajax({
+			url: '/Partner/updateMemoRead',
+			method: "GET",
+			datatype: "json",
+			data: {
+				mem_idx: idx
+			}
+		}).done(function(response) {
+			$("#status_" + idx).text("읽음");
+			$("#isRead_" + idx).val(1);
+		});
+	}
 }
 
 function high()
@@ -75,11 +88,12 @@ function go_del(url)
 			else $state = "읽지않음";
 ?>
 		<tr>
+			<input type="hidden" id="isRead_<?=$idx?>" value="<?=$TPL_V1['newreadnum']?>">
 			<td><input name="y_id[]" type="checkbox" id="y_id" value="<?php echo $idx?>"  onclick="javascript:chkRow(this);"/></td>
 			<td><?php echo $TPL_V1["fromid"]?></td>
 			<td><?php echo $TPL_V1["writeday"]?></td>
-			<td onclick="show('content<?php echo $idx?>')" style="cursor:pointer"><?php echo $TPL_V1["title"]?></td>
-			<td><?php echo $state?></td>
+			<td onclick="show('<?php echo $idx?>')" style="cursor:pointer"><?php echo $TPL_V1["title"]?></td>
+			<td id="status_<?=$idx?>"><?php echo $state?></td>
 			<td ><a href="javascript:void(0)" onclick="javascript:open_window('/partner/memoAdd_Acc?toid=<?php echo $TPL_V1["fromid"]?>&reply_id=<?php echo $idx?>&p_type=<?=$TPL_VAR["p_type"]?>','800','620')" ><img src="/img/btn_s_answer.gif" title="답변"></a>&nbsp;&nbsp<a href="javascript:void(0);" onclick="go_del('?act=del&id=<?php echo $idx?>&p_type=<?=$TPL_VAR["p_type"]?>');"><img src="/img/btn_s_del.gif" title="삭제"></a></td>   
 		</tr>
 	 
@@ -97,8 +111,8 @@ function go_del(url)
 	</div>
 
 	<div id="wrap_btn">
-		<input type="button" name="open" value="삭  제" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="openLayer('op1','tis')"/>
-        <input type="button" name="Submit22" value="쪽지쓰기" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="window.location='/partner/memoadd'"/>
+		<input type="button" name="open" value="선택삭제" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="openLayer('op1','tis')"/>
+        <input type="button" name="Submit22" value="쪽지쓰기" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="window.location='/partner/memoadd?p_type=<?=$TPL_VAR["p_type"]?>'"/>
 	</div>
 	</form>
 
