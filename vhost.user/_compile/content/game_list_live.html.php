@@ -3472,9 +3472,9 @@
         div += item.m_strLeagueName;
         div += '</div>';
         if(index == 0) {
-            div += `<button class="Bn6931381 gBtn st_mart3 st_marr5 bt_game_more act" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ${(item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9) ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${(item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9) ? 0 : childCnt}</span></button>`;
+            div += `<button class="gBtn bt_game_more act" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ${(item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9) ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${(item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9) ? 0 : childCnt}</span></button>`;
         } else {
-            div += `<button class="Bn6931381 gBtn st_mart3 st_marr5 bt_game_more" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ${(item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9) ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${(item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9) ? 0 : childCnt}</span></button>`;
+            div += `<button class="gBtn bt_game_more" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ${(item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9) ? 'disabled' : ''}><span id="cnt_${item.m_nGame}">+${(item.m_nStatus == 1 || item.m_nStatus == 8 || item.m_nStatus == 9) ? 0 : childCnt}</span></button>`;
         }
         div += '<span class="f_right st_mart3 st_marr10">' + item.m_strDate.substring(5,10) + ' ' + item.m_strHour + ':' + item.m_strMin + '</span>';
         div += '</li>';

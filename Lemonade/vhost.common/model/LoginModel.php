@@ -529,7 +529,7 @@ class LoginModel extends Lemon_Model
 			$sessionListStr = "'" . implode("','", $sessionList) . "'";
 
             //-> DB에 저장된 5분 미만 페이지 로딩한 회원들을 서버 세션과 비교해서 동접을 확인한다.
-            $ckTime = date("Y-m-d H:i:s",time()-600);
+            $ckTime = date("Y-m-d H:i:s", time() - 300);
             /*$sql = "select count(sn) as connect_cnt from tb_member where page_load_date > '{$ckTime}' and sessionid IN ({$sessionListStr})";
             $rs = $this->db->exeSql($sql);*/
 

@@ -3460,9 +3460,9 @@
         div += item.m_strLeagueName;
         div += '</span>';
         if(index == 0) {
-            div += "<button onclick=getBtns('" + item.m_nGame + "') id='F" + item.m_nGame + "' class='gBtn bt_game_more act'> +" + childCnt + "</button>";
+            div += `<button class="gBtn bt_game_more act" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ><span id="cnt_${item.m_nGame}">+${childCnt}</span></button>`;
         } else {
-            div += "<button onclick=getBtns('" + item.m_nGame + "') id='F" + item.m_nGame + "' class='gBtn bt_game_more'> +" + childCnt + "</button>";
+            div += `<button class="gBtn bt_game_more" onclick="getBtns('${item.m_nGame}')" id="F${item.m_nGame}" ><span id="cnt_${item.m_nGame}">+${childCnt}</span></button>`;
         }
         div += '<span class="st_game_time">' + item.m_strDate.substring(5,10) + ' ' + item.m_strHour + ':' + item.m_strMin + '</span>'; 
         div += '</li>';
