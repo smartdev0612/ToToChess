@@ -2775,6 +2775,8 @@ class GameModel extends Lemon_Model
 
 		$sql = "update ".$this->db_qz."child set gameDate = '".$nowDate."', gameHour='".$nowHour."', gameTime='".$nowTime."' where sn in (".$childSn.")";
 		$this->db->exeSql($sql);
+
+		$this->requestDeadlineGame($childSn, $nowDate, $nowHour, $nowTime);
 	}
 
 	function modifyGameTimeMulti($subchildSn)
@@ -3224,6 +3226,13 @@ class GameModel extends Lemon_Model
 		$values = ["sn" => $childSn];
 		$strValue = json_encode($values);
 		$strUrl = "http://127.0.0.1:3001/api/game?nCmd=4&strValue=" . $strValue;
+		file_get_contents($strUrl);
+	}
+
+	function requestDeadlineGame($childSn, $gameDate, $gameHour, $gameTime) {
+		$values = ["sn" => $childSn, "gameDate" => $gameDate, "gameHour" => $gameHour, "gameTime" => $gameTime];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/game?nCmd=5&strValue=" . $strValue;
 		file_get_contents($strUrl);
 	}
 }

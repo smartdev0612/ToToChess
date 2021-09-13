@@ -156,7 +156,7 @@ function Edit_Ok()
 		<tr>
 			<th>리그선택</th>
 			<td>
-				<select name="strLeagueName">
+				<select name="strLeagueName" style="width:70%">
 					<option value=''>선택하세요</option>
 <?php if($TPL_league_list_1){foreach($TPL_VAR["league_list"] as $TPL_V1){?>
 						<option <?php if($TPL_V1["sn"]==$TPL_VAR["item"]["league_sn"]){?> selected <?php }?> value='<?php echo $TPL_V1["sn"]?>'><?php echo $TPL_V1["name"]?></option>
@@ -211,9 +211,9 @@ function Edit_Ok()
 						<option value="Home">홈팀승</option>
 						<option value="Away">원정팀승</option>
 <?php if(trim($TPL_VAR["item"]["type"])!=2){?>
-								<option value="Draw">무승부</option>
+						<option value="Draw">무승부</option>
 <?php }?>
-							<option value="Cancel">경기취소</option>
+						<option value="Cancel">경기취소</option>
 					</select>
 				</p>
 			</td>

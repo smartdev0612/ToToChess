@@ -655,8 +655,8 @@ class GameUploadController extends WebServiceController
 				$homeRate	 = $arrayHomeRate[$i];
 				$drawRate	 = $arrayDrawRate[$i];
 				$awayRate	 = $arrayAwayRate[$i];
-				$homeScore = $arrayHomeScore[$i];
-				$awayScore = $arrayAwayScore[$i];
+				$homeScore = empty($arrayHomeScore[$i]) ? 0 : $arrayHomeScore[$i];
+				$awayScore = empty($arrayAwayScore[$i]) ? 0 : $arrayAwayScore[$i];
 				
 				if($homeScore!="" && $awayScore!="")
 				{
@@ -695,8 +695,8 @@ class GameUploadController extends WebServiceController
 			for ( $i = 0 ; $i < count((array)$arraySubChildSn) ; ++$i ) {
 				$subchildSn 	 = $arraySubChildSn[$i];
 				$game_result = $this->request( "game_result_" . $subchildSn );
-				$home_score = $this->request( "home_score_" . $subchildSn );
-				$away_score = $this->request( "away_score_" . $subchildSn );
+				$home_score = empty($this->request("home_score_" . $subchildSn)) ? 0 : $this->request("home_score_" . $subchildSn);
+				$away_score = empty($this->request("away_score_" . $subchildSn)) ? 0 : $this->request("away_score_" . $subchildSn);
 				$childSn = $model->getChildSn($subchildSn);
 				$childRs = $model->getChildRow($childSn, '*');
 				if ( $childRs['kubun'] == 1 ) {

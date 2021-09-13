@@ -71,7 +71,7 @@
 	<input type="hidden" name="family_id" value="<?=$TPL_VAR["family_id"]?>">
 	<input type="hidden" name="market_name" value="<?=$TPL_VAR["market_name"]?>">
 	<div id="pop_title">
-		<h1><font size="2" color="red"><?=$TPL_VAR["marketName"]?></font> 배당 수정</h1><p><a href="#"><img src="/img/btn_s_close.gif" onclick="self.close();"></a></p>
+		<h1><font size="2" color="red"><?=$TPL_VAR["market_name"]?></font> 배당 수정</h1><p><a href="#"><img src="/img/btn_s_close.gif" onclick="self.close();"></a></p>
 	</div>
 
 	<table cellspacing="1" class="tableStyle_modifyRate">
@@ -92,7 +92,7 @@
 			<td>&nbsp;&nbsp;<?php echo $TPL_VAR["item"]["home_team"]?> <font color='red'>VS</font> <?php echo $TPL_VAR["item"]["away_team"]?></td>
 		</tr>
 		<tr>
-			<th><?=$TPL_VAR["marketName"]?></th>
+			<th><?=$TPL_VAR["market_name"]?></th>
 			<?php echo $TPL_VAR["html"]?>
 		</tr>
 	</table>

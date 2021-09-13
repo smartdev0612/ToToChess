@@ -413,8 +413,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 							</td>
 						<? } ?>
 						<td>
-							<input type="number" name="home_score_<?php echo $TPL_V1["sn"]?>" onchange='autoCheck_check(<?php echo $TPL_I1?>)' style="width:50px;"> : 
-							<input type="number" name="away_score_<?php echo $TPL_V1["sn"]?>" onchange='autoCheck_check(<?php echo $TPL_I1?>)' style="width:50px;">
+							<input type="number" name="home_score_<?php echo $TPL_V1["sn"]?>" value="<?=$TPL_V1['home_score']?>" onchange='autoCheck_check(<?php echo $TPL_I1?>)' style="width:50px;"> : 
+							<input type="number" name="away_score_<?php echo $TPL_V1["sn"]?>" value="<?=$TPL_V1['away_score']?>" onchange='autoCheck_check(<?php echo $TPL_I1?>)' style="width:50px;">
 						</td>
 <?php if($TPL_VAR["state"]!=3){?>
 						<td>

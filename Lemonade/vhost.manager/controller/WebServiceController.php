@@ -323,6 +323,9 @@ class WebServiceController extends Lemon_Controller
 		$strUrl = "http://127.0.0.1:3001/api/game?nCmd=1";
 		file_get_contents($strUrl);
 	}
+
+	// 게임수정
+	
 	
 	// 배팅정보 수정
 	public function requestRemoveBettingInfo($sn) {
