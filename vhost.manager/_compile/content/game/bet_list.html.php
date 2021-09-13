@@ -300,8 +300,10 @@
 					<?php 
 					if($isLive > 0)
 						echo "라이브";
-					else if ( $isLive == 0 && $TPL_V1["special"] < 5)
+					else if ( $isLive == 0 && $TPL_V1["special"] < 3)
 						echo "스포츠";
+					else if ( $isLive == 0 && $TPL_V1["special"] == 3)
+						echo "실시간";
 					else if ( $TPL_V1["special"] == 7)
 						echo "파워볼";
 					else if ( $TPL_V1["special"] == 25)

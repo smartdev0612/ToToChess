@@ -124,7 +124,7 @@ class GameUploadController extends WebServiceController
 		$bettingEnable = "";
 		if($state=="20")
 		{
-			$filterState 		= "2";
+			$filterState = "2";
 			$bettingEnable 	= "1";
 		}
 		else if($state=="21")
@@ -176,182 +176,6 @@ class GameUploadController extends WebServiceController
 		$this->view->assign("modifyFlag",$modifyFlag);
 		$this->view->assign("parsing_type",$parsingType);		
 		$this->view->assign("special_type",$specialType);
-		$this->view->assign("money_option",$moneyOption);
-		$this->view->assign("gameType",$gameType);
-		$this->view->assign("categoryName",$categoryName);
-		$this->view->assign("categoryList",$categoryList);
-		$this->view->assign("search",$search);
-		$this->view->assign("state",$state);
-		$this->view->assign("list",$list);
-		$this->view->assign('begin_date', $beginDate);
-		$this->view->assign('end_date', $endDate);
-		$this->view->assign('filter_team', $filterTeam);
-		$this->view->assign('filter_team_type', $filterTeamType);
-		$this->view->assign("league_list",$leagueList);		
-		$this->display();
-	}
-
-	//▶ 게임목록
-	public function gameMultiListAction()
-	{
-		$this->commonDefine();
-		
-		if(!$this->auth->isLogin())
-		{
-			$this->loginAction();
-			exit;
-		}
-		$this->view->define("content","content/gameUpload/game_list_multi.html");
-		
-		$gameModel		= $this->getModel("GameModel");
-		$cartModel 		= $this->getModel("CartModel");
-		$leagueModel 	= $this->getModel("LeagueModel");
-		
-		$act  				= $this->request("act");
-		$state  			= $this->request("state");
-		$perpage			= $this->request("perpage");
-		$categoryName = $this->request("categoryName");
-		$gameType 		= $this->request("game_type");
-		$moneyOption = $this->request("money_option");
-		$beginDate  		= $this->request('begin_date');
-		$endDate 				= $this->request('end_date');
-		$filterTeam			= $this->request('filter_team');
-		$filterTeamType	= $this->request('filter_team_type');
-		$parsingType = $this->request("parsing_type");
-		$modifyFlag = $this->request("modifyFlag");
-		$leagueSn = $this->request("league_sn");
-		
-		//-> 경기수정 경기보기
-		if ( $modifyFlag == "on" ) $modifyFlag = 0;
-		else $modifyFlag = "";
-
-		//-> 상단 파싱정보 초기화.
-		$etcModel = $this->getModel("EtcModel");
-		$etcModel->updateParsingStatus("new_rate");
-		$etcModel->updateParsingStatus("new_game");
-		
-		if($act=="modify_state")
-		{
-			$subchildSn = $this->request('sn'); //경기인텍스
-			$newState= $this->request('new_state');
-			if ( $newState != "rateUpdate" ) {
-				if($newState == 2)
-				{
-					$gameModel->blockGameMulti($subchildSn);
-					$newState=-1;  // 블록된 경기를 대기상태로 함.
-				}
-				$gameModel->modifyChildStausMulti($subchildSn,$newState);
-			} else {
-				$gameModel->modifyChildNewRateMulti($subchildSn);
-			}
-		}
-		else if($act=="delete_game")
-		{
-			$subchildSn = $this->request('sn');
-			$gameModel->delSubChildMulti($subchildSn);
-		}
-		else if($act=="delete_game_db")
-		{
-			$subchildSn = $this->request('sn');
-			$gameModel->delSubChildDB($subchildSn);
-		}
-		else if($act=='deadline_game')
-		{
-			$subchildSn = $this->request('sn');
-			$gameModel->modifyGameTimeMulti($subchildSn);
-		}
-
-		if($parsingType=='') $parsingType = "ALL";
-		if($perpage=='') $perpage = 300;	
-		if($moneyOption=='') $moneyOption=0;
-		
-		$minBettingMoney='';
-		if($moneyOption==0)		$minBettingMoney='';
-		if($moneyOption==1)		$minBettingMoney=1;
-		
-		if($filterTeam!='')
-		{
-			if($filterTeamType=='league')
-			{
-				$rs = $leagueModel->getListByLikeName($filterTeam);
-				
-				for($i=0; $i<count((array)$rs); ++$i)
-				{
-					$leagueSn[] = $rs[$i]['sn'];
-				}
-			}
-			else if($filterTeamType=='home_team')
-			{
-				$homeTeam = Trim($filterTeam);
-			}
-			else if($filterTeamType=='away_team')
-			{
-				$awayTeam = Trim($filterTeam);
-			}
-		}
-		if($beginDate=="" || $endDate=="")
-		{
-			$beginDate 	= date("Y-m-d");
-			$endDate		= date("Y-m-d",strtotime ("+1 days"));
-		}
-		
-		$page_act= "parsing_type=".$parsingType."&state=".$state."&game_type=".$gameType."&categoryName=".$categoryName."&perpage=".$perpage."&begin_date=".$beginDate."&end_date=".$endDate."&filter_team_type=".$filterTeamType."&filter_team=".$filterTeam."&filter_betting_total=".$filterBettingTotal."&money_option=".$moneyOption."&modifyFlag=".$modifyFlag;
-		
-		$bettingEnable = "";
-		if($state=="20")
-		{
-			$filterState 		= "2";
-			$bettingEnable 	= "1";
-		}
-		else if($state=="21")
-		{
-			$filterState = "2";
-			$bettingEnable 	= "-1";
-		}
-		else
-		{
-			$filterState = $state;
-		}
-
-		//-> 시간지난 경기 숨김 처리.
-		$gameModel->hideTimeOverGame(2);
-		
-		$total_info = $gameModel->getMultiListTotal($filterState, $categoryName, $gameType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $leagueSn);
-		$total = $total_info["cnt"];
-		
-		$leagueList = $total_info["league_list"];
-		
-		$pageMaker = $this->displayPage($total, $perpage, $page_act);
-		$list = $gameModel->getMultiList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $leagueSn);
-
-		for($i=0; $i<count((array)$list); ++$i)
-		{
-			$item = $cartModel->getTeamTotalBetMoney($list[$i]['child_sn'], 2);
-			
-			$list[$i]['home_total_betting'] = $item['home_total_betting'];
-			$list[$i]['active_home_total_betting'] = $item['active_home_total_betting'];
-			$list[$i]['home_count'] = $item['home_count'];
-
-            $list[$i]['home_team'] = strip_tags(html_entity_decode($list[$i]['home_team']));
-            $list[$i]['away_team'] = strip_tags(html_entity_decode($list[$i]['away_team']));
-			
-			$list[$i]['draw_total_betting'] = $item['draw_total_betting'];
-			$list[$i]['active_draw_total_betting'] = $item['active_draw_total_betting'];
-			$list[$i]['draw_count'] = $item['draw_count'];
-			
-			$list[$i]['away_total_betting'] = $item['away_total_betting'];
-			$list[$i]['active_away_total_betting'] = $item['active_away_total_betting'];
-			$list[$i]['away_count'] = $item['away_count'];
-			
-			$list[$i]['total_betting'] = $item['home_total_betting']+$item['draw_total_betting']+$item['away_total_betting'];
-			$list[$i]['active_total_betting'] = $item['active_home_total_betting']+$item['active_draw_total_betting']+$item['active_away_total_betting'];
-			$list[$i]['betting_count'] = $item['home_count']+$item['draw_count']+$item['away_count'];
-		}
-
-		$categoryList = $leagueModel->getCategoryList();
-		$this->view->assign("league_sn",$leagueSn);
-		$this->view->assign("modifyFlag",$modifyFlag);
-		$this->view->assign("parsing_type",$parsingType);		
 		$this->view->assign("money_option",$moneyOption);
 		$this->view->assign("gameType",$gameType);
 		$this->view->assign("categoryName",$categoryName);
@@ -871,12 +695,16 @@ class GameUploadController extends WebServiceController
 			for ( $i = 0 ; $i < count((array)$arraySubChildSn) ; ++$i ) {
 				$subchildSn 	 = $arraySubChildSn[$i];
 				$game_result = $this->request( "game_result_" . $subchildSn );
+				$home_score = $this->request( "home_score_" . $subchildSn );
+				$away_score = $this->request( "away_score_" . $subchildSn );
 				$childSn = $model->getChildSn($subchildSn);
 				$childRs = $model->getChildRow($childSn, '*');
 				if ( $childRs['kubun'] == 1 ) {
 					throw new Lemon_ScriptException("이미 처리된 게임이 포함되어 있습니다.");
 					exit;
 				}
+
+				$model->setFinishGame($childSn, $home_score, $away_score);
 				
 				$dataArray = $processModel->resultPreviewProcess($subchildSn, $game_result);
 				
@@ -3078,6 +2906,7 @@ class GameUploadController extends WebServiceController
 		}
 		$this->view->define("content","content/gameUpload/popup.modify_rate.html");
 		$model = $this->getModel("GameModel");
+		$marketModel = $this->getModel("MarketModel");
 		
 		$idx 	= $this->request("idx");		
 		$gametype 	= $this->request("gametype");
@@ -3085,59 +2914,115 @@ class GameUploadController extends WebServiceController
 		
 		if($mode == "") {$mode = "add";}
 			
-		$item = $model->getChildRow($idx);
+		$item = $model->getChildRowMulti($idx);
+		$childSn = $item["child_sn"];
+		$sport_sn = $item["sport_id"];
 		$leagueName = $model->getRow('name', $model->db_qz.'league', 'sn='.$item["league_sn"]);
 		$item['league_name']=$leagueName['name'];	
 		
-		$rs = $model->getSubChildRows($idx);
+		$rs = $model->getSubChildRowBySn($idx);
+
 		if(count((array)$rs) > 0)
 		{
-			$home_rate = $rs[0]['home_rate'];
-			$draw_rate = $rs[0]['draw_rate'];
-			$away_rate = $rs[0]['away_rate'];
+			$home_rate = $rs['home_rate'];
+			$draw_rate = $rs['draw_rate'];
+			$away_rate = $rs['away_rate'];
+			$home_line = $rs['home_line'];
+			$home_name = $rs['home_name'];
 		}
 	
 		$strMode	= "";
 		$html 		= "";
 		//$add		= "onkeyup='this.value=this.value.replace(/[^0-9.]/gi,\"\")'";
 		$add		= "'";
-		if($gametype==1)
-		{
-			if($mode=="update") {$strMode="disabled";}
-			$html="<td bgcolor='#ffffff' align='left'>";
-			$html=$html."&nbsp;&nbsp;승<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
-			$html=$html."&nbsp;무<input type='text' name='draw_rate' size='4' value='".$draw_rate."' ".$add.">";
-			$html=$html."&nbsp;패<input type='text' name='away_rate' size='4' value='".$away_rate."' ".$add.">";
-			$html=$html."&nbsp;&nbsp;<FONT color=#006699>&#8226; 승/패경기일때는 무승부에 1.00 을 넣으세요 </font></td>" ;
-		}
-		elseif($gametype==2)
-		{
-			if($mode=="edit") {$strMode="disabled";}
-			$html="<td bgcolor='#ffffff' align='left'>";
-			$html=$html."&nbsp;&nbsp;홈배당<input type='text' name='home_rate' size='4' value='".$home_rate ."' ".$add.">";
-			$html=$html."&nbsp;홈핸디<input type='text' name='draw_rate' size='4' value='".$draw_rate ."' >";
-			$html=$html."&nbsp;원정팀배당<input type='text' name='away_rate' size='4' value='".$away_rate ."' ".$add.">";
-			$html=$html."&nbsp;&nbsp;</td>";
-		}
-		elseif($gametype==4)
-		{
-			if($mode=="edit") {$strMode="disabled";}
-			$html="<td bgcolor='#ffffff' align='left'>";
-			$html=$html."&nbsp;&nbsp;오버<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
-			$html=$html."&nbsp;기준점수<input type='text' name='draw_rate' size='4' value='".$draw_rate."' >";
-			$html=$html."&nbsp;언더<input type='text' name='away_rate' size='4' value='".$away_rate."' ".$add.">";
-			$html=$html."&nbsp;&nbsp;</td>";
-		}
+
+		$marketName = $marketModel->getMarketName($gametype, $sport_sn);
 		
-		$this->view->assign("idx",$idx);		
+		$familyID = $marketModel->getMarketFamily($gametype);
+		switch($familyID) {
+			case 1:		// 승무패
+				if($mode=="update") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;승<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
+				$html=$html."&nbsp;무<input type='text' name='draw_rate' size='4' value='".$draw_rate."' ".$add.">";
+				$html=$html."&nbsp;패<input type='text' name='away_rate' size='4' value='".$away_rate."' ".$add.">";
+				$html=$html."&nbsp;&nbsp;</td>" ;
+				break;
+			case 2:		// 승패
+				if($mode=="update") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;승<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
+				$html=$html."&nbsp;패<input type='text' name='away_rate' size='4' value='".$away_rate."' ".$add.">";
+				$html=$html."&nbsp;&nbsp;</td>" ;
+				break;
+			case 7:		// 언더오버
+				if($mode=="edit") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;오버<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
+				$html=$html."&nbsp;기준점<input type='text' name='draw_rate' size='4' value='".$home_line."' >";
+				$html=$html."&nbsp;언더<input type='text' name='away_rate' size='4' value='".$away_rate."' ".$add.">";
+				$html=$html."&nbsp;&nbsp;</td>";
+				break;
+			case 8:		// 아시안핸디캡
+				$home_line = explode(" ", $home_line);
+				if($mode=="edit") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;홈배당<input type='text' name='home_rate' size='4' value='".$home_rate ."' ".$add.">";
+				$html=$html."&nbsp;홈핸디<input type='text' name='draw_rate' size='4' value='".$home_line[0]."' >";
+				$html=$html."&nbsp;원정팀배당<input type='text' name='away_rate' size='4' value='".$away_rate ."' ".$add.">";
+				$html=$html."&nbsp;&nbsp;</td>";
+				break;
+			case 9:		// E스포츠 핸디캡
+				if($mode=="edit") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;홈배당<input type='text' name='home_rate' size='4' value='".$home_rate ."' ".$add.">";
+				$html=$html."&nbsp;홈핸디<input type='text' name='draw_rate' size='4' value='".$home_line."' >";
+				$html=$html."&nbsp;원정팀배당<input type='text' name='away_rate' size='4' value='".$away_rate ."' ".$add.">";
+				$html=$html."&nbsp;&nbsp;</td>";
+				break;
+			case 10:	// 홀짝
+				if($mode=="edit") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;홀<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
+				$html=$html."&nbsp;짝<input type='text' name='away_rate' size='4' value='".$away_rate."' ".$add.">";
+				$html=$html."&nbsp;&nbsp;</td>";
+				break;
+			case 11:	// 정확한 스코어
+				if($mode=="edit") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;배당<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
+				$html=$html."&nbsp;스코어<input type='text' name='draw_rate' size='4' value='".$home_name."' ".$add.">";
+				$html=$html."&nbsp;&nbsp;</td>";
+				break;
+				break;
+			case 12:	// 더블찬스
+				if($mode=="update") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;승무<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
+				$html=$html."&nbsp;승패<input type='text' name='draw_rate' size='4' value='".$draw_rate."' ".$add.">";
+				$html=$html."&nbsp;무패<input type='text' name='away_rate' size='4' value='".$away_rate."' ".$add.">";
+				$html=$html."&nbsp;&nbsp;</td>" ;
+				break;
+			case 47:	// 승무패 + 언더오버
+				if($mode=="update") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;배당<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
+				$html=$html."&nbsp;기준점<input type='text' name='draw_rate' size='4' value='".$home_line."' ".$add.">";
+				$html=$html."&nbsp;&nbsp;</td>" ;
+				break;
+		}	
+		
+		$this->view->assign("idx",$idx);
+		$this->view->assign("child_sn", $childSn);		
 		$this->view->assign("mode",$mode);
 		$this->view->assign("gametype",$gametype);
+		$this->view->assign("family_id", $familyID);
+		$this->view->assign("market_name", $marketName);
+		$this->view->assign("sport_sn", $sport_sn);
 		$this->view->assign("item",$item);
 		$this->view->assign("html",$html);
 		
 		$this->view->assign("strMode",$strMode);
-	
-		
 		
 		$this->display();
 	}
@@ -3481,8 +3366,11 @@ class GameUploadController extends WebServiceController
 	function rateProcessAction()	
 	{
 		$model 		= $this->getModel("GameModel");
-		$child_sn = $this->request("idx");				
+		$subchild_sn = $this->request("idx");	
+		$child_sn = $this->request("child_sn");				
 		$gametype	= $this->request("gametype");	
+		$family_id = $this->request("family_id");
+		$market_name = $this->request("market_name");
 		$home_rate 		= $this->request("home_rate");
 		$draw_rate 		= $this->request("draw_rate");
 		$away_rate 		= $this->request("away_rate");		
@@ -3499,8 +3387,24 @@ class GameUploadController extends WebServiceController
 			exit;
 		}
 
-		$model->modifyChildRate($child_sn,$gametype,$home_rate,$draw_rate,$away_rate);		
-		$model->modifyChildRate_Date($child_sn,$gameDate,$gameHour,$gameTime);
+		$home_line = "";
+		$home_name = "";
+		switch($family_id) {
+			case 7:		// 언더오버
+			case 8:		// 아시안핸디캡
+			case 9:		// E스포츠 핸디캡
+				$home_line = $draw_rate;
+				break;
+			case 11:	// 정확한 스코어
+				$home_name = $draw_rate;
+				break;
+			case 47:	// 승무패 + 언더오버
+				$home_line = $draw_rate;
+				break;
+		}	
+
+		$model->modifyChildRate($subchild_sn, $gametype, $home_rate, $draw_rate, $away_rate, $home_line, $home_name);		
+		$model->modifyChildRate_Date($child_sn, $gameDate, $gameHour, $gameTime);
 		
 		throw new Lemon_ScriptException("","","script","alert('수정되었습니다.');opener.document.location.reload(); self.close();");		
 	}
@@ -3664,17 +3568,16 @@ class GameUploadController extends WebServiceController
 		
 		$model = $this->getModel("GameModel");
 		$leagueModel = $this->getModel("LeagueModel");
+		$marketModel = $this->getModel("MarketModel");
+		$teamModel = $this->getModel("TeamModel");
 		
 		//참고 http://shonm.tistory.com/category/PHP/PHP%20%EC%97%91%EC%85%80%20%ED%8C%8C%EC%9D%BC%20%EC%9D%BD%EA%B8%B0
 		
 		$mode = $this->request("mode");		
 		
-		
-		
-		if($mode == "execl_collect")
+		if($mode == "excel_collect")
 		{
-			include_once("include/excel_reader.php");			
-			
+			require_once 'vendor/autoload.php';	
 			$conf = Lemon_Configure::readConfig('config');
 			if($conf['site']!='')
 			{
@@ -3697,82 +3600,142 @@ class GameUploadController extends WebServiceController
  				throw new Lemon_ScriptException("파일업로드가 실패하였습니다.");			
  				exit;
  			}
-  
-			
-			$handle = new Spreadsheet_Excel_Reader();		
-			$handle->setOutputEncoding('utf-8');
-			
-			$handle->read($upload_file);
-		
+
 			$gamearray = array();
-	
-			for( $k=0; $k < count((array)$handle->sheets); ++$k )
-			{ 
-				for($i=0; $i <= $handle->sheets[0]['numRows']; $i++)
-				{
-					//엑셀 첫 열이 데이터가 아니라 구분 이므로 0번째 index 를 건너뛰고 읽음
-			//		if($i==1) continue;
-					
-					$kind=''; $game_type=''; $game_date=''; $gameHour=''; $gameTime=''; $league_name=''; $home_team=''; $away_team=''; $home_rate=''; $draw_rate=''; $away_rate='';
-					
-					for ($j=1; $j<=$handle->sheets[$k]['numCols']; $j++)
-					{
+  
+			if ( $xlsx = SimpleXLSX::parse($upload_file) ) {
+				// print_r($xlsx->rows());
+				// $index = 0;
+				foreach( $xlsx->rows() as $r ) {
+					for($j = 0; $j < count($r); $j++) {
 						switch( $j )
 						{
-						case 1: $kind = $handle->sheets[$k]['cells'][$i][$j]; break; // 게임옵션												
-						case 2: $game_type = $handle->sheets[$k]['cells'][$i][$j]; break; // 게임방식												
-						case 3: $game_date = $handle->sheets[$k]['cells'][$i][$j]; break; // 일자												
-						case 4: $gameHour = $handle->sheets[$k]['cells'][$i][$j]; break; // 시간												
-						case 5: $gameTime = $handle->sheets[$k]['cells'][$i][$j]; break; // 분
-						case 6: $league_name = $handle->sheets[$k]['cells'][$i][$j]; break; // 리그명
-						case 7: $home_team = $handle->sheets[$k]['cells'][$i][$j]; break; // 홈팀			
-						case 8: $away_team = $handle->sheets[$k]['cells'][$i][$j]; break; // 원정팀																																
-						case 9: $home_rate = $handle->sheets[$k]['cells'][$i][$j]; break; //  홈팀 승률																																
-						case 10: $draw_rate = $handle->sheets[$k]['cells'][$i][$j]; break; //  무승부 승률
-						case 11: $away_rate = $handle->sheets[$k]['cells'][$i][$j]; break; //  원정팀 승률																																			
+							case 0: $special = $r[$j]; break; // 게임종류												
+							case 1: $game_type = $r[$j]; break; // 마켓아이디											
+							case 2: $game_date = $r[$j]; break; // 날자												
+							case 3: $gameHour = $r[$j]; break; // 시간												
+							case 4: $gameTime = $r[$j]; break; // 분
+							case 5: $leagueSn = $r[$j]; break; // 리그번호
+							case 6: $home_team_id = $r[$j]; break; // 홈팀			
+							case 7: $away_team_id = $r[$j]; break; // 원정팀
+							case 8: $home_rate = $r[$j]; break; //  홈팀 배당
+							case 9: $draw_rate = $r[$j]; break; //  무승부 배당
+							case 10: $away_rate = $r[$j]; break; //  원정팀 배당	
 						}
-					}		
-					
-					if( $game_type == '' || $game_date == '' || $game_date == 0 || $gameHour == '' || $gameTime == '' )
+					}
+
+					if( $game_type == '' || $game_date == '' || $game_date == 0 || $gameHour == '' || $gameTime == '' || $home_team_id == "" || $away_team_id == "")
 					{
 						continue;
 					}
-
-                    $game_date = DateTime::createFromFormat('d/m/Y', $game_date);
-                    $game_date = $game_date->format('Y-m-d');
-
-					$kind 				= trim($kind);					
+					
+					$game_date = strtotime($game_date);
+					$game_date = date('Y-m-d', $game_date);
+					
+					$special 		= trim($special);					
 					$game_type 		= trim($game_type);
 					$game_date		= trim($game_date);
 					$gameHour 		= trim($gameHour);
 					$gameTime 		= trim($gameTime);
-					$league_name 	= trim($league_name); 
-					$home_team 		= trim($home_team); 
-					$away_team 		= trim($away_team); 
+					$leagueSn 		= trim($leagueSn); 
+					$home_team_id 	= trim($home_team_id); 
+					$away_team_id 	= trim($away_team_id); 
 					$home_rate 		= trim($home_rate); 
 					$draw_rate 		= trim($draw_rate); 
 					$away_rate 		= trim($away_rate);
+					$league_name 	= "";
+					$league_img 	= "";
+					$sport_name 	= "";
+					$sport_sn 		= 0;
+					$special_name 	= "";
+					$home_team = $teamModel->getTeamName($home_team_id);
+					$away_team = $teamModel->getTeamName($away_team_id);
 					
-					
-					if( !is_null($league_name) && $league_name != '')
+					if( $leagueSn != '')
 					{
-						$rs = $leagueModel->getListByName($league_name);
+						$rs = $leagueModel->getListByLsportsLeagueSn($leagueSn);
 						if($rs == null)
 						{
-                            throw new Lemon_ScriptException($league_name."  는 등록되지 않은 리그입니다.");
-                            exit;
+							throw new Lemon_ScriptException("등록되지 않은 리그입니다.");
+							exit;
 						}
-						$cate_name = $rs[0]['kind'];
+						
+						$sport_sn = $rs['sport_sn'];
+						$sport_name = $rs['kind'];
+						$league_name = $rs['name'];
+						$league_img = $rs['lg_img'];
 					} else {
-                        throw new Lemon_ScriptException("리그를 입력하세요.");
-                        exit;
+						throw new Lemon_ScriptException("리그를 입력하세요.");
+						exit;
+					}
+
+					switch($special) {
+						case "1":
+							$special_name = "국내형";
+						case "2":
+							$special_name = "해외형";
+						case "3":
+							$special_name = "실시간";
+						case "4":
+							$special_name = "라이브";
+						case "5":
+							$special_name = "사다리";
+						case "6":
+							$special_name = "달팽이";	
+						case "7":
+							$special_name = "파워볼";
+						case "8":
+							$special_name = "다리다리";
+						case "21":
+							$special_name = "나인";
+						case "22":
+							$special_name = "가상축구";
+						case "24":
+							$special_name = "키노사다리";
+						case "25":
+							$special_name = "파워사다리";
+						case "26":
+							$special_name = "MGM홀짝";
+						case "27":
+							$special_name = "MGM바카라";
+						case "28":
+							$special_name = "로하이";
+						case "29":
+							$special_name = "알라딘";
+						case "30":
+							$special_name = "이다리";
+						case "31":
+							$special_name = "삼다리";	
+						case "32":
+							$special_name = "초이스";
+						case "33":
+							$special_name = "룰렛";
+						case "34":
+							$special_name = "파라오";		
+					}
+					
+					$market_name = $marketModel->getMarketName($game_type, $sport_sn);
+					$family = $marketModel->getMarketFamily($game_type);
+					$home_name = "";
+					$home_line = "";
+					
+					switch($family) {
+						case 7:
+						case 8:
+						case 9:
+						case 47:
+							$home_line = $draw_rate;
+							break;
+						case 11:
+							$home_name = $draw_rate;
+							break;
 					}
 					
 					$count = count((array)$gamearray);
 					
-					$gamearray[$count]['cate_name'] 	= $cate_name;
-					$gamearray[$count]['kind'] 				= $kind;
-					$gamearray[$count]['game_type'] 	= $game_type;
+					$gamearray[$count]['special_name'] 	= $special_name;
+					$gamearray[$count]['sport_name'] 	= $sport_name;
+					$gamearray[$count]['market_name'] 	= $market_name;
 					$gamearray[$count]['game_date'] 	= $game_date;
 					$gamearray[$count]['gameHour'] 		= $gameHour;
 					$gamearray[$count]['gameTime'] 		= $gameTime;
@@ -3783,53 +3746,26 @@ class GameUploadController extends WebServiceController
 					$gamearray[$count]['draw_rate']		= $draw_rate;
 					$gamearray[$count]['away_rate']		= $away_rate;
 					
-					$rs = $leagueModel->getLeagueSnByName( $league_name );
-					$leagueSn = $rs['sn'];
-					
-					$type = 0;
-					$is_specified_special=0;
-												
-					if($game_type == "승무패" || $game_type == "승패"){$type = 1;}
-					else if($game_type == "핸디캡"){$type = 2;}
-					else if($game_type == "홀 짝" || $game_type == "홀짝" ){$type = 3;}
-					else if($game_type == "언더오버" || $game_type == "하이로우" || $game_type == "언오버" ){$type = 4;}  
-					else if($game_type == "승스페")
-					{
-						$type = 1; 
-						$is_specified_special=1;
-
-						if( false!=strstr($league_name, "득점/무득점"))
-						{
-							$home_team =$home_team."[득점]";
-							$Context = "[무득점]";
-							$away_team = $Context.$away_team;
-						}
-						
-					}  
-					
-					if($kind == '일반')					{ $special = 0;}
-					else if( $kind == '스페셜')	{ $special = 1;}
-                    else if( $kind == '실시간')	{ $special = 2;}
-					//else if( $kind == '멀티')		{ $special = 2;}
-					else if( $kind == '사다리')	{ $special = 5;}
-					else if( $kind == '달팽이')	{ $special = 6;}
-					else if( $kind == '파워볼')	{ $special = 7;}
-					else if( $kind == '다리다리')	{ $special = 8;}
-                    else if( $kind == '가상축구')	{ $special = 22;}
-                    else if( $kind == '로하이')	{ $special = 28;}
-                    else if( $kind == '알라디')	{ $special = 29;}
-                    else if( $kind == 'MGM홀짝')	{ $special = 26;}
-                    else if( $kind == 'MGM바카라')	{ $special = 27;}
-					
 					$kubun = 'null';
-				
-					$rs = $model->addChild(0,$cate_name,$leagueSn,$home_team,$away_team,$game_date,$gameHour,$gameTime,'',$kubun,$type,$special,$home_rate,$draw_rate,$away_rate,$is_specified_special);
+
+					$type = 0;
+					if($special > 4) {
+						$type = 1;
+					}
+
+					$game_sn = $this->generateRandomSn();
+					
+					$rs = $model->addChild(0,$sport_name,$leagueSn,$home_team,$away_team,$game_date,$gameHour,$gameTime,$league_name,$kubun,$type,$special,$home_rate,$draw_rate,$away_rate,$is_specified_special,$league_img,$sport_sn,$home_line,$home_name,$game_type,$game_sn,1,$home_team_id,$away_team_id);
 					if($rs <=0)
 					{
 						throw new Lemon_ScriptException("","","script","alert('입력실패.');opener.document.location.reload(); self.close();");			
 					}
 				}
+			} else {
+				echo SimpleXLSX::parseError();
 			}
+			
+			$this->requestGameUpload();
 			
 			throw new Lemon_ScriptException("","","script","alert('입력되었습니다.');opener.document.location.reload(); self.close();");			
 		}		
@@ -4296,7 +4232,7 @@ class GameUploadController extends WebServiceController
 		}
 		$gameTime = $gameTime . "</select>";
 
-		$leagueList = $leagueModel->getListAll($where);
+		$leagueList = $leagueModel->getListAll();
 
 		//// game_list part
 		$act  				= $this->request("act");
@@ -4315,7 +4251,7 @@ class GameUploadController extends WebServiceController
 		$leagueSn = $this->request("search_league_sn");
 		$sort = $this->request("sort");
 
-//-> 경기수정 경기보기
+		//-> 경기수정 경기보기
 		if ( $modifyFlag == "on" ) $modifyFlag = 0;
 		else $modifyFlag = "";
 
@@ -4424,7 +4360,7 @@ class GameUploadController extends WebServiceController
 		if($beginDate=="" || $endDate=="")
 		{
 			$beginDate 	= date("Y-m-d");
-			$endDate		= date("Y-m-d",strtotime ("+1 days"));
+			$endDate	= date("Y-m-d", strtotime("+1 days"));
 		}
 
 		$page_act= "parsing_type=".$parsingType."&state=".$state."&game_type=".$gameType."&categoryName=".$categoryName."&special_type=".$specialType."&perpage=".$perpage."&begin_date=".$beginDate."&end_date=".$endDate."&filter_team_type=".$filterTeamType."&filter_team=".$filterTeam."&filter_betting_total=".$filterBettingTotal."&money_option=".$moneyOption."&modifyFlag=".$modifyFlag."&sort=".$sort;
@@ -4458,256 +4394,6 @@ class GameUploadController extends WebServiceController
 		for($i=0; $i<count((array)$list); ++$i)
 		{
 			$item = $cartModel->getTeamTotalBetMoney($list[$i]['child_sn']);
-
-			$list[$i]['home_total_betting'] = $item['home_total_betting'];
-			$list[$i]['active_home_total_betting'] = $item['active_home_total_betting'];
-			$list[$i]['home_count'] = $item['home_count'];
-
-			$list[$i]['home_team'] = strip_tags(html_entity_decode($list[$i]['home_team']));
-			$list[$i]['away_team'] = strip_tags(html_entity_decode($list[$i]['away_team']));
-
-			$list[$i]['draw_total_betting'] = $item['draw_total_betting'];
-			$list[$i]['active_draw_total_betting'] = $item['active_draw_total_betting'];
-			$list[$i]['draw_count'] = $item['draw_count'];
-
-			$list[$i]['away_total_betting'] = $item['away_total_betting'];
-			$list[$i]['active_away_total_betting'] = $item['active_away_total_betting'];
-			$list[$i]['away_count'] = $item['away_count'];
-
-			$list[$i]['total_betting'] = $item['home_total_betting']+$item['draw_total_betting']+$item['away_total_betting'];
-			$list[$i]['active_total_betting'] = $item['active_home_total_betting']+$item['active_draw_total_betting']+$item['active_away_total_betting'];
-			$list[$i]['betting_count'] = $item['home_count']+$item['draw_count']+$item['away_count'];
-		}
-
-		$this->view->assign("pidx", $pidx);
-		$this->view->assign("kind", $kind);
-		$this->view->assign("category_list", $categoryList);
-		$this->view->assign("league_list", $leagueList);
-		$this->view->assign("gameType", $gameType);
-		$this->view->assign("gameHour", $gameHour);
-		$this->view->assign("gameTime", $gameTime);
-		$this->view->assign("league", $league);
-
-		$this->view->assign("league_sn",$leagueSn);
-		$this->view->assign("modifyFlag",$modifyFlag);
-		$this->view->assign("parsing_type",$parsingType);
-		$this->view->assign("special_type",$specialType);
-		$this->view->assign("money_option",$moneyOption);
-		$this->view->assign("gameType",$gameType);
-		$this->view->assign("categoryName",$categoryName);
-		$this->view->assign("search",$search);
-		$this->view->assign("state",$state);
-		$this->view->assign("list",$list);
-		$this->view->assign('begin_date', $beginDate);
-		$this->view->assign('end_date', $endDate);
-		$this->view->assign('filter_team', $filterTeam);
-		$this->view->assign('filter_team_type', $filterTeamType);
-		$this->view->assign("league_list",$leagueList);
-		$this->view->assign("sort",$sort);
-
-		$this->display();
-	}
-
-	//▶  경기업로드 (다기준) 
-	function popup_gameMultiUploadAction()
-	{
-		$this->popupDefine();
-		
-		if(!$this->auth->isLogin())
-		{
-			$this->loginAction();
-			exit;
-		}
-		$this->view->define("content","content/gameUpload/popup.game_multi_upload.html");
-		$gameModel = $this->getModel("GameModel");
-		$cartModel 		= $this->getModel("CartModel");
-		$leagueModel = $this->getModel("LeagueModel");
-		
-		// 경기종류
-		$pidx = $this->request("pidx");
-		
-		$categoryList = $leagueModel->getCategoryList();
-		
-		$gameHour = "<select name='gameHour[]' id='game_hour'>";
-		for($i=0;$i<24;$i++)
-		{
-			$j=$i;
-			if($j<10) {$j="0".$j;}
-			$gameHour=$gameHour."<option value='".$j."'>".$j."</option>";
-		}
-		$gameHour = $gameHour . "</select>";		
-		
-		$gameTime = "<select name='gameTime[]' id='game_time'>";
-		for($i=0;$i<60;$i++)
-		{
-			$j=$i;
-			if($j<10)	{$j="0".$j;}
-			$gameTime=$gameTime."<option value='".$j."'>".$j."</option>";
-		}
-		$gameTime = $gameTime . "</select>";
-
-		$leagueList = $leagueModel->getListAll($where);
-
-		//// game_list part
-		$act  				= $this->request("act");
-		$state  			= $this->request("state");
-		$perpage			= $this->request("perpage");
-		$specialType	= $this->request("search_special_type");
-		$categoryName = $this->request("search_categoryName");
-		$gameType 		= $this->request("search_game_type");
-		$moneyOption = $this->request("money_option");
-		$beginDate  		= $this->request('begin_date');
-		$endDate 				= $this->request('end_date');
-		$filterTeam			= $this->request('filter_team');
-		$filterTeamType	= $this->request('filter_team_type');
-		$parsingType = $this->request("search_parsing_type");
-		$modifyFlag = $this->request("modifyFlag");
-		$leagueSn = $this->request("search_league_sn");
-		$sort = $this->request("sort");
-
-//-> 경기수정 경기보기
-		if ( $modifyFlag == "on" ) $modifyFlag = 0;
-		else $modifyFlag = "";
-
-		if($sort == null) $sort = '';
-
-		//-> 상단 파싱정보 초기화.
-		$etcModel = $this->getModel("EtcModel");
-		$etcModel->updateParsingStatus("new_rate");
-		$etcModel->updateParsingStatus("new_game");
-
-		if($act=="modify_state")
-		{
-			$subchildSn = $this->request('subchild_sn'); //경기인텍스
-			$newState= $this->request('new_state');
-			if ( $newState != "rateUpdate" ) {
-				if($newState == 2)
-				{
-					$gameModel->blockGameMulti($subchildSn);
-					$newState=-1;  // 블록된 경기를 대기상태로 함.
-				}
-				$gameModel->modifyChildStausMulti($subchildSn,$newState);
-			} else {
-				$gameModel->modifyChildNewRateMulti($subchildSn);
-			}
-		}
-		else if($act=="delete_game")
-		{
-			$subchildSn = $this->request('subchild_sn');
-			$gameModel->delSubChildMulti($subchildSn);
-		}
-		else if($act=="delete_game_db")
-		{
-			$subchildSn = $this->request('subchild_sn');
-			$gameModel->delSubChildDB($subchildSn);
-		}
-		else if($act=='deadline_game')
-		{
-			$subchildSn = $this->request('subchild_sn');
-			$gameModel->modifyGameTimeMulti($subchildSn);
-		}
-		else if($act=='apply')
-		{
-			/*$childSn = $this->request('child_sn');
-			$gameDate = $this->request('gameDate');
-			$gameHour = $this->request('gameHour');
-			$gameTime = $this->request('gameTime');
-			$homeRate = $this->request('homeRate');
-			$drawRate = $this->request('drawRate');
-			$awayRate = $this->request('awayRate');
-			$homeScore = $this->request('homeScore');
-			$awayScore = $this->request('awayScore');
-
-			$db_item = $gameModel->getChildRow($childSn);
-
-			if($gameDate != $db_item['gameDate'] || $gameHour != $db_item['gameHour'] || $gameTime != $db_item['gameTime'])
-			{
-				$db_gameStartTime = strtotime($db_item['gameDate']." ".$db_item['gameHour'].":".$db_item['gameTime'].":00");
-				if ( $db_gameStartTime < time() ) {
-					$url = $_SERVER['HTTP_REFERER'];
-					throw new Lemon_ScriptException("경기가 시작되면 수정이 불가능합니다.", "", "go", $url);
-					exit;
-				}
-				$gameModel->modifyChildRate_Date($childSn,$gameDate,$gameHour,$gameTime);
-			}
-
-			if($homeRate != '' && $drawRate != '' && $awayRate != '')
-			{
-				$gameModel->modifyChildRate($childSn,$db_item['type'],$homeRate,$drawRate,$awayRate);
-			}
-
-			if($homeScore != '' && $awayScore != '')
-			{
-				$pModel		= $this->getModel("ProcessModel");
-				$pModel->resultGameProcess($childSn, $homeScore, $awayScore, "");
-			}*/
-		}
-
-		if($parsingType=='') $parsingType = "ALL";
-		if($perpage=='') $perpage = 300;
-		if($moneyOption=='') $moneyOption=0;
-
-		$minBettingMoney='';
-		if($moneyOption==0)		$minBettingMoney='';
-		if($moneyOption==1)		$minBettingMoney=1;
-
-		if($filterTeam!='')
-		{
-			if($filterTeamType=='league')
-			{
-				$rs = $leagueModel->getListByLikeName($filterTeam);
-
-				for($i=0; $i<count((array)$rs); ++$i)
-				{
-					$leagueSn[] = $rs[$i]['sn'];
-				}
-			}
-			else if($filterTeamType=='home_team')
-			{
-				$homeTeam = Trim($filterTeam);
-			}
-			else if($filterTeamType=='away_team')
-			{
-				$awayTeam = Trim($filterTeam);
-			}
-		}
-		if($beginDate=="" || $endDate=="")
-		{
-			$beginDate 	= date("Y-m-d");
-			$endDate		= date("Y-m-d",strtotime ("+1 days"));
-		}
-
-		$page_act= "parsing_type=".$parsingType."&state=".$state."&game_type=".$gameType."&categoryName=".$categoryName."&special_type=".$specialType."&perpage=".$perpage."&begin_date=".$beginDate."&end_date=".$endDate."&filter_team_type=".$filterTeamType."&filter_team=".$filterTeam."&filter_betting_total=".$filterBettingTotal."&money_option=".$moneyOption."&modifyFlag=".$modifyFlag."&sort=".$sort;
-
-		$bettingEnable = "";
-		if($state=="20")
-		{
-			$filterState 		= "2";
-			$bettingEnable 	= "1";
-		}
-		else if($state=="21")
-		{
-			$filterState = "2";
-			$bettingEnable 	= "-1";
-		}
-		else
-		{
-			$filterState = $state;
-		}
-
-		//-> 시간지난 경기 숨김 처리.
-		$gameModel->hideTimeOverGame(2);
-
-		$total_info = $gameModel->getMultiListTotalofLive($filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag);
-		$total = $total_info["cnt"];
-		$leagueList = $total_info["league_list"];
-
-		$pageMaker = $this->displayPage($total, $perpage, $page_act);
-		$list = $gameModel->getMultiListofLive($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $sort);
-
-		for($i=0; $i<count((array)$list); ++$i)
-		{
-			$item = $cartModel->getTeamTotalBetMoney($list[$i]['child_sn'], 2);
 
 			$list[$i]['home_total_betting'] = $item['home_total_betting'];
 			$list[$i]['active_home_total_betting'] = $item['active_home_total_betting'];
@@ -4816,7 +4502,6 @@ class GameUploadController extends WebServiceController
 		throw new Lemon_ScriptException("수정되었습니다.", "", "go", $url);
 	}
 
-	
 	//▶ 게임 업로드 처리
 	function gameuploadProcessAction()
 	{
@@ -4831,6 +4516,7 @@ class GameUploadController extends WebServiceController
 		
 		$leagueModel = $this->getModel("LeagueModel");
 		$gmodel = $this->getModel("GameModel");
+		$marketModel = $this->getModel("MarketModel");
 		
 		$intParentIdx		= empty($this->request("pidx")) ? 0 : $this->request("pidx");
 		$kind_arr			= $this->request("kind");
@@ -4851,7 +4537,7 @@ class GameUploadController extends WebServiceController
 		$strrep	=	true;
 
 		$reg_game_count = 0;
-		for($i=0;$i<count($kind_arr);$i++)
+		for($i = 0; $i < count($kind_arr); $i++)
 		{
 			$kind 		 	 = $kind_arr[$i];
 			$gameType 	 = trim($gameType_arr[$i]);
@@ -4873,19 +4559,25 @@ class GameUploadController extends WebServiceController
 			if($param_all == '')
 				continue;
 
-			if($gameType==5)
-			{
-				$gameType = 1;
-				$is_specified_special = 1;
-			}
+			// if($gameType==5)
+			// {
+			// 	$gameType = 1;
+			// 	$is_specified_special = 1;
+			// }
 			
 			if($gameType==1 && ($drawRate=="1.00" || $drawRate=="1.0" || $drawRate=="1"))
 				$drawRate="1.00";
 	
 			$LeagueName	 = '';
 			$LeagueImg	 = '';
-			$type		 = '';
-			
+			$sportName = '';
+			$sport_sn = 0;
+			$type	= 0;
+
+			if($specialType > 4) {
+				$type = 1;
+			}
+
 			$rs = $leagueModel->getListBySn( $leagueSn );
 			if( count((array)$rs) <= 0 )
 			{
@@ -4896,21 +4588,41 @@ class GameUploadController extends WebServiceController
 			{
 				$LeagueName = $rs["name"];
 				$LeagueImg = $rs["lg_img"];
-				if( $is_specified_special == 1)
-				{
-					if( false!=strstr($LeagueName, "득점/무득점"))
-					{
-						$HomeTeam =$HomeTeam."[득점]";
-						$Context = "[무득점]";
-						$AwayTeam = $Context.$AwayTeam;
-					}
-				}
-			}			
+				$sportName = $rs["kind"];
+				$sport_sn = $rs["sport_sn"];
+				// if( $is_specified_special == 1)
+				// {
+				// 	if( false!=strstr($LeagueName, "득점/무득점"))
+				// 	{
+				// 		$HomeTeam =$HomeTeam."[득점]";
+				// 		$Context = "[무득점]";
+				// 		$AwayTeam = $Context.$AwayTeam;
+				// 	}
+				// }
+			}		
+			
+			$family = $marketModel->getMarketFamily($gameType);
+			$home_name = "";
+			$home_line = "";
+			
+			switch($family) {
+				case 7:
+				case 8:
+				case 9:
+				case 47:
+					$home_line = $drawRate;
+					break;
+				case 11:
+					$home_name = $drawRate;
+					break;
+			}
 			
 			//if($kubun=="") $kubun = 'null';
 			if($kubun=="") $kubun = 0;
+
+			$game_sn  = $this->generateRandomSn();
 		
-			$gmodel->addChild($intParentIdx,$kind,$rs["lsports_league_sn"],$HomeTeam,$AwayTeam,$gameDate,$gameHour,$gameTime,$LeagueName,$kubun,$gameType,$specialType,$homeRate,$drawRate,$awayRate, $is_specified_special, $LeagueImg);
+			$gmodel->addChild($intParentIdx,$kind,$leagueSn,$HomeTeam,$AwayTeam,$gameDate,$gameHour,$gameTime,$LeagueName,$kubun,$type,$specialType,$homeRate,$drawRate,$awayRate,$is_specified_special,$LeagueImg,$sport_sn,$home_line,$home_name,$gameType,$game_sn, 1);
 			$reg_game_count++;
 		}
 
@@ -4918,116 +4630,14 @@ class GameUploadController extends WebServiceController
 		{
 			throw new Lemon_ScriptException("","","script","alert('등록된 경기가 없습니다.');location.href='/gameUpload/popup_gameupload';");
 		} else {
+			$this->requestGameUpload();
+
 			throw new Lemon_ScriptException("","","script","alert('경기등록이 완료되었습니다.');location.href='/gameUpload/popup_gameupload';");
 		}
 
 		//$this->display();
 	}
 
-	//▶ 게임 업로드 처리
-	function gameMultiUploadProcessAction()
-	{
-		$this->popupDefine();
-		
-		if(!$this->auth->isLogin())
-		{
-			$this->loginAction();
-			exit;
-		}
-		$this->view->define("content","content/gameUpload/popup.game_multi_upload.html");
-		
-		$leagueModel = $this->getModel("LeagueModel");
-		$gmodel = $this->getModel("GameModel");
-		
-		$intParentIdx		= $this->request("pidx");
-		$kind_arr			= $this->request("kind");
-		$kubun				= $this->request("kubun");
-		$gameType_arr		= $this->request("gametype");
-		$league_arr			= $this->request("league");
-		$gameDate_arr		= $this->request("gameDate");
-		$gameHour_arr		= $this->request("gameHour");
-		$gameTime_arr		= $this->request("gameTime");
-		$HomeTeam_arr		= $this->request("HomeTeam");
-		$AwayTeam_arr		= $this->request("AwayTeam");
-		$type_a_arr			= $this->request("type_a");
-		$type_b_arr			= $this->request("type_b");
-		$type_c_arr			= $this->request("type_c");
-		$isEvents			= $this->request("is_event");
-		$specialTypeArray	= $this->request("special_type");
-		
-		$strrep	=	true;
-
-		$reg_game_count = 0;
-		for($i=0;$i<count($kind_arr);$i++)
-		{
-			$kind 		 	 = $kind_arr[$i];
-			$gameType 	 = trim($gameType_arr[$i]);
-			$leagueSn 	 = trim($league_arr[$i]);
-			$gameDate 	 = trim($gameDate_arr[$i]);
-			$gameHour 	 = trim($gameHour_arr[$i]);
-			$gameTime 	 = trim($gameTime_arr[$i]);
-			$HomeTeam 	 = trim($HomeTeam_arr[$i]);
-			$HomeTeam	  = str_replace("'","&#039;",$HomeTeam);
-			$AwayTeam 	 = trim($AwayTeam_arr[$i]);
-			$AwayTeam 	 = str_replace("'","&#039;",$AwayTeam);
-			$homeRate 	 = trim($type_a_arr[$i]);
-			$drawRate 	 = trim($type_b_arr[$i]);
-			$awayRate	 	 = trim($type_c_arr[$i]);
-			$specialType = trim($specialTypeArray[$i]);
-			$is_specified_special = 0;
-
-			$param_all = $kind.$gameType.$leagueSn.$gameDate.$gameHour.$gameTime.$HomeTeam.$AwayTeam.$homeRate.$drawRate.$awayRate.$specialType;
-			if($param_all == '')
-				continue;
-
-			if($gameType==5)
-			{
-				$gameType = 1;
-				$is_specified_special = 1;
-			}
-			
-			if($gameType==1 && ($drawRate=="1.00" || $drawRate=="1.0" || $drawRate=="1"))
-				$drawRate="1.00";
-	
-			$LeagueName	 = '';
-			$type		 = '';
-			
-			$rs = $leagueModel->getListBySn( $leagueSn );
-			if( count((array)$rs) <= 0 )
-			{
-				echo "인덱스번호[" .$leagueSn. "] 에 해당되는 리그정보가 디비에 없습니다";
-				exit;				
-			}
-			else
-			{
-				$LeagueName = $rs["name"];
-				if( $is_specified_special == 1)
-				{
-					if( false!=strstr($LeagueName, "득점/무득점"))
-					{
-						$HomeTeam =$HomeTeam."[득점]";
-						$Context = "[무득점]";
-						$AwayTeam = $Context.$AwayTeam;
-					}
-				}
-			}			
-			
-			if($kubun=="") $kubun = 'null';
-		
-			$gmodel->addChildMulti($intParentIdx,$kind,$leagueSn,$HomeTeam,$AwayTeam,$gameDate,$gameHour,$gameTime,'',$kubun,$gameType,$specialType,$homeRate,$drawRate,$awayRate, $is_specified_special);
-			$reg_game_count++;
-		}
-
-		if($reg_game_count == 0)
-		{
-			throw new Lemon_ScriptException("","","script","alert('등록된 경기가 없습니다.');location.href='/gameUpload/popup_gameMultiUpload';");
-		} else {
-			throw new Lemon_ScriptException("","","script","alert('경기등록이 완료되었습니다.');location.href='/gameUpload/popup_gameMultiUpload';");
-		}
-
-		//$this->display();
-	}
-	
 	//▶ 게임 발매 수정 
 	function modifyStausProcessAction()
 	{

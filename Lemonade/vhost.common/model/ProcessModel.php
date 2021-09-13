@@ -491,7 +491,7 @@ class ProcessModel extends Lemon_Model
     {
         ////////////////////////////////////////////////////////////////////////////////
         //modify total_betting
-        $sql = "select sn, member_sn, betting_no, select_no, game_type, home_rate, draw_rate, away_rate
+        $sql = "select sn, member_sn, betting_no, betid, select_no, game_type, home_rate, draw_rate, away_rate
 				from ".$this->db_qz."total_betting 
 				where sub_child_sn = ".$subChildSn;
         $rs = $this->db->exeSql($sql);
@@ -500,7 +500,7 @@ class ProcessModel extends Lemon_Model
         {
             $betSn = $rs[$i]["sn"];
             $select = $rs[$i]["select_no"];
-            
+			
 			$sql = "update ".$this->db_qz."subchild set win = ".$game_result." where sn = ".$subChildSn;
 			$this->db->exeSql($sql);
 
@@ -510,10 +510,19 @@ class ProcessModel extends Lemon_Model
 
             $sql = "update ".$this->db_qz."total_betting set result=".$result." where sn=".$betSn;
             $this->db->exeSql($sql);
+
+			$this->requestRemoveBettingInfo($betSn);
         }
 
         $this->accountMoneyProcess($subChildSn);
     }
+
+	public function requestRemoveBettingInfo($sn) {
+		$values = ["sn" => $sn];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/betting?nCmd=1&strValue=" . $strValue;
+		file_get_contents($strUrl);
+	}
 
 	//▶ [수정] - 결과에 따른 정보 갱신 (다기준)
     function resultGameProcessMulti($subchildSn, $homeScore, $awayScore, $gameCancel="")

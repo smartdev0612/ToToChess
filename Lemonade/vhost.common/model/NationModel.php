@@ -21,6 +21,16 @@ class NationModel extends Lemon_Model {
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['img'];
 	}
+
+	function getNation($sn) {
+		$sql = "select * from ".$this->db_qz."nation where sn = '".$sn."'";
+		$rs = $this->db->exeSql($sql);
+		if(count((array)$rs) > 0) {
+			return $rs[0];
+		}
+
+		return [];
+	}
 	
 }
 ?>

@@ -46,6 +46,7 @@ class TeamController extends WebServiceController
 				throw new Lemon_ScriptException("","","script","history.back();");
 			
 			$model->delProcess($idx);
+			$this->deleteServerTeam($idx);
 		}
 
 		$where = "";
@@ -112,29 +113,62 @@ class TeamController extends WebServiceController
 		$nationModel  	= $this->getModel("NationModel");
         $leagueModel = $this->getModel("LeagueModel");
 		$teamSn = empty($this->request("team_sn")) ? 0 : $this->request("team_sn");
+		$team_api_id = empty($this->request("team_api_id")) ? 0 : $this->request("team_api_id");
+		$kind = empty($this->request("kind")) ? 0 : $this->request("kind");
+		$nation_sn = empty($this->request("nation_sn")) ? 0 : $this->request("nation_sn");
+		$league = empty($this->request("league")) ? 0 : $this->request("league");
+		$team_name = empty($this->request("team_name")) ? 0 : $this->request("team_name");
+		$team_name_en = empty($this->request("team_name_en")) ? 0 : $this->request("team_name_en");
 		$mode = trim($this->request("mode"));
+		
+		if($team_api_id == 0) {
+			$team_api_id = $this->generateRandomSn();
+		}
+
+		$league_info = $leagueModel->getLeagueByLsportsSn($league);
+		$nation_info = $nationModel->getNation($nation_sn);
 				
 		if ( $mode == "edit" ) {	
-			$teamSn = empty($this->request("team_sn")) ? 0 : $this->request("team_sn");
-			$name = $this->request("team_name");
-
-			$teamModel->modify($teamSn, $name);
-			if ( $_FILES["upLoadFile"]["size"] > 0 and $_FILES["upLoadFile"]["error"] == 0 ) {
-				$uploadImgUrl = $this->teamImgUpload($teamSn, $_FILES["upLoadFile"]);
-				if ( $uploadImgUrl ) {
-					$teamModel->updateTeamImg($teamSn, $uploadImgUrl);
+			if($teamSn > 0) {
+				$teamSn = $teamModel->modify($teamSn, $team_api_id, $kind, $league_info["sport_sn"], $league, $league_info["name"], $nation_sn, $nation_info["name"], $team_name, $team_name_en);
+				if ( $_FILES["upLoadFile"]["size"] > 0 and $_FILES["upLoadFile"]["error"] == 0 ) {
+					$uploadImgUrl = $this->teamImgUpload($teamSn, $_FILES["upLoadFile"]);
+					if ( $uploadImgUrl ) {
+						$teamModel->updateTeamImg($teamSn, $uploadImgUrl);
+					}
 				}
+
+				$this->updateServerTeam($teamSn, $team_api_id, $league_info["sport_sn"], $nation_sn, $team_name, $team_name_en, $uploadImgUrl);
+
+				throw new Lemon_ScriptException("","","script","alert('수정 되였습니다.');opener.document.location.reload(); self.close();");
+
+			} else {
+				$teamSn = $teamModel->add($team_api_id, $kind, $league_info["sport_sn"], $league, $league_info["name"], $nation_sn, $nation_info["name"], $team_name, $team_name_en);
+				if ( $_FILES["upLoadFile"]["size"] > 0 and $_FILES["upLoadFile"]["error"] == 0 ) {
+					$uploadImgUrl = $this->teamImgUpload($teamSn, $_FILES["upLoadFile"]);
+					if ( $uploadImgUrl ) {
+						$teamModel->updateTeamImg($teamSn, $uploadImgUrl);
+					}
+				}
+
+				$this->updateServerTeam($teamSn, $team_api_id, $league_info["sport_sn"], $nation_sn, $team_name, $team_name_en, $uploadImgUrl);
+
+				throw new Lemon_ScriptException("","","script","alert('등록 되였습니다.');opener.document.location.reload(); self.close();");
 			}
-			throw new Lemon_ScriptException("","","script","alert('수정 되였습니다.');opener.document.location.reload(); self.close();");
 		} else {
 			$item = $teamModel->getListBySn($teamSn);
 		}	
 
 		$categoryList = $leagueModel->getCategoryList();
 		$nationList = $nationModel->getNationList();
+		$leagueList = [];
+		if($teamSn > 0) {
+			$leagueList = $leagueModel->getLeagueListByKind($item["Sport_Name"]);
+		}
 		
 		$this->view->assign('category_list',$categoryList);
 		$this->view->assign('nation_list',$nationList);
+		$this->view->assign('league_list',$leagueList);
 		$this->view->assign('team_sn', $teamSn);
 		$this->view->assign('item', $item);
 		
@@ -205,6 +239,21 @@ class TeamController extends WebServiceController
         $imgsrc = "/upload/team"."/".$fileName;
         return $imgsrc;
     }
+
+	function deleteSelectedTeamsAction() {
+		if($this->auth->isLogin()) {
+			$teamModel = $this->getModel("TeamModel");
+
+			$team_sn = empty($this->request('team_sn')) ? "" : $this->request('team_sn');
+
+			$teamModel->deleteSelectedTeams($team_sn);
+
+			$this->deleteServerTeams($team_sn);
+
+			throw new Lemon_ScriptException("삭제 되였습니다.", "", "go", "/team/list");
+			exit;
+		}
+	}
 }
 
 ?>

@@ -219,7 +219,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 					<option value="">대분류</option>
 					<option value="1"  <?php if($TPL_VAR["special_type"]==1){?>  selected <?php }?>>국내형</option>
 					<option value="2"  <?php if($TPL_VAR["special_type"]==2){?>  selected <?php }?>>해외형</option>
-					<option value="4"  <?php if($TPL_VAR["special_type"]==4){?>  selected <?php }?>>실시간</option>
+					<option value="3"  <?php if($TPL_VAR["special_type"]==3){?>  selected <?php }?>>실시간</option>
+					<option value="4"  <?php if($TPL_VAR["special_type"]==4){?>  selected <?php }?>>라이브</option>
 					<option value="22" <?php if($TPL_VAR["special_type"]==22){?> selected <?php }?>>가상축구</option>
 					<option value="5"  <?php if($TPL_VAR["special_type"]==5){?>  selected <?php }?>>사다리</option>
 					<option value="8" <?php if($TPL_VAR["special_type"]==8){?> selected <?php }?>>다리다리</option>
@@ -349,9 +350,9 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						<!-- 12.10.29 "대기중" 게임일 때 <img src="/img/icon_gameStand.gif"> / "진행중" 게임일 때 <img src="/img/icon_gameGoing.gif"> / "완료" 게임일 때 <img src="/img/icon_gameEnd.gif"> -->
 					</td>
 					<td>
-<?php if($TPL_V1["special"]<4){?>일반
-
-<?php }elseif($TPL_V1["special"]==4){?>실시간
+<?php if($TPL_V1["special"]<3){?>스포츠
+<?php }elseif($TPL_V1["special"]==3){?>실시간
+<?php }elseif($TPL_V1["special"]==4){?>라이브
 <?php }elseif($TPL_V1["special"]==5){?>사다리
 <?php }elseif($TPL_V1["special"]==6){?>달팽이
 <?php }elseif($TPL_V1["special"]==7){?>파워볼

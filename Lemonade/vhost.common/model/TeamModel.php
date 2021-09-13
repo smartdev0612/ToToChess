@@ -4,7 +4,7 @@ class TeamModel extends Lemon_Model
 {
     //▶ 팀 이미지 저장
 	function updateTeamImg($teamSn, $teamImage) {
-		$sql = "update tb_team set Team_Img = '{$teamImage}' where Team_Id = '{$teamSn}'";
+		$sql = "update tb_team set Team_Img = '{$teamImage}' where t_idx = '{$teamSn}'";
 		return $this->db->exeSql($sql);
 	}
 
@@ -19,6 +19,7 @@ class TeamModel extends Lemon_Model
         }
 
         $sql = "SELECT
+					tb_team.`t_idx`,
                     tb_team.`Team_Id`,
                     tb_team.Sport_Name,
                     tb_team.`Team_Name_Kor`,
@@ -39,7 +40,7 @@ class TeamModel extends Lemon_Model
 	function getListBySn($sn="")
 	{
 		$sql = "select * from ".$this->db_qz."team";
-		if($sn!="")	$sql.=" where Team_Id=".$sn;
+		if($sn!="")	$sql.=" where t_idx=".$sn;
 		
 		
 		$rs = $this->db->exeSql($sql);
@@ -58,15 +59,22 @@ class TeamModel extends Lemon_Model
 		
 		return $rs[$field];
 	}
+
+	function getTeamName($team_id = 0) {
+		$sql = "select Team_Name_Kor from tb_team where Team_Id = " . $team_id;
+		$rs = $this->db->exeSql($sql);
+		$team_name = "";
+		if(count((array)$rs) > 0) {
+			$team_name = $rs[0]["Team_Name_Kor"];
+		}
+		return $team_name;
+	}
 	
 	//▶ 팀 추가
-	function add($category = "", $league = "", $nationSn = 0) {
-		$sql = "insert into tb_team (kind, name, alias_name, nation_sn) values ('".$category."','".$league."','".$league."','".$nationSn."')";
+	function add($team_api_id, $kind, $sport_sn, $league, $league_name, $nation_sn, $nation_name, $team_name, $team_name_en) {
+		$sql = "insert into tb_team (Sport_Name, Sport_Id, Location_Id, Location_Name_Kor, League_Id, League_Name_Kor, Team_Id, Team_Name, Team_Name_Kor) values ('".$kind."','".$sport_sn."','".$nation_sn."','".$nation_name."','".$league."','".$league_name."','".$team_api_id."','".$team_name_en."','".$team_name."')";
 		$insert_sn = $this->db->exeSql($sql);
 		
-		$sql = "update tb_team set Team_Id = '{$insert_sn}' where sn = '{$insert_sn}'";
-		$this->db->exeSql($sql);
-
 		return $insert_sn;
 	}
 
@@ -83,29 +91,36 @@ class TeamModel extends Lemon_Model
 	}
 	
 	//▶ 팀 변경
-	function modify($sn = 0, $name = "") {
-		$sql = "update tb_team set Team_Name_Kor = '{$name}' where Team_Id = '{$sn}'";
+	function modify($teamSn = 0, $team_api_id = 0, $kind = "", $sport_sn = 0, $league = 0, $league_name = "", $nation_sn = 0, $nation_name = "", $team_name = "", $team_name_en = "") {
+		$sql = "UPDATE tb_team SET Sport_Name = '{$kind}', Sport_Id = '{$sport_sn}', League_Id = '{$league}', League_Name_Kor = '{$league_name}', Location_Id = '{$nation_sn}', Location_Name_Kor = '{$nation_name}', Team_Id = '{$team_api_id}', Team_Name_Kor = '{$team_name}', Team_Name = '{$team_name_en}' WHERE t_idx = '{$teamSn}'";
 		$this->db->exeSql($sql);
 
-		$sql = "update tb_child set home_team = '{$name}' where home_team_id = '{$sn}'";
+		$sql = "UPDATE tb_child SET home_team = '{$team_name}' WHERE home_team_id = '{$team_api_id}'";
 		$this->db->exeSql($sql);
 
-		$sql = "update tb_child set away_team = '{$name}' where away_team_id = '{$sn}'";
-		return $this->db->exeSql($sql);
+		$sql = "UPDATE tb_child SET away_team = '{$team_name}' WHERE away_team_id = '{$team_api_id}'";
+		$this->db->exeSql($sql);
+
+		return $teamSn;
 	}
 
 	//▶ 팀 삭제
 	function del($sn)
 	{
-		$sql = "delete from ".$this->db_qz."team where Team_Id in(".$sn.")";
+		$sql = "delete from ".$this->db_qz."team where t_idx in(".$sn.")";
 		return $this->db->exeSql($sql);
 	}
 	
 	//▶ 팀 이미지 파일
 	function getTeamImage($sn)
 	{
-		$sql = "select Team_Img from ".$this->db_qz."team where Team_Id in(".$sn.")";
+		$sql = "select Team_Img from ".$this->db_qz."team where t_idx in(".$sn.")";
 		return $this->db->exeSql($sql);
+	}
+
+	function deleteSelectedTeams($sn = "") {
+		$sql = "delete from ".$this->db_qz."team where t_idx in (" . $sn . ")";
+		$this->db->exeSql($sql);
 	}
 
 	//▶ 팀 삭제

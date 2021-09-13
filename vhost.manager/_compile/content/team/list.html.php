@@ -7,7 +7,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 	{
 		if(confirm("정말 삭제하시겠습니까?  "))
 		{
-				document.location = url;
+			document.location = url;
 		}
 		else
 		{
@@ -15,10 +15,39 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 		}
 	}
 	
-	function changeView_style()
+	function selectDelete()
 	{
-		
-	}
+		var team_sn = "";
+		var sn = document.getElementsByName("y_id[]");
+		var cnt = 0;
+		for(i = 0 ; i < sn.length; i++)   
+		{   
+			if(sn[i].checked==true)
+			{
+				if(cnt == 0) {
+					team_sn += sn[i].value;   
+				} else {
+					team_sn += "\," + sn[i].value;   
+				}
+				cnt++;
+			}   
+		}
+		if(team_sn.length>0)
+		{
+			if ( confirm("정말 삭제하시겠습니까?") ) {
+				param="team_sn=" + team_sn;
+				document.location="/team/deleteSelectedTeams?"+param;
+			} else {
+				return;
+			}
+		}
+		else
+		{
+			alert("리그를 선택하세요!");
+			return;
+		}
+
+	}ㅍ
 </script>
 	
 	<div id="route">
@@ -75,7 +104,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 			<tbody>
 <?php if($TPL_list_1){foreach($TPL_VAR["list"] as $TPL_V1){?>
 					<tr>
-						<td><input name="y_id[]" type="checkbox" id="y_id" value="<?php echo $TPL_V1["Team_Id"]?>" onclick="javascript:chkRow(this);"/></td>
+						<td><input name="y_id[]" type="checkbox" id="y_id" value="<?php echo $TPL_V1["t_idx"]?>" onclick="javascript:chkRow(this);"/></td>
 						<td><?php echo $TPL_V1["Team_Id"]?></td>
 						<td title="<?php echo $TPL_V1["Sport_Name"]?>">
                             <?php
@@ -90,8 +119,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 						<td><?php echo $TPL_V1["Team_Name_Kor"]?></td>
 						<td><?php echo $TPL_V1["Team_Name"]?></td>
 						<td>
-							<a href="#" onclick="window.open('/team/popup_edit?team_sn=<?php echo $TPL_V1["Team_Id"]?>','','scrollbars=yes,width=600,height=400,left=5,top=0');"><img src="/img/btn_s_modify.gif" title="수정"></a>
-                            <a href="#" onclick="go_del('/team/list?act=delete&idx=<?php echo $TPL_V1["Team_Id"]?>');" ><img src="/img/btn_s_del.gif" title="삭제"></a>
+							<a href="#" onclick="window.open('/team/popup_edit?team_sn=<?php echo $TPL_V1["t_idx"]?>','','scrollbars=yes,width=600,height=400,left=5,top=0');"><img src="/img/btn_s_modify.gif" title="수정"></a>
+                            <a href="#" onclick="go_del('/team/list?act=delete&idx=<?php echo $TPL_V1["t_idx"]?>');" ><img src="/img/btn_s_del.gif" title="삭제"></a>
 						</td>
 					 </tr>
 <?php }}?>
@@ -99,10 +128,9 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 		</table>
 		<div id="pages2">
 			<?php echo $TPL_VAR["pagelist"]?>
-
 		</div>
 		<div id="wrap_btn">
-			<!-- <input type="button" name="box" value="리그등록" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'"  onclick="window.open('/league/popup_add','','scrollbars=yes,width=600,height=400,left=5,top=0');"> -->
-			<input type="button" name="open" value="삭  제" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="isChm()"/>
+			<input type="button" name="box" value="팀등록" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'"  onclick="window.open('/team/popup_edit','','scrollbars=yes,width=600,height=400,left=5,top=0');">
+			<input type="button" name="open" value="선택삭제" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'"  onmouseout="this.className='Qishi_submit_a'" onclick="selectDelete()"/>
 		</div>
 	</form>

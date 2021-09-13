@@ -617,6 +617,17 @@ class IndexController extends WebServiceController
 				$this->view->define(array("content"=>"content/game_list_multi_m.html"));
 			}
 			$this->displayRight("multi");
+		} else if ( $game == "realtime" ) {
+			$specialType = "3";
+			$crossLimitCnt = $configModel->getCrossLimitCount(2);
+			$this->commonDefine('abroad');
+			
+			if($this->isMobile() == "pc") {
+				$this->view->define(array("content"=>"content/game_list_realtime.html"));
+			} else {
+				$this->view->define(array("content"=>"content/game_list_realtime_m.html"));
+			}
+			$this->displayRight("multi");
 		} else if ( $game == "live" ) {
 			$specialType = "4";
 			//$title = "Live<span class=\"board_mini_title\">라이브</span>";

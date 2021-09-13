@@ -635,13 +635,18 @@ $page = $TPL_VAR['page'];
                         <select name='special_type[]' align='center' id='special_type'>
                             <option name='multi' value="1">국내형</option>
                             <option name='abroad' value="2">해외형</option>
+                            <option name='realtime' value="3">실시간</option>
                             <option name='live' value="4">라이브</option>
                         </select>
                     </td>
                     <td>
                         <select name='gametype[]' align='center' id='game_type'>
                             <option value='0'>지정안함</option>
-                            <option value='1' selected>승무패</option><option value='2'>핸디캡</option><option value='4'>언더오버</option><option value='5'>승패+실시간</option>
+                            <option value='1' selected>승무패</option>
+                            <option value='3'>핸디캡</option>
+                            <option value='2'>언더오버</option>
+                            <option value='5'>홀짝</option>
+                            <option value='6'>정확한 스코어</option>
                         </select>
                     </td>
                     <td>
@@ -707,10 +712,10 @@ $page = $TPL_VAR['page'];
 
             <select name="search_special_type">
                 <option value="">대분류</option>
-                <option value="1" <?php if($TPL_VAR["special_type"]==1){?> selected <?php }?>>일반</option>
-                <option value="2" <?php if($TPL_VAR["special_type"]==2){?> selected <?php }?>>스페셜</option>
-                <option value="2" <?php if($TPL_VAR["special_type"]==2){?> selected <?php }?>>실시간</option>
-                <option value="50" <?php if($TPL_VAR["special_type"]==50){?> selected <?php }?>>라이브</option>
+                <option value="1" <?php if($TPL_VAR["special_type"]==1){?> selected <?php }?>>국내형</option>
+                <option value="2" <?php if($TPL_VAR["special_type"]==2){?> selected <?php }?>>해외형</option>
+                <option value="3" <?php if($TPL_VAR["special_type"]==3){?> selected <?php }?>>실시간</option>
+                <option value="4" <?php if($TPL_VAR["special_type"]==4){?> selected <?php }?>>라이브</option>
             </select>
 
             <select name="search_game_type">
@@ -836,10 +841,9 @@ $page = $TPL_VAR['page'];
                             <input id="game_time_<?php echo $TPL_V1["child_sn"]?>" name="game_time_<?php echo $TPL_V1["child_sn"]?>" value="<?php echo $TPL_V1["gameTime"]?>" style="width: 17px">
                 </td>
                 <td>
-                    <?php if($TPL_V1["special"]==0){?>일반
-                    <?php }elseif($TPL_V1["special"]==1){?>스페셜
-                    <?php }elseif($TPL_V1["special"]==2){?>실시간
-                    <?php }elseif($TPL_V1["special"]==50){?>라이브
+                    <?php if($TPL_V1["special"] < 3){?>스포츠
+                    <?php }elseif($TPL_V1["special"]==3){?>실시간
+                    <?php }elseif($TPL_V1["special"]==4){?>라이브
                     <?php }?>
                 </td>
                 <td>
@@ -1037,7 +1041,6 @@ $page = $TPL_VAR['page'];
 
     <div id="pages">
         <?php echo $TPL_VAR["pagelist"]?>
-
     </div>
 </form>
 

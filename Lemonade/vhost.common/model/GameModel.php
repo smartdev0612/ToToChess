@@ -243,17 +243,17 @@ class GameModel extends Lemon_Model
 	} 
 	
 	//▶ 경기 배당수정
-	function modifyChildRate($child_sn,$bettype,$home_rate,$draw_rate,$away_rate)
+	function modifyChildRate($subchild_sn = 0, $bettype = 0, $home_rate = 0.0, $draw_rate = 0.0, $away_rate = 0.0, $home_line = "", $home_name = "")
 	{
 		$array = array();
-		$sql = "select child_sn from ".$this->db_qz."subchild_log 
-							where child_sn=". $child_sn ." and betting_type=". $bettype;
+		$sql = "select subchild_sn from ".$this->db_qz."subchild_log 
+				where subchild_sn=". $subchild_sn ." and betting_type=". $bettype;
 		$rs = $this->db->exeSql($sql);									
 		if( count((array)$rs) <= 0 )
 		{
 			$sql = "select home_rate,draw_rate,away_rate 
-								from ".$this->db_qz."subchild 
-									where child_sn=". $child_sn ." and betting_type=". $bettype;
+					from ".$this->db_qz."subchild 
+					where sn=". $subchild_sn ." and betting_type=". $bettype;
 			$rs = $this->db->exeSql($sql);					
 			if( count((array)$rs) > 0 )
 			{
@@ -261,34 +261,36 @@ class GameModel extends Lemon_Model
 				$array['draw_rate'] = $rs[0]['draw_rate'];
 				$array['away_rate'] = $rs[0]['away_rate'];
 				
-				$sql = "insert into ".$this->db_qz."subchild_log(child_sn,betting_type,home_rate,draw_rate,away_rate,regdate)
-									values('".$child_sn."','".$bettype."','".$array['home_rate']."','".$array['draw_rate']."','".$array['away_rate']."',now())";
+				$sql = "insert into ".$this->db_qz."subchild_log(subchild_sn,betting_type,home_rate,draw_rate,away_rate,regdate)
+						values('".$subchild_sn."','".$bettype."','".$array['home_rate']."','".$array['draw_rate']."','".$array['away_rate']."',now())";
 				$this->db->exeSql($sql);										
 			}		
 		}
 		
-		$sql = "insert into ".$this->db_qz."subchild_log(child_sn,betting_type,home_rate,draw_rate,away_rate,regdate)values";
-		$sql.= "('".$child_sn."','".$bettype."','".$home_rate."','".$draw_rate."','".$away_rate."',now())";
+		$sql = "insert into ".$this->db_qz."subchild_log(subchild_sn,betting_type,home_rate,draw_rate,away_rate,regdate)values";
+		$sql.= "('".$subchild_sn."','".$bettype."','".$home_rate."','".$draw_rate."','".$away_rate."',now())";
 		$this->db->exeSql($sql);	
 		
-		$sql = "update ".$this->db_qz."subchild SET "; 	
+		$sql = "UPDATE ".$this->db_qz."subchild SET "; 	
 		$sql = $sql . "home_rate='".$home_rate."',"; 
 		$sql = $sql . "draw_rate='".$draw_rate."',";
 		$sql = $sql . "away_rate='".$away_rate."',";
+		$sql = $sql . "home_line='".$home_line."',";
+		$sql = $sql . "home_name='".$home_name."',";
 		$sql = $sql . "update_enable='0'";
-		$sql = $sql . " where child_sn=".$child_sn."";
+		$sql = $sql . " WHERE sn=".$subchild_sn."";
 		$sql = $sql . " and betting_type=".$bettype."";
 		$this->db->exeSql($sql);
 
 		//-> 배당변경 로그
-		$hDate = date("Y-m-d H:i:s",time());
-		$fileName = "RateModify_".date("Ymd",time()).".log";
-		$logFile = @fopen("/home/gadget/www_gadget_1.com/Lemonade/_logs/system/".$fileName,"a");
-		if ( $logFile ) {
-			$ipInfo = "(".$_SERVER["HTTP_X_REAL_IP"].") (".$_SERVER["REMOTE_ADDR"].") (".$_SERVER["HTTP_INCAP_CLIENT_IP"].") (".$_SERVER["HTTP_X_FORWARDED_FOR"].")";
-			@fwrite($logFile, "SUB_CHILD_SN[{$child_sn}] = HOME[{$home_rate}], DRAW[{$draw_rate}], AWAY[{$away_rate}], IPINFO[{$ipInfo}]\n");
-			@fclose($logFile);
-		}			
+		// $hDate = date("Y-m-d H:i:s",time());
+		// $fileName = "RateModify_".date("Ymd",time()).".log";
+		// $logFile = @fopen("/home/gadget/www_gadget_1.com/Lemonade/_logs/system/".$fileName,"a");
+		// if ( $logFile ) {
+		// 	$ipInfo = "(".$_SERVER["HTTP_X_REAL_IP"].") (".$_SERVER["REMOTE_ADDR"].") (".$_SERVER["HTTP_INCAP_CLIENT_IP"].") (".$_SERVER["HTTP_X_FORWARDED_FOR"].")";
+		// 	@fwrite($logFile, "SUB_CHILD_SN[{$child_sn}] = HOME[{$home_rate}], DRAW[{$draw_rate}], AWAY[{$away_rate}], IPINFO[{$ipInfo}]\n");
+		// 	@fclose($logFile);
+		// }			
 	}
 
 	//▶ 경기 배당수정 (다기준)
@@ -346,9 +348,6 @@ class GameModel extends Lemon_Model
 		$sql = $sql . "gameHour='".$gameHour."',";
 		$sql = $sql . "gameTime='".$gameTime."'";
 		$sql = $sql . " where sn=".$child_sn."";
-		$this->db->exeSql($sql);
-		
-		$sql = "update tb_child a, tb_subchild b set b.update_enable = '0' where a.sn = b.child_sn and a.sn = '{$child_sn}'";
 		$this->db->exeSql($sql);
 	}
 
@@ -685,17 +684,19 @@ class GameModel extends Lemon_Model
 	}
 	
 	//▶ 경기 추가
-	function addChild($parentSn = 0, $category = "", $leagueSn = 0, $homeTeam = "", $awayTeam = "", $gameDate = "", $gameHour = "", $gameTime = "", $notice = "", $kubun = 0, $type = 0, $special = 0, $homeRate = 0.00, $drawRate = 0.00, $awayRate = 0.00, $is_specified_special='0', $league_img = "")
+	function addChild($parentSn = 0, $category = "", $leagueSn = 0, $homeTeam = "", $awayTeam = "", $gameDate = "", $gameHour = "", $gameTime = "", $notice = "", $kubun = 0, $type = 0, $special = 0, $homeRate = 0.00, $drawRate = 0.00, $awayRate = 0.00, $is_specified_special='0', $league_img = "", $sport_sn = 0, $home_line = "", $home_name = "", $game_type = 0, $game_sn = 0, $manual_add = 0, $home_team_id = "", $away_team_id = "")
 	{
 		$sql = "insert into ".$this->db_qz."child("; 
-		$sql = $sql ." parent_sn, sport_name, league_sn, home_team, away_team," ;
+		$sql = $sql ." parent_sn, game_sn, sport_name, league_sn, home_team, away_team," ;
 		if($category == "이벤트") {
-			$sql = $sql ." gameDate, gameHour, gameTime, notice, kubun, type, special, league_img, is_specified_special, win_team)";
+			$sql = $sql ." gameDate, gameHour, gameTime, notice, kubun, type, special, league_img, sport_id, home_team_id, away_team_id, manual_add, strTime, is_specified_special, win_team)";
 		} else {
-			$sql = $sql ." gameDate, gameHour, gameTime, notice, kubun, type, special, league_img, is_specified_special)";
+			$sql = $sql ." gameDate, gameHour, gameTime, notice, kubun, type, special, league_img, sport_id, home_team_id, away_team_id, manual_add, strTime, is_specified_special)";
 		}
 		$sql = $sql . " values("  	;
-		$sql = $sql . "'" . $parentSn . "','". $category ."',";
+		$sql = $sql . "'" . $parentSn . "',";
+		$sql = $sql . "'" . $game_sn . "',";
+		$sql = $sql . "'" . $category . "',";
 		$sql = $sql . "'" . $leagueSn . "',";
 		$sql = $sql . "'" . $homeTeam . "',";
 		$sql = $sql . "'" . $awayTeam . "',";
@@ -703,12 +704,15 @@ class GameModel extends Lemon_Model
 		$sql = $sql . "'" . $gameHour . "',";
 		$sql = $sql . "'" . $gameTime . "',";
 		$sql = $sql . "'" . $notice . "',";
-		// if($isUpload == 'null') $sql = $sql. "null,";
-		// else $sql = $sql . "'".$isUpload. "',";
 		$sql = $sql . "'" . $kubun . "',";	
 		$sql = $sql . "'" . $type . "',";
 		$sql = $sql . "'" . $special . "',";
 		$sql = $sql . "'" . $league_img . "',";
+		$sql = $sql . "'" . $sport_sn . "',";
+		$sql = $sql . "'" . $home_team_id . "',";
+		$sql = $sql . "'" . $away_team_id . "',";
+		$sql = $sql . "'" . $manual_add . "',";
+		$sql = $sql . "NOW(),";
 		if($category == "이벤트") {
 			$sql = $sql . "'" . $is_specified_special . "','Home')";
 		} else {
@@ -723,60 +727,32 @@ class GameModel extends Lemon_Model
 		}
 		
 		if($category == "이벤트") {
-			$sql = "insert into ".$this->db_qz."subchild(child_sn,betting_type,home_rate,draw_rate,away_rate,win)
-					values('".$childSn."','".$type."','".floatval($homeRate)."','".floatval($drawRate)."','".floatval($awayRate)."','1')";
+			$sql = "insert into ".$this->db_qz."subchild(child_sn, betting_type, home_rate, draw_rate, away_rate, new_home_rate, new_draw_rate, new_away_rate, win, home_line, home_name, strTime)
+					values('".$childSn."','".$game_type."','".floatval($homeRate)."','".floatval($drawRate)."','".floatval($awayRate)."','".floatval($homeRate)."','".floatval($drawRate)."','".floatval($awayRate)."','1','".$home_line."','".$home_name."',NOW())";
 		} else {
-			$sql = "insert into ".$this->db_qz."subchild(child_sn,betting_type,home_rate,draw_rate,away_rate)
-					values('".$childSn."','".$type."','".floatval($homeRate)."','".floatval($drawRate)."','".floatval($awayRate)."')";
+			$home_betid = "";
+			$away_betid = "";
+			$draw_betid = "";
+			if($special < 5) {
+				$home_betid = $this->generateBetID($game_sn);
+				$draw_betid = $this->generateBetID($game_sn);
+				$away_betid = $this->generateBetID($game_sn);
+			}
+			
+			$sql = "insert into ".$this->db_qz."subchild(child_sn, betting_type, home_rate, draw_rate, away_rate, new_home_rate, new_draw_rate, new_away_rate, home_betid, away_betid, draw_betid, home_line, home_name, strTime)
+					values('".$childSn."','".$game_type."','".floatval($homeRate)."','".floatval($drawRate)."','".floatval($awayRate)."','".floatval($homeRate)."','".floatval($drawRate)."','".floatval($awayRate)."','".floatval($home_betid)."','".floatval($away_betid)."','".floatval($draw_betid)."','".$home_line."','".$home_name."',NOW())";
 		}
 				
 		return $this->db->exeSql($sql);
 	}
 
-	//▶ 경기 추가
-	function addChildMulti($parentSn = 0, $category = "", $leagueSn = 0, $homeTeam = "", $awayTeam = "",$gameDate = "",$gameHour = "",$gameTime = "", $notice = "", $isUpload = 0, $type = 0, $special = 0, $homeRate = 0.00, $drawRate = 0.00, $awayRate = 0.00, $is_specified_special='0')
-	{
-		$sql = "insert into ".$this->db_qz."child_m("; 
-		$sql = $sql ." parent_sn, sport_name, league_sn, home_team, away_team," ;
-		if($category == "이벤트") {
-			$sql = $sql ." gameDate, gameHour, gameTime, notice, special, is_specified_special, win_team)";
-		}  else {
-			$sql = $sql ." gameDate, gameHour, gameTime, notice, special, is_specified_special)";
-		}
-		$sql = $sql . " values("  	;
-		$sql = $sql . "'" . $parentSn . "','". $category ."',";
-		$sql = $sql . "'" . $leagueSn . "',";
-		$sql = $sql . "'" . $homeTeam . "',";
-		$sql = $sql . "'" . $awayTeam . "',";
-		$sql = $sql . "'" . $gameDate . "',";
-		$sql = $sql . "'" . $gameHour . "',";
-		$sql = $sql . "'" . $gameTime . "',";
-		$sql = $sql . "'" . $notice . "',";
-		$sql = $sql . "'" . $special . "',";
-		if($category == "이벤트") {
-			$sql = $sql . "'" . $is_specified_special . "','Home')";
-		} else {
-			$sql = $sql . "'" . $is_specified_special . "')";
-		}
-		
-		$childSn = $this->db->exeSql($sql);	
-		
-		if($childSn <= 0)
-		{
-			return 0;
-		}
-		
-		if($category == "이벤트") {
-			$sql = "insert into ".$this->db_qz."subchild_m (child_sn, betting_type,  home_rate, draw_rate, away_rate, kubun, sub_idx, view_flag, user_view_flag, win )
-					values('".$childSn."','".$type."','".$homeRate."','".$drawRate."','".$awayRate."','0', '1', '1', '1', '1')";
-		} else {
-			$sql = "insert into ".$this->db_qz."subchild_m (child_sn, betting_type, home_rate, draw_rate, away_rate, kubun, sub_idx, view_flag, user_view_flag )
-					values('".$childSn."','".$type."','".$homeRate."','".$drawRate."','".$awayRate."','0', '1', '1', '1')";
-		}
-		echo $sql;
-		exit;
-				
-		return $this->db->exeSql($sql);
+	function generateBetID($game_sn = 0) { 
+		$now = strtotime("now");
+		$startDate = strtotime("2021-03-14 09:06:00");
+		$range = $now - $startDate;
+		$rand = rand(0, $range);
+		$rand_number = intval($rand / 1000) . $game_sn;
+		return $rand_number;
 	}
 
     function addChild_with_parsing_type($parentSn,$category,$leagueSn,$homeTeam,$awayTeam,$gameDate,$gameHour,$gameTime,$notice,$isUpload,$type,$special,$homeRate,$drawRate,$awayRate, $parsing_site_type, $is_specified_special='0')
@@ -2812,14 +2788,9 @@ class GameModel extends Lemon_Model
 	}
 
 	//-> 발매하지 않은 경기중 시간이 지난 게임은 view_flag = 0 처리 한다. (숨긴다)
-	function hideTimeOverGame($s_type = 0) {
+	function hideTimeOverGame() {
 		$hDate = date("Y-m-d H:i:s",time());
-		if($s_type == "2") {
-			$sql = "update ".$this->db_qz."child_m a LEFT JOIN ".$this->db_qz."subchild_m b ON a.sn = b.child_sn SET b.view_flag = 0 where concat(a.gameDate,' ', a.gameHour,':', a.gameTime) < '".$hDate."' and b.kubun = 0";
-		} else {
-			$sql = "update ".$this->db_qz."child set view_flag = 0 where concat(gameDate,' ',gameHour,':',gameTime) < '".$hDate."' and kubun is null and special not in (2, 50)";
-		}
-		
+		$sql = "update ".$this->db_qz."child set view_flag = 0 where concat(gameDate,' ',gameHour,':',gameTime) < '".$hDate."' and kubun is null and special not in (5, 50)";
 		$this->db->exeSql($sql);
 	}
 
@@ -3237,6 +3208,23 @@ class GameModel extends Lemon_Model
 			$family_id = $r[0]["mfamily"];
 
 		return $family_id;
+	}
+
+	function setFinishGame($childSn, $home_score, $away_score) {
+		$sql = "UPDATE tb_child SET kubun = 1, status = 3, home_score = " . $home_score . ", away_score = " . $away_score . " WHERE sn = " . $childSn;
+		$this->db->exeSql($sql);
+
+		$sql = "UPDATE tb_subchild SET status = 3 WHERE child_sn = " . $childSn;
+		$this->db->exeSql($sql);
+
+		$this->requestFinishGame($childSn);
+	}
+
+	function requestFinishGame($childSn) {
+		$values = ["sn" => $childSn];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/game?nCmd=4&strValue=" . $strValue;
+		file_get_contents($strUrl);
 	}
 }
 ?>

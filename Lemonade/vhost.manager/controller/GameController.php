@@ -541,9 +541,12 @@ class GameController extends WebServiceController
 
 		if($mode=="search")
 		{
-			if ( intval($last_special_code) < 4) {
+			if ( intval($last_special_code) < 3) {
 				$alramFlagName = "betting_sport";
-				$where.= " AND b.live = 0 AND (b.betid != '' OR b.betid = 'bonus') ";
+				$where.= " AND b.live = 0 AND (b.betid != '' OR b.betid = 'bonus') AND a.last_special_code != 3 ";
+			} else if ( $last_special_code == "3" ) {
+				$alramFlagName = "betting_realtime";
+				$where.= " AND a.last_special_code = 3";
 			} else if ( $last_special_code == "4" ) {
 				$alramFlagName = "betting_live";
 				$where.= " AND b.live = 1 ";
@@ -991,6 +994,7 @@ class GameController extends WebServiceController
 			$bettingNo = $cartModel->modifyBetResult($sn, $result);
 			if ( $bettingNo > 0 ) {
 				$processModel->modifyResultMoneyProcess($bettingNo);
+				$this->requestRemoveBettingInfo($sn);
 			}
 			throw new Lemon_ScriptException("", "" , "script", "alert('처리 되었습니다.'); opener.document.location.reload(); self.close();");
 		}
@@ -1068,9 +1072,12 @@ class GameController extends WebServiceController
 		} */
 		
 		$pModel->bettingCancelProcess($bettingNo, '관리자');
-		
+
+		$this->requestRemoveBettingNo($bettingNo);
+
 		$this->alertRedirect("취소 되었습니다", $url);
 	}
+
 
 	public function checkbettingCancel($bettingNo) 
 	{
@@ -1481,6 +1488,7 @@ class GameController extends WebServiceController
 		}
 		$this->view->define("content","content/game/popup.modify_rate.html");
 		$model = $this->getModel("GameModel");
+		$marketModel = $this->getModel("MarketModel");
 		
 		$idx 	= $this->request("idx");		
 		$gametype 	= $this->request("gametype");
@@ -1488,57 +1496,105 @@ class GameController extends WebServiceController
 		
 		if($mode == "") {$mode = "add";}
 
-		$item = $model->getChildRow($idx);
-		if($item == null)
-			return;
-
+		$item = $model->getChildRowMulti($idx);
+		$childSn = $item["child_sn"];
+		$sport_sn = $item["sport_id"];
 		$leagueName = $model->getRow('name', $model->db_qz.'league', 'sn='.$item["league_sn"]);
-		$item['league_name']=$leagueName['name'];
+		$item['league_name']=$leagueName['name'];	
 		
-		$rs = $model->getSubChildRows($idx);
-		if( count((array)$rs) > 0 )
+		$rs = $model->getSubChildRowBySn($idx);
+		if(count((array)$rs) > 0)
 		{
-			$home_rate = $rs[0]['home_rate'];
-			$draw_rate = $rs[0]['draw_rate'];
-			$away_rate = $rs[0]['away_rate'];
+			$home_rate = $rs['home_rate'];
+			$draw_rate = $rs['draw_rate'];
+			$away_rate = $rs['away_rate'];
+			$home_line = $rs['home_line'];
+			$home_name = $rs['home_name'];
 		}
 		
-		$strMode	= "";
-		$html 		= "";
-		//$add		= "onkeyup='this.value=this.value.replace(/[^0-9.]/gi,\"\")'";
-		$add = "";
-		if($gametype==1)
-		{
-			if($mode=="update") {$strMode="disabled";}
-			$html="<td bgcolor='#ffffff' align='left'>";
-			$html=$html."&nbsp;&nbsp;승<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
-			$html=$html."&nbsp;무<input type='text' name='draw_rate' size='4' value='".$draw_rate."' ".$add.">";
-			$html=$html."&nbsp;패<input type='text' name='away_rate' size='4' value='".$away_rate."' ".$add.">";
-			$html=$html."&nbsp;&nbsp;<FONT color=#006699>&#8226; 승/패경기일때는 무승부에 1.00 을 넣으세요 </font></td>" ;
-		}
-		elseif($gametype==2)
-		{
-			if($mode=="edit") {$strMode="disabled";}
-			$html="<td bgcolor='#ffffff' align='left'>";
-			$html=$html."&nbsp;&nbsp;홈배당<input type='text' name='home_rate' size='4' value='".$home_rate ."' ".$add.">";
-			$html=$html."&nbsp;홈핸디<input type='text' name='draw_rate' size='4' value='".$draw_rate ."' >";
-			$html=$html."&nbsp;원정팀배당<input type='text' name='away_rate' size='4' value='".$away_rate ."' ".$add.">";
-			$html=$html."&nbsp;&nbsp;</td>";
-		}
-		elseif($gametype==4)
-		{
-			if($mode=="edit") {$strMode="disabled";}
-			$html="<td bgcolor='#ffffff' align='left'>";
-			$html=$html."&nbsp;&nbsp;오버<input type='text' name='home_rate' size='4' value='".$home_rate."' ".$add.">";
-			$html=$html."&nbsp;기준점수<input type='text' name='draw_rate' size='4' value='".$draw_rate."' >";
-			$html=$html."&nbsp;언더<input type='text' name='away_rate' size='4' value='".$away_rate."' ".$add.">";
-			$html=$html."&nbsp;&nbsp;</td>";
-		}
+		$marketName = $marketModel->getMarketName($gametype, $sport_sn);
+		
+		$familyID = $marketModel->getMarketFamily($gametype);
+		switch($familyID) {
+			case 1:		// 승무패
+				if($mode=="update") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;승<input type='text' name='home_rate' size='4' value='".$home_rate."'>";
+				$html=$html."&nbsp;무<input type='text' name='draw_rate' size='4' value='".$draw_rate."'>";
+				$html=$html."&nbsp;패<input type='text' name='away_rate' size='4' value='".$away_rate."'>";
+				$html=$html."&nbsp;&nbsp;</td>" ;
+				break;
+			case 2:		// 승패
+				if($mode=="update") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;승<input type='text' name='home_rate' size='4' value='".$home_rate."'>";
+				$html=$html."&nbsp;패<input type='text' name='away_rate' size='4' value='".$away_rate."'>";
+				$html=$html."&nbsp;&nbsp;</td>" ;
+				break;
+			case 7:		// 언더오버
+				if($mode=="edit") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;오버<input type='text' name='home_rate' size='4' value='".$home_rate."'>";
+				$html=$html."&nbsp;기준점<input type='text' name='draw_rate' size='4' value='".$home_line."' >";
+				$html=$html."&nbsp;언더<input type='text' name='away_rate' size='4' value='".$away_rate."'>";
+				$html=$html."&nbsp;&nbsp;</td>";
+				break;
+			case 8:		// 아시안핸디캡
+				$home_line = explode(" ", $home_line);
+				if($mode=="edit") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;홈배당<input type='text' name='home_rate' size='4' value='".$home_rate ."'>";
+				$html=$html."&nbsp;홈핸디<input type='text' name='draw_rate' size='4' value='".$home_line[0]."' >";
+				$html=$html."&nbsp;원정팀배당<input type='text' name='away_rate' size='4' value='".$away_rate ."'>";
+				$html=$html."&nbsp;&nbsp;</td>";
+				break;
+			case 9:		// E스포츠 핸디캡
+				if($mode=="edit") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;홈배당<input type='text' name='home_rate' size='4' value='".$home_rate ."'>";
+				$html=$html."&nbsp;홈핸디<input type='text' name='draw_rate' size='4' value='".$home_line."' >";
+				$html=$html."&nbsp;원정팀배당<input type='text' name='away_rate' size='4' value='".$away_rate ."'>";
+				$html=$html."&nbsp;&nbsp;</td>";
+				break;
+			case 10:	// 홀짝
+				if($mode=="edit") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;홀<input type='text' name='home_rate' size='4' value='".$home_rate."'>";
+				$html=$html."&nbsp;짝<input type='text' name='away_rate' size='4' value='".$away_rate."'>";
+				$html=$html."&nbsp;&nbsp;</td>";
+				break;
+			case 11:	// 정확한 스코어
+				if($mode=="edit") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;배당<input type='text' name='home_rate' size='4' value='".$home_rate."'>";
+				$html=$html."&nbsp;스코어<input type='text' name='draw_rate' size='4' value='".$home_name."'>";
+				$html=$html."&nbsp;&nbsp;</td>";
+				break;
+				break;
+			case 12:	// 더블찬스
+				if($mode=="update") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;승무<input type='text' name='home_rate' size='4' value='".$home_rate."'>";
+				$html=$html."&nbsp;승패<input type='text' name='draw_rate' size='4' value='".$draw_rate."'>";
+				$html=$html."&nbsp;무패<input type='text' name='away_rate' size='4' value='".$away_rate."'>";
+				$html=$html."&nbsp;&nbsp;</td>" ;
+				break;
+			case 47:	// 승무패 + 언더오버
+				if($mode=="update") {$strMode="disabled";}
+				$html="<td bgcolor='#ffffff' align='left'>";
+				$html=$html."&nbsp;&nbsp;배당<input type='text' name='home_rate' size='4' value='".$home_rate."'>";
+				$html=$html."&nbsp;기준점<input type='text' name='draw_rate' size='4' value='".$home_line."'>";
+				$html=$html."&nbsp;&nbsp;</td>" ;
+				break;
+		}	
 		
 		$this->view->assign("idx",$idx);
-		
+		$this->view->assign("child_sn", $childSn);	
 		$this->view->assign("mode",$mode);
 		$this->view->assign("gametype",$gametype);
+		$this->view->assign("familyID", $familyID);
+		$this->view->assign("marketName", $marketName);
+		$this->view->assign("sport_sn", $sport_sn);
 		$this->view->assign("item",$item);
 		$this->view->assign("html",$html);
 		
@@ -1891,8 +1947,10 @@ class GameController extends WebServiceController
 	function rateProcessAction()	
 	{
 		$model 		= $this->getModel("GameModel");
-		$childIdx = $this->request("idx");				
+		$subchild_sn = $this->request("idx");	
+		$child_sn = $this->request("child_sn");					
 		$gametype	= $this->request("gametype");	
+		$family_id = $this->request("family_id");
 		$home_rate 		= $this->request("home_rate");
 		$draw_rate 		= $this->request("draw_rate");
 		$away_rate 		= $this->request("away_rate");
@@ -1904,7 +1962,7 @@ class GameController extends WebServiceController
 		if ( strlen(trim($gameTime)) == 1 ) $gameTime = "0".$gameTime;
 
 		//-> 경기가 시작되었으면 업데이트 불가능.
-		$db_item = $model->getChildRow($childIdx);		
+		$db_item = $model->getChildRow($child_sn);		
 		$db_gameStartTime = strtotime($db_item['gameDate']." ".$db_item['gameHour'].":".$db_item['gameTime'].":00");
 		if ( $db_gameStartTime < time() ) {
 			$url = $_SERVER['HTTP_REFERER'];
@@ -1912,8 +1970,24 @@ class GameController extends WebServiceController
 			exit;
 		}
 
-		$model->modifyChildRate($childIdx,$gametype,$home_rate,$draw_rate,$away_rate);
-		$model->modifyChildRate_Date($childIdx,$gameDate,$gameHour,$gameTime);
+		$home_line = "";
+		$home_name = "";
+		switch($family_id) {
+			case 7:		// 언더오버
+			case 8:		// 아시안핸디캡
+			case 9:		// E스포츠 핸디캡
+				$home_line = $draw_rate;
+				break;
+			case 11:	// 정확한 스코어
+				$home_name = $draw_rate;
+				break;
+			case 47:	// 승무패 + 언더오버
+				$home_line = $draw_rate;
+				break;
+		}	
+
+		$model->modifyChildRate($subchild_sn, $gametype, $home_rate, $draw_rate, $away_rate, $home_line, $home_name);
+		$model->modifyChildRate_Date($child_sn,$gameDate,$gameHour,$gameTime);
 		
 		echo "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><script>alert('  수정되었습니다   ');opener.document.location.reload(); self.close();</script>";
 	}
@@ -2013,8 +2087,8 @@ class GameController extends WebServiceController
 
 		$strValue = json_encode($arr);
         //$strValue = urlencode($strValue);
-		$strUrl = "http://127.0.0.1:3001/api/admin?nCmd=1&strValue=$strValue";
-		file_get_contents($strUrl);
+		$this->requestChangeMarketRate($strValue);
+		
 		$this->alertRedirect("성공적으로  보관되었습니다.", $url);
 	}
 }

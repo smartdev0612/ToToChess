@@ -150,7 +150,7 @@ class GameListModel extends Lemon_Model
 		// 				c.sn as sub_child_sn,c.betting_type,c.home_rate,c.draw_rate,c.away_rate, c.result as sub_child_result, c.win, 
 		// 				c.home_betid, c.away_betid, c.draw_betid, c.home_line, c.away_line, c.draw_line, c.home_name, c.away_name, c.draw_name, c.base_line, m.mid, m.mname_ko
 		// 		from ".$this->db_qz."child  a,".$this->db_qz."league b,".$this->db_qz."subchild c, ".$this->db_qz."markets m 
-		// 		where a.view_flag = 1 and a.league_sn = b.lsports_league_sn and a.sn = c.child_sn and c.betting_type = m.mid ".$where;
+		// 		where a.view_flag = 1 and a.league_sn = b.sn and a.sn = c.child_sn and c.betting_type = m.mid ".$where;
 		
 		// if($orderby!='')
 		// 	$sql.= " order by ".$orderby;
@@ -168,7 +168,7 @@ class GameListModel extends Lemon_Model
 		$sql = "SELECT  a.sn as child_sn, a.game_sn, a.sport_name, a.league_sn, a.home_team, IFNULL(a.home_score, 0) as home_score, a.away_team, IFNULL(a.away_score, 0) as away_score, 
 						a.gameDate, a.gameHour, a.gameTime, a.notice, a.special, a.is_specified_special,
 						b.sn as league_sn, IFNULL(b.lg_img, '') as league_image, b.name as league_name, b.nation_sn, b.alias_name, b.view_style, b.link_url, b.kind
-				FROM ".$this->db_qz."child a,".$this->db_qz."league b WHERE a.league_sn = b.lsports_league_sn AND b.kind != '이벤트' ".$where;
+				FROM ".$this->db_qz."child a,".$this->db_qz."league b WHERE a.league_sn = b.sn AND b.kind != '이벤트' ".$where;
 				
 		if($orderby!='')
 			$sql.= " ORDER BY ".$orderby;
@@ -374,7 +374,7 @@ class GameListModel extends Lemon_Model
 	public function _gameMultiListTotal($where="")
 	{
 		$sql = "SELECT  COUNT(*) as cnt
-				FROM ".$this->db_qz."child a,".$this->db_qz."league b WHERE a.league_sn = b.lsports_league_sn ".$where;
+				FROM ".$this->db_qz."child a,".$this->db_qz."league b WHERE a.league_sn = b.sn ".$where;
 		
 		$res = $this->db->exeSql($sql);
 		
@@ -450,7 +450,7 @@ class GameListModel extends Lemon_Model
 			           a.gameDate,a.gameHour,a.gameTime, b.name as league_name, b.lg_img
                 from ".$this->db_qz."child a,".$this->db_qz."league b
                 where a.view_flag = 1 
-                and a.league_sn=b.lsports_league_sn 
+                and a.league_sn=b.sn 
                 and a.user_view_flag=1
                 and a.kubun=0
 				and a.home_team not like '%보너스%'
@@ -467,7 +467,7 @@ class GameListModel extends Lemon_Model
         $sql = "select a.sport_name, a.home_team, a.away_team, 
 			           a.gameDate, a.gameHour, a.gameTime, b.name as league_name, b.lg_img
                 from ".$this->db_qz."child a,".$this->db_qz."league b 
-                where a.league_sn=b.lsports_league_sn 
+                where a.league_sn=b.sn 
                 and concat(a.gameDate,' ',a.gameHour, ':', a.gameTime, ':00') > NOW()
                 group by league_name
                 order by a.gameDate asc, a.gameHour asc, a.gameTime asc, a.home_team asc limit 4 offset 4";

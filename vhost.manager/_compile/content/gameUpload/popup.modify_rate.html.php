@@ -43,15 +43,15 @@
 		}
 		if (frm.home_rate.value > 19) 
 		{
-		   alert("승자배당 확인 ");
-		   frm.home_rate.focus();
-		   return;
+		alert("홈 배당 확인해주세요.");
+		frm.home_rate.focus();
+		return;
 		} 
 		if (frm.away_rate.value > 19 )
 		{
-		   alert("패자 배당률을 입력하세요");
-		   frm.away_rate.focus();
-		   return;
+		alert("원정 배당 확인해주세요");
+		frm.away_rate.focus();
+		return;
 		} 
 	
 		frm.submit();
@@ -65,11 +65,13 @@
 
 <form action="/gameUpload/rateProcess" method="post" name="EditForm">
 	<input type="hidden" name="idx" value="<?php echo $TPL_VAR["idx"]?>">	
+	<input type="hidden" name="child_sn" value="<?php echo $TPL_VAR["child_sn"]?>">
 	<input type="hidden" name="mode" value="<?php echo $TPL_VAR["mode"]?>">
 	<input type="hidden" name="gametype" value="<?php echo $TPL_VAR["gametype"]?>">
-	
+	<input type="hidden" name="family_id" value="<?=$TPL_VAR["family_id"]?>">
+	<input type="hidden" name="market_name" value="<?=$TPL_VAR["market_name"]?>">
 	<div id="pop_title">
-		<h1><font size="2" color="red"><?php if($TPL_VAR["gametype"]==1){?>승무패<?php }elseif($TPL_VAR["gametype"]==2){?>핸디캡<?php }elseif($TPL_VAR["gametype"]==3){?>홀 짝<?php }elseif($TPL_VAR["gametype"]==4){?>언더오버<?php }?></font> 배당 수정</h1><p><a href="#"><img src="/img/btn_s_close.gif" onclick="self.close();"></a></p>
+		<h1><font size="2" color="red"><?=$TPL_VAR["marketName"]?></font> 배당 수정</h1><p><a href="#"><img src="/img/btn_s_close.gif" onclick="self.close();"></a></p>
 	</div>
 
 	<table cellspacing="1" class="tableStyle_modifyRate">
@@ -90,9 +92,8 @@
 			<td>&nbsp;&nbsp;<?php echo $TPL_VAR["item"]["home_team"]?> <font color='red'>VS</font> <?php echo $TPL_VAR["item"]["away_team"]?></td>
 		</tr>
 		<tr>
-			<th><?php if($TPL_VAR["gametype"]==1){?>승무패<?php }elseif($TPL_VAR["gametype"]==2){?>핸디캡<?php }elseif($TPL_VAR["gametype"]==3){?>홀 짝<?php }elseif($TPL_VAR["gametype"]==4){?>언더오버<?php }?></th>
+			<th><?=$TPL_VAR["marketName"]?></th>
 			<?php echo $TPL_VAR["html"]?>
-
 		</tr>
 	</table>
 

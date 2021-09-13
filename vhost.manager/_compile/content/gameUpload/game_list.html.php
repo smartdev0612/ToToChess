@@ -250,7 +250,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 				<input type="button" value="-경기등록-" class="Qishi_submit_a" onclick="window.open('/gameUpload/popup_gameupload?state=0','','resizable=yes scrollbars=yes top=5 left=5 width=1600 height=650')";>
 			</form>
 			<form action="?mode=execl_collect" method="post" name="form4" id="form4">
-				<input type="button" value="-Excel-수집-" class="Qishi_submit_a" onclick="window.open('/gameUpload/popup_excelupload','','resizable=yes scrollbars=yes top=5 left=5 width=1100 height=650')";>
+				<input type="button" value="-Excel-수집-" class="Qishi_submit_a" onclick="window.open('/gameUpload/popup_excelupload','','resizable=yes scrollbars=yes top=5 left=5 width=500 height=150')";>
 			</form>
 			<!--<form action="?mode=collect" method="post" name="form5" id="form5">
 				<input type="button" value="-7m-수집-" class="Qishi_submit_a" onclick="window.open('/gameUpload/collect7m','','resizable=yes scrollbars=yes top=5 left=5 width=1100 height=650')";>
@@ -288,6 +288,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 				<option value="">대분류</option>
 				<option value="1" <?php if($TPL_VAR["special_type"]==1){?> selected <?php }?>>국내형</option>
 				<option value="2" <?php if($TPL_VAR["special_type"]==2){?> selected <?php }?>>해외형</option>
+				<option value="3" <?php if($TPL_VAR["special_type"]==3){?> selected <?php }?>>실시간</option>
 				<option value="4" <?php if($TPL_VAR["special_type"]==4){?> selected <?php }?>>라이브</option>
                 <!-- <option value="50" <?php if($TPL_VAR["special_type"]==50){?> selected <?php }?>>라이브</option> -->
                 <option value="22" <?php if($TPL_VAR["special_type"]==22){?> selected <?php }?>>가상축구</option>
@@ -308,6 +309,13 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
                 <option value="26" <?php if($TPL_VAR["special_type"]==26){?> selected <?php }?>>MGM홀짝</option>
                 <option value="27" <?php if($TPL_VAR["special_type"]==27){?> selected <?php }?>>MGM바카라</option>
 			</select>
+
+			<select name="categoryName">
+				<option value="">종목</option>
+<?php if($TPL_categoryList_1){foreach($TPL_VAR["categoryList"] as $TPL_V1){?>
+					<option value="<?php echo $TPL_V1["name"]?>" <?php if($TPL_VAR["categoryName"]==$TPL_V1["name"]){?> selected <?php }?>><?php echo $TPL_V1["name"]?></option>
+<?php }}?>
+			</select>
 			
 			<select name="game_type">
 				<option value="">종류</option>
@@ -317,12 +325,6 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 				<option value="24"  <?php if($TPL_VAR["gameType"]==24){?>  selected <?php }?>>핸디+언오버</option>
 			</select>
 			
-			<select name="categoryName">
-				<option value="">종목</option>
-<?php if($TPL_categoryList_1){foreach($TPL_VAR["categoryList"] as $TPL_V1){?>
-					<option value="<?php echo $TPL_V1["name"]?>" <?php if($TPL_VAR["categoryName"]==$TPL_V1["name"]){?> selected <?php }?>><?php echo $TPL_V1["name"]?></option>
-<?php }}?>
-			</select>
 			<select name="league_sn">
 				<option value="">리그</option>
 	<?php 
@@ -425,7 +427,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 					</td>
 						<td><?php if($TPL_V1["update_game_date"]){?><span style="color:red;"><?php }?><?php if($TPL_V1["update_enable"]==0){?><span style="border-bottom:1px solid red;"><?php }?><?php echo sprintf("%s %s:%s",substr($TPL_V1["gameDate"],5),$TPL_V1["gameHour"],$TPL_V1["gameTime"])?></td>
 						<td>
-<?php if($TPL_V1["special"]<4){?>일반
+<?php if($TPL_V1["special"]<3){?>스포츠
+<?php }elseif($TPL_V1["special"]==3){?>실시간
 <?php }elseif($TPL_V1["special"]==4){?>라이브
 <?php }elseif($TPL_V1["special"]==5){?>사다리
 <?php }elseif($TPL_V1["special"]==6){?>달팽이
@@ -473,7 +476,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						</td>
 						<td><?php echo $TPL_V1["sport_name"]?></td>
 						<td><a onclick="window.open('/league/popup_edit?league_sn=<?php echo $TPL_V1["league_sn"];?>','','scrollbars=yes,width=600,height=400,left=5,top=0');" href="#"><?php echo $TPL_V1["league_name"]?></a></td>
-						<td><?php echo $TPL_V1["alias_name"]?></td>
+						<td><?php echo $TPL_V1["league_name"]?></td>
 						<td colspan="2">
 <table width="100%">
 	<tr>
@@ -505,17 +508,41 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 <table width="100%">
 	<tr>
 		<td>
-<?php
-	//-> draw 배당 출력
-	if ( ($TPL_V1["type"] == 1 && $TPL_V1["draw_rate"] == '1.00') || ($TPL_V1["type"] == 1 && $TPL_V1["draw_rate"] == '1') ){
-		echo "VS";
-	} else {
-		echo $TPL_V1["draw_rate"];
-	}
-	if ( $TPL_V1["draw_rate"] != $TPL_V1["new_draw_rate"] and strlen($TPL_V1["new_draw_rate"]) > 0 ) {
-		echo "<br><span style='color:red;font-size:11px;'>".$TPL_V1["new_draw_rate"]."</span>";
-	}
-?>
+		<?php 
+			switch($TPL_V1["mfamily"]) {
+				case 1:		// 승무패
+					if ( $TPL_V1["select_no"] == 3 and $TPL_V1["new_draw_rate"] != $TPL_V1["select_rate"] ) 
+						echo $TPL_V1["draw_rate"]." <span style='color:red;'>[<b>".$TPL_V1["new_draw_rate"]."</b>]</span>";
+					else 
+						echo $TPL_V1["draw_rate"]; 
+					break;
+				case 2:		// 승패
+					echo "VS";
+					break;
+				case 7:		// 언더오버
+					echo $TPL_V1["home_line"];
+					break;
+				case 8:		// 아시안핸디캡
+					$home_line = explode(" ", $TPL_V1["home_line"]);
+					echo $home_line[0];
+					break;
+				case 9:		// E스포츠 핸디캡
+					echo $TPL_V1["home_line"];
+					break;
+				case 10:	// 홀짝
+					echo "VS";
+					break;
+				case 11:	// 정확한 스코어
+					echo $TPL_V1["home_name"];
+					break;
+				case 12:	// 더블찬스
+					echo $TPL_V1["draw_rate"];
+					break;
+				case 47:	// 승무패 + 언더오버
+					echo $TPL_V1["home_line"];
+					break;
+			}			
+		?>
 		</td>
 	</tr>
 	<tr>
@@ -580,7 +607,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 <?php }?>
 							</td>
 						<td>
-							<input type='button' class='btnStyle4' value="배당수정" onclick=open_window('/gameUpload/modifyrate?idx=<?php echo $TPL_V1["child_sn"]?>&gametype=<?php echo $TPL_V1["type"]?>&mode=edit','650','300')>
+							<input type='button' class='btnStyle4' value="배당수정" onclick=open_window('/gameUpload/modifyrate?idx=<?php echo $TPL_V1["sn"]?>&gametype=<?php echo $TPL_V1["betting_type"]?>&mode=edit','650','300')>
 						</td>
 						<td>
 <?php if(($TPL_V1["special"]==1 or $TPL_V1["special"]==2)&&$TPL_V1["result"]!=1){?>

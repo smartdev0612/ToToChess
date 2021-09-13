@@ -49,6 +49,11 @@ class LeagueController extends WebServiceController
 				throw new Lemon_ScriptException("","","script","history.back();");
 			
 			$model->delProcess($idx);
+
+			$this->deleteServerLeague($idx);
+
+			throw new Lemon_ScriptException("삭제 되였습니다.", "", "go", "/league/list");
+			exit;
 		}
 
 		$where = " tb_league.sn > 0 ";
@@ -147,31 +152,80 @@ class LeagueController extends WebServiceController
 		$mode = trim($this->request("mode"));
 				
 		if ( $mode == "edit" ) {	
-			$leagueSn = empty($this->request("league_sn")) ? 0 : $this->request("league_sn");
-			$before_kind = $this->request("before_kind");
-			$kind = $this->request("league_kind");
-			$name = $this->request("league_name");
-			$alias = $this->request("alias_league_name");
-			$nationflag = $this->request("nationflag");
-			$viewStyle = $this->request("view_style");
-			$linkUrl = $this->request("link_url");
+			$lsports_league_sn = empty($this->request("lsports_league_sn")) ? 0 : $this->request("lsports_league_sn");
+			$before_kind = empty($this->request("before_kind")) ? "" : $this->request("before_kind");
+			$kind = empty($this->request("league_kind")) ? "" : $this->request("league_kind");
+			$name = empty($this->request("league_name")) ? "" : $this->request("league_name");
+			$name_en = empty($this->request("league_name_en")) ? "" : $this->request("league_name_en");
+			$alias = empty($this->request("alias_league_name")) ? "" : $this->request("alias_league_name");
+			$nationflag = empty($this->request("nationflag")) ? "" : $this->request("nationflag");
+			$viewStyle = empty($this->request("view_style")) ? "" : $this->request("view_style");
+			$linkUrl = empty($this->request("link_url")) ? "" : $this->request("link_url");
 			$is_use = $this->request("is_use");
 			$nation_sn = empty($this->request("nation_sn")) ? 0 : $this->request("nation_sn");
+			$league_img = "";
+			$sport_sn = 0;
+			switch($kind) {
+				case "축구":
+					$sport_sn = 6046;
+					break;
+				case "농구":
+					$sport_sn = 48242;
+					break;
+				case "배구":
+					$sport_sn = 154830;
+					break;
+				case "야구":
+					$sport_sn = 154914;
+					break;
+				case "아이스 하키":
+					$sport_sn = 35232;
+					break;	
+				case "E스포츠":
+					$sport_sn = 687890;
+					break;	
+			}
 
-			$leagueModel->modify($leagueSn, $kind, $name, $viewStyle, $linkUrl, $alias, $is_use, $nation_sn);
+			if($leagueSn > 0) {
+				$leagueModel->modify($leagueSn, $lsports_league_sn, $kind, $name, $name_en, $viewStyle, $linkUrl, $alias, $is_use, $nation_sn, $sport_sn);
 
-			if ( $_FILES["upLoadFile"]["size"] > 0 and $_FILES["upLoadFile"]["error"] == 0 ) {
-				$uploadImgUrl = $this->leagueImgUpload($leagueSn, $_FILES["upLoadFile"]);
-				if ( $uploadImgUrl ) {
-					$leagueModel->updateLeagueImg($leagueSn, $uploadImgUrl);
+				if ( $_FILES["upLoadFile"]["size"] > 0 and $_FILES["upLoadFile"]["error"] == 0 ) {
+					$league_img = $this->leagueImgUpload($leagueSn, $_FILES["upLoadFile"]);
+					if ( $league_img ) {
+						$leagueModel->updateLeagueImg($leagueSn, $league_img);
+					}
+				} else {
+					$res = $leagueModel->getListBySn($leagueSn);
+					$league_img = $res["lg_img"];
 				}
-			}
+	
+				//-> 리그의 종목을 변경하면 경기 데이타의 종목명도 함께 변경해준다.
+				if ( $before_kind != $kind ) {
+					$leagueModel->modify_league_kind($lsports_league_sn, $before_kind, $kind);
+				}
 
-			//-> 리그의 종목을 변경하면 경기 데이타의 종목명도 함께 변경해준다.
-			if ( $before_kind != $kind ) {
-				$leagueModel->modify_league_kind($leagueSn, $before_kind, $kind);
+				$this->updateServerLeague($leagueSn, $lsports_league_sn, $nation_sn, $sport_sn, $name, $name_en, $league_img, $is_use);
+
+				throw new Lemon_ScriptException("","","script","alert('수정 되였습니다.');opener.document.location.reload(); self.close();");
+			} else {
+				$lsports_league_sn = $this->generateRandomSn();
+				$leagueSn = $leagueModel->add($lsports_league_sn, $kind, $name, $name_en, $nation_sn, $sport_sn, $viewStyle, $linkUrl, $alias, $is_use);
+
+				if ( $_FILES["upLoadFile"]["size"] > 0 and $_FILES["upLoadFile"]["error"] == 0 ) {
+					$league_img = $this->leagueImgUpload($leagueSn, $_FILES["upLoadFile"]);
+					if ( $league_img ) {
+						$leagueModel->updateLeagueImg($leagueSn, $league_img);
+					}
+				} else {
+					$res = $leagueModel->getListBySn($leagueSn);
+					$league_img = $res["lg_img"];
+				}
+
+				$this->updateServerLeague($leagueSn, $lsports_league_sn, $nation_sn, $sport_sn, $name, $name_en, $league_img, $is_use);
+
+				throw new Lemon_ScriptException("","","script","alert('등록 되였습니다.');opener.document.location.reload(); self.close();");
 			}
-			throw new Lemon_ScriptException("","","script","alert('수정 되였습니다.');opener.document.location.reload(); self.close();");
+			
 		} else {
 			$item = $leagueModel->getListBySn($leagueSn);
 				
@@ -182,14 +236,23 @@ class LeagueController extends WebServiceController
 		$categoryList = $leagueModel->getCategoryList();
 		$nationList = $nationModel->getNationList();
 		
-		$this->view->assign('SITE_DOMAIN', $SITE_DOMAIN);
-		$this->view->assign('UPLOAD_URL', $UPLOAD_URL);
+		// $this->view->assign('SITE_DOMAIN', $SITE_DOMAIN);
+		// $this->view->assign('UPLOAD_URL', $UPLOAD_URL);
 		$this->view->assign('category_list',$categoryList);
 		$this->view->assign('nation_list',$nationList);
 		$this->view->assign('league_sn', $leagueSn);
 		$this->view->assign('item', $item);
 		
 		$this->display();
+	}
+
+	function getLeagueListByKindAction() {
+		if ( $this->auth->isLogin() ) {
+			$leagueModel = $this->getModel("LeagueModel");
+			$kind = empty($this->request("kind")) ? "" : $this->request("kind");
+			$leagueList = $leagueModel->getLeagueListByKind($kind);
+			echo json_encode($leagueList);
+		}
 	}
 
 	//-> 리그 이미지 업로드 (이미지서버)
@@ -427,6 +490,21 @@ class LeagueController extends WebServiceController
 		$this->view->assign('list', $list);
 		
 		$this->display();
+	}
+
+	function deleteSelectedLeaguesAction() {
+		if($this->auth->isLogin()) {
+			$leagueModel = $this->getModel("LeagueModel");
+
+			$league_sn = empty($this->request('league_sn')) ? "" : $this->request('league_sn');
+
+			$leagueModel->deleteSelectedLeagues($league_sn);
+
+			$this->deleteServerLeagues($league_sn);
+
+			throw new Lemon_ScriptException("삭제 되였습니다.", "", "go", "/league/list");
+			exit;
+		}
 	}
 }
 

@@ -286,6 +286,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						<th>승(홈팀)</th>
 						<th>VS</th>
 						<th>패(원정팀)</th>
+						<th>스코어</th>
 	<?php if($TPL_VAR["state"]!=3){?>
 						<th>결과</th>
 	<?php }?>
@@ -411,6 +412,10 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 								<br><?php echo number_format($TPL_V1["away_total_betting"],0)?>
 							</td>
 						<? } ?>
+						<td>
+							<input type="number" name="home_score_<?php echo $TPL_V1["sn"]?>" onchange='autoCheck_check(<?php echo $TPL_I1?>)' style="width:50px;"> : 
+							<input type="number" name="away_score_<?php echo $TPL_V1["sn"]?>" onchange='autoCheck_check(<?php echo $TPL_I1?>)' style="width:50px;">
+						</td>
 <?php if($TPL_VAR["state"]!=3){?>
 						<td>
 							<select name="game_result_<?php echo $TPL_V1["sn"]?>" onchange='autoCheck_check(<?php echo $TPL_I1?>)'>

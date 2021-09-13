@@ -299,9 +299,90 @@ class WebServiceController extends Lemon_Controller
 	public function loginAction()
 	{
 		$this->adminMemberChk();
-		
 		$this->view->define("index","login.html");
 		$this->view->print_('index');
 	}
+
+	public function generateRandomSn() {
+		$now = strtotime("now");
+		$startDate = strtotime("2019-03-14 09:06:00");
+		$range = $now - $startDate;
+		$rand = rand(0, $range);
+		$rand_number = $range + intval($rand / 10);
+		return $rand_number;
+	}
+
+	// 환수율 적용
+	public function requestChangeMarketRate($strValue) {
+		$strUrl = "http://127.0.0.1:3001/api/admin?nCmd=1&strValue=$strValue";
+		file_get_contents($strUrl);
+	}
+
+	// 게임등록
+	public function requestGameUpload() {
+		$strUrl = "http://127.0.0.1:3001/api/game?nCmd=1";
+		file_get_contents($strUrl);
+	}
+	
+	// 배팅정보 수정
+	public function requestRemoveBettingInfo($sn) {
+		$values = ["sn" => $sn];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/betting?nCmd=1&strValue=" . $strValue;
+		file_get_contents($strUrl);
+	}
+
+	public function requestRemoveBettingNo($bettingNo) {
+		$values = ["betting_no" => $bettingNo];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/betting?nCmd=2&strValue=" . $strValue;
+		file_get_contents($strUrl);
+	}
+
+	// 팀 수정
+	function updateServerTeam($teamSn = 0, $team_api_id = 0, $sport_sn, $nation_sn, $team_name, $team_name_en, $team_img) {
+		$values = ["sn" => $teamSn, "api_sn" => $team_api_id, "name" => $team_name, "name_en" => $team_name_en, "team_img" => $team_img, "sport_sn" => $sport_sn, "nation_sn" => $nation_sn];
+		$strValue = urlencode(json_encode($values));
+		$strUrl = "http://127.0.0.1:3001/api/team?nCmd=1&strValue=$strValue";
+		file_get_contents($strUrl);
+	}
+
+	function deleteServerTeam($sn = 0) {
+		$values = ["sn" => $sn];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/team?nCmd=2&strValue=$strValue";
+		file_get_contents($strUrl);
+	}
+
+	function deleteServerTeams($sn = "") {
+		$values = ["sn" => $sn];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/team?nCmd=3&strValue=$strValue";
+		file_get_contents($strUrl);
+	}
+
+	// 리그 수정
+	function updateServerLeague($sn = 0, $lsports_league_sn = 0, $nation_sn = 0, $sport_sn = 0, $name = "", $name_en = "", $league_img = "", $is_use = 0) {
+		$values = ["sn" => $sn, "lsports_league_sn" => $lsports_league_sn, "nation_sn" => $nation_sn, "sport_sn" => $sport_sn, "name" => $name, "name_en" => $name_en, "league_img" => $league_img, "is_use" => $is_use];
+		$strValue = urlencode(json_encode($values));
+		$strUrl = "http://127.0.0.1:3001/api/league?nCmd=1&strValue=$strValue";
+		file_get_contents($strUrl);
+	}
+
+	function deleteServerLeague($sn = 0) {
+		$values = ["sn" => $sn];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/league?nCmd=2&strValue=$strValue";
+		file_get_contents($strUrl);
+	}
+
+	function deleteServerLeagues($sn = "") {
+		$values = ["sn" => $sn];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/league?nCmd=3&strValue=$strValue";
+		file_get_contents($strUrl);
+	}
+
+
 }
 ?>

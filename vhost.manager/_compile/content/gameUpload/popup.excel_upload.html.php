@@ -29,7 +29,7 @@ function FileUpload()
 
 	<div id="search">
 		<div>
-		<form action="/gameUpload/popup_excelupload?mode=execl_collect" method="post" name="form2" id="form2" enctype='multipart/form-data'>								
+		<form action="/gameUpload/popup_excelupload?mode=excel_collect" method="post" name="form2" id="form2" enctype='multipart/form-data'>								
 			<!--<input type="hidden" id ="filepath" name="filepath" value="">-->
 			<input type="file" name="fileUpload" size="50">
 			<input type="submit" value="파일업로드">
@@ -37,44 +37,6 @@ function FileUpload()
 		</form>
 		</div>
 	</div>
-
-	<table cellspacing="1" class="tableStyle_normal" summary="게임 정보">
-	<thead>
-		<tr>
-			<th>종목</th>
-			<th>게임옵션</th>
-			<th>게임구분</th>
-			<th>일자</th>
-			<th>시간</th>
-			<th>분</th>
-			<th>리그명</th>
-			<th>홈팀</th>
-			<th>원정팀</th>
-			<th>배당1</th>
-			<th>배당2</th>
-			<th>배당3</th>
-			
-		</tr>
-	</thead>
-	<tbody>
-<?php if($TPL_gamearray_1){foreach($TPL_VAR["gamearray"] as $TPL_V1){?>			
-		<tr>
-			<td><?php echo $TPL_V1["cate_name"]?></td>					
-			<td><?php echo $TPL_V1["kind"]?></td>					
-			<td><?php echo $TPL_V1["game_type"]?></td>
-			<td><?php echo $TPL_V1["game_date"]?></td>
-			<td><?php echo $TPL_V1["gameHour"]?></td>			
-			<td><?php echo $TPL_V1["gameTime"]?></td>			
-			<td><?php echo $TPL_V1["league_name"]?></td>			
-			<td><?php echo $TPL_V1["home_team"]?></td>			
-			<td><?php echo $TPL_V1["away_team"]?></td>			
-			<td><?php echo $TPL_V1["home_rate"]?></td>			
-			<td><?php echo $TPL_V1["draw_rate"]?></td>
-			<td><?php echo $TPL_V1["away_rate"]?></td>			
-		</tr>
-<?php }}?>	
-	</tbody>
-	</table>
 
 	<div id="wrap_btn">
 		<a href="#" onclick="window.close()"><img src="/img/btn_close.gif" title="창닫기"></a>
