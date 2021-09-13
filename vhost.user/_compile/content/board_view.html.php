@@ -38,7 +38,7 @@
                                     } else {
                                         if ( $TPL_VAR["item"]["lvl"] > 0 ) $level = $TPL_VAR["item"]["lvl"];
                                         else $level = 2;
-                                        echo "<img src=\"/images/level_icon_".$level.".png\" />&nbsp;&nbsp;";
+                                        echo "<img src=\"/images/level_icon_".$level.".png?v=2\" />&nbsp;&nbsp;";
                                     }
                                     $author = explode("_",$TPL_VAR["item"]["author"]);
                                     if ( count($author) == 2 ) echo $author[1];
