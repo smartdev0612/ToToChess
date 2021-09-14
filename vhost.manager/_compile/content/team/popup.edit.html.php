@@ -83,7 +83,10 @@
 	<table cellspacing="1" class="tableStyle_membersWrite">
 		<tr>
 			<th>API 아이디</th>
-			<td><input type="text" maxLength="100" value="<?=$team_api_id?>" name="team_api_id" disabled></td>
+			<td>
+				<input type="text" maxLength="100" value="<?=$team_api_id?>" name="team_api_id"><br>
+				<span style="color:red">이 번호는 API에 의해서 제공되므로 개발팀에 문의후 등록해주세요.</span>
+			</td>
 		</tr>
 		<tr>
 			<th>종목</th>

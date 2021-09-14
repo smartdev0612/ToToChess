@@ -185,7 +185,7 @@ class LeagueController extends WebServiceController
 					$sport_sn = 687890;
 					break;	
 			}
-
+			
 			if($leagueSn > 0) {
 				$leagueModel->modify($leagueSn, $lsports_league_sn, $kind, $name, $name_en, $viewStyle, $linkUrl, $alias, $is_use, $nation_sn, $sport_sn);
 

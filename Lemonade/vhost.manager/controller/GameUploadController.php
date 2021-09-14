@@ -3405,6 +3405,8 @@ class GameUploadController extends WebServiceController
 
 		$model->modifyChildRate($subchild_sn, $gametype, $home_rate, $draw_rate, $away_rate, $home_line, $home_name);		
 		$model->modifyChildRate_Date($child_sn, $gameDate, $gameHour, $gameTime);
+
+		$this->requestGameModify($subchild_sn, $child_sn, $gameDate, $gameHour, $gameTime, $gametype, $home_rate, $away_rate, $draw_rate);
 		
 		throw new Lemon_ScriptException("","","script","alert('수정되었습니다.');opener.document.location.reload(); self.close();");		
 	}

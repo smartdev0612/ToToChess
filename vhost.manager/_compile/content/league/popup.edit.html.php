@@ -72,7 +72,8 @@ function nation_flag(url)
 		<tr>
 			<th>번호</th>
 			<td>
-				<input type="text" name="lsports_league_sn" value="<?=$lsports_league_sn?>" disabled>
+				<input type="text" name="lsports_league_sn" value="<?=$lsports_league_sn?>"><br>
+				<span style="color:red">이 번호는 API에 의해서 제공되므로 개발팀에 문의후 등록해주세요.</span>
 			</td>
 		</tr>
 		<tr>
