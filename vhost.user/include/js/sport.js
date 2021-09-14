@@ -1988,6 +1988,11 @@ function betting(type)
 		bettingSubmitFlag = 1;
 		betForm.betMoney.value = m_betList._point;
 		betForm.betcontent.value = m_betList.getList();
+		var game_type = betForm.game_type.value;
+		var message = `배팅완료 ${bettingcanceltime}분이내, 경기시작 ${bettingcancelbeforetime}분전에만 취소가능합니다.`;
+		if(game_type == "live") {
+			message = `라이브 배팅의 경우 배팅취소 불가하오니 배팅전 신중히 배팅하여 주시기 바랍니다.`;
+		}
 		var betMoney = $j("#betMoney").val();
 		var totalMoney = $j("#sp_total").text();
 		var content = `배팅액: ${betMoney} <br>
@@ -1995,7 +2000,7 @@ function betting(type)
 						<br><br>
 						위내용이 맞는지 확인하십시오.
 						<br><br>
-						배팅완료 ${bettingcanceltime}분이내, 경기시작 ${bettingcancelbeforetime}분전에만 취소가능합니다.<br><br>
+						${message}<br><br>
 						확인클릭후 배팅 완료됩니다.`;
 		sports_popup(content);
 	}

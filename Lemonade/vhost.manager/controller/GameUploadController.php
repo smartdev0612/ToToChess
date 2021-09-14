@@ -71,13 +71,13 @@ class GameUploadController extends WebServiceController
 		}
 		else if($act=="delete_game")
 		{
-			$childSn = $this->request('child_sn');
-			$gameModel->delChild($childSn);
+			$subchildSn = $this->request('sn');
+			$gameModel->delChild($subchildSn);
 		}
 		else if($act=="delete_game_db")
 		{
-			$childSn = $this->request('child_sn');
-			$gameModel->delChildDB($childSn);
+			$subchildSn = $this->request('sn');
+			$gameModel->delChildDB($subchildSn);
 		}
 		else if($act=='deadline_game')
 		{
@@ -4279,13 +4279,13 @@ class GameUploadController extends WebServiceController
 		}
 		else if($act=="delete_game")
 		{
-			$childSn = $this->request('child_sn');
-			$gameModel->delChild($childSn);
+			$subchildSn = $this->request('sn');
+			$gameModel->delChild($subchildSn);
 		}
 		else if($act=="delete_game_db")
 		{
-			$childSn = $this->request('child_sn');
-			$gameModel->delChildDB($childSn);
+			$subchildSn = $this->request('sn');
+			$gameModel->delChildDB($subchildSn);
 		}
 		else if($act=='deadline_game')
 		{

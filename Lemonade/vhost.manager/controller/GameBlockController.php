@@ -216,6 +216,7 @@ class GameBlockController extends WebServiceController
 		$childSn = empty($this->req->request("child_sn")) ? 0 : $this->req->request("child_sn");
 		$blockModel = $this->getModel("GameBlockModel");
 		$res = $blockModel->blockFixture($childSn);
+		$this->requestGameBlock($childSn);
 		echo $res;
 	}
 
@@ -223,6 +224,7 @@ class GameBlockController extends WebServiceController
 		$childSn = empty($this->req->request("child_sn")) ? 0 : $this->req->request("child_sn");
 		$blockModel = $this->getModel("GameBlockModel");
 		$res = $blockModel->cancelBlock($childSn);
+		$this->requestGameBlockCancel($childSn);
 		echo $res;
 	}
 }

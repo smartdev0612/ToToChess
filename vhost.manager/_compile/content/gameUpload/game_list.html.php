@@ -170,11 +170,11 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 	{
 		window.open(url,'','resizable=no width=520 height=240');
 	}
-	function onDelete(child_sn)
+	function onDelete(subchild_sn)
 	{
 		if(confirm("정말 삭제하시겠습니까?  "))
 		{
-			param="child_sn="+child_sn+"&act=delete_game&state=<?php echo $TPL_VAR["state"]?>&game_type=<?php echo $TPL_VAR["gameType"]?>&categoryName=<?php echo $TPL_VAR["categoryName"]?>&special_type=<?php echo $TPL_VAR["special_type"]?>&perpage=<?php echo $TPL_VAR["perpage"]?>&begin_date=<?php echo $TPL_VAR["begin_date"]?>&end_date=<?php echo $TPL_VAR["end_date"]?>&filter_team_type=<?php echo $TPL_VAR["filter_team_type"]?>&filter_team=<?php echo $TPL_VAR["filter_team"]?>&money_option=<?php echo $TPL_VAR["money_option"]?>";
+			param="sn="+subchild_sn+"&act=delete_game&state=<?php echo $TPL_VAR["state"]?>&game_type=<?php echo $TPL_VAR["gameType"]?>&categoryName=<?php echo $TPL_VAR["categoryName"]?>&special_type=<?php echo $TPL_VAR["special_type"]?>&perpage=<?php echo $TPL_VAR["perpage"]?>&begin_date=<?php echo $TPL_VAR["begin_date"]?>&end_date=<?php echo $TPL_VAR["end_date"]?>&filter_team_type=<?php echo $TPL_VAR["filter_team_type"]?>&filter_team=<?php echo $TPL_VAR["filter_team"]?>&money_option=<?php echo $TPL_VAR["money_option"]?>";
 			document.location="/gameUpload/gamelist?"+param;
 		}
 		else
@@ -182,11 +182,11 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 			return;
 		}
 	}
-    function onDeleteDB(child_sn)
+    function onDeleteDB(subchild_sn)
     {
         if(confirm("정말 삭제하시겠습니까?  "))
         {
-            param="child_sn="+child_sn+"&act=delete_game_db&state=<?php echo $TPL_VAR["state"]?>&game_type=<?php echo $TPL_VAR["gameType"]?>&categoryName=<?php echo $TPL_VAR["categoryName"]?>&special_type=<?php echo $TPL_VAR["special_type"]?>&perpage=<?php echo $TPL_VAR["perpage"]?>&begin_date=<?php echo $TPL_VAR["begin_date"]?>&end_date=<?php echo $TPL_VAR["end_date"]?>&filter_team_type=<?php echo $TPL_VAR["filter_team_type"]?>&filter_team=<?php echo $TPL_VAR["filter_team"]?>&money_option=<?php echo $TPL_VAR["money_option"]?>";
+            param="sn="+subchild_sn+"&act=delete_game_db&state=<?php echo $TPL_VAR["state"]?>&game_type=<?php echo $TPL_VAR["gameType"]?>&categoryName=<?php echo $TPL_VAR["categoryName"]?>&special_type=<?php echo $TPL_VAR["special_type"]?>&perpage=<?php echo $TPL_VAR["perpage"]?>&begin_date=<?php echo $TPL_VAR["begin_date"]?>&end_date=<?php echo $TPL_VAR["end_date"]?>&filter_team_type=<?php echo $TPL_VAR["filter_team_type"]?>&filter_team=<?php echo $TPL_VAR["filter_team"]?>&money_option=<?php echo $TPL_VAR["money_option"]?>";
             document.location="/gameUpload/gamelist?"+param;
         }
         else
@@ -611,12 +611,12 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						</td>
 						<td>
 <?php if(($TPL_V1["special"]==1 or $TPL_V1["special"]==2)&&$TPL_V1["result"]!=1){?>
-								<input type="button" class="btnStyle3" value="마감" onclick="onDeadLine(<?php echo $TPL_V1["child_sn"]?>)";>&nbsp;
+								<input type="button" class="btnStyle3" value="마감" onclick="onDeadLine(<?php echo $TPL_V1["sn"]?>)";>&nbsp;
 <?php }?>
 							<input type="button" class="btnStyle3" value="수정" onclick="window.open('/gameUpload/popup_modifyresult?mode=edit&idx=<?php echo $TPL_V1["child_sn"]?>&result=<?php echo $TPL_V1["result"]?>','','resizable=no width=650 height=400')";>&nbsp;
 <?php if($TPL_V1["result"]!=1){?>
-								<input type="button" class="btnStyle3" value="삭제" onclick="onDelete(<?php echo $TPL_V1["child_sn"]?>)">
-                                <input type="button" class="btnStyle3" value="완전삭제" onclick="onDeleteDB(<?php echo $TPL_V1["child_sn"]?>)">
+								<input type="button" class="btnStyle3" value="삭제" onclick="onDelete(<?php echo $TPL_V1["sn"]?>)">
+                                <input type="button" class="btnStyle3" value="완전삭제" onclick="onDeleteDB(<?php echo $TPL_V1["sn"]?>)">
 <?php }else{?>
 								<input type='button' class="btnStyle3" value="결과취소" style="color:red" onclick="go_rollback('/gameUpload/cancel_resultProcess?idx=<?php echo $TPL_V1["child_sn"]?>&type=<?php echo $TPL_VAR["type"]?>')")>
 <?php }?>

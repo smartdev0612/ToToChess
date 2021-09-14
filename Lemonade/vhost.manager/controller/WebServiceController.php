@@ -325,7 +325,21 @@ class WebServiceController extends Lemon_Controller
 	}
 
 	// 게임수정
-	
+
+
+	// 게임블록
+	public function requestGameBlock($childSn) {
+		$values = ["nChildSn" => $childSn];
+		$strUrl = "http://127.0.0.1:3001/api/admin?nCmd=2";
+		file_get_contents($strUrl);
+	}
+
+	// 게임블록 해제
+	public function requestGameBlockCancel($childSn) {
+		$values = ["nChildSn" => $childSn];
+		$strUrl = "http://127.0.0.1:3001/api/admin?nCmd=3";
+		file_get_contents($strUrl);
+	}
 	
 	// 배팅정보 수정
 	public function requestRemoveBettingInfo($sn) {

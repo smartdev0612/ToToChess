@@ -376,7 +376,7 @@ class GameModel extends Lemon_Model
 	//▶ 차일드 삭제
 	function delChild($sn)
 	{
-		$sql = "select * from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."total_betting c where a.sn=b.child_sn and b.sn=c.sub_child_sn and a.sn in (".$sn.")";
+		$sql = "select * from ".$this->db_qz."total_betting where sub_child_sn = " . $sn;
 		$rs = $this->db->exeSql($sql);
 		
 		if(count((array)$rs)>0)
@@ -384,11 +384,22 @@ class GameModel extends Lemon_Model
 			throw new Lemon_ScriptException("배팅내역이 있는 경기입니다. 다시한번 확인 하세요.");
 			exit;
 		}
+
+		$sql = "select * from ".$this->db_qz."subchild where sn = " . $sn;
+		$rs = $this->db->exeSql($sql);
 		
+		$child_sn = 0;
+		if(count((array)$rs)>0)
+		{
+			$child_sn = $rs[0]["child_sn"];
+		}
+
 		//-> 삭제하지 않고 뷰 숨김 처리로 변경.
 		//$sql ="delete from ".$this->db_qz."Child where sn in (".$sn.")";
-		$sql = "update ".$this->db_qz."child set view_flag = 0 where sn in (".$sn.")";
+		$sql = "update ".$this->db_qz."subchild set view_flag = 0 where sn = " . $sn;
 		$this->db->exeSql($sql);
+
+		$this->requestHideMarket($child_sn, $sn);
 
 		/* 뷰 숨김 처리 하기 때문에 subchild 삭제 할 필요 없음.
 		$arr_sn	= explode(',',$sn);			
@@ -408,7 +419,7 @@ class GameModel extends Lemon_Model
 		
 		if(count((array)$rs)>0)
 		{
-			throw new Lemon_ScriptException("배팅내역이 있는 경기입니다. 다시한번 확인 하세요.");
+			throw new Lemon_ScriptException("배팅내역이 있는 경기입니다. 다시한번 확인하세요.");
 			exit;
 		}
 		
@@ -429,24 +440,28 @@ class GameModel extends Lemon_Model
 
     function delChildDB($sn)
     {
-        $sql = "select * from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."total_betting c where a.sn=b.child_sn and b.sn=c.sub_child_sn and a.sn in (".$sn.")";
+        $sql = "select * from ".$this->db_qz."total_betting where sub_child_sn = " . $sn;
         $rs = $this->db->exeSql($sql);
 
         if(count((array)$rs)>0)
         {
-            throw new Lemon_ScriptException("배팅내역이 있는 경기입니다. 다시한번 확인 하세요.");
+            throw new Lemon_ScriptException("배팅내역이 있는 경기입니다. 다시한번 확인하세요.");
             exit;
         }
 
-        //-> 삭제하지 않고 뷰 숨김 처리로 변경.
-        $sql ="delete from ".$this->db_qz."child where sn in (".$sn.")";
+		$sql = "select * from ".$this->db_qz."subchild where sn = " . $sn;
+		$rs = $this->db->exeSql($sql);
+		
+		$child_sn = 0;
+		if(count((array)$rs)>0)
+		{
+			$child_sn = $rs[0]["child_sn"];
+		}
 
-        $arr_sn	= explode(',',$sn);
-        for( $i=0; $i<count((array)$arr_sn); ++$i )
-        {
-            $sql ="delete from ".$this->db_qz."subchild where child_sn = (".$arr_sn[$i].")";
-            $this->db->exeSql($sql);
-        }
+        //-> 삭제하지 않고 뷰 숨김 처리로 변경.
+        $sql ="delete from ".$this->db_qz."subchild where sn = ".$sn;
+
+		$this->requestDeleteMarket($child_sn, $sn);
     }
 	
 	function delSubChildDB($sn)
@@ -3233,6 +3248,20 @@ class GameModel extends Lemon_Model
 		$values = ["sn" => $childSn, "gameDate" => $gameDate, "gameHour" => $gameHour, "gameTime" => $gameTime];
 		$strValue = json_encode($values);
 		$strUrl = "http://127.0.0.1:3001/api/game?nCmd=5&strValue=" . $strValue;
+		file_get_contents($strUrl);
+	}
+
+	function requestHideMarket($child_sn = 0, $subchildSn = 0) {
+		$values = ["child_sn" => $child_sn, "subchild_sn" => $subchildSn];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/game?nCmd=6&strValue=" . $strValue;
+		file_get_contents($strUrl);
+	}
+
+	function requestDeleteMarket($child_sn = 0, $subchildSn = 0) {
+		$values = ["child_sn" => $child_sn, "subchild_sn" => $subchildSn];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/game?nCmd=7&strValue=" . $strValue;
 		file_get_contents($strUrl);
 	}
 }
