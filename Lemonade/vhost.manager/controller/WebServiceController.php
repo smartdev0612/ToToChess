@@ -325,8 +325,8 @@ class WebServiceController extends Lemon_Controller
 	}
 
 	// 게임수정
-	public function requestGameModify($sn, $childSn, $gameDate, $gameHour, $gameTime, $gameType, $home_rate, $away_rate, $draw_rate) {
-		$values = ["nChildSn" => $childSn, "nSn" => $sn, "strGameDate" => $gameDate, "strGameHour" => $gameHour, "strGameTime" => $gameTime, "nGameType" => $gameType, "fHomeRate" => $home_rate, "fAwayRate" => $away_rate, "fDrawRate" => $draw_rate];
+	public function requestGameModify($sn, $childSn, $gameDate, $gameHour, $gameTime, $gameType, $familyID, $home_rate, $away_rate, $draw_rate) {
+		$values = ["nChildSn" => $childSn, "nSn" => $sn, "strGameDate" => $gameDate, "strGameHour" => $gameHour, "strGameTime" => $gameTime, "nGameType" => $gameType, "nFamilyID" => $familyID, "fHomeRate" => $home_rate, "fAwayRate" => $away_rate, "fDrawRate" => $draw_rate];
 		$strValue = json_encode($values);
 		$strUrl = "http://127.0.0.1:3001/api/game?nCmd=2&strValue=$strValue";
 		file_get_contents($strUrl);
