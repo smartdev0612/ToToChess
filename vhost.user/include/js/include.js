@@ -1,3 +1,5 @@
+var ajaxInterval;
+
 $j().ready(function(){
     // 스포츠 소켓창조
     sportsSocket(); 
@@ -573,12 +575,23 @@ function sendPacket(nPacketCode, strPacket) {
 
 function onSendReqListPacket(param) {
 	console.log("Send initial packet");
+    clearInterval(ajaxInterval);
 	if(ws.readyState === WebSocket.OPEN) {
 		onLoadingScreen();
 		sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
+        if(param.m_nLive != 2) {
+            ajaxInterval = setInterval(function(){ sendPacket(PACKET_SPORT_AJAX, JSON.stringify(param)); }, 5000);
+        } else {
+            ajaxInterval = setInterval(function(){ sendPacket(PACKET_SPORT_AJAX, JSON.stringify(param)); }, 1500);
+        }
 	} else {
         setTimeout(() => {
             sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
+            if(param.m_nLive != 2) {
+                ajaxInterval = setInterval(function(){ sendPacket(PACKET_SPORT_AJAX, JSON.stringify(param)); }, 5000);
+            } else {
+                ajaxInterval = setInterval(function(){ sendPacket(PACKET_SPORT_AJAX, JSON.stringify(param)); }, 1500);
+            }
         }, 5000);
     }
 }

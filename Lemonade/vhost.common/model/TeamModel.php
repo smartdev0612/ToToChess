@@ -32,7 +32,6 @@ class TeamModel extends Lemon_Model
                 WHERE tb_team.`Sport_Id` IN (SELECT tb_sports.sn FROM tb_sports WHERE tb_sports.use = 1) " . $where;
 
         $sql .= " ORDER BY tb_team.`Sport_Name` LIMIT " . $page . ", " . $page_size;
-        
 		return $this->db->exeSql($sql);
 	}
 

@@ -103,7 +103,7 @@
 			<th>리그명</th>
 			<td>
 				<select name="league" id="league" style="width:70%">
-					<option value="">리그명</option>
+					<option value="0">리그명</option>
 <?php if($TPL_league_list){foreach($TPL_VAR["league_list"] as $TPL_V1){?>
 					<option value="<?=$TPL_V1["lsports_league_sn"]?>" data-nation_sn="<?=$TPL_V1["nation_sn"]?>" <?=($lsports_league_sn == $TPL_V1["lsports_league_sn"]) ? "selected" : ""?>><?php echo $TPL_V1["name"]?></option>
 <?php }}?>
@@ -114,7 +114,7 @@
 			<th>국가명</th>
 			<td>
 				<select id="nation_sn" name="nation_sn">
-					<option value="">국가명</option>
+					<option value="0">국가명</option>
 <?php if($TPL_nation_list){foreach($TPL_VAR["nation_list"] as $TPL_V1){?>
 					<option value="<?php echo $TPL_V1["sn"]?>" <?php if($nation_sn == $TPL_V1["sn"]){?> selected <?php }?>><?php echo $TPL_V1["name"]?></option>
 <?php }}?>

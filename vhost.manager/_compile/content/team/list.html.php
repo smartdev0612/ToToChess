@@ -70,7 +70,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"]) ? 0 : count($TP
 			<!-- 국가 -->
 			<span>국가</span>
 			<select name="nation_sn">
-				<option value="">국가명</option>
+				<option value="0">국가명</option>
 <?php if($TPL_nation_list_1){foreach($TPL_VAR["nation_list"] as $TPL_V1){?>
 				<option value="<?php echo $TPL_V1["sn"]?>" <?php if($TPL_VAR["nation_sn"]==$TPL_V1["sn"]){?> selected<?php }?>><?php echo $TPL_V1["name"]?></option>
 <?php }}?>

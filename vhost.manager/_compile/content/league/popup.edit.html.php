@@ -91,7 +91,7 @@ function nation_flag(url)
 			<th>국가명</th>
 			<td>
 				<select name="nation_sn">
-					<option value="">국가명</option>
+					<option value="0">국가명</option>
 <?php if($TPL_nation_list_1){foreach($TPL_VAR["nation_list"] as $TPL_V1){?>
 					<option value="<?php echo $TPL_V1["sn"]?>" <?php if($nation_sn == $TPL_V1["sn"]){?> selected <?php }?>><?php echo $TPL_V1["name"]?></option>
 <?php }}?>

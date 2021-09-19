@@ -658,6 +658,7 @@
             };
         
             onSendReqListPacket(packet);
+
             return;
         }
         
