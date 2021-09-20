@@ -216,7 +216,7 @@ class LeagueModel extends Lemon_Model
 		$rs = $this->db->exeSql($sql);
 		$old_league_sn = 0;
 		if(count((array)$rs) > 0) {
-			$old_league_sn = $rs[0]['lsports_leauge_sn'];
+			$old_league_sn = $rs[0]['lsports_league_sn'];
 		}
 
 		$sql = "update tb_child set league_sn = '{$lsports_league_sn}', notice = '{$name}' where league_sn = '{$old_league_sn}'";
