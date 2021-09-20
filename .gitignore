@@ -6,5 +6,8 @@ vhost.manager/upload/images/*
 vhost.manager/upload/popup/*
 vhost.partner2/session/*
 vhost.partner/session/*
+m.vhost.user/upload/league/*
+vhost.manager/upload/league/*
+vhost.user/upload/league/*
 cron_bet
 cron_bet.tar.gz
