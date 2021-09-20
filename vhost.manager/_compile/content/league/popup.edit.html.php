@@ -40,6 +40,18 @@ function This_Check()
 		f.league_name.focus();
 		return;
 	}
+
+	if (f.league_kind.value == "") {
+		alert("경기종목을 선택하세요."); 
+		f.league_kind.focus();
+		return;
+	}
+
+	if (f.nation_sn.value == "0") {
+		alert("국가를 선택하세요."); 
+		f.nation_sn.focus();
+		return;
+	}
 	f.submit();
 
 }
@@ -80,7 +92,7 @@ function nation_flag(url)
 			<th>종목</th>
 			<td>
 				<select name="league_kind">
-					<option value="">경기종류선택</option>
+					<option value="">경기종목선택</option>
 <?php if($TPL_category_list_1){foreach($TPL_VAR["category_list"] as $TPL_V1){?>
 					<option value="<?php echo $TPL_V1["name"]?>" <?php if($kind == $TPL_V1["name"]){?> selected <?php }?>><?php echo $TPL_V1["name"]?></option>
 <?php }}?>

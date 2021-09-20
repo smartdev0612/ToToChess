@@ -42,6 +42,25 @@
 			f.team_name.focus();
 			return;
 		}
+
+		if (f.kind.value == "") {
+			alert("경기종목을 선택하세요."); 
+			f.kind.focus();
+			return;
+		}
+
+		if (f.league.value == "0") {
+			alert("리그를 선택하세요."); 
+			f.league.focus();
+			return;
+		}
+
+		if (f.nation_sn.value == "0") {
+			alert("국가를 선택하세요."); 
+			f.nation_sn.focus();
+			return;
+		}
+
 		f.submit();
 	}
 
