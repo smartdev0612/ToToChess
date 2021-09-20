@@ -193,40 +193,41 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 			<input name="Submit4" type="image" src="/img/btn_search.gif" class="imgType" title="검색" />
 		</div>
 		<div class="wrap_search">
-		  <!-- 더보기 -->
-		  <!--<input name="Submit4" type="image" src="/img/btn_search.gif" class="imgType" />-->
-		  
-		  <!-- 회원상태 -->
-		  <!--N=일반, S=정지, B=불량, W=신규,D=탈퇴-->
-		  
-		  <span class="icon">상태</span>
-		  <input type="hidden" 	 name="filter_state" id="filter_state" value="<?php echo $TPL_VAR["filter_member_state"]?>" class="radio">
-		  <!--
-		  <input type="checkbox" name="filter_member_state" value='W' <?php if(substr($TPL_VAR["filter_member_state"],0,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 신규
-		  <input type="checkbox" name="filter_member_state" value='S' <?php if(substr($TPL_VAR["filter_member_state"],1,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 정지
-		  <input type="checkbox" name="filter_member_state" value='B' <?php if(substr($TPL_VAR["filter_member_state"],2,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 불량
-		  <input type="checkbox" name="filter_member_state" value='N' <?php if(substr($TPL_VAR["filter_member_state"],3,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 정상
-		  <input type="checkbox" name="filter_member_state" value='D' <?php if(substr($TPL_VAR["filter_member_state"],4,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 탈퇴
-		  <input type="checkbox" name="filter_member_state" value='G' <?php if(substr($TPL_VAR["filter_member_state"],5,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 테스트
-		  -->
-		  <input type="checkbox" name="filter_member_state" value='S' <?php if(substr($TPL_VAR["filter_member_state"],0,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 정지
-		  <input type="checkbox" name="filter_member_state" value='N' <?php if(substr($TPL_VAR["filter_member_state"],1,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 정상
-		  <input type="checkbox" name="filter_member_state" value='G' <?php if(substr($TPL_VAR["filter_member_state"],2,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 테스트
-		  <input type="checkbox" name="filter_member_state" value='W' <?php if(substr($TPL_VAR["filter_member_state"],3,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 심사
-		  <input type="checkbox" name="filter_member_state" value='D' <?php if(substr($TPL_VAR["filter_member_state"],4,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 탈퇴
-		  &nbsp;&nbsp;&nbsp;&nbsp;
-		  
-		  <!-- 회원등급 -->
-		  <input type="hidden" 	 name="filter_level" id="filter_level" value="<?php echo $TPL_VAR["filter_level"]?>">
-		  <span class="icon">등급</span>
+			<!-- 더보기 -->
+			<!--<input name="Submit4" type="image" src="/img/btn_search.gif" class="imgType" />-->
+			
+			<!-- 회원상태 -->
+			<!--N=일반, S=정지, B=불량, W=신규,D=탈퇴-->
+			
+			<span class="icon">상태</span>
+			<input type="hidden" 	 name="filter_state" id="filter_state" value="<?php echo $TPL_VAR["filter_member_state"]?>" class="radio">
+			<!--
+			<input type="checkbox" name="filter_member_state" value='W' <?php if(substr($TPL_VAR["filter_member_state"],0,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 신규
+			<input type="checkbox" name="filter_member_state" value='S' <?php if(substr($TPL_VAR["filter_member_state"],1,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 정지
+			<input type="checkbox" name="filter_member_state" value='B' <?php if(substr($TPL_VAR["filter_member_state"],2,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 불량
+			<input type="checkbox" name="filter_member_state" value='N' <?php if(substr($TPL_VAR["filter_member_state"],3,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 정상
+			<input type="checkbox" name="filter_member_state" value='D' <?php if(substr($TPL_VAR["filter_member_state"],4,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 탈퇴
+			<input type="checkbox" name="filter_member_state" value='G' <?php if(substr($TPL_VAR["filter_member_state"],5,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 테스트
+			-->
+			<input type="checkbox" name="filter_member_state" value='S' <?php if(substr($TPL_VAR["filter_member_state"],0,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 정지
+			<input type="checkbox" name="filter_member_state" value='N' <?php if(substr($TPL_VAR["filter_member_state"],1,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 정상
+			<input type="checkbox" name="filter_member_state" value='G' <?php if(substr($TPL_VAR["filter_member_state"],2,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 테스트
+			<input type="checkbox" name="filter_member_state" value='W' <?php if(substr($TPL_VAR["filter_member_state"],3,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 심사
+			<input type="checkbox" name="filter_member_state" value='D' <?php if(substr($TPL_VAR["filter_member_state"],4,1)=='1'){?> checked<?php }?> onClick="onStateClick();" class="radio"> 탈퇴
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			
+			<!-- 회원등급 -->
+			<input type="hidden" 	 name="filter_level" id="filter_level" value="<?php echo $TPL_VAR["filter_level"]?>">
+			<span class="icon">등급</span>
 <?php if($TPL_config_rows_1){$TPL_I1=-1;foreach($TPL_VAR["config_rows"] as $TPL_V1){$TPL_I1++;?>
 				<input type="checkbox" name="filter_member_level" value='<?php echo $TPL_V1["lev"]?>' <?php if(substr($TPL_VAR["filter_level"],$TPL_I1,1)=='1'){?> checked<?php }?> onClick="onLevelClick();" class="radio"> <?php echo $TPL_V1["lev_name"]?>
 
 <?php }}?>
-		  <br>
-		  <!-- 최종도메인 
-		  <span class="icon">최종 도메인</span>
-		  <input type="hidden" 	 name="filter_domain" id="filter_domain" value="<?php echo $TPL_VAR["filter_domain"]?>">
+			<span style="float:right; font-size:15px; margin-right:15px;">총 : <label id="memberCnt"><?=$TPL_VAR["memberCount"]?></label> 명</span>
+			<br>
+			<!-- 최종도메인 
+			<span class="icon">최종 도메인</span>
+			<input type="hidden" 	 name="filter_domain" id="filter_domain" value="<?php echo $TPL_VAR["filter_domain"]?>">
 <?php if($TPL_domain_list_1){$TPL_I1=-1;foreach($TPL_VAR["domain_list"] as $TPL_V1){$TPL_I1++;?>
 				<input type="checkbox" name="domain" value='<?php echo $TPL_V1["url"]?>' <?php if(substr($TPL_VAR["filter_domain"],$TPL_I1,1)=='1'){?> checked<?php }?> onClick="onDomainClick();" class="radio"> <?php echo $TPL_V1["url"]?>
 

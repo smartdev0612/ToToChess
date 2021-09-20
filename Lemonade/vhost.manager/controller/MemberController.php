@@ -276,7 +276,7 @@ class MemberController extends WebServiceController
 		$this->view->assign('filter_domain', $filterDomain);
 		$this->view->assign('filter_partner_sn', $filterPartnerSn);
 		$this->view->assign('list', $list);
-		//$this->view->assign('domain_list', $domainList);
+		$this->view->assign('memberCount', $total);
 		$this->view->assign('partner_list', $partnerList);
 		$this->view->assign('config_rows', $configRows);
 		$this->view->assign('level_list', $levelList);
