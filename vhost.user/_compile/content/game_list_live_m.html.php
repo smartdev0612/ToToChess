@@ -506,7 +506,7 @@
         calc();
     }
 
-    function getLiveGameList(page_index, sport_type, league_sn = 0, today = 0) {
+    function getLiveGameList(page_index, sport_type = "", league_sn = 0, today = 0) {
         $j("#sport_type").val(sport_type);
         $j("#league_sn").val(league_sn);
         $j("#today").val(today);

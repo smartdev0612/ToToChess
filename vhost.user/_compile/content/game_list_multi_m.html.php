@@ -514,7 +514,7 @@
         getGameList(page_index, sport_type, league_sn, today);
     }
 
-    function getGameList(page_index, sport_type, league_sn = 0, today = 0) {
+    function getGameList(page_index, sport_type = "", league_sn = 0, today = 0) {
         $j("#sport_type").val(sport_type);
         $j("#league_sn").val(league_sn);
         $j("#today").val(today);
