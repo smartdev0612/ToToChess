@@ -134,6 +134,16 @@ class MemberController extends WebServiceController
 				$model->modifyByParam($targetMemberSn, $set);
 			}
 		}
+		else if($act == "modify_single_betting")
+		{
+			$targetMemberSn = $this->request("modify_member_sn");
+			$single_betting	= $this->request("modify_single_betting");
+			if($targetMemberSn != "" && $single_betting != "")
+			{
+				$set = " single_betting='".$single_betting."'";
+				$model->modifyByParam($targetMemberSn, $set);
+			}
+		}
 		else if($act == "modify")
 		{
 			$targetMemberSn 		= $this->request("modify_member_sn");
@@ -149,7 +159,7 @@ class MemberController extends WebServiceController
 				$model->modifyByParam($targetMemberSn, $set);
 			}
 		}
-
+		$where = "";
 		if($keyword!="")
 		{
 			if($field=="mem_id") 		{ $where.=" and a.uid like '%".$keyword."%'";}

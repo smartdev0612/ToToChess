@@ -63,7 +63,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 		//document.form2.submit();
 	}
 	
-	//유저의 등급, 상태 변경시 호출
+	//유저의 등급, 상태, 단폴배팅 변경시 호출
 	function onMemberModifyState(member_sn, state)
 	{
 		document.form1.act.value="modify_state";
@@ -86,6 +86,14 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 		document.form1.act.value="modify_domain";
 		document.form1.modify_member_sn.value=member_sn;
 		document.form1.modify_domain.value=_domain;
+		document.form1.submit();
+	}
+
+	function onMemberModifySingleBetting(member_sn, single_betting)
+	{
+		document.form1.act.value = "modify_single_betting";
+		document.form1.modify_member_sn.value = member_sn;
+		document.form1.modify_single_betting.value = single_betting;
 		document.form1.submit();
 	}
 	
@@ -259,6 +267,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 		<input type="hidden" id="modify_domain" name="modify_domain" value="">
 		<input type="hidden" id="modify_member_sn" name="modify_member_sn" value="">
 		<input type="hidden" id="modify_board_auth" name="modify_board_auth" value="">
+		<input type="hidden" id="modify_single_betting" name="modify_single_betting" value="">
 		
 		<table cellspacing="1" class="tableStyle_members" summary="회원목록">
 		<legend class="blind">회원목록</legend>
@@ -283,6 +292,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 			<th scope="col">총판</th>
             <th scope="col">추천가능</th>
 			<th scope="col">진상관리</th>
+			<th scope="col">단폴배팅</th>
 <?php
 	if ( $_SESSION['member']['sn'] < 1000 ) {
 ?>
@@ -321,16 +331,16 @@ $TPL_permit_domain_list_2=empty($TPL_V1["permit_domain_list"])||!is_array($TPL_V
 					<td rowspan="2" title="배팅내역""><a href="javascript:void(0)" onclick="open_window('/member/popup_bet?mem_sn=<?php echo $TPL_V1["sn"]?>',1024,600)"><?php echo number_format($TPL_V1["bet_total"],0)?></a></td>
 					<td rowspan="2"><?php echo number_format($TPL_V1["benefit"])?></td>
 					<td rowspan="2">
-							<select style="width:50px" name="mem_status" onChange="onMemberModifyState(<?php echo $TPL_V1["sn"]?>, this.value);">
-								<option value="N" <?php if($TPL_V1["mem_status"]=='N'){?> selected <?php }?>>정상</option>
-								<option style="color:blue" value="W" <?php if($TPL_V1["mem_status"]=='W'){?> selected <?php }?>>심사</option>
-								<option style="color:red" value="S" <?php if($TPL_V1["mem_status"]=='S'){?> selected <?php }?>>정지</option>
-								<!--
-								<option style="color:blue" value="B" <?php if($TPL_V1["mem_status"]=='B'){?> selected <?php }?>>불량</option>
-								-->
-								<option style="color:red" value="D" <?php if($TPL_V1["mem_status"]=='D'){?> selected <?php }?>>탈퇴</option>
-								<option style="color:gray" value="G" <?php if($TPL_V1["mem_status"]=='G'){?> selected <?php }?>>테스터</option>
-							</select>
+						<select style="width:50px" name="mem_status" onChange="onMemberModifyState(<?php echo $TPL_V1["sn"]?>, this.value);">
+							<option value="N" <?php if($TPL_V1["mem_status"]=='N'){?> selected <?php }?>>정상</option>
+							<option style="color:blue" value="W" <?php if($TPL_V1["mem_status"]=='W'){?> selected <?php }?>>심사</option>
+							<option style="color:red" value="S" <?php if($TPL_V1["mem_status"]=='S'){?> selected <?php }?>>정지</option>
+							<!--
+							<option style="color:blue" value="B" <?php if($TPL_V1["mem_status"]=='B'){?> selected <?php }?>>불량</option>
+							-->
+							<option style="color:red" value="D" <?php if($TPL_V1["mem_status"]=='D'){?> selected <?php }?>>탈퇴</option>
+							<option style="color:gray" value="G" <?php if($TPL_V1["mem_status"]=='G'){?> selected <?php }?>>테스터</option>
+						</select>
 					</td>
 					<td><?php echo $TPL_V1["regdate"]?></td>
 					<td><?php echo $TPL_V1["last_date"]?></td>
@@ -342,6 +352,12 @@ $TPL_permit_domain_list_2=empty($TPL_V1["permit_domain_list"])||!is_array($TPL_V
                     <td><?php echo $TPL_V1["is_recommender"] == 1 ? "추천가능" : "";?></td>
 					<td>
 						게&nbsp;/&nbsp;댓&nbsp;/&nbsp;고
+					</td>
+					<td rowspan="2">
+						<select name="single_betting" onChange="onMemberModifySingleBetting(<?php echo $TPL_V1["sn"]?>, this.value);">
+							<option style="color:red" value="0" <?php if($TPL_V1["single_betting"]=='0'){?> selected <?php }?>>불가능</option>
+							<option style="color:blue" value="1" <?php if($TPL_V1["single_betting"]=='1'){?> selected <?php }?>>가능</option>
+						</select>
 					</td>
 <?php
 	if ( $_SESSION['member']['sn'] < 1000 ) {
