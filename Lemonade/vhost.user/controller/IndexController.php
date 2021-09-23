@@ -446,6 +446,14 @@ class IndexController extends WebServiceController
 		$chargeAmt = $memberModel->todayChargeAmount($member_sn, $today);
 		$todayPresense = $memberModel->todayPresenseCheck($member_sn, $today);
 
+		$thisMonth = date('Y') . "-" . date('m') . "-";
+		$thisMonthPresence = $memberModel->getThisMonthPresence($member_sn, $thisMonth);
+		$presenceDays = array();
+		if(count(array($thisMonthPresence)) > 0) {
+			foreach($thisMonthPresence as $day) {
+				array_push($presenceDays, date('j', strtotime($day["date"])));
+			}
+		}
 
 		$is_enable_check = 1;
 
@@ -464,7 +472,7 @@ class IndexController extends WebServiceController
 		$this->view->define(array("content"=>"content/calendar.html"));
 		$this->view->assign('is_enable_check', $is_enable_check);
 		$this->view->assign('is_checked', $is_checked);
-
+		$this->view->assign('presenceDays', $presenceDays);
 		$this->display();
 	}
 

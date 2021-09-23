@@ -2,7 +2,6 @@
 <?php
     $is_enable_check = $TPL_VAR["is_enable_check"];
     $is_checked = $TPL_VAR["is_checked"];
-
     // get params
     $currMonth= date("m");
     $currYear = date("Y");
@@ -214,7 +213,20 @@
                                             echo ("<img src='/10bet/images/10bet/ico_attend_02.png'>");
                                         }
                                     } else {
-                                        echo ("<img src='/10bet/images/10bet/ico_attend_01.png'>");
+                                        $isAttend = 0;
+                                        foreach($TPL_VAR["presenceDays"] as $day) {
+                                            if($arrCal[$i][$j] == $day) {
+                                                $isAttend = 1;
+                                                break;
+                                            } else {
+                                                $isAttend = 0;
+                                            }
+                                        }
+                                        if($isAttend == 0) {
+                                            echo ("<img src='/10bet/images/10bet/ico_attend_01.png'>");
+                                        } else {
+                                            echo ("<img src='/10bet/images/10bet/ico_attend_02.png'>");
+                                        }
                                     }
                                     echo ('<span>'.$arrCal[$i][$j].'</span>');
                                     echo ('</div>');

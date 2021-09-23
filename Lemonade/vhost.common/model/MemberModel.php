@@ -825,6 +825,12 @@ class MemberModel extends Lemon_Model
         return $rs;
     }
 
+    function getThisMonthPresence($member_sn = 0, $thisMonth = "") {
+        $sql = "select date from tb_presense_check where member_sn = {$member_sn} and date like '{$thisMonth}%'";
+        $rs = $this->db->exeSql($sql);
+        return $rs;
+    }
+
     function checkPresense($mem_sn) {
         $sql = "insert into tb_presense_check(member_sn,date) values ";
         $sql.= "(".$mem_sn.",now())";
