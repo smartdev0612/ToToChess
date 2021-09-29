@@ -155,6 +155,8 @@ class RaceController extends WebServiceController
 								$TPL_V2["draw_rate"] = $TPL_V2["game_draw_rate"];
 								$TPL_V2["away_rate"] = $TPL_V2["game_away_rate"];
 								$battingJT = "1";
+							} else {
+								$battingJT = "0";
 							}
 							$table .= '<tr data-game_id="1731940" data-fid="6967104" data-mid="1" data-gb_id="25322682" data-betid="20609690316967104">';
 							$table .= '<td>' . $TPL_V2["gameDate"] . ' ' . $TPL_V2["gameHour"] . ' : ' . $TPL_V2["gameTime"] . '</td>';
@@ -331,6 +333,8 @@ class RaceController extends WebServiceController
 							$TPL_V2["draw_rate"] = $TPL_V2["game_draw_rate"];
 							$TPL_V2["away_rate"] = $TPL_V2["game_away_rate"];
 							$battingJT = "1";
+						} else {
+							$battingJT = "0";
 						}
 						$table .= '<tr><td>';
 						$table .= '<img src="/BET38/_icon/sport/S' . $TPL_V2["sport_id"] . '.png" width="20">&nbsp;';

@@ -89,6 +89,8 @@
                                             $TPL_V2["draw_rate"] = $TPL_V2["game_draw_rate"];
                                             $TPL_V2["away_rate"] = $TPL_V2["game_away_rate"];
                                             $battingJT = "1";
+                                        } else {
+                                            $battingJT = "0";
                                         }
                                         $table .= '<tr><td>';
                                         $table .= '<img src="/BET38/_icon/sport/S' . $TPL_V2["sport_id"] . '.png" width="20">&nbsp;';
