@@ -5,7 +5,7 @@ $j().ready(function(){
     sportsSocket(); 
 
     // 미니게임 소켓창조
-    miniSocket();
+    // miniSocket();
 
     $j(function(){ 
         var ww2 = window.innerWidth;
@@ -473,6 +473,12 @@ function scrollToTopDiv(div_id) {
 /******************************************* Web Socket *******************************************/
 var showJson;
 
+var strSocketMessage = ""; // 파켓렬
+
+var socketError = 0;
+
+var nSendType = 1;
+
 var ws; // 스포츠 소켓
 
 var wsMini; // 미니게임 소켓
@@ -482,7 +488,8 @@ var packet = {
     "m_nLeague"     :   0,
     "m_nLive"       :   0,
     "m_nPageIndex"  :   0,
-    "m_nPageSize"   :   50
+    "m_nPageSize"   :   50,
+    "m_nSendType"   :   nSendType
 };
 
 function sportsSocket() {
@@ -490,10 +497,19 @@ function sportsSocket() {
 
     ws.onopen = function (event) {
         console.log("WebSocket Opened");
+        if(socketError == 1) {
+            console.log(packet);
+            onSendReqListPacket(packet);
+        }
+
+        socketError = 0;
     };
     
     ws.onerror = function (event) {
         console.log("WebSocket Error");
+        socketError = 1;
+        nSendType = 0;
+        packet.m_nSendType = nSendType;
         sportsSocket();
     }
 
@@ -507,14 +523,37 @@ function sportsSocket() {
             var objPacket = JSON.parse(event.data);
             
             if(objPacket.m_nPacketCode == PACKET_SPORT_LIST) {
-                // console.log(objPacket);
-                onRevGameList(objPacket.m_strPacket);
-            }
-            else if(objPacket.m_nPacketCode == PACKET_SPORT_BET) {
+                if(objPacket.m_strPacket == "") {
+                    onRevGameList(objPacket.m_strPacket);
+                } else {
+                    if(objPacket.m_nEnd == 0) {
+                        strSocketMessage += objPacket.m_strPacket;
+                    } else if(objPacket.m_nEnd == 1) {
+                        strSocketMessage += objPacket.m_strPacket;
+                        onRevGameList(strSocketMessage);
+                        strSocketMessage = "";
+                    }
+                }
+            } else if(objPacket.m_nPacketCode == PACKET_SPORT_BET) {
                 onRecvBetting(objPacket);
-            }
-            else if(objPacket.m_nPacketCode == PACKET_SPORT_AJAX) {
-                onRecvAjaxList(objPacket.m_strPacket);
+            } else if(objPacket.m_nPacketCode == PACKET_SPORT_AJAX) {
+                if(objPacket.m_strPacket == "") {
+                    onRecvAjaxList(objPacket.m_strPacket);
+                } else {
+                    if(objPacket.m_nEnd == 0) {
+                        strSocketMessage += objPacket.m_strPacket;
+                    } else if(objPacket.m_nEnd == 1) {
+                        strSocketMessage += objPacket.m_strPacket;
+                        onRecvAjaxList(strSocketMessage);
+                        strSocketMessage = "";
+                    }
+                }
+            } else if(objPacket.m_nPacketCode == PACKET_POWERBALL_BET) {
+                onRecvBetting(objPacket);
+            } else if(objPacket.m_nPacketCode == PACKET_POWERLADDER_BET) {
+                onRecvBetting(objPacket);
+            } else if(objPacket.m_nPacketCode == PACKET_POWERBALL_TIME) {
+                realTime(objPacket.m_strPacket);
             }
         }
         catch(err) {
@@ -603,7 +642,8 @@ function sendMiniPacket(nPacketCode, strPacket) {
         "m_strPacket"       :   strPacket
     };
 
-    wsMini.send(JSON.stringify(packet));
+    // wsMini.send(JSON.stringify(packet));
+    ws.send(JSON.stringify(packet));
 }
 
 

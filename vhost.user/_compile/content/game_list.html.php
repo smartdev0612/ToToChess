@@ -416,9 +416,7 @@
             localStorage.clear();
             var sport_type = '<?php echo $TPL_VAR["sport_type"]?>';
             // getBonusList();
-            setTimeout(() => {
-                getClassicGameList(0, 0);
-            }, 500);
+            getClassicGameList(0, 0);
             onLoadingScreen();
         });
         
@@ -654,7 +652,8 @@
                 "m_nLeague"     :   league_sn,
                 "m_nLive"       :   0,
                 "m_nPageIndex"  :   page_index,
-                "m_nPageSize"   :   100
+                "m_nPageSize"   :   100,
+                "m_nSendType"   :   nSendType
             };
         
             onSendReqListPacket(packet);

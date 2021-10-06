@@ -720,7 +720,8 @@
             "m_nLeague"     :   league_sn,
             "m_nLive"       :   3,
             "m_nPageIndex"  :   page_index,
-            "m_nPageSize"   :   100
+            "m_nPageSize"   :   100,
+            "m_nSendType"   :   nSendType
         };
 
         onSendReqListPacket(packet);

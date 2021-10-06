@@ -592,7 +592,8 @@
             "m_nLeague"     :   league_sn,
             "m_nLive"       :   1,
             "m_nPageIndex"  :   page_index,
-            "m_nPageSize"   :   100
+            "m_nPageSize"   :   100,
+            "m_nSendType"   :   nSendType
         };
 
         if(ws.readyState === WebSocket.OPEN)
