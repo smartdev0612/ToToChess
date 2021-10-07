@@ -123,7 +123,7 @@
     <script type="text/javascript" src="/10bet/js/clock.js?20160309"></script> 
     
     <div id="loading">
-        <img src="/10bet/images/10bet/loading.png">
+        <img src="/10bet/images/10bet/loading.png?v=<?=time()?>">
     </div>
     <div id="betLoading" style="display:none;">
         <img src="/10bet/images/Spinner.svg">
