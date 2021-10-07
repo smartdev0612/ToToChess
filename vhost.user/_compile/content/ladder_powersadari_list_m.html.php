@@ -358,24 +358,46 @@
     $j(function(){
         var ww = $j(window).width();
         
-        if(ww >= 450 && ww < 900  ) {
+        // 엔트리
+        /* if(ww >= 450 && ww < 900  ) {
             $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-312px","top":"-160px"});
         } else if(ww > 375 && ww < 450  ) {
             $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-270px","top":"-160px"});
         } else if ( ww <= 375 ) {
             $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-310px","top":"-160px"});
+        } */
+
+        // 우리볼
+        if(ww >= 450 && ww < 900  ) {
+            $j(".frameScale").css({"transform":"scale(0.64,0.64)","left":"-270px","top":"-140px"});
+        } else if(ww > 375 && ww < 450  ) {
+            $j(".frameScale").css({"transform":"scale(0.64,0.64)","left":"-270px","top":"-140px"});
+        } else if ( ww <= 375 ) {
+            $j(".frameScale").css({"transform":"scale(0.63,0.63)","left":"-310px","top":"-150px"});
         }
     });
     $j(window).resize(function() { 
         var ww = $j(window).width();
-        if(ww >= 450 && ww < 900  ) {
+
+        // 엔트리
+        /* if(ww >= 450 && ww < 900  ) {
             $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-312px","top":"-160px"});
         } else if(ww > 375 && ww < 450  ) {
             $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-270px","top":"-160px"});
         } else if ( ww <= 375 ) {
             $j(".frameScale").css({"transform":"scale(0.52,0.52)","left":"-310px","top":"-160px"});
+        } */
+
+        // 우리볼 
+        if(ww >= 450 && ww < 900  ) {
+            $j(".frameScale").css({"transform":"scale(0.64,0.64)","left":"-270px","top":"-140px"});
+        } else if(ww > 375 && ww < 450  ) {
+            $j(".frameScale").css({"transform":"scale(0.64,0.64)","left":"-270px","top":"-140px"});
+        } else if ( ww <= 375 ) {
+            $j(".frameScale").css({"transform":"scale(0.63,0.63)","left":"-310px","top":"-150px"});
         }
     });
+
 </script>
 <style type="text/css">
     .frameScale {
