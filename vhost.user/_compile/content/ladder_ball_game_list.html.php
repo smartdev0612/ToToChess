@@ -88,7 +88,8 @@
                                                                     <div class="game_box">
                                                                         <div class="view_section" style="width:50%;">
                                                                             <div id="game_view" class="game_view" style="height:507px;">
-                                                                                <iframe class="frameScale" scrolling="no" src="http://ntry.com/scores/powerball/live.php" frameborder="0" width="870" height="641" style="margin-top:-71px; margin-left:-95px;"></iframe>
+                                                                                <!-- <iframe class="frameScale" scrolling="no" src="http://ntry.com/scores/powerball/live.php" frameborder="0" width="870" height="641" style="margin-top:-71px; margin-left:-95px;"></iframe> -->
+                                                                                <iframe class="frameScale" scrolling="no" src="https://wb01.wooriball.com/game_info/frame_powerball_game.php" frameborder="0" width="870" height="671" style="margin-top:-95px; margin-left:-110px;"></iframe>
                                                                             </div>
                                                                             <div id="gamelist" class="bet_section" style="width:100%;">
                                                                                 <div class="bet_cart_box">

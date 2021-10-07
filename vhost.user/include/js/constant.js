@@ -15,8 +15,8 @@ const PACKET_POWERLADDER_BET = 0x22;    // 파워사다리 배팅 코드
 const PACKET_KENOLADDER_BET = 0x32;     // 키노사다리 배팅 코드
 
 //스포츠 소켓주소
-// const WS_SPORTS_ADDRESS = "wss://line1111.com:8443";
-const WS_SPORTS_ADDRESS = "ws://211.115.107.195:3002";
+const WS_SPORTS_ADDRESS = "wss://line1111.com:8443";
+//const WS_SPORTS_ADDRESS = "ws://211.115.107.195:3002";
 
 //미니게임 소켓주소
 // const WS_MINI_ADDRESS = "wss://line1111.com:8443";

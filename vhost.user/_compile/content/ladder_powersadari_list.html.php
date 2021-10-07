@@ -77,7 +77,8 @@
                                                                     <div class="game_box">
                                                                         <div class="view_section">
                                                                             <div id="game_view" class="game_view">
-                                                                                <iframe class="frameScale" scrolling="no" src="http://ntry.com/scores/power_ladder/live.php" frameborder="0" width="830" height="641" style="margin-top:10px; margin-left:3px;"></iframe>
+                                                                                <!-- <iframe class="frameScale" scrolling="no" src="http://ntry.com/scores/power_ladder/live.php" frameborder="0" width="830" height="641" style="margin-top:10px; margin-left:3px;"></iframe> -->
+                                                                                <iframe class="frameScale" scrolling="no" src="https://wb01.wooriball.com/game_info/frame_powerladder_game.php" frameborder="0" width="860" height="669" style="margin-top:-5px; margin-left:-23px;"></iframe>
                                                                             </div>
                                                                             <div id="gamelist" class="bet_section" style="width:100%;">
                                                                                 <div class="bet_cart_box">
