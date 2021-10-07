@@ -449,7 +449,7 @@ class IndexController extends WebServiceController
 		$thisMonth = date('Y') . "-" . date('m') . "-";
 		$thisMonthPresence = $memberModel->getThisMonthPresence($member_sn, $thisMonth);
 		$presenceDays = array();
-		if(count(array($thisMonthPresence)) > 0) {
+		if(count((array)$thisMonthPresence) > 0) {
 			foreach($thisMonthPresence as $day) {
 				array_push($presenceDays, date('j', strtotime($day["date"])));
 			}
