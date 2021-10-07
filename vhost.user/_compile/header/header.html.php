@@ -257,7 +257,7 @@
         <!-- 해더 웹 -->
         <header style="display:<?=($isApi == "true") ? "none" : "block"?>;">
             <div class="header_box">
-                <h1><a href="/"><img src="/10bet/images/10bet/logo_01.png?v01" alt="Chess 로고" /></a></h1>
+                <h1><a href="/"><img src="/10bet/images/10bet/logo_01.png?v=<?=time()?>" alt="Chess 로고" /></a></h1>
                 
                 <div id="gnb">
                     <ul class="on">
