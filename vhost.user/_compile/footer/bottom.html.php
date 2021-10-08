@@ -17,7 +17,7 @@
             </li>
             <li>
                 <span class="ico_bottom_menu" id="ico_bottom_menu">
-                    SPORT
+                    SPORTS
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 35" fill="currentColor">
                         <rect width="33" height="7" rx="3.5" ry="3.5"></rect>
                         <rect y="14" width="33" height="7" rx="3.5" ry="3.5"></rect>
@@ -99,12 +99,6 @@
             <div>
                 <h3>
                     오늘의 경기 
-                    <?php
-                    if($TPL_VAR['game_type'] == "multi" && $TPL_VAR['s_type'] == "2") 
-                        echo "<span class='cor01'>SPORT-2</span>";
-                    else 
-                        echo "<span class='cor01'>SPORT-1</span>";
-                    ?>
                     <span class="date"><?=date("Y-m-d");?></span>
                 </h3>
                 <ul class="main_left sports_league_ul">
