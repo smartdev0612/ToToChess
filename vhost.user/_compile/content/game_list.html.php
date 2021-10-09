@@ -352,18 +352,20 @@
                                                    <?php }
                                                       ?>
                                                 </div>
+                                                
                                                 <table class="sports_game" width="100%" border="0" cellspacing="0" cellpadding="0" id="board_list" style="padding:18px;float:left;">
                                                    <tbody id="gamelist">
                                                    </tbody>
                                                 </table>
                                                 <div class="page_skip">
-                                                   <span class="num">
-                                                   &nbsp;<a class="page page_1 on" href="javascript:void(0)" onclick="getPage('0')">1</a>
-                                                   &nbsp;<a class="page page_2" href="javascript:void(0)" onclick="getPage('1')">2</a>
-                                                   &nbsp;<a class="page page_3" href="javascript:void(0)" onclick="getPage('2')">3</a>
-                                                   &nbsp;<a class="page page_4" href="javascript:void(0)" onclick="getPage('3')">4</a>
-                                                   &nbsp;<a class="page page_5" href="javascript:void(0)" onclick="getPage('4')">5</a>
-                                                   </span>
+                                                    <input type="hidden" id="sport_type" value="">
+                                                    <span class="num">
+                                                    &nbsp;<a class="page page_1 on" href="javascript:void(0)" onclick="getPage('0')">1</a>
+                                                    &nbsp;<a class="page page_2" href="javascript:void(0)" onclick="getPage('1')">2</a>
+                                                    &nbsp;<a class="page page_3" href="javascript:void(0)" onclick="getPage('2')">3</a>
+                                                    &nbsp;<a class="page page_4" href="javascript:void(0)" onclick="getPage('3')">4</a>
+                                                    &nbsp;<a class="page page_5" href="javascript:void(0)" onclick="getPage('4')">5</a>
+                                                    </span>
                                                 </div>
                                              </td>
                                              <div style="text-align:center;"> </div>

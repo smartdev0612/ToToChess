@@ -341,7 +341,7 @@
     </div>
     <div id="st_site">
         <!-- CONTAINER -->
-        <div class="st_container" id="centerPage" style="overflow:auto; padding-bottom:200px;max-height:600px;">
+        <div class="st_container" id="centerPage" style="overflow:auto; padding-bottom:350px;max-height:600px;">
             <div class="st_b_cont_bg">
                 <!-- CONTAINER TOTAL LEFT+RIGHT-->
                 <div class="width_100 bt_g_tabs2">
