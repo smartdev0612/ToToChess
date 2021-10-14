@@ -418,7 +418,9 @@
             localStorage.clear();
             var sport_type = '<?php echo $TPL_VAR["sport_type"]?>';
             // getBonusList();
-            getClassicGameList(0, 0);
+            setTimeout(() => {
+                getClassicGameList(0, 0);
+            }, 1000);
             onLoadingScreen();
         });
         
