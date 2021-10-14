@@ -57,7 +57,7 @@ class WebServiceController extends Lemon_Controller
 			// session_destroy();
 			// $this->view->define("index","layout/layout.iframe.html");
 			// $this->view->define("index","content/maintain.html");
-			// $this->view->assign("maintain_ment", $rs['maintain_ment']);		
+			// $this->view->assign("maintain_ment", $rs['maintain_ment']);
 		}
 
 		// xssClean
@@ -172,6 +172,8 @@ class WebServiceController extends Lemon_Controller
 		$this->view->assign("style_type",  $style_type);
 		$this->view->assign('ads', $ads);
 		$this->view->assign('checkAgent', $checkAgent);
+		$this->view->assign('maintain', $rs['maintain']);
+		$this->view->assign('maintain_ment', html_entity_decode($rs['maintain_ment']));
 	}
 	
 	/*
@@ -396,9 +398,9 @@ class WebServiceController extends Lemon_Controller
 		
 		$this->view->assign("con_domain", $conDomain);
 		
-		if($rs['maintain']==2 && $_SERVER["REMOTE_ADDR"]!='121.132.114.18')
+		if($rs['maintain'] == 2)
 		{
-			$this->view->define("index","content/maintain.html");
+			$this->redirect('/');
 		}
 		else
         {

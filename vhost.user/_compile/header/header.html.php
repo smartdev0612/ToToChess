@@ -129,7 +129,11 @@
         <img src="/10bet/images/Spinner.svg">
         <div class="betting-span"><span>배팅중... <span id="bettingSecond">7</span>초</div>
     </div>
+    <?php if(count((array)$_SESSION['member']) > 0 && $TPL_VAR["maintain"] == 2) {?>
+    <div id="coverBG" style="display:block"></div>
+    <?php } else { ?>
     <div id="coverBG"></div>
+    <?php } ?>
     <div id="coverBG2"></div>
     <!-- 레이어 팝업 -->
     <div id="warning_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;display:none;">
@@ -181,6 +185,20 @@
             </div>
         </div>
     </div>
+    <!-- 점검 팝업 -->
+    <?php if(count((array)$_SESSION['member']) > 0 && $TPL_VAR["maintain"] == 2) {?>
+    <div id="maintain_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;top:12%;width:310px;">
+        <div class="pop_box" style="height:330px;">
+            <h2>점검 알림</h2>
+            <div class="pop_message" style="height:232px; text-align:left;">
+                <?php echo $TPL_VAR["maintain_ment"];?>
+            </div>
+            <div class="btn-center">
+                <!-- <button type="button" class="confirm-yes confirmMaintain">예</button> -->
+            </div>
+        </div>
+    </div>
+    <?php } ?>
     <!-- 쪽지 팝업 -->
     <div id="memo_popup" class="popup_section" style="margin-top:-50px;margin-left:-160px;display:none;top:12%;">
         <div class="pop_box">
