@@ -4588,10 +4588,10 @@ class GameUploadController extends WebServiceController
 			}
 			else
 			{
-				$LeagueName = $rs["name"];
-				$LeagueImg = $rs["lg_img"];
-				$sportName = $rs["kind"];
-				$sport_sn = $rs["sport_sn"];
+				$LeagueName = empty($rs["name"]) ? "" : $rs["name"];
+				$LeagueImg = empty($rs["lg_img"]) ? "" : $rs["lg_img"];
+				$sportName = empty($rs["kind"]) ? "" : $rs["kind"];
+				$sport_sn = empty($rs["sport_sn"]) ? 0 : $rs["sport_sn"];
 				// if( $is_specified_special == 1)
 				// {
 				// 	if( false!=strstr($LeagueName, "득점/무득점"))
