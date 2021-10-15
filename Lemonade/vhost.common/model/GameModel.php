@@ -699,7 +699,7 @@ class GameModel extends Lemon_Model
 	}
 	
 	//▶ 경기 추가
-	function addChild($parentSn = 0, $category = "", $leagueSn = 0, $homeTeam = "", $awayTeam = "", $gameDate = "", $gameHour = "", $gameTime = "", $notice = "", $kubun = 0, $type = 0, $special = 0, $homeRate = 0.00, $drawRate = 0.00, $awayRate = 0.00, $is_specified_special='0', $league_img = "", $sport_sn = 0, $home_line = "", $home_name = "", $game_type = 0, $game_sn = 0, $manual_add = 0, $home_team_id = "", $away_team_id = "")
+	function addChild($parentSn = 0, $category = "", $leagueSn = 0, $homeTeam = "", $awayTeam = "", $gameDate = "", $gameHour = "", $gameTime = "", $notice = "", $kubun = 0, $type = 0, $special = 0, $homeRate = 0.00, $drawRate = 0.00, $awayRate = 0.00, $is_specified_special='0', $league_img = "", $sport_sn = 0, $home_line = "", $home_name = "", $game_type = 0, $game_sn = 0, $manual_add = 0, $home_team_id = 0, $away_team_id = 0)
 	{
 		$sql = "insert into ".$this->db_qz."child("; 
 		$sql = $sql ." parent_sn, game_sn, sport_name, league_sn, home_team, away_team," ;
