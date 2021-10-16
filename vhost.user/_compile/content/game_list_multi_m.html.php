@@ -760,6 +760,15 @@
         showJson = newJson;
     }
 
+    function removeMarketDiv(game, market) {
+        console.log("remove market");
+        var div_id = `div_${game.m_nGame}_${market.m_nMarket}`;
+        var obj = document.getElementById(`${div_id}`);
+        if(obj != null && obj != undefined)
+        {
+            $j(`#${div_id}`).remove();
+        }
+    }
    
     function onClickLeague(nLeague) {
         getGameList(0, "", nLeague, 0);
