@@ -417,7 +417,7 @@ class CartModel extends Lemon_Model
 					LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
 
 			if($orderby!='') {$sql.=" order by ".$orderby;}
-							
+			
 			$rsi = $this->db->exeSql($sql);
 			
 			$itemList[$bettingNo] = $rs[$i];
