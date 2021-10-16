@@ -486,8 +486,7 @@
         
         setTimeout(() => {
             getGameList(0, sport_type, league_sn, today);
-        }, 500);
-        onLoadingScreen();
+        }, 1000);
     });
     
     initialize(<?php echo $TPL_VAR["minBetCount"]?>,<?php echo $TPL_VAR["folderBonus"]["bonus3"]?>,<?php echo $TPL_VAR["folderBonus"]["bonus4"]?>,
@@ -723,6 +722,8 @@
             "m_nPageSize"   :   100,
             "m_nSendType"   :   nSendType
         };
+
+        onLoadingScreen();
 
         onSendReqListPacket(packet);
         return;

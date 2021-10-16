@@ -399,7 +399,9 @@
         // getBonusList();
         localStorage.clear();
         var sport_type = '<?php echo $TPL_VAR["sport_type"]?>';
-        getLiveGameList(0, "", 0, 0);
+        setTimeout(() => {
+            getLiveGameList(0, "", 0, 0);
+        }, 1000);
     });
 
 	initialize(<?php echo $TPL_VAR["minBetCount"]?>,<?php echo $TPL_VAR["folderBonus"]["bonus3"]?>,<?php echo $TPL_VAR["folderBonus"]["bonus4"]?>,

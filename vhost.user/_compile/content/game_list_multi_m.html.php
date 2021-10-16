@@ -402,7 +402,9 @@
         var sport_type = '<?php echo $TPL_VAR["sport_type"]?>';
         var league_sn = '<?php echo $TPL_VAR["league_sn"]?>';
         var today = '<?php echo $TPL_VAR["today"]?>';
-        getGameList(0, sport_type, league_sn, today);
+        setTimeout(() => {
+            getGameList(0, sport_type, league_sn, today);
+        }, 1000);
     });
 
 	initialize(<?php echo $TPL_VAR["minBetCount"]?>,<?php echo $TPL_VAR["folderBonus"]["bonus3"]?>,<?php echo $TPL_VAR["folderBonus"]["bonus4"]?>,
@@ -595,6 +597,8 @@
             "m_nPageSize"   :   100,
             "m_nSendType"   :   nSendType
         };
+
+        onLoadingScreen();
 
         if(ws.readyState === WebSocket.OPEN)
             onSendReqListPacket(packet);

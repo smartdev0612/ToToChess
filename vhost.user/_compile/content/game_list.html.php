@@ -421,7 +421,7 @@
             setTimeout(() => {
                 getClassicGameList(0, 0);
             }, 1000);
-            onLoadingScreen();
+            
         });
         
         initialize(<?php echo $TPL_VAR["minBetCount"]?>,<?php echo $TPL_VAR["folderBonus"]["bonus3"]?>,<?php echo $TPL_VAR["folderBonus"]["bonus4"]?>,
@@ -659,6 +659,8 @@
                 "m_nPageSize"   :   100,
                 "m_nSendType"   :   nSendType
             };
+
+            onLoadingScreen();
         
             onSendReqListPacket(packet);
 

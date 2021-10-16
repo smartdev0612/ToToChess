@@ -470,7 +470,7 @@
         var sport_type = '<?php echo $TPL_VAR["sport_type"]?>';
         setTimeout(() => {
             getLiveGameList(0, "", 0, 0);
-        }, 500);
+        }, 1000);
         
     });
 
