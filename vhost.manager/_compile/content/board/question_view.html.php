@@ -79,6 +79,30 @@ function addChar(t) {
 		$('#comment').val(comment);
 		return;
 	}
+	if(t=='qna_11')
+	{
+		var comment = $('#qna_11').val();
+		$('#comment').val(comment);
+		return;
+	}
+	if(t=='qna_12')
+	{
+		var comment = $('#qna_12').val();
+		$('#comment').val(comment);
+		return;
+	}
+	if(t=='qna_13')
+	{
+		var comment = $('#qna_13').val();
+		$('#comment').val(comment);
+		return;
+	}
+	if(t=='qna_14')
+	{
+		var comment = $('#qna_14').val();
+		$('#comment').val(comment);
+		return;
+	}
     if(t=='qna_main')
     {
         var comment = $('#qna_main').val();
@@ -191,20 +215,28 @@ window.open(url,'','scrollbars=yes,width=200,height=250,left=100,top=100');
 	 <input type=hidden name='qna_8' id='qna_8' value='<?php echo $TPL_VAR["admin"]["qna_8"]?>'/>
 	 <input type=hidden name='qna_9' id='qna_9' value='<?php echo $TPL_VAR["admin"]["qna_9"]?>'/>
 	 <input type=hidden name='qna_10' id='qna_10' value='<?php echo $TPL_VAR["admin"]["qna_10"]?>'/>
+	 <input type=hidden name='qna_11' id='qna_11' value='<?php echo $TPL_VAR["admin"]["qna_11"]?>'/>
+	 <input type=hidden name='qna_12' id='qna_12' value='<?php echo $TPL_VAR["admin"]["qna_12"]?>'/>
+	 <input type=hidden name='qna_13' id='qna_13' value='<?php echo $TPL_VAR["admin"]["qna_13"]?>'/>
+	 <input type=hidden name='qna_14' id='qna_14' value='<?php echo $TPL_VAR["admin"]["qna_14"]?>'/>
      <input type=hidden name='qna_main' id='qna_main' value='<?php echo $TPL_VAR["admin"]["qna_main"]?>'/>
 
 	<div id="wrap_btn">
         <input type="button" value="기본답변" onclick="JavaScript:addChar('qna_main');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
 		<input type="button" value="2등급↓ 계좌" onclick="JavaScript:addChar('qna_1');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
 		<input type="button" value="3등급↑ 계좌" onclick="JavaScript:addChar('qna_2');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
-		<input type="button" value="기본답변설정2" onclick="JavaScript:addChar('qna_3');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
-		<input type="button" value="요청 처리완료" onclick="JavaScript:addChar('qna_4');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
-		<input type="button" value="기본답변설정3" onclick="JavaScript:addChar('qna_5');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
-		<input type="button" value="재로그인(등급↑)" onclick="JavaScript:addChar('qna_6');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
+		<input type="button" value="롤링 미충족" onclick="JavaScript:addChar('qna_3');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
+		<input type="button" value="환전요청 답변" onclick="JavaScript:addChar('qna_4');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
+		<input type="button" value="지속적인 단폴 두폴 베팅시" onclick="JavaScript:addChar('qna_5');" class="Qishi_submit_a_lg" onmouseover="this.className='Qishi_submit_b_lg'" onmouseout="this.className='Qishi_submit_a_lg'">
+		<input type="button" value="재로그인(등급↑)" onclick="JavaScript:addChar('qna_6');" class="Qishi_submit_a_lg" onmouseover="this.className='Qishi_submit_b_lg'" onmouseout="this.className='Qishi_submit_a_lg'">
 		<input type="button" value="지인추천" onclick="JavaScript:addChar('qna_7');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
-		<input type="button" value="사다리배팅" onclick="JavaScript:addChar('qna_8');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
+		<input type="button" value="지인추천 조건 미달" onclick="JavaScript:addChar('qna_8');" class="Qishi_submit_a_lg" onmouseover="this.className='Qishi_submit_b_lg'" onmouseout="this.className='Qishi_submit_a_lg'">
 		<input type="button" value="경기오류제보" onclick="JavaScript:addChar('qna_9');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
 		<input type="button" value="재입금안내" onclick="JavaScript:addChar('qna_10');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
+		<input type="button" value="결과처리 지연" onclick="JavaScript:addChar('qna_11');" class="Qishi_submit_a" onmouseover="this.className='Qishi_submit_b'" onmouseout="this.className='Qishi_submit_a'">
+		<input type="button" value="등록된 계좌외 입금" onclick="JavaScript:addChar('qna_12');" class="Qishi_submit_a_lg" onmouseover="this.className='Qishi_submit_b_lg'" onmouseout="this.className='Qishi_submit_a_lg'">
+		<input type="button" value="입금신청시 입금액 다를 경우" onclick="JavaScript:addChar('qna_13');" class="Qishi_submit_a_lg" onmouseover="this.className='Qishi_submit_b_lg'" onmouseout="this.className='Qishi_submit_a_lg'">
+		<input type="button" value="베팅타입에 제공중인 팀 미표기" onclick="JavaScript:addChar('qna_14');" class="Qishi_submit_a_lg" onmouseover="this.className='Qishi_submit_b_lg'" onmouseout="this.className='Qishi_submit_a_lg'">
 	</div>
   </form>
 </div>

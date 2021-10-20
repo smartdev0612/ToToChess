@@ -118,6 +118,9 @@
 					return false;
 				}
 
+				// 현재 페지 경로
+				var pathname = window.location.pathname;
+
 				//-> 현재접속자수
 				if ( connect_cnt > 0 ) {
 					$("#connect_cnt").html("<font color='yellow' style='font-size:14px;'>"+connect_cnt+"</font>");
@@ -134,7 +137,9 @@
 
 				//-> 입금신청
 				if ( charge_cnt > 0 ) {
-					try { jBeep('/voice/in.mp3'); } catch(e) {};
+					if(pathname.indexOf("/charge/finlist_edit") == -1) {
+						try { jBeep('/voice/in.mp3'); } catch(e) {};
+					}
 					$("#top_richer").html("<a href='/charge/finlist_edit'><font color='yellow' style='font-size:14px;'>입금신청["+charge_cnt+"]</font></a>");
 				} else {
 					$("#top_richer").html("<a href='/charge/finlist_edit'>입금신청[0]</a>");
@@ -142,7 +147,9 @@
 
 				//-> 출금신청
 				if ( exchange_cnt > 0 ) {
-					try { jBeep('/voice/out.mp3'); } catch(e) {};
+					if(pathname.indexOf("/exchange/finlist_edit") == -1) {
+						try { jBeep('/voice/out.mp3'); } catch(e) {};
+					}
 					$("#top_Withdrawal").html("<a href='/exchange/finlist_edit'><font color='yellow' style='font-size:14px;'>출금신청["+exchange_cnt+"]</font></a>");
 				} else {
 					$("#top_Withdrawal").html("<a href='/exchange/finlist_edit'>출금신청[0]</a>");
@@ -150,7 +157,9 @@
 
 				//-> 고객센터
 				if ( question_cnt > 0 ) {
-					try { jBeep('/voice/center.mp3'); } catch(e) {};
+					if(pathname.indexOf("/board/questionview") == -1 || pathname.indexOf("/board/questionlist") == -1) {
+						try { jBeep('/voice/center.mp3'); } catch(e) {};
+					}
 					$("#top_question").html("<a href='/board/questionview?idx="+question_sn+"'><font color='yellow' style='font-size:14px;'>고객센터["+question_cnt+"]</font></a>");
 				} else {
 					$("#top_question").html("<a href='/board/questionlist'>고객센터[0]</a>");
@@ -158,7 +167,9 @@
 
 				//-> 총판쪽지
 				if ( partner_memo_cnt > 0 ) {
-					try { jBeep('/voice/center.mp3'); } catch(e) {};
+					if(pathname.indexOf("/partner/memolist") == -1) {
+						try { jBeep('/voice/center.mp3'); } catch(e) {};
+					}
 					$("#top_partner").html("<a href='/partner/memolist?p_type=2'><font color='yellow' style='font-size:14px;'>총판쪽지["+partner_memo_cnt+"]</font></a>");
 				} else {
 					$("#top_partner").html("<a href='/partner/memolist?p_type=2'>총판쪽지[0]</a>");
@@ -166,7 +177,9 @@
 
 				//-> 부본사쪽지
 				if ( agent_memo_cnt > 0 ) {
-					try { jBeep('/voice/center.mp3'); } catch(e) {};
+					if(pathname.indexOf("/partner/memolist") == -1) {
+						try { jBeep('/voice/center.mp3'); } catch(e) {};
+					}
 					$("#top_agent").html("<a href='/partner/memolist?p_type=1'><font color='yellow' style='font-size:14px;'>부본사쪽지["+agent_memo_cnt+"]</font></a>");
 				} else {
 					$("#top_agent").html("<a href='/partner/memolist?p_type=1'>부본사쪽지[0]</a>");
@@ -174,7 +187,9 @@
 				
 				//-> 회원가입
 				if ( join_cnt > 0 ) {
-					try { jBeep('/voice/newmember.mp3'); } catch(e) {};
+					if(pathname.indexOf("/member/list") == -1) {
+						try { jBeep('/voice/newmember.mp3'); } catch(e) {};
+					}
 					$("#top_newmember").html("<a href='/member/list?act=levelup'><font color='yellow' style='font-size:14px;'>회원가입["+join_cnt+"]</font></a>");
 				} else {
 					$("#top_newmember").html("<a href='/member/list?act=levelup'>회원가입[0]</a>");
@@ -182,7 +197,9 @@
 
 				//-> 총판출금
 				if ( recExchange_cnt > 0 ) {
-					try { jBeep('/voice/out.mp3'); } catch(e) {};
+					if(pathname.indexOf("/partner/exchange_list") == -1) {
+						try { jBeep('/voice/out.mp3'); } catch(e) {};
+					}
 					$("#top_rec_money_out").html("<a href='/partner/exchange_list'><font color='yellow' style='font-size:14px;'>총판출금["+recExchange_cnt+"]</font></a>");
 				} else {
 					$("#top_rec_money_out").html("<a href='/partner/exchange_list'>총판출금[0]</a>");
@@ -190,7 +207,9 @@
 
 				//-> 게시판
 				if ( content_cnt > 0 ) {
-					try { jBeep('/voice/content.mp3'); } catch(e) {};
+					if(pathname.indexOf("/board/list") == -1) {
+						try { jBeep('/voice/content.mp3'); } catch(e) {};
+					}
 					$("#top_contents").html("<a href='/board/list?province=5'><font color='yellow' style='font-size:14px;'>게시판["+content_cnt+"]</font></a>");
 				} else {
 					$("#top_contents").html("<a href='/board/list?province=5'>게시판[0]</a>");

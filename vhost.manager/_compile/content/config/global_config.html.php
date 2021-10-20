@@ -82,18 +82,18 @@ function onlyNumDecimalInput(){
 		<table cellspacing="1" class="tableStyle_membersWrite thBig" summary="기본 설정">
 		<legend class="blind">기본 설정</legend>
 		<tr>
-				<th width="20%">서비스 점검</th>
-				<td>
-					<input type="radio" name="maintain" value="1" <?php if($TPL_VAR["list"]["maintain"]==1){?> checked <?php }?>> 서비스
-					<input type="radio" name="maintain" value="2" <?php if($TPL_VAR["list"]["maintain"]==2){?> checked <?php }?>> 점검중
-				</td>
+			<th style="width:25%">서비스 점검</th>
+			<td>
+				<input type="radio" name="maintain" value="1" <?php if($TPL_VAR["list"]["maintain"]==1){?> checked <?php }?>> 서비스
+				<input type="radio" name="maintain" value="2" <?php if($TPL_VAR["list"]["maintain"]==2){?> checked <?php }?>> 점검중
+			</td>
 	    </tr>
 	    <tr>
 			<th>점검중멘트</th>
 			<td><textarea name="maintain_ment" rows="10" cols="55"><?php echo $TPL_VAR["list"]["maintain_ment"]?></textarea>
 	    </tr>
 	    <tr>
-				<th width="20%">환전최소금액</th>
+				<th width="25%">환전최소금액</th>
 				<td><input name="exchange_money" type="text"  class="w60" id="admin_id" value="<?php echo $TPL_VAR["list"]["exchange_money"]?>" maxlength="30" /></td>
 	    </tr>
 		<tr>
@@ -148,15 +148,15 @@ function onlyNumDecimalInput(){
 				<td><textarea name="qna_2" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_2"]?></textarea></td>
 	    </tr>
 	    <tr>
-				<th>고객센터-기본답변설정2</th>
+				<th>고객센터-롤링 미충족</th>
 				<td><textarea name="qna_3" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_3"]?></textarea></td>
 	    </tr>
 	    <tr>
-				<th>고객센터-요청 처리완료</th>
+				<th>고객센터-환전요청답변</th>
 				<td><textarea name="qna_4" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_4"]?></textarea>
 	    </tr>
 	    <tr>
-				<th>고객센터-기본답변설정3</th>
+				<th>고객센터-지속적인 단폴두폴 배팅시</th>
 				<td><textarea name="qna_5" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_5"]?></textarea>
 	    </tr>
 	    <tr>
@@ -168,7 +168,7 @@ function onlyNumDecimalInput(){
 				<td><textarea name="qna_7" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_7"]?></textarea>
 	    </tr>
 	    <tr>
-				<th>고객센터-사다리배팅X</th>
+				<th>고객센터-지인추천 조건미달</th>
 				<td><textarea name="qna_8" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_8"]?></textarea>
 	    </tr>
 	    <tr>
@@ -179,7 +179,22 @@ function onlyNumDecimalInput(){
 				<th>고객센터-재입금안내</th>
 				<td><textarea name="qna_10" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_10"]?></textarea>
 	    </tr>
-		
+		<tr>
+				<th>고객센터-결과처리 지연</th>
+				<td><textarea name="qna_11" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_11"]?></textarea>
+	    </tr>
+		<tr>
+				<th>고객센터-등록된 계좌외 입금</th>
+				<td><textarea name="qna_12" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_12"]?></textarea>
+	    </tr>
+		<tr>
+				<th>고객센터-입금신청시 입금액 다를 경우</th>
+				<td><textarea name="qna_13" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_13"]?></textarea>
+	    </tr>
+		<tr>
+				<th>고객센터-베팅타입에 제공중인 팀 미표기</th>
+				<td><textarea name="qna_14" rows="10" cols="55"><?php echo $TPL_VAR["list"]["qna_14"]?></textarea>
+	    </tr>
 	    <tr>
 			<th>배팅마감</th>
 			<td>

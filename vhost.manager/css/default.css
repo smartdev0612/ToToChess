@@ -34,7 +34,9 @@ a:active{color:#111111;}
 .blind
 {position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999999px;overflow:hidden;visibility:hidden;}
 .Qishi_submit_a {border:0px; background-image:url(../img/admin_submit.jpg); width:85px; height:27px; font-size:12px; text-align:center; line-height:27px;}
+.Qishi_submit_a_lg {border:0px; background-image:url(../img/admin_submit_lg.jpg); width:200px; height:27px; font-size:12px; text-align:center; line-height:27px;}
 .Qishi_submit_b {border:0px; background-image:url(../img/admin_submit.jpg); width:85px; height:27px; font-size:12px; text-align:center; line-height:27px; background-position:0px -27px;}
+.Qishi_submit_b_lg {border:0px; background-image:url(../img/admin_submit_lg.jpg); width:200px; height:27px; font-size:12px; text-align:center; line-height:27px; background-position:0px -27px;}
 .infoCopy
 {font-size:11px;color:#666666;margin:0 0 0 5px}
 .icon

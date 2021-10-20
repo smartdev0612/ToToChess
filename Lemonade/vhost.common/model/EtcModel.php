@@ -131,17 +131,17 @@ class EtcModel extends Lemon_Model
 		$agent_memo_cnt = $rs[0]['cnt'];
 
 		//-> 총판 출금 신청
-		$sql = "select count(sn) as cnt from tb_recommend_money_log where is_read = 0";
+		$sql = "select count(sn) as cnt from tb_recommend_money_log where proc_flag = 0";
 		$rs = $this->db->exeSql($sql);
 		$recExchangeAlarm = $rs[0]['cnt']+0;
 	
 		//-> 출금신청
-		$sql = "select count(sn) as cnt from tb_exchange_log where state = 0 and is_read = 0";
+		$sql = "select count(sn) as cnt from tb_exchange_log where state = 0";
 		$rs = $this->db->exeSql($sql);
 		$exchangeAlarm = $rs[0]['cnt']+0;
 
 		//-> 입금신청
-		$sql = "select count(sn) as cnt from tb_charge_log where state = 0 and is_read = 0";
+		$sql = "select count(sn) as cnt from tb_charge_log where state = 0";
 		$rs = $this->db->exeSql($sql);
 		$chargeAlarm = $rs[0]['cnt']+0;
 
