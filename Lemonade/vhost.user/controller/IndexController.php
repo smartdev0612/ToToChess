@@ -31,6 +31,11 @@ class IndexController extends WebServiceController
 			$this->view->define("index","layout/layout.iframe.html");
 			$this->view->define(array("content" => "content/maintain.html", "header"=>"header/header.html"));
 		}
+		else if($type=='game_info_iframe')
+		{
+			$this->view->define("index","layout/layout.join.html");
+			$this->view->define(array("content" => "content/game_info_iframe.html"));
+		}
 	}
 	
 	function popupAction()
@@ -473,6 +478,19 @@ class IndexController extends WebServiceController
 		$this->view->assign('is_enable_check', $is_enable_check);
 		$this->view->assign('is_checked', $is_checked);
 		$this->view->assign('presenceDays', $presenceDays);
+		$this->display();
+	}
+
+	function gameInfoIframeAction() {
+		if ( !$this->auth->isLogin() ) {
+			$this->loginAction();
+			exit;
+		}
+
+		$event_id = empty($this->request('event_id')) ? 0 : $this->request('event_id');
+		$this->commonDefine('game_info_iframe');
+		$this->view->define(array("content"=>"content/game_info_iframe.html"));
+		$this->view->assign('event_id', $event_id);
 		$this->display();
 	}
 

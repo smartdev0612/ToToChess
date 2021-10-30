@@ -82,7 +82,7 @@
                                                                             </div>
                                                                             <div id="gamelist" class="bet_section" style="width:100%;">
                                                                                 <div class="bet_cart_box">
-                                                                                    <div id="betting_disable"></div>
+                                                                                    <div class="betting_disable"></div>
                                                                                     <div class="bet_cart">
                                                                                         <div class="info_bet">
                                                                                             <div class="info_box">
@@ -127,6 +127,7 @@
                                                                                     <div class="btn_center"><button type="button" class="button_type01" onclick="location.reload()">새로고침</button></div>
                                                                                 </div>
                                                                                 <div class="bet_cart_box">
+                                                                                    <div class="betting_disable"></div>
                                                                                     <div class="bet_list01">
                                                                                         <div class="list_box01">
                                                                                             <h4>1게임 홀/짝</h4>
@@ -359,31 +360,5 @@
         transform: scale(1, 1);
         position:relative;
     }
+    .betting_disable { position:absolute;top:0;bottom:0;left:0;right:0;font-size:30px;text-align:center;color:white;background:rgba(0,0,0,0.7); z-index:4;}
 </style>
-<style>
-    #betting_disable { position:absolute;top:0;bottom:0;left:0;right:0;font-size:30px;text-align:center;color:white;background:rgba(0,0,0,0.7); z-index:4;}
-</style>
-	<!-- 베팅카트 -->
-	<!-- 모바일 푸터 메뉴 -->
-	<div id="mobile_foot_menu">
-		<ul class="foot_menu">
-			<li><span class="ico_customer"><a href="https://t.me/tenbetkorea" target="_blank"><img src="/10bet/images/10bet/ico_telegram_01.png" alt="텔레그램" /></a></span></li>
-			<li><span class="ico_customer"><a href="/bbs/board.php?bo_table=z10"><img src="/10bet/images/10bet/ico_customer_01.png" alt="고객문의" /></a></span></li>
-			<!--<li><span class="ico_chetting"><img src="/10bet/images/10bet/ico_chetting_01.png" alt="라이브채팅" /></span></li>-->
-    					<li><span class="ico_cart"><img src="/10bet/images/10bet/ico_cart_01.png" alt="배팅카트" /></span></li>
-						<li><span class="ico_bottom_menu" id="ico_bottom_menu">
-								MINI
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 35" fill="currentColor">
-					<rect width="33" height="7" rx="3.5" ry="3.5"></rect>
-					<rect y="14" width="33" height="7" rx="3.5" ry="3.5"></rect>
-					<rect y="28" width="33" height="7" rx="3.5" ry="3.5"></rect>
-				</svg>
-				</span>
-			</li>
-		</ul>
-	</div>
-
-    	
-<!-- 모바일 하단 메뉴 -->
-<script language='javascript'> var g4_cf_filter = ''; </script>
-<script language='javascript' src='/10bet/js/filter.js'></script>

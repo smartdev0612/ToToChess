@@ -19,4 +19,4 @@ const WS_SPORTS_ADDRESS = "wss://line1111.com:8443";
 //const WS_SPORTS_ADDRESS = "ws://211.115.107.195:3002";
 
 //미니게임 소켓주소
-// const WS_MINI_ADDRESS = "wss://line1111.com:8443";
+const WS_MINI_ADDRESS = "wss://line1111.com:2053";

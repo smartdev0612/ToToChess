@@ -649,7 +649,11 @@
         if(newJson.length > 0) {
             for(var i = 0; i < newJson.length; i++) {
                 if(document.getElementById(`sel_game_${newJson[i].m_nGame}`) != null && document.getElementById(`sel_game_${newJson[i].m_nGame}`) != undefined) {
-                    showMarkets(newJson[i]);
+                    $('#betting_section_' + newJson[i].m_nFixtureID).empty();
+                    var details = newJson[i].m_lstDetail;
+                    if(details.length > 0) {
+                        appendMarketDiv(newJson[i], details);
+                    }
                 }
             }
 
@@ -1005,16 +1009,19 @@
 
     function showMarkets(res) {
         $('#sel_game_' + res.m_nGame).html("");
+        var div = '<div class="st_b_tit4"><div class="st_wd45 f_left txt_cut line-team">';
+        div += res.m_strHomeTeam;
+        div += '</div><div class="st_wd10 txt_ac" style="margin-top:5px;"><img src="/BET38/pc/_img/ico_vs.png" style="max-width:100%;"></div>';
+        div += '<div class="st_wd45 f_right  st_padr10 txt_cut line-team">';
+        div += res.m_strAwayTeam;
+        div += "</div></div>";
+        // div += `<div id="game_stat_box_${res.m_nFixtureID}">`;
+        // div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="380"></iframe></div>`;
+        div += `<div id="betting_section_${res.m_nFixtureID}"></div>`;
+        $('#sel_game_' + res.m_nGame).html( div );
+
         var details = res.m_lstDetail;
         if(details.length > 0) {
-            var div_header = '<div class="st_b_tit4"><div class="st_wd45 f_left txt_cut line-team">';
-            div_header += res.m_strHomeTeam;
-            div_header += '</div><div class="st_wd10 txt_ac" style="margin-top:5px;"><img src="/BET38/pc/_img/ico_vs.png" style="max-width:100%;"></div>';
-            div_header += '<div class="st_wd45 f_right  st_padr10 txt_cut line-team">';
-            div_header += res.m_strAwayTeam;
-            div_header += "</div></div>";
-            $('#sel_game_' + res.m_nGame).html( div_header );
-
             appendMarketDiv(res, details);
         }
     }
@@ -3304,7 +3311,7 @@
         if(correctScoreItems.length > 0) {
             children_div += div_correctScore(correctScoreItems, "정확한 스코어");
         }
-        $('#sel_game_' + res.m_nGame).append( children_div );
+        $('#betting_section_' + res.m_nFixtureID).html( children_div );
     }
 
     // 승패 Div

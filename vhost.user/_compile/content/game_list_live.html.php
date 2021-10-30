@@ -731,8 +731,13 @@
         if(newJson.length > 0) {
             var newData = newJson.find(val => val.m_nGame == game_sn);
 
-            if(newData != null && newData != undefined)
-                drawRightDiv(newData);
+            if(newData != null && newData != undefined) {
+                $("#betting_section").empty();
+                var details = newData.m_lstDetail;
+                if(details.length > 0) {
+                    appendMarketDiv(newData, details);
+                }
+            }
 
             for(var i = 0; i < showJson.length; i++) {
                 var json = newJson.find(val => val.m_nGame == showJson[i].m_nGame);
@@ -3370,7 +3375,7 @@
         if(correctScoreItems.length > 0) {
             children_div += div_correctScore(correctScoreItems, "정확한 스코어");
         }
-        $('#gameRight').append( children_div );
+        $('#betting_section').html( children_div );
     }
 
     function appendGameDiv(item, index) {
@@ -3568,16 +3573,19 @@
     }
 
     function drawRightDiv(res) {
+        var div = '<div class="st_b_tit4"><div class="st_wd42 f_left txt_cut header_text">';
+        div += res.m_strHomeTeam;
+        div += '</div><div class="st_wd16 txt_ac" style="margin-top:10px;"><img src="/BET38/pc/_img/ico_vs.png"></div>';
+        div += '<div class="st_wd42 f_right txt_cut header_text">';
+        div += res.m_strAwayTeam;
+        div += "</div></div>";
+        // div += `<div id="game_stat_box_${res.m_nFixtureID}">`;
+        // div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="380"></iframe></div>`;
+        div += `<div id="betting_section"></div>`;
+        $('#gameRight').html( div );
         var details = res.m_lstDetail;
-        if(details.length > 0) {
-            var div_header = '<div class="st_b_tit4"><div class="st_wd42 f_left txt_cut header_text">';
-            div_header += res.m_strHomeTeam;
-            div_header += '</div><div class="st_wd16 txt_ac" style="margin-top:10px;"><img src="/BET38/pc/_img/ico_vs.png"></div>';
-            div_header += '<div class="st_wd42 f_right txt_cut header_text">';
-            div_header += res.m_strAwayTeam;
-            div_header += "</div></div>";
-            $('#gameRight').html( div_header );
-            
+      
+        if(details.length > 0) {    
             appendMarketDiv(res, details);
         }
     }

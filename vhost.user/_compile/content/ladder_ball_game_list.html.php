@@ -93,7 +93,7 @@
                                                                             </div>
                                                                             <div id="gamelist" class="bet_section" style="width:100%;">
                                                                                 <div class="bet_cart_box">
-                                                                                    <div id="betting_disable"></div>
+                                                                                    <div class="betting_disable"></div>
                                                                                     <div class="bet_cart">
                                                                                         <div class="info_bet">
                                                                                             <div class="info_box">
@@ -136,7 +136,9 @@
                                                                                     <div id="time-limit" class="time_area"></div>
                                                                                     <div class="btn_center"><button type="button" class="button_type01" onclick="location.reload()">새로고침</button></div>
                                                                                 </div>
+                                                                                
                                                                                 <div class="bet_cart_box">
+                                                                                    <div class="betting_disable"></div>
                                                                                     <div class="bet_list01">
                                                                                         <div class="list_box01" style="width:0%;">
                                                                                             <h4>일반볼</h4>
@@ -465,7 +467,5 @@
         transform: scale(0.8, 0.8);
         position:relative;
     }
-</style>
-<style>
-    #betting_disable { position:absolute;top:0;bottom:0;left:0;right:0;font-size:30px;text-align:center;color:white;background:rgba(0,0,0,0.7); z-index:4;}
+    .betting_disable { position:absolute;top:0;bottom:0;left:0;right:0;font-size:30px;text-align:center;color:white;background:rgba(0,0,0,0.7); z-index:4;}
 </style>

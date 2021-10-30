@@ -981,16 +981,16 @@
     }
 
     function showMarkets(res) {
+        var div_header = '<div class="st_b_tit4"><div class="st_wd45 f_left txt_cut line-team">';
+        div_header += res.m_strHomeTeam;
+        div_header += '</div><div class="st_wd10 txt_ac" style="margin-top:5px;"><img src="/BET38/pc/_img/ico_vs.png" style="max-width:100%;"></div>';
+        div_header += '<div class="st_wd45 f_right  st_padr10 txt_cut line-team">';
+        div_header += res.m_strAwayTeam;
+        div_header += "</div></div>";
+        $('#sel_game_' + res.m_nGame).html( div_header );
+        
         var details = res.m_lstDetail;
         if(details.length > 0) {
-            var div_header = '<div class="st_b_tit4"><div class="st_wd45 f_left txt_cut line-team">';
-            div_header += res.m_strHomeTeam;
-            div_header += '</div><div class="st_wd10 txt_ac" style="margin-top:5px;"><img src="/BET38/pc/_img/ico_vs.png" style="max-width:100%;"></div>';
-            div_header += '<div class="st_wd45 f_right  st_padr10 txt_cut line-team">';
-            div_header += res.m_strAwayTeam;
-            div_header += "</div></div>";
-            $('#sel_game_' + res.m_nGame).html( div_header );
-
             appendMarketDiv(res, details);
         }
     }

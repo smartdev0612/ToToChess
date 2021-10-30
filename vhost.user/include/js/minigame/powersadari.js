@@ -73,9 +73,9 @@
 
 		//-> 배팅마감 블라인드
 		if ( secTemp <= limit_time || secTemp >= 290) {
-			$j("#betting_disable").show();
+			$j(".betting_disable").show();
 		} else {
-			$j("#betting_disable").hide();
+			$j(".betting_disable").hide();
 		}
 
 		if(secTemp <= 290) {

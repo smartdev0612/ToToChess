@@ -5,7 +5,7 @@ $j().ready(function(){
     sportsSocket(); 
 
     // 미니게임 소켓창조
-    // miniSocket();
+    miniSocket();
 
     $j(function(){ 
         var ww2 = window.innerWidth;
@@ -515,7 +515,6 @@ function sportsSocket() {
 
     ws.onclose = function (event) {
         console.log("WebSocket Closed");
-        //sportsSocket();
     }
     
     ws.onmessage = function (event) {
@@ -548,13 +547,7 @@ function sportsSocket() {
                         strSocketMessage = "";
                     }
                 }
-            } else if(objPacket.m_nPacketCode == PACKET_POWERBALL_BET) {
-                onRecvBetting(objPacket);
-            } else if(objPacket.m_nPacketCode == PACKET_POWERLADDER_BET) {
-                onRecvBetting(objPacket);
-            } else if(objPacket.m_nPacketCode == PACKET_POWERBALL_TIME) {
-                realTime(objPacket.m_strPacket);
-            }
+            } 
         }
         catch(err) {
             console.log(err.message);
@@ -564,7 +557,6 @@ function sportsSocket() {
 }
 
 function miniSocket() {
-
     wsMini = new WebSocket(WS_MINI_ADDRESS);
 
     wsMini.onopen = function (event) {
@@ -578,7 +570,6 @@ function miniSocket() {
 
     wsMini.onclose = function (event) {
         console.log("Minigame WebSocket closed");
-        //miniSocket();
     }
     
     wsMini.onmessage = function (event) {
@@ -642,8 +633,7 @@ function sendMiniPacket(nPacketCode, strPacket) {
         "m_strPacket"       :   strPacket
     };
 
-    // wsMini.send(JSON.stringify(packet));
-    ws.send(JSON.stringify(packet));
+    wsMini.send(JSON.stringify(packet));
 }
 
 
