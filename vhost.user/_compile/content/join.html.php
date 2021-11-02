@@ -113,7 +113,8 @@
 							<div class="box_left" style="width:100%;">
 								<h3>충환전비밀번호</h3>
 								<div class="input_box">
-									<input type="text" id="exchange_pass" name="exchange_pass"/>
+									<input type="number" id="exchange_pass" name="exchange_pass"/>
+									<p>숫자만 입력하세요.</p>
 								</div>
 							</div>
 						</div>
