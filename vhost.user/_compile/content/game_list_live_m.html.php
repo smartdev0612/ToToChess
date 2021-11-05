@@ -1015,8 +1015,8 @@
         div += '<div class="st_wd45 f_right  st_padr10 txt_cut line-team">';
         div += res.m_strAwayTeam;
         div += "</div></div>";
-        // div += `<div id="game_stat_box_${res.m_nFixtureID}">`;
-        // div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="380"></iframe></div>`;
+        div += `<div id="game_stat_box_${res.m_nFixtureID}">`;
+        div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="380"></iframe></div>`;
         div += `<div id="betting_section_${res.m_nFixtureID}"></div>`;
         $('#sel_game_' + res.m_nGame).html( div );
 
