@@ -80,35 +80,33 @@ class WebServiceController extends Lemon_Controller
 		} else if($type=="join") {
 			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", "left" => "left/left_index.html", "right" => "right/right.html"));
 		} else if($type=="poker") {
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "right" => "right/right_poker.html"));
-		} else if($type=="slot") {
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "right" => "right/right_slot.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "right" => "right/right.html"));
 		} else if($type=="event") {
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left_index.html", "right" => "right/right_event.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left_index.html", "right" => "right/right.html"));
 		} else if($type=="login") {
 			$this->view->define(array("header"=>"header/header.html"));
 		} else if($type=="virtualgame") {
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", "right" => "right/right_sports.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", "right" => "right/right.html"));
 		} else if($type=="casino") {
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "right" => "right/right_poker.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right.html"));
 		} else if($type=="type") {
 			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left_index.html", "right" => "right/right.html"));
 		} else if($type=="graph") {
 			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left_index.html", "right" => "right/right.html"));
 		} else if($type=="winlose" or $type=="handi" or $type=="special") {
 			//$this->view->define("index","layout/layout.sports.html");
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right_sports.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right.html"));
 		} else if($type=="abroad") {
 			//$this->view->define("index","layout/layout.sports.html");
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right_sports.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right.html"));
 		}  else if($type=="live") {
 			//$this->view->define("index","layout/layout.sports.html");
-			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right_sports.html"));
+			$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right.html"));
 		} else if($type=="ladder") {
 			if($this->isMobile() == "pc") {
-				$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom_mini.html", /*"top" => "header/top.html",*/ "left" => "left/left_minigame.html", "right" => "right/right.html"));
+				$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html", /*"top" => "header/top.html",*/ "left" => "left/left.html", "right" => "right/right.html"));
 			} else {
-				$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom_mini.html"));
+				$this->view->define(array("header"=>"header/header.html", "footer" => "footer/bottom.html"));
 			}
 		} else if($type=="ladder_graph") {
 			$this->view->define("index","layout/layout.sadari_graph.html");

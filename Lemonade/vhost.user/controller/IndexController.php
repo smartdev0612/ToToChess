@@ -382,7 +382,7 @@ class IndexController extends WebServiceController
         $this->view->assign('game_result_list', $game_result_list);
         $this->view->assign('league_game_list', $leagueGameList);
 		$this->view->assign('league_game_list_multi', $leagueGameListMulti);
-		
+		$this->view->assign("page_type", "general");
         /*$this->view->assign('football_game', $football_game);
         $this->view->assign('basketball_game', $basketball_game);
         $this->view->assign('volleyball_game', $volleyball_game);*/
@@ -611,29 +611,34 @@ class IndexController extends WebServiceController
 		$page_index = empty($this->request('page_index')) ? 0 : $this->request('page_index');
         $title = "";
 		$crossLimitCnt = 0;
+		$page_type = "general";
 		
 		if ( $game == "multi" ) {
 			$specialType = "1";
             $title = "<span class=\"board_mini_title\">국내형</span>";
 			$crossLimitCnt = $configModel->getCrossLimitCount(1);
+			$page_type = "sports";
 			$this->commonDefine('winlose');
 			$this->view->define(array("content"=>"content/game_list.html"));
 			$this->displayRight("multi");
 		} else if ( $game == "handi" ) {
 			$specialType = "0";
             $title = "";
+			$page_type = "sports";
 			$this->commonDefine('winlose');
 			$this->view->define(array("content"=>"content/game_list.html"));
 			$this->displayRight("multi");
 		} else if ( $game == "special" ) {
 			$specialType = "1";
             $title = "Special<span class=\"board_mini_title\">스페셜</span>";
+			$page_type = "sports";
 			$this->commonDefine('special');
 			$this->view->define(array("content"=>"content/game_list.html"));
 			$this->displayRight("special");
 		} else if ( $game == "abroad" ) {
 			$specialType = "2";
             $title = "Abroad<span class=\"board_mini_title\">해외형</span>";
+			$page_type = "sports";
 			$crossLimitCnt = $configModel->getCrossLimitCount(2);
 			$this->commonDefine('abroad');
 			
@@ -646,6 +651,7 @@ class IndexController extends WebServiceController
 		} else if ( $game == "realtime" ) {
 			$specialType = "3";
 			$crossLimitCnt = $configModel->getCrossLimitCount(2);
+			$page_type = "sports";
 			$this->commonDefine('abroad');
 			
 			if($this->isMobile() == "pc") {
@@ -658,6 +664,7 @@ class IndexController extends WebServiceController
 			$specialType = "4";
 			//$title = "Live<span class=\"board_mini_title\">라이브</span>";
 			$crossLimitCnt = $configModel->getCrossLimitCount(3);
+			$page_type = "sports";
 			$this->commonDefine('live');
 			if($this->isMobile() == "pc") {
 				$this->view->define(array("content"=>"content/game_list_live.html"));
@@ -669,6 +676,7 @@ class IndexController extends WebServiceController
 		} else if ( $game == "vfootball" ) {
             $specialType = "22";
             $title = "BET365<span class=\"board_mini_title\">가상축구</span>";
+			$page_type = "sports";
             $this->commonDefine('winlose');
             $this->view->define(array("content"=>"content/v_football.html"));
             $this->displayRight("multi");
@@ -689,6 +697,7 @@ class IndexController extends WebServiceController
 		} else if ( $game == "power" ) {
 			$specialType = "7";
             $title = "POWERBALL<span class=\"board_mini_title\">파워볼</span>";
+			$page_type = "mini";
 			$this->commonDefine('ladder');
 			if($this->isMobile() == "pc") {
 				$this->view->define(array("content"=>"content/ladder_ball_game_list.html"));
@@ -735,6 +744,7 @@ class IndexController extends WebServiceController
         } else if ( $game == "psadari" ) {
             $specialType = "25";
             $title = "PowerSadari<span class=\"board_mini_title\">파워사다리</span>";
+			$page_type = "mini";
 			$this->commonDefine('ladder');
 			if($this->isMobile() == "pc") {
 				$this->view->define(array("content"=>"content/ladder_powersadari_list.html"));
@@ -746,6 +756,7 @@ class IndexController extends WebServiceController
         } else if ( $game == "kenosadari" ) {
             $specialType = "24";
             $title = "KenoSadari<span class=\"board_mini_title\">키노사다리</span>";
+			$page_type = "mini";
 			$this->commonDefine('ladder');
 			if($this->isMobile() == "pc") {
 				$this->view->define(array("content"=>"content/ladder_kenosadari_list.html"));
@@ -1067,7 +1078,7 @@ class IndexController extends WebServiceController
 		$this->view->assign("sport_setting", $sport_setting);
 		$this->view->assign("league_sn", $league_sn);
 		$this->view->assign("today", $today);
-
+		$this->view->assign("page_type", $page_type);
 		$this->display();
 	}
 
@@ -1687,9 +1698,25 @@ class IndexController extends WebServiceController
 		$this->display();
 	}
 
+	function casinoAction()
+	{
+		$this->commonDefine('casino');
+		$this->view->define(array("content"=>"content/casino.html"));
+
+		if(!$this->auth->isLogin())
+		{
+			// $this->redirect("/login");
+			$this->loginAction();
+			exit;
+		}
+		$this->view->assign("page_type", "casino");
+
+		$this->display();
+	}
+
 	function slotAction()
 	{
-		$this->commonDefine('slot');
+		$this->commonDefine('casino');
 		$this->view->define(array("content"=>"content/slot.html"));
 
 		if(!$this->auth->isLogin())
@@ -1698,6 +1725,7 @@ class IndexController extends WebServiceController
 			$this->loginAction();
 			exit;
 		}
+		$this->view->assign("page_type", "slot");
 
 		$this->display();
 	}
@@ -1749,7 +1777,7 @@ class IndexController extends WebServiceController
 			$this->loginAction();
 			exit;
 		}
-
+		$this->view->assign("page_type", "casino");
 		$this->display();
 	}
 

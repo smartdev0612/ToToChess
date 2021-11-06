@@ -16,14 +16,34 @@
                 </span>
             </li>
             <li>
-                <span class="ico_bottom_menu" id="ico_bottom_menu">
-                    SPORTS
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 35" fill="currentColor">
-                        <rect width="33" height="7" rx="3.5" ry="3.5"></rect>
-                        <rect y="14" width="33" height="7" rx="3.5" ry="3.5"></rect>
-                        <rect y="28" width="33" height="7" rx="3.5" ry="3.5"></rect>
-                    </svg>
-				</span>
+                <?php if($TPL_VAR["page_type"] == "casino" || $TPL_VAR["page_type"] == "slot") { ?>
+                    <span class="ico_bottom_menu" id="ico_bottom_menu">
+                        CASINO
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 35" fill="currentColor">
+                            <rect width="33" height="7" rx="3.5" ry="3.5"></rect>
+                            <rect y="14" width="33" height="7" rx="3.5" ry="3.5"></rect>
+                            <rect y="28" width="33" height="7" rx="3.5" ry="3.5"></rect>
+                        </svg>
+                    </span>
+                <?php } else if($TPL_VAR["page_type"] == "mini") { ?>
+                    <span class="ico_bottom_menu" id="ico_bottom_menu">
+                        MINI
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 35" fill="currentColor">
+                            <rect width="33" height="7" rx="3.5" ry="3.5"></rect>
+                            <rect y="14" width="33" height="7" rx="3.5" ry="3.5"></rect>
+                            <rect y="28" width="33" height="7" rx="3.5" ry="3.5"></rect>
+                        </svg>
+                    </span>
+                <?php } else { ?>
+                    <span class="ico_bottom_menu" id="ico_bottom_menu">
+                        SPORTS
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 35" fill="currentColor">
+                            <rect width="33" height="7" rx="3.5" ry="3.5"></rect>
+                            <rect y="14" width="33" height="7" rx="3.5" ry="3.5"></rect>
+                            <rect y="28" width="33" height="7" rx="3.5" ry="3.5"></rect>
+                        </svg>
+                    </span>
+                <?php } ?>
 			</li>
 		</ul>
 	</div>
@@ -93,9 +113,148 @@
                 <path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" class=""></path>
             </svg>
         </div>
+        <?php if($TPL_VAR["page_type"] == "mini") { ?>
+        <!-- 모바일 미니게임 메뉴 리스트	-->
+        <div class="other_menu_list	box_type01" style="box-shadow: none;">
+            <ul class="mune_list01" style="margin-top: 25px;">
+            <?php 
+            if($TPL_VAR["miniSetting"]["power_use"]==1){?>
+                <li>
+                    <?php if($TPL_VAR["api"] == "true") { ?>
+                        <a href="/api/game_list?game=power&userid=<?=$TPL_VAR["uid"]?>">
+                    <?php } else { ?>
+                        <a href="/game_list?game=power">
+                    <?php } ?>
+                        <div class="menu01 <?= $TPL_VAR["game_type"] == 'power' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_powerball_01.png" alt="ico" /> 
+                            파워볼									
+                        </div>
+                    </a>
+                </li>
+            <?php } 
+            if($TPL_VAR["miniSetting"]["powersadari_use"]==1){?>
+                <li>
+                    <a href="/game_list?game=psadari">
+                        <div class="menu01 <?= $TPL_VAR["game_type"] == 'psadari' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_powersadari_01.png" alt="ico" /> 
+                            파워사다리									
+                        </div>
+                    </a>
+                </li>
+            <?php } 
+            if($TPL_VAR["miniSetting"]["kenosadari_use"]==1){?>
+                <li>
+                    <?php if($TPL_VAR["api"] == "true") { ?>
+                        <a href="/api/game_list?game=psadari&userid=<?=$TPL_VAR["uid"]?>">
+                    <?php } else { ?>
+                        <a href="/game_list?game=psadari">
+                    <?php } ?>
+                        <div class="menu01 <?= $TPL_VAR["game_type"] == 'kenosadari' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_powersadari_01.png" alt="ico" /> 
+                            키노사다리									
+                        </div>
+                    </a>
+                </li>
+            <?php } 
+            if($TPL_VAR["miniSetting"]["fx_use"]==1){?>
+                <li>
+                    <a href="/game_list?game=fx&min=1">
+                        <div class="menu01 <?= $TPL_VAR["min"] == '1' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_fx_01.png" alt="ico" /> 
+                            FX1분									
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/game_list?game=fx&min=2">
+                        <div class="menu01 <?= $TPL_VAR["min"] == '2' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_fx_01.png" alt="ico" /> 
+                            FX2분									
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/game_list?game=fx&min=3">
+                        <div class="menu01 <?= $TPL_VAR["min"] == '3' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_fx_01.png" alt="ico" /> 
+                            FX3분									
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/game_list?game=fx&min=4">
+                        <div class="menu01 <?= $TPL_VAR["min"] == '4' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_fx_01.png" alt="ico" /> 
+                            FX4분									
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/game_list?game=fx&min=5">
+                        <div class="menu01 <?= $TPL_VAR["min"] == '5' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_fx_01.png" alt="ico" /> 
+                            FX5분									
+                        </div>
+                    </a>
+                </li>
+            <?php } 
+            if($TPL_VAR["miniSetting"]["choice_use"]==1){?>                              
+                <li>
+                    <a href="/game_list?game=choice">
+                        <div class="menu01 <?= $TPL_VAR["game_type"] == 'choice' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_sky_01.png" alt="ico" /> 
+                            초이스									
+                        </div>
+                    </a>
+                </li>
+            <?php } 
+            if($TPL_VAR["miniSetting"]["roulette_use"]==1){?>                          
+                <li>
+                    <a href="/game_list?game=roulette">
+                        <div class="menu01 <?= $TPL_VAR["game_type"] == 'roulette' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_hand.png" alt="ico" /> 
+                            룰렛									
+                        </div>
+                    </a>
+                </li>
+            <?php } 
+            if($TPL_VAR["miniSetting"]["pharah_use"]==1){?>                           
+                <li>
+                    <a href="/game_list?game=pharaoh">
+                        <div class="menu01 <?= $TPL_VAR["game_type"] == 'pharaoh' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_bubble.png" alt="ico" />
+                            파라오									
+                        </div>
+                    </a>
+                </li>
+            <?php } 
+            if($TPL_VAR["miniSetting"]["dari2_use"]==1){?>    
+                <li>
+                    <a href="/game_list?game=2dari">
+                        <div class="menu01 <?= $TPL_VAR["game_type"] == '2dari' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_sky_01.png" alt="ico" /> 
+                            이다리									
+                        </div>
+                    </a>
+                </li>
+            <?php } 
+            if($TPL_VAR["miniSetting"]["dari3_use"]==1){?>                              
+                <li>
+                    <a href="/game_list?game=3dari">
+                        <div class="menu01 <?= $TPL_VAR["game_type"] == '3dari' ? 'on' : ''; ?>">
+                            <img src="/10bet/images/10bet/ico/ico_sky_01.png" alt="ico" /> 
+                            삼다리									
+                        </div>
+                    </a>
+                </li>
+            <?php } ?>
+            </ul>
+        </div>
+        <?php } else if($TPL_VAR["page_type"] == "casino" || $TPL_VAR["page_type"] == "slot") { ?>
+
+        <?php } else { ?>
         <!-- 모바일 스포츠 리스트 -->
-		<div class="sports_menu_list box_type01" style="box-shadow:none;">
-            
+        <div class="sports_menu_list box_type01" style="box-shadow:none;">
             <div>
                 <h3>
                     오늘의 경기 
@@ -284,10 +443,8 @@
                 </ul>
 			</div>
 		</div>
+        <?php } ?>
     </div>
-<script language='javascript'> var g4_cf_filter = ''; </script>
-<script language='javascript' src='/10bet/js/filter.js'></script>
-
 <footer>
     <ul class="foot_site">
         <li><img src="/10bet/images/10bet/foot_banner_01.png" alt="" /></li>
@@ -328,13 +485,6 @@
 </footer>
 </div>
 
-<!-- simple modal {{ -->
-<link type='text/css' href='/10bet/simplemodal/css/basic.css' rel='stylesheet' media='screen' />
-<script type='text/javascript' src='/10bet/simplemodal/js/jquery.simplemodal.js'></script>
-<!-- simple modal }} -->
-
-<!-- 새창 대신 사용하는 iframe -->
-<iframe width=0 height=0 name='hiddenframe' style='display:none;'></iframe>
 </body>
 </html>
 <!-- 사용스킨 : event -->
