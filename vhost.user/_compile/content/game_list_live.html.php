@@ -10,7 +10,7 @@
 ?>
 <!-- <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/bootstrap-ko.css?v=511"> -->
 <!-- <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/default.css?v=514"> -->
-<link rel="stylesheet" type="text/css" href="/BET38/pc/_css/layout.css?v=516">
+<link rel="stylesheet" type="text/css" href="/BET38/pc/_css/layout.css?v=517">
 <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/btns.css?v=511">
 <link rel="stylesheet" type="text/css" href="/BET38/css/etc.css?v=513">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -3580,9 +3580,11 @@
         div += res.m_strAwayTeam;
         div += "</div></div>";
         div += `<div id="game_stat_box_${res.m_nFixtureID}">`;
-        var height = 650;
-        if(res.m_nSports == 154914 || res.m_nSports == 35232) {
-            height = 590;
+        var height = 505;
+        if(res.m_nSports == 6046 || res.m_nSports == 48242) {
+            height = 553;
+        } else if(res.m_nSports == 154830) {
+            height = 555;
         }
         div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="${height}"></iframe></div>`;
         div += `<div id="betting_section"></div>`;
