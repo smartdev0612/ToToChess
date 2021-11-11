@@ -624,12 +624,6 @@ if($isApi == "true")  {?>
 								</li>
 							</ul>
                         </li>
-						<li>
-							<div class="menu01 " onclick="location.href='/bbs/b_slot.php'">최근게임</div>
-						</li>
-						<li>
-							<div class="menu01 " onclick="location.href='/bbs/c_slot.php'">인기있는게임</div>
-						</li>
 					</ul>
 				</div>
         <?php } else { ?>
