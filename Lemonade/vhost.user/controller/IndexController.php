@@ -482,11 +482,6 @@ class IndexController extends WebServiceController
 	}
 
 	function gameInfoIframeAction() {
-		if ( !$this->auth->isLogin() ) {
-			$this->loginAction();
-			exit;
-		}
-
 		$event_id = empty($this->request('event_id')) ? 0 : $this->request('event_id');
 		$this->commonDefine('game_info_iframe');
 		$this->view->define(array("content"=>"content/game_info_iframe.html"));
