@@ -1015,12 +1015,15 @@
         div += '<div class="st_wd45 f_right  st_padr10 txt_cut line-team">';
         div += res.m_strAwayTeam;
         div += "</div></div>";
-        div += `<div id="game_stat_box_${res.m_nFixtureID}">`;
-        var height = 410;
-        if(res.m_nSports == 154914 || res.m_nSports == 35232) {
-            height = 380;
+        var hostname = window.location.hostname;
+        if(hostname == "line1111.com" || hostname == "cs-82.com") {
+            div += `<div id="game_stat_box_${res.m_nFixtureID}">`;
+            var height = 410;
+            if(res.m_nSports == 154914 || res.m_nSports == 35232) {
+                height = 380;
+            }
+            div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="${height}"></iframe></div>`;
         }
-        div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="${height}"></iframe></div>`;
         div += `<div id="betting_section_${res.m_nFixtureID}"></div>`;
         $('#sel_game_' + res.m_nGame).html( div );
 
