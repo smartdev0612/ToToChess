@@ -36,7 +36,7 @@
                 const element = document.getElementById('tracker_div_<?=$TPL_VAR['event_id']?>');
 
                 // Configuration that you should receive from STATSCORE
-                const configurationId = '6182a2b44bfe63ac218c1403';
+                const configurationId = '618e894cca3e47f769ad8ab0';
 
                 // Input data for widget type you want to embded
                 const inputData = { eventId: 'm:<?=$TPL_VAR['event_id']?>', language: 'ko' };
