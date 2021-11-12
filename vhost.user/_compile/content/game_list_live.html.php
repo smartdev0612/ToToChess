@@ -3581,12 +3581,14 @@
         div += "</div></div>";
         div += `<div id="game_stat_box_${res.m_nFixtureID}">`;
         var height = 505;
-        if(res.m_nSports == 6046 || res.m_nSports == 48242) {
+        if(res.m_nSports == 6046){
+            height = 528;
+        } else if(res.m_nSports == 48242) {
             height = 553;
         } else if(res.m_nSports == 154830) {
             height = 555;
         }
-        div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="http://cs-82.com/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="${height}"></iframe></div>`;
+        div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="${height}"></iframe></div>`;
         div += `<div id="betting_section"></div>`;
         $('#gameRight').html( div );
         var details = res.m_lstDetail;

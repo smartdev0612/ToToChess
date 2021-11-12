@@ -1020,7 +1020,7 @@
         if(res.m_nSports == 154914 || res.m_nSports == 35232) {
             height = 380;
         }
-        div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="http://cs-82.com/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="${height}"></iframe></div>`;
+        div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="${height}"></iframe></div>`;
         div += `<div id="betting_section_${res.m_nFixtureID}"></div>`;
         $('#sel_game_' + res.m_nGame).html( div );
 
