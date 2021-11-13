@@ -3590,7 +3590,7 @@
             } else if(res.m_nSports == 154830) {
                 height = 555;
             }
-            div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}" width="100%" height="${height}"></iframe></div>`;
+            div += `<iframe id="game_stat" scrolling="no" frameborder="0" src="/gameInfoIframe?event_id=${res.m_nFixtureID}&height=${height}" width="100%" height="${height}"></iframe></div>`;
         }
         div += `<div id="betting_section"></div>`;
         $('#gameRight').html( div );

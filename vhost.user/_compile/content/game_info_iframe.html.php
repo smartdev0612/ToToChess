@@ -58,7 +58,7 @@
 
                 // Available events to listen for
                 widget.on('beforeInsert', () => { /* Triggers when data necessary to display widget is loaded and widget is ready to be inserted into document */ });
-                widget.on('load', () => { /* Triggers when widget is loaded but not yet interactive */ });
+                widget.on('load', () => {});
                 widget.on('mount', () => { /* Triggers when widget is loaded and interactive */ });
                 widget.on('error', e => { 
                     var e = parent.document.getElementById('game_stat');
