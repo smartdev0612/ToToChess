@@ -3,7 +3,8 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 <script>
 	function modify($sn)
 	{
-		$name = $('input[name=category_name]').val();
+		var input_name = 'input[name=category_name_' + $sn + ']';
+		$name = $(input_name).val();
 		document.frm.act.value="modify";
 		document.frm.category_sn.value=$sn;
 		document.frm.modify_name.value=$name;
@@ -62,7 +63,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 <?php if($TPL_list_1){$TPL_I1=-1;foreach($TPL_VAR["list"] as $TPL_V1){$TPL_I1++;?>
 					<tr name="tr_<?php echo $TPL_V1["idx"]?>">
 						<td><?php echo $TPL_I1+1?></td>
-						<td><input type="text" name="category_name" value="<?php echo $TPL_V1["name"]?>" /></td>
+						<td><input type="text" name="category_name_<?php echo $TPL_V1["idx"]?>" value="<?php echo $TPL_V1["name"]?>" /></td>
 						<td>
 							<a href="#" onclick="modify(<?php echo $TPL_V1["idx"]?>);"><img src="/img/btn_s_modify.gif" title="수정"></a>
 							<a href="#" onclick="del(<?php echo $TPL_V1["idx"]?>);"><img src="/img/btn_s_del.gif" title="삭제"></a>
