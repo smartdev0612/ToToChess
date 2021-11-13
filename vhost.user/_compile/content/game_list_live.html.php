@@ -10,7 +10,7 @@
 ?>
 <!-- <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/bootstrap-ko.css?v=511"> -->
 <!-- <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/default.css?v=514"> -->
-<link rel="stylesheet" type="text/css" href="/BET38/pc/_css/layout.css?v=517">
+<link rel="stylesheet" type="text/css" href="/BET38/pc/_css/layout.css?v=518">
 <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/btns.css?v=511">
 <link rel="stylesheet" type="text/css" href="/BET38/css/etc.css?v=513">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -259,7 +259,7 @@
     }
 
     .header_text {
-        margin-top:30px; 
+        margin-top:15px; 
         text-align: center; 
         font-size: 18px;
         line-height: 150% !important;
@@ -3575,12 +3575,11 @@
     function drawRightDiv(res) {
         var div = '<div class="st_b_tit4"><div class="st_wd42 f_left txt_cut header_text">';
         div += res.m_strHomeTeam;
-        div += '</div><div class="st_wd16 txt_ac" style="margin-top:10px;"><img src="/BET38/pc/_img/ico_vs.png"></div>';
+        div += '</div><div class="st_wd16 txt_ac"><img src="/BET38/pc/_img/ico_vs.png"></div>';
         div += '<div class="st_wd42 f_right txt_cut header_text">';
         div += res.m_strAwayTeam;
         div += "</div></div>";
         var hostname = window.location.hostname;
-        console.log(hostname);
         if(hostname == "line1111.com" || hostname == "cs-82.com") {
             div += `<div id="game_stat_box_${res.m_nFixtureID}">`;
             var height = 505;
