@@ -595,5 +595,24 @@ class WebServiceController extends Lemon_Controller
 		return $resArray;
 	}
 
+	function requestSlotPOST($key = "", $secret = "", $code = 0) {
+		$postdata = http_build_query(
+			array(
+				'key' => $key,
+				'secret' => $secret,
+				'thirdParty' => $code
+			)
+		);
+		$opts = array('http' =>
+			array(
+				'method' => 'POST',
+				'header' => 'Content-type: application/x-www-form-urlencoded',
+				'content' => $postdata
+			)
+		);
+		$context = stream_context_create($opts);
+		$result = file_get_contents('http://ko1.api-theplus.com/custom/api/game/List', false, $context);
+		return $result;
+	}
 }
 ?>

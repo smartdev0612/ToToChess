@@ -1722,9 +1722,30 @@ class IndexController extends WebServiceController
 			$this->loginAction();
 			exit;
 		}
+		$gameModel = Lemon_Instance::getObject("GameModel", true);
+		$slotCompanyList = $gameModel->getSlotCompanyList();
 		$this->view->assign("page_type", "slot");
+		$this->view->assign("slot_company_list", $slotCompanyList);
 
 		$this->display();
+	}
+
+	function getSlotGameListAction() {
+		$nCode = empty($this->request('nCode')) ? 0 : $this->request('nCode');
+		$gameModel = Lemon_Instance::getObject("GameModel", true);
+		$slotAPIInfo = $gameModel->getSlotAPIInfo($nCode);
+		$strAgentID = "";
+		$strAgentCode = "";
+		if(count($slotAPIInfo) > 0) {
+			$strAgentID = $slotAPIInfo[0]["strAgentID"];
+			$strAgentCode = $slotAPIInfo[0]["strAgentCode"];
+		}
+		$result = json_decode($this->requestSlotPOST($strAgentID, $strAgentCode, $nCode), true);
+		$data = [];
+		if($result["resultCode"] == 0) {
+			$data = $result["data"];
+		}
+		echo json_encode($data);
 	}
 
 	function graphAction()

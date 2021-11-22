@@ -175,14 +175,14 @@ if($isApi == "true")  {?>
 					<!-- 메뉴 리스트	-->
 					<ul class="mune_list01">
 						<li>
-							<div class="menu01" onclick="casino_left();">라이브카지노
-								<span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163 163" fill="currentColor" class="close">
-										<path d="M22.813,104H140.186a22,22,0,0,0,0-43.989H22.813A22,22,0,0,0,22.813,104Z"></path>
-									</svg>
-                                </span>
-							</div>
-                            <ul class="menu_list02 casino_menu" style="display:none;">
+                            <?php 
+                            if($TPL_VAR["page_type"] == "casino") { ?>
+                                <div class="menu01 on" onclick="casino_left();">라이브카지노</div>
+                            <?php } else if($TPL_VAR["page_type"] == "slot") { ?>
+                                <div class="menu01" onclick="location.href='/casino';">라이브카지노</div>
+                            <?php }
+                            ?>
+                            <ul class="menu_list02 casino_menu" style="display: <?=($TPL_VAR["page_type"] == "casino") ? "block" : "none"?>;">
                                 <li>
                                     <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=pr'">
                                         <span class="ico01"><img src="/10bet/images/10bet/slot_ico_01.png" alt="" class="mCS_img_loaded"></span>
@@ -294,334 +294,26 @@ if($isApi == "true")  {?>
                             </ul>
                         </li>
 						<li>
-							<div class="menu01" onclick="slot_left();">슬롯게임
-								<span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163 163" fill="currentColor" class="close">
-										<path d="M22.813,104H140.186a22,22,0,0,0,0-43.989H22.813A22,22,0,0,0,22.813,104Z"></path>
-									</svg>
-                                </span>
-							</div>
-                            <ul class="menu_list02 slot_menu" style="display:none;">
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=pr'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_01.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">프로그매틱플레이</span>
-										<span class="count01">105</span>
-										<span class="count01">267</span>
-									</div>
-									<ul class="menu_list03 ">
-										<li>
-											<div class="menu03">
-												비디오슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												클래식슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												테이블게임 <span class="count01"></span>
-											</div>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=mc'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_02.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">마이크로</span>
-										<span class="count01">390</span>
-									</div>
-									<ul class="menu_list03 ">
-										<li>
-											<div class="menu03">
-												보너스슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												클래식슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												피쳐슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												프로그래시브슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												비디오포커 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												비디오슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												테이블게임 <span class="count01"></span>
-											</div>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=hb'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_03.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">하바네로</span>
-										<span class="count01">5</span>
-										<span class="count01">191</span>
-									</div>
-									<ul class="menu_list03 ">
-										<li>
-											<div class="menu03">
-												비디오슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												비디오포커 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												테이블게임 <span class="count01"></span>
-											</div>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=qt'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_04.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">큐텍</span>
-									</div>
-								</li>
-								<!--
-								<li>
-									<div class="menu02 " onClick="location.href='/bbs/slot.php?ptype=tg'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_05.png" alt="" /></span>
-										<span class="name01">탑트렌드</span>
-										<span class="count01"></span>
-									</div>
-									<ul class="menu_list03 ">
-										<li>
-											<div class="menu03">
-												슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												비디오포커 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												테이블게임 <span class="count01"></span>
-											</div>
-										</li>
-									</ul>
-								</li>
-								-->
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=cq'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_06.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">CQ9</span>
-										<span class="count01">164</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=bg'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_07.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">BGaming</span>
-										<span class="count01">56</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=ags'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_08.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">아시아</span>
-										<span class="count01">52</span>
-									</div>
-									<ul class="menu_list03 ">
-										<li>
-											<div class="menu03">
-												슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												비디오슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												테이블게임 <span class="count01"></span>
-											</div>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=bb'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_09.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">BBIN</span>
-										<span class="count01">0</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=drt'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_10.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">드림테크</span>
-										<span class="count01">76</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=ep'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_11.png?v=1" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">에보플레이</span>
-										<span class="count01">13</span>
-									</div>
-									<ul class="menu_list03 ">
-										<li>
-											<div class="menu03">
-												슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												비디오슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												테이블게임 <span class="count01"></span>
-											</div>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=rt'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_12.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">RTG</span>
-										<span class="count01">100</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=bs'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_13.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">뱃소프트</span>
-										<span class="count01">0</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=ps'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_14.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">PLATSTAR</span>
-										<span class="count01">121</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=ga'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_15.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">GAMEART</span>
-										<span class="count01">112</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=gs'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_16.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">GENESIS</span>
-										<span class="count01">89</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=tp'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_17.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">TPG</span>
-										<span class="count01">75</span>
-									</div>
-									<ul class="menu_list03 ">
-										<li>
-											<div class="menu03">
-												슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												비디오슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												테이블게임 <span class="count01"></span>
-											</div>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=sg'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_18.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">STAR GAME</span>
-										<span class="count01">245</span>
-									</div>
-									<ul class="menu_list03 ">
-										<li>
-											<div class="menu03">
-												슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												비디오슬롯 <span class="count01"></span>
-											</div>
-										</li>
-										<li>
-											<div class="menu03">
-												테이블게임 <span class="count01"></span>
-											</div>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=po'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_19.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">PLAYSON</span>
-										<span class="count01">167</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=boo'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_20.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">BOOONGO</span>
-										<span class="count01">109</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=pgs'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_21.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">PG SOFT</span>
-										<span class="count01">69</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=isb'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_22.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">ISOFTBET</span>
-										<span class="count01">9</span>
-									</div>
-								</li>
-								<li>
-									<div class="menu02 " onclick="location.href='/bbs/slot.php?ptype=xm&amp;ctype=pgo'">
-										<span class="ico01"><img src="/10bet/images/10bet/slot_ico_23.png" alt="" class="mCS_img_loaded"></span>
-										<span class="name01">PLAYNGO</span>
-										<span class="count01">185</span>
-									</div>
-								</li>
+                            <?php 
+                            if($TPL_VAR["page_type"] == "casino") { ?>
+                                <div class="menu01" onclick="location.href='/slot';">슬롯게임</div>
+                            <?php } else if($TPL_VAR["page_type"] == "slot") { ?>
+                                <div class="menu01 on" onclick="slot_left();">슬롯게임</div>
+                            <?php }
+                            ?>
+                            <ul class="menu_list02 slot_menu" style="display: <?=($TPL_VAR["page_type"] == "slot") ? "block" : "none"?>;">
+                            <?php 
+                            if(isset($TPL_VAR["slot_company_list"]) && count($TPL_VAR["slot_company_list"]) > 0) {
+                                foreach($TPL_VAR["slot_company_list"] as $item) { ?>
+                                    <li>
+                                        <div class="menu02 slot_submenu_<?=$item['nCode']?> " onclick="getSlotGameList(<?=$item['nCode']?>,'<?=$item['strName']?>')">
+                                            <span class="ico01"><img src="/10bet/images/10bet/slot_ico_<?=$item["nCode"]?>.png?v=1" alt="" class="mCS_img_loaded"></span>
+                                            <span class="name01"><?=$item["strName"]?></span>
+                                        </div>
+                                    </li>
+                            <?php    }
+                            }
+                            ?>
 							</ul>
                         </li>
 					</ul>

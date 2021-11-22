@@ -251,7 +251,7 @@
             </ul>
         </div>
         <?php } else if($TPL_VAR["page_type"] == "casino" || $TPL_VAR["page_type"] == "slot") { ?>
-
+            
         <?php } else { ?>
         <!-- 모바일 스포츠 리스트 -->
         <div class="sports_menu_list box_type01" style="box-shadow:none;">

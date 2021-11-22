@@ -110,7 +110,7 @@
 		}
 		
 		//-> 배팅마감 블라인드
-		if ( secTemp <= limit_time || secTemp >= 290) {
+		if ( secTemp <= limit_time || secTemp >= 270) {
 			$j(".betting_disable").show();
 		} else {
 			$j(".betting_disable").hide();

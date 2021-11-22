@@ -1697,7 +1697,7 @@ vertical-align:top;}
 .slot_main .head_box {position:relative;margin:0px 0px 20px 20px;min-height:60px;}
 .slot_main .head_box .ico {position:absolute;top:0px;left:0;}
 .slot_main .head_box h2 {padding-left:90px;font-size:25px;color:#ffff83;font-weight:bold;margin-bottom:7px;line-height:25px;}
-.slot_main .head_box p {padding-left:90px;font-size:15px;font-weight:bold;color:#a9a8a9;line-height:18px;letter-spacing:-0.5px;width:65%;}
+.slot_main .head_box p {padding-left:90px;font-size:15px;font-weight:bold;color:#a9a8a9;line-height:18px;letter-spacing:-0.5px;width:100%;}
 .slot_main .head_box .game_company {position:absolute;top:0;right:10px;width:240px;z-index:99;}
 .slot_main .head_box .game_company .btn_area {margin-bottom:5px;}
 .slot_main .head_box .game_company .btn_area button {height:50px;width:100%;border-radius:5px;font-weight:bold;font-size:15px;text-align:left;padding-left:25px;

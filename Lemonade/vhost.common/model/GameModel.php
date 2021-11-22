@@ -3237,6 +3237,31 @@ class GameModel extends Lemon_Model
 		$this->requestFinishGame($childSn);
 	}
 
+	// 슬롯 게임사 목록
+	function getSlotCompanyList() {
+		$sql = "SELECT	nSn, 
+						nCode,
+						strCode, 
+						strName,
+						strAgentID,
+						strAgentCode
+				FROM 	tb_api_company
+				WHERE	nUse = 1";
+
+		$res = $this->db->exeSql($sql);
+		return $res;
+	}
+
+	// 슬롯 API 정보
+	function getSlotAPIInfo($nCode = 0) {
+		$sql = "SELECT	strAgentID,
+						strAgentCode
+				FROM 	tb_api_company
+				WHERE	nCode = '$nCode'";
+		$res = $this->db->exeSql($sql);
+		return $res;
+	}
+
 	function requestFinishGame($childSn) {
 		$values = ["sn" => $childSn];
 		$strValue = json_encode($values);
