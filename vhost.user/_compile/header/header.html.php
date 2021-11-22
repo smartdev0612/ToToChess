@@ -14,8 +14,11 @@
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
     <link rel="stylesheet" type="text/css" href="/include/css/style.css?v=9" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="/10bet/js/common.js"></script>
     <script type="text/javascript">var $j = jQuery.noConflict(); jQuery.ajaxSetup({cache:false});</script>
+    <script type="text/javascript" src="/include/js/common.js?v=<?=$vTime?>"></script>
+    <script type="text/javascript" src="/include/js/constant.js?v=<?=time()?>"></script>
+    <script type="text/javascript" src="/include/js/include.js?v=<?=time()?>"></script>
+    <script type="text/javascript" src="/10bet/js/common.js"></script>
     <script type="text/javascript" src="/10bet/js/jquery.lazyload.min.js"></script>
     <script type="text/javascript" src="/10bet/js/ion.sound.js"></script>
     <script type="text/javascript" src="/10bet/js/ajax.js?v=1"></script>
@@ -39,10 +42,7 @@
             echo "<script type=\"text/javascript\" src=\"/include/js/sport.js?v={$vTime}\"></script>";
         }
         $isApi = isset($TPL_VAR["api"]) ? $TPL_VAR["api"] : "";
-    ?>
-    <script type="text/javascript" src="/include/js/common.js?v=<?=$vTime?>"></script>
-    <script type="text/javascript" src="/include/js/constant.js?v=<?=$vTime?>"></script>
-    <script type="text/javascript" src="/include/js/include.js?v=<?=$vTime?>"></script>
+    ?> 
 </head>
 
 <script type="text/javascript">
@@ -115,10 +115,6 @@
         }
     </script>
     <!-- <script type="text/javascript" src="/10bet/js/10bet/jquery-2.0.3.min.js"></script> -->
-    <script type="text/javascript">
-        jQuery.noConflict();
-        var $j = jQuery;
-    </script>
 
     <script type="text/javascript" src="/10bet/js/clock.js?20160309"></script> 
     

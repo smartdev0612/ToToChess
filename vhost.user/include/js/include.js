@@ -1,12 +1,12 @@
 var ajaxInterval;
 
+// 스포츠 소켓창조
+sportsSocket(); 
+
+// 미니게임 소켓창조
+miniSocket();
+
 $j().ready(function(){
-    // 스포츠 소켓창조
-    sportsSocket(); 
-
-    // 미니게임 소켓창조
-    miniSocket();
-
     $j(function(){ 
         var ww2 = window.innerWidth;
         if(ww2 <= 1200) {
@@ -599,7 +599,6 @@ function sendPacket(nPacketCode, strPacket) {
         "m_nPacketCode"     :   nPacketCode,
         "m_strPacket"       :   strPacket
     };
-
     ws.send(JSON.stringify(packet));
 }
 
@@ -615,6 +614,7 @@ function onSendReqListPacket(param) {
             ajaxInterval = setInterval(function(){ sendPacket(PACKET_SPORT_AJAX, JSON.stringify(param)); }, 1500);
         }
 	} else {
+        console.log("delay");
         setTimeout(() => {
             sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
             if(param.m_nLive != 2) {
@@ -622,7 +622,7 @@ function onSendReqListPacket(param) {
             } else {
                 ajaxInterval = setInterval(function(){ sendPacket(PACKET_SPORT_AJAX, JSON.stringify(param)); }, 1500);
             }
-        }, 5000);
+        }, 1500);
     }
 }
 

@@ -483,7 +483,6 @@
         var sport_type = '<?php echo $TPL_VAR["sport_type"]?>';
         var league_sn = '<?php echo $TPL_VAR["league_sn"]?>';
         var today = '<?php echo $TPL_VAR["today"]?>';
-        
         setTimeout(() => {
             getGameList(0, sport_type, league_sn, today);
         }, 1000);
