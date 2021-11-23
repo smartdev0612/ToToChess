@@ -12,16 +12,7 @@
 <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/m_layout.css?v=525">
 <link rel="stylesheet" type="text/css" href="/BET38/mo/_css/btns.css?v=511">
 <link rel="stylesheet" type="text/css" href="/BET38/css/etc.m.css?v=510">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-<link rel="stylesheet" href="/BET38/css/font-awesome-animation.min.css">
-<link rel="stylesheet" href="/BET38/pc/_css/bxslider.css" type="text/css">
 <script src="/BET38/js/jquery-1.12.1.min.js"></script>
-<script src="/BET38/js/jquery-ui.min.js"></script>
-<script src="/BET38/js/jquery.scrollbar.js"></script>
-<script src="/BET38/pc/_js/jquery.bxslider.min.js"></script>
 
 <!-- JS END -->
 <style>

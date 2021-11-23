@@ -12,10 +12,7 @@
 <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/layout.css?v=513">
 <link rel="stylesheet" type="text/css" href="/BET38/pc/_css/btns.css?v=511">
 <link rel="stylesheet" type="text/css" href="/BET38/css/etc.css?v=514">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-<link rel="stylesheet" href="/BET38/css/font-awesome-animation.min.css">
 <script src="/BET38/js/jquery-1.12.1.min.js"></script>
-<script src="/BET38/js/jquery-ui.min.js"></script>
 <!-- JS END -->
 <style>
    .ko_sports_game img {vertical-align:middle;}
@@ -468,15 +465,6 @@
       <!--// CONTAINER -->
    </div>
 </div>
-<script src="/BET38/js/bootstrap.min.js"></script>
-<!-- <script src="/BET38/js/jquery.slimscroll.min.js"></script>
-   <script src="/BET38/js/page-with-two-sidebar.demo.min.js"></script> -->
-<script src="/BET38/js/default.js"></script>
-<script src="/BET38/js/common.js?v=510"></script>
-<script src="/BET38/js/aes.chk.js"></script>
-<script src="/BET38/js/aes.ctr.js"></script>
-<script src="/BET38/js/base64.js"></script>
-<script src="/BET38/js/utf-8.js"></script>
 <script language="javascript">
     $(document).ready(function() {
         localStorage.clear();

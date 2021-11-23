@@ -15,14 +15,11 @@
     <link rel="stylesheet" type="text/css" href="/include/css/style.css?v=9" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript">var $j = jQuery.noConflict(); jQuery.ajaxSetup({cache:false});</script>
-    <script type="text/javascript" src="/include/js/common.js?v=<?=$vTime?>"></script>
-    <script type="text/javascript" src="/include/js/constant.js?v=<?=time()?>"></script>
-    <script type="text/javascript" src="/include/js/include.js?v=<?=time()?>"></script>
+    <script type="text/javascript" src="/include/js/common.js?v=1"></script>
+    <script type="text/javascript" src="/include/js/constant.js?v=1"></script>
+    <script type="text/javascript" src="/include/js/include.js?v=1"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
     <script type="text/javascript" src="/10bet/js/jquery.lazyload.min.js"></script>
-    <script type="text/javascript" src="/10bet/js/ion.sound.js"></script>
-    <script type="text/javascript" src="/10bet/js/ajax.js?v=1"></script>
-    <script type="text/javascript" src="/10bet/js/wsd.js"></script>
 
     <script type="text/javascript" src="/10bet/js/flash.js"></script>
     <script type="text/javascript" src="/10bet/js/jquery-animate-css-rotate-scale.js"></script>

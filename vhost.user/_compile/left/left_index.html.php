@@ -219,17 +219,21 @@ if($isApi == "true")  {?>
 </div>
 <script>
     $j(document).ready(function() {
-        ws.onopen = function (event) {
-            packet = {
-                "m_strSports"   :   "",
-                "m_nLeague"     :   0,
-                "m_nLive"       :   1,
-                "m_nPageIndex"  :   0,
-                "m_nPageSize"   :   30
-            };
-
-            sendPacket(PACKET_SPORT_LIST, JSON.stringify(packet));
+        packet = {
+            "m_strSports"   :   "",
+            "m_nLeague"     :   0,
+            "m_nLive"       :   1,
+            "m_nPageIndex"  :   0,
+            "m_nPageSize"   :   30
         };
+
+        if(ws.readyState === WebSocket.OPEN) {
+            sendPacket(PACKET_SPORT_LIST, JSON.stringify(packet));
+        } else {
+            setTimeout(() => {
+                sendPacket(PACKET_SPORT_LIST, JSON.stringify(packet));
+            }, 3000);
+        }
     });
 
     function onRevGameList(strPacket) {
