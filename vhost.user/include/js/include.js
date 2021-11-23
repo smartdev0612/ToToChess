@@ -623,7 +623,7 @@ function onSendReqListPacket(param) {
             } else {
                 ajaxInterval = setInterval(function(){ sendPacket(PACKET_SPORT_AJAX, JSON.stringify(param)); }, 1500);
             }
-        }, 3000);
+        }, 5000);
     }
 }
 
