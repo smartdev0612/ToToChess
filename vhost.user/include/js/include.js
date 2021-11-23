@@ -515,6 +515,7 @@ function sportsSocket() {
 
     ws.onclose = function (event) {
         console.log("WebSocket Closed");
+        sportsSocket();
     }
     
     ws.onmessage = function (event) {
