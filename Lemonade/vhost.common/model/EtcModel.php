@@ -154,16 +154,16 @@ class EtcModel extends Lemon_Model
 		$new_results = $rs[0]['new_result']+0;
 
 		//-> 서버에 세션중 용량이 0바이트 이상인것들만 가져와 IN쿼리를 실행 할 수 있또록 문자열을 만든다.
-		// @exec("find C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\m.vhost.user\\session -size +1c",$sessionList_mobile);
+		// @exec("find D:\\project\\ToToChess\\m.vhost.user\\session -size +1c",$sessionList_mobile);
 		// unset($sessionList_mobile[0]);
-		// @exec("find C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\vhost.user\\session -size +1c",$sessionList_pc);
+		// @exec("find D:\\project\\ToToChess\\vhost.user\\session -size +1c",$sessionList_pc);
 		// unset($sessionList_pc[0]);
 
 		$sessionList = array();
 		$sessionList_mobile = array();
 		$sessionList_pc = array();
 
-		$path    = "C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\m.vhost.user\\session\\";
+		$path    = "D:\\project\\ToToChess\\m.vhost.user\\session\\";
 		$temp_mobile = scandir($path);
 		$temp_mobile = array_diff(scandir($path), array('.', '..'));
 		foreach($temp_mobile as $file) {
@@ -173,7 +173,7 @@ class EtcModel extends Lemon_Model
 			}
 		}
 		
-		$path    = "C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\vhost.user\\session\\";
+		$path    = "D:\\project\\ToToChess\\vhost.user\\session\\";
 		$temp_pc = scandir($path);
 		$temp_pc = array_diff(scandir($path), array('.', '..'));
 		foreach($temp_pc as $file) {
@@ -187,8 +187,8 @@ class EtcModel extends Lemon_Model
 
 		if ( count($sessionList) > 0 ) {
             //$sessionListStr = "'".str_replace("C:\xampp\htdocs\gadget\www_gadget_o2_lsports.com\vhost.user\session/sess_","",implode("','",$sessionList))."'";
-            // $sessionListStr = "'".str_replace("C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\vhost.user\\session\\sess_","",
-            //         str_replace("C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\m.vhost.user\\session\\sess_","",implode("','",$sessionList)))."'";
+            // $sessionListStr = "'".str_replace("D:\\project\\ToToChess\\vhost.user\\session\\sess_","",
+            //         str_replace("D:\\project\\ToToChess\\m.vhost.user\\session\\sess_","",implode("','",$sessionList)))."'";
 			$sessionListStr = "'" . implode("','", $sessionList) . "'";
 
 			//-> DB에 저장된 5분 미만 페이지 로딩한 회원들을 서버 세션과 비교해서 동접을 확인한다.

@@ -555,7 +555,7 @@ class GameModel extends Lemon_Model
 		//-> 서브차일드 수정 로그
 		$hDate = date("Y-m-d H:i:s",time());
 		$fileName = "subChildModify_".date("Ymd",time()).".log";
-		$logFile = @fopen("C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\Lemonade\\_logs\\system\\".$fileName,"a");
+		$logFile = @fopen("D:\\project\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
 		if ( $logFile ) {
 			@fwrite($logFile, $sql."\n\n");
 			@fclose($logFile);
@@ -3003,9 +3003,8 @@ class GameModel extends Lemon_Model
 		$result["status"] = 1;
 		if($res){
 			$fixtureID = $this->getFixtureID($child_sn);
-			$url = "http://175.125.95.163:3034/LSports/orderFixtures?" . $fixtureID;
+			$url = "http://175.125.95.163:3015/api/schedule?nCmd=1&nFixtureID=" . $fixtureID;
 			$resp = json_decode(file_get_contents($url));
-			
 			if(count($resp->Body->Ordered) == 0) {
 				$this->updateLiveField($child_sn, 1);
 				$this->updateOrderCnt(0);
@@ -3024,7 +3023,7 @@ class GameModel extends Lemon_Model
 		
 		if($res){
 			$fixtureID = $this->getFixtureID($child_sn);
-			$url = "http://175.125.95.163:3034/LSports/cancelFixtures?" . $fixtureID;
+			$url = "http://175.125.95.163:3015/api/schedule?nCmd=2&nFixtureID=" . $fixtureID;
 			$resp = json_decode(file_get_contents($url));
 
 			if(count($resp->Body->Cancelled) == 0) {

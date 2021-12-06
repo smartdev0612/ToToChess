@@ -185,9 +185,9 @@ class TeamController extends WebServiceController
         $upload_port = $uploadInfo['ftp']['port'];
         $upload_user = $uploadInfo['ftp']['user'];
         $upload_passwd = $uploadInfo['ftp']['passwd'];*/
-        $img_dir = "C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\vhost.user\\upload\\team\\";
-        $img_dir2 = "C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\vhost.manager\\upload\\team\\";
-		$img_dir3 = "C:\\xampp\\htdocs\\gadget\\www_gadget_o2_lsports.com\\m.vhost.user\\upload\\team\\";
+        $img_dir = "D:\\project\\ToToChess\\vhost.user\\upload\\team\\";
+        $img_dir2 = "D:\\project\\ToToChess\\vhost.manager\\upload\\team\\";
+		$img_dir3 = "D:\\project\\ToToChess\\m.vhost.user\\upload\\team\\";
 
         //-> 파일 사이즈 체크. (최대 2MB
         if ( $FILES["size"] > 2000000 ) {
