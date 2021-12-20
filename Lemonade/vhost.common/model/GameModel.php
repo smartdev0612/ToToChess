@@ -863,18 +863,18 @@ class GameModel extends Lemon_Model
     }
 
 	//▶ 게임 총합
-	public function getListTotal($state=''/*kubun*/, $category='', $gameType='', $specialType='', $beginDate='', $endDate='', $minBettingMoney='', $leagueSn='', $homeTeam='', $awayTeam='', $bettingEnable='', $parsingType='ALL', $modifyFlag='')
+	public function getListTotal($state=''/*kubun*/, $category='', $gameType='', $specialType='', $beginDate='', $endDate='', $minBettingMoney='', $leagueSn='', $homeTeam='', $awayTeam='', $bettingEnable='', $parsingType='ALL', $modifyFlag='', $isResettle = 0)
 	{
 		if ( $parsingType != "ALL" ) $where=" and a.parsing_site = '".$parsingType."'";
 		
 		if($state!='') 
 		{
-			if($state==1) 			{$where .= " and a.kubun = 1";$sort='desc';}
+			if($state==1) 		{$where .= " and a.kubun = 1"; $sort='desc';}
 			else if($state==2) 	$where .= " and a.kubun = 0";
 			else if($state==3) 	$where .= " and a.kubun is null";
 			else if($state==4) 	$where .= " and (a.kubun is null || a.kubun = 0)";
 		}
-		
+
 		if($category!='') 
 			$where.=" and a.sport_name = '".$category."'";
 		
@@ -949,6 +949,10 @@ class GameModel extends Lemon_Model
 			}
 		}
 
+		if($isResettle > 0) {
+			$where .= " and c.result > 0 ";
+		}
+
 		if($minBettingMoney!='')
 			$where .=" and c.total_money >= ".$minBettingMoney;
 
@@ -956,7 +960,7 @@ class GameModel extends Lemon_Model
 		{	
 			$sql = "select count(*) as cnt
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
-					(select sum(betting_money) as total_money, sub_child_sn
+					(select sum(betting_money) as total_money, sub_child_sn, d.result
 						from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
 						where c.betting_no = d.betting_no and c.is_account = 1 and logo='".$this->logo."'
 						group by sub_child_sn) as c on b.sn=c.sub_child_sn
@@ -964,7 +968,7 @@ class GameModel extends Lemon_Model
 		} else {
 			$sql = "select count(*) as cnt
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
-					(select sum(betting_money) as total_money, sub_child_sn
+					(select sum(betting_money) as total_money, sub_child_sn, d.result
 						from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
 						where c.betting_no = d.betting_no and c.is_account = 1 and logo='".$this->logo."'
 						group by sub_child_sn) as c on b.sn = c.sub_child_sn
@@ -1567,7 +1571,7 @@ class GameModel extends Lemon_Model
     }
 
     //▶ 게임 목록
-	public function getList($page, $page_size, $state=''/*kubun*/, $category='', $gameType='', $specialType='', $beginDate='', $endDate='', $minBettingMoney='', $leagueSn='', $homeTeam='', $awayTeam='', $bettingEnable='', $parsingType='ALL', $modifyFlag='')
+	public function getList($page, $page_size, $state=''/*kubun*/, $category='', $gameType='', $specialType='', $beginDate='', $endDate='', $minBettingMoney='', $leagueSn='', $homeTeam='', $awayTeam='', $bettingEnable='', $parsingType='ALL', $modifyFlag='', $isResettle = 0)
 	{
 		if ( $parsingType != "ALL" ) $where=" and a.parsing_site = '".$parsingType."'";
 		$sort='asc';
@@ -1578,6 +1582,10 @@ class GameModel extends Lemon_Model
 			else if($state==2) 	$where .= " and a.kubun = 0";
 			else if($state==3) 	$where .= " and a.kubun is null";
 			else if($state==4) 	$where .= " and (a.kubun is null || a.kubun = 0)";
+		}
+
+		if($isResettle > 0) {
+			$where .= " and c.result > 0 ";
 		}
 		
 		if($category!='') 
@@ -1663,7 +1671,7 @@ class GameModel extends Lemon_Model
 							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 
 							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
-							(select sum(betting_money) as total_money, sub_child_sn
+							(select sum(betting_money) as total_money, sub_child_sn, d.result 
 							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
 							where c.betting_no=d.betting_no and c.is_account=1 
 							group by sub_child_sn) as c on b.sn=c.sub_child_sn
@@ -1676,7 +1684,7 @@ class GameModel extends Lemon_Model
 							b.sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result, b.sub_home_score, b.sub_away_score, 
 							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
-							(select sum(betting_money) as total_money, sub_child_sn
+							(select sum(betting_money) as total_money, sub_child_sn, d.result
 							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
 							where c.betting_no=d.betting_no and c.is_account=1 
 							group by sub_child_sn) as c on b.sn = c.sub_child_sn

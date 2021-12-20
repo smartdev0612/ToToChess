@@ -10,11 +10,13 @@
     <title>체스</title>
     <link rel="shortcut icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" href="/10bet/images/10bet/favicon.ico?v=1" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345911" />
     <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/Scrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="/10bet/css/10bet/common.css?v=1610345911" />
     <link rel="stylesheet" type="text/css" href="/include/css/style.css?v=9" />
     <script type="text/javascript" src="/10bet/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript">var $j = jQuery.noConflict(); jQuery.ajaxSetup({cache:false});</script>
+    <script type="text/javascript" src="/10bet/js/10bet/Scrollbar.js"></script>
+    <script type="text/javascript" src="/10bet/js/10bet/pub.js?v=1610345806"></script>
     <script type="text/javascript" src="/include/js/common.js?v=1"></script>
     <script type="text/javascript" src="/include/js/constant.js?v=1"></script>
     <script type="text/javascript" src="/include/js/include.js?v=1"></script>
@@ -23,8 +25,6 @@
 
     <script type="text/javascript" src="/10bet/js/flash.js"></script>
     <script type="text/javascript" src="/10bet/js/jquery-animate-css-rotate-scale.js"></script>
-    <script type="text/javascript" src="/10bet/js/10bet/Scrollbar.js"></script>
-    <script type="text/javascript" src="/10bet/js/10bet/pub.js?v=1610345806"></script>
     <script type="text/javascript" src="/public/js/jBeep/jBeep.min.js"></script>
     
     <?php

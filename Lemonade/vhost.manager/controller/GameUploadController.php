@@ -140,12 +140,12 @@ class GameUploadController extends WebServiceController
 		//-> 시간지난 경기 숨김 처리.
 		$gameModel->hideTimeOverGame();
 		
-		$total_info = $gameModel->getListTotal($filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $leagueSn);
+		$total_info = $gameModel->getListTotal($filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag);
 		$total = $total_info["cnt"];
 		$leagueList = $total_info["league_list"];
 		
 		$pageMaker = $this->displayPage($total, $perpage, $page_act);
-		$list = $gameModel->getList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag, $leagueSn);
+		$list = $gameModel->getList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, $modifyFlag);
 
 		for($i=0; $i<count((array)$list); ++$i)
 		{
@@ -1075,8 +1075,11 @@ class GameUploadController extends WebServiceController
 
         if($parsingType=='') $parsingType = "ALL";
 
-        // 종료된 게임만
-        $filterState=1;
+        // 모든 게임
+        $filterState = 9;
+
+		// 게임재정산
+		$isResettle = 1;
 
         if($perpage=='') $perpage = 300;
 
@@ -1148,12 +1151,12 @@ class GameUploadController extends WebServiceController
         $categoryName = $this->request("categoryName");
         $gameType = $this->request("game_type");
 
-        $total_info = $model->getListTotal($filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '', $leagueSn);
+        $total_info = $model->getListTotal($filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '', $isResettle);
         $total = $total_info["cnt"];
         $leagueList = $total_info["league_list"];
 
         $pageMaker = $this->displayPage($total, $perpage, $page_act);
-        $list = $model->getList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '', $leagueSn);
+        $list = $model->getList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '', $isResettle);
 
         for($i=0; $i<count((array)$list); ++$i)
         {
@@ -1516,12 +1519,12 @@ class GameUploadController extends WebServiceController
 		$categoryName = $this->request("categoryName");
 		$gameType 		= $this->request("game_type");
 
-		$total_info = $model->getListTotal($filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '', $leagueSn, $kubun);
+		$total_info = $model->getListTotal($filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '');
 		$total = $total_info["cnt"];
 		$leagueList = $total_info["league_list"];
 
 		$pageMaker = $this->displayPage($total, $perpage, $page_act);
-		$list = $model->getList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '', $leagueSn, $kubun);
+		$list = $model->getList($pageMaker->first, $pageMaker->listNum, $filterState, $categoryName, $gameType, $specialType, $beginDate, $endDate, $minBettingMoney, $leagueSn, $homeTeam, $awayTeam, $bettingEnable, $parsingType, '');
 
 		for($i=0; $i<count((array)$list); ++$i)
 		{
