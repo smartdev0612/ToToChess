@@ -839,21 +839,21 @@
                         break;
                     case "농구":
                         if(isExist12) {
-                            if(detail.m_nMarket == 226 && detail.m_nHBetCode != "" && detail.m_nDBetCode != "" && detail.m_nABetCode != "") {
+                            if(detail.m_nMarket == 226 && detail.m_nHBetCode != "" && detail.m_nABetCode != "") {
                                 getSubChildInfo(index, item, detail, getPrematchMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         } 
                         break;
                     case "야구":
                         if(isExist12) {
-                            if(detail.m_nMarket == 226 && detail.m_nHBetCode != "" && detail.m_nDBetCode != "" && detail.m_nABetCode != "") {
+                            if(detail.m_nMarket == 226 && detail.m_nHBetCode != "" && detail.m_nABetCode != "") {
                                 getSubChildInfo(index, item, detail, getPrematchMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         } 
                         break;
                     case "배구":
                         if(isExist12) {
-                            if(detail.m_nMarket == 52 && detail.m_nHBetCode != "" && detail.m_nDBetCode != "" && detail.m_nABetCode != "") {
+                            if(detail.m_nMarket == 52 && detail.m_nHBetCode != "" && detail.m_nABetCode != "") {
                                 getSubChildInfo(index, item, detail, getPrematchMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         }
@@ -867,7 +867,7 @@
                         break;
                     case "E스포츠":
                         if(isExist12) {
-                            if(detail.m_nMarket == 52 && detail.m_nHBetCode != "" && detail.m_nDBetCode != "" && detail.m_nABetCode != "") {
+                            if(detail.m_nMarket == 52 && detail.m_nHBetCode != "" && detail.m_nABetCode != "") {
                                 getSubChildInfo(index, item, detail, getPrematchMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         } 

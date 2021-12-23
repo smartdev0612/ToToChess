@@ -839,19 +839,19 @@
                                 market12 = json.m_lstDetail.find(val => val.m_nMarket == 1 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
                                 break;
                             case 48242: // 농구
-                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 226 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 226 && val.m_nHBetCode != "" && val.m_nABetCode != "");
                                 break;
                             case 154914: // 야구
-                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 226 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 226 && val.m_nHBetCode != "" && val.m_nABetCode != "");
                                 break;
                             case 154830: // 배구
-                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 52 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 52 && val.m_nHBetCode != "" && val.m_nABetCode != "");
                                 break;
                             case 35232: // 아이스 하키
                                 market12 = json.m_lstDetail.find(val => val.m_nMarket == 1 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
                                 break;
                             case 687890: // E스포츠
-                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 52 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 52 && val.m_nHBetCode != "" && val.m_nABetCode != "");
                                 break;    
                         }
                         
@@ -3382,21 +3382,21 @@
                         break;
                     case "농구":
                         if(isExist12) {
-                            if(detail.m_nMarket == 226 && detail.m_nHBetCode != "" && detail.m_nDBetCode != "" && detail.m_nABetCode != "") {
+                            if(detail.m_nMarket == 226 && detail.m_nHBetCode != "" && detail.m_nABetCode != "") {
                                 getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         }
                         break;
                     case "야구":
                         if(isExist12) {
-                            if(detail.m_nMarket == 226 && detail.m_nHBetCode != "" && detail.m_nDBetCode != "" && detail.m_nABetCode != "") {
+                            if(detail.m_nMarket == 226 && detail.m_nHBetCode != "" && detail.m_nABetCode != "") {
                                 getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         }
                         break;
                     case "배구":
                         if(isExist12) {
-                            if(detail.m_nMarket == 52 && detail.m_nHBetCode != "" && detail.m_nDBetCode != "" && detail.m_nABetCode != "") {
+                            if(detail.m_nMarket == 52 && detail.m_nHBetCode != "" && detail.m_nABetCode != "") {
                                 getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         }
@@ -3410,7 +3410,7 @@
                         break;
                     case "E스포츠":
                         if(isExist12) {
-                            if(detail.m_nMarket == 52 && detail.m_nHBetCode != "" && detail.m_nDBetCode != "" && detail.m_nABetCode != "") {
+                            if(detail.m_nMarket == 52 && detail.m_nHBetCode != "" && detail.m_nABetCode != "") {
                                 getSubChildInfo(index, item, detail, getMarketsCnt(item.m_strSportName, details, isExist12), isExist12);
                             }
                         } 
