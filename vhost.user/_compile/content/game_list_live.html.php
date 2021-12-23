@@ -836,22 +836,22 @@
                         var market12;
                         switch(json.m_nSports) {
                             case 6046: // 축구
-                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 1 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
                                 break;
                             case 48242: // 농구
-                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 226 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
                                 break;
                             case 154914: // 야구
-                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 226);
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 226 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
                                 break;
                             case 154830: // 배구
-                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 52 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
                                 break;
                             case 35232: // 아이스 하키
-                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 1);
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 1 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
                                 break;
                             case 687890: // E스포츠
-                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 52);
+                                market12 = json.m_lstDetail.find(val => val.m_nMarket == 52 && val.m_nHBetCode != "" && val.m_nDBetCode != "" && val.m_nABetCode != "");
                                 break;    
                         }
                         
