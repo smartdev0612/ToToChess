@@ -25,7 +25,7 @@
  */
 function Calendar(beginYear, endYear, language, patternDelimiter, date2StringPattern, string2DatePattern) {
 	this.beginYear = beginYear || 2019;
-	this.endYear   = endYear   || 2021;
+	this.endYear   = endYear   || 2025;
 	this.language  = language  || 0;
 	this.patternDelimiter = patternDelimiter     || "-";
 	this.date2StringPattern = date2StringPattern || Calendar.language["date2StringPattern"][this.language].replace(/\-/g, this.patternDelimiter);
