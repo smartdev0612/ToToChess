@@ -725,7 +725,7 @@ class MemberController extends WebServiceController
 		
 		$levelList		= $eModel->getLevel();
 		$country_code	= $eModel->getNationByIp($list['mem_ip']);
-		$partnerList = $partnerModel->getPartnerIdList($list['logo'], 1);
+		$partnerList = $partnerModel->getPartnerIdList($list['logo'], 2);
 		$joiner_sn = $model->getJoiner($memberSn);
 		
 		$joiner = $model->getBySn($joiner_sn);
