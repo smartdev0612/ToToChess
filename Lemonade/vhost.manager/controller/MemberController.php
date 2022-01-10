@@ -144,6 +144,16 @@ class MemberController extends WebServiceController
 				$model->modifyByParam($targetMemberSn, $set);
 			}
 		}
+		else if($act == "modify_two_folder_betting")
+		{
+			$targetMemberSn = $this->request("modify_member_sn");
+			$two_folder_betting	= $this->request("modify_two_folder_betting");
+			if($targetMemberSn != "" && $two_folder_betting != "")
+			{
+				$set = " two_folder_betting='".$two_folder_betting."'";
+				$model->modifyByParam($targetMemberSn, $set);
+			}
+		}
 		else if($act == "modify")
 		{
 			$targetMemberSn 		= $this->request("modify_member_sn");

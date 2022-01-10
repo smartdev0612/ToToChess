@@ -96,6 +96,14 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 		document.form1.modify_single_betting.value = single_betting;
 		document.form1.submit();
 	}
+
+	function onMemberModifyTwoFolderBetting(member_sn, two_folder_betting)
+	{
+		document.form1.act.value = "modify_two_folder_betting";
+		document.form1.modify_member_sn.value = member_sn;
+		document.form1.modify_two_folder_betting.value = two_folder_betting;
+		document.form1.submit();
+	}
 	
 	function onSave(sn)
 	{
@@ -268,6 +276,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 		<input type="hidden" id="modify_member_sn" name="modify_member_sn" value="">
 		<input type="hidden" id="modify_board_auth" name="modify_board_auth" value="">
 		<input type="hidden" id="modify_single_betting" name="modify_single_betting" value="">
+		<input type="hidden" id="modify_two_folder_betting" name="modify_two_folder_betting" value="">
 		
 		<table cellspacing="1" class="tableStyle_members" summary="회원목록">
 		<legend class="blind">회원목록</legend>
@@ -293,6 +302,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
             <th scope="col">추천가능</th>
 			<th scope="col">진상관리</th>
 			<th scope="col">단폴배팅</th>
+			<th scope="col">두폴더배팅</th>
 <?php
 	if ( $_SESSION['member']['sn'] < 1000 ) {
 ?>
@@ -357,6 +367,12 @@ $TPL_permit_domain_list_2=empty($TPL_V1["permit_domain_list"])||!is_array($TPL_V
 						<select name="single_betting" onChange="onMemberModifySingleBetting(<?php echo $TPL_V1["sn"]?>, this.value);">
 							<option style="color:red" value="0" <?php if($TPL_V1["single_betting"]=='0'){?> selected <?php }?>>불가능</option>
 							<option style="color:blue" value="1" <?php if($TPL_V1["single_betting"]=='1'){?> selected <?php }?>>가능</option>
+						</select>
+					</td>
+					<td rowspan="2">
+						<select name="two_folder_betting" onChange="onMemberModifyTwoFolderBetting(<?php echo $TPL_V1["sn"]?>, this.value);">
+							<option style="color:red" value="0" <?php if($TPL_V1["two_folder_betting"]=='0'){?> selected <?php }?>>불가능</option>
+							<option style="color:blue" value="1" <?php if($TPL_V1["two_folder_betting"]=='1'){?> selected <?php }?>>가능</option>
 						</select>
 					</td>
 <?php
