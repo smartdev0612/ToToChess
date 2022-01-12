@@ -88,6 +88,13 @@ function onlyNumDecimalInput(){
 				<input type="radio" name="maintain" value="2" <?php if($TPL_VAR["list"]["maintain"]==2){?> checked <?php }?>> 점검중
 			</td>
 	    </tr>
+		<tr>
+			<th style="width:25%">회원가입시 핸드폰 인증</th>
+			<td>
+				<input type="radio" name="phone_verify" value="1" <?php if($TPL_VAR["list"]["phone_verify"]==1){?> checked <?php }?>> On
+				<input type="radio" name="phone_verify" value="0" <?php if($TPL_VAR["list"]["phone_verify"]==0){?> checked <?php }?>> Off
+			</td>
+	    </tr>
 	    <tr>
 			<th>점검중멘트</th>
 			<td><textarea name="maintain_ment" rows="10" cols="55"><?php echo $TPL_VAR["list"]["maintain_ment"]?></textarea>

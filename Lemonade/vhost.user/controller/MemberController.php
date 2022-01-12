@@ -879,6 +879,7 @@ class MemberController extends WebServiceController
 		$site_info = $cModel->getAdminConfig();
 
 		$this->view->assign('member_join_chu', $site_info["member_join_chu"]);
+		$this->view->assign('phone_verify', $site_info["phone_verify"]);
 		$this->view->assign('partnerSn', $_SESSION["partnerSn"]);
 		$this->view->assign('recommendUid', $_SESSION["recommendUid"]);
 		$this->display();

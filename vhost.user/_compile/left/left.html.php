@@ -172,152 +172,152 @@ if($isApi == "true")  {?>
             </script>
             <!-- 카지노_슬롯 리스트 -->
             <div class="casino_slot_list box_type01">
-					<!-- 메뉴 리스트	-->
-					<ul class="mune_list01">
-						<li>
-                            <?php 
-                            if($TPL_VAR["page_type"] == "casino") { ?>
-                                <div class="menu01 on" onclick="casino_left();">라이브카지노</div>
-                            <?php } else if($TPL_VAR["page_type"] == "slot") { ?>
-                                <div class="menu01" onclick="location.href='/casino';">라이브카지노</div>
-                            <?php }
-                            ?>
-                            <ul class="menu_list02 casino_menu" style="display: <?=($TPL_VAR["page_type"] == "casino") ? "block" : "none"?>;">
+                <!-- 메뉴 리스트	-->
+                <ul class="mune_list01">
+                    <li>
+                        <?php 
+                        if($TPL_VAR["page_type"] == "casino") { ?>
+                            <div class="menu01 on" onclick="casino_left();">라이브카지노</div>
+                        <?php } else if($TPL_VAR["page_type"] == "slot") { ?>
+                            <div class="menu01" onclick="location.href='/casino';">라이브카지노</div>
+                        <?php }
+                        ?>
+                        <ul class="menu_list02 casino_menu" style="display: <?=($TPL_VAR["page_type"] == "casino") ? "block" : "none"?>;">
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=pr'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/slot_ico_01.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">프로그마틱</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=mc'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_01.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">마이크로</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=ev'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_05.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">에볼루션</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=ab'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_04.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">올벳</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=wm'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_02.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">WM</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=ag'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_06.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">아시아</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=og'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_17.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">오리엔탈</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=xm&amp;ctype=dr'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_15.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">드림게임</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=xm&amp;ctype=vv'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_11.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">VIVO</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=xm&amp;ctype=sx'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_16.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">섹시카지노</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=xm&amp;ctype=bb'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_10.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">BBIN</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=xm&amp;ctype=ho'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_09.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">HO게이밍</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=cg'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_08.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">카가얀</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=md'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_07.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">마이다스</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=88'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_13.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">88카지노</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=od'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_12.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">오카다</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=nw'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_14.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">뉴마카오</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=wt'">
+                                    <span class="ico01"><img src="/10bet/images/10bet/casino_ico_wt.png" alt="" class="mCS_img_loaded"></span>
+                                    <span class="name01">월드카지노</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <?php 
+                        if($TPL_VAR["page_type"] == "casino") { ?>
+                            <div class="menu01" onclick="location.href='/slot';">슬롯게임</div>
+                        <?php } else if($TPL_VAR["page_type"] == "slot") { ?>
+                            <div class="menu01 on" onclick="slot_left();">슬롯게임</div>
+                        <?php }
+                        ?>
+                        <ul class="menu_list02 slot_menu" style="display: <?=($TPL_VAR["page_type"] == "slot") ? "block" : "none"?>;">
+                        <?php 
+                        if(isset($TPL_VAR["slot_company_list"]) && count($TPL_VAR["slot_company_list"]) > 0) {
+                            foreach($TPL_VAR["slot_company_list"] as $item) { ?>
                                 <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=pr'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/slot_ico_01.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">프로그마틱</span>
+                                    <div class="menu02 slot_submenu_<?=$item['nCode']?> " onclick="getSlotGameList(<?=$item['nCode']?>,'<?=$item['strName']?>')">
+                                        <span class="ico01"><img src="/10bet/images/10bet/slot_ico_<?=$item["nCode"]?>.png?v=1" alt="" class="mCS_img_loaded"></span>
+                                        <span class="name01"><?=$item["strName"]?></span>
                                     </div>
                                 </li>
-								<li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=mc'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_01.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">마이크로</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=ev'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_05.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">에볼루션</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=ab'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_04.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">올벳</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=wm'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_02.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">WM</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=ag'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_06.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">아시아</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=og'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_17.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">오리엔탈</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=xm&amp;ctype=dr'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_15.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">드림게임</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=xm&amp;ctype=vv'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_11.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">VIVO</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=xm&amp;ctype=sx'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_16.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">섹시카지노</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=xm&amp;ctype=bb'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_10.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">BBIN</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=xm&amp;ctype=ho'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_09.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">HO게이밍</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=cg'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_08.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">카가얀</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=md'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_07.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">마이다스</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=88'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_13.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">88카지노</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=od'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_12.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">오카다</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=nw'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_14.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">뉴마카오</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="menu02 " onclick="location.href='/bbs/casino_open.php?ptype=cg&amp;ctype=wt'">
-                                        <span class="ico01"><img src="/10bet/images/10bet/casino_ico_wt.png" alt="" class="mCS_img_loaded"></span>
-                                        <span class="name01">월드카지노</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-						<li>
-                            <?php 
-                            if($TPL_VAR["page_type"] == "casino") { ?>
-                                <div class="menu01" onclick="location.href='/slot';">슬롯게임</div>
-                            <?php } else if($TPL_VAR["page_type"] == "slot") { ?>
-                                <div class="menu01 on" onclick="slot_left();">슬롯게임</div>
-                            <?php }
-                            ?>
-                            <ul class="menu_list02 slot_menu" style="display: <?=($TPL_VAR["page_type"] == "slot") ? "block" : "none"?>;">
-                            <?php 
-                            if(isset($TPL_VAR["slot_company_list"]) && count($TPL_VAR["slot_company_list"]) > 0) {
-                                foreach($TPL_VAR["slot_company_list"] as $item) { ?>
-                                    <li>
-                                        <div class="menu02 slot_submenu_<?=$item['nCode']?> " onclick="getSlotGameList(<?=$item['nCode']?>,'<?=$item['strName']?>')">
-                                            <span class="ico01"><img src="/10bet/images/10bet/slot_ico_<?=$item["nCode"]?>.png?v=1" alt="" class="mCS_img_loaded"></span>
-                                            <span class="name01"><?=$item["strName"]?></span>
-                                        </div>
-                                    </li>
-                            <?php    }
-                            }
-                            ?>
-							</ul>
-                        </li>
-					</ul>
-				</div>
+                        <?php    }
+                        }
+                        ?>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         <?php } else { ?>
             <!-- 스포츠 리스트 -->
             <div class="sports_menu_list box_type01" style="font-size: 14px !important; padding-top: 0px;">

@@ -1082,9 +1082,9 @@ class ConfigController extends WebServiceController
 			$upload_user = $uploadInfo['ftp']['user'];
 			$upload_passwd = $uploadInfo['ftp']['passwd'];*/
             $upload_domain = "http://memopow.com";
-            $img_dir = "D:\\project\\ToToChess\\vhost.user\\upload\\popup\\";
-            $img_dir2 = "D:\\project\\ToToChess\\vhost.manager\\upload\\popup\\";
-            $img_dir3 = "D:\\project\\ToToChess\\m.vhost.user\\upload\\popup\\";
+            $img_dir = "D:\\project\\service\\ToToChess\\vhost.user\\upload\\popup\\";
+            $img_dir2 = "D:\\project\\service\\ToToChess\\vhost.manager\\upload\\popup\\";
+            $img_dir3 = "D:\\project\\service\\ToToChess\\m.vhost.user\\upload\\popup\\";
 
 			//-> 파일 사이즈 체크. (최대 2MB
 			if ( $_FILES["P_FILE"]["size"] > 2000000 ) {

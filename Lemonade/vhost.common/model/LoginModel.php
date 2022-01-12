@@ -491,16 +491,16 @@ class LoginModel extends Lemon_Model
         $eModel = Lemon_Instance::getObject("EtcModel",true);
 
         //-> 서버에 세션중 용량이 0바이트 이상인것들만 가져와 IN쿼리를 실행 할 수 있또록 문자열을 만든다.
-        // @exec("find D:\\project\\ToToChess\\m.vhost.user\\session -size +1c",$sessionList_mobile);
+        // @exec("find D:\\project\\service\\ToToChess\\m.vhost.user\\session -size +1c",$sessionList_mobile);
         // unset($sessionList_mobile[0]);
-        // @exec("find D:\\project\\ToToChess\\vhost.user\\session -size +1c",$sessionList_pc);
+        // @exec("find D:\\project\\service\\ToToChess\\vhost.user\\session -size +1c",$sessionList_pc);
         // unset($sessionList_pc[0]);
 
 		$sessionList = array();
 		$sessionList_mobile = array();
 		$sessionList_pc = array();
 
-		$path    = "D:\\project\\ToToChess\\m.vhost.user\\session\\";
+		$path    = "D:\\project\\service\\ToToChess\\m.vhost.user\\session\\";
 		$temp_mobile = scandir($path);
 		$temp_mobile = array_diff(scandir($path), array('.', '..'));
 		foreach($temp_mobile as $file) {
@@ -510,7 +510,7 @@ class LoginModel extends Lemon_Model
 			}
 		}
 		
-		$path    = "D:\\project\\ToToChess\\vhost.user\\session\\";
+		$path    = "D:\\project\\service\\ToToChess\\vhost.user\\session\\";
 		$temp_pc = scandir($path);
 		$temp_pc = array_diff(scandir($path), array('.', '..'));
 		foreach($temp_pc as $file) {
@@ -523,8 +523,8 @@ class LoginModel extends Lemon_Model
         $sessionList = array_merge($sessionList_mobile,$sessionList_pc);
         if ( count($sessionList) > 0 ) {
             //$sessionListStr = "'".str_replace("C:\xampp\htdocs\gadget\www_gadget_o2_lsports.com\vhost.user\session/sess_","",implode("','",$sessionList))."'";
-            // $sessionListStr = "'".str_replace("D:\\project\\ToToChess\\vhost.user\\session\\sess_","",
-            //         str_replace("D:\\project\\ToToChess\\m.vhost.user\\session\\sess_","",implode("','",$sessionList)))."'";
+            // $sessionListStr = "'".str_replace("D:\\project\\service\\ToToChess\\vhost.user\\session\\sess_","",
+            //         str_replace("D:\\project\\service\\ToToChess\\m.vhost.user\\session\\sess_","",implode("','",$sessionList)))."'";
 
 			$sessionListStr = "'" . implode("','", $sessionList) . "'";
 

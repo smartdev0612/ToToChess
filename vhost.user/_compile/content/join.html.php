@@ -133,15 +133,19 @@
 										</select>
 									</span>
 									<input type="text" id="phone2" name="phone2" value="" class="right01" style="width:64%"/>&nbsp;
-									<p style="color:#ff0012">※ 회원가입전 휴대폰번호인증을 먼저 해주세요.</p>
+									<? if($TPL_VAR["phone_verify"] == 1) { ?>
+										<p style="color:#ff0012">※ 회원가입전 휴대폰번호인증을 먼저 해주세요.</p>
+									<? } ?>
 								</div>
 							</div>
+							<? if($TPL_VAR["phone_verify"] == 1) { ?>
 							<div class="box_left" id="div_submitPhoneNum">
 								<h3></h3><br>
 								<div class="input_box">
 									<button type="button" class="checkCodeBtn" id="submitPhoneNumBtn" onclick="submitPhoneNum()" style="margin-top:-6px;">전 송</button>
 								</div>
 							</div>
+							<? } ?>
 							<div class="box_left" id="div_checkCode" style="display:none;">
 								<h3 style="color:#ff0012">인증번호 *</h3>
 								<div class="input_box">
@@ -153,7 +157,7 @@
 						<div class="input_area">
 							<div class="box_left" style="float:none;margin:0 auto;">
 								<div class="btn_join">
-									<button type="button" id="joinBtn" onClick="joinAction();">회원가입</button>
+									<button type="button" id="joinBtn" onClick="joinAction();" <?=($TPL_VAR["phone_verify"] == 1) ? "disabled" : ""?>>회원가입</button>
 									<button type="button" onClick="location.href='/';">취소</button>
 								</div>
 							</div>

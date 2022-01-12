@@ -235,6 +235,7 @@ function checkCodeAjax(param) {
 			$j("#div_checkCode").css("display", "none");
 			$j("#div_submitPhoneNum").css("display", "none");
 			$j("#submitPhoneNumBtn").prop("disabled", true);
+			$j("#joinBtn").prop("disabled", false);
 			warning_popup("인증되였습니다.");
 		} else {
 			$j("#check_code").val("");

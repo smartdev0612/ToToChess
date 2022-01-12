@@ -555,7 +555,7 @@ class GameModel extends Lemon_Model
 		//-> 서브차일드 수정 로그
 		$hDate = date("Y-m-d H:i:s",time());
 		$fileName = "subChildModify_".date("Ymd",time()).".log";
-		$logFile = @fopen("D:\\project\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
+		$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
 		if ( $logFile ) {
 			@fwrite($logFile, $sql."\n\n");
 			@fclose($logFile);
