@@ -137,7 +137,7 @@
 										<p style="color:#ff0012">※ 회원가입전 휴대폰번호인증을 먼저 해주세요.</p>
 									<? } ?>
 								</div>
-							</div>
+							</div>     
 							<? if($TPL_VAR["phone_verify"] == 1) { ?>
 							<div class="box_left" id="div_submitPhoneNum">
 								<h3></h3><br>
@@ -145,7 +145,7 @@
 									<button type="button" class="checkCodeBtn" id="submitPhoneNumBtn" onclick="submitPhoneNum()" style="margin-top:-6px;">전 송</button>
 								</div>
 							</div>
-							<? } ?>
+							<? } ?>    
 							<div class="box_left" id="div_checkCode" style="display:none;">
 								<h3 style="color:#ff0012">인증번호 *</h3>
 								<div class="input_box">
