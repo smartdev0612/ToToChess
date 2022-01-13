@@ -102,7 +102,7 @@ function joinAction() {
 
 	var isCheckPhoneNum = checkPhoneNumberVerification($j('#phone1').val() + $j('#phone2').val());
 
-	if(isCheckPhoneNum == 1) {
+	if(isCheckPhoneNum == 1 || phone_verify == "0") {
 		//submitFlag = 1;
 		phone_num = $j('#phone1').val() + $j('#phone2').val();
 

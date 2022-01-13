@@ -19,6 +19,7 @@
 		var recommendUid = '<?php echo $TPL_VAR["recommendUid"]?>';
 		var parentCodeFlag = 0;
 		var submitFlag = 0;
+		var phone_verify = '<?=$TPL_VAR["phone_verify"]?>';
 	</script>
 	
 	<div id="contents">
