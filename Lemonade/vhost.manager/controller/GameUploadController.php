@@ -1120,13 +1120,12 @@ class GameUploadController extends WebServiceController
 				$game_result = $this->request( "game_result_" . $subchildSn );
 				$childSn = $model->getChildSn($subchildSn);
 				$childRs = $model->getChildRow($childSn, '*');
-				if ( $childRs['kubun'] == 1 ) {
+				//if ( $childRs['kubun'] == 1 ) {
 					// 정산취소모듈 추가
 					$processModel->cancel_resultGameProcessMulti($subchildSn);
-				}
+				//}
 				
 				$dataArray = $processModel->resultPreviewProcess($subchildSn, $game_result);
-				
 				$list_temp = $dataArray["list"];
 				$betData_temp = $dataArray["betData"];
 				
@@ -1147,7 +1146,7 @@ class GameUploadController extends WebServiceController
 				$gameSnList[] = array("subchild_sn" => $subchildSn, "game_result" => $game_result);
 			}// end of for
         }
-
+		
         $categoryName = $this->request("categoryName");
         $gameType = $this->request("game_type");
 

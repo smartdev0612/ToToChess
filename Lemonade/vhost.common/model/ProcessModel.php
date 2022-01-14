@@ -218,6 +218,12 @@ class ProcessModel extends Lemon_Model
 			if($game_result == 4)							{$result=4;}
 			else if($select == $game_result) 				{$result=1;}
 			else				  							{$result=2;}
+
+			$sql = "update	".$this->db_qz."total_betting 
+					set 	result = " . $result . "
+					where 	sn =".$betSn;
+						
+			$rs = $this->db->exeSql($sql);
 			
 			$data["bet_sn"]	= $betSn;
 			$data["subchild_sn"] = $subChildSn;
@@ -1334,126 +1340,126 @@ class ProcessModel extends Lemon_Model
  			return -1;
  			
  		//이미 처리된게임인지 확인
- 		if($rs['kubun']==1)
-        {
-            $sql = "select 	b.betting_no, b.member_sn, d.last_special_code
-					from 	tb_subchild a, tb_total_betting b, tb_child c, tb_total_cart d
-					where 	a.sn = b.sub_child_sn and a.child_sn=c.sn and b.betting_no=d.betting_no and d.result <> 0 and a.sn = ".$subchildSn;
-            $rs = $this->db->exeSql($sql);
+ 		//if($rs['kubun']==1)
+        //{
+		$sql = "select 	b.betting_no, b.member_sn, d.last_special_code
+				from 	tb_subchild a, tb_total_betting b, tb_child c, tb_total_cart d
+				where 	a.sn = b.sub_child_sn and a.child_sn=c.sn and b.betting_no=d.betting_no and d.result <> 0 and a.sn = ".$subchildSn;
+		$rs = $this->db->exeSql($sql);
 
-            for($i=0; $i<count((array)$rs); ++$i)
-            {
-                $bettingNo = $rs[$i]['betting_no'];
-                $sn = $rs[$i]['member_sn'];
-                $specialCode = $rs[$i]['last_special_code'];
+		for($i=0; $i<count((array)$rs); ++$i)
+		{
+			$bettingNo = $rs[$i]['betting_no'];
+			$sn = $rs[$i]['member_sn'];
+			$specialCode = $rs[$i]['last_special_code'];
 
-                $sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild_m b, tb_child_m c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
-                $rsi = $this->db->exeSql($sql);
+			$sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild_m b, tb_child_m c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
+			$rsi = $this->db->exeSql($sql);
 
-                $winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
-                $winRate = 1;
-                $winMoney = 0;
-                $total = count((array)$rsi);	//-> 경기총폴더수
+			$winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
+			$winRate = 1;
+			$winMoney = 0;
+			$total = count((array)$rsi);	//-> 경기총폴더수
 
-                for ( $j = 0 ; $j < count((array)$rsi) ; $j++ ) {
-                    $betMoney = $rsi[$j]['bet_money'];
-                    $sportName = $rsi[$j]['sport_name'];
+			for ( $j = 0 ; $j < count((array)$rsi) ; $j++ ) {
+				$betMoney = $rsi[$j]['bet_money'];
+				$sportName = $rsi[$j]['sport_name'];
 
-                    if ( $rsi[$j]['result'] == 0 ) {
-                        ++$ingGameCount;
-                    } else if ( $rsi[$j]['result'] == 1 ) {
-                        ++$winCount;
-                        $winRate *= $rsi[$j]['select_rate'];
-                        if ( strlen($sportName) != strlen(str_replace("보너스","",$sportName)) ) {
-                            ++$bonusGameCount;
-                        }
-                    } else if ( $rsi[$j]['result'] == 2 ) {
-                        ++$loseCount;
-                    } else if ( $rsi[$j]['result'] == 4 ) {
-                        ++$cancelCount;
-                        $winRate *= 1;
-                    }
-                }
+				if ( $rsi[$j]['result'] == 0 ) {
+					++$ingGameCount;
+				} else if ( $rsi[$j]['result'] == 1 ) {
+					++$winCount;
+					$winRate *= $rsi[$j]['select_rate'];
+					if ( strlen($sportName) != strlen(str_replace("보너스","",$sportName)) ) {
+						++$bonusGameCount;
+					}
+				} else if ( $rsi[$j]['result'] == 2 ) {
+					++$loseCount;
+				} else if ( $rsi[$j]['result'] == 4 ) {
+					++$cancelCount;
+					$winRate *= 1;
+				}
+			}
 
-                //모든게임종료
-                if ( $ingGameCount == 0 )
-                {
-                    $memberSn = $rs[$i]['member_sn'];
-                    $sql = "select logo from ".$this->db_qz."member where sn=".$memberSn;
-                    $rsi = $this->db->exeSql($sql);
-                    $logo = $rsi[0]['logo'];
+			//모든게임종료
+			if ( $ingGameCount == 0 )
+			{
+				$memberSn = $rs[$i]['member_sn'];
+				$sql = "select logo from ".$this->db_qz."member where sn=".$memberSn;
+				$rsi = $this->db->exeSql($sql);
+				$logo = $rsi[0]['logo'];
 
-                    //모두 취소된 게임
-                    if ( $total == $cancelCount ) {
-                        $winRate  = bcmul($winRate,1,2);
-                        $winMoney = bcmul($betMoney,$winRate,0);
+				//모두 취소된 게임
+				if ( $total == $cancelCount ) {
+					$winRate  = bcmul($winRate,1,2);
+					$winMoney = bcmul($betMoney,$winRate,0);
 
-                        //$sql = "update ".$this->db_qz."total_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
-                        $sql = "update ".$this->db_qz."total_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
-                        $rsi = $this->db->exeSql($sql);
-                        /*if($rsi<=0) {
-                            $sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
-                            $this->db->exeSql($sql);
-                        }
-                        $this->modifyMoneyProcess($memberSn, $winMoney, 5, $bettingNo);*/
+					//$sql = "update ".$this->db_qz."total_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					$sql = "update ".$this->db_qz."total_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					$rsi = $this->db->exeSql($sql);
+					/*if($rsi<=0) {
+						$sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
+						$this->db->exeSql($sql);
+					}
+					$this->modifyMoneyProcess($memberSn, $winMoney, 5, $bettingNo);*/
 
-                    //낙첨
-                    } else if( $loseCount > 0 ) {
-                        $sql = "update ".$this->db_qz."total_cart set result=0, operdate=now() where betting_no ='".$bettingNo."'";
-                        $rsi = $this->db->exeSql($sql);
-                        
-                    }
-                    //else if( ($winCount+$cancelCount) >= $total )
-                    else if( $winCount > 0 )
-                    {
-                        $winRate  = bcmul($winRate,1,2);
-                        $winMoney = bcmul($betMoney,$winRate,0);
+				//낙첨
+				} else if( $loseCount > 0 ) {
+					$sql = "update ".$this->db_qz."total_cart set result=0, operdate=now() where betting_no ='".$bettingNo."'";
+					$rsi = $this->db->exeSql($sql);
+					
+				}
+				//else if( ($winCount+$cancelCount) >= $total )
+				else if( $winCount > 0 )
+				{
+					$winRate  = bcmul($winRate,1,2);
+					$winMoney = bcmul($betMoney,$winRate,0);
 
-                        //$sql = "update ".$this->db_qz."total_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
-                        $sql = "update ".$this->db_qz."total_cart set result = 0, operdate = now(), result_money = 0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
-                        $rsi = $this->db->exeSql($sql);
-                        if($rsi<=0)
-                        {
-                            $sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) 
-										values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
-                            $this->db->exeSql($sql);
-                        }
+					//$sql = "update ".$this->db_qz."total_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					$sql = "update ".$this->db_qz."total_cart set result = 0, operdate = now(), result_money = 0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					$rsi = $this->db->exeSql($sql);
+					if($rsi<=0)
+					{
+						$sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) 
+									values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
+						$this->db->exeSql($sql);
+					}
 
-                        $winMoney = -1 * $winMoney;
-                        // 재정산전 취소
-                        $this->modifyMoneyProcess($memberSn, $winMoney, 9, $bettingNo);
-                        /*
-                                            //다폴더 보너스 계산
-                                            if ( ($winCount - $bonusGameCount) > 2 ) {
-                                                //-> 통합 다폴더 포인트 rate 가져오기.
-                                                $folderCnt = $winCount - $bonusGameCount;
-                                                $folderRate = $this->configModel->getPointConfigRow("folder_bouns".$folderCnt);
-                                                $this->modifyMileageProcess($sn, $betMoney, "3", $bettingNo, $folderRate["folder_bouns".$folderCnt], $folderCnt);
-                                            }
-                        */
-                    }
-                    else
-                    {
-                        /*$sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel, flag)
-									values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.",1)";
-                        $this->db->exeSql($sql);*/
-                    }
+					$winMoney = -1 * $winMoney;
+					// 재정산전 취소
+					$this->modifyMoneyProcess($memberSn, $winMoney, 9, $bettingNo);
+					/*
+										//다폴더 보너스 계산
+										if ( ($winCount - $bonusGameCount) > 2 ) {
+											//-> 통합 다폴더 포인트 rate 가져오기.
+											$folderCnt = $winCount - $bonusGameCount;
+											$folderRate = $this->configModel->getPointConfigRow("folder_bouns".$folderCnt);
+											$this->modifyMileageProcess($sn, $betMoney, "3", $bettingNo, $folderRate["folder_bouns".$folderCnt], $folderCnt);
+										}
+					*/
+				}
+				else
+				{
+					/*$sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel, flag)
+								values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.",1)";
+					$this->db->exeSql($sql);*/
+				}
 
-                    //-> 추천인 마일리지는 미니게임 제외, 스포츠 1폴더(이기거나 진거 합 2이상) 이상부터 지급
-                    if ( $specialCode < 5 ) {
-                        if ( ($winCount + $loseCount - $bonusGameCount) > 1 ) {
-                            //-> 추천인 마일리지
-                            $this->cancel_recommendFailedGameMileage($sn, $betMoney, $bettingNo, $loseCount);
-                        }
-                    }
+				//-> 추천인 마일리지는 미니게임 제외, 스포츠 1폴더(이기거나 진거 합 2이상) 이상부터 지급
+				if ( $specialCode < 5 ) {
+					if ( ($winCount + $loseCount - $bonusGameCount) > 1 ) {
+						//-> 추천인 마일리지
+						$this->cancel_recommendFailedGameMileage($sn, $betMoney, $bettingNo, $loseCount);
+					}
+				}
 
-                }
-            }// end of for
+			}
+		}// end of for
 
-            $sql = "update ".$this->db_qz."subchild set win = 0, result=0 where sn=".$subchildSn;
-            $this->db->exeSql($sql);
+		$sql = "update ".$this->db_qz."subchild set win = 0, result=0 where sn=".$subchildSn;
+		$this->db->exeSql($sql);
 
-        }
+        //}
 
 		return 1;
  	}
@@ -1479,7 +1485,7 @@ class ProcessModel extends Lemon_Model
 						and d.sn=".$subchildSn;
 						
 		$rs = $this->db->exeSql($sql);
-	
+
 		for($i=0; $i<count((array)$rs); ++$i)
 		{
 			$bettingNo  = $rs[$i]['betting_no'];
