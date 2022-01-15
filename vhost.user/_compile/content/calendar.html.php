@@ -170,7 +170,7 @@
         <h2>출석부</h2>
         <div class="attend_box">
             <h3><img src="/10bet/images/10bet/title_attend_01.png" alt="출석부" /></h3>
-            <div class="calendar-comment"><span>※ 당일 <span style="color:#d82900;">100,000</span> 원 이상 충전하셔야 출석체크가 가능합니다.</span></div>
+            <div class="calendar-comment"><span>※ 당일 <span style="color:#d82900;"><?=number_format($TPL_VAR["checkAmt"])?></span> 원 이상 충전하셔야 출석체크가 가능합니다.</span></div>
             <div class="month">
                 <?php echo $currYear.'년 '.$currMonth.'월'?>
             </div>

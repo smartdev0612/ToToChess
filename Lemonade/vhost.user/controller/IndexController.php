@@ -478,6 +478,7 @@ class IndexController extends WebServiceController
 		$this->view->assign('is_enable_check', $is_enable_check);
 		$this->view->assign('is_checked', $is_checked);
 		$this->view->assign('presenceDays', $presenceDays);
+		$this->view->assign('checkAmt', $checkAmt);
 		$this->display();
 	}
 
