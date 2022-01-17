@@ -215,14 +215,14 @@ class ProcessModel extends Lemon_Model
 			$betSn = $rs[$i]["sn"];
 			$select = $rs[$i]["select_no"];
 
-			if($game_result == 4)							{$result=4;}
-			else if($select == $game_result) 				{$result=1;}
-			else				  							{$result=2;}
+			if($game_result == 4)							{$result = 4;}
+			else if($select == $game_result) 				{$result = 1;}
+			else				  							{$result = 2;}
 
 			$sql = "update	".$this->db_qz."total_betting 
 					set 	result = " . $result . "
 					where 	sn =".$betSn;
-						
+					
 			$rs = $this->db->exeSql($sql);
 			
 			$data["bet_sn"]	= $betSn;
@@ -230,9 +230,9 @@ class ProcessModel extends Lemon_Model
 			$data["win"] = $game_result;
 			$data["result"]	= $result;
 			$betData[] = $data;
-		 }
-
-		 return $this->accountListProcess($subChildSn, $betData);
+		}
+		
+		return $this->accountListProcess($subChildSn, $betData);
 	}
 
 	//다기준
@@ -1353,9 +1353,9 @@ class ProcessModel extends Lemon_Model
 			$sn = $rs[$i]['member_sn'];
 			$specialCode = $rs[$i]['last_special_code'];
 
-			$sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild_m b, tb_child_m c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
+			$sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
 			$rsi = $this->db->exeSql($sql);
-
+			
 			$winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
 			$winRate = 1;
 			$winMoney = 0;
@@ -1380,7 +1380,7 @@ class ProcessModel extends Lemon_Model
 					$winRate *= 1;
 				}
 			}
-
+			
 			//모든게임종료
 			if ( $ingGameCount == 0 )
 			{
@@ -1393,7 +1393,7 @@ class ProcessModel extends Lemon_Model
 				if ( $total == $cancelCount ) {
 					$winRate  = bcmul($winRate,1,2);
 					$winMoney = bcmul($betMoney,$winRate,0);
-
+					
 					//$sql = "update ".$this->db_qz."total_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
 					$sql = "update ".$this->db_qz."total_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
 					$rsi = $this->db->exeSql($sql);
@@ -1402,6 +1402,11 @@ class ProcessModel extends Lemon_Model
 						$this->db->exeSql($sql);
 					}
 					$this->modifyMoneyProcess($memberSn, $winMoney, 5, $bettingNo);*/
+
+					// 재정산전 취소
+					$winMoney = -1 * $winMoney;
+
+					$this->modifyMoneyProcess($memberSn, $winMoney, 9, $bettingNo);
 
 				//낙첨
 				} else if( $loseCount > 0 ) {
@@ -1429,13 +1434,13 @@ class ProcessModel extends Lemon_Model
 					// 재정산전 취소
 					$this->modifyMoneyProcess($memberSn, $winMoney, 9, $bettingNo);
 					/*
-										//다폴더 보너스 계산
-										if ( ($winCount - $bonusGameCount) > 2 ) {
-											//-> 통합 다폴더 포인트 rate 가져오기.
-											$folderCnt = $winCount - $bonusGameCount;
-											$folderRate = $this->configModel->getPointConfigRow("folder_bouns".$folderCnt);
-											$this->modifyMileageProcess($sn, $betMoney, "3", $bettingNo, $folderRate["folder_bouns".$folderCnt], $folderCnt);
-										}
+						//다폴더 보너스 계산
+						if ( ($winCount - $bonusGameCount) > 2 ) {
+							//-> 통합 다폴더 포인트 rate 가져오기.
+							$folderCnt = $winCount - $bonusGameCount;
+							$folderRate = $this->configModel->getPointConfigRow("folder_bouns".$folderCnt);
+							$this->modifyMileageProcess($sn, $betMoney, "3", $bettingNo, $folderRate["folder_bouns".$folderCnt], $folderCnt);
+						}
 					*/
 				}
 				else
@@ -1452,7 +1457,6 @@ class ProcessModel extends Lemon_Model
 						$this->cancel_recommendFailedGameMileage($sn, $betMoney, $bettingNo, $loseCount);
 					}
 				}
-
 			}
 		}// end of for
 
@@ -2782,58 +2786,49 @@ class ProcessModel extends Lemon_Model
 	}
 
 	//▶ [배당지급] - 결과에 따른 돈 지급
-	function modifyResultMoneyProcess($betting_no)
+	function modifyResultMoneyProcess($bettingNo)
 	{
-	   $sql = "select b.betting_no, b.member_sn, d.last_special_code
-					   from ".$this->db_qz."total_betting b, ".$this->db_qz."total_cart d
-					   where b.betting_no=d.betting_no and d.result=0 and b.betting_no=".$betting_no;
-	   $rs = $this->db->exeSql($sql);		
-	   
-	   for($i=0; $i<count((array)$rs); ++$i)
-	   {
-		   $bettingNo = $rs[$i]['betting_no'];
-		   $sn = $rs[$i]['member_sn'];
-		   $specialCode = $rs[$i]['last_special_code'];
-		   
-		   $sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
-		   $rsi = $this->db->exeSql($sql);
-		   
-		   $winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
-		   $winRate = 1;
-		   $winMoney = 0;
-		   $total = count((array)$rsi);	//-> 경기총폴더수
-		   
-		   for ( $j = 0 ; $j < count((array)$rsi) ; $j++ ) {
-			   $betMoney = $rsi[$j]['bet_money'];
-			   $sportName = $rsi[$j]['sport_name'];
+		$sql = "SELECT a.*, c.sport_name FROM tb_total_betting a, tb_subchild b, tb_child c WHERE a.sub_child_sn = b.sn AND b.child_sn = c.sn AND a.betting_no='".$bettingNo."'";
+		$rsi = $this->db->exeSql($sql);
+		
+		if(count((array)$rsi) > 0) {
+			$memberSn = $rsi[0]['member_sn'];
+			$specialCode = $rsi[0]['last_special_code'];
+			$winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
+			$winRate = 1;
+			$winMoney = 0;
+			$total = count((array)$rsi);	//-> 경기총폴더수
+			
+			for ( $j = 0 ; $j < count((array)$rsi) ; $j++ ) {
+				$betMoney = $rsi[$j]['bet_money'];
+				$sportName = $rsi[$j]['sport_name'];
 
-			   if ( $rsi[$j]['result'] == 0 ) {
-				   ++$ingGameCount;
-			   } else if ( $rsi[$j]['result'] == 1 ) {
-				   ++$winCount;
-				   $winRate *= $rsi[$j]['select_rate'];
-				   if ( strlen($sportName) != strlen(str_replace("이벤트","",$sportName)) ) {
-					   ++$bonusGameCount;
-				   }
-			   } else if ( $rsi[$j]['result'] == 2 ) {
-				   ++$loseCount;
-			   } else if ( $rsi[$j]['result'] == 4 ) {
-				   ++$cancelCount;
-				   $winRate *= 1;
-			   }
-		   }
-		   
-		   //모든게임종료
-		   if ( $ingGameCount == 0 ) {
-			   $memberSn = $rs[$i]['member_sn'];
-			   $sql = "select logo, uid, recommend_sn from ".$this->db_qz."member where sn=".$memberSn;
-			   $rsi = $this->db->exeSql($sql);					
-			   $logo = $rsi[0]['logo'];
-			   $strUserID = $rsi[0]['uid'];
-			   $recommend_sn = $rsi[0]['recommend_sn'];
-
-			   //모두 취소된 게임
-			   if ( $total == $cancelCount ) {
+				if ( $rsi[$j]['result'] == 0 ) {
+					++$ingGameCount;
+				} else if ( $rsi[$j]['result'] == 1 ) {
+					++$winCount;
+					$winRate *= $rsi[$j]['select_rate'];
+					if ( strlen($sportName) != strlen(str_replace("이벤트","",$sportName)) ) {
+						++$bonusGameCount;
+					}
+				} else if ( $rsi[$j]['result'] == 2 ) {
+					++$loseCount;
+				} else if ( $rsi[$j]['result'] == 4 ) {
+					++$cancelCount;
+					$winRate *= 1;
+				}
+			}
+			
+			//모든게임종료
+			if ( $ingGameCount == 0 ) {
+				$sql = "select logo, uid, recommend_sn from ".$this->db_qz."member where sn=".$memberSn;
+				$rsi = $this->db->exeSql($sql);					
+				$logo = $rsi[0]['logo'];
+				$strUserID = $rsi[0]['uid'];
+				$recommend_sn = $rsi[0]['recommend_sn'];
+					
+				//모두 취소된 게임
+				if ( $total == $cancelCount ) {
 					$winRate  = bcmul($winRate,1,2);
 					$winMoney = bcmul($betMoney,$winRate,0);
 						
@@ -2848,24 +2843,24 @@ class ProcessModel extends Lemon_Model
 					$sql = "INSERT INTO api_betting (strUserID, nStoreSn, nWinCash, nMode, strBetTime) VALUES ('".$strUserID."', '".$recommend_sn."', '".$winMoney."', '".$nMode."', NOW())";
 					$this->db->exeSql($sql);	
 
-				  	$this->modifyMoneyProcess($memberSn, $winMoney, 5, $bettingNo);
+					$this->modifyMoneyProcess($memberSn, $winMoney, 5, $bettingNo);
 
-			   //낙첨
-			   } else if( $loseCount > 0 ) {
-				   $sql = "update ".$this->db_qz."total_cart set result=2, operdate=now() where betting_no =".$bettingNo;
-				   $rsi = $this->db->exeSql($sql);
+				//낙첨
+				} else if( $loseCount > 0 ) {
+					$sql = "update ".$this->db_qz."total_cart set result=2, operdate=now() where betting_no =".$bettingNo;
+					$rsi = $this->db->exeSql($sql);
 
-				   //미니게임은 지급하지 않는다.
-				   if ( $specialCode < 5 ) {
-					   //-> 낙첨 마일리지는 미니게임은 제외하고 스포츠 1폴더 이상부터 지급
-					   if ( ($winCount + $loseCount - $bonusGameCount) > 1 ) {
-						   //낙첨 마일리지
-						   $this->modifyMileageProcess($sn, $betMoney, "4", $bettingNo);
-					   }
-				   }
+					//미니게임은 지급하지 않는다.
+					if ( $specialCode < 5 ) {
+						//-> 낙첨 마일리지는 미니게임은 제외하고 스포츠 1폴더 이상부터 지급
+						if ( ($winCount + $loseCount - $bonusGameCount) > 1 ) {
+							//낙첨 마일리지
+							$this->modifyMileageProcess($memberSn, $betMoney, "4", $bettingNo);
+						}
+					}
 
-			   //당첨
-			   } else if( ($winCount + $cancelCount) >= $total) {
+				//당첨
+				} else if( ($winCount + $cancelCount) >= $total) {
 					$winRate  = bcmul($winRate, 1, 2);
 					$winMoney = bcmul($betMoney, $winRate, 0);
 						
@@ -2883,27 +2878,27 @@ class ProcessModel extends Lemon_Model
 					$this->modifyMoneyProcess($memberSn, $winMoney, 4, $bettingNo);
 
 					//다폴더 보너스 계산
-	/*
-					if ( ($winCount - $bonusGameCount) > 2 ) {
-						//-> 통합 다폴더 포인트 rate 가져오기.
-						$folderCnt = $winCount - $bonusGameCount;
-						$folderRate = $this->configModel->getPointConfigRow("folder_bouns".$folderCnt);
-						$this->modifyMileageProcess($sn, $betMoney, "3", $bettingNo, $folderRate["folder_bouns".$folderCnt], $folderCnt);
+					/*
+						if ( ($winCount - $bonusGameCount) > 2 ) {
+							//-> 통합 다폴더 포인트 rate 가져오기.
+							$folderCnt = $winCount - $bonusGameCount;
+							$folderRate = $this->configModel->getPointConfigRow("folder_bouns".$folderCnt);
+							$this->modifyMileageProcess($sn, $betMoney, "3", $bettingNo, $folderRate["folder_bouns".$folderCnt], $folderCnt);
+						}
+					*/
+				}
+
+				//-> 추천인 마일리지는 미니게임 제외, 스포츠 1폴더(이기거나 진거 합 2이상) 이상부터 지급
+				if ( $specialCode < 5 ) {
+					if ( ($winCount + $loseCount - $bonusGameCount) > 1 ) {
+						//-> 추천인 낙첨 마일리지
+						$this->recommendFailedGameMileage($memberSn, $betMoney, $bettingNo, $loseCount);
 					}
-	*/
-			   }
+				}
 
-			   //-> 추천인 마일리지는 미니게임 제외, 스포츠 1폴더(이기거나 진거 합 2이상) 이상부터 지급
-			   if ( $specialCode < 5 ) {
-				   if ( ($winCount + $loseCount - $bonusGameCount) > 1 ) {
-					   //-> 추천인 낙첨 마일리지
-					   $this->recommendFailedGameMileage($sn, $betMoney, $bettingNo, $loseCount);
-				   }
-			   }
-
-		   	} 
-	   }// end of for
-	   return 1;
+			} 
+		}
+	   	return 1;
 	}
 }
 ?>

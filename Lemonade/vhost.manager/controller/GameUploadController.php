@@ -460,7 +460,7 @@ class GameUploadController extends WebServiceController
 			{
 				$subchildSn = $gameSnList[$i]["subchild_sn"];
 				$game_result = $gameSnList[$i]["game_result"];
-				if($subchildSn!="")
+				if($subchildSn != "" && $game_result > 0)
 				{
 					$processModel->resultGameProcess($subchildSn, $game_result);
 				}
@@ -1125,9 +1125,14 @@ class GameUploadController extends WebServiceController
 					$processModel->cancel_resultGameProcessMulti($subchildSn);
 				//}
 				
-				$dataArray = $processModel->resultPreviewProcess($subchildSn, $game_result);
-				$list_temp = $dataArray["list"];
-				$betData_temp = $dataArray["betData"];
+				if ($game_result > 0) {
+					$dataArray = $processModel->resultPreviewProcess($subchildSn, $game_result);
+					$list_temp = $dataArray["list"];
+					$betData_temp = $dataArray["betData"];
+				} else {
+					$list_temp = array();
+					$betData_temp = array();
+				}
 				
 				if ( count((array)$list_temp) > 0 ) {
 					if ( count((array)$data) <= 0 ) {

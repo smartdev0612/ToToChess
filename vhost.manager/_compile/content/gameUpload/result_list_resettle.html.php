@@ -414,6 +414,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 						<!--<td><input type="checkbox" name="check_cancel[]" onclick='autoCheck_check(<?php /*echo $TPL_I1*/?>)' ></td>-->
 						<td>
 							<select name="game_result_<?php echo $TPL_V1["sn"]?>" onchange='autoCheck_check(<?php echo $TPL_I1?>)'>
+								<option value="0" <?=$TPL_V1["win"] == 0 ? "selected" : ""?>>배팅중</option>
 								<option value="1" <?=$TPL_V1["win"] == 1 ? "selected" : ""?>>홈승</option>
 								<option value="2" <?=$TPL_V1["win"] == 2 ? "selected" : ""?>>원정승</option>
 								<option value="3" <?=$TPL_V1["win"] == 3 ? "selected" : ""?>>무승부</option>
