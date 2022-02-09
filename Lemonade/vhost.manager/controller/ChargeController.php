@@ -282,6 +282,9 @@ class ChargeController extends WebServiceController
 				exit;
 			}
 			$pModel->chargeProcess($chargeSn, $memberSn, $amount, $bonus);
+
+			// 관리자 입금 승인 로그
+			$pModel->insertChargeAgreeLog($chargeSn, $_SESSION["member"]["sn"], $_SESSION["member"]["ip"]);
 			
 			throw new Lemon_ScriptException("","","script","alert('처리 되였습니다.');opener.document.location.reload(); self.close();");
 			exit;

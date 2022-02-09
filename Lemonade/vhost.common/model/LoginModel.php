@@ -291,7 +291,8 @@ class LoginModel extends Lemon_Model
 			$this->db->exeSql($sql);
 			
 			$_SESSION["member"]["id"] = $uid;
-			$_SESSION["member"]["sn"]	= $rs[0]['idx']; 
+			$_SESSION["member"]["sn"] = $rs[0]['idx']; 
+			$_SESSION["member"]["ip"] = $ip;
 
 			return 1; // 로그인 성공
 		}
