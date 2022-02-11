@@ -11,8 +11,10 @@ class Lemon_Controller extends Lemon_Object
 		parent::setMessage($t_message);
 		parent::setAuth($t_auth);
 
-		$logModel=Lemon_Instance::getObject("LogModel", true);
-		$logModel->insertURL($_SERVER['REQUEST_URI']);
+		if($_SERVER['REQUEST_URI'] != "/etc/refresh") {
+			$logModel=Lemon_Instance::getObject("LogModel", true);
+			$logModel->insertURL($_SERVER['REQUEST_URI']);
+		}
 	}
 
 	public $view = '';
