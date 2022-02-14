@@ -245,7 +245,7 @@ class GameBlockModel extends Lemon_Model
 	{
 		$sql = "SELECT *
 				FROM  ".$this->db_qz."child
-				WHERE  CONCAT(gameDate, ' ', gameHour, ':', gameTime, ':00') > '" . date("Y-m-d H:i:s", time() + 1800) . "' 
+				WHERE   CONCAT(gameDate, ' ', gameHour, ':', gameTime, ':00') > '" . date("Y-m-d H:i:s", time() - 3600 * 24) . "' 
 						AND sport_id > 0 " . $where . "
 				ORDER BY gameDate, gameHour, gameTime LIMIT " . $page . ", " . $page_size;
 				
