@@ -529,9 +529,9 @@ function sportsSocket() {
                     if(objPacket.m_nEnd == 0) {
                         strSocketMessage += objPacket.m_strPacket;
                     } else if(objPacket.m_nEnd == 1) {
-                        strSocketMessage += objPacket.m_strPacket;
-                        onRevGameList(strSocketMessage);
+                        var strMessage = strSocketMessage + objPacket.m_strPacket;
                         strSocketMessage = "";
+                        onRevGameList(strMessage);
                     }
                 }
             } else if(objPacket.m_nPacketCode == PACKET_SPORT_BET) {
@@ -543,9 +543,9 @@ function sportsSocket() {
                     if(objPacket.m_nEnd == 0) {
                         strSocketMessage += objPacket.m_strPacket;
                     } else if(objPacket.m_nEnd == 1) {
-                        strSocketMessage += objPacket.m_strPacket;
-                        onRecvAjaxList(strSocketMessage);
+                        var strMessage = strSocketMessage + objPacket.m_strPacket;
                         strSocketMessage = "";
+                        onRecvAjaxList(strMessage);
                     }
                 }
             } 

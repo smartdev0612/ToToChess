@@ -855,7 +855,7 @@
                                 break;    
                         }
                         
-                        if(market12.m_nStatus > 1) {
+                        if(typeof market12 !== 'undefined' && market12.m_nStatus > 1) {
                             $j("#lock_" + json.m_nGame).css("display", "block");
                         } else {
                             $j("#lock_" + json.m_nGame).css("display", "none");

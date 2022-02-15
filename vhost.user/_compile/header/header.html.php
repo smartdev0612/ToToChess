@@ -19,7 +19,7 @@
     <script type="text/javascript" src="/10bet/js/10bet/pub.js?v=1610345806"></script>
     <script type="text/javascript" src="/include/js/common.js?v=1"></script>
     <script type="text/javascript" src="/include/js/constant.js?v=1"></script>
-    <script type="text/javascript" src="/include/js/include.js?v=1"></script>
+    <script type="text/javascript" src="/include/js/include.js?v=2"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
     <script type="text/javascript" src="/10bet/js/jquery.lazyload.min.js"></script>
 
