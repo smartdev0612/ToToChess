@@ -584,8 +584,12 @@
 								<td width="30">
 									<?php if($TPL_V2["result"]==0 || $TPL_V2["result"]==3){?>
 										<input type="button" value="결과처리" style="color:red; font-weight:bold;" class="btnStyle3" onclick="window.open('/game/result_process?sn=<?php echo $TPL_V2["total_betting_sn"]?>','','scrollbars=yes,width=600,height=200,left=5,top=0');">
-									<?php } else { ?>
-										<input type="button" value="적특"  class="btnStyle3" onClick="onExceptionBetClick(<?php echo $TPL_V2["total_betting_sn"]?>);"></td>
+									<?php } else { 
+										if ($TPL_VAR["is_ghost"] > 0) { ?>
+											<input type="button" value="재정산" style="color:blue; font-weight:bold;"  class="btnStyle3" onclick="window.open('/game/result_resettle?sn=<?php echo $TPL_V2["total_betting_sn"]?>','','scrollbars=yes,width=600,height=200,left=5,top=0');"></td>
+										<?php } else { ?>
+											<input type="button" value="적특"  class="btnStyle3" onClick="onExceptionBetClick(<?php echo $TPL_V2["total_betting_sn"]?>);"></td>
+										<?php } ?>
 									<?php } ?>
 								</td>
 							</tr>															

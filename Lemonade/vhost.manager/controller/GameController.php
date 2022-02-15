@@ -509,9 +509,10 @@ class GameController extends WebServiceController
 		}
 		$this->view->define("content","content/game/bet_list.html");
 		
-		$model					= $this->getModel("GameModel");
-		$cartModel				= $this->getModel("CartModel");
-		$memberModel		= $this->getModel("MemberModel");
+		$model			= $this->getModel("GameModel");
+		$loginModel		= $this->getModel("LoginModel");
+		$cartModel		= $this->getModel("CartModel");
+		$memberModel	= $this->getModel("MemberModel");
 		$gameListModel 	= $this->getModel("GameListModel");
 		
 		$last_special_code 		= $this->request("last_special_code");
@@ -647,6 +648,9 @@ class GameController extends WebServiceController
 		$list 			= $gameListModel->getAdminBettingList("", $where, $pageMaker->first, $pageMaker->listNum);
 		
 		$sumList = $cartModel->getTotalBetMoney();
+
+		$head_sn = $this->auth->getSn();
+		$isGhost = $loginModel->isGhostManger($head_sn);
 		
 		$this->view->assign("membervip",$membervip);
 		$this->view->assign("show_detail",$showDetail);
@@ -661,6 +665,7 @@ class GameController extends WebServiceController
 		$this->view->assign("sumList",$sumList);
 		$this->view->assign("begin_date",$begin_date);
 		$this->view->assign("end_date",$end_date);
+		$this->view->assign("is_ghost", $isGhost);
 
 		$this->display();
 	}
@@ -1003,6 +1008,53 @@ class GameController extends WebServiceController
 		$this->view->assign("betting_info",$betting_info);
 		$this->display();
 	}
+
+	//▶ 베팅리스트-배팅조작팝업
+	public function result_resettleAction()
+	{
+		$this->popupDefine();
+		
+		if(!$this->auth->isLogin())
+		{
+			$this->loginAction();
+			exit;
+		}
+		$this->view->define("content","content/game/result_resettle.html");
+		
+		$sn = empty($this->request("sn")) ? 0 : $this->request("sn");
+		$mode = empty($this->request("mode")) ? "" : $this->request("mode");
+		$cartModel = $this->getModel("CartModel");
+		$processModel = $this->getModel("ProcessModel");
+
+		$betting_info = $cartModel->getBettingInfoBySn($sn);
+		
+		if($mode == "edit")
+		{
+			$betting_no = empty($this->request("betting_no")) ? 0 : $this->request("betting_no");
+			$select_no = empty($this->request("select_no")) ? 0 : $this->request("select_no");
+			$result = empty($this->request("result")) ? 0 : $this->request("result");
+			$cart_info = $cartModel->getCartInfo($betting_no);
+			if(count($cart_info) > 0) {
+				if($cart_info["result"] > 0) {
+					// 정산취소
+					$processModel->cancel_betting_result($betting_no, $sn, $cart_info["member_sn"], $cart_info["last_special_code"]);
+				} 
+				$bettingNo = $cartModel->modifyBetResult($sn, $result, $select_no);
+				if ( $bettingNo > 0 ) {
+					$processModel->modifyResultMoneyProcess($bettingNo);
+				}
+				throw new Lemon_ScriptException("", "" , "script", "alert('처리 되었습니다.'); opener.document.location.reload(); self.close();");
+			} else {
+				throw new Lemon_ScriptException("", "" , "script", "alert('처리중 오류가 발행하였습니다.'); opener.document.location.reload(); self.close();");
+			}
+			
+		}
+
+		$this->view->assign("sn",$sn);
+		$this->view->assign("betting_info",$betting_info);
+		$this->display();
+	}
+ 
  
 
 	//▶ 베팅리스트-적특처리 (다기준)

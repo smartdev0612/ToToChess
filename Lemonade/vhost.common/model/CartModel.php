@@ -1586,16 +1586,31 @@ class CartModel extends Lemon_Model
 		return $betting_info;
 	}
 
-	//-> 배팅수동처리 2021.08.10
-	function modifyBetResult($total_betting_sn, $result)
+	function getCartInfo($betting_no = 0) 
 	{
+		$sql = "SELECT * FROM tb_total_cart WHERE betting_no = " . $betting_no;
+		$rs = $this->db->exeSql($sql);
+		$cart_info = [];
 
+		if(count((array)$rs) > 0) {
+			$cart_info = $rs[0];
+		}
+		return $cart_info;
+	}
+
+	//-> 배팅수동처리 2021.08.10
+	function modifyBetResult($total_betting_sn = 0, $result = 0, $select_no = 0)
+	{
 		$sql = "select * from tb_total_betting where sn=".$total_betting_sn;
 		$rs = $this->db->exeSql($sql);
 		$bettingNo = $rs[0]['betting_no'];
 
 		//-> 배팅결과 변환.
-		$sql = "update tb_total_betting set result = '" . $result . "' where sn = ".$total_betting_sn;
+		if($select_no > 0) {
+			$sql = "update tb_total_betting set result = '" . $result . "', select_no = '" . $select_no . "' where sn = ".$total_betting_sn;
+		} else {
+			$sql = "update tb_total_betting set result = '" . $result . "' where sn = ".$total_betting_sn;
+		}
 		$this->db->exeSql($sql);	
 		
 		return $bettingNo;
