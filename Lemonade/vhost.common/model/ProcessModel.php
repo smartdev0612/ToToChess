@@ -2442,6 +2442,10 @@ class ProcessModel extends Lemon_Model
 		
 		$this->modifyMoneyProcess($memberSn, -$amount, '2','환전요청');
 		
+		$sql_bak = "insert into ".$this->db_qz."exchange_log_bak(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
+				values(".$memberSn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), 0, 0, 0,'".$this->logo."')";
+		$this->db->exeSql($sql_bak);
+
 		$sql = "insert into ".$this->db_qz."exchange_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
 				values(".$memberSn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), 0, 0, 0,'".$this->logo."')";
 				
@@ -2563,12 +2567,19 @@ class ProcessModel extends Lemon_Model
 		{
 			$sql = "insert into ".$this->db_qz."charge_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
 							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
+			
+			$sql_bak = "insert into ".$this->db_qz."charge_log_bak(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
+							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
 		}
 		else
 		{
 			$sql = "insert into ".$this->db_qz."charge_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
 							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
+			
+			$sql_bak = "insert into ".$this->db_qz."charge_log_bak(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
+							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
 		}
+		$this->db->exeSql($sql_bak);
 				
 		return $this->db->exeSql($sql);
 	}
@@ -2583,12 +2594,19 @@ class ProcessModel extends Lemon_Model
 		{
 			$sql = "insert into ".$this->db_qz."charge_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
 							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$bank_owner."', now(), 0, 0, 0, '".$this->logo."')";
+			
+			$sql_bak = "insert into ".$this->db_qz."charge_log_bak(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
+							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
 		}
 		else
 		{
 			$sql = "insert into ".$this->db_qz."charge_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
-							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$bank_owner."', now(),0, 0, 0, '".$this->logo."')";
+							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$bank_owner."', now(), 0, 0, 0, '".$this->logo."')";
+			
+			$sql_bak = "insert into ".$this->db_qz."charge_log_bak(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
+							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
 		}
+		$this->db->exeSql($sql_bak);
 				
 		return $this->db->exeSql($sql);
 	}
