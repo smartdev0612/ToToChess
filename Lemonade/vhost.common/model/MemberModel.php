@@ -533,8 +533,8 @@ class MemberModel extends Lemon_Model
 			 Trim($rs['bank_account'])!=Trim($bank_account) ||
 			 Trim($rs['bank_member'])!=Trim($bank_member) )
 		{
-			$sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, logo)
-							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(),'".$this->logo."')";
+			$sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '" . $_SESSION["member"]["ip"] . "', '".$this->logo."')";
 			$this->db->exeSql($sql);
 		}
 		
@@ -569,8 +569,8 @@ class MemberModel extends Lemon_Model
         $rs = $this->getById($uid);
         if(Trim($rs['bank_name'])!=Trim($bank_name) || Trim($rs['bank_account'])!=Trim($bank_account) || Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, logo)
-                        values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(),'".$this->logo."')";
+            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+                        values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
 
@@ -1299,8 +1299,8 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, logo)
-							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(),'".$this->logo."')";
+            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
 
@@ -1330,8 +1330,8 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, logo)
-							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(),'".$this->logo."')";
+            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
 
@@ -1367,8 +1367,8 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, logo)
-							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(),'".$this->logo."')";
+            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
 
@@ -1406,8 +1406,8 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, logo)
-							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(),'".$this->logo."')";
+            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
 
@@ -1445,8 +1445,8 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, logo)
-							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(),'".$this->logo."')";
+            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
 
@@ -1483,8 +1483,8 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, logo)
-							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(),'".$this->logo."')";
+            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
 
