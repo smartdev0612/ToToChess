@@ -93,7 +93,7 @@ class EtcController extends WebServiceController
 			$banknum 		= $this->request("banknum");
 			$bankusername 	= $this->request("bankusername");
 			
-			$model->modifyChangeBank($bankname,$banknum,$bankusername,$sn);
+			// $model->modifyChangeBank($bankname,$banknum,$bankusername,$sn);
 			
 			throw new Lemon_ScriptException("","","script","alert('변경 되였습니다.');opener.document.location.reload(); self.close();");
 			

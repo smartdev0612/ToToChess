@@ -552,9 +552,12 @@ class MemberModel extends Lemon_Model
 
 		//-> 해킹방지 bank 정보 업데이트 불가능.
 		//$where = str_replace("bank_","",$where);
-		$sql = "update ".$this->db_qz."member 
-                set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
-                email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate." where uid='".$uid."'";
+		// $sql = "update ".$this->db_qz."member 
+        //         set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
+        //         email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate." where uid='".$uid."'";
+        $sql = "update ".$this->db_qz."member 
+                set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
+                email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate." where uid='".$uid."'";
 		return $this->db->exeSql($sql);
     }
     
@@ -585,10 +588,14 @@ class MemberModel extends Lemon_Model
         
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
+        // $sql = "update ".$this->db_qz."member 
+        //     set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
+        //     email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate.", 
+        //     rec_tex_type='".$tex_type."', rec_rate_sport=".$tex_rate_sport.", rec_rate_minigame=".$tex_rate_minigame.", rec_one_folder_flag='".$rec_one_folder_flag."' where uid='".$uid."'";
         $sql = "update ".$this->db_qz."member 
-            set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
-            email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate.", 
-            rec_tex_type='".$tex_type."', rec_rate_sport=".$tex_rate_sport.", rec_rate_minigame=".$tex_rate_minigame.", rec_one_folder_flag='".$rec_one_folder_flag."' where uid='".$uid."'";
+                set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
+                email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate.", 
+                rec_tex_type='".$tex_type."', rec_rate_sport=".$tex_rate_sport.", rec_rate_minigame=".$tex_rate_minigame.", rec_one_folder_flag='".$rec_one_folder_flag."' where uid='".$uid."'";
         return $this->db->exeSql($sql);
     }	
 
@@ -925,9 +932,10 @@ class MemberModel extends Lemon_Model
 
     function modifyChangeBank($bankname,$banknum,$bankusername,$sn)
     {
-        $sql = "update ".$this->db_qz."member 
-				set bank_name='".$bankname."',bank_account='".$banknum."',bank_member='".$bankusername."' 
-					where sn='".$sn."'";
+        // $sql = "update ".$this->db_qz."member 
+		// 		set bank_name='".$bankname."',bank_account='".$banknum."',bank_member='".$bankusername."' 
+		// 			where sn='".$sn."'";
+        $sql = "";
 
         return $this->db->exeSql($sql);
     }
@@ -1296,8 +1304,9 @@ class MemberModel extends Lemon_Model
             $this->db->exeSql($sql);
         }
 
-        $sql = "update ".$this->db_qz."member 
-						set ".$where." bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."' where uid='".$uid."'";
+        // $sql = "update ".$this->db_qz."member 
+		// 				set ".$where." bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."' where uid='".$uid."'";
+        $sql = "";
         return $this->db->exeSql($sql);
     }
 
@@ -1305,8 +1314,9 @@ class MemberModel extends Lemon_Model
     function modifyBankMember($bank_member, $sn)
     {
         //뱅킹 정보 변경시 업데이트를 위해 데이터 변경을 확인한다.
-        $sql = "update ".$this->db_qz."member 
-						set bank_member='".$bank_member."' where sn=".$sn;
+        // $sql = "update ".$this->db_qz."member 
+		// 				set bank_member='".$bank_member."' where sn=".$sn;
+        $sql = "";
         return $this->db->exeSql($sql);
     }
 
@@ -1340,7 +1350,7 @@ class MemberModel extends Lemon_Model
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
         $sql = "update ".$this->db_qz."member 
-						set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
+						set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
 						email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd.
                         "', balance_flag=".$balance_flag.", is_adh=".$is_adh.", powerball_flag=".$powerball_flag.", wooriball_flag=".$wooriball_flag.", is_print=".$is_print.
                " where uid='".$uid."'";
@@ -1377,7 +1387,7 @@ class MemberModel extends Lemon_Model
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
         $sql = "update ".$this->db_qz."member 
-						set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
+						set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
 						email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.
             "    ,powerball_flag=".$powerball_flag.", wooriball_flag=".$wooriball_flag.", is_print=".$is_print.", rate=".$rate.", rate2=".$rate2.
             " where uid='".$uid."'";
@@ -1416,7 +1426,7 @@ class MemberModel extends Lemon_Model
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
         $sql = "update ".$this->db_qz."member 
-						set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
+						set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
 						email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.
             "    ,powerball_flag=".$powerball_flag.", wooriball_flag=".$wooriball_flag.", ball_flag=".$ball_flag.",is_print=".$is_print.", rate=".$rate.", rate2=".$rate2.", is_adh=".$is_adh.
             " where uid='".$uid."'";
@@ -1455,7 +1465,7 @@ class MemberModel extends Lemon_Model
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
         $sql = "update ".$this->db_qz."member 
-						set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
+						set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
 						email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.
             "    ,powerball_flag=".$powerball_flag.", wooriball_flag=".$wooriball_flag.", ball_flag=".$ball_flag.",is_print=".$is_print.", rate=".$rate.", rate2=".$rate2.", is_adh=".$is_adh.", is_recommender=".$is_recommender.
             "    ,upbet_rate=".$upbet_rate.", is_mix=".$is_mix.", sortie=".$sortie.
@@ -1493,7 +1503,7 @@ class MemberModel extends Lemon_Model
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
         $sql = "update ".$this->db_qz."member 
-						set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
+						set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
 						email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.
             "    , is_print=".$is_print.", rate=".$rate.", rate2=".$rate2.
             " where uid='".$uid."'";

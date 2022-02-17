@@ -104,9 +104,10 @@ class PartnerModel extends Lemon_Model
 	//▶ 파트너의 계좌 수정  
 	function modifyChangeBank($bankname,$banknum,$bankusername,$sn)
 	{
-		$sql = "update ".$this->db_qz."recommend 
-							set rec_bankname='".$bankname."',rec_banknum='".$banknum."',rec_bankusername='".$bankusername."' 
-								where Idx='".$sn."'";
+		// $sql = "update ".$this->db_qz."recommend 
+		// 					set rec_bankname='".$bankname."',rec_banknum='".$banknum."',rec_bankusername='".$bankusername."' 
+		// 						where Idx='".$sn."'";
+		$sql = "";
 								
 		return $this->db->exeSql($sql);						
 	}
