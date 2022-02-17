@@ -11,7 +11,7 @@ class Lemon_Controller extends Lemon_Object
 		parent::setMessage($t_message);
 		parent::setAuth($t_auth);
 
-		if($_SERVER['REQUEST_URI'] != "/etc/refresh" && $_SERVER['REQUEST_URI'] != "/game/refreshBetList" && $_SERVER['REQUEST_URI'] != "/etc/GameFinProcess" && $_SERVER['REQUEST_URI'] != "/race/saveProcess") {
+		if($_SERVER['REQUEST_URI'] != "/etc/refresh" && $_SERVER['REQUEST_URI'] != "/game/refreshBetList" && $_SERVER['REQUEST_URI'] != "/etc/GameFinProcess" && $_SERVER['REQUEST_URI'] != "/race/saveProcess" && $_SERVER['REQUEST_URI'] != "/game_list?game=multi" && $_SERVER['REQUEST_URI'] != "/" && $_SERVER['REQUEST_URI'] != "/loginProcess") {
 			$logModel=Lemon_Instance::getObject("LogModel", true);
 			$logModel->insertURL($_SERVER['REQUEST_URI']);
 		}
