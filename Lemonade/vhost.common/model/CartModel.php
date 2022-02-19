@@ -8,15 +8,15 @@ class CartModel extends Lemon_Model
 	{
 		/*
 		$sql = "select c.select_no, c.game_type, c.bet_money, a.home_team, a.away_team 
-					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join ".$this->db_qz."total_betting c on b.sn=c.sub_child_sn left outer join ".$this->db_qz."total_cart d on c.betting_no=d.betting_no
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join ".$this->db_qz."game_betting c on b.sn=c.sub_child_sn left outer join ".$this->db_qz."game_cart d on c.betting_no=d.betting_no
 					where logo='".$this->logo."' and d.kubun='Y' and a.sn =".$child_sn;
 					*/
 		$sql = "select c.select_no, c.game_type, c.bet_money, a.home_team, a.away_team 
 		from ".
 			$this->db_qz."child a, ".
 			$this->db_qz."subchild b,".
-			$this->db_qz."total_betting c,".
-			$this->db_qz."total_cart d
+			$this->db_qz."game_betting c,".
+			$this->db_qz."game_cart d
 		where a.sn=b.child_sn and b.sn=c.sub_child_sn and c.betting_no=d.betting_no and
 			logo='".$this->logo."' and d.kubun='Y' and a.sn =".$child_sn;
 		
@@ -28,15 +28,15 @@ class CartModel extends Lemon_Model
 	{
 		/*
 		$sql = "select c.select_no, c.game_type, c.bet_money, a.home_team, a.away_team 
-					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join ".$this->db_qz."total_betting c on b.sn=c.sub_child_sn left outer join ".$this->db_qz."total_cart d on c.betting_no=d.betting_no
+					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join ".$this->db_qz."game_betting c on b.sn=c.sub_child_sn left outer join ".$this->db_qz."game_cart d on c.betting_no=d.betting_no
 					where logo='".$this->logo."' and d.kubun='Y' and a.sn =".$child_sn;
 					*/
 		$sql = "select c.select_no, c.game_type, c.bet_money, a.home_team, a.away_team 
 				from ".
 						$this->db_qz."child_m a, ".
 						$this->db_qz."subchild_m b,".
-						$this->db_qz."total_betting c,".
-						$this->db_qz."total_cart d
+						$this->db_qz."game_betting c,".
+						$this->db_qz."game_cart d
 				where 	a.sn=b.child_sn and b.sn=c.sub_child_sn and c.betting_no=d.betting_no and
 						logo='".$this->logo."' and d.kubun='Y' and a.sn =".$subchild_sn;
 		
@@ -48,7 +48,7 @@ class CartModel extends Lemon_Model
 		$sql = "select a.sn as total_betting_sn, a.sub_child_sn,a.select_no,a.select_rate,a.game_type,a.result,b.win_team,
 						b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, 
 						c.name as league_name,c.lg_img as league_image, d.win,a.home_rate,a.away_rate,a.draw_rate
-						from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."total_cart e 
+						from ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."game_cart e 
 						where a.betting_no='".$betting_no."' and a.sub_child_sn=d.sn and b.league_sn=c.sn and b.sn=d.child_sn and a.betting_no = e.betting_no and e.member_sn = ".$member_sn;
 										
 		$rs = $this->db->exeSql($sql);
@@ -80,7 +80,7 @@ class CartModel extends Lemon_Model
 	//▶ 카트 마지막 인덱스
 	function getLastCartIndex()
 	{
-		$sql = "select max(sn) as last_sn from ".$this->db_qz."total_cart";
+		$sql = "select max(sn) as last_sn from ".$this->db_qz."game_cart";
 				
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['last_sn'];
@@ -96,13 +96,13 @@ class CartModel extends Lemon_Model
 							ifnull(sum(betting_money),0) as total_betting,	
 							ifnull(sum(result_money),0) as total_result, 
 							count(betting_money) as betting_count
-						from ".$this->db_qz."total_cart
+						from ".$this->db_qz."game_cart
 						where kubun='Y' and is_account=1".$logo;
 						
 		if($childSn!='')
 		{
 			$sql.=" and betting_no in 
-							(select distinct(betting_no) from ".$this->db_qz."total_betting where sub_child_sn =
+							(select distinct(betting_no) from ".$this->db_qz."game_betting where sub_child_sn =
 							(select sn from ".$this->db_qz."subchild where child_sn=".$childSn."))";
 		}
 		if($memberSn!='')	$sql.=" and member_sn=".$memberSn;
@@ -130,7 +130,7 @@ class CartModel extends Lemon_Model
 			$logo = " and logo='".$this->logo."'";
 		
 		$sql = "select ifnull(sum(betting_money*result_rate),0) as expected_prize
-						from ".$this->db_qz."total_cart
+						from ".$this->db_qz."game_cart
 						where kubun='Y' and is_account=1 and result=0".$logo;
 						
 		$rows = $this->db->exeSql($sql);
@@ -145,7 +145,7 @@ class CartModel extends Lemon_Model
 							ifnull(sum(betting_money),0) as total_betting,	
 							ifnull(sum(result_money),0) as total_result, 
 							count(betting_money) as betting_count
-						from ".$this->db_qz."total_cart
+						from ".$this->db_qz."game_cart
 						where logo='".$this->logo."' and kubun='Y' and is_account=1";
 						
 		if($beginDate!='' && $endDate!='')
@@ -172,7 +172,7 @@ class CartModel extends Lemon_Model
 		if($s_type == 2) {
 			//승 총배팅 금액
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and c.kubun='Y' and d.sn=".$childSn." and b.select_no=1 
 							and a.is_account=1";
@@ -183,7 +183,7 @@ class CartModel extends Lemon_Model
 			
 			//무 총배팅 금액
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and c.kubun='Y' and d.sn=".$childSn." and b.select_no=3
 							and a.is_account=1";
@@ -193,7 +193,7 @@ class CartModel extends Lemon_Model
 		
 			//패 총배팅 금액
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and c.kubun='Y' and d.sn=".$childSn." and b.select_no=2
 							and a.is_account=1";
@@ -203,7 +203,7 @@ class CartModel extends Lemon_Model
 			
 			//승 총배팅 금액 - 낙첨제외
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and c.kubun='Y' and d.sn=".$childSn." and b.select_no=1 and a.result=0
 							and a.is_account=1";
@@ -212,7 +212,7 @@ class CartModel extends Lemon_Model
 			
 			//무 총배팅 금액
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and c.kubun='Y' and d.sn=".$childSn." and b.select_no=3  and a.result=0
 							and a.is_account=1";
@@ -221,7 +221,7 @@ class CartModel extends Lemon_Model
 			
 			//패 총배팅 금액
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild_m c,".$this->db_qz."child_m d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and c.kubun='Y' and d.sn=".$childSn." and b.select_no=2  and a.result=0
 							and a.is_account=1";
@@ -230,7 +230,7 @@ class CartModel extends Lemon_Model
 		} else {
 			//승 총배팅 금액
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and a.kubun='Y' and d.sn=".$childSn." and b.select_no=1 
 							and a.is_account=1";
@@ -241,7 +241,7 @@ class CartModel extends Lemon_Model
 			
 			//무 총배팅 금액
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and a.kubun='Y' and d.sn=".$childSn." and b.select_no=3
 							and a.is_account=1";
@@ -251,7 +251,7 @@ class CartModel extends Lemon_Model
 		
 			//패 총배팅 금액
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and a.kubun='Y' and d.sn=".$childSn." and b.select_no=2
 							and a.is_account=1";
@@ -261,7 +261,7 @@ class CartModel extends Lemon_Model
 			
 			//승 총배팅 금액 - 낙첨제외
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and a.kubun='Y' and d.sn=".$childSn." and b.select_no=1 and a.result=0
 							and a.is_account=1";
@@ -270,7 +270,7 @@ class CartModel extends Lemon_Model
 			
 			//무 총배팅 금액
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and a.kubun='Y' and d.sn=".$childSn." and b.select_no=3  and a.result=0
 							and a.is_account=1";
@@ -279,7 +279,7 @@ class CartModel extends Lemon_Model
 			
 			//패 총배팅 금액
 			$sql = "select 	ifnull(sum(a.betting_money),0) as total_betting
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 							where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn
 							and a.kubun='Y' and d.sn=".$childSn." and b.select_no=2  and a.result=0
 							and a.is_account=1";
@@ -299,7 +299,7 @@ class CartModel extends Lemon_Model
 
         //승 총배팅 금액
         $sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b 
 						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=1 and a.is_account=1";
 
         $rs = $this->db->exeSql($sql);
@@ -308,7 +308,7 @@ class CartModel extends Lemon_Model
 
         //무 총배팅 금액
         $sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b 
 						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=3 and a.is_account=1";
         $rs = $this->db->exeSql($sql);
         $item['draw_total_betting'] = $rs[0]['total_betting'];
@@ -316,7 +316,7 @@ class CartModel extends Lemon_Model
 
         //패 총배팅 금액
         $sql = "select 	ifnull(sum(a.betting_money),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b 
 						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=2 and a.is_account=1";
         $rs = $this->db->exeSql($sql);
         $item['away_total_betting'] = $rs[0]['total_betting'];
@@ -324,7 +324,7 @@ class CartModel extends Lemon_Model
 
         //승 총배팅 금액 - 낙첨제외
         $sql = "select 	ifnull(sum(a.betting_money * a.result_rate),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b 
 						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=1 and a.is_account=1";
 
         $rs = $this->db->exeSql($sql);
@@ -332,14 +332,14 @@ class CartModel extends Lemon_Model
 
         //무 총배팅 금액
         $sql = "select 	ifnull(sum(a.betting_money * a.result_rate),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b 
 						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=3 and a.is_account=1";
         $rs = $this->db->exeSql($sql);
         $item['active_draw_total_betting'] = $rs[0]['total_betting'];
 
         //패 총배팅 금액
         $sql = "select 	ifnull(sum(a.betting_money * a.result_rate),0) as total_betting, count(a.betting_money) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b 
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b 
 						where a.betting_no=b.betting_no and a.kubun='Y' and b.sub_child_sn=".$subchildSn." and b.select_no=2 and a.is_account=1";
         $rs = $this->db->exeSql($sql);
         $item['active_away_total_betting'] = $rs[0]['total_betting'];
@@ -351,7 +351,7 @@ class CartModel extends Lemon_Model
 	public function calcResultRate($betting_no)
 	{
 		$sql = "select select_rate, result
-						from ".$this->db_qz."total_betting
+						from ".$this->db_qz."game_betting
 						where betting_no='".$betting_no."'";
 						
 		$rs = $this->db->exeSql($sql);
@@ -376,7 +376,7 @@ class CartModel extends Lemon_Model
 		$pModel = Lemon_Instance::getObject("PartnerModel",true);		
 	
 		$sql = "select *
-						from ".$this->db_qz."total_cart
+						from ".$this->db_qz."game_cart
 						where member_sn ='".$memberSn."' and kubun ='Y' ".$where;
 		
 		//Date
@@ -412,7 +412,7 @@ class CartModel extends Lemon_Model
 							SELECT a.sub_child_sn,a.select_no,a.home_rate,a.away_rate,a.draw_rate,a.select_rate,a.game_type,a.result,a.live,a.score, 
 									b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, 
 									b.notice as league_name, b.league_img as league_image, b.sport_id, d.win, d.home_line, d.away_line, d.draw_line, d.home_name, d.away_name, d.draw_name
-							FROM ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d 
+							FROM ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d 
 							WHERE a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.sn=d.child_sn ) AS tb_temp 
 					LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
 
@@ -516,7 +516,7 @@ class CartModel extends Lemon_Model
 		$pModel = Lemon_Instance::getObject("PartnerModel",true);		
 	
 		$sql = "select *
-						from ".$this->db_qz."total_cart
+						from ".$this->db_qz."game_cart
 						where member_sn ='".$memberSn."' and kubun ='Y' ".$where." and s_type=2";
 		
 		//Date
@@ -557,7 +557,7 @@ class CartModel extends Lemon_Model
 							b.home_6_time_score,b.away_6_time_score,b.home_7_time_score,b.away_7_time_score,
 							b.home_8_time_score,b.away_8_time_score,b.home_9_time_score,b.away_9_time_score,
 							b.special,b.gameDate,b.gameHour,b.gameTime,c.name as league_name,c.lg_img as league_image, d.win
-					FROM ".$this->db_qz."total_betting a, ".$this->db_qz."child_m b, ".$this->db_qz."league c, ".$this->db_qz."subchild_m d 
+					FROM ".$this->db_qz."game_betting a, ".$this->db_qz."child_m b, ".$this->db_qz."league c, ".$this->db_qz."subchild_m d 
 					WHERE a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.league_sn=c.sn and b.sn=d.child_sn and a.s_type=2 ";
 
 			if($orderby!='') {$sql.=" order by ".$orderby;}
@@ -656,7 +656,7 @@ class CartModel extends Lemon_Model
 	//-> 단일 카트 정보
 	function getTotalCartInfo($member_sn, $betting_no)
 	{
-		$sql = "select * from ".$this->db_qz."total_cart where member_sn ='".$member_sn."' and betting_no ='".$betting_no."' and kubun ='Y'";
+		$sql = "select * from ".$this->db_qz."game_cart where member_sn ='".$member_sn."' and betting_no ='".$betting_no."' and kubun ='Y'";
 		$rs = $this->db->exeSql($sql);
 		return $rs[0];
 	}
@@ -664,7 +664,7 @@ class CartModel extends Lemon_Model
 	//-> 원기준 유저 배팅 카트 카운트 (관리자 호출, 유저가 삭제한것 포함)
 	function getMemberTotalCartCnt($sn, $beginDate, $endDate, $where)
 	{
-		$sql = "select count(*) as cnt from ".$this->db_qz."total_cart where member_sn ='".$sn."' and kubun ='Y' ".$where;
+		$sql = "select count(*) as cnt from ".$this->db_qz."game_cart where member_sn ='".$sn."' and kubun ='Y' ".$where;
 
 		if($beginDate!="" && $endDate!="")
         {
@@ -678,7 +678,7 @@ class CartModel extends Lemon_Model
 	//-> 다기준 유저 배팅 카트 카운트 (관리자 호출, 유저가 삭제한것 포함)
 	function getMemberTotalCartMultiCnt($sn, $beginDate, $endDate, $where)
 	{
-		$sql = "select count(*) as cnt from ".$this->db_qz."total_cart where member_sn ='".$sn."' and kubun ='Y' ".$where." and s_type=2";
+		$sql = "select count(*) as cnt from ".$this->db_qz."game_cart where member_sn ='".$sn."' and kubun ='Y' ".$where." and s_type=2";
 
 		if($beginDate!="" && $endDate!="")
         {
@@ -692,7 +692,7 @@ class CartModel extends Lemon_Model
 	//▶ 유저가 베팅한 카트횟수
 	function getMemberTotalCartCount($sn, $startDate="", $endDate="",$where="")
 	{
-		$sql = "select count(*) as cnt from ".$this->db_qz."total_cart
+		$sql = "select count(*) as cnt from ".$this->db_qz."game_cart
 						where user_del<>'Y' and member_sn ='".$sn."' and kubun ='Y' ".$where;
 	
 		if( $startDate!="" && $endDate!="") 
@@ -708,7 +708,7 @@ class CartModel extends Lemon_Model
 	function getMemberTotalBetMoney($sn, $beginDate="", $endDate="",$where="")
 	{
 		$sql = "select sum(betting_money) as bet_money 
-							from ".$this->db_qz."total_cart
+							from ".$this->db_qz."game_cart
 								where member_sn ='".$sn."' and kubun ='Y' ".$where;
 								
 		if( $beginDate!="" && $endDate!="") 
@@ -726,7 +726,7 @@ class CartModel extends Lemon_Model
 		$cnt = 0;
 
 		$sql = "select betting_no 
-				from ".$this->db_qz."total_cart
+				from ".$this->db_qz."game_cart
 					where user_del<>'Y' and member_sn ='".$sn."' and kubun ='Y' ".$where;
 	
 		if( $startDate!="" && $endDate!="") 
@@ -741,7 +741,7 @@ class CartModel extends Lemon_Model
 				$bettingNo = $rs[$i]["betting_no"];
 				
 				$sql = "select count(*) as cnt
-						from ".$this->db_qz."total_betting a, ".$this->db_qz."subchild b 
+						from ".$this->db_qz."game_betting a, ".$this->db_qz."subchild b 
 							where a.betting_no='".$bettingNo."' and a.sub_child_sn = b.sn";
 
 				$rs_cnt = $this->db->exeSql($sql);
@@ -759,7 +759,7 @@ class CartModel extends Lemon_Model
 		$cnt = 0;
 		
 		$sql = "select betting_no 
-				from ".$this->db_qz."total_cart
+				from ".$this->db_qz."game_cart
 					where user_del<>'Y' and member_sn ='".$sn."' and kubun ='Y' ";
 		
 		if( $startDate != "" && $endDate != "" ) 
@@ -774,7 +774,7 @@ class CartModel extends Lemon_Model
 				$bettingNo = $rs[$i]["betting_no"];
 				
 				$sql = "select count(*) as cnt
-						from ".$this->db_qz."total_betting a, ".$this->db_qz."subchild b 
+						from ".$this->db_qz."game_betting a, ".$this->db_qz."subchild b 
 							where a.betting_no='".$bettingNo."' and a.sub_child_sn=b.sn and a.result=0";
 
 				$rs_cnt = $this->db->exeSql($sql);
@@ -789,7 +789,7 @@ class CartModel extends Lemon_Model
 	function getBettingInfo($sn)
     {
         $sql = "select count(sn) as bet_count, sum(betting_money) as bet_money, sum(betting_money * result_rate) as profit_money
-				from tb_total_cart
+				from tb_game_cart
 					where user_del<>'Y' and result = 0 and member_sn ='".$sn."'";
 
         $rs = $this->db->exeSql($sql);
@@ -802,7 +802,7 @@ class CartModel extends Lemon_Model
 		$cnt = 0;
 
 		$sql = "select betting_no 
-				from ".$this->db_qz."total_cart
+				from ".$this->db_qz."game_cart
 					where user_del<>'Y' and member_sn ='".$sn."' and kubun ='Y' ";
 	
 		if( $startDate!="" && $endDate!="" )
@@ -816,7 +816,7 @@ class CartModel extends Lemon_Model
 			$bettingNo = $rs[$i]["betting_no"];
 			
 			$sql = "select  count(*) as cnt
-					from ".$this->db_qz."total_betting a , ".$this->db_qz."subchild b 
+					from ".$this->db_qz."game_betting a , ".$this->db_qz."subchild b 
 						where a.betting_no='".$bettingNo."' and a.sub_child_sn=b.sn and a.result>0";
 
 			$rs_cnt = $this->db->exeSql($sql);			
@@ -831,7 +831,7 @@ class CartModel extends Lemon_Model
 	function getMemberTodayEventBetCount($memberSn)
 	{
 		$sql = "select count(*) as cnt
-				from ".$this->db_qz."total_betting a,".$this->db_qz."child b,".$this->db_qz."total_cart c
+				from ".$this->db_qz."game_betting a,".$this->db_qz."child b,".$this->db_qz."game_cart c
 					where a.sub_child_sn=b.sn and a.betting_no=c.betting_no
 					and a.member_sn ='".$memberSn."' and b.event=1 and date(c.regdate)=date(now())";
 	
@@ -851,7 +851,7 @@ class CartModel extends Lemon_Model
 			$rs = $this->db->exeSql($sql);
 			$subSn = $rs[0]['sn'];
 			
-			$addWhere.= " and betting_no in(select distinct(betting_no) from ".$this->db_qz."total_betting where sub_child_sn=".$subSn;
+			$addWhere.= " and betting_no in(select distinct(betting_no) from ".$this->db_qz."game_betting where sub_child_sn=".$subSn;
 			
 			if($selectNo!="")
 				$addWhere.= " and select_no=".$selectNo;
@@ -860,7 +860,7 @@ class CartModel extends Lemon_Model
 		}
 		
 		$sql = "select count(*) as cnt 
-						from ".$this->db_qz."total_cart a inner join ".$this->db_qz."member b
+						from ".$this->db_qz."game_cart a inner join ".$this->db_qz."member b
 						where a.member_sn=b.sn and a.logo='".$this->logo."' and a.kubun='Y' and a.is_account=1 ".$addWhere.$where;
 		
 		$rs = $this->db->exeSql($sql);
@@ -879,7 +879,7 @@ class CartModel extends Lemon_Model
 			$rs = $this->db->exeSql($sql);
 			$subSn = $rs[0]['sn'];
 			
-			$addWhere.= " and betting_no in(select distinct(betting_no) from ".$this->db_qz."total_betting where sub_child_sn=".$subSn;
+			$addWhere.= " and betting_no in(select distinct(betting_no) from ".$this->db_qz."game_betting where sub_child_sn=".$subSn;
 			
 			if($selectNo!="")
 				$addWhere.= " and select_no=".$selectNo;
@@ -892,10 +892,10 @@ class CartModel extends Lemon_Model
 		
 		$sql = "select 	a.member_sn, a.betting_no, a.betting_money, a.betting_ip, a.regDate,
 										a.result_money, a.result_rate, a.result as aresult, a.betting_cnt, b.uid, b.nick, b.recommend_sn
-						from ".$this->db_qz."total_cart a,".$this->db_qz."member b
+						from ".$this->db_qz."game_cart a,".$this->db_qz."member b
 						where		a.betting_no in(
 										select betting_no from
-										(select betting_no from ".$this->db_qz."total_cart where logo='".$this->logo."' and kubun='Y' ".$addWhere."order by betting_no desc ".$limit.") as t)
+										(select betting_no from ".$this->db_qz."game_cart where logo='".$this->logo."' and kubun='Y' ".$addWhere."order by betting_no desc ".$limit.") as t)
 										and a.member_sn=b.sn and a.is_account=1".$where." order by a.regdate desc";
 		
 		$rs = $this->db->exeSql($sql);		
@@ -929,7 +929,7 @@ class CartModel extends Lemon_Model
 	function getBet_Export()
 	{
 		$sql = "select a.member_sn,a.betting_no,a.betting_money,a.betting_ip, a.regDate,a.result_money,a.result_rate,a.result as aresult,a.betting_cnt,b.uid,b.nick,b.recommend_sn ";
-		$sql.= " from ".$this->db_qz."total_cart a inner join ".$this->db_qz."member b ";
+		$sql.= " from ".$this->db_qz."game_cart a inner join ".$this->db_qz."member b ";
 		$sql.= " where a.member_sn=b.sn and a.last_special_code < 3 and a.result = 0 and a.regdate between date_add(now(), interval -1 day) and now() order by a.regdate desc";
 		
 		$rs = $this->db->exeSql($sql);		
@@ -953,13 +953,13 @@ class CartModel extends Lemon_Model
 	function modifyExceptionBet($total_betting_sn)
 	{
 
-		$sql = "select * from tb_total_betting where sn=".$total_betting_sn;
+		$sql = "select * from tb_game_betting where sn=".$total_betting_sn;
 		$rs = $this->db->exeSql($sql);
 		$sn = $rs[0]['member_sn'];
 		$bettingNo = $rs[0]['betting_no'];
 		$selectRate = $rs[0]['select_rate'];
 
-		$sql = "select * from tb_total_cart where sn=".$total_betting_sn;
+		$sql = "select * from tb_game_cart where sn=".$total_betting_sn;
 		$rs = $this->db->exeSql($sql);
 		$specialCode = $rs[0]['last_special_code'];
 
@@ -968,26 +968,26 @@ class CartModel extends Lemon_Model
 		}
 
 		//-> 모든 배당 1.0으로 변경.
-		$sql = "update tb_total_betting set home_rate = '1.00', draw_rate = '1.00', away_rate = '1.00', select_rate = '1.00', result = '4', admin_cancel_flag = '1' where sn=".$total_betting_sn;
+		$sql = "update tb_game_betting set home_rate = '1.00', draw_rate = '1.00', away_rate = '1.00', select_rate = '1.00', result = '4', admin_cancel_flag = '1' where sn=".$total_betting_sn;
 		$this->db->exeSql($sql);		
 
 		//-> 배당 1.0으로 변경으로 인해 cart에 총합 배당율을 빼준다 (나누기)
-		$sql = "update tb_total_cart set result_rate=result_rate/".$selectRate." where betting_no='".$bettingNo."'";
+		$sql = "update tb_game_cart set result_rate=result_rate/".$selectRate." where betting_no='".$bettingNo."'";
 		$this->db->exeSql($sql);
 
 		//-> 해당 bettingNo에 모든 배팅 내역이 적특이라면 배팅금은 돌려주고 배당금이 있다면 회수한다.
-		$sql = "select count(sn) as cnt from tb_total_betting where betting_no = '".$bettingNo."' and result != 4";
+		$sql = "select count(sn) as cnt from tb_game_betting where betting_no = '".$bettingNo."' and result != 4";
 		$rs = $this->db->exeSql($sql);
 		if ( !$rs[0]["cnt"] ) {
 			//-> 모두 적특처리 됨. cart에 배팅금액, 배당금액 가져옴.
-			$sql = "select member_sn, betting_money, result_money from tb_total_cart where betting_no = '".$bettingNo."' and result != 4";
+			$sql = "select member_sn, betting_money, result_money from tb_game_cart where betting_no = '".$bettingNo."' and result != 4";
 			$rs = $this->db->exeSql($sql);
 			$member_sn = $rs[0]['member_sn'];
 			$betting_money = $rs[0]['betting_money'];
 			$result_money = $rs[0]['result_money'];
 
 			//-> cart 적특으로 처리.
-			$sql = "update tb_total_cart set result_rate = '1.00', result_money = '0', result = '4' where betting_no = '".$bettingNo."'";
+			$sql = "update tb_game_cart set result_rate = '1.00', result_money = '0', result = '4' where betting_no = '".$bettingNo."'";
 			$this->db->exeSql($sql);		
 
 			//-> 회원 현재 보유머니
@@ -1024,7 +1024,7 @@ class CartModel extends Lemon_Model
 		$processModel = Lemon_Instance::getObject("processModel",true);
 
 		//-> total_betting 정보를 가져와서 경기중/당첨/미당첨/취소/보너스 합계를 가져온다.
-		$sql = "select a.*, c.sport_name, c.special from tb_total_betting a, tb_subchild_m b, tb_child_m c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
+		$sql = "select a.*, c.sport_name, c.special from tb_game_betting a, tb_subchild_m b, tb_child_m c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
 		$rsi = $this->db->exeSql($sql);
 
 		$winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;	
@@ -1102,9 +1102,9 @@ class CartModel extends Lemon_Model
 	function modifyViewState($memberSn, $bettingNo, $isHide=1)
 	{
 		if($isHide==1)
-			$sql = "update ".$this->db_qz."total_cart set user_del='Y' where betting_no = '". $bettingNo ."'and member_sn=". $memberSn;
+			$sql = "update ".$this->db_qz."game_cart set user_del='Y' where betting_no = '". $bettingNo ."'and member_sn=". $memberSn;
 		else
-			$sql = "update ".$this->db_qz."total_cart set user_del='N' where betting_no = '". $bettingNo ."'and member_sn=". $memberSn;
+			$sql = "update ".$this->db_qz."game_cart set user_del='N' where betting_no = '". $bettingNo ."'and member_sn=". $memberSn;
 
 		return $this->db->exeSql($sql);
 	}
@@ -1113,23 +1113,23 @@ class CartModel extends Lemon_Model
 	function modifyCancelViewState($memberSn, $bettingNo, $isHide=1)
 	{
 		if($isHide==1)
-			$sql = "update ".$this->db_qz."total_cart_cancel set user_del='Y' where betting_no = '". $bettingNo ."'and member_sn=". $memberSn;
+			$sql = "update ".$this->db_qz."game_cart_cancel set user_del='Y' where betting_no = '". $bettingNo ."'and member_sn=". $memberSn;
 		else
-			$sql = "update ".$this->db_qz."total_cart_cancel set user_del='N' where betting_no = '". $bettingNo ."'and member_sn=". $memberSn;
+			$sql = "update ".$this->db_qz."game_cart_cancel set user_del='N' where betting_no = '". $bettingNo ."'and member_sn=". $memberSn;
 
 		return $this->db->exeSql($sql);
 	}
 
 	//-> 유저 배팅내역 숨김	(선택형)
 	function hide_betting($member_sn, $betting_list) {
-		$sql = "update tb_total_cart set user_del = 'Y' where member_sn = '".$member_sn."' and betting_no = '".$betting_list."'";
+		$sql = "update tb_game_cart set user_del = 'Y' where member_sn = '".$member_sn."' and betting_no = '".$betting_list."'";
 		return $this->db->exeSql($sql);
 	}
 
 	//-> 유저 배팅내역 숨김	(전체)
 	function hide_all_betting($member_sn)
 	{
-		$sql = "update ".$this->db_qz."total_cart set user_del='Y' where result <> 0 and member_sn=". $member_sn;
+		$sql = "update ".$this->db_qz."game_cart set user_del='Y' where result <> 0 and member_sn=". $member_sn;
 		return $this->db->exeSql($sql);
 	}
 	
@@ -1137,11 +1137,11 @@ class CartModel extends Lemon_Model
 	function delCart($bettingNo, $cancel_id = "관리자")
 	{
 		$this->copyCartCancelToCart($bettingNo, $cancel_id);
-		$sql = "delete from ".$this->db_qz."total_cart 
+		$sql = "delete from ".$this->db_qz."game_cart 
 				where betting_no = '". $bettingNo ."'";
 		$this->db->exeSql($sql);
 		
-		$sql = "delete from ".$this->db_qz."total_betting 
+		$sql = "delete from ".$this->db_qz."game_betting 
 					where betting_no='". $bettingNo ."'";
 		$this->db->exeSql($sql);
 	}
@@ -1150,19 +1150,19 @@ class CartModel extends Lemon_Model
 	function copyCartCancelToCart($bettingNo, $cancel_id = "관리자")
 	{
 		//취소배팅카트복사
-		$sql = "INSERT INTO ".$this->db_qz."total_cart_cancel select * from ".$this->db_qz."total_cart where betting_no='".$bettingNo."'";
+		$sql = "INSERT INTO ".$this->db_qz."game_cart_cancel select * from ".$this->db_qz."game_cart where betting_no='".$bettingNo."'";
 		$this->db->exeSql($sql);
 		
 		//취소시간, 취소한 유저 업데이트
-		$sql = "update ".$this->db_qz."total_cart_cancel set operdate = now(), cancel_by = '" . $cancel_id . "' where betting_no = '".$bettingNo."'";
+		$sql = "update ".$this->db_qz."game_cart_cancel set operdate = now(), cancel_by = '" . $cancel_id . "' where betting_no = '".$bettingNo."'";
 		$this->db->exeSql($sql);
 		
 		//취소배팅토탈복사
-		$sql = "INSERT INTO ".$this->db_qz."total_betting_cancel select * from ".$this->db_qz."total_betting where betting_no='".$bettingNo."'";
+		$sql = "INSERT INTO ".$this->db_qz."game_betting_cancel select * from ".$this->db_qz."game_betting where betting_no='".$bettingNo."'";
 		$this->db->exeSql($sql);
 
 		// 해당 유저의 배팅취소개수 증가
-		$sql = "select member_sn from ".$this->db_qz."total_cart where betting_no='".$bettingNo."'";
+		$sql = "select member_sn from ".$this->db_qz."game_cart where betting_no='".$bettingNo."'";
 		$res = $this->db->exeSql($sql);
 		$member_sn = 0;
 		if(count((array)$res) > 0)
@@ -1174,16 +1174,16 @@ class CartModel extends Lemon_Model
 		}
 
 		// 취소한 경기들의 상태를 진행중에서 취소로 업데이트
-		$sql = "UPDATE ".$this->db_qz."total_cart_cancel SET result = 4 WHERE betting_no='".$bettingNo."'";
+		$sql = "UPDATE ".$this->db_qz."game_cart_cancel SET result = 4 WHERE betting_no='".$bettingNo."'";
 		$this->db->exeSql($sql);
 
-		$sql = "UPDATE ".$this->db_qz."total_betting_cancel SET result = 4 WHERE betting_no='".$bettingNo."'";
+		$sql = "UPDATE ".$this->db_qz."game_betting_cancel SET result = 4 WHERE betting_no='".$bettingNo."'";
 		$this->db->exeSql($sql);
 	}
 	
 	//-> 게임중 낙첨 게임 카운트.
 	function checkLoseGame($bettingNum = 0) {
-		$sql = "select betting_no from ".$this->db_qz."total_betting where betting_no = '".$bettingNum."' and result = 2";
+		$sql = "select betting_no from ".$this->db_qz."game_betting where betting_no = '".$bettingNum."' and result = 2";
 		$rows = $this->db->exeSql($sql);
 		return $rows;
 	}
@@ -1191,7 +1191,7 @@ class CartModel extends Lemon_Model
 	//▶ 보너스 배당 수정
 	function modifyBonusRate($sn, $bonusRate, $bettingNo)
 	{
-		$sql = "update ".$this->db_qz."total_cart 
+		$sql = "update ".$this->db_qz."game_cart 
 						set bouns_rate = '".$bonusRate."' 
 						where member_sn='".$sn."' and betting_no='".$bettingNo."'";
 					
@@ -1200,7 +1200,7 @@ class CartModel extends Lemon_Model
 	
 	//-> 축벳 확인을 위해 같은게임에 같은 방향에 배팅한 이력이 있는지 확인.
 	function checkCukBet($sn, $subChildSn, $selectedIdx, $betting_cnt = 0) {
-		$sql = "select distinct(a.betting_no) from ".$this->db_qz."total_betting a, ".$this->db_qz."total_cart b where a.betting_no = b.betting_no and a.result = 0 and a.member_sn = '".$sn."' and a.sub_child_sn = '".$subChildSn."' and a.select_no = '".$selectedIdx."'";
+		$sql = "select distinct(a.betting_no) from ".$this->db_qz."game_betting a, ".$this->db_qz."game_cart b where a.betting_no = b.betting_no and a.result = 0 and a.member_sn = '".$sn."' and a.sub_child_sn = '".$subChildSn."' and a.select_no = '".$selectedIdx."'";
 
 		//-> 단폴더의 경우.
 		if ( $betting_cnt == 1 ) {
@@ -1214,7 +1214,7 @@ class CartModel extends Lemon_Model
 
 	//-> 축벳 확인을 위해 batting_sn의 select_rate를 가져온다. (계산은 컨트롤러에서)
 	function checkCukBet_rate($sn, $betting_no) {
-		$sql = "select select_rate, bet_money from ".$this->db_qz."total_betting where member_sn = '".$sn."' and betting_no = '".$betting_no."'";
+		$sql = "select select_rate, bet_money from ".$this->db_qz."game_betting where member_sn = '".$sn."' and betting_no = '".$betting_no."'";
 		$rows = $this->db->exeSql($sql);
 		return $rows;
 	}
@@ -1245,7 +1245,7 @@ class CartModel extends Lemon_Model
 			$rate3 = $row[0]["away_rate"];
 		}
 
-		$sql = "insert into ".$this->db_qz."total_betting(sub_child_sn,member_sn,betting_no,select_no,home_rate,draw_rate,away_rate, select_rate,game_type,event,result,kubun,bet_money,s_type,betid)";
+		$sql = "insert into ".$this->db_qz."game_betting(sub_child_sn,member_sn,betting_no,select_no,home_rate,draw_rate,away_rate, select_rate,game_type,event,result,kubun,bet_money,s_type,betid)";
 		$sql.= "values('". $subChildSn ."','". $memberSn."','". $protoId ."','". $selectedIdx ."',";
 		if($betid == 0 && $s_type == 0) {
 			$sql.= "'". $rate1 ."','". $rate2 ."','". $rate3 ."','". $selectedRate ."','". $gameType ."','0','1','". $buy ."','". $betting ."','". $s_type ."','". $betid ."')";
@@ -1286,7 +1286,7 @@ class CartModel extends Lemon_Model
 		$result=0;
 		if($sn==0)
 		{
-			$sq="select result from ".$this->db_qz."total_betting where betting_no='".$bettingNo."'";
+			$sq="select result from ".$this->db_qz."game_betting where betting_no='".$bettingNo."'";
 			
 			$rs=$this->db->exeSql($sq);
 
@@ -1307,7 +1307,7 @@ class CartModel extends Lemon_Model
 		
 		$bettingIp = $commonModel->newGetIp();
 		
-		$sql = "insert into ".$this->db_qz."total_cart(member_sn, betting_no, parent_sn, regdate, operdate, kubun, result, betting_cnt, before_money, betting_money, result_rate,result_money,";
+		$sql = "insert into ".$this->db_qz."game_cart(member_sn, betting_no, parent_sn, regdate, operdate, kubun, result, betting_cnt, before_money, betting_money, result_rate,result_money,";
 		$sql.= "partner_sn,rolling_sn,bouns_rate,user_del,bet_date,is_account,betting_ip,last_special_code,logo,s_type) values('".$sn."','". $bettingNo ."','".$parentIdx."',now(),now(),";
 		$sql.=  "'". $buy ."','".$result."','". $betCount ."',".$dbCash.",'".$betMoney."','".$resultRate."',0,".$partnerSn.",".$rollingSn.",'0','N',".$bet_date.",".$accountEnable.",'".$bettingIp."','".$lastSpecialCode."','".$this->logo."','".$s_type."')";
 		//echo $sql;exit;
@@ -1316,7 +1316,7 @@ class CartModel extends Lemon_Model
 	
 	//->동일경기 배팅횟수제한 (단폴더+같은게임+같은 방향)
 	function isLimitBetCnt($childSn, $selected, $memberSn) {
-		$sql = "select count(*) as totcnt from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."total_betting c, ".$this->db_qz."total_cart d
+		$sql = "select count(*) as totcnt from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."game_betting c, ".$this->db_qz."game_cart d
 					 where a.sn=b.child_sn and b.sn=c.sub_child_sn and c.betting_no=d.betting_no and a.sn='".$childSn."' and d.member_sn='".$memberSn."' and c.select_no=".$selected;
 		$rs = $this->db->exeSql($sql);
 		if($rs[0]['totcnt'] > 0)
@@ -1333,7 +1333,7 @@ class CartModel extends Lemon_Model
 		$gameHour = $rs[0]['gameHour'];
 		$gameTime = $rs[0]['gameTime'];
 
-		$sql = "select count(*) as totcnt from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."total_betting c, ".$this->db_qz."total_cart d where 
+		$sql = "select count(*) as totcnt from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."game_betting c, ".$this->db_qz."game_cart d where 
 						a.sn=b.child_sn and b.sn=c.sub_child_sn and c.betting_no=d.betting_no and a.special='".$specialType."' and 
 						a.gameDate = '".$gameDate."' and a.gameHour = '".$gameHour."' and a.gameTime = '".$gameTime."' and d.member_sn='".$memberSn."'";
 		$rs = $this->db->exeSql($sql);
@@ -1353,7 +1353,7 @@ class CartModel extends Lemon_Model
 		$gameHour = $rs[0]['gameHour'];
 		$gameTime = $rs[0]['gameTime'];
 
-		$sql = "select count(*) as totcnt from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."total_betting c, ".$this->db_qz."total_cart d where 
+		$sql = "select count(*) as totcnt from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."game_betting c, ".$this->db_qz."game_cart d where 
 						a.sn=b.child_sn and b.sn=c.sub_child_sn and c.betting_no=d.betting_no and a.special='".$specialType."' and 
 						a.gameDate = '".$gameDate."' and a.gameHour = '".$gameHour."' and a.gameTime = '".$gameTime."' and d.member_sn='".$memberSn."'";
 		$rs = $this->db->exeSql($sql);
@@ -1365,7 +1365,7 @@ class CartModel extends Lemon_Model
 
 	//-> 동일경기 배팅횟수제한 (단폴더, 같은게임만)
 	function isLimitBetUkCnt($childSn, $memberSn) {
-		$sql = "select count(*) as totcnt from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."total_betting c, ".$this->db_qz."total_cart d
+		$sql = "select count(*) as totcnt from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."game_betting c, ".$this->db_qz."game_cart d
 					 where a.sn=b.child_sn and b.sn=c.sub_child_sn and c.betting_no=d.betting_no and a.sn='".$childSn."' and d.member_sn='".$memberSn."'";
 		$rs = $this->db->exeSql($sql);
 		if($rs[0]['totcnt'] > 0)
@@ -1381,7 +1381,7 @@ class CartModel extends Lemon_Model
 		$gameHour = $rs[0]['gameHour'];
 		$gameTime = $rs[0]['gameTime'];
 
-		$sql = "select count(*) as totcnt from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."total_betting c where
+		$sql = "select count(*) as totcnt from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."game_betting c where
 						a.sn=b.child_sn and b.sn=c.sub_child_sn and a.special='3' and 
 						a.gameDate = '".$gameDate."' and a.gameHour = '".$gameHour."' and a.gameTime = '".$gameTime."' and c.member_sn='".$memberSn."'";
 		$rs = $this->db->exeSql($sql);
@@ -1396,7 +1396,7 @@ class CartModel extends Lemon_Model
 		$gameHour = $rs[0]['gameHour'];
 		$gameTime = $rs[0]['gameTime'];
 
-		$sql = "select d.sn from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."total_betting c, ".$this->db_qz."total_cart d where
+		$sql = "select d.sn from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."game_betting c, ".$this->db_qz."game_cart d where
 						a.sn=b.child_sn and b.sn=c.sub_child_sn and c.betting_no = d.betting_no and a.special='".$specialCode."' and 
 						a.gameDate = '".$gameDate."' and a.gameHour = '".$gameHour."' and a.gameTime = '".$gameTime."' and c.member_sn='".$memberSn."' group by d.betting_no";
 		$rs = $this->db->exeSql($sql);
@@ -1411,10 +1411,10 @@ class CartModel extends Lemon_Model
         $gameHour = $rs[0]['gameHour'];
         $gameTime = $rs[0]['gameTime'];
 
-        /*$sql = "select d.sn from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."total_betting c, ".$this->db_qz."total_cart d where
+        /*$sql = "select d.sn from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."game_betting c, ".$this->db_qz."game_cart d where
 						a.sn=b.child_sn and b.sn=c.sub_child_sn and c.betting_no = d.betting_no and a.special='".$specialCode."' and 
 						a.gameDate = '".$gameDate."' and a.gameHour = '".$gameHour."' and a.gameTime = '".$gameTime."' and c.member_sn='".$memberSn."' and c.select_no=".$selectTeam." group by d.betting_no";*/
-        $sql = "select d.sn from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."total_betting c, ".$this->db_qz."total_cart d where
+        $sql = "select d.sn from ".$this->db_qz."child a, ".$this->db_qz."subchild b, ".$this->db_qz."game_betting c, ".$this->db_qz."game_cart d where
 						a.sn=b.child_sn and b.sn=c.sub_child_sn and c.betting_no = d.betting_no and a.special='".$specialCode."' and 
 						a.gameDate = '".$gameDate."' and a.gameHour = '".$gameHour."' and a.gameTime = '".$gameTime."' and c.member_sn='".$memberSn."' group by d.betting_no";
         $rs = $this->db->exeSql($sql);
@@ -1423,7 +1423,7 @@ class CartModel extends Lemon_Model
 
 	//-> 게임타입별 배팅 카트수 확인
 	function getGameTypeToCart($memberSn, $gameDate, $gameTh, $specialCode, $gameCode) {
-		$sql = "select count(*) as totcnt from tb_child a, tb_subchild b, tb_total_betting c, tb_total_cart d
+		$sql = "select count(*) as totcnt from tb_child a, tb_subchild b, tb_game_betting c, tb_game_cart d
 					 where a.sn=b.child_sn and b.sn=c.sub_child_sn and c.betting_no=d.betting_no and a.special = '{$specialCode}' and a.gameDate='{$gameDate}' and a.game_th = '{$gameTh}' and d.member_sn='{$memberSn}' and a.game_code IN ({$gameCode})";
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['totcnt']+0;
@@ -1451,7 +1451,7 @@ class CartModel extends Lemon_Model
 	function isBettingCancelEnable($bettingNo, $enalbeTime)
 	{
 		$sql = "select * from ".$this->db_qz."child a, ".$this->db_qz."subchild b
-						where a.sn=b.child_sn and b.sn in (select sub_child_sn from ".$this->db_qz."total_betting where betting_no='".$bettingNo."')";
+						where a.sn=b.child_sn and b.sn in (select sub_child_sn from ".$this->db_qz."game_betting where betting_no='".$bettingNo."')";
 		$rs = $this->db->exeSql($sql);
 		
 		for($i=0; $i<count((array)$rs); ++$i)
@@ -1470,7 +1470,7 @@ class CartModel extends Lemon_Model
 	function topWinnersList()
 	{
 		$sql = "select b.uid, a.result_money, a.result_rate  from 
-					".$this->db_qz."total_cart a, ".$this->db_qz."member b
+					".$this->db_qz."game_cart a, ".$this->db_qz."member b
 					where 	a.member_sn=b.sn 
 								and a.result_money>0
 								and b.mem_status='N'
@@ -1576,7 +1576,7 @@ class CartModel extends Lemon_Model
 
 	function getBettingInfoBySn($sn = 0) 
 	{
-		$sql = "SELECT * FROM tb_total_betting WHERE sn = " . $sn;
+		$sql = "SELECT * FROM tb_game_betting WHERE sn = " . $sn;
 		$rs = $this->db->exeSql($sql);
 		$betting_info = [];
 
@@ -1588,7 +1588,7 @@ class CartModel extends Lemon_Model
 
 	function getCartInfo($betting_no = 0) 
 	{
-		$sql = "SELECT * FROM tb_total_cart WHERE betting_no = " . $betting_no;
+		$sql = "SELECT * FROM tb_game_cart WHERE betting_no = " . $betting_no;
 		$rs = $this->db->exeSql($sql);
 		$cart_info = [];
 
@@ -1601,15 +1601,15 @@ class CartModel extends Lemon_Model
 	//-> 배팅수동처리 2021.08.10
 	function modifyBetResult($total_betting_sn = 0, $result = 0, $select_no = 0)
 	{
-		$sql = "select * from tb_total_betting where sn=".$total_betting_sn;
+		$sql = "select * from tb_game_betting where sn=".$total_betting_sn;
 		$rs = $this->db->exeSql($sql);
 		$bettingNo = $rs[0]['betting_no'];
 
 		//-> 배팅결과 변환.
 		if($select_no > 0) {
-			$sql = "update tb_total_betting set result = '" . $result . "', select_no = '" . $select_no . "' where sn = ".$total_betting_sn;
+			$sql = "update tb_game_betting set result = '" . $result . "', select_no = '" . $select_no . "' where sn = ".$total_betting_sn;
 		} else {
-			$sql = "update tb_total_betting set result = '" . $result . "' where sn = ".$total_betting_sn;
+			$sql = "update tb_game_betting set result = '" . $result . "' where sn = ".$total_betting_sn;
 		}
 		$this->db->exeSql($sql);	
 		

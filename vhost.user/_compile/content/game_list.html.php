@@ -439,9 +439,13 @@
         var Bet_Rule_vu = '<?php echo $TPL_VAR["vu"]?>';
         var Bet_Rule_hu = '<?php echo $TPL_VAR["hu"]?>';
         
+        // 배팅마감시간
         var bettingendtime = '<?php echo $TPL_VAR["betEndTime"]?>';
+        // 배팅후 배팅취소시간
         var bettingcanceltime = '<?php echo $TPL_VAR["betCancelTime"]?>';
+        // 경기시작전 배팅취소시간
         var bettingcancelbeforetime = '<?php echo $TPL_VAR["betCancelBeforeTime"]?>';
+        // 조합배팅 조합개수
         var crossLimitCnt = '<?php echo $TPL_VAR["crossLimitCnt"]?>';
         var game_kind = "<?php echo $gameType?>";
         var s_type = "<?=$s_type?>";

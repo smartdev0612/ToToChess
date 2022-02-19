@@ -73,11 +73,11 @@ class TexModel extends Lemon_Model
             $result = array();
             //-> 결과대기중 배팅합계
             $sql = "select ifnull(sum(betting_money),0) as total_betting_ready
-						from tb_total_cart 
+						from tb_game_cart 
 						where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 0 and 
 									regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'".$add_where;
             /*$sql = "select ifnull(sum(betting_money),0) as total_betting_ready
-						from tb_total_cart 
+						from tb_game_cart 
 						where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 0 
 						and regdate > '".$beginDate."' ".$add_where;*/
             $res = $this->db->exeSql($sql);
@@ -85,11 +85,11 @@ class TexModel extends Lemon_Model
 
             //-> 스포츠 당첨된 배팅합계 + 당첨된 금액(배당)
             $sql = "select ifnull(sum(betting_money),0) as total_betting_win, ifnull(sum(result_money),0) as total_result_win
-						from tb_total_cart 
+						from tb_game_cart 
 						where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code < 3 and
 									regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'".$add_where;
             /*$sql = "select ifnull(sum(betting_money),0) as total_betting_win, ifnull(sum(result_money),0) as total_result_win
-						from tb_total_cart 
+						from tb_game_cart 
 						where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code < 3 and
 									regdate > '".$beginDate."' ".$add_where;*/
 
@@ -99,11 +99,11 @@ class TexModel extends Lemon_Model
 
             //-> 스포츠 낙첨된 배팅합계
             $sql = "select ifnull(sum(betting_money),0) as total_betting_lose
-						from tb_total_cart 
+						from tb_game_cart 
 						where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code < 3 and
 									regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'".$add_where;
             /*$sql = "select ifnull(sum(betting_money),0) as total_betting_lose
-						from tb_total_cart 
+						from tb_game_cart 
 						where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code < 3 and
 									regdate > '".$beginDate."'".$add_where;*/
 
@@ -112,11 +112,11 @@ class TexModel extends Lemon_Model
 
             //-> 미니게임 당첨된 배팅합계 + 당첨된 금액(배당)
             $sql = "select ifnull(sum(betting_money),0) as total_betting_win, ifnull(sum(result_money),0) as total_result_win
-						from tb_total_cart 
+						from tb_game_cart 
 						where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code >= 3 and
 									regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
             /*$sql = "select ifnull(sum(betting_money),0) as total_betting_win, ifnull(sum(result_money),0) as total_result_win
-						from tb_total_cart 
+						from tb_game_cart 
 						where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code >= 3 and
 									regdate > '".$beginDate."'";*/
 
@@ -126,11 +126,11 @@ class TexModel extends Lemon_Model
 
             //-> 미니게임 낙첨된 배팅합계
             $sql = "select ifnull(sum(betting_money),0) as total_betting_lose
-						from tb_total_cart 
+						from tb_game_cart 
 						where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code >= 3 and
 									regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
             /*$sql = "select ifnull(sum(betting_money),0) as total_betting_lose
-						from tb_total_cart 
+						from tb_game_cart 
 						where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code >= 3 and
 									regdate > '".$beginDate."'";*/
 
@@ -214,13 +214,13 @@ class TexModel extends Lemon_Model
 
             //-> 다폴더 낙첨 포인트 합계
             $sql = "select ifnull(sum(a.amount),0) as total_mileage_multi_folder_lose
-						from tb_mileage_log a, tb_total_cart b 
+						from tb_mileage_log a, tb_game_cart b 
 						where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt > 1 and 
 									a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
 									a.member_sn in(select sn from tb_member where mem_status != 'G') and 
 									a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
             /*$sql = "select ifnull(sum(a.amount),0) as total_mileage_multi_folder_lose
-						from tb_mileage_log a, tb_total_cart b 
+						from tb_mileage_log a, tb_game_cart b 
 						where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt > 1 and 
 									a.regdate > '".$beginDate."' and 
 									a.member_sn in(select sn from tb_member where mem_status != 'G') and 
@@ -231,13 +231,13 @@ class TexModel extends Lemon_Model
 
             //-> 단폴더 낙첨 포인트 합계
             $sql = "select ifnull(sum(a.amount),0) as total_mileage_one_folder_lose
-						from tb_mileage_log a, tb_total_cart b 
+						from tb_mileage_log a, tb_game_cart b 
 						where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt = 1 and 
 									a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
 									a.member_sn in(select sn from tb_member where mem_status != 'G') and 
 									a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
             /*$sql = "select ifnull(sum(a.amount),0) as total_mileage_one_folder_lose
-						from tb_mileage_log a, tb_total_cart b 
+						from tb_mileage_log a, tb_game_cart b 
 						where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt = 1 and 
 									a.regdate > '".$beginDate."' and 
 									a.member_sn in(select sn from tb_member where mem_status != 'G') and 
@@ -552,7 +552,7 @@ class TexModel extends Lemon_Model
             $result = array();
             //-> 결과대기중 배팅합계
             $sql = "select ifnull(sum(betting_money),0) as total_betting_ready
-                    from tb_total_cart 
+                    from tb_game_cart 
                     where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 0 and 
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'".$add_where;
            
@@ -561,7 +561,7 @@ class TexModel extends Lemon_Model
 
             //-> 스포츠 당첨된 배팅합계 + 당첨된 금액(배당)
             $sql = "select ifnull(sum(betting_money),0) as total_betting_win, ifnull(sum(result_money),0) as total_result_win
-                    from tb_total_cart 
+                    from tb_game_cart 
                     where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code < 5 and
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'".$add_where;
             
@@ -571,7 +571,7 @@ class TexModel extends Lemon_Model
 
             //-> 스포츠 낙첨된 배팅합계
             $sql = "select ifnull(sum(betting_money),0) as total_betting_lose
-                    from tb_total_cart 
+                    from tb_game_cart 
                     where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code < 5 and
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'".$add_where;
             
@@ -580,7 +580,7 @@ class TexModel extends Lemon_Model
 
             //-> 미니게임 당첨된 배팅합계 + 당첨된 금액(배당)
             $sql = "select ifnull(sum(betting_money),0) as total_betting_win, ifnull(sum(result_money),0) as total_result_win
-                    from tb_total_cart 
+                    from tb_game_cart 
                     where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 1 and last_special_code >= 5 and
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
             
@@ -590,7 +590,7 @@ class TexModel extends Lemon_Model
 
             //-> 미니게임 낙첨된 배팅합계
             $sql = "select ifnull(sum(betting_money),0) as total_betting_lose
-                    from tb_total_cart 
+                    from tb_game_cart 
                     where partner_sn = '".$recommendSn."' and kubun = 'Y' and is_account = 1 and result = 2 and last_special_code >= 5 and
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
             
@@ -647,7 +647,7 @@ class TexModel extends Lemon_Model
 
             //-> 다폴더 낙첨 포인트 합계
             $sql = "select ifnull(sum(a.amount),0) as total_mileage_multi_folder_lose
-                    from tb_mileage_log a, tb_total_cart b 
+                    from tb_mileage_log a, tb_game_cart b 
                     where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt > 1 and 
                         a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
                         a.member_sn in(select sn from tb_member where mem_status != 'G') and 
@@ -658,7 +658,7 @@ class TexModel extends Lemon_Model
 
             //-> 단폴더 낙첨 포인트 합계
             $sql = "select ifnull(sum(a.amount),0) as total_mileage_one_folder_lose
-                    from tb_mileage_log a, tb_total_cart b 
+                    from tb_mileage_log a, tb_game_cart b 
                     where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt = 1 and 
                         a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
                         a.member_sn in(select sn from tb_member where mem_status != 'G') and 

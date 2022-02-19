@@ -116,7 +116,7 @@ class AccountModel extends Lemon_Model
 		if($addWhere!='') $where=" and ".$addWhere;
 		
 		$sql = "select ifnull(sum(betting_money),0) as betting_money, ifnull(sum(result_money),0) as result_money 
-				from ".$this->db_qz."total_cart
+				from ".$this->db_qz."game_cart
 					where logo='".$this->logo."' and date(regdate)>='".$beginDate."' and date(regdate)<='".$endDate."'";
 				
 		$rs = $this->db->exeSql($sql);

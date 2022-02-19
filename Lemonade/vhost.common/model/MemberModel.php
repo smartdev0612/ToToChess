@@ -148,11 +148,11 @@ class MemberModel extends Lemon_Model
 		$cModel 	= Lemon_Instance::getObject("CartModel",true);
 		$msModel 	= Lemon_Instance::getObject("MoneyModel",true);
 
-		// 기존의회원수익(benefit) 쿼리 : ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0)-ifnull(a.g_money, 0)-ifnull((select sum(betting_money) from ".$this->db_qz."total_cart where member_sn=a.sn), 0) as benefit,		
+		// 기존의회원수익(benefit) 쿼리 : ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0)-ifnull(a.g_money, 0)-ifnull((select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn), 0) as benefit,		
 		$sql = "select a.*, b.Idx, b.rec_id, b.rec_name,
 								(select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1) as charge_sum,
 								(select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1) as exchange_sum,
-								(select sum(betting_money) from ".$this->db_qz."total_cart where member_sn=a.sn) as bet_total,
+								(select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn) as bet_total,
 								ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) - ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0) as benefit,
 								(select count(*) from ".$this->db_qz."visit where member_id=a.uid) as visit_count
 						from ".$this->db_qz."member a LEFT OUTER JOIN ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
@@ -214,11 +214,11 @@ class MemberModel extends Lemon_Model
 		$cModel 	= Lemon_Instance::getObject("CartModel",true);
 		$msModel 	= Lemon_Instance::getObject("MoneyModel",true);
 
-		// 기존의회원수익(benefit) 쿼리 : ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0)-ifnull(a.g_money, 0)-ifnull((select sum(betting_money) from ".$this->db_qz."total_cart where member_sn=a.sn), 0) as benefit,		
+		// 기존의회원수익(benefit) 쿼리 : ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0)-ifnull(a.g_money, 0)-ifnull((select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn), 0) as benefit,		
 		$sql = "select a.*, b.Idx, b.rec_id, b.rec_name,
                     (select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1) as charge_sum,
                     (select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1) as exchange_sum,
-                    (select sum(betting_money) from ".$this->db_qz."total_cart where member_sn=a.sn) as bet_total,
+                    (select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn) as bet_total,
                     ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) as benefit,
                     (select count(*) from ".$this->db_qz."visit where member_id=a.uid) as visit_count
                 from ".$this->db_qz."member a LEFT OUTER JOIN ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
@@ -758,7 +758,7 @@ class MemberModel extends Lemon_Model
         $sql = "select b.*,
                        (select sum(amount) from ".$this->db_qz."charge_log where member_sn=b.sn and state=1) as charge_sum,
 								(select sum(amount) from ".$this->db_qz."exchange_log where member_sn=b.sn and state=1) as exchange_sum,
-								(select sum(betting_money) from ".$this->db_qz."total_cart where member_sn=b.sn) as bet_total,
+								(select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=b.sn) as bet_total,
 								ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=b.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) as benefit,
 								(select count(*) from ".$this->db_qz."visit where member_id=b.uid) as visit_count 
 						from ".$this->db_qz."join_recommend a, ".$this->db_qz."member b
@@ -773,7 +773,7 @@ class MemberModel extends Lemon_Model
 		$sql = "select b.*,
 				(select sum(amount) from ".$this->db_qz."charge_log where member_sn=b.sn and state=1) as charge_sum,
                     (select sum(amount) from ".$this->db_qz."exchange_log where member_sn=b.sn and state=1) as exchange_sum,
-                    (select sum(betting_money) from ".$this->db_qz."total_cart where member_sn=b.sn) as bet_total,
+                    (select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=b.sn) as bet_total,
                     ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=b.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=b.sn and state=1), 0) as benefit,
                     (select count(*) from ".$this->db_qz."visit where member_id=b.uid) as visit_count 
 				from ".$this->db_qz."member b
@@ -1027,11 +1027,11 @@ class MemberModel extends Lemon_Model
         $cModel 	= Lemon_Instance::getObject("CartModel",true);
         $msModel 	= Lemon_Instance::getObject("MoneyModel",true);
 
-        // 기존의회원수익(benefit) 쿼리 : ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0)-ifnull(a.g_money, 0)-ifnull((select sum(betting_money) from ".$this->db_qz."total_cart where member_sn=a.sn), 0) as benefit,
+        // 기존의회원수익(benefit) 쿼리 : ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0)-ifnull(a.g_money, 0)-ifnull((select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn), 0) as benefit,
         $sql = "select a.*,
                         (select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1) as charge_sum,
                         (select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1) as exchange_sum,
-                        (select sum(betting_money) from ".$this->db_qz."total_cart where member_sn=a.sn) as bet_total,
+                        (select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn) as bet_total,
                         ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) as benefit,
                         (select count(*) from ".$this->db_qz."visit where member_id=a.uid) as visit_count
                 from ".$this->db_qz."member a  
@@ -2019,7 +2019,7 @@ class MemberModel extends Lemon_Model
 
             //배팅금액, 당첨금액 스포츠
             $sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-						from ".$this->db_qz."total_cart
+						from ".$this->db_qz."game_cart
 						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
 
             if($beginDate != '')
@@ -2037,7 +2037,7 @@ class MemberModel extends Lemon_Model
 
             //배팅금액, 당첨금액 미니게임
             $sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-						from ".$this->db_qz."total_cart
+						from ".$this->db_qz."game_cart
 						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
 
             if($beginDate != '')
@@ -2099,7 +2099,7 @@ class MemberModel extends Lemon_Model
             $member_sn = $rs[$i]['mem_sn'];
             //배팅금액, 당첨금액 스포츠
             $sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-					from ".$this->db_qz."total_cart where member_sn = {$member_sn} and (last_special_code < 5 or last_special_code=50)";
+					from ".$this->db_qz."game_cart where member_sn = {$member_sn} and (last_special_code < 5 or last_special_code=50)";
 
             if($beginDate != '')
             {
@@ -2116,7 +2116,7 @@ class MemberModel extends Lemon_Model
 
             //배팅금액, 당첨금액 미니게임
             $sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-                    from ".$this->db_qz."total_cart where member_sn = {$member_sn} and (last_special_code > 4 and last_special_code!=50) ";
+                    from ".$this->db_qz."game_cart where member_sn = {$member_sn} and (last_special_code > 4 and last_special_code!=50) ";
 
             if($beginDate != '')
             {
@@ -2237,15 +2237,15 @@ class MemberModel extends Lemon_Model
 
     function getUserBettingList($subChildSn = 0) {
         $sql = "SELECT
-                    tb_total_betting.`betting_no`,
-                    tb_total_betting.bet_money,
+                    tb_game_betting.`betting_no`,
+                    tb_game_betting.bet_money,
                     tb_member.`sn`,
                     tb_member.`uid`
                 FROM
-                    tb_total_betting
+                    tb_game_betting
                     LEFT JOIN tb_member
-                    ON tb_total_betting.member_sn = tb_member.sn
-                WHERE tb_total_betting.`sub_child_sn` = " . $subChildSn;
+                    ON tb_game_betting.member_sn = tb_member.sn
+                WHERE tb_game_betting.`sub_child_sn` = " . $subChildSn;
 
         $rs = $this->db->exeSql($sql);
 

@@ -174,7 +174,7 @@ class RaceserverController extends WebServiceController
 			exit();
 		}
 
-		//-> tb_total_betting 등록
+		//-> tb_game_betting 등록
 		$rate1 = $gameSubInfo["home_rate"];
 		$rate2 = $gameSubInfo["draw_rate"];
 		$rate3 = $gameSubInfo["away_rate"];
@@ -185,7 +185,7 @@ class RaceserverController extends WebServiceController
 		$leagueName = $leagueInfo[0]['name'];
 		$rs = $cartModel->addBet($user_sn, $childSn, $subChildSn, $protoId, $selected, $rate1, $rate2, $rate3, $selectedRate, $gameType, $buy, $bet_money);
 
-		//-> tb_total_cart 등록
+		//-> tb_game_cart 등록
 		$recommendSn = $memberInfo['recommend_sn'];
 		$rollingSn = $memberInfo['rolling_sn'];
 		$author = $memberInfo['nick'];

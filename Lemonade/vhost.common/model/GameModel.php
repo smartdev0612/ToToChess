@@ -188,8 +188,8 @@ class GameModel extends Lemon_Model
 					d.gameHour,
 					d.gameTime
 				FROM
-					tb_total_cart a
-					INNER JOIN tb_total_betting b
+					tb_game_cart a
+					INNER JOIN tb_game_betting b
 					ON a.betting_no = b.betting_no
 					LEFT JOIN tb_subchild c
 					ON b.`sub_child_sn` = c.sn
@@ -376,7 +376,7 @@ class GameModel extends Lemon_Model
 	//▶ 차일드 삭제
 	function delChild($sn)
 	{
-		$sql = "select * from ".$this->db_qz."total_betting where sub_child_sn = " . $sn;
+		$sql = "select * from ".$this->db_qz."game_betting where sub_child_sn = " . $sn;
 		$rs = $this->db->exeSql($sql);
 		
 		if(count((array)$rs)>0)
@@ -414,7 +414,7 @@ class GameModel extends Lemon_Model
 	//▶ 서브차일드 삭제 (다기준)
 	function delSubChildMulti($sn)
 	{
-		$sql = "select * from ".$this->db_qz."child_m a, ".$this->db_qz."subchild_m b, ".$this->db_qz."total_betting c where a.sn=b.child_sn and b.sn=c.sub_child_sn and b.sn in (".$sn.")";
+		$sql = "select * from ".$this->db_qz."child_m a, ".$this->db_qz."subchild_m b, ".$this->db_qz."game_betting c where a.sn=b.child_sn and b.sn=c.sub_child_sn and b.sn in (".$sn.")";
 		$rs = $this->db->exeSql($sql);
 		
 		if(count((array)$rs)>0)
@@ -440,7 +440,7 @@ class GameModel extends Lemon_Model
 
     function delChildDB($sn)
     {
-        $sql = "select * from ".$this->db_qz."total_betting where sub_child_sn = " . $sn;
+        $sql = "select * from ".$this->db_qz."game_betting where sub_child_sn = " . $sn;
         $rs = $this->db->exeSql($sql);
 
         if(count((array)$rs)>0)
@@ -466,7 +466,7 @@ class GameModel extends Lemon_Model
 	
 	function delSubChildDB($sn)
     {
-        $sql = "select * from ".$this->db_qz."child_m a, ".$this->db_qz."subchild_m b, ".$this->db_qz."total_betting c where a.sn=b.child_sn and b.sn=c.sub_child_sn and b.sn in (".$sn.")";
+        $sql = "select * from ".$this->db_qz."child_m a, ".$this->db_qz."subchild_m b, ".$this->db_qz."game_betting c where a.sn=b.child_sn and b.sn=c.sub_child_sn and b.sn in (".$sn.")";
         $rs = $this->db->exeSql($sql);
 
         if(count((array)$rs)>0)
@@ -514,7 +514,7 @@ class GameModel extends Lemon_Model
 		$rs = $this->db->exeSql($sql);
 		$subChildSn = $rs[0]["sn"];
 		
-		$sql = "update ".$this->db_qz."total_betting
+		$sql = "update ".$this->db_qz."game_betting
 						set game_type=".$gameType."
 						where sub_child_sn=".$subChildSn;
 		return $this->db->exeSql($sql);
@@ -538,7 +538,7 @@ class GameModel extends Lemon_Model
 		$rs = $this->db->exeSql($sql);
 		$subChildSn = $rs[0]["sn"];
 		
-		$sql = "update ".$this->db_qz."total_betting
+		$sql = "update ".$this->db_qz."game_betting
 						set game_type=".$gameType."
 						where sub_child_sn=".$subChildSn;
 		return $this->db->exeSql($sql);
@@ -961,7 +961,7 @@ class GameModel extends Lemon_Model
 			$sql = "select count(*) as cnt
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
 					(select sum(betting_money) as total_money, sub_child_sn, d.result
-						from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+						from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 						where c.betting_no = d.betting_no and c.is_account = 1 and logo='".$this->logo."'
 						group by sub_child_sn) as c on b.sn=c.sub_child_sn
 					where a.sn = b.child_sn and a.view_flag = '1' ".$where;
@@ -969,7 +969,7 @@ class GameModel extends Lemon_Model
 			$sql = "select count(*) as cnt
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
 					(select sum(betting_money) as total_money, sub_child_sn, d.result
-						from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+						from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 						where c.betting_no = d.betting_no and c.is_account = 1 and logo='".$this->logo."'
 						group by sub_child_sn) as c on b.sn = c.sub_child_sn
 					where a.sn = b.child_sn and a.view_flag = '1' ".$where;
@@ -1076,7 +1076,7 @@ class GameModel extends Lemon_Model
 			$sql = "select count(*) as cnt
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b inner join
 					(select sum(betting_money) as total_money, sub_child_sn
-						from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+						from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 						where c.betting_no = d.betting_no and c.is_account = 1 and logo='".$this->logo."'
 						group by sub_child_sn) as c on b.sn=c.sub_child_sn
 					where a.sn = b.child_sn and a.view_flag = '1' ".$where;
@@ -1084,7 +1084,7 @@ class GameModel extends Lemon_Model
 			$sql = "select count(*) as cnt
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b inner join
 					(select sum(betting_money) as total_money, sub_child_sn
-						from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+						from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 						where c.betting_no = d.betting_no and c.is_account = 1 and logo='".$this->logo."'
 						group by sub_child_sn) as c on b.sn = c.sub_child_sn
 					where a.sn = b.child_sn and a.view_flag = '1' ".$where;
@@ -1209,7 +1209,7 @@ class GameModel extends Lemon_Model
 			$sql = "select count(*) as cnt
 							from ".$this->db_qz."child a, ".$this->db_qz."league c, ".$this->db_qz."subchild b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+								from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 								where c.betting_no=d.betting_no and c.is_account=1 and logo='".$this->logo."'
 								group by sub_child_sn) as c on b.sn=c.sub_child_sn
 							where a.sn=b.child_sn and a.league_sn=c.lsports_league_sn and a.view_flag = '1' ".$where;
@@ -1299,7 +1299,7 @@ class GameModel extends Lemon_Model
 			$sql = "select count(*) as cnt
 							from ".$this->db_qz."child_m a, ".$this->db_qz."league c, ".$this->db_qz."subchild_m b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+								from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 								where c.betting_no=d.betting_no and c.is_account=1 and logo='".$this->logo."'
 								group by sub_child_sn) as c on b.sn=c.sub_child_sn
 							where a.sn=b.child_sn and a.league_sn=c.sn and b.view_flag = '1' ".$where;
@@ -1461,7 +1461,7 @@ class GameModel extends Lemon_Model
             $sql = "select count(*) as cnt
 							from ".$this->db_qz."child a, ".$this->db_qz."league c, ".$this->db_qz."subchild b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+								from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 								where c.betting_no=d.betting_no and c.is_account=1 and logo='".$this->logo."'
 								group by sub_child_sn) as c on b.sn=c.sub_child_sn
 							where a.sn=b.child_sn and a.league_sn=c.sn and a.view_flag = '1' ".$where;
@@ -1554,7 +1554,7 @@ class GameModel extends Lemon_Model
             $sql = "select count(*) as cnt
 							from ".$this->db_qz."child_m a, ".$this->db_qz."league c, ".$this->db_qz."subchild_m b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+								from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 								where c.betting_no=d.betting_no and c.is_account=1 and logo='".$this->logo."'
 								group by sub_child_sn) as c on b.sn=c.sub_child_sn
 							where a.sn=b.child_sn and a.league_sn=c.sn and b.view_flag = '1' ".$where;
@@ -1672,7 +1672,7 @@ class GameModel extends Lemon_Model
 							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn, d.result 
-							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+							from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 							where c.betting_no=d.betting_no and c.is_account=1 
 							group by sub_child_sn) as c on b.sn=c.sub_child_sn
 					where a.sn=b.child_sn and a.view_flag = '1' ".$where . " " . $limit .") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid
@@ -1685,7 +1685,7 @@ class GameModel extends Lemon_Model
 							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn, d.result
-							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+							from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 							where c.betting_no=d.betting_no and c.is_account=1 
 							group by sub_child_sn) as c on b.sn = c.sub_child_sn
 					where a.sn=b.child_sn and a.view_flag = '1' ".$where." " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid
@@ -1793,7 +1793,7 @@ class GameModel extends Lemon_Model
 							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b inner join
 							(select sum(betting_money) as total_money, sub_child_sn
-							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+							from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 							where c.betting_no=d.betting_no and c.is_account=1 
 							group by sub_child_sn) as c on b.sn=c.sub_child_sn
 					where a.sn=b.child_sn and a.view_flag = '1' ".$where . " " . $limit .") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid
@@ -1806,7 +1806,7 @@ class GameModel extends Lemon_Model
 							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b inner join
 							(select sum(betting_money) as total_money, sub_child_sn
-							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+							from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 							where c.betting_no=d.betting_no and c.is_account=1 
 							group by sub_child_sn) as c on b.sn = c.sub_child_sn
 					where a.sn=b.child_sn and a.view_flag = '1' ".$where." " .$limit.") as tb_temp left join tb_markets on tb_temp.betting_type = tb_markets.mid
@@ -1932,7 +1932,7 @@ class GameModel extends Lemon_Model
 							b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 					from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn
-							from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+							from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 							where c.betting_no=d.betting_no and c.is_account=1 
 							group by sub_child_sn) as c on b.sn=c.sub_child_sn
 					where a.sn=b.child_sn and a.view_flag = '1' ".$where."
@@ -2034,7 +2034,7 @@ class GameModel extends Lemon_Model
 								b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 							from ".$this->db_qz."child_m a, ".$this->db_qz."league c, ".$this->db_qz."subchild_m b left outer join
 								(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+								from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 								where c.betting_no=d.betting_no and c.is_account=1 
 								group by sub_child_sn) as c on b.sn=c.sub_child_sn
 							where a.sn=b.child_sn and a.league_sn=c.sn and b.view_flag = '1' ".$where."
@@ -2214,7 +2214,7 @@ class GameModel extends Lemon_Model
 								b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 							from ".$this->db_qz."child a, ".$this->db_qz."league c, ".$this->db_qz."subchild b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+								from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 								where c.betting_no=d.betting_no and c.is_account=1 
 								group by sub_child_sn) as c on b.sn=c.sub_child_sn
 							where a.sn=b.child_sn and a.league_sn=c.sn and a.view_flag = '1' ".$where."
@@ -2315,7 +2315,7 @@ class GameModel extends Lemon_Model
 								b.update_enable, a.is_update_date, b.new_home_rate, b.new_draw_rate, b.new_away_rate
 							from ".$this->db_qz."child_m a, ".$this->db_qz."league c, ".$this->db_qz."subchild_m b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+								from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 								where c.betting_no=d.betting_no and c.is_account=1 
 								group by sub_child_sn) as c on b.sn=c.sub_child_sn
 							where a.sn=b.child_sn and a.league_sn=c.sn and b.view_flag = '1' ".$where."
@@ -2447,7 +2447,7 @@ class GameModel extends Lemon_Model
             $sql = "select a.sn as child_sn
 							from ".$this->db_qz."child a, ".$this->db_qz."league c, ".$this->db_qz."subchild b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+								from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 								where c.betting_no=d.betting_no and c.is_account=1 
 								group by sub_child_sn) as c on b.sn=c.sub_child_sn
 							where a.sn=b.child_sn and a.league_sn=c.sn and a.view_flag = '1' ".$where.$limit;
@@ -2544,7 +2544,7 @@ class GameModel extends Lemon_Model
 								b.sn, b.child_sn, b.betting_type, b.home_rate, b.draw_rate, b.away_rate, b.win, b.result
 							from ".$this->db_qz."child a, ".$this->db_qz."subchild b left outer join
 							(select sum(betting_money) as total_money, sub_child_sn
-								from ".$this->db_qz."total_cart c, ".$this->db_qz."total_betting d
+								from ".$this->db_qz."game_cart c, ".$this->db_qz."game_betting d
 								where c.betting_no=d.betting_no and c.is_account=1 and logo='".$this->logo."'
 								group by sub_child_sn) as c on b.sn=c.sub_child_sn
 							where a.sn=b.child_sn ".$where."
@@ -2583,8 +2583,8 @@ class GameModel extends Lemon_Model
 						(select name from ".$this->db_qz."league where sn=a.league_sn) as league_name
 						from ".$this->db_qz."child a
 							  inner join ".$this->db_qz."subchild b on a.sn=b.child_sn
-							  inner join ".$this->db_qz."total_betting c on b.sn=c.sub_child_sn
-							  inner join ".$this->db_qz."total_cart d on c.betting_no=d.betting_no 
+							  inner join ".$this->db_qz."game_betting c on b.sn=c.sub_child_sn
+							  inner join ".$this->db_qz."game_cart d on c.betting_no=d.betting_no 
 						where is_account=1 and d.result=0 and c.result=0 and concat(a.gameDate,' ', a.gameHour,':', a.gameTime) between '".$beginDate."' and '".$endDate."' 
 						group by child_sn, select_no order by total_money limit 0,5";
 		$rs = $this->db->exeSql($sql);
@@ -3176,7 +3176,7 @@ class GameModel extends Lemon_Model
 
 	function getTodayBettingCancelCnt($member_sn) {
 		$sql = "SELECT COUNT(*) AS cancelCnt 
-				FROM tb_total_cart_cancel 
+				FROM tb_game_cart_cancel 
 				WHERE operdate BETWEEN CONCAT('" . date('Y-m-d') . "', ' 00:00:00') AND CONCAT('" . date('Y-m-d') . "', ' 23:59:59')
 						AND member_sn = " . $member_sn;
 		$res = $this->db->exeSql($sql);
@@ -3188,7 +3188,7 @@ class GameModel extends Lemon_Model
 	}
 
 	function existBettingResult($bettingNo) {
-		$sql = "SELECT * FROM tb_total_betting WHERE betting_no = '" . $bettingNo . "'";
+		$sql = "SELECT * FROM tb_game_betting WHERE betting_no = '" . $bettingNo . "'";
 		$res = $this->db->exeSql($sql);
 		$existResult = 0;
 		if(count((array)$res) > 0) {

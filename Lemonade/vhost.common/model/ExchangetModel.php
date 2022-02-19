@@ -16,18 +16,18 @@ class ExchangetModel extends Lemon_Model
 
 	//-> 파워볼 결과 목록
 	public function getSaleInfoRow($betting_no) {
-		$sql = "select * from tb_total_cart where betting_no={$betting_no}";
+		$sql = "select * from tb_game_cart where betting_no={$betting_no}";
 		$rs = $this->db->exeSql($sql);
 		return $rs[0];
 	}
 
     public function purchaseProcessImpl($betting_no, $purchaser_sn, $seller_sn, $sale_price)
     {
-        $sql = "UPDATE tb_total_cart SET member_sn = ".$purchaser_sn.", sale_time=now()";
+        $sql = "UPDATE tb_game_cart SET member_sn = ".$purchaser_sn.", sale_time=now()";
         $sql .= " WHERE betting_no = ".$betting_no."";
         $this->db->exeSql($sql);
 
-        $sql = "UPDATE tb_total_betting SET member_sn = ".$purchaser_sn;
+        $sql = "UPDATE tb_game_betting SET member_sn = ".$purchaser_sn;
         $sql .= " WHERE betting_no = ".$betting_no."";
         $this->db->exeSql($sql);
 
@@ -42,14 +42,14 @@ class ExchangetModel extends Lemon_Model
 
     public function saleProcessImpl($betting_no, $purchaser_sn, $seller_sn, $sale_price)
     {
-        $sql = "UPDATE tb_total_cart SET seller_id = ".$seller_sn.", sale_reg_time=now(), sale_price=".$sale_price;
+        $sql = "UPDATE tb_game_cart SET seller_id = ".$seller_sn.", sale_reg_time=now(), sale_price=".$sale_price;
         $sql .= " WHERE betting_no = ".$betting_no."";
         $this->db->exeSql($sql);
     }
 
     public function cancelSaleProcessImpl($betting_no, $purchaser_sn, $seller_sn, $sale_price)
     {
-        $sql = "UPDATE tb_total_cart SET sale_reg_time=null, sale_price=null, seller_id=null ";
+        $sql = "UPDATE tb_game_cart SET sale_reg_time=null, sale_price=null, seller_id=null ";
         $sql .= " WHERE betting_no = ".$betting_no."";
         $this->db->exeSql($sql);
     }
@@ -131,7 +131,7 @@ class ExchangetModel extends Lemon_Model
 	{
 		$sql = "select a.betting_no,a.regdate,a.betting_cnt,a.result_rate,a.betting_money,a.result, a.bet_date, 
                         a.seller_id, a.sale_price, a.sale_reg_time, a.sale_time, d.sn as child_sn
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 						and a.logo='".$this->logo."' and a.user_del<>'Y' and a.kubun ='Y'
 						and (a.seller_id is null or  a.seller_id ='' and a.sale_time is null) and a.result=0 ";
@@ -172,7 +172,7 @@ class ExchangetModel extends Lemon_Model
 			$sql = "select a.sub_child_sn,a.select_no,a.home_rate,a.away_rate,a.draw_rate,a.select_rate,a.game_type,a.result, a.member_sn,
 							b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, b.game_code, b.game_th,
 							c.name as league_name,c.lg_img as league_image, c.alias_name, d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate, e.operdate
-							from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."total_cart e
+							from ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."game_cart e
 							where a.betting_no=e.betting_no and a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.league_sn=c.sn and b.sn=d.child_sn";
 
 			if($orderby!='') {$sql.=" order by ".$orderby;}
@@ -304,7 +304,7 @@ class ExchangetModel extends Lemon_Model
 	public function _bettingListTotal($memberSn, $state=-1, $event=0, $beginDate='', $endDate='', $specialFlag='')
 	{
 		$sql = "select count(distinct(a.betting_no)) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 						and a.logo='".$this->logo."' and a.user_del<>'Y' and a.member_Sn=".$memberSn." and a.kubun ='Y' 
 						and (a.seller_id is null or a.seller_id ='' and a.sale_time is null) and a.result=0";
@@ -332,7 +332,7 @@ class ExchangetModel extends Lemon_Model
     {
         $sql = "select a.betting_no,a.regdate,a.betting_cnt,a.result_rate,a.betting_money,a.result, a.bet_date, 
                         a.seller_id, a.sale_price, a.sale_reg_time, a.sale_time, d.sn as child_sn
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 						and a.logo='".$this->logo."' and a.user_del<>'Y' and a.kubun ='Y'
 						and a.member_sn=a.seller_id and a.result=0 ";
@@ -373,7 +373,7 @@ class ExchangetModel extends Lemon_Model
             $sql = "select a.sub_child_sn,a.select_no,a.home_rate,a.away_rate,a.draw_rate,a.select_rate,a.game_type,a.result, a.member_sn,
 							b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, b.game_code, b.game_th,
 							c.name as league_name,c.lg_img as league_image, c.alias_name, d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate, e.operdate
-							from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."total_cart e
+							from ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."game_cart e
 							where a.betting_no=e.betting_no and a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.league_sn=c.sn and b.sn=d.child_sn";
 
             if($orderby!='') {$sql.=" order by ".$orderby;}
@@ -505,7 +505,7 @@ class ExchangetModel extends Lemon_Model
     public function _saleListTotal($memberSn, $state=-1, $event=0, $beginDate='', $endDate='', $specialFlag='')
     {
         $sql = "select count(distinct(a.betting_no)) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 						and a.logo='".$this->logo."' and a.user_del<>'Y' and a.seller_id=".$memberSn." and a.kubun ='Y' 
 						and a.member_sn=a.seller_id and a.result=0 ";
@@ -533,7 +533,7 @@ class ExchangetModel extends Lemon_Model
     {
         $sql = "select a.betting_no,a.regdate,a.betting_cnt,a.result_rate,a.betting_money,a.result, a.bet_date, 
                         a.seller_id, a.sale_price, a.sale_reg_time, a.sale_time, d.sn as child_sn
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 						and a.logo='".$this->logo."' and a.user_del<>'Y' and a.kubun ='Y'
 						and (a.seller_id is not null and  a.seller_id !='' and a.sale_time is null) and a.result=0 ";
@@ -574,7 +574,7 @@ class ExchangetModel extends Lemon_Model
             $sql = "select a.sub_child_sn,a.select_no,a.home_rate,a.away_rate,a.draw_rate,a.select_rate,a.game_type,a.result, a.member_sn,
 							b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, b.game_code, b.game_th,
 							c.name as league_name,c.lg_img as league_image, c.alias_name, d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate, e.operdate
-							from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."total_cart e
+							from ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."game_cart e
 							where a.betting_no=e.betting_no and a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.league_sn=c.sn and b.sn=d.child_sn";
 
             if($orderby!='') {$sql.=" order by ".$orderby;}
@@ -706,7 +706,7 @@ class ExchangetModel extends Lemon_Model
     public function _itemListTotal($memberSn, $state=-1, $event=0, $beginDate='', $endDate='', $specialFlag='')
     {
         $sql = "select count(distinct(a.betting_no)) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 						and a.logo='".$this->logo."' and a.user_del<>'Y' and a.seller_id!=".$memberSn." and a.kubun ='Y' 
 						and (a.seller_id is not null and a.seller_id !='' and a.sale_time is null) and a.result=0";
@@ -733,7 +733,7 @@ class ExchangetModel extends Lemon_Model
     public function _purchaseListTotal($memberSn, $state=-1, $event=0, $beginDate='', $endDate='', $specialFlag='')
     {
         $sql = "select count(distinct(a.betting_no)) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 						and a.logo='".$this->logo."' and a.user_del<>'Y' and a.member_sn=".$memberSn." and a.kubun ='Y' 
 						and (a.seller_id is not null and a.seller_id !='' and a.sale_time is not null) and a.result=0";
@@ -761,7 +761,7 @@ class ExchangetModel extends Lemon_Model
     {
         $sql = "select a.betting_no,a.regdate,a.betting_cnt,a.result_rate,a.betting_money,a.result, a.bet_date, 
                         a.seller_id, a.sale_price, a.sale_reg_time, a.sale_time, d.sn as child_sn
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 						and a.logo='".$this->logo."' and a.user_del<>'Y' and a.kubun ='Y'
 						and (a.seller_id is not null and  a.seller_id !='' and a.sale_time is not null) and a.result=0 ";
@@ -802,7 +802,7 @@ class ExchangetModel extends Lemon_Model
             $sql = "select a.sub_child_sn,a.select_no,a.home_rate,a.away_rate,a.draw_rate,a.select_rate,a.game_type,a.result, a.member_sn,
 							b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, b.game_code, b.game_th,
 							c.name as league_name,c.lg_img as league_image, c.alias_name, d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate, e.operdate
-							from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."total_cart e
+							from ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d, ".$this->db_qz."game_cart e
 							where a.betting_no=e.betting_no and a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.league_sn=c.sn and b.sn=d.child_sn";
 
             if($orderby!='') {$sql.=" order by ".$orderby;}

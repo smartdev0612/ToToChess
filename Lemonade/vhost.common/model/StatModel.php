@@ -54,14 +54,14 @@ class StatModel extends Lemon_Model
 				$item[$i]['visit_member_count'] = $rs[0]['cnt'];
 				
 				//배팅유져수
-				$sql = "select count(distinct a.sn) as cnt from ".$this->db_qz."member a inner join ".$this->db_qz."total_cart b on a.sn=b.member_sn where (a.mem_status='N' or a.mem_status='W')".$logo;
+				$sql = "select count(distinct a.sn) as cnt from ".$this->db_qz."member a inner join ".$this->db_qz."game_cart b on a.sn=b.member_sn where (a.mem_status='N' or a.mem_status='W')".$logo;
 				$sql.= " and date(b.regdate)=date('".$currentDate."')".$partnerWhere;
 				$rs = $this->db->exeSql($sql);
 				
 				$item[$i]['betting_member_count'] = $rs[0]['cnt'];
 				
 				//총 베팅금액, 베팅횟수
-				$sql = "select sum(betting_money) as sum_bet,count(betting_no) as countbet from ".$this->db_qz."total_cart a inner join ".$this->db_qz."member b on a.member_sn=b.sn where";
+				$sql = "select sum(betting_money) as sum_bet,count(betting_no) as countbet from ".$this->db_qz."game_cart a inner join ".$this->db_qz."member b on a.member_sn=b.sn where";
 				$sql.= " (b.mem_status='N' or b.mem_status='W') and date(a.regdate)=date('".$currentDate."')".$logo.$partnerWhere;
 				$rs = $this->db->exeSql($sql);
 				$item[$i]['sum_betting']	= $rs[0]['sum_bet'];
@@ -229,7 +229,7 @@ class StatModel extends Lemon_Model
 				$item[$i]['admin_mileage_exchange'] = $rsi[0]['sum_admin_exchange'];
 
 				// 단폴더 지급된 낙첨 포인트
-				$sql = "select ifnull(sum(a.amount),0) as one_folder_charge from ".$this->db_qz."mileage_log a, ".$this->db_qz."total_cart b
+				$sql = "select ifnull(sum(a.amount),0) as one_folder_charge from ".$this->db_qz."mileage_log a, ".$this->db_qz."game_cart b
 								where a.state = 4 and a.amount > 0
 								and a.betting_no = b.betting_no and b.betting_cnt = 1 and a.regdate between '".$currentDate." 00:00:00' and '".$currentDate." 23:59:59'
 								and a.member_sn in(select sn from ".$this->db_qz."member where mem_status!='G'".$logo.")";
@@ -442,7 +442,7 @@ class StatModel extends Lemon_Model
 				$item[$i]['admin_mileage_exchange'] = $rsi[0]['sum_admin_exchange'];
 
 				// 단폴더 지급된 낙첨 포인트
-				$sql = "select ifnull(sum(a.amount),0) as one_folder_charge from ".$this->db_qz."mileage_log a, ".$this->db_qz."total_cart b
+				$sql = "select ifnull(sum(a.amount),0) as one_folder_charge from ".$this->db_qz."mileage_log a, ".$this->db_qz."game_cart b
 								where a.state = 4 and a.amount > 0
 								and a.betting_no = b.betting_no and b.betting_cnt = 1 and a.regdate between '".$currentDate." 00:00:00' and '".$currentDate." 23:59:59'
 								and a.member_sn in(select sn from ".$this->db_qz."member where mem_status!='G'".$logo.")";
@@ -476,7 +476,7 @@ class StatModel extends Lemon_Model
 		$where = "";
 		
 		$sql = "select date(a.regdate) as regdate, a.result, sum(a.betting_money) as total_betting_money, count(a.betting_money) as total_betting_cnt, sum(a.result_money) as total_win_money, count(a.result_money) as total_win_cnt
-					 from ".$this->db_qz."total_cart a, (select * from ".$this->db_qz."total_betting group by betting_no) b inner join ".$this->db_qz."subchild c on b.sub_child_sn=c.sn, ".$this->db_qz."child d
+					 from ".$this->db_qz."game_cart a, (select * from ".$this->db_qz."game_betting group by betting_no) b inner join ".$this->db_qz."subchild c on b.sub_child_sn=c.sn, ".$this->db_qz."child d
 					 where a.betting_no=b.betting_no and c.child_sn=d.sn and a.is_account=1
 					 and date(a.regdate)>='".$begin_date."' and date(a.regdate)<='".$end_date."'";
 
@@ -515,14 +515,14 @@ class StatModel extends Lemon_Model
         $where = "";
 
         $sql = "select b.member_sn, c.uid, c.nick, b.betting_no, b.operdate, b.betting_cnt, b.betting_money, b.result_rate, b.result 
-                from (select * from tb_total_cart where str_to_date(bet_date,'%Y-%m-%d') = '{$date}') b, 
+                from (select * from tb_game_cart where str_to_date(bet_date,'%Y-%m-%d') = '{$date}') b, 
                      tb_member c
                 where b.member_sn = c.sn";
 
         if($member_id != '')
         {
             $sql = "select b.member_sn, c.uid, c.nick, b.betting_no, b.operdate, b.betting_cnt, b.betting_money, b.result_rate, b.result 
-                from   (select * from tb_total_cart where str_to_date(bet_date,'%Y-%m-%d') = '{$date}') b, 
+                from   (select * from tb_game_cart where str_to_date(bet_date,'%Y-%m-%d') = '{$date}') b, 
                          (select * from tb_member where uid = '{$member_id}') c
                 where b.member_sn = c.sn
                 and c.uid = '{$member_id}'";
@@ -537,7 +537,7 @@ class StatModel extends Lemon_Model
     function checkGameSpecialCode($betting_no)
     {
         $sql = "select a.bet_money, a.select_rate, a.game_type, a.result, d.special, d.type 
-                from  tb_total_betting a,
+                from  tb_game_betting a,
                           tb_child d, 
                           tb_subchild e 
                 where a.sub_child_sn = e.sn
@@ -633,7 +633,7 @@ class StatModel extends Lemon_Model
 	function getMemberBetTotal($sn, $where)
 	{
 		$sql = "select count(*) as cnt
-				from ".$this->db_qz."total_cart 
+				from ".$this->db_qz."game_cart 
 					where  member_sn ='".$sn."' and logo='".$this->logo."' and kubun ='Y' ".$where;
 					
 		$rs = $this->db->exeSql($sql);
@@ -644,7 +644,7 @@ class StatModel extends Lemon_Model
 	function getMemberBetList($sn, $where, $page, $page_size)
 	{
 		$sql = "select a.uid,a.nick,b.betting_no,b.betting_cnt,b.before_money,b.betting_money,b.result_rate,b.result_money,b.regdate,b.operdate,b.result,b.bonus
-				from ".$this->db_qz."member a, ".$this->db_qz."total_cart b 
+				from ".$this->db_qz."member a, ".$this->db_qz."game_cart b 
 					where b.member_sn='".$sn."' and kubun='Y' ".$where." and b.logo='".$this->logo."' and a.sn=b.member_sn 
 						order by regdate desc limit ".$page.",".$page_size;
 		$rs = $this->db->exeSql($sql);
@@ -654,7 +654,7 @@ class StatModel extends Lemon_Model
 			$bettingNo = $rs[$i]['betting_no'];
 			$sql = "select a.select_no,a.home_rate,a.away_rate,a.draw_rate,a.game_type,a.result,b.name, c.home_team,c.home_score,c.away_team,c.away_score, 
 					c.gameDate,c.gameHour,c.gameTime 
-					from ".$this->db_qz."total_betting a, ".$this->db_qz."league b, ".$this->db_qz."child c 
+					from ".$this->db_qz."game_betting a, ".$this->db_qz."league b, ".$this->db_qz."child c 
 						where a.betting_no='".$bettingNo."' and c.league_sn=b.sn and a.sub_child_sn=c.sn";
 									
 			$rsi = $this->db->exeSql($sql);

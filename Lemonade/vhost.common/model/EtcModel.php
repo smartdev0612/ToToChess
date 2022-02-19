@@ -184,7 +184,6 @@ class EtcModel extends Lemon_Model
 		}
 
 		$sessionList = array_merge($sessionList_mobile,$sessionList_pc);
-
 		if ( count($sessionList) > 0 ) {
             //$sessionListStr = "'".str_replace("C:\xampp\htdocs\gadget\www_gadget_o2_lsports.com\vhost.user\session/sess_","",implode("','",$sessionList))."'";
             // $sessionListStr = "'".str_replace("D:\\project\\service\\ToToChess\\vhost.user\\session\\sess_","",

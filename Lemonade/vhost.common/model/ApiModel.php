@@ -40,7 +40,7 @@
 		//-> 사다리 항목별 배팅 합계 및 카운트
 		function get_betting_money($special, $gameDate, $gameTh, $gameCode, $selectNo) {
 			GLOBAL $dbs;
-				$sql = "select count(c.sn) as count, sum(c.bet_money) as money from tb_child a, tb_subchild b, tb_total_betting c, tb_total_cart d, tb_member m  
+				$sql = "select count(c.sn) as count, sum(c.bet_money) as money from tb_child a, tb_subchild b, tb_game_betting c, tb_game_cart d, tb_member m  
 								where a.sn = b.child_sn and b.sn = c.sub_child_sn and c.betting_no = d.betting_no and c.member_sn = m.sn and m.balance_flag = 1 and a.special = {$special} and 
 											a.game_code = '{$gameCode}' and a.gameDate = '{$gameDate}' and a.game_th = '{$gameTh}' and c.select_no = '{$selectNo}' and d.is_account = 1";
 				$row = $this->db->exeSql($sql);

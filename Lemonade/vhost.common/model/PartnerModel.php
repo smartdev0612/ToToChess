@@ -189,7 +189,7 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['charge_cnt'] = $rsi[0]['cnt']+0;
 
 			//배팅총액
-			$sql = "select count(*) as cnt, sum(betting_money) as money from ".$this->db_qz."total_cart
+			$sql = "select count(*) as cnt, sum(betting_money) as money from ".$this->db_qz."game_cart
 							where member_sn ='".$member_sn."' and kubun ='Y' ";
 			$rsi = $this->db->exeSql($sql);
 		
@@ -197,7 +197,7 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['bet_money'] = $rsi[0]['money']+0;
 			
 			//당첨금액
-			$sql = "select sum(result_money) as win_money from ".$this->db_qz."total_cart
+			$sql = "select sum(result_money) as win_money from ".$this->db_qz."game_cart
 						 where member_sn ='".$member_sn."' and kubun ='Y' ";
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['win_money'] = $rsi[0]['win_money']+0;
@@ -232,7 +232,7 @@ class PartnerModel extends Lemon_Model
 				$rs[$i]['charge_cnt'] = $rsi[0]['cnt']+0;
 
 				//배팅총액
-				$sql = "select count(*) as cnt, sum(betting_money) as money from ".$this->db_qz."total_cart
+				$sql = "select count(*) as cnt, sum(betting_money) as money from ".$this->db_qz."game_cart
 								where member_sn ='".$member_sn."' and kubun ='Y' ";
 				$rsi = $this->db->exeSql($sql);
 			
@@ -240,7 +240,7 @@ class PartnerModel extends Lemon_Model
 				$rs[$i]['bet_money'] = $rsi[0]['money']+0;
 				
 				//당첨금액
-				$sql = "select sum(result_money) as win_money from ".$this->db_qz."total_cart
+				$sql = "select sum(result_money) as win_money from ".$this->db_qz."game_cart
 							where member_sn ='".$member_sn."' and kubun ='Y' ";
 				$rsi = $this->db->exeSql($sql);
 				$rs[$i]['win_money'] = $rsi[0]['win_money']+0;
@@ -279,7 +279,7 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['charge_cnt'] = $rsi[0]['cnt'];
 
 			//배팅총액
-			$sql = "select count(*) as cnt, sum(betting_money) as money from ".$this->db_qz."total_cart
+			$sql = "select count(*) as cnt, sum(betting_money) as money from ".$this->db_qz."game_cart
 							where member_sn ='".$member_sn."' and kubun ='Y' ";
 			$rsi = $this->db->exeSql($sql);
 		
@@ -287,7 +287,7 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['bet_money'] = $rsi[0]['money'];
 			
 			//당첨금액
-			$sql = "select sum(result_money) as win_money from ".$this->db_qz."total_cart
+			$sql = "select sum(result_money) as win_money from ".$this->db_qz."game_cart
 						 where member_sn ='".$member_sn."' and kubun ='Y' ";
 			$rsi = $this->db->exeSql($sql);
 		
@@ -329,7 +329,7 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['charge_cnt'] = $rsi[0]['cnt'];
 
 			//배팅총액
-			$sql = "select count(*) as cnt, sum(betting_money) as money from ".$this->db_qz."total_cart
+			$sql = "select count(*) as cnt, sum(betting_money) as money from ".$this->db_qz."game_cart
 							where member_sn ='".$member_sn."' and kubun ='Y' ";
 			$rsi = $this->db->exeSql($sql);
 		
@@ -337,7 +337,7 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['bet_money'] = $rsi[0]['money'];
 			
 			//당첨금액
-			$sql = "select sum(result_money) as win_money from ".$this->db_qz."total_cart
+			$sql = "select sum(result_money) as win_money from ".$this->db_qz."game_cart
 						 where member_sn ='".$member_sn."' and kubun ='Y' ";
 			$rsi = $this->db->exeSql($sql);
 		
@@ -531,7 +531,7 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['charge_cnt'] = $rsi[0]['cnt'];
 
 			//배팅총액
-			$sql = "select count(*) as cnt, sum(betting_money) as money from ".$this->db_qz."total_cart
+			$sql = "select count(*) as cnt, sum(betting_money) as money from ".$this->db_qz."game_cart
 							where logo='".$this->logo."' and member_sn ='".$member_sn."' and kubun ='Y' ";
 			$rsi = $this->db->exeSql($sql);
 		
@@ -539,7 +539,7 @@ class PartnerModel extends Lemon_Model
 			$rs[$i]['bet_money'] = $rsi[0]['money'];
 			
 			//당첨금액
-			$sql = "select sum(result_money) as win_money from ".$this->db_qz."total_cart
+			$sql = "select sum(result_money) as win_money from ".$this->db_qz."game_cart
 							where logo='".$this->logo."' and member_sn ='".$member_sn."' and kubun ='Y' ";
 			$rsi = $this->db->exeSql($sql);
 		
@@ -1219,12 +1219,12 @@ class PartnerModel extends Lemon_Model
 			//배팅금액, 당첨금액
 /*
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-						from ".$this->db_qz."total_cart
+						from ".$this->db_qz."game_cart
 						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.")";
 */
 			//-> 위에 쿼리 튜닝
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result 
-							from ".$this->db_qz."total_cart a, ".$this->db_qz."member b 
+							from ".$this->db_qz."game_cart a, ".$this->db_qz."member b 
 							where a.member_sn = b.sn and b.recommend_sn = ".$recommend_sn;
 			//$rsi = $this->db->exeSql($sql);
 			
@@ -1306,7 +1306,7 @@ class PartnerModel extends Lemon_Model
 
 			//배팅금액, 당첨금액 스포츠
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-							from ".$this->db_qz."total_cart
+							from ".$this->db_qz."game_cart
 							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
 
 			if($beginDate != '')
@@ -1324,7 +1324,7 @@ class PartnerModel extends Lemon_Model
 
 			//배팅금액, 당첨금액 미니게임
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-							from ".$this->db_qz."total_cart
+							from ".$this->db_qz."game_cart
 							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
 
 			if($beginDate != '')
@@ -1430,7 +1430,7 @@ class PartnerModel extends Lemon_Model
 
 			//배팅금액, 당첨금액 스포츠
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-							from ".$this->db_qz."total_cart
+							from ".$this->db_qz."game_cart
 							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
 
 			if($beginDate != '')
@@ -1448,7 +1448,7 @@ class PartnerModel extends Lemon_Model
 
 			//배팅금액, 당첨금액 미니게임
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-							from ".$this->db_qz."total_cart
+							from ".$this->db_qz."game_cart
 							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
 
 			if($beginDate != '')
@@ -1551,7 +1551,7 @@ class PartnerModel extends Lemon_Model
 
 			//배팅금액, 당첨금액 스포츠
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-							from ".$this->db_qz."total_cart
+							from ".$this->db_qz."game_cart
 							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
 
 			if($beginDate != '')
@@ -1569,7 +1569,7 @@ class PartnerModel extends Lemon_Model
 
 			//배팅금액, 당첨금액 미니게임
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-							from ".$this->db_qz."total_cart
+							from ".$this->db_qz."game_cart
 							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
 
 			if($beginDate != '')
@@ -1672,12 +1672,12 @@ class PartnerModel extends Lemon_Model
 /*			
 			//배팅금액, 당첨금액
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-						from ".$this->db_qz."total_cart
+						from ".$this->db_qz."game_cart
 						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))";
 */
 			//-> 위에 쿼리 튜닝
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result 
-							from ".$this->db_qz."total_cart a, ".$this->db_qz."member b
+							from ".$this->db_qz."game_cart a, ".$this->db_qz."member b
 							where a.member_sn = b.sn and b.recommend_sn IN (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))";
 			//$rsi = $this->db->exeSql($sql);
 			
@@ -1728,7 +1728,7 @@ class PartnerModel extends Lemon_Model
 			/*
 			//배팅금액, 당첨금액
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
-						from ".$this->db_qz."total_cart
+						from ".$this->db_qz."game_cart
 						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.")";
 			$rsi = $this->db->exeSql($sql);
 			

@@ -506,13 +506,13 @@ class MoneyModel extends Lemon_Model
 
 	//-> 사다리 실시간 배팅금액
 	function getSadariBettingMoney($gameDate, $gameTh, $selectNo) {
-		$sql = "select a.game_code, sum(c.bet_money) as sum_money from tb_child a, tb_subchild b, tb_total_betting c where a.sn = b.child_sn and b.child_sn = c.sub_child_sn and a.special = 3 and a.game_th = '{$gameTh}' and a.gameDate = '{$gameDate}' and c.select_no = '{$selectNo}' group by a.game_code";
+		$sql = "select a.game_code, sum(c.bet_money) as sum_money from tb_child a, tb_subchild b, tb_game_betting c where a.sn = b.child_sn and b.child_sn = c.sub_child_sn and a.special = 3 and a.game_th = '{$gameTh}' and a.gameDate = '{$gameDate}' and c.select_no = '{$selectNo}' group by a.game_code";
 		return $this->db->exeSql($sql);	
 	}
 
 	//-> 달팽이 실시간 배팅금액
 	function getRaceBettingMoney($gameDate, $gameTh, $selectNo) {
-		$sql = "select a.game_code, sum(c.bet_money) as sum_money from tb_child a, tb_subchild b, tb_total_betting c where a.sn = b.child_sn and b.child_sn = c.sub_child_sn and a.special = 4 and a.game_th = '{$gameTh}' and a.gameDate = '{$gameDate}' and c.select_no = '{$selectNo}' group by a.game_code";
+		$sql = "select a.game_code, sum(c.bet_money) as sum_money from tb_child a, tb_subchild b, tb_game_betting c where a.sn = b.child_sn and b.child_sn = c.sub_child_sn and a.special = 4 and a.game_th = '{$gameTh}' and a.gameDate = '{$gameDate}' and c.select_no = '{$selectNo}' group by a.game_code";
 		return $this->db->exeSql($sql);	
 	}
 }

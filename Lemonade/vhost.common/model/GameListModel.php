@@ -922,7 +922,7 @@ class GameListModel extends Lemon_Model
 	{
 		$sql = "select a.betting_no,a.regdate,a.betting_cnt,a.result_rate,a.betting_money,a.result, a.bet_date,
 				d.sn as child_sn, a.result_money 
-				from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+				from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 				where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 				and a.logo='".$this->logo."' and a.user_del<>'Y' and a.kubun ='Y'";
 
@@ -965,7 +965,7 @@ class GameListModel extends Lemon_Model
 								b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, b.game_code, b.game_th, b.sport_name,
 								b.notice as league_name, b.league_img as league_image, d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, 
 								d.draw_rate as game_draw_rate, e.operdate, d.home_line, d.away_line, d.draw_line, d.home_name, d.away_name, d.draw_name
-								from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d, ".$this->db_qz."total_cart e
+								from ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d, ".$this->db_qz."game_cart e
 								where a.betting_no=e.betting_no and a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.sn=d.child_sn ";
 
 				if($orderby!='') {$sql.=" order by ".$orderby;}
@@ -1100,8 +1100,8 @@ class GameListModel extends Lemon_Model
 						,cart.result
 						,cart.bet_date
 						,cart.result_money
-				FROM 	tb_total_cart cart
-						LEFT JOIN tb_total_betting bet
+				FROM 	tb_game_cart cart
+						LEFT JOIN tb_game_betting bet
 						ON cart.betting_no = bet.betting_no
 				WHERE 	cart.logo = 'gadget'
 					AND cart.user_del <> 'Y'
@@ -1124,8 +1124,8 @@ class GameListModel extends Lemon_Model
 						,cart1.result
 						,cart1.bet_date
 						,cart1.result_money 
-				FROM 	tb_total_cart_cancel cart1
-						LEFT JOIN tb_total_betting_cancel bet1
+				FROM 	tb_game_cart_cancel cart1
+						LEFT JOIN tb_game_betting_cancel bet1
 						ON cart1.betting_no = bet1.betting_no
 				WHERE 	cart1.logo = 'gadget'
 						AND cart1.user_del <> 'Y'
@@ -1155,7 +1155,7 @@ class GameListModel extends Lemon_Model
 								b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, b.game_code, b.game_th, b.sport_name,
 								IFNULL(b.sport_id, 0) as sport_id, b.notice as league_name, IFNULL(b.league_img, '') as league_image, d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, 
 								d.draw_rate as game_draw_rate, e.operdate, d.home_line, d.away_line, d.draw_line, d.home_name, d.away_name, d.draw_name
-								from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d, ".$this->db_qz."total_cart e
+								from ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d, ".$this->db_qz."game_cart e
 								where a.betting_no=e.betting_no and a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.sn=d.child_sn) AS tb_temp LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
 
 				$rsi = $this->db->exeSql($sql);
@@ -1165,7 +1165,7 @@ class GameListModel extends Lemon_Model
 								b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, b.game_code, b.game_th, b.sport_name,
 								IFNULL(b.sport_id, 0) as sport_id, b.notice as league_name, IFNULL(b.league_img, '') as league_image, d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, 
 								d.draw_rate as game_draw_rate, e.operdate, d.home_line, d.away_line, d.draw_line, d.home_name, d.away_name, d.draw_name
-								from ".$this->db_qz."total_betting_cancel a, ".$this->db_qz."child b, ".$this->db_qz."subchild d, ".$this->db_qz."total_cart_cancel e
+								from ".$this->db_qz."game_betting_cancel a, ".$this->db_qz."child b, ".$this->db_qz."subchild d, ".$this->db_qz."game_cart_cancel e
 								where a.betting_no=e.betting_no and a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.sn=d.child_sn) AS tb_temp LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
 					$rsi = $this->db->exeSql($sql);
 				}
@@ -1218,8 +1218,8 @@ class GameListModel extends Lemon_Model
 						,cart.result
 						,cart.bet_date
 						,cart.result_money
-				FROM 	tb_total_cart cart
-						LEFT JOIN tb_total_betting bet
+				FROM 	tb_game_cart cart
+						LEFT JOIN tb_game_betting bet
 						ON cart.betting_no = bet.betting_no
 				WHERE 	cart.logo = 'gadget'
 					AND cart.user_del <> 'Y'
@@ -1242,8 +1242,8 @@ class GameListModel extends Lemon_Model
 						,cart1.result
 						,cart1.bet_date
 						,cart1.result_money 
-				FROM 	tb_total_cart_cancel cart1
-						LEFT JOIN tb_total_betting_cancel bet1
+				FROM 	tb_game_cart_cancel cart1
+						LEFT JOIN tb_game_betting_cancel bet1
 						ON cart1.betting_no = bet1.betting_no
 				WHERE 	cart1.logo = 'gadget'
 						AND cart1.user_del <> 'Y'
@@ -1270,7 +1270,7 @@ class GameListModel extends Lemon_Model
 	{
 		$sql = "select a.betting_no,a.regdate,a.betting_cnt,a.result_rate,a.betting_money,a.result, a.bet_date,
 						d.sn as child_sn
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 						and a.logo='".$this->logo."' and a.kubun ='Y'";
 		
@@ -1320,7 +1320,7 @@ class GameListModel extends Lemon_Model
 			$sql = "select a.sub_child_sn,a.select_no,a.home_rate,a.away_rate,a.draw_rate,a.select_rate,a.game_type,a.result, a.member_sn,
 							b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, 
 							c.name as league_name,c.lg_img as league_image, d.win
-							from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d 
+							from ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d 
 							where a.betting_no='".$bettingNo."' and a.sub_child_sn=d.sn and b.league_sn=c.sn and b.sn=d.child_sn";
 
 			if($orderby!='') {$sql.=" order by ".$orderby;}
@@ -1445,7 +1445,7 @@ class GameListModel extends Lemon_Model
 	public function _bettingListTotal($memberSn, $state=-1, $event=0, $beginDate='', $endDate='', $specialFlag='')
 	{
 		$sql = "select count(distinct(a.betting_no)) as cnt
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b,".$this->db_qz."subchild c,".$this->db_qz."child d
 						where a.betting_no=b.betting_no and b.sub_child_sn=c.sn and c.child_sn=d.sn 
 						and a.logo='".$this->logo."' and a.user_del<>'Y' and a.member_sn=".$memberSn." and a.kubun ='Y' ";
 		
@@ -2068,11 +2068,11 @@ class GameListModel extends Lemon_Model
     {
 		if($s_type == 2) {
 			$sql = "select	a.betting_no, a.result as cart_result, a.result_money, b.sn as betting_sn, b.result as child_result, d.home_score, d.away_score, e.win
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b, tb_child_m d, tb_subchild_m e
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, tb_child_m d, tb_subchild_m e
 							where a.is_update_result=1 and a.betting_no=b.betting_no and b.sub_child_sn = e.sn and e.child_sn = d.sn ".$where;
 		} else {
 			$sql = "select	a.betting_no, a.result as cart_result, a.result_money, b.sn as betting_sn, b.result as child_result, d.home_score, d.away_score, e.win
-							from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b, tb_child d, tb_subchild e
+							from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, tb_child d, tb_subchild e
 							where a.is_update_result=1 and a.betting_no=b.betting_no and b.sub_child_sn = e.sn and e.child_sn = d.sn
 							and a.kubun ='Y' ".$where;
 		}
@@ -2080,7 +2080,7 @@ class GameListModel extends Lemon_Model
 
         $rs = $this->db->exeSql($sql);
 
-        $sql = "update tb_total_cart set is_update_result = 0 where is_update_result=1";
+        $sql = "update tb_game_cart set is_update_result = 0 where is_update_result=1";
         $this->db->exeSql($sql);
 
         return $rs;
@@ -2090,14 +2090,14 @@ class GameListModel extends Lemon_Model
     {
         $sql = "select	a.betting_no, a.regdate, a.operdate, a.betting_cnt, a.result_rate, a.bet_date, a.logo,
 										a.before_money, a.betting_money, a.result, a.result_money, a.member_sn, a.betting_ip
-						from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b, ".$this->db_qz."member c, tb_child d, tb_subchild e
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, ".$this->db_qz."member c, tb_child d, tb_subchild e
 						where a.is_new=1 and a.result != 4 and	a.betting_no=b.betting_no and a.member_sn=c.sn and b.sub_child_sn = e.sn and e.child_sn = d.sn
 										and a.kubun ='Y' ".$where." 
 						group by a.betting_no ".$orderby;
         $rs = $this->db->exeSql($sql);
         $list = array();
 
-        $sql = "update tb_total_cart set is_new = 0 where is_new=1";
+        $sql = "update tb_game_cart set is_new = 0 where is_new=1";
         $this->db->exeSql($sql);
 
         //배팅번호로 그룹화
@@ -2110,7 +2110,7 @@ class GameListModel extends Lemon_Model
 							b.sn as child_sn, b.home_team, b.away_team, b.home_score, b.away_score, b.special, b.gameDate, b.gameHour, b.gameTime,
 							c.name as league_name, c.lg_img as league_image, c.alias_name,
 							d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate, b.game_code, b.game_th
-							from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d 
+							from ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."league c, ".$this->db_qz."subchild d 
 							where a.betting_no='".$bettingSn."' and a.sub_child_sn=d.sn and b.league_sn=c.sn and b.sn=d.child_sn order by gameDate, gameHour, gameTime) a left join tb_powerball_result p on a.game_th = p.th";
 
             $rsi = $this->db->exeSql($sql);
@@ -2183,7 +2183,7 @@ class GameListModel extends Lemon_Model
 		
 		$sql = "select	a.betting_no, a.regdate, a.operdate, a.betting_cnt, a.result_rate, a.bet_date, a.logo,
 							a.before_money, a.betting_money, a.result, a.result_money, a.member_sn, a.betting_ip, d.special
-				from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b, ".$this->db_qz."member c, tb_child d, tb_subchild e
+				from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, ".$this->db_qz."member c, tb_child d, tb_subchild e
 				where 	a.betting_no=b.betting_no and a.member_sn=c.sn and b.sub_child_sn = e.sn and e.child_sn = d.sn
 							and a.kubun ='Y' ".$where." 
 				group by a.betting_no ".$orderby.$limit;
@@ -2202,10 +2202,10 @@ class GameListModel extends Lemon_Model
 											b.sn as child_sn, b.home_team, b.away_team, b.home_score, b.away_score, b.special, b.gameDate, b.gameHour, b.gameTime, b.sport_name, b.sport_id, 
 											b.notice as league_name, IFNULL(b.league_img, '') as league_image, d.home_line, d.away_line, d.draw_line, d.home_name, d.away_name, d.draw_name,
 											d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate, e.nTotalBetMoney 
-									FROM 	tb_total_betting a
+									FROM 	tb_game_betting a
 											INNER JOIN tb_subchild d ON a.`sub_child_sn`= d.`sn`
 											LEFT JOIN tb_child b ON d.child_sn = b.sn
-											LEFT JOIN (SELECT SUM(bet_money) AS nTotalBetMoney, sub_child_sn FROM tb_total_betting GROUP BY sub_child_sn) e ON d.sn = e.sub_child_sn
+											LEFT JOIN (SELECT SUM(bet_money) AS nTotalBetMoney, sub_child_sn FROM tb_game_betting GROUP BY sub_child_sn) e ON d.sn = e.sub_child_sn
 									WHERE	a.betting_no='".$bettingSn."'  
 									ORDER BY gameDate, gameHour, gameTime) AS tb_temp 
 							LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
@@ -2215,10 +2215,10 @@ class GameListModel extends Lemon_Model
 											b.sn as child_sn, b.home_team, b.away_team, b.home_score, b.away_score, b.special, b.gameDate, b.gameHour, b.gameTime, b.sport_id,
 											b.notice as league_name, IFNULL(b.league_img, '') as league_image, 
 											d.win, d.home_rate as game_home_rate, d.away_rate as game_away_rate, d.draw_rate as game_draw_rate, e.nTotalBetMoney
-									FROM 	tb_total_betting a
+									FROM 	tb_game_betting a
 											INNER JOIN tb_subchild d ON a.`sub_child_sn`= d.`sn`
 											LEFT JOIN tb_child b ON d.child_sn = b.sn
-											LEFT JOIN (SELECT SUM(bet_money) AS nTotalBetMoney, sub_child_sn FROM tb_total_betting GROUP BY sub_child_sn) e ON d.sn = e.sub_child_sn
+											LEFT JOIN (SELECT SUM(bet_money) AS nTotalBetMoney, sub_child_sn FROM tb_game_betting GROUP BY sub_child_sn) e ON d.sn = e.sub_child_sn
 									WHERE	a.betting_no='".$bettingSn."' 
 									ORDER BY gameDate, gameHour, gameTime) AS tb_temp 
 							LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
@@ -2264,7 +2264,7 @@ class GameListModel extends Lemon_Model
 		if($memberSn!="")
 			$where.= " and a.member_sn=".$memberSn;
 		
-		$sql = "select distinct(a.betting_no) from ".$this->db_qz."total_cart a,".$this->db_qz."total_betting b, ".$this->db_qz."member c, tb_child d, tb_subchild e
+		$sql = "select distinct(a.betting_no) from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, ".$this->db_qz."member c, tb_child d, tb_subchild e
 				where a.betting_no=b.betting_no and a.member_sn=c.sn and b.sub_child_sn = e.sn and e.child_sn = d.sn and a.kubun ='Y' ".$where;
 		
 		$rs = $this->db->exeSql($sql);
@@ -2275,7 +2275,7 @@ class GameListModel extends Lemon_Model
 				for ( $i = 0 ; $i < count((array)$rs) ; $i++ ) {
 					$bettingSn = $rs[$i]["betting_no"];
 
-					$sql = "select * from tb_total_betting where betting_no='".$bettingSn."'";
+					$sql = "select * from tb_game_betting where betting_no='".$bettingSn."'";
 					$rsi = $this->db->exeSql($sql);
 					$list[$bettingSn] = $rs[$i];			
 					
@@ -2438,7 +2438,7 @@ class GameListModel extends Lemon_Model
 			
 		$sql = "select	a.betting_no, a.regdate, a.operdate, a.betting_cnt, a.result_rate, a.bet_date, a.logo,
 						a.before_money, a.betting_money, a.result, a.result_money, a.member_sn, a.betting_ip, a.cancel_by
-				from ".$this->db_qz."total_cart_cancel a,".$this->db_qz."total_betting_cancel b, ".$this->db_qz."member c
+				from ".$this->db_qz."game_cart_cancel a,".$this->db_qz."game_betting_cancel b, ".$this->db_qz."member c
 				where 	a.betting_no=b.betting_no and a.member_sn=c.sn
 								and a.kubun ='Y' ".$where." 
 				group by a.betting_no ".$orderby.$limit;
@@ -2456,7 +2456,7 @@ class GameListModel extends Lemon_Model
 								SELECT a.sn as total_betting_sn, a.sub_child_sn, a.select_no, a.home_rate, a.away_rate, a.draw_rate, a.select_rate, a.game_type, a.result, a.score, a.live, 
 										b.sn as child_sn, b.home_team, b.away_team, b.home_score, b.away_score, b.special, b.gameDate, b.gameHour, b.gameTime, b.sport_id, 
 										b.notice as league_name, IFNULL(b.league_img, '') as league_image, d.home_line, d.away_line, d.draw_line, d.home_name, d.away_name, d.draw_name, d.win
-								FROM ".$this->db_qz."total_betting_cancel a, ".$this->db_qz."child b, ".$this->db_qz."subchild d 
+								FROM ".$this->db_qz."game_betting_cancel a, ".$this->db_qz."child b, ".$this->db_qz."subchild d 
 								WHERE a.betting_no='".$bettingSn."' and a.sub_child_sn=d.sn and b.sn=d.child_sn order by gameDate, gameHour, gameTime ) AS tb_temp 
 						LEFT JOIN tb_markets ON tb_temp.game_type = tb_markets.mid ";
 
@@ -2516,7 +2516,7 @@ class GameListModel extends Lemon_Model
 	public function getAdminBettingCancelListTotal($childSn="", $where="") 
 	{
 		$sql = "select count(distinct(a.betting_no)) as cnt
-							from ".$this->db_qz."total_cart_cancel a,".$this->db_qz."total_betting_cancel b, ".$this->db_qz."member c
+							from ".$this->db_qz."game_cart_cancel a,".$this->db_qz."game_betting_cancel b, ".$this->db_qz."member c
 						where a.betting_no=b.betting_no and a.member_sn=c.sn
 									and a.kubun ='Y' ".$where;
 		
@@ -2534,8 +2534,8 @@ class GameListModel extends Lemon_Model
 			$where.= " and b.select_no=".$selectNo;
 		
 		$sql = "select 	count(*) as cnt
-				from "	.$this->db_qz."total_cart a,"
-						.$this->db_qz."total_betting b,"
+				from "	.$this->db_qz."game_cart a,"
+						.$this->db_qz."game_betting b,"
 						.$this->db_qz."member e
 				where	a.betting_no=b.betting_no
 						and a.member_sn=e.sn
@@ -2561,8 +2561,8 @@ class GameListModel extends Lemon_Model
 		$sql = "select 	a.member_sn, a.betting_no, a.betting_money, a.betting_ip, a.regDate,
 						a.result_money, a.result_rate, a.result as aresult, a.betting_cnt, 
 						e.uid, e.nick, e.recommend_sn
-				from "	.$this->db_qz."total_cart a,"
-						.$this->db_qz."total_betting b,"
+				from "	.$this->db_qz."game_cart a,"
+						.$this->db_qz."game_betting b,"
 						.$this->db_qz."member e
 				where	a.betting_no=b.betting_no
 						and a.member_sn=e.sn
@@ -2603,7 +2603,7 @@ class GameListModel extends Lemon_Model
 					(select a.sn as total_betting_sn, a.sub_child_sn,a.select_no,a.select_rate,a.game_type,a.result,b.win_team,b.sport_id,
 						b.sn as child_sn, b.home_team,b.away_team,b.home_score,b.away_score,b.special,b.gameDate,b.gameHour,b.gameTime, 
 						b.notice AS league_name, d.win,a.home_rate,a.away_rate,a.draw_rate, d.home_line, d.home_name
-				from ".$this->db_qz."total_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d  
+				from ".$this->db_qz."game_betting a, ".$this->db_qz."child b, ".$this->db_qz."subchild d  
 				where a.betting_no='".$betting_no."' and a.sub_child_sn=d.sn and b.sn=d.child_sn and a.member_sn = ".$member_sn.") AS tb_temp INNER JOIN tb_markets on tb_temp.game_type = tb_markets.mid ";
 										
 		$rs = $this->db->exeSql($sql);
@@ -2731,7 +2731,7 @@ class GameListModel extends Lemon_Model
 	                   ifnull(sum(win_cnt),0) as win_cnt, IFNULL(sum(win_money),0) as win_money  
                 from (
 						select member_sn, count(betting_no) as bet_count, sum(betting_money) as betting_money, sum(IF(result=1, 1, 0)) as win_cnt, sum(result_money) as win_money
-						from tb_total_cart 
+						from tb_game_cart 
 						where bet_date >= '{$beginDate}' and bet_date <= '{$endDate}' and is_account = 1
 						group by member_sn
 					) a;";
@@ -2742,8 +2742,8 @@ class GameListModel extends Lemon_Model
 
     public function bettingCancelListTotal2($beginDate='', $endDate='')
     {
-        $sql = "select count(tb_total_cart_cancel.sn) as cancel_count, IFNULL(sum(betting_money),0) as betting_money
-                from tb_total_cart_cancel
+        $sql = "select count(tb_game_cart_cancel.sn) as cancel_count, IFNULL(sum(betting_money),0) as betting_money
+                from tb_game_cart_cancel
                 where operdate >= '$beginDate' and operdate <= '{$endDate}' and is_account = 1";
 
         $rs = $this->db->exeSql($sql);
@@ -2753,24 +2753,24 @@ class GameListModel extends Lemon_Model
     public function bettingListOfSport($beginDate='', $endDate='')
     {
         $sql = "SELECT
-					tb_total_cart.last_special_code AS special,
-					COUNT(tb_total_cart.sn) AS bet_cnt,
+					tb_game_cart.last_special_code AS special,
+					COUNT(tb_game_cart.sn) AS bet_cnt,
 					IFNULL(
-					SUM(tb_total_cart.betting_money),
+					SUM(tb_game_cart.betting_money),
 					0
 					) AS amt,
 					tb_temp.live
 				FROM
-					tb_total_cart
-					LEFT JOIN (SELECT betting_no, live FROM tb_total_betting GROUP BY betting_no) AS tb_temp
-					ON tb_total_cart.betting_no = tb_temp.betting_no
-				WHERE tb_total_cart.bet_date >= '{$beginDate}'
-					AND tb_total_cart.bet_date <= '{$endDate}'
+					tb_game_cart
+					LEFT JOIN (SELECT betting_no, live FROM tb_game_betting GROUP BY betting_no) AS tb_temp
+					ON tb_game_cart.betting_no = tb_temp.betting_no
+				WHERE tb_game_cart.bet_date >= '{$beginDate}'
+					AND tb_game_cart.bet_date <= '{$endDate}'
 					AND (
-					tb_total_cart.last_special_code < 5
-					OR tb_total_cart.last_special_code = 50
+					tb_game_cart.last_special_code < 5
+					OR tb_game_cart.last_special_code = 50
 					)
-					AND tb_total_cart.is_account = 1
+					AND tb_game_cart.is_account = 1
 				GROUP BY tb_temp.live";
 
         $rs = $this->db->exeSql($sql);
@@ -2780,7 +2780,7 @@ class GameListModel extends Lemon_Model
     public function bettingListOfMini($beginDate='', $endDate='')
     {
         $sql = "select sum(c.betting_money) as bet_amt, count(c.sn) as bet_cnt, b.select_no, ch.special, ch.game_code
-                from tb_total_cart c, tb_total_betting b, tb_subchild s, tb_child ch
+                from tb_game_cart c, tb_game_betting b, tb_subchild s, tb_child ch
                 where c.last_special_code > 2 and c.last_special_code != 50
 						and c.bet_date >= '{$beginDate}' and c.bet_date <= '{$endDate}'
 						and c.is_account = 1 
@@ -2801,7 +2801,7 @@ class GameListModel extends Lemon_Model
 					a.bet_money,
 					a.select_rate
 				FROM
-					tb_total_betting a
+					tb_game_betting a
 					LEFT JOIN tb_subchild b
 					ON a.`sub_child_sn` = b.sn
 					LEFT JOIN tb_child c

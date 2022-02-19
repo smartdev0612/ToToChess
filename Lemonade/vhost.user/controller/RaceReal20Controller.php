@@ -190,7 +190,7 @@ class RaceReal20Controller extends WebServiceController
 			$away_rate = $gameInfo[0]["away_rate"];
 			$draw_rate = $gameInfo[0]["draw_rate"];
 
-			//-> 배팅정보에 입력 (tb_total_betting)
+			//-> 배팅정보에 입력 (tb_game_betting)
 			$cartModel->addBet($user_sn, $child_sn, $subchild_sn, $protoId, $selectTeam, $home_rate, $draw_rate, $away_rate, $btRate, 1, "Y", $btMoney);
 		}
 

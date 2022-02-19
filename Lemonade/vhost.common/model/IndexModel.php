@@ -23,7 +23,7 @@ class IndexModel extends Lemon_Model
 			$tmp_rows = $this->db->exeSql($sql);
 			$rows[$i]['total_exchange'] = $tmp_rows[0]['total_exchange'];
 			
-			$sql = "select sum(result_money) as total_prize from ".$this->db_qz."total_cart where member_sn='".$rows[$i]['member_sn']."' and regdate between date_add(sysdate(), INTERVAL -7 day) and sysdate()";
+			$sql = "select sum(result_money) as total_prize from ".$this->db_qz."game_cart where member_sn='".$rows[$i]['member_sn']."' and regdate between date_add(sysdate(), INTERVAL -7 day) and sysdate()";
 			$tmp_rows = $this->db->exeSql($sql);
 			$rows[$i]['total_prize'] = $tmp_rows[0]['total_prize'];
 		}
@@ -72,27 +72,27 @@ class IndexModel extends Lemon_Model
 		$rows[0]['total_exchange'] = $tmp_rows[0]['total_exchange'];
 		
 		//당첨금
-		$sql = "select sum(result_money) as total_prize from ".$this->db_qz."total_cart where member_sn='".$rows[0]['member_sn']."' and result_money >0";
+		$sql = "select sum(result_money) as total_prize from ".$this->db_qz."game_cart where member_sn='".$rows[0]['member_sn']."' and result_money >0";
 		$tmp_rows = $this->db->exeSql($sql);
 		$rows[0]['total_prize'] = $tmp_rows[0]['total_prize'];
 		
 		//단폴더 당첨금
-		$sql = "select sum(result_money) as total_single_prize from ".$this->db_qz."total_cart where member_sn='".$rows[0]['member_sn']."' and result_money > 0 and betting_cnt=1";
+		$sql = "select sum(result_money) as total_single_prize from ".$this->db_qz."game_cart where member_sn='".$rows[0]['member_sn']."' and result_money > 0 and betting_cnt=1";
 		$tmp_rows = $this->db->exeSql($sql);
 		$rows[0]['total_single_prize'] = $tmp_rows[0]['total_single_prize'];
 		
 		//낙첨금
-		$sql = "select sum(result_money) as failed_money from ".$this->db_qz."total_cart where member_sn='".$rows[0]['member_sn']."' and result=2";
+		$sql = "select sum(result_money) as failed_money from ".$this->db_qz."game_cart where member_sn='".$rows[0]['member_sn']."' and result=2";
 		$tmp_rows = $this->db->exeSql($sql);
 		$rows[0]['failed_money'] = $tmp_rows[0]['failed_money'];
 		
 		//단폴더 낙첨금
-		$sql = "select sum(result_money) as total_single_failed_money from ".$this->db_qz."total_cart where member_sn='".$rows[0]['member_sn']."' and result=2 and betting_cnt=1";
+		$sql = "select sum(result_money) as total_single_failed_money from ".$this->db_qz."game_cart where member_sn='".$rows[0]['member_sn']."' and result=2 and betting_cnt=1";
 		$tmp_rows = $this->db->exeSql($sql);
 		$rows[0]['total_single_failed_money'] = $tmp_rows[0]['total_single_failed_money'];
 		
 		//총베팅액
-		$sql = "select sum(betting_money) as total_betting_money from ".$this->db_qz."total_cart where member_sn='".$rows[0]['member_sn']."'";
+		$sql = "select sum(betting_money) as total_betting_money from ".$this->db_qz."game_cart where member_sn='".$rows[0]['member_sn']."'";
 		$tmp_rows = $this->db->exeSql($sql);
 		$rows[0]['total_betting_money'] = $tmp_rows[0]['total_betting_money'];
 		
@@ -108,14 +108,14 @@ class IndexModel extends Lemon_Model
 		
 		////////////////////////////////////////////////////////////////////////////
 		//현재 베팅현황
-		$sql = "select * from  ".$this->db_qz."total_cart a
+		$sql = "select * from  ".$this->db_qz."game_cart a
 						where a.member_sn=".$rows[0]['member_sn']." and a.result=0 order by a.regdate";
 		$tmp_rows = $this->db->exeSql($sql);
 		
 		for($i=0; $i < count((array)$tmp_rows); ++$i)
 		{
 			$betting_no = $tmp_rows[$i]['betting_no'];
-			$sql = "select * from ".$this->db_qz."total_betting where betting_no='".$betting_no."'";
+			$sql = "select * from ".$this->db_qz."game_betting where betting_no='".$betting_no."'";
 			$detail_rows = $this->db->exeSql($sql);
 			$tmp_rows[$i]['detail_rows'] = $detail_rows;
 			$rows[0]['total_current_betting_money'] += $tmp_rows[$i]['betting_money'];
@@ -124,14 +124,14 @@ class IndexModel extends Lemon_Model
 		$rows[0]['current_betting_rows'] = $tmp_rows;
 		
 		//전체 베팅현황
-		$sql = "select * from  ".$this->db_qz."total_cart a
+		$sql = "select * from  ".$this->db_qz."game_cart a
 						where a.member_sn=".$rows[0]['member_sn']." order by a.regdate desc limit 0, 10";
 		$tmp_rows = $this->db->exeSql($sql);
 		
 		for($i=0; $i < count((array)$tmp_rows); ++$i)
 		{
 			$betting_no = $tmp_rows[$i]['betting_no'];
-			$sql = "select * from ".$this->db_qz."total_betting where betting_no='".$betting_no."'";
+			$sql = "select * from ".$this->db_qz."game_betting where betting_no='".$betting_no."'";
 			$detail_rows = $this->db->exeSql($sql);
 			$tmp_rows[$i]['detail_rows'] = $detail_rows;
 			$rows[0]['total_betting_money'] += $tmp_rows[$i]['betting_money'];

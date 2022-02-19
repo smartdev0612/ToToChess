@@ -105,7 +105,7 @@ class BoardModel extends Lemon_Model
 			$betting_no=explode(';', $rs[$i]['betting_no']);
 
 			foreach($betting_no as $value){
-				$Betrow=$this->getRow("user_del", $this->db_qz."total_cart", "betting_no='".$value."'");
+				$Betrow=$this->getRow("user_del", $this->db_qz."game_cart", "betting_no='".$value."'");
 				
 				$isBetlist=$Betrow['user_del'];
 				

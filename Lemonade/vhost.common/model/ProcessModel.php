@@ -59,7 +59,7 @@ class ProcessModel extends Lemon_Model
 		if($rs[0]['cnt']>0)
 			return;
 						
-		$sql = "select member_sn, parent_sn, betting_money, result_money, bonus, result from ".$this->db_qz."total_cart where betting_no='".$bettingNo."'";
+		$sql = "select member_sn, parent_sn, betting_money, result_money, bonus, result from ".$this->db_qz."game_cart where betting_no='".$bettingNo."'";
 		$rs = $this->db->exeSql($sql);
 		
 		$sn					= $rs[0]["member_sn"];
@@ -82,7 +82,7 @@ class ProcessModel extends Lemon_Model
 		if($rs[0]['cnt']>0)
 			return;
 						
-		$sql = "select member_sn, parent_sn, betting_money, result_money, bonus, result from ".$this->db_qz."total_cart where betting_no='".$bettingNo."'";
+		$sql = "select member_sn, parent_sn, betting_money, result_money, bonus, result from ".$this->db_qz."game_cart where betting_no='".$bettingNo."'";
 		$rs = $this->db->exeSql($sql);
 		
 		$sn					= $rs[0]["member_sn"];
@@ -97,7 +97,7 @@ class ProcessModel extends Lemon_Model
     }
     
     function bettingWinLoseProcess($bettingNo, $winlose) {
-        $sql = "SELECT sn, member_sn, betting_no, select_no, select_rate, bet_money FROM tb_total_betting WHERE betting_no=".$bettingNo;
+        $sql = "SELECT sn, member_sn, betting_no, select_no, select_rate, bet_money FROM tb_game_betting WHERE betting_no=".$bettingNo;
         $res = $this->db->exeSql($sql);
         for ( $i = 0 ; $i < count((array)$res) ; $i++ ) {
             $betSn = $res[$i]["sn"];
@@ -107,8 +107,8 @@ class ProcessModel extends Lemon_Model
             $select_rate	= $res[$i]["select_rate"];
             $betMoney = $res[$i]["bet_money"];
 
-            //-> 파일로그와 DB의 배팅방향이 틀리면 tb_total_betting->checked에 둘다 로그방향을 저장하고 로그 기반으로 현재 배팅방향 업데이트.
-            $sql = "select bet_date from tb_total_cart where betting_no = '{$betting_no}'";
+            //-> 파일로그와 DB의 배팅방향이 틀리면 tb_game_betting->checked에 둘다 로그방향을 저장하고 로그 기반으로 현재 배팅방향 업데이트.
+            $sql = "select bet_date from tb_game_cart where betting_no = '{$betting_no}'";
             $cartInfo = $this->db->exeSql($sql);
             $bet_date = str_replace("-","",substr($cartInfo['bet_date'],0,10));
 
@@ -128,7 +128,7 @@ class ProcessModel extends Lemon_Model
 
                 $logBettingSelect = $bettingLogArray[$betting_no."_".$subChildSn];
                 if ( $logBettingSelect > 0 and $logBettingSelect != $select ) {
-                    $sql = "UPDATE tb_total_betting SET select_no = '{$logBettingSelect}', checked = '{$select}->{$logBettingSelect}' WHERE sn = '".$betSn."'";
+                    $sql = "UPDATE tb_game_betting SET select_no = '{$logBettingSelect}', checked = '{$select}->{$logBettingSelect}' WHERE sn = '".$betSn."'";
                     $this->db->exeSql($sql);
                     $select = $logBettingSelect;
                 }
@@ -139,16 +139,16 @@ class ProcessModel extends Lemon_Model
             $result = $winlose;
 
             //-> 배팅내역에 결과 입력
-            $sql = "UPDATE tb_total_betting SET result=".$result." WHERE sn=".$betSn;
+            $sql = "UPDATE tb_game_betting SET result=".$result." WHERE sn=".$betSn;
             $this->db->exeSql($sql);
 
             if ( $winlose == 2 ) {
-                $sql = "UPDATE tb_total_cart SET result = 2, operdate = now() WHERE betting_no ='".$bettingNo."'";
+                $sql = "UPDATE tb_game_cart SET result = 2, operdate = now() WHERE betting_no ='".$bettingNo."'";
                 $this->db->exeSql($sql);
             } else if ( $winlose == 1 ) {
                 $winMoney = floor($select_rate * $betMoney);
 
-                $sql = "UPDATE tb_total_cart SET result = 1, operdate = now(), result_money = '".$winMoney."' 
+                $sql = "UPDATE tb_game_cart SET result = 1, operdate = now(), result_money = '".$winMoney."' 
                                 WHERE betting_no = '".$bettingNo."'";
                 $this->db->exeSql($sql);
 
@@ -205,7 +205,7 @@ class ProcessModel extends Lemon_Model
 		////////////////////////////////////////////////////////////////////////////////
 		// modify total_betting                   
 		$sql = "select 	sn, member_sn, betting_no, select_no, game_type, home_rate, draw_rate, away_rate
-				from 	".$this->db_qz."total_betting 
+				from 	".$this->db_qz."game_betting 
 				where 	sub_child_sn=".$subChildSn;
 						
 		$rs = $this->db->exeSql($sql);
@@ -219,7 +219,7 @@ class ProcessModel extends Lemon_Model
 			else if($select == $game_result) 				{$result = 1;}
 			else				  							{$result = 2;}
 
-			$sql = "update	".$this->db_qz."total_betting 
+			$sql = "update	".$this->db_qz."game_betting 
 					set 	result = " . $result . "
 					where 	sn =".$betSn;
 					
@@ -257,7 +257,7 @@ class ProcessModel extends Lemon_Model
 		////////////////////////////////////////////////////////////////////////////////
 		//modify total_betting                   
 		$sql = "select a.sn, a.member_sn, a.betting_no, a.select_no, a.game_type, a.home_rate, a.draw_rate, a.away_rate, c.sport_name
-						from ".$this->db_qz."total_betting a, ".$this->db_qz."child_m b, ".$this->db_qz."subchild_m c 
+						from ".$this->db_qz."game_betting a, ".$this->db_qz."child_m b, ".$this->db_qz."subchild_m c 
 						where a.sub_child_sn = c.sn and c.child_sn = b.sn and a.sub_child_sn=".$subChildSn;
 						
 		$rs = $this->db->exeSql($sql);
@@ -273,8 +273,8 @@ class ProcessModel extends Lemon_Model
 			$select = $rs[$i]["select_no"];
 			$selectDrawRate	= $rs[$i]["draw_rate"];
 
-			//-> 파일로그와 DB의 배팅방향이 틀리면 tb_total_betting->checked에 둘다 로그방향을 저장하고 로그 기반으로 현재 배팅방향 업데이트.
-			$sql = "select bet_date, last_special_code from tb_total_cart where betting_no = '{$betting_no}'";
+			//-> 파일로그와 DB의 배팅방향이 틀리면 tb_game_betting->checked에 둘다 로그방향을 저장하고 로그 기반으로 현재 배팅방향 업데이트.
+			$sql = "select bet_date, last_special_code from tb_game_cart where betting_no = '{$betting_no}'";
 			$cartInfo = $this->db->exeSql($sql);
 			$bet_date = str_replace("-","",substr($cartInfo[0]['bet_date'],0,10));
 			$last_special_code = $cartInfo[0]['last_special_code'];
@@ -295,7 +295,7 @@ class ProcessModel extends Lemon_Model
 
 				$logBettingSelect = $bettingLogArray[$betting_no."_".$subChildSn];
 				if ( $logBettingSelect > 0 and $logBettingSelect != $select ) {
-					$sql = "UPDATE tb_total_betting SET select_no = '{$logBettingSelect}', checked = '{$select}->{$logBettingSelect}' WHERE sn = '".$betSn."'";
+					$sql = "UPDATE tb_game_betting SET select_no = '{$logBettingSelect}', checked = '{$select}->{$logBettingSelect}' WHERE sn = '".$betSn."'";
 					$this->db->exeSql($sql);
 					$select = $logBettingSelect;
 				}
@@ -498,7 +498,7 @@ class ProcessModel extends Lemon_Model
         ////////////////////////////////////////////////////////////////////////////////
         //modify total_betting
         $sql = "select sn, member_sn, betting_no, betid, select_no, game_type, home_rate, draw_rate, away_rate
-				from ".$this->db_qz."total_betting 
+				from ".$this->db_qz."game_betting 
 				where sub_child_sn = ".$subChildSn;
         $rs = $this->db->exeSql($sql);
 
@@ -514,7 +514,7 @@ class ProcessModel extends Lemon_Model
             else if($select == $game_result) 				{$result=1;}
 			else				  							{$result=2;}
 
-            $sql = "update ".$this->db_qz."total_betting set result=".$result." where sn=".$betSn;
+            $sql = "update ".$this->db_qz."game_betting set result=".$result." where sn=".$betSn;
             $this->db->exeSql($sql);
 
 			$this->requestRemoveBettingInfo($betSn);
@@ -603,7 +603,7 @@ class ProcessModel extends Lemon_Model
         ////////////////////////////////////////////////////////////////////////////////
         //modify total_betting
         $sql = "select sn, member_sn, betting_no, select_no, game_type, home_rate, draw_rate, away_rate
-						from ".$this->db_qz."total_betting 
+						from ".$this->db_qz."game_betting 
 						where sub_child_sn=".$subChildSn;
         $rs = $this->db->exeSql($sql);
 
@@ -619,8 +619,8 @@ class ProcessModel extends Lemon_Model
             $selectDrawRate	= $rs[$i]["draw_rate"];
 
 
-            //-> 파일로그와 DB의 배팅방향이 틀리면 tb_total_betting->checked에 둘다 로그방향을 저장하고 로그 기반으로 현재 배팅방향 업데이트.
-            $sql = "select bet_date, last_special_code from tb_total_cart where betting_no = '{$betting_no}'";
+            //-> 파일로그와 DB의 배팅방향이 틀리면 tb_game_betting->checked에 둘다 로그방향을 저장하고 로그 기반으로 현재 배팅방향 업데이트.
+            $sql = "select bet_date, last_special_code from tb_game_cart where betting_no = '{$betting_no}'";
             $cartInfo = $this->db->exeSql($sql);
             $bet_date = str_replace("-","",substr($cartInfo[0]['bet_date'],0,10));
             $last_special_code = $cartInfo[0]['last_special_code'];
@@ -641,7 +641,7 @@ class ProcessModel extends Lemon_Model
 
                 $logBettingSelect = $bettingLogArray[$betting_no."_".$subChildSn];
                 if ( $logBettingSelect > 0 and $logBettingSelect != $select ) {
-                    $sql = "UPDATE tb_total_betting SET select_no = '{$logBettingSelect}', checked = '{$select}->{$logBettingSelect}' WHERE sn = '".$betSn."'";
+                    $sql = "UPDATE tb_game_betting SET select_no = '{$logBettingSelect}', checked = '{$select}->{$logBettingSelect}' WHERE sn = '".$betSn."'";
                     $this->db->exeSql($sql);
                     $select = $logBettingSelect;
                 }
@@ -691,7 +691,7 @@ class ProcessModel extends Lemon_Model
             else if($select==$winCode) 	{$result=1;}
             else				  							{$result=2;}
 
-            $sql = "update ".$this->db_qz."total_betting set result=".$result." where sn=".$betSn;
+            $sql = "update ".$this->db_qz."game_betting set result=".$result." where sn=".$betSn;
             $this->db->exeSql($sql);
         }
 
@@ -715,7 +715,7 @@ class ProcessModel extends Lemon_Model
 		}
 
         $sql = "select 	b.betting_no, b.member_sn, d.last_special_code
-				from 	tb_subchild a, tb_total_betting b, tb_child c, tb_total_cart d
+				from 	tb_subchild a, tb_game_betting b, tb_child c, tb_game_cart d
 				where 	a.sn=b.sub_child_sn and a.child_sn=c.sn and b.betting_no = d.betting_no and d.result=0 and a.sn=".$subChildSn;
         $rs = $this->db->exeSql($sql);
 
@@ -725,7 +725,7 @@ class ProcessModel extends Lemon_Model
             $memberSn = $rs[$i]['member_sn'];
             $specialCode = $rs[$i]['last_special_code'];
 
-            $sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
+            $sql = "select a.*, c.sport_name from tb_game_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
             $rsi = $this->db->exeSql($sql);
 
             $winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
@@ -765,7 +765,7 @@ class ProcessModel extends Lemon_Model
                     $winRate  = bcmul($winRate,1,2);
                     $winMoney = bcmul($betMoney,$winRate,0);
 
-                    $sql = "update ".$this->db_qz."total_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+                    $sql = "update ".$this->db_qz."game_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
                     $rsi = $this->db->exeSql($sql);
                     if($rsi<=0) {
                         $sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
@@ -775,7 +775,7 @@ class ProcessModel extends Lemon_Model
 
 				//낙첨
                 } else if( $loseCount > 0 ) {
-                    $sql = "update ".$this->db_qz."total_cart set result=2, operdate=now() where betting_no ='".$bettingNo."'";
+                    $sql = "update ".$this->db_qz."game_cart set result=2, operdate=now() where betting_no ='".$bettingNo."'";
                     $rsi = $this->db->exeSql($sql);
                     if($rsi<=0) {
                         $sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
@@ -795,7 +795,7 @@ class ProcessModel extends Lemon_Model
                     $winRate  = bcmul($winRate,1,2);
                     $winMoney = bcmul($betMoney,$winRate,0);
 
-                    $sql = "update ".$this->db_qz."total_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+                    $sql = "update ".$this->db_qz."game_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
                     $rsi = $this->db->exeSql($sql);
                     if($rsi<=0)
                     {
@@ -856,7 +856,7 @@ class ProcessModel extends Lemon_Model
         $this->db->exeSql($sql);
 
         $sql = "select b.betting_no, b.member_sn, d.last_special_code
-						from 	tb_subchild_m a, tb_total_betting b, tb_child_m c, tb_total_cart d
+						from 	tb_subchild_m a, tb_game_betting b, tb_child_m c, tb_game_cart d
 						where a.sn=b.sub_child_sn and a.child_sn=c.sn and b.betting_no=d.betting_no and d.result=0 and b.sn=".$subchildSn;
         $rs = $this->db->exeSql($sql);
 
@@ -866,7 +866,7 @@ class ProcessModel extends Lemon_Model
             $sn = $rs[$i]['member_sn'];
             $specialCode = $rs[$i]['last_special_code'];
 
-            $sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild_m b, tb_child_m c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
+            $sql = "select a.*, c.sport_name from tb_game_betting a, tb_subchild_m b, tb_child_m c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
             $rsi = $this->db->exeSql($sql);
 
             $winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
@@ -907,7 +907,7 @@ class ProcessModel extends Lemon_Model
                     $winRate  = bcmul($winRate,1,2);
                     $winMoney = bcmul($betMoney,$winRate,0);
 
-                    $sql = "update ".$this->db_qz."total_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+                    $sql = "update ".$this->db_qz."game_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
                     $rsi = $this->db->exeSql($sql);
                     if($rsi<=0) {
                         $sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
@@ -917,7 +917,7 @@ class ProcessModel extends Lemon_Model
 
                     //낙첨
                 } else if( $loseCount > 0 ) {
-                    $sql = "update ".$this->db_qz."total_cart set result=2, operdate=now() where betting_no ='".$bettingNo."'";
+                    $sql = "update ".$this->db_qz."game_cart set result=2, operdate=now() where betting_no ='".$bettingNo."'";
                     $rsi = $this->db->exeSql($sql);
                     if($rsi<=0) {
                         $sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
@@ -937,7 +937,7 @@ class ProcessModel extends Lemon_Model
                     $winRate  = bcmul($winRate,1,2);
                     $winMoney = bcmul($betMoney,$winRate,0);
 
-                    $sql = "update ".$this->db_qz."total_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+                    $sql = "update ".$this->db_qz."game_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
                     $rsi = $this->db->exeSql($sql);
                     if($rsi<=0)
                     {
@@ -1054,7 +1054,7 @@ class ProcessModel extends Lemon_Model
 		////////////////////////////////////////////////////////////////////////////////
 		//modify total_betting
 		$sql = "select sn, member_sn, betting_no, select_no, game_type, home_rate, draw_rate, away_rate
-						from ".$this->db_qz."total_betting 
+						from ".$this->db_qz."game_betting 
 						where sub_child_sn=".$subChildSn;
 		$rs = $this->db->exeSql($sql);
 	
@@ -1070,8 +1070,8 @@ class ProcessModel extends Lemon_Model
 			$selectDrawRate	= $rs[$i]["draw_rate"];
 
 
-			//-> 파일로그와 DB의 배팅방향이 틀리면 tb_total_betting->checked에 둘다 로그방향을 저장하고 로그 기반으로 현재 배팅방향 업데이트.
-			$sql = "select bet_date, last_special_code from tb_total_cart where betting_no = '{$betting_no}'";
+			//-> 파일로그와 DB의 배팅방향이 틀리면 tb_game_betting->checked에 둘다 로그방향을 저장하고 로그 기반으로 현재 배팅방향 업데이트.
+			$sql = "select bet_date, last_special_code from tb_game_cart where betting_no = '{$betting_no}'";
 			$cartInfo = $this->db->exeSql($sql);
 			$bet_date = str_replace("-","",substr($cartInfo[0]['bet_date'],0,10));
 			$last_special_code = $cartInfo[0]['last_special_code'];
@@ -1092,7 +1092,7 @@ class ProcessModel extends Lemon_Model
 
 				$logBettingSelect = $bettingLogArray[$betting_no."_".$subChildSn];
 				if ( $logBettingSelect > 0 and $logBettingSelect != $select ) {
-					$sql = "UPDATE tb_total_betting SET select_no = '{$logBettingSelect}', checked = '{$select}->{$logBettingSelect}' WHERE sn = '".$betSn."'";
+					$sql = "UPDATE tb_game_betting SET select_no = '{$logBettingSelect}', checked = '{$select}->{$logBettingSelect}' WHERE sn = '".$betSn."'";
 					$this->db->exeSql($sql);
 					$select = $logBettingSelect;
 				}
@@ -1142,7 +1142,7 @@ class ProcessModel extends Lemon_Model
 			else if($select==$winCode) 	{$result=1;}
 			else				  							{$result=2;}*/
 				
-			$sql = "update ".$this->db_qz."total_betting set result=0 where sn=".$betSn;
+			$sql = "update ".$this->db_qz."game_betting set result=0 where sn=".$betSn;
 			$this->db->exeSql($sql);
 		 }
 	}
@@ -1153,12 +1153,12 @@ class ProcessModel extends Lemon_Model
 		$this->cancel_winMoneyProcess($bettingNo, $memberSn, $specialCode);
 
 		//modify total_betting
-		$sql = "update ".$this->db_qz."total_betting set result=0 where sn=".$total_betting_sn;
+		$sql = "update ".$this->db_qz."game_betting set result=0 where sn=".$total_betting_sn;
 		$this->db->exeSql($sql);
 	}
 
 	function cancel_winMoneyProcess($bettingNo = "", $memberSn = 0, $specialCode = 0) {
-		$sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
+		$sql = "select a.*, c.sport_name from tb_game_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
 		$rsi = $this->db->exeSql($sql);
 		
 		$winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
@@ -1200,8 +1200,8 @@ class ProcessModel extends Lemon_Model
 				$winRate  = bcmul($winRate, 1, 2);
 				$winMoney = bcmul($betMoney, $winRate, 0);
 				
-				//$sql = "update ".$this->db_qz."total_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
-				$sql = "update ".$this->db_qz."total_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
+				//$sql = "update ".$this->db_qz."game_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+				$sql = "update ".$this->db_qz."game_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
 				$rsi = $this->db->exeSql($sql);
 				/*if($rsi<=0) {
 					$sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
@@ -1216,7 +1216,7 @@ class ProcessModel extends Lemon_Model
 
 			//낙첨
 			} else if( $loseCount > 0 ) {
-				$sql = "update ".$this->db_qz."total_cart set result=0, operdate=now() where betting_no ='".$bettingNo."'";
+				$sql = "update ".$this->db_qz."game_cart set result=0, operdate=now() where betting_no ='".$bettingNo."'";
 				$rsi = $this->db->exeSql($sql);
 				
 			}
@@ -1226,8 +1226,8 @@ class ProcessModel extends Lemon_Model
 				$winRate  = bcmul($winRate, 1, 2);
 				$winMoney = bcmul($betMoney, $winRate, 0);
 
-				//$sql = "update ".$this->db_qz."total_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
-				$sql = "update ".$this->db_qz."total_cart set result = 0, operdate = now(), result_money = 0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
+				//$sql = "update ".$this->db_qz."game_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+				$sql = "update ".$this->db_qz."game_cart set result = 0, operdate = now(), result_money = 0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
 				$rsi = $this->db->exeSql($sql);
 				if($rsi<=0)
 				{
@@ -1278,7 +1278,7 @@ class ProcessModel extends Lemon_Model
 		////////////////////////////////////////////////////////////////////////////////
 		//modify total_betting
 		$sql = "select sn, member_sn, betting_no, select_no, game_type, home_rate, draw_rate, away_rate
-						from ".$this->db_qz."total_betting 
+						from ".$this->db_qz."game_betting 
 						where sub_child_sn=".$subchildSn;
 		$rs = $this->db->exeSql($sql);
 	
@@ -1286,7 +1286,7 @@ class ProcessModel extends Lemon_Model
 		{
 			$betSn = $rs[$i]["sn"];
 				
-			$sql = "update ".$this->db_qz."total_betting set result=0 where sn=".$betSn;
+			$sql = "update ".$this->db_qz."game_betting set result=0 where sn=".$betSn;
 			$this->db->exeSql($sql);
 		}
    }
@@ -1310,7 +1310,7 @@ class ProcessModel extends Lemon_Model
             $subChildSn = $rs['sn'];
 
             $sql = "select b.betting_no, b.member_sn, d.last_special_code
-						from 	tb_subchild a, tb_total_betting b, tb_child c, tb_total_cart d
+						from 	tb_subchild a, tb_game_betting b, tb_child c, tb_game_cart d
 						where a.sn=b.sub_child_sn and a.child_sn=c.sn and b.betting_no=d.betting_no and d.result<>0 and a.child_sn=".$childSn;
             $rs = $this->db->exeSql($sql);
 
@@ -1320,7 +1320,7 @@ class ProcessModel extends Lemon_Model
                 $sn = $rs[$i]['member_sn'];
                 $specialCode = $rs[$i]['last_special_code'];
 
-                $sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
+                $sql = "select a.*, c.sport_name from tb_game_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
                 $rsi = $this->db->exeSql($sql);
 
                 $winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
@@ -1361,8 +1361,8 @@ class ProcessModel extends Lemon_Model
                         $winRate  = bcmul($winRate,1,2);
                         $winMoney = bcmul($betMoney,$winRate,0);
 
-                        //$sql = "update ".$this->db_qz."total_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
-                        $sql = "update ".$this->db_qz."total_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
+                        //$sql = "update ".$this->db_qz."game_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+                        $sql = "update ".$this->db_qz."game_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
                         $rsi = $this->db->exeSql($sql);
                         /*if($rsi<=0) {
                             $sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
@@ -1372,8 +1372,8 @@ class ProcessModel extends Lemon_Model
 
                         //낙첨
                     } else if( $loseCount > 0 ) {
-                        //$sql = "update ".$this->db_qz."total_cart set result=2, operdate=now() where betting_no ='".$bettingNo."'";
-                        $sql = "update ".$this->db_qz."total_cart set result=0, operdate=now() where betting_no ='".$bettingNo."'";
+                        //$sql = "update ".$this->db_qz."game_cart set result=2, operdate=now() where betting_no ='".$bettingNo."'";
+                        $sql = "update ".$this->db_qz."game_cart set result=0, operdate=now() where betting_no ='".$bettingNo."'";
                         $rsi = $this->db->exeSql($sql);
                         /*if($rsi<=0) {
                             $sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
@@ -1396,8 +1396,8 @@ class ProcessModel extends Lemon_Model
                         $winRate  = bcmul($winRate,1,2);
                         $winMoney = bcmul($betMoney,$winRate,0);
 
-                        //$sql = "update ".$this->db_qz."total_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
-                        $sql = "update ".$this->db_qz."total_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
+                        //$sql = "update ".$this->db_qz."game_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+                        $sql = "update ".$this->db_qz."game_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
                         $rsi = $this->db->exeSql($sql);
                         if($rsi<=0)
                         {
@@ -1462,7 +1462,7 @@ class ProcessModel extends Lemon_Model
  		//if($rs['kubun']==1)
         //{
 		$sql = "select 	b.betting_no, b.member_sn, d.last_special_code
-				from 	tb_subchild a, tb_total_betting b, tb_child c, tb_total_cart d
+				from 	tb_subchild a, tb_game_betting b, tb_child c, tb_game_cart d
 				where 	a.sn = b.sub_child_sn and a.child_sn=c.sn and b.betting_no=d.betting_no and d.result <> 0 and a.sn = ".$subchildSn;
 		$rs = $this->db->exeSql($sql);
 
@@ -1472,7 +1472,7 @@ class ProcessModel extends Lemon_Model
 			$sn = $rs[$i]['member_sn'];
 			$specialCode = $rs[$i]['last_special_code'];
 
-			$sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
+			$sql = "select a.*, c.sport_name from tb_game_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
 			$rsi = $this->db->exeSql($sql);
 			
 			$winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
@@ -1515,8 +1515,8 @@ class ProcessModel extends Lemon_Model
 					$winRate  = bcmul($winRate,1,2);
 					$winMoney = bcmul($betMoney,$winRate,0);
 					
-					//$sql = "update ".$this->db_qz."total_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
-					$sql = "update ".$this->db_qz."total_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					//$sql = "update ".$this->db_qz."game_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					$sql = "update ".$this->db_qz."game_cart set result=0, operdate=now(), result_money=0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
 					$rsi = $this->db->exeSql($sql);
 					/*if($rsi<=0) {
 						$sql = "insert into debug_detail_log(betting_no, total, win, lose, ing, cancel) values('".$bettingNo."',".$total.",".$winCount.",".$loseCount.",".$ingGameCount.",".$cancelCount.")";
@@ -1531,7 +1531,7 @@ class ProcessModel extends Lemon_Model
 
 				//낙첨
 				} else if( $loseCount > 0 ) {
-					$sql = "update ".$this->db_qz."total_cart set result=0, operdate=now() where betting_no ='".$bettingNo."'";
+					$sql = "update ".$this->db_qz."game_cart set result=0, operdate=now() where betting_no ='".$bettingNo."'";
 					$rsi = $this->db->exeSql($sql);
 					
 				}
@@ -1541,8 +1541,8 @@ class ProcessModel extends Lemon_Model
 					$winRate  = bcmul($winRate,1,2);
 					$winMoney = bcmul($betMoney,$winRate,0);
 
-					//$sql = "update ".$this->db_qz."total_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
-					$sql = "update ".$this->db_qz."total_cart set result = 0, operdate = now(), result_money = 0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					//$sql = "update ".$this->db_qz."game_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					$sql = "update ".$this->db_qz."game_cart set result = 0, operdate = now(), result_money = 0 where logo='".$logo."' and betting_no = '".$bettingNo."'";
 					$rsi = $this->db->exeSql($sql);
 					if($rsi<=0)
 					{
@@ -1597,8 +1597,8 @@ class ProcessModel extends Lemon_Model
 						e.uid, e.nick, a.bet_date,
 						c.gameDate, c.gameHour, c.gameTime, c.home_team, c.away_team,
 						d.home_rate, d.draw_rate, d.away_rate, d.win
-				from 	".$this->db_qz."total_cart a
-						,".$this->db_qz."total_betting b
+				from 	".$this->db_qz."game_cart a
+						,".$this->db_qz."game_betting b
 						,".$this->db_qz."child c
 						,".$this->db_qz."subchild d
 						,".$this->db_qz."member e
@@ -1619,7 +1619,7 @@ class ProcessModel extends Lemon_Model
 							select 	a.sn as betSn, a.betting_no, a.member_sn, a.bet_money, a.result, a.preview_result, a.select_rate, a.select_no, a.score, a.live,
 									concat(c.gameDate,' ',c.gameHour,':',c.gameTime) as game_date, c.notice as league_name, d.betting_type, 
 									c.home_team, c.away_team, a.home_rate, a.draw_rate, a.away_rate, c.home_score, c.away_score, d.win, c.sport_id, c.sport_name 
-							from 	".$this->db_qz."total_betting a
+							from 	".$this->db_qz."game_betting a
 									, ".$this->db_qz."child c
 									, ".$this->db_qz."subchild d
 							where 	a.sub_child_sn=d.sn 
@@ -1724,8 +1724,8 @@ class ProcessModel extends Lemon_Model
 							e.uid, e.nick, a.bet_date,
 							d.betting_type, c.gameDate, c.gameHour, c.gameTime, c.home_team, c.away_team,
 							d.home_rate, d.draw_rate, d.away_rate, d.win
-				from 		".$this->db_qz."total_cart a
-							,".$this->db_qz."total_betting b
+				from 		".$this->db_qz."game_cart a
+							,".$this->db_qz."game_betting b
 							,".$this->db_qz."child_m c
 							,".$this->db_qz."subchild_m d
 							,".$this->db_qz."member e
@@ -1745,8 +1745,8 @@ class ProcessModel extends Lemon_Model
 			$sql = "select 	a.sn as betSn, a.betting_no, a.member_sn, a.bet_money, a.result, a.preview_result, a.select_rate, a.select_no,
 							d.betting_type, concat(c.gameDate,' ',c.gameHour,':',c.gameTime) as game_date, e.name as league_name, 
 							c.home_team, c.away_team, a.home_rate, a.draw_rate, a.away_rate, c.home_score, c.away_score, d.win
-					from 	".$this->db_qz."total_betting a
-							, ".$this->db_qz."total_cart b
+					from 	".$this->db_qz."game_betting a
+							, ".$this->db_qz."game_cart b
 							, ".$this->db_qz."child_m c
 							, ".$this->db_qz."subchild_m d
 							, ".$this->db_qz."league e
@@ -1873,8 +1873,8 @@ class ProcessModel extends Lemon_Model
 										e.uid, e.nick, a.bet_date,
 										c.type, c.gameDate, c.gameHour, c.gameTime, c.home_team, c.away_team,
 										d.home_rate, d.draw_rate, d.away_rate, d.win
-							from ".$this->db_qz."total_cart a
-											,".$this->db_qz."total_betting b
+							from ".$this->db_qz."game_cart a
+											,".$this->db_qz."game_betting b
 											,".$this->db_qz."child c
 											, ".$this->db_qz."subchild d
 											, ".$this->db_qz."member e
@@ -1894,8 +1894,8 @@ class ProcessModel extends Lemon_Model
 			$sql = "select 	a.betting_no, a.member_sn, a.bet_money, a.result, a.select_rate, a.select_no,
 											c.type, concat(c.gameDate,' ',c.gameHour,':',c.gameTime) as game_date, e.name as league_name, 
 											c.home_team, c.away_team, d.home_rate, d.draw_rate, d.away_rate, c.home_score, c.away_score, d.win
-							from ".$this->db_qz."total_betting a
-											, ".$this->db_qz."total_cart b
+							from ".$this->db_qz."game_betting a
+											, ".$this->db_qz."game_cart b
 											, ".$this->db_qz."child c
 											, ".$this->db_qz."subchild d
 											, ".$this->db_qz."league e
@@ -1988,7 +1988,7 @@ class ProcessModel extends Lemon_Model
  		$this->db->exeSql($sql);
  
 		$sql = "select b.betting_no, b.member_sn, d.last_special_code
-						from ".$this->db_qz."subchild a, ".$this->db_qz."total_betting b, ".$this->db_qz."child c, ".$this->db_qz."total_cart d
+						from ".$this->db_qz."subchild a, ".$this->db_qz."game_betting b, ".$this->db_qz."child c, ".$this->db_qz."game_cart d
 						where a.sn=b.sub_child_sn and a.child_sn=c.sn and b.betting_no=d.betting_no and d.result=0 and a.child_sn=".$childSn;
 		$rs = $this->db->exeSql($sql);		
 		
@@ -1998,7 +1998,7 @@ class ProcessModel extends Lemon_Model
 			$sn = $rs[$i]['member_sn'];
 			$specialCode = $rs[$i]['last_special_code'];
 			
-			$sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
+			$sql = "select a.*, c.sport_name from tb_game_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
 			$rsi = $this->db->exeSql($sql);
 			
 			$winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
@@ -2038,13 +2038,13 @@ class ProcessModel extends Lemon_Model
 					$winRate  = bcmul($winRate,1,2);
 					$winMoney = bcmul($betMoney,$winRate,0);
 						
-					$sql = "update ".$this->db_qz."total_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					$sql = "update ".$this->db_qz."game_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
 					$rsi = $this->db->exeSql($sql);
 					$this->modifyMoneyProcess($memberSn, $winMoney, 5, $bettingNo);
 
 				//낙첨
 				} else if( $loseCount > 0 ) {
-					$sql = "update ".$this->db_qz."total_cart set result=2 ,operdate=now() where betting_no =".$bettingNo;
+					$sql = "update ".$this->db_qz."game_cart set result=2 ,operdate=now() where betting_no =".$bettingNo;
 					$rsi = $this->db->exeSql($sql);
 
 					//미니게임은 지급하지 않는다.
@@ -2061,7 +2061,7 @@ class ProcessModel extends Lemon_Model
 					$winRate  = bcmul($winRate,1,2);
 					$winMoney = bcmul($betMoney,$winRate,0);
 						
-					$sql = "update ".$this->db_qz."total_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					$sql = "update ".$this->db_qz."game_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
 					$rsi = $this->db->exeSql($sql);						
 					$this->modifyMoneyProcess($memberSn, $winMoney, 4, $bettingNo);
 
@@ -2110,12 +2110,12 @@ class ProcessModel extends Lemon_Model
 		$this->db->exeSql($sql);
 		
 		//02. rollback total_betting
-		$sql = "update ".$this->db_qz."total_betting set result=0 where admin_cancel_flag=0 and sub_child_sn=".$subSn;
+		$sql = "update ".$this->db_qz."game_betting set result=0 where admin_cancel_flag=0 and sub_child_sn=".$subSn;
 		$this->db->exeSql($sql);
 
 		// 02. rollback money - 당첨금, 낙첨마일리지, 다폴더마일리지, 추천인 낙첨 마일리지
 		$sql = "select b.betting_no, b.member_sn
-						from ".$this->db_qz."subchild a, ".$this->db_qz."total_betting b, ".$this->db_qz."child c, ".$this->db_qz."total_cart d
+						from ".$this->db_qz."subchild a, ".$this->db_qz."game_betting b, ".$this->db_qz."child c, ".$this->db_qz."game_cart d
 						where a.sn=b.sub_child_sn and a.child_sn=c.sn and b.betting_no=d.betting_no and b.admin_cancel_flag=0 and d.result!=0 and a.child_sn=".$childSn;
 		$rs = $this->db->exeSql($sql);			
 		
@@ -2124,7 +2124,7 @@ class ProcessModel extends Lemon_Model
 			$bettingNo  = $rs[$i]['betting_no'];
 			
 			//rollback cart
-			$sql = "update ".$this->db_qz."total_cart set result=0,operdate=now()
+			$sql = "update ".$this->db_qz."game_cart set result=0,operdate=now()
 							where betting_no = '".$bettingNo."'" ;  
 			$this->db->exeSql($sql);			
 			
@@ -2180,12 +2180,12 @@ class ProcessModel extends Lemon_Model
 		$this->db->exeSql($sql);
 		
 		//02. rollback total_betting
-		$sql = "update ".$this->db_qz."total_betting set result=0 where admin_cancel_flag=0 and sub_child_sn=".$subSn;
+		$sql = "update ".$this->db_qz."game_betting set result=0 where admin_cancel_flag=0 and sub_child_sn=".$subSn;
 		$this->db->exeSql($sql);
 
 		// 02. rollback money - 당첨금, 낙첨마일리지, 다폴더마일리지, 추천인 낙첨 마일리지
 		$sql = "select b.betting_no, b.member_sn
-						from ".$this->db_qz."subchild_m a, ".$this->db_qz."total_betting b, ".$this->db_qz."child_m c, ".$this->db_qz."total_cart d
+						from ".$this->db_qz."subchild_m a, ".$this->db_qz."game_betting b, ".$this->db_qz."child_m c, ".$this->db_qz."game_cart d
 						where a.sn=b.sub_child_sn and a.child_sn=c.sn and b.betting_no=d.betting_no and b.admin_cancel_flag=0 and d.result!=0 and a.child_sn=".$childSn;
 		$rs = $this->db->exeSql($sql);			
 		
@@ -2194,7 +2194,7 @@ class ProcessModel extends Lemon_Model
 			$bettingNo  = $rs[$i]['betting_no'];
 			
 			//rollback cart
-			$sql = "update ".$this->db_qz."total_cart set result=0,operdate=now()
+			$sql = "update ".$this->db_qz."game_cart set result=0,operdate=now()
 							where betting_no = '".$bettingNo."'" ;  
 			$this->db->exeSql($sql);			
 			
@@ -2871,14 +2871,14 @@ class ProcessModel extends Lemon_Model
 
 	//-> 마지막 경기를 적특을 하게되면 해당 경기는 정산이 마무리가 안되서 기존 [경기기준]이 아닌 [배팅기준]으로 정산이 되는 프로세서.
 	function bettingProcProcess($bettingNo) {
-		$sql = "select * from tb_total_cart where betting_no = '{$bettingNo}'";
+		$sql = "select * from tb_game_cart where betting_no = '{$bettingNo}'";
 		$rs = $this->db->exeSql($sql);		
 		$memberSn = $rs[0]['member_sn'];
 		$specialCode = $rs[0]['last_special_code'];
 
 		if ( !$bettingNo or !$memberSn ) return 0;
 			
-		$sql = "select a.*, c.sport_name from tb_total_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
+		$sql = "select a.*, c.sport_name from tb_game_betting a, tb_subchild b, tb_child c where a.sub_child_sn = b.sn and b.child_sn = c.sn and a.betting_no='".$bettingNo."'";
 		$rsi = $this->db->exeSql($sql);
 		
 		$winCount = $loseCount = $cancelCount = $ingGameCount = $bonusGameCount = 0;
@@ -2910,7 +2910,7 @@ class ProcessModel extends Lemon_Model
 		if ( $ingGameCount == 0 ) {
 			//-> 낙첨
 			if ( $loseCount > 0 ) {
-				$sql = "update tb_total_cart set result = 2 ,operdate = now() where betting_no = '".$bettingNo."'";
+				$sql = "update tb_game_cart set result = 2 ,operdate = now() where betting_no = '".$bettingNo."'";
 				$rsi = $this->db->exeSql($sql);
 
 				//-> 미니게임은 지급하지 않는다.
@@ -2926,7 +2926,7 @@ class ProcessModel extends Lemon_Model
 				$winRate  = bcmul($winRate,1,2);
 				$winMoney = bcmul($betMoney,$winRate,0);
 					
-				$sql = "update tb_total_cart set result = 1, operdate = now(), result_money = '".$winMoney."' where betting_no = '".$bettingNo."'";
+				$sql = "update tb_game_cart set result = 1, operdate = now(), result_money = '".$winMoney."' where betting_no = '".$bettingNo."'";
 				$rsi = $this->db->exeSql($sql);						
 				$this->modifyMoneyProcess($memberSn, $winMoney, 4, $bettingNo);
 			}
@@ -2946,7 +2946,7 @@ class ProcessModel extends Lemon_Model
 	//▶ [배당지급] - 결과에 따른 돈 지급
 	function modifyResultMoneyProcess($bettingNo)
 	{
-		$sql = "SELECT a.*, c.sport_name FROM tb_total_betting a, tb_subchild b, tb_child c WHERE a.sub_child_sn = b.sn AND b.child_sn = c.sn AND a.betting_no='".$bettingNo."'";
+		$sql = "SELECT a.*, c.sport_name FROM tb_game_betting a, tb_subchild b, tb_child c WHERE a.sub_child_sn = b.sn AND b.child_sn = c.sn AND a.betting_no='".$bettingNo."'";
 		$rsi = $this->db->exeSql($sql);
 		
 		if(count((array)$rsi) > 0) {
@@ -2992,7 +2992,7 @@ class ProcessModel extends Lemon_Model
 					$winRate  = bcmul($winRate,1,2);
 					$winMoney = bcmul($betMoney,$winRate,0);
 						
-					$sql = "update ".$this->db_qz."total_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					$sql = "update ".$this->db_qz."game_cart set result=4, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
 					$rsi = $this->db->exeSql($sql);
 
 					$nMode = 1;
@@ -3007,7 +3007,7 @@ class ProcessModel extends Lemon_Model
 
 				//낙첨
 				} else if( $loseCount > 0 ) {
-					$sql = "update ".$this->db_qz."total_cart set result=2, operdate=now() where betting_no =".$bettingNo;
+					$sql = "update ".$this->db_qz."game_cart set result=2, operdate=now() where betting_no =".$bettingNo;
 					$rsi = $this->db->exeSql($sql);
 
 					//미니게임은 지급하지 않는다.
@@ -3024,7 +3024,7 @@ class ProcessModel extends Lemon_Model
 					$winRate  = bcmul($winRate, 1, 2);
 					$winMoney = bcmul($betMoney, $winRate, 0);
 						
-					$sql = "update ".$this->db_qz."total_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
+					$sql = "update ".$this->db_qz."game_cart set result=1, operdate=now(), result_money='".$winMoney."' where logo='".$logo."' and betting_no = '".$bettingNo."'";
 					$rsi = $this->db->exeSql($sql);	
 					
 					$nMode = 1;
