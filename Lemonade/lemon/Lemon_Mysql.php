@@ -172,7 +172,7 @@ class Lemon_Mysql
 
 		//-> 업데이트에 대한 쿼리 로그. (유저정보 업데이트)
 		if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
-			if ( preg_match("/(tb_member)/i",$sql,$match) != 0 ) {
+			if ( preg_match("/(tb_people)/i",$sql,$match) != 0 ) {
 				if ( preg_match("/(nick|name|phone|bank_)/i",$sql,$match) != 0 ) {
 					//-> 배팅로그 file
 					$hDate = date("Y-m-d H:i:s",time());

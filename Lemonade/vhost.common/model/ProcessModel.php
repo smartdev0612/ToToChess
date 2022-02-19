@@ -152,14 +152,14 @@ class ProcessModel extends Lemon_Model
                                 WHERE betting_no = '".$bettingNo."'";
                 $this->db->exeSql($sql);
 
-                $sql = "SELECT g_money FROM tb_member WHERE sn = '".$member_sn."'";
+                $sql = "SELECT g_money FROM tb_people WHERE sn = '".$member_sn."'";
                 $memberGmoneyInfo = $this->db->exeSql($sql)[0];	
                 $before = $memberGmoneyInfo["g_money"];
             
-                $sql = "UPDATE tb_member SET g_money = g_money + (".$winMoney.") where sn = '".$member_sn."'";
+                $sql = "UPDATE tb_people SET g_money = g_money + (".$winMoney.") where sn = '".$member_sn."'";
                 $this->db->exeSql($sql);
 
-                $sql = "SELECT g_money FROM tb_member WHERE sn = '".$member_sn."'";
+                $sql = "SELECT g_money FROM tb_people WHERE sn = '".$member_sn."'";
                 $memberGmoneyInfo = $this->db->exeSql($sql)[0];	
                 $after = $memberGmoneyInfo["g_money"];
 
@@ -755,7 +755,7 @@ class ProcessModel extends Lemon_Model
 
             //모든게임종료
             if ( $ingGameCount == 0 ) {
-                $sql = "select * from ".$this->db_qz."member where sn=".$memberSn;
+                $sql = "select * from ".$this->db_qz."people where sn=".$memberSn;
                 $rsi = $this->db->exeSql($sql);
                 $logo = $rsi[0]['logo'];
                 $mem_lev = $rsi[0]['mem_lev'];
@@ -897,7 +897,7 @@ class ProcessModel extends Lemon_Model
             //모든게임종료
             if ( $ingGameCount == 0 ) {
                 $memberSn = $rs[$i]['member_sn'];
-                $sql = "select * from ".$this->db_qz."member where sn=".$memberSn;
+                $sql = "select * from ".$this->db_qz."people where sn=".$memberSn;
                 $rsi = $this->db->exeSql($sql);
                 $logo = $rsi[0]['logo'];
                 $mem_lev = $rsi[0]['mem_lev'];
@@ -1191,7 +1191,7 @@ class ProcessModel extends Lemon_Model
 		//모든게임종료
 		if ( $ingGameCount == 0 )
 		{
-			$sql = "select logo from ".$this->db_qz."member where sn=".$memberSn;
+			$sql = "select logo from ".$this->db_qz."people where sn=".$memberSn;
 			$rsi = $this->db->exeSql($sql);
 			$logo = $rsi[0]['logo'];
 
@@ -1352,7 +1352,7 @@ class ProcessModel extends Lemon_Model
                 if ( $ingGameCount == 0 )
                 {
                     $memberSn = $rs[$i]['member_sn'];
-                    $sql = "select logo from ".$this->db_qz."member where sn=".$memberSn;
+                    $sql = "select logo from ".$this->db_qz."people where sn=".$memberSn;
                     $rsi = $this->db->exeSql($sql);
                     $logo = $rsi[0]['logo'];
 
@@ -1506,7 +1506,7 @@ class ProcessModel extends Lemon_Model
 			if ( $ingGameCount == 0 )
 			{
 				$memberSn = $rs[$i]['member_sn'];
-				$sql = "select logo from ".$this->db_qz."member where sn=".$memberSn;
+				$sql = "select logo from ".$this->db_qz."people where sn=".$memberSn;
 				$rsi = $this->db->exeSql($sql);
 				$logo = $rsi[0]['logo'];
 
@@ -1601,7 +1601,7 @@ class ProcessModel extends Lemon_Model
 						,".$this->db_qz."game_betting b
 						,".$this->db_qz."child c
 						,".$this->db_qz."subchild d
-						,".$this->db_qz."member e
+						,".$this->db_qz."people e
 				where 	a.betting_no=b.betting_no 
 						and b.sub_child_sn=d.sn 
 						and c.sn=d.child_sn
@@ -1728,7 +1728,7 @@ class ProcessModel extends Lemon_Model
 							,".$this->db_qz."game_betting b
 							,".$this->db_qz."child_m c
 							,".$this->db_qz."subchild_m d
-							,".$this->db_qz."member e
+							,".$this->db_qz."people e
 				where 		a.betting_no=b.betting_no 
 						and b.sub_child_sn=d.sn 
 						and c.sn=d.child_sn
@@ -1877,7 +1877,7 @@ class ProcessModel extends Lemon_Model
 											,".$this->db_qz."game_betting b
 											,".$this->db_qz."child c
 											, ".$this->db_qz."subchild d
-											, ".$this->db_qz."member e
+											, ".$this->db_qz."people e
 							where a.betting_no=b.betting_no 
 										and b.sub_child_sn=d.sn 
 										and c.sn=d.child_sn
@@ -2029,7 +2029,7 @@ class ProcessModel extends Lemon_Model
 			//모든게임종료
 			if ( $ingGameCount == 0 ) {
 				$memberSn = $rs[$i]['member_sn'];
-				$sql = "select logo from ".$this->db_qz."member where sn=".$memberSn;
+				$sql = "select logo from ".$this->db_qz."people where sn=".$memberSn;
 				$rsi = $this->db->exeSql($sql);					
 				$logo = $rsi[0]['logo'];
 				
@@ -2262,7 +2262,7 @@ class ProcessModel extends Lemon_Model
 		$before = $this->memberModel->getMemberField($sn, "g_money");
 		
 		$add = "g_money = g_money +(".$amount.")";
-		$sql = "update ".$this->db_qz."member set ".$add." where sn=".$sn;
+		$sql = "update ".$this->db_qz."people set ".$add." where sn=".$sn;
 		$this->db->exeSql($sql);
 		
 		$after 	= $this->memberModel->getMemberField($sn, "g_money");
@@ -2305,7 +2305,7 @@ class ProcessModel extends Lemon_Model
         $before = $this->memberModel->getMemberField($sn, "point");
 
         $add = "point = point +(".$amount.")";
-        $sql = "update ".$this->db_qz."member set ".$add." where sn = ".$sn;
+        $sql = "update ".$this->db_qz."people set ".$add." where sn = ".$sn;
         $this->db->exeSql($sql);
 
         $after 	= $this->memberModel->getMemberField($sn, "point");
@@ -2378,7 +2378,7 @@ class ProcessModel extends Lemon_Model
 		$before = $this->memberModel->getMemberField($sn, "point");
 		
 		$add = "point = point +(".$amount.")";
-		$sql = "update ".$this->db_qz."member set ".$add." where sn = ".$sn;
+		$sql = "update ".$this->db_qz."people set ".$add." where sn = ".$sn;
 		$this->db->exeSql($sql);
 		
 		$after 	= $this->memberModel->getMemberField($sn, "point");
@@ -2411,7 +2411,7 @@ class ProcessModel extends Lemon_Model
 
 		$before = $this->memberModel->getMemberField($sn, "point");
 		
-		$sql = "update tb_member set point = point + (".$amount.") where sn = ".$sn;
+		$sql = "update tb_people set point = point + (".$amount.") where sn = ".$sn;
 		$this->db->exeSql($sql);
 		
 		$after 	= $this->memberModel->getMemberField($sn, "point");
@@ -2619,7 +2619,7 @@ class ProcessModel extends Lemon_Model
 		
 		if(count((array)$rs)<=0) return -1;
 		
-		$sql = "select logo from ".$this->db_qz."member where sn=".$memberSn;
+		$sql = "select logo from ".$this->db_qz."people where sn=".$memberSn;
 		$rs = $this->db->exeSql($sql);
 		$logo = $rs[0]['logo'];
 		
@@ -2722,7 +2722,7 @@ class ProcessModel extends Lemon_Model
 
 		//-> 1대 추천인 처리.
 		if ( $recommend_sn > 0 ) {
-			$sql = "SELECT uid, mem_lev FROM tb_member WHERE mem_status = 'N' and sn = '".$recommend_sn."'";
+			$sql = "SELECT uid, mem_lev FROM tb_people WHERE mem_status = 'N' and sn = '".$recommend_sn."'";
 			$memberInfo = $this->db->exeSql($sql);
 			if ( count((array)$memberInfo[0]) > 0 ) {
 				$recommend_lev = $memberInfo[0]["mem_lev"];
@@ -2748,7 +2748,7 @@ class ProcessModel extends Lemon_Model
 
 		//-> 2대 추천인 처리.
 		if ( $recommend2_sn > 0 ) {
-			$sql = "SELECT uid, mem_lev FROM tb_member WHERE mem_status = 'N' and sn = '".$recommend2_sn."'";
+			$sql = "SELECT uid, mem_lev FROM tb_people WHERE mem_status = 'N' and sn = '".$recommend2_sn."'";
 			$memberInfo2 = $this->db->exeSql($sql);
 			if ( count((array)$memberInfo2[0]) > 0 ) {
 				$recommend2_lev = $memberInfo2[0]["mem_lev"];
@@ -2786,7 +2786,7 @@ class ProcessModel extends Lemon_Model
 
         //-> 1대 추천인 처리.
         if ( $recommend_sn > 0 ) {
-            $sql = "SELECT uid, mem_lev FROM tb_member WHERE mem_status = 'N' and sn = '".$recommend_sn."'";
+            $sql = "SELECT uid, mem_lev FROM tb_people WHERE mem_status = 'N' and sn = '".$recommend_sn."'";
             $memberInfo = $this->db->exeSql($sql);
             if ( count((array)$memberInfo[0]) > 0 ) {
                 $recommend_lev = $memberInfo[0]["mem_lev"];
@@ -2812,7 +2812,7 @@ class ProcessModel extends Lemon_Model
 
         //-> 2대 추천인 처리.
         if ( $recommend2_sn > 0 ) {
-            $sql = "SELECT uid, mem_lev FROM tb_member WHERE mem_status = 'N' and sn = '".$recommend2_sn."'";
+            $sql = "SELECT uid, mem_lev FROM tb_people WHERE mem_status = 'N' and sn = '".$recommend2_sn."'";
             $memberInfo2 = $this->db->exeSql($sql);
             if ( count((array)$memberInfo2[0]) > 0 ) {
                 $recommend2_lev = $memberInfo2[0]["mem_lev"];
@@ -2981,7 +2981,7 @@ class ProcessModel extends Lemon_Model
 			
 			//모든게임종료
 			if ( $ingGameCount == 0 ) {
-				$sql = "select logo, uid, recommend_sn from ".$this->db_qz."member where sn=".$memberSn;
+				$sql = "select logo, uid, recommend_sn from ".$this->db_qz."people where sn=".$memberSn;
 				$rsi = $this->db->exeSql($sql);					
 				$logo = $rsi[0]['logo'];
 				$strUserID = $rsi[0]['uid'];

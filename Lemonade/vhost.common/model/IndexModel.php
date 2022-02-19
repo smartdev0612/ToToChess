@@ -5,7 +5,7 @@ class IndexModel extends Lemon_Model
 	function recent_member_list()
 	{
 		$sql = "select a.sn as member_sn, a.logo, uid, nick, rec_name, a.mem_ip, a.login_domain
-						from ".$this->db_qz."member a, ".$this->db_qz."recommend b 
+						from ".$this->db_qz."people a, ".$this->db_qz."recommend b 
 						where a.recommend_sn=b.Idx and a.last_date >= date_add(sysdate(), INTERVAL -3 hour) limit 0, 30";
 		$rows = $this->db->exeSql($sql);
 		
@@ -44,7 +44,7 @@ class IndexModel extends Lemon_Model
 			
 		}
 		$sql = "select a.sn as member_sn, a.logo, uid, nick, rec_name, g_money, phone, point, mem_lev
-						from ".$this->db_qz."member a, ".$this->db_qz."recommend b 
+						from ".$this->db_qz."people a, ".$this->db_qz."recommend b 
 						where a.recommend_sn=b.Idx".$where;
 
 		$rows = $this->db->exeSql($sql);

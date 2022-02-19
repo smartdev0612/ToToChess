@@ -4,7 +4,7 @@ class MemberModel extends Lemon_Model
 	//-> 페이지로딩시간 저장(동접체크)
 	function LoadingTimeSave($sn) {
 		$hDate = date("Y-m-d H:i:s");
-		$sql = "update tb_member set page_load_date = '{$hDate}' where sn = '{$sn}'";
+		$sql = "update tb_people set page_load_date = '{$hDate}' where sn = '{$sn}'";
 		return $this->db->exeSql($sql);
 	}
 
@@ -17,7 +17,7 @@ class MemberModel extends Lemon_Model
 			$where .=' and '.$addWhere;
 		}
 		
-		$rs = $this->getRow($field, $this->db_qz.'member', $where);
+		$rs = $this->getRow($field, $this->db_qz.'people', $where);
 		
 		return $rs[$field];
 	}
@@ -29,7 +29,7 @@ class MemberModel extends Lemon_Model
 		
 		if($addWhere!='') {$where .=' and '.$addWhere;}
 		
-		return $this->getRow($field, $this->db_qz.'member', $where);
+		return $this->getRow($field, $this->db_qz.'people', $where);
 	}
 	
 	//▶ 필드 데이터's
@@ -39,7 +39,7 @@ class MemberModel extends Lemon_Model
 		
 		if($addWhere!='') {$where .=' and '.$addWhere;}
 		
-		return $this->getRows($field, $this->db_qz.'member', $where);
+		return $this->getRows($field, $this->db_qz.'people', $where);
 	}
 	
 	//▶ 필드 데이터
@@ -49,7 +49,7 @@ class MemberModel extends Lemon_Model
 		
 		if($addWhere!='') {$where .=' and '.$addWhere;}
 		
-		$rs = $this->getRow($field, $this->db_qz.'member', $where);
+		$rs = $this->getRow($field, $this->db_qz.'people', $where);
 		return $rs[$field];
 	}
 	
@@ -60,7 +60,7 @@ class MemberModel extends Lemon_Model
 		
 		if($addWhere!='') {$where .=' and '.$addWhere;}
 		
-		$rs = $this->getRow($field, $this->db_qz.'member', $where);
+		$rs = $this->getRow($field, $this->db_qz.'people', $where);
 		
 		return $rs[$field];
 	}
@@ -72,37 +72,37 @@ class MemberModel extends Lemon_Model
 		
 		if($addWhere!='') {$where .=' and '.$addWhere;}
 		
-		$rs = $this->getRow($field, $this->db_qz.'member', $where);
+		$rs = $this->getRow($field, $this->db_qz.'people', $where);
 		return $rs[$field];
 	}
 	
 	//▶ 정보 by ID
 	function getById($id)
 	{
-		return $this->getRow('*', $this->db_qz.'member', "uid='".$id."'");
+		return $this->getRow('*', $this->db_qz.'people', "uid='".$id."'");
 	}
 	
 	//▶ 정보 by Sn
 	function getBySn($sn)
 	{
-		return $this->getRow('*', $this->db_qz.'member', "sn='".$sn."' and logo='".$this->logo."'");
+		return $this->getRow('*', $this->db_qz.'people', "sn='".$sn."' and logo='".$this->logo."'");
 	}
 	
 	//▶ 정보 by Name
 	function getByName($name)
 	{
-		return $this->getRow('*', $this->db_qz.'member', "nick='".$name."'");
+		return $this->getRow('*', $this->db_qz.'people', "nick='".$name."'");
 	}
 
 	//▶ 정보 by phone_num
 	function getByPhone_num($phone_num)
 	{
-		return $this->getRow('*', $this->db_qz.'member', "phone='".$phone_num);
+		return $this->getRow('*', $this->db_qz.'people', "phone='".$phone_num);
 	}
 	
 	function getSn($uid)
 	{
-		$rs = $this->getRow('sn', $this->db_qz.'member', "uid='".$uid."'");
+		$rs = $this->getRow('sn', $this->db_qz.'people', "uid='".$uid."'");
 		return $rs['sn'];
 	}
 	
@@ -112,10 +112,10 @@ class MemberModel extends Lemon_Model
 		if($logo!='') $logo = " and a.logo='".$logo."'";
 		if($joinRecommendNick!='')
 		{
-			$where.= " and a.sn in (select member_sn from ".$this->db_qz."join_recommend where recommend_sn in (select sn from ".$this->db_qz."member where nick like('%".$joinRecommendNick."%')))";
+			$where.= " and a.sn in (select member_sn from ".$this->db_qz."join_recommend where recommend_sn in (select sn from ".$this->db_qz."people where nick like('%".$joinRecommendNick."%')))";
 		}
 		
-		$sql = "select count(*) as cnt from ".$this->db_qz."member a where 1=1 and a.is_store=0 ".$logo.$where;
+		$sql = "select count(*) as cnt from ".$this->db_qz."people a where 1=1 and a.is_store=0 ".$logo.$where;
 		$rs = $this->db->exeSql($sql);
 		
 		return $rs[0]['cnt'];
@@ -124,7 +124,7 @@ class MemberModel extends Lemon_Model
 	//▶ 회원여부
 	function isMember($id)
 	{
-		$sql = "select count(*) as cnt from ".$this->db_qz."member 
+		$sql = "select count(*) as cnt from ".$this->db_qz."people 
 						where uid='".$id."'";
 					
 		$rs = $this->db->exeSql($sql);
@@ -139,7 +139,7 @@ class MemberModel extends Lemon_Model
 		
 		if($joinRecommendNick!='')
 		{
-			$where.= " and a.sn in (select member_sn from ".$this->db_qz."join_recommend where recommend_sn in (select sn from ".$this->db_qz."member where nick like('%".$joinRecommendNick."%')))";
+			$where.= " and a.sn in (select member_sn from ".$this->db_qz."join_recommend where recommend_sn in (select sn from ".$this->db_qz."people where nick like('%".$joinRecommendNick."%')))";
 		}
 		if($orderby=='') $orderby=" order by a.regdate desc,a.mem_status desc,a.sn";
 			
@@ -155,7 +155,7 @@ class MemberModel extends Lemon_Model
 								(select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn) as bet_total,
 								ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) - ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0) as benefit,
 								(select count(*) from ".$this->db_qz."visit where member_id=a.uid) as visit_count
-						from ".$this->db_qz."member a LEFT OUTER JOIN ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
+						from ".$this->db_qz."people a LEFT OUTER JOIN ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
 						where a.is_store=0 and a.sn>0".$logo.$where.$orderby."
 						limit ".$page.",".$page_size;
 		//echo $sql;
@@ -167,7 +167,7 @@ class MemberModel extends Lemon_Model
                 $rs[$i]['country_code'] = $eModel->getNationByIp($ip);
                 
                 // 가입 추천인 정보
-                $sql = "select sn, nick, bank_member from ".$this->db_qz."member
+                $sql = "select sn, nick, bank_member from ".$this->db_qz."people
                                 where sn=(select recommend_sn from ".$this->db_qz."join_recommend where member_sn=".$rs[$i]['sn'].")";
                 $rsi = $this->db->exeSql($sql);
                 $rs[$i]['join_recommend_sn'] = $rsi[0]['sn'];
@@ -183,7 +183,7 @@ class MemberModel extends Lemon_Model
             for($i=0; $i<count($rs); ++$i)
             {
                 // 가입 추천인 정보
-                $sql = "select sn, uid, name from ".$this->db_qz."member
+                $sql = "select sn, uid, name from ".$this->db_qz."people
                                 where is_store=1 and sn=".$rs[$i]['recommend_sn'];
                 $rsi = $this->db->exeSql($sql);
                 $rs[$i]['store_sn'] = $rsi[0]['sn'];
@@ -205,7 +205,7 @@ class MemberModel extends Lemon_Model
 		
 		if($joinRecommendNick!='')
 		{
-			$where.= " and a.sn in (select member_sn from ".$this->db_qz."join_recommend where recommend_sn in (select sn from ".$this->db_qz."member where nick like('%".$joinRecommendNick."%')))";
+			$where.= " and a.sn in (select member_sn from ".$this->db_qz."join_recommend where recommend_sn in (select sn from ".$this->db_qz."people where nick like('%".$joinRecommendNick."%')))";
 		}
 		if($orderby=='') $orderby=" order by a.regdate desc,a.mem_status desc,a.sn";
 			
@@ -221,7 +221,7 @@ class MemberModel extends Lemon_Model
                     (select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn) as bet_total,
                     ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) as benefit,
                     (select count(*) from ".$this->db_qz."visit where member_id=a.uid) as visit_count
-                from ".$this->db_qz."member a LEFT OUTER JOIN ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
+                from ".$this->db_qz."people a LEFT OUTER JOIN ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
                 where a.sn>0".$logo.$where.$orderby."
                 limit ".$page.",".$page_size;
 		//echo $sql;
@@ -232,18 +232,18 @@ class MemberModel extends Lemon_Model
 			$ip	= $rs[$i]['reg_ip'];
 			$rs[$i]['country_code'] = $eModel->getNationByIp($ip);
             //매장과 회원의 입금금액 합
-            $sql = "select sum(amount) as charge_sum from ".$this->db_qz."charge_log where member_sn in (select sn from tb_member where recommend_sn =".$rs[$i]['sn'].")";
+            $sql = "select sum(amount) as charge_sum from ".$this->db_qz."charge_log where member_sn in (select sn from tb_people where recommend_sn =".$rs[$i]['sn'].")";
             $rsi = $this->db->exeSql($sql);
             $rs[$i]['charge_sum'] = $rs[$i]['charge_sum']+$rsi[0]['charge_sum'];
 
             //매장과 회원의 출금금액 합
-            $sql = "select sum(amount) as exchange_sum from ".$this->db_qz."exchange_log where member_sn in (select sn from tb_member where recommend_sn =".$rs[$i]['sn'].")";
+            $sql = "select sum(amount) as exchange_sum from ".$this->db_qz."exchange_log where member_sn in (select sn from tb_people where recommend_sn =".$rs[$i]['sn'].")";
             $rsi = $this->db->exeSql($sql);
             $rs[$i]['exchange_sum'] = $rs[$i]['exchange_sum']+$rsi[0]['exchange_sum'];
 
 
 			// 가입 추천인 정보
-			$sql = "select sn, nick, bank_member from ".$this->db_qz."member
+			$sql = "select sn, nick, bank_member from ".$this->db_qz."people
 							where sn=(select recommend_sn from ".$this->db_qz."join_recommend where member_sn=".$rs[$i]['sn'].")";
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['join_recommend_sn'] = $rsi[0]['sn'];
@@ -267,27 +267,27 @@ class MemberModel extends Lemon_Model
 	//▶ 매장 아이디
 	function getStoreList($id, $where="")
 	{
-		$sql = "select sn from tb_member where uid='".$id."'".$where;
+		$sql = "select sn from tb_people where uid='".$id."'".$where;
 		return $this->db->exeSql($sql);
 	}
 
 	//▶ 전체 매장
 	function getAllStoreList()
 	{
-		$sql = "select sn, uid from tb_member where is_store=1";
+		$sql = "select sn, uid from tb_people where is_store=1";
 		return $this->db->exeSql($sql);
 	}
 
 	//▶ 가입인증코드 확인 (회원ID, 계정상태=N, 상위 총판 있어야됨.)
 	function getRecommendMember($id) {
-		$sql = "select uid from tb_member where uid='{$id}' and mem_status = 'N' and is_recommender =1 and recommend_sn > 0";
+		$sql = "select uid from tb_people where uid='{$id}' and mem_status = 'N' and is_recommender =1 and recommend_sn > 0";
 		return $this->db->exeSql($sql);
 	}
 
 	// 유저정보 확인
     function getUserInfo($user_id, $user_name, $user_nick, $user_hp)
     {
-        $sql = "select uid, upass, nick, name as user_name, phone  from tb_member where mem_status='N' and (uid ='{$user_id}' or name = '{$user_name}'" .
+        $sql = "select uid, upass, nick, name as user_name, phone  from tb_people where mem_status='N' and (uid ='{$user_id}' or name = '{$user_name}'" .
                " or nick='{$user_nick}' or phone ='{$user_hp}')";
         return $this->db->exeSql($sql);
     }
@@ -296,7 +296,7 @@ class MemberModel extends Lemon_Model
 	function NewMember_LevelUp()
 	{
 		$sql = "select sn
-				from ".$this->db_qz."member where logo='".$this->logo."'  and mem_status='W' ";
+				from ".$this->db_qz."people where logo='".$this->logo."'  and mem_status='W' ";
 		$rs = $this->db->exeSql($sql);
 		
 		for( $i = 0; $i < count((array)$rs); ++$i )
@@ -310,22 +310,22 @@ class MemberModel extends Lemon_Model
 	{
 		if($flag=="stop")
 		{
-			$sql = "update ".$this->db_qz."member 
+			$sql = "update ".$this->db_qz."people 
 							set mem_status='S' where sn in(".$sn.")";
 		}
 		else if($flag=="good")
 		{
-			$sql = "update ".$this->db_qz."member 
+			$sql = "update ".$this->db_qz."people 
 							set mem_status='N' where sn in(".$sn.")";
 		}
 		else if($flag=="bad")
 		{
-			$sql = "update ".$this->db_qz."member 
+			$sql = "update ".$this->db_qz."people 
 							set mem_status='B' where sn in(".$sn.")";
 		}
 		else if($flag=="delete")
 		{
-			$sql = "update ".$this->db_qz."member 
+			$sql = "update ".$this->db_qz."people 
 							set mem_status='D' where sn in(".$sn.")";
 		}
 				
@@ -336,7 +336,7 @@ class MemberModel extends Lemon_Model
 	{
 		//-> 해킹방지 bank 정보 업데이트 불가능.
 		$set = str_replace("bank_","",$set);
-		$sql = "update ".$this->db_qz."member set ".$set." where sn=".$memberSn;
+		$sql = "update ".$this->db_qz."people set ".$set." where sn=".$memberSn;
 		return $this->db->exeSql($sql);
 	}
 
@@ -367,7 +367,7 @@ class MemberModel extends Lemon_Model
 			$levelCode 	= $levelModel->makeMemberLevelCode($partnerSn);
 		}
 		
-		$sql = "insert into ".$this->db_qz."member(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn,level_code,
+		$sql = "insert into ".$this->db_qz."people(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn,level_code,
 						phone,point,email,mem_status,last_date,bank_name,bank_account,bank_member,reg_ip,mem_ip,regdate,reg_domain, logo, is_recommender)
 		 				values(";
 		
@@ -395,7 +395,7 @@ class MemberModel extends Lemon_Model
         $sql.= "'".$logo."', 0)";
         $memberSn = $this->db->exeSql($sql);
 		
-		$sql = "insert into ".$this->db_qz."member_bk(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn,level_code,
+		$sql = "insert into ".$this->db_qz."people_bk(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn,level_code,
 						phone,point,email,mem_status,last_date,bank_name,bank_account,bank_member,reg_ip,mem_ip,regdate,reg_domain, logo, is_recommender)
 		 				values(";
 		
@@ -458,7 +458,7 @@ class MemberModel extends Lemon_Model
 			$levelCode 	= $levelModel->makeMemberLevelCode($partnerSn);
 		}
 		
-		$sql = "insert into ".$this->db_qz."member(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn,level_code,
+		$sql = "insert into ".$this->db_qz."people(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn,level_code,
 						phone,point,email,mem_status,last_date,bank_name,bank_account,bank_member,reg_ip,mem_ip,regdate,reg_domain, logo, is_recommender, is_store, rec_tex_type, rec_rate_sport, rec_rate_minigame, rec_one_folder_flag)
 		 				values(";
 		
@@ -510,7 +510,7 @@ class MemberModel extends Lemon_Model
 		$sql = "select a.*,b.rec_id, 
 						(select ifnull(sum(amount),0) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1)-(select ifnull(sum(amount),0) from ".$this->db_qz."exchange_log 
 						where member_sn=a.sn and state=1) as benefit
-						from ".$this->db_qz."member a left outer join ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
+						from ".$this->db_qz."people a left outer join ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
 						where a.sn=".$sn;
 		$rs = $this->db->exeSql($sql);
 	
@@ -533,7 +533,7 @@ class MemberModel extends Lemon_Model
 			 Trim($rs['bank_account'])!=Trim($bank_account) ||
 			 Trim($rs['bank_member'])!=Trim($bank_member) )
 		{
-			$sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+			$sql = "insert into ".$this->db_qz."people_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
 							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '" . $_SESSION["member"]["ip"] . "', '".$this->logo."')";
 			$this->db->exeSql($sql);
 		}
@@ -552,10 +552,10 @@ class MemberModel extends Lemon_Model
 
 		//-> 해킹방지 bank 정보 업데이트 불가능.
 		//$where = str_replace("bank_","",$where);
-		// $sql = "update ".$this->db_qz."member 
+		// $sql = "update ".$this->db_qz."people 
         //         set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
         //         email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate." where uid='".$uid."'";
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
                 set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
                 email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate." where uid='".$uid."'";
 		return $this->db->exeSql($sql);
@@ -569,7 +569,7 @@ class MemberModel extends Lemon_Model
         $rs = $this->getById($uid);
         if(Trim($rs['bank_name'])!=Trim($bank_name) || Trim($rs['bank_account'])!=Trim($bank_account) || Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+            $sql = "insert into ".$this->db_qz."people_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
                         values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
@@ -588,11 +588,11 @@ class MemberModel extends Lemon_Model
         
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
-        // $sql = "update ".$this->db_qz."member 
+        // $sql = "update ".$this->db_qz."people 
         //     set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
         //     email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate.", 
         //     rec_tex_type='".$tex_type."', rec_rate_sport=".$tex_rate_sport.", rec_rate_minigame=".$tex_rate_minigame.", rec_one_folder_flag='".$rec_one_folder_flag."' where uid='".$uid."'";
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
                 set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
                 email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate.", 
                 rec_tex_type='".$tex_type."', rec_rate_sport=".$tex_rate_sport.", rec_rate_minigame=".$tex_rate_minigame.", rec_one_folder_flag='".$rec_one_folder_flag."' where uid='".$uid."'";
@@ -614,7 +614,7 @@ class MemberModel extends Lemon_Model
 		
 		$where = "sn=".$sn;
 
-        $sql = "update ".$this->db_qz."member
+        $sql = "update ".$this->db_qz."people
                         set upass= '".$data['upass']."',
                         sms_safedomain= '".$data['sms_safedomain']."',
                         sms_event= '".$data['sms_event']."',
@@ -622,7 +622,7 @@ class MemberModel extends Lemon_Model
                         exchange_pass= '".$data['exchange_pass']."' 
                 where   sn=".$sn;
 
-		//$this->db->setUpdate($this->db_qz.'member', $data, $where);
+		//$this->db->setUpdate($this->db_qz.'people', $data, $where);
 		
 		$this->db->exeSql($sql);
 	}
@@ -630,7 +630,7 @@ class MemberModel extends Lemon_Model
 	//▶ 회원 메모쓰기
 	function writeNote($sn, $content)
 	{
-		$sql = "insert into ".$this->db_qz."member_note(member_sn,regdate,memo) values ";
+		$sql = "insert into ".$this->db_qz."people_note(member_sn,regdate,memo) values ";
 		$sql.= "(".$sn.",now(),'".$content."')";
 		return $this->db->exeSql($sql);
 	}
@@ -638,7 +638,7 @@ class MemberModel extends Lemon_Model
 	//▶ 회원 메모수정
 	function modifyNote($noteSn, $content)
 	{
-		$sql = "update ".$this->db_qz."member_note
+		$sql = "update ".$this->db_qz."people_note
 						set memo= '".$content."' where sn=".$noteSn;
 				
 		return $this->db->exeSql($sql);
@@ -648,7 +648,7 @@ class MemberModel extends Lemon_Model
 	function getNote($sn)
 	{
 		$sql = "select * 
-				from ".$this->db_qz."member_note
+				from ".$this->db_qz."people_note
 					where sn='".$sn."'";
 		$rs = $this->db->exeSql($sql);
 		return $rs[0];
@@ -657,7 +657,7 @@ class MemberModel extends Lemon_Model
 	//▶ 관리자 메모삭제
 	function delNote($sn)
 	{
-		$sql = "delete from ".$this->db_qz."member_note where sn = ".$sn;
+		$sql = "delete from ".$this->db_qz."people_note where sn = ".$sn;
 		$this->db->exeSql($sql);
 	}
 	
@@ -668,7 +668,7 @@ class MemberModel extends Lemon_Model
 	 			(select rec_id from ".$this->db_qz."recommend where idx=recommend_sn) as recommend_id,
 	 			(select sum(agree_amount) from ".$this->db_qz."charge_log where member_sn=a.sn) as tot_charge,
 	 			(select sum(agree_amount) from ".$this->db_qz."exchange_log where member_sn=a.sn) as tot_exchange
-			from ".$this->db_qz."member a order by regdate desc";
+			from ".$this->db_qz."people a order by regdate desc";
 		
 		$rs = $this->db->exeSql($sql);
 		
@@ -679,7 +679,7 @@ class MemberModel extends Lemon_Model
 	function getMemberBankList($memberSn)
 	{
 	
-		$sql = "select * from ".$this->db_qz."member_bank
+		$sql = "select * from ".$this->db_qz."people_bank
 						where member_sn=".$memberSn." and logo='".$this->logo."'";
 		
 		return $this->db->exeSql($sql);
@@ -688,14 +688,14 @@ class MemberModel extends Lemon_Model
 	//하루 배팅취소 횟수업데이트
 	function setBet_cancel_cnt($sn, $bet_cancel_cnt)
 	{
-		$sql = "update ".$this->db_qz."member set bet_cancel_flag='".date('Y-m-d')."_".$bet_cancel_cnt."'	where sn=".$sn." and logo='".$this->logo."'";
+		$sql = "update ".$this->db_qz."people set bet_cancel_flag='".date('Y-m-d')."_".$bet_cancel_cnt."'	where sn=".$sn." and logo='".$this->logo."'";
 		return $this->db->exeSql($sql);
 	}
 
     // 해당 유저의 취소된 배팅개수 얻기
     function getBetCancelCnt($memberSn)
     {
-        $sql = "SELECT bet_cancel_cnt FROM tb_member WHERE sn = " . $memberSn;
+        $sql = "SELECT bet_cancel_cnt FROM tb_people WHERE sn = " . $memberSn;
         $res = $this->db->exeSql($sql);
         $betCancelCnt = 0;
         if(count((array)$res) > 0) 
@@ -706,7 +706,7 @@ class MemberModel extends Lemon_Model
     // 해당 유저의 취소된 배팅개수 초기화
     function clearBetCancelCnt($memberSn)
     {
-        $sql = "UPDATE tb_member SET bet_cancel_cnt = 0 WHERE sn = " . $memberSn;
+        $sql = "UPDATE tb_people SET bet_cancel_cnt = 0 WHERE sn = " . $memberSn;
         $res = $this->db->exeSql($sql);
         return $res;
     }
@@ -726,7 +726,7 @@ class MemberModel extends Lemon_Model
 	function getJoiners($member_sn)
 	{
 		$sql = "select b.*
-						from ".$this->db_qz."join_recommend a, ".$this->db_qz."member b
+						from ".$this->db_qz."join_recommend a, ".$this->db_qz."people b
 						where a.member_sn=b.sn and a.recommend_sn=".$member_sn;
 		$rs = $this->db->exeSql($sql);
 		
@@ -736,7 +736,7 @@ class MemberModel extends Lemon_Model
 	// 미일리지
     function getMileageRate($mem_sn)
     {
-        /*$sql ="select m.sn, lc.lev_join_recommend_mileage_rate as rate from tb_member m, tb_level_config lc ".
+        /*$sql ="select m.sn, lc.lev_join_recommend_mileage_rate as rate from tb_people m, tb_level_config lc ".
               " where m.mem_lev = lc.lev ".
               " and m.sn = ".$mem_sn;
 
@@ -744,7 +744,7 @@ class MemberModel extends Lemon_Model
         $array = explode(':', $rs[0]['rate']);
         return $array[0];*/
 
-        $sql ="select m.sn, m.rate from tb_member m ".
+        $sql ="select m.sn, m.rate from tb_people m ".
             " where m.sn = ".$mem_sn;
 
         $rs = $this->db->exeSql($sql);
@@ -761,7 +761,7 @@ class MemberModel extends Lemon_Model
 								(select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=b.sn) as bet_total,
 								ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=b.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) as benefit,
 								(select count(*) from ".$this->db_qz."visit where member_id=b.uid) as visit_count 
-						from ".$this->db_qz."join_recommend a, ".$this->db_qz."member b
+						from ".$this->db_qz."join_recommend a, ".$this->db_qz."people b
 						where a.member_sn=b.sn and a.recommend_sn=".$member_sn;
 		
         $rs = $this->db->exeSql($sql);
@@ -776,7 +776,7 @@ class MemberModel extends Lemon_Model
                     (select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=b.sn) as bet_total,
                     ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=b.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=b.sn and state=1), 0) as benefit,
                     (select count(*) from ".$this->db_qz."visit where member_id=b.uid) as visit_count 
-				from ".$this->db_qz."member b
+				from ".$this->db_qz."people b
 				where b.is_store=0 and b.recommend_sn=".$recommend_sn;
 
 		$rs = $this->db->exeSql($sql);
@@ -805,13 +805,13 @@ class MemberModel extends Lemon_Model
 
 	//->총판id를 sn으로 바꾸기 위한 쿼리. #1
 	function get_member_recommend() {
-		$sql = "select a.sn as mem_sn, b.Idx as rec_sn from tb_member a, tb_recommend b where a.recommend_sn = b.rec_id and b.rec_lev = 1 and a.sn > 9";
+		$sql = "select a.sn as mem_sn, b.Idx as rec_sn from tb_people a, tb_recommend b where a.recommend_sn = b.rec_id and b.rec_lev = 1 and a.sn > 9";
 		$rs = $this->db->exeSql($sql);
 		return $rs;
 	}
 	//->총판id를 sn으로 바꾸기 위한 쿼리. #2
 	function update_recid_to_recsn($mem_sn, $rec_sn) {
-		$sql = "update tb_member set recommend_sn = '{$rec_sn}' where sn = '{$mem_sn}'";
+		$sql = "update tb_people set recommend_sn = '{$rec_sn}' where sn = '{$mem_sn}'";
 		return $this->db->exeSql($sql);
 	}
 
@@ -854,7 +854,7 @@ class MemberModel extends Lemon_Model
 
     function getTotalList($kind, $keyword, $field)
     {
-        $sql = "select ".$field." from tb_member where mem_status='N'";
+        $sql = "select ".$field." from tb_people where mem_status='N'";
         if($kind == 'mem_id')
         {
             $sql .= " and uid like '%".$keyword."%'";
@@ -868,7 +868,7 @@ class MemberModel extends Lemon_Model
 
     function getCheckList($kind, $keyword, $start, $end)
     {
-        $sql = "select * from tb_presense_check p, tb_member m where m.sn=p.member_sn and date >='{$start}' and date <='{$end}'";
+        $sql = "select * from tb_presense_check p, tb_people m where m.sn=p.member_sn and date >='{$start}' and date <='{$end}'";
         if($kind == 'mem_id')
         {
             $sql .= " and m.uid like '%".$keyword."%'";
@@ -897,13 +897,13 @@ class MemberModel extends Lemon_Model
 	
 	//매장의 모든 유저
 	function getListUser($recommend_sn) {
-		$sql = "Select * From tb_member WHERE recommend_sn = ".$recommend_sn;
+		$sql = "Select * From tb_people WHERE recommend_sn = ".$recommend_sn;
 		return $this->db->exeSql($sql);
 	}
 
     //-> 총판 보유머니 변경
     function modifyRecMoney($sn, $rec_money) {
-        $sql = "update ".$this->db_qz."member set rec_money='".$rec_money."' where sn='".$sn."'";
+        $sql = "update ".$this->db_qz."people set rec_money='".$rec_money."' where sn='".$sn."'";
         return $this->db->exeSql($sql);
     }
 
@@ -917,14 +917,14 @@ class MemberModel extends Lemon_Model
 
 	public function getSortieList()
     {
-        $sql = "select sn, uid, nick from tb_member where sortie=1 order by uid asc";
+        $sql = "select sn, uid, nick from tb_people where sortie=1 order by uid asc";
         $rs = $this->db->exeSql($sql);
         return $rs;
     }
 
     public function getMemberRows2()
     {
-        $sql = "select * from tb_member order by nick asc";
+        $sql = "select * from tb_people order by nick asc";
 
         $rs = $this->db->exeSql($sql);
         return $rs;
@@ -932,7 +932,7 @@ class MemberModel extends Lemon_Model
 
     function modifyChangeBank($bankname,$banknum,$bankusername,$sn)
     {
-        // $sql = "update ".$this->db_qz."member 
+        // $sql = "update ".$this->db_qz."people 
 		// 		set bank_name='".$bankname."',bank_account='".$banknum."',bank_member='".$bankusername."' 
 		// 			where sn='".$sn."'";
         $sql = "";
@@ -947,7 +947,7 @@ class MemberModel extends Lemon_Model
             $where.= " and a.sn in (select member_sn from ".$this->db_qz."join_recommend where recommend_sn = ".$joinRecommendSn.")";
         }
 
-        $sql = "select count(*) as cnt from ".$this->db_qz."member a where 1=1 ".$logo.$where;
+        $sql = "select count(*) as cnt from ".$this->db_qz."people a where 1=1 ".$logo.$where;
 
         $rs = $this->db->exeSql($sql);
         return $rs[0]['cnt'];
@@ -956,7 +956,7 @@ class MemberModel extends Lemon_Model
     function getPassword($sn)
     {
         $sql = "select upass 
-							from ".$this->db_qz."member 
+							from ".$this->db_qz."people 
 								where sn='".$sn."'";
         $rs = $this->db->exeSql($sql);
 
@@ -965,7 +965,7 @@ class MemberModel extends Lemon_Model
 
     function modifyChangePassword($sn,$password)
     {
-        $sql = "update ".$this->db_qz."member set upass='".$password."' 
+        $sql = "update ".$this->db_qz."people set upass='".$password."' 
 						where sn='".$sn."'";
 
         return $this->db->exeSql($sql);
@@ -980,7 +980,7 @@ class MemberModel extends Lemon_Model
         /*$sql = "select sum(amount) amt from tb_mileage_log ".
             " where member_sn = ". $mem_sn;*/
 
-        $sql = "select point as amt from tb_member ".
+        $sql = "select point as amt from tb_people ".
             " where sn = ". $mem_sn;
 
         $rs = $this->db->exeSql($sql);
@@ -1001,7 +1001,7 @@ class MemberModel extends Lemon_Model
         /*$sql = "select sum(amount) amt from tb_mileage_log ".
             " where member_sn = ". $mem_sn;*/
 
-        /*$sql = "select point as amt from tb_member ".
+        /*$sql = "select point as amt from tb_people ".
             " where sn = ". $mem_sn;*/
 
         $rs = $this->db->exeSql($sql);
@@ -1034,7 +1034,7 @@ class MemberModel extends Lemon_Model
                         (select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn) as bet_total,
                         ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) as benefit,
                         (select count(*) from ".$this->db_qz."visit where member_id=a.uid) as visit_count
-                from ".$this->db_qz."member a  
+                from ".$this->db_qz."people a  
                 where a.is_store=0 and a.sn>0".$logo.$where.$orderby."
                 limit ".$page.",".$page_size;
         
@@ -1046,7 +1046,7 @@ class MemberModel extends Lemon_Model
             $rs[$i]['country_code'] = $eModel->getNationByIp($ip);
 
             // 가입 추천인 정보
-            $sql = "select sn, nick, bank_member from ".$this->db_qz."member
+            $sql = "select sn, nick, bank_member from ".$this->db_qz."people
 							where sn in (select recommend_sn from ".$this->db_qz."join_recommend where member_sn=".$rs[$i]['sn'].")";
             $rsi = $this->db->exeSql($sql);
             $rs[$i]['join_recommend_sn'] = $rsi[0]['sn'];
@@ -1068,7 +1068,7 @@ class MemberModel extends Lemon_Model
 
 	function modifyRate($sn, $rate)
     {
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
 							set rate=".$rate." where sn =".$sn;
 
         return $this->db->exeSql($sql);
@@ -1076,7 +1076,7 @@ class MemberModel extends Lemon_Model
 
     function modifyRate2($sn, $rate, $rate2, $rate_inout)
     {
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
 							set rate=".$rate.", rate2=".$rate2.", rate_inout=".$rate_inout." where sn =".$sn;
 
         return $this->db->exeSql($sql);
@@ -1109,7 +1109,7 @@ class MemberModel extends Lemon_Model
             $levelCode 	= $levelModel->makeMemberLevelCode($partnerSn);
         }
 
-        $sql = "insert into ".$this->db_qz."member(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn, mem_lev, level_code,
+        $sql = "insert into ".$this->db_qz."people(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn, mem_lev, level_code,
 						phone,point,email,mem_status,last_date,bank_name,bank_account,bank_member,reg_ip,mem_ip,regdate,reg_domain, logo, is_recommender)
 		 				values(";
 
@@ -1140,10 +1140,10 @@ class MemberModel extends Lemon_Model
 
         if ( $memberSn <= 0 ) return 0;
 
-        $sql = "insert into ".$this->db_qz."member_config(member_sn) values(".$memberSn.")";
+        $sql = "insert into ".$this->db_qz."people_config(member_sn) values(".$memberSn.")";
         $this->db->exeSql($sql);
 
-        $sql = "insert into ".$this->db_qz."member_odd(member_sn) values(".$memberSn.")";
+        $sql = "insert into ".$this->db_qz."people_odd(member_sn) values(".$memberSn.")";
         $this->db->exeSql($sql);
 
         if ( $joinerSn > 0 ) {
@@ -1152,7 +1152,7 @@ class MemberModel extends Lemon_Model
             $rs = $partnerModel->addRecommend($memberSn, $joinerSn);
         }
 
-        $sql = "insert into ".$this->db_qz."member_bk(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn, mem_lev, level_code,
+        $sql = "insert into ".$this->db_qz."people_bk(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn, mem_lev, level_code,
 						phone,point,email,mem_status,last_date,bank_name,bank_account,bank_member,reg_ip,mem_ip,regdate,reg_domain, logo, is_recommender)
 		 				values(";
 
@@ -1210,7 +1210,7 @@ class MemberModel extends Lemon_Model
 
         $bank_account = str_replace('&', '', $bank_account);
 
-        $sql = "insert into ".$this->db_qz."member(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn,level_code,
+        $sql = "insert into ".$this->db_qz."people(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn,level_code,
 						phone, rate, rate2, point,mem_status,last_date,bank_name,bank_account,bank_member,reg_ip,mem_ip,regdate,reg_domain, logo, is_recommender, is_store)
 		 				values(";
 
@@ -1241,12 +1241,12 @@ class MemberModel extends Lemon_Model
 
         if ( $memberSn <= 0 ) return 0;
 
-        $sql = "insert into ".$this->db_qz."member_config(member_sn) values(".$memberSn.")";
+        $sql = "insert into ".$this->db_qz."people_config(member_sn) values(".$memberSn.")";
         $this->db->exeSql($sql);
 
         if($is_store === 1)
         {
-            $sql = "insert into ".$this->db_qz."member_odd(member_sn) values(".$memberSn.")";
+            $sql = "insert into ".$this->db_qz."people_odd(member_sn) values(".$memberSn.")";
             $this->db->exeSql($sql);
         }
 
@@ -1256,7 +1256,7 @@ class MemberModel extends Lemon_Model
             $rs = $partnerModel->addRecommend($memberSn, $joinerSn);
         }
 
-        $sql = "insert into ".$this->db_qz."member_bk(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn,level_code,
+        $sql = "insert into ".$this->db_qz."people_bk(uid,upass,birthday,exchange_pass,nick,name,recommend_sn,rolling_sn,level_code,
 						phone, rate, rate2, point,mem_status,last_date,bank_name,bank_account,bank_member,reg_ip,mem_ip,regdate,reg_domain, logo, is_recommender, is_store)
 		 				values(";
 
@@ -1299,12 +1299,12 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+            $sql = "insert into ".$this->db_qz."people_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
 							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
 
-        // $sql = "update ".$this->db_qz."member 
+        // $sql = "update ".$this->db_qz."people 
 		// 				set ".$where." bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."' where uid='".$uid."'";
         $sql = "";
         return $this->db->exeSql($sql);
@@ -1314,7 +1314,7 @@ class MemberModel extends Lemon_Model
     function modifyBankMember($bank_member, $sn)
     {
         //뱅킹 정보 변경시 업데이트를 위해 데이터 변경을 확인한다.
-        // $sql = "update ".$this->db_qz."member 
+        // $sql = "update ".$this->db_qz."people 
 		// 				set bank_member='".$bank_member."' where sn=".$sn;
         $sql = "";
         return $this->db->exeSql($sql);
@@ -1330,7 +1330,7 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+            $sql = "insert into ".$this->db_qz."people_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
 							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
@@ -1349,7 +1349,7 @@ class MemberModel extends Lemon_Model
 
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
 						set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
 						email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd.
                         "', balance_flag=".$balance_flag.", is_adh=".$is_adh.", powerball_flag=".$powerball_flag.", wooriball_flag=".$wooriball_flag.", is_print=".$is_print.
@@ -1367,7 +1367,7 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+            $sql = "insert into ".$this->db_qz."people_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
 							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
@@ -1386,7 +1386,7 @@ class MemberModel extends Lemon_Model
 
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
 						set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
 						email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.
             "    ,powerball_flag=".$powerball_flag.", wooriball_flag=".$wooriball_flag.", is_print=".$is_print.", rate=".$rate.", rate2=".$rate2.
@@ -1406,7 +1406,7 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+            $sql = "insert into ".$this->db_qz."people_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
 							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
@@ -1425,7 +1425,7 @@ class MemberModel extends Lemon_Model
 
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
 						set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
 						email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.
             "    ,powerball_flag=".$powerball_flag.", wooriball_flag=".$wooriball_flag.", ball_flag=".$ball_flag.",is_print=".$is_print.", rate=".$rate.", rate2=".$rate2.", is_adh=".$is_adh.
@@ -1445,7 +1445,7 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+            $sql = "insert into ".$this->db_qz."people_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
 							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
@@ -1464,7 +1464,7 @@ class MemberModel extends Lemon_Model
 
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
 						set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
 						email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.
             "    ,powerball_flag=".$powerball_flag.", wooriball_flag=".$wooriball_flag.", ball_flag=".$ball_flag.",is_print=".$is_print.", rate=".$rate.", rate2=".$rate2.", is_adh=".$is_adh.", is_recommender=".$is_recommender.
@@ -1483,7 +1483,7 @@ class MemberModel extends Lemon_Model
             Trim($rs['bank_account'])!=Trim($bank_account) ||
             Trim($rs['bank_member'])!=Trim($bank_member) )
         {
-            $sql = "insert into ".$this->db_qz."member_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
+            $sql = "insert into ".$this->db_qz."people_bank(member_sn, bank_name, bank_account, bank_member, regdate, strIP, logo)
 							values(".$rs['sn'].",'".$bank_name."','".$bank_account."','".$bank_member."', now(), '".$_SESSION["member"]["ip"]."', '".$this->logo."')";
             $this->db->exeSql($sql);
         }
@@ -1502,7 +1502,7 @@ class MemberModel extends Lemon_Model
 
         //-> 해킹방지 bank 정보 업데이트 불가능.
         //$where = str_replace("bank_","",$where);
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
 						set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
 						email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.
             "    , is_print=".$is_print.", rate=".$rate.", rate2=".$rate2.
@@ -1523,7 +1523,7 @@ class MemberModel extends Lemon_Model
         }
 
         $where = "sn=".$sn;
-        $this->db->setUpdate($this->db_qz.'member', $data, $where);
+        $this->db->setUpdate($this->db_qz.'people', $data, $where);
         $this->db->exeSql();
     }
 
@@ -1535,7 +1535,7 @@ class MemberModel extends Lemon_Model
 
         $where = "sn=".$sn;
 
-        $this->db->setUpdate($this->db_qz.'member', $data, $where);
+        $this->db->setUpdate($this->db_qz.'people', $data, $where);
 
         $this->db->exeSql();
     }
@@ -1543,7 +1543,7 @@ class MemberModel extends Lemon_Model
     function getJoinerRate($member_sn, $is_single)
     {
         $sql = "select m.rate, m.rate2 
-                from tb_member m, tb_join_recommend r
+                from tb_people m, tb_join_recommend r
                 where m.sn = r.recommend_sn and r.member_sn=".$member_sn;
         $rs = $this->db->exeSql($sql);
 
@@ -1563,7 +1563,7 @@ class MemberModel extends Lemon_Model
     function getOnlineMemberChargeTotal($storeSn, $startDate="", $endDate="", $where="")
     {
         $sql = "select count(*) as cnt, sum(agree_amount) as sum_amount
-                    from ".$this->db_qz."charge_log a,".$this->db_qz."member b
+                    from ".$this->db_qz."charge_log a,".$this->db_qz."people b
                     where a.member_sn=b.sn and b.recommend_sn='".$storeSn."' and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59'".$where;
         $rs = $this->db->exeSql($sql);
         return $rs[0];
@@ -1577,7 +1577,7 @@ class MemberModel extends Lemon_Model
 
         $sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bonus,a.bank_owner, a.state, a.note,
 						b.uid, b.nick, b.g_money, b.bank_member 
-						from ".$this->db_qz."charge_log a,".$this->db_qz."member b
+						from ".$this->db_qz."charge_log a,".$this->db_qz."people b
 						where a.member_sn=b.sn and b.recommend_sn='".$storeSn."' and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' ".$where."
                         order by a.regdate desc ".$limit;
         return $this->db->exeSql($sql);
@@ -1586,7 +1586,7 @@ class MemberModel extends Lemon_Model
     function getOnlineMemberExchangeTotal($storeSn, $startDate="", $endDate="", $where)
     {
         $sql = "select count(*) as cnt, sum(agree_amount) as sum_amount
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."member b 
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b 
 						where a.member_sn=b.sn and b.recommend_sn='".$storeSn."' and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59'".$where;
         $rs = $this->db->exeSql($sql);
         return $rs[0];
@@ -1600,7 +1600,7 @@ class MemberModel extends Lemon_Model
 
         $sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bank_owner, a.state,
 						b.uid, b.nick, b.g_money, b.bank_member
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."member b 
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b 
                         where a.member_sn=b.sn and b.recommend_sn='".$storeSn."' and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' ".$where." order by a.regdate desc ".$limit;
                         
         return $this->db->exeSql($sql);
@@ -1609,7 +1609,7 @@ class MemberModel extends Lemon_Model
     function getParentRate($member_sn)
     {
         $sql = "select m.recommend_sn, r.*
-                from tb_member m, tb_recommend r
+                from tb_people m, tb_recommend r
                 where m.sn=".$member_sn." and m.recommend_sn = r.Idx;";
         $rs = $this->db->exeSql($sql);
         return $rs[0];
@@ -1618,7 +1618,7 @@ class MemberModel extends Lemon_Model
     function getStoreRate($member_sn)
     {
         $sql = "select m.rate, m.rate2
-                from tb_member m, tb_join_recommend r
+                from tb_people m, tb_join_recommend r
                 where r.member_sn=".$member_sn." and m.sn = r.recommend_sn;";
         $rs = $this->db->exeSql($sql);
         return $rs[0];
@@ -1628,7 +1628,7 @@ class MemberModel extends Lemon_Model
     function getStoreSn($member_sn)
     {
         $sql = "select m.sn
-                from tb_member m, tb_join_recommend r
+                from tb_people m, tb_join_recommend r
                 where r.member_sn=".$member_sn." and m.sn = r.recommend_sn;";
         $rs = $this->db->exeSql($sql);
         return $rs[0]['sn'];
@@ -1638,7 +1638,7 @@ class MemberModel extends Lemon_Model
     function getBetMoneyConfig($field, $keyword, $is_store)
     {
         $sql = "select m.sn, m.uid, m1.* 
-                from tb_member m, tb_member_config m1
+                from tb_people m, tb_people_config m1
                 where m.is_store={$is_store} and m.sn = m1.member_sn and mem_status in ('N', 'G', 'W')";
 
         if($field == "mem_id")
@@ -1655,7 +1655,7 @@ class MemberModel extends Lemon_Model
     function getMemberOddConfig($field, $keyword, $is_store)
     {
         $sql = "select m.sn, m.uid, m1.* 
-                from tb_member m, tb_member_odd m1
+                from tb_people m, tb_people_odd m1
                 where m.is_store={$is_store} and m.sn = m1.member_sn and mem_status in ('N', 'G', 'W')";
 
         if($field == "mem_id")
@@ -1673,7 +1673,7 @@ class MemberModel extends Lemon_Model
     function getChildBetMoneyConfig($store_sn)
     {
         $sql = "select m.sn, m.uid, m1.* 
-                from tb_member m, tb_member_config m1, tb_join_recommend a
+                from tb_people m, tb_people_config m1, tb_join_recommend a
                 where m.is_store=0 and m.sn = m1.member_sn and a.member_sn = m.sn and a.recommend_sn=".$store_sn;
         $rs = $this->db->exeSql($sql);
         return $rs;
@@ -1682,7 +1682,7 @@ class MemberModel extends Lemon_Model
     function getChildBetOddConfig($store_sn)
     {
         $sql = "select m.sn, m.uid, m1.* 
-                from tb_member m, tb_member_odd m1, tb_join_recommend a
+                from tb_people m, tb_people_odd m1, tb_join_recommend a
                 where m.is_store=0 and m.sn = m1.member_sn and a.member_sn = m.sn and a.recommend_sn=".$store_sn;
         $rs = $this->db->exeSql($sql);
         return $rs;
@@ -1697,7 +1697,7 @@ class MemberModel extends Lemon_Model
                                      $wooriball_max, $w_power_max, $w_ball_max,
                                      $w_pb_tie_max, $w_dragon_max, $w_dt_tie_max, $w_tiger_max)
     {
-        $sql = "update tb_member_config set 
+        $sql = "update tb_people_config set 
 						powerball_max={$powerball_max}, p_odd_max = {$p_odd}, p_even_max = {$p_even}, p_under_max = {$p_under}, p_over_max = {$p_over},
 						p_odd_under_max = {$p_odd_under_max}, p_odd_over_max = {$p_odd_over_max},
 						p_even_under_max = {$p_even_under_max}, p_even_over_max = {$p_even_over_max}, 
@@ -1721,7 +1721,7 @@ class MemberModel extends Lemon_Model
                                  $odd_large, $odd_middle, $odd_small, $even_large, $even_middle, $even_small,
                                  $w_power, $w_ball, $w_pb_tie, $w_dragon, $w_dt_tie, $w_tiger)
     {
-        $sql = "update tb_member_odd set 
+        $sql = "update tb_people_odd set 
 						p_odd = '{$p_odd}', p_even = '{$p_even}', p_under = '{$p_under}', p_over = '{$p_over}', 
 						p_odd_under = '{$p_odd_under}', p_odd_over = '{$p_odd_over}',
 						p_even_under = '{$p_even_under}', p_even_over = '{$p_even_over}',
@@ -1741,15 +1741,15 @@ class MemberModel extends Lemon_Model
     //▶ 멤버레벨 미니게임
     function getMemberConfig($member_sn) {
         $where = "member_sn = ".$member_sn;
-        return $this->getRow("*", "tb_member_config", $where);
+        return $this->getRow("*", "tb_people_config", $where);
     }
 
     /*function getMembeOdd($member_sn) {
         $where = "member_sn = ".$member_sn;
-        return $this->getRow("*", "tb_member_odd", $where);
+        return $this->getRow("*", "tb_people_odd", $where);
     }*/
     /*function getMembeOdd($member_sn) {
-        $sql = "select r3.rec_id, m.uid, ro.* from tb_member m, tb_recommend r1, tb_recommend r2, tb_recommend r3, tb_recommend_odd ro
+        $sql = "select r3.rec_id, m.uid, ro.* from tb_people m, tb_recommend r1, tb_recommend r2, tb_recommend r3, tb_recommend_odd ro
             where m.sn = ".$member_sn." and m.recommend_sn = r1.Idx
             and r1.rec_parent_id = r2.rec_id
             and r2.rec_parent_id = r3.rec_id
@@ -1761,13 +1761,13 @@ class MemberModel extends Lemon_Model
     }*/
 
     function getMembeOdd($member_sn, $is_store) {
-        $sql = "select * from tb_member_odd 
+        $sql = "select * from tb_people_odd 
             where member_sn = ".$member_sn;
 
         if($is_store == 0)
         {
             $sql = "select o.* 
-                from tb_join_recommend r, tb_member m, tb_member_odd o
+                from tb_join_recommend r, tb_people m, tb_people_odd o
                 where r.member_sn=".$member_sn." 
                 and r.recommend_sn=m.sn
                 and m.sn=o.member_sn";
@@ -1780,7 +1780,7 @@ class MemberModel extends Lemon_Model
 
     function getTexDataTotal($store_sn, $startDate, $endDate) {
         $sql = "select count(*)  as cnt from (select a.rec_sn_top
-						from ".$this->db_qz."recommend_tex a, ".$this->db_qz."member b
+						from ".$this->db_qz."recommend_tex a, ".$this->db_qz."people b
 							where b.is_store=1 and a.rec_sn = b.sn and (get_tex_money > 0 or money_to_exchange > 0 or money_to_charge > 0) ";
 
         if($store_sn != null && $store_sn != '')
@@ -1805,7 +1805,7 @@ class MemberModel extends Lemon_Model
     }
 
     function getTexDataList($rec_sn, $startDate, $endDate, $page, $page_size) {
-        $sql = "select a.*, b.g_money as rec_money from ".$this->db_qz."recommend_tex a, ".$this->db_qz."member b
+        $sql = "select a.*, b.g_money as rec_money from ".$this->db_qz."recommend_tex a, ".$this->db_qz."people b
 							where b.is_store=1 and a.rec_sn = b.sn and (get_tex_money > 0 or money_to_exchange > 0 or money_to_charge > 0) ";
 
         if($rec_sn != null && $rec_sn != '') {
@@ -1829,7 +1829,7 @@ class MemberModel extends Lemon_Model
     function getStoreChargeSum($storeSn, $startDate="", $endDate="", $where="")
     {
         $sql = "select count(*) as cnt, sum(agree_amount) as sum_amount
-						from ".$this->db_qz."charge_log a,".$this->db_qz."member b, ".$this->db_qz."join_recommend c 
+						from ".$this->db_qz."charge_log a,".$this->db_qz."people b, ".$this->db_qz."join_recommend c 
 						where a.member_sn=b.sn and b.sn = c.member_sn";
         if($storeSn != '')
         {
@@ -1854,7 +1854,7 @@ class MemberModel extends Lemon_Model
     function getStoreExchangeSum($storeSn, $startDate="", $endDate="", $where)
     {
         $sql = "select count(*) as cnt, sum(agree_amount) as sum_amount
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."member b, ".$this->db_qz."join_recommend c
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b, ".$this->db_qz."join_recommend c
 						where a.member_sn=b.sn and b.sn = c.member_sn ";
         if($storeSn != '')
         {
@@ -1895,7 +1895,7 @@ class MemberModel extends Lemon_Model
 							sum(a.get_tex_money) as get_tex_money,
 							sum(a.tex_money2) as tex_money2,
 							sum(a.get_tex_money2) as get_tex_money2
-				from " . $this->db_qz . "recommend_tex a, " . $this->db_qz . "member b, ".$this->db_qz."join_recommend c
+				from " . $this->db_qz . "recommend_tex a, " . $this->db_qz . "people b, ".$this->db_qz."join_recommend c
 				where a.rec_sn = b.sn and b.sn=c.member_sn";
 
         if($rec_sn != null && $rec_sn != '') {
@@ -1967,7 +1967,7 @@ class MemberModel extends Lemon_Model
     //-> mg. 관리자가 정산금 관련해서 데이터를 조회	
 	function getTexData($texDate = "", $startDate = "", $endDate = "") {
 		if ( strlen($texDate) > 1 ) {
-			$sql = "select a.*, b.g_money, b.uid from ".$this->db_qz."recommend_tex a, ".$this->db_qz."member b
+			$sql = "select a.*, b.g_money, b.uid from ".$this->db_qz."recommend_tex a, ".$this->db_qz."people b
 							where a.rec_sn_store = b.sn and a.regdate between '".$texDate." 00:00:00' and '".$texDate." 23:59:59' 
 							order by a.rec_id_store asc";
 			return $this->db->exeSql($sql);
@@ -1997,7 +1997,7 @@ class MemberModel extends Lemon_Model
 								sum(a.tex_money_store) as tex_money,
 								sum(a.get_tex_money_store) as get_tex_money,
 								sum(a.betting_to_ready) as betting_to_ready
-							from ".$this->db_qz."recommend_tex a, ".$this->db_qz."member b
+							from ".$this->db_qz."recommend_tex a, ".$this->db_qz."people b
 							where a.rec_sn_store = b.sn and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' 
 							group by a.rec_sn_store order by a.rec_id_store asc";
 			return $this->db->exeSql($sql);
@@ -2020,7 +2020,7 @@ class MemberModel extends Lemon_Model
             //배팅금액, 당첨금액 스포츠
             $sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 						from ".$this->db_qz."game_cart
-						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
+						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
 
             if($beginDate != '')
             {
@@ -2038,7 +2038,7 @@ class MemberModel extends Lemon_Model
             //배팅금액, 당첨금액 미니게임
             $sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 						from ".$this->db_qz."game_cart
-						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
+						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
 
             if($beginDate != '')
             {
@@ -2062,7 +2062,7 @@ class MemberModel extends Lemon_Model
 
     function modifyRecommend($sn, $status)
     {
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
 						set is_recommender=".$status." where sn=".$sn;
 
         return $this->db->exeSql($sql);
@@ -2070,7 +2070,7 @@ class MemberModel extends Lemon_Model
 
     function modifyRecommendRate($mem_sn, $recommend_limit, $join_recommend_mileage_rate_type, $join_recommend_mileage_rate)
     {
-        $sql = "update ".$this->db_qz."member 
+        $sql = "update ".$this->db_qz."people 
 							set recommend_limit={$recommend_limit}, join_recommend_mileage_rate_type='{$join_recommend_mileage_rate_type}', join_recommend_mileage_rate={$join_recommend_mileage_rate}   
 				where sn=".$mem_sn;
 
@@ -2080,14 +2080,14 @@ class MemberModel extends Lemon_Model
     function getRecommenderList($recommender_sn, $beginDate, $endDate)
     {
         $sql = "select p2.rec_id as ttop_id, p.rec_id as top_id, m.sn as mem_sn, m.uid, m.nick, m.mem_lev, m.is_recommender, l.lev_name, m.recommend_limit, m.join_recommend_mileage_rate_type, m.join_recommend_mileage_rate    
-                from tb_member m, tb_level_config l, tb_recommend p, tb_recommend p2
+                from tb_people m, tb_level_config l, tb_recommend p, tb_recommend p2
                 where m.sn in (select recommend_sn from tb_join_recommend group by recommend_sn) 
                 and m.recommend_sn = p.Idx and p.rec_parent_id=p2.rec_id and m.mem_lev=l.lev order by m.uid;";
 
         if($recommender_sn != null && $recommender_sn != '')
         {
             $sql = "select p2.rec_id as ttop_id, p.rec_id as top_id, m.sn as mem_sn, m.uid, m.nick, m.mem_lev, m.is_recommender, l.lev_name, m.recommend_limit, m.join_recommend_mileage_rate_type, m.join_recommend_mileage_rate    
-                from tb_member m, tb_level_config l, tb_recommend p, tb_recommend p2 
+                from tb_people m, tb_level_config l, tb_recommend p, tb_recommend p2 
                 where m.sn in (select member_sn from tb_join_recommend where recommend_sn={$recommender_sn})
                 and m.recommend_sn = p.Idx and p.rec_parent_id=p2.rec_id and m.mem_lev=l.lev order by m.uid;";
         }
@@ -2162,7 +2162,7 @@ class MemberModel extends Lemon_Model
     function getNewMemberCount($beginDate='', $endDate='')
     {
         $sql = "select count(sn) as member_count
-                from tb_member 
+                from tb_people 
                 where (mem_status='N' or mem_status='W') and regdate > '$beginDate' and regdate < '$endDate}3'";
 
         $rs = $this->db->exeSql($sql);
@@ -2231,7 +2231,7 @@ class MemberModel extends Lemon_Model
 
     // 고객센터 답변 알람개수 갱신
     function updateCustomerAnswerFlag($uid) {
-        $sql = "UPDATE tb_member SET customer_answer_flag = 0 WHERE uid = '" . $uid . "'";
+        $sql = "UPDATE tb_people SET customer_answer_flag = 0 WHERE uid = '" . $uid . "'";
         $this->db->exeSql($sql);
     }
 
@@ -2239,12 +2239,12 @@ class MemberModel extends Lemon_Model
         $sql = "SELECT
                     tb_game_betting.`betting_no`,
                     tb_game_betting.bet_money,
-                    tb_member.`sn`,
-                    tb_member.`uid`
+                    tb_people.`sn`,
+                    tb_people.`uid`
                 FROM
                     tb_game_betting
-                    LEFT JOIN tb_member
-                    ON tb_game_betting.member_sn = tb_member.sn
+                    LEFT JOIN tb_people
+                    ON tb_game_betting.member_sn = tb_people.sn
                 WHERE tb_game_betting.`sub_child_sn` = " . $subChildSn;
 
         $rs = $this->db->exeSql($sql);
@@ -2253,7 +2253,7 @@ class MemberModel extends Lemon_Model
     }
 
     function checkDuplicatedID($userid = "") {
-        $sql = "SELECT uid FROM tb_member WHERE uid LIKE '" . $userid . "'";
+        $sql = "SELECT uid FROM tb_people WHERE uid LIKE '" . $userid . "'";
         $rs = $this->db->exeSql($sql);
         $status = 1;
         if(count((array)$rs) > 0) {
@@ -2263,7 +2263,7 @@ class MemberModel extends Lemon_Model
     }
 
     function checkDuplicatedNickName($nick = "") {
-        $sql = "SELECT nick FROM tb_member WHERE nick LIKE '" . $nick . "'";
+        $sql = "SELECT nick FROM tb_people WHERE nick LIKE '" . $nick . "'";
         $rs = $this->db->exeSql($sql);
         $status = 1;
         if(count((array)$rs) > 0) {
@@ -2288,7 +2288,7 @@ class MemberModel extends Lemon_Model
     }
 
     function checkPhoneNumberUsed($phone_num = "") {
-        $sql = "SELECT phone FROM tb_member WHERE phone LIKE '" . $phone_num . "'";
+        $sql = "SELECT phone FROM tb_people WHERE phone LIKE '" . $phone_num . "'";
         $rs = $this->db->exeSql($sql);
         $loginUsed = 0;
         if(count((array)$rs) > 0) 

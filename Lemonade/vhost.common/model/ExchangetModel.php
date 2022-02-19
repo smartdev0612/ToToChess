@@ -31,11 +31,11 @@ class ExchangetModel extends Lemon_Model
         $sql .= " WHERE betting_no = ".$betting_no."";
         $this->db->exeSql($sql);
 
-        $sql = "UPDATE tb_member SET g_money = g_money -".$sale_price;
+        $sql = "UPDATE tb_people SET g_money = g_money -".$sale_price;
         $sql .= " WHERE sn = ".$purchaser_sn."";
         $this->db->exeSql($sql);
 
-        $sql = "UPDATE tb_member SET g_money = g_money +".$sale_price;
+        $sql = "UPDATE tb_people SET g_money = g_money +".$sale_price;
         $sql .= " WHERE sn = ".$seller_sn."";
         $this->db->exeSql($sql);
     }

@@ -33,7 +33,7 @@ class BoardModel extends Lemon_Model
 	//▶ 고객센터 총합
 	function getCsTotal($where)
 	{
-		$sql = "select count(*) as cnt from ".$this->db_qz."question a, ".$this->db_qz."member b 
+		$sql = "select count(*) as cnt from ".$this->db_qz."question a, ".$this->db_qz."people b 
 						where a.mem_id=b.uid and 1=1 ".$where." order by a.regdate desc";
 					
 		$rs = $this->db->exeSql($sql);
@@ -44,7 +44,7 @@ class BoardModel extends Lemon_Model
 	function getCsList($where, $page, $page_size)
 	{
 		$sql = "select a.*, b.nick, b.uid, b.bank_member, b.bank_name, b.mem_lev, b.regdate as joindate, (select lev_name from ".$this->db_qz."level_config where id=b.mem_lev) as lev_name,
-						(select rec_id from ".$this->db_qz."recommend where idx=b.recommend_sn) as rec_id from ".$this->db_qz."question a, ".$this->db_qz."member b 
+						(select rec_id from ".$this->db_qz."recommend where idx=b.recommend_sn) as rec_id from ".$this->db_qz."question a, ".$this->db_qz."people b 
 						where a.mem_id=b.uid ".$where." 
 						order by a.regdate desc limit ".$page.",".$page_size."";
 
@@ -90,7 +90,7 @@ class BoardModel extends Lemon_Model
 			$sql = "select count(*) as cnt from ".$this->db_qz."content_reply where num='".$rs[$i]['id']."'";
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['reply'] = $rsi[0]['cnt'];
-			$sql = "select mem_lev from ".$this->db_qz."member where nick='".$rs[$i]['author']."'";
+			$sql = "select mem_lev from ".$this->db_qz."people where nick='".$rs[$i]['author']."'";
 			$rsi = $this->db->exeSql($sql);
 			if($rsi == null || count((array)$rsi)<=0) {
 				if ( $rs[$i]['lvl'] > 0 ) $level = $rs[$i]['lvl'];
@@ -241,7 +241,7 @@ class BoardModel extends Lemon_Model
 	//▶ 게시글
 	function getContent($sn)
 	{
-		$sql = "select a.*, ifnull(b.mem_lev,2) as mem_lev from ".$this->db_qz."content a left outer join ".$this->db_qz."member b on a.author=b.nick
+		$sql = "select a.*, ifnull(b.mem_lev,2) as mem_lev from ".$this->db_qz."content a left outer join ".$this->db_qz."people b on a.author=b.nick
 						where a.logo='".$this->logo."' and a.id=".$sn."";
 					
 		$rs = $this->db->exeSql($sql);
@@ -266,7 +266,7 @@ class BoardModel extends Lemon_Model
 		if($province!=2 && $province!=7 && $province!=9)
 		{
 			$sql = "select count(*) as cnt
-							from ".$this->db_qz."content a,".$this->db_qz."board_category b,".$this->db_qz."member c
+							from ".$this->db_qz."content a,".$this->db_qz."board_category b,".$this->db_qz."people c
 							where a.province=b.sn and a.author=c.nick ".$where;
 		}
 		//유저가 쓴 글이 아닐경우
@@ -303,7 +303,7 @@ class BoardModel extends Lemon_Model
 		{
 			$sql = "select a.*, b.name as typename,
 							c.uid, c.bank_member
-							from ".$this->db_qz."content a,".$this->db_qz."board_category b,".$this->db_qz."member c
+							from ".$this->db_qz."content a,".$this->db_qz."board_category b,".$this->db_qz."people c
 							where a.logo='".$this->logo."' and a.province=b.sn and a.author=c.nick ".$where."
 							order by time desc limit ".$page.",".$page_size."";
 		}
@@ -317,11 +317,11 @@ class BoardModel extends Lemon_Model
 		}
 */
 		if($province!=2 && $province!=7 && $province!=9) {
-			$sql = "select a.*, b.name as typename, c.mem_status from tb_board_category b, tb_content a LEFT JOIN tb_member AS c ON c.nick = a.author
+			$sql = "select a.*, b.name as typename, c.mem_status from tb_board_category b, tb_content a LEFT JOIN tb_people AS c ON c.nick = a.author
 							where a.logo='".$this->logo."' and a.province=b.sn ".$where."
 							order by time desc limit ".$page.",".$page_size."";
 		} else {
-			$sql = "select a.*, b.name as typename, c.mem_status from tb_board_category b, tb_content a LEFT JOIN tb_member AS c ON c.nick = a.author
+			$sql = "select a.*, b.name as typename, c.mem_status from tb_board_category b, tb_content a LEFT JOIN tb_people AS c ON c.nick = a.author
 							where a.province=b.sn and a.province = '".$province."' ".$where."
 							order by time desc limit ".$page.",".$page_size."";
 		}
@@ -363,7 +363,7 @@ class BoardModel extends Lemon_Model
 	function addContent($author, $title, $content, $bettingNo, $ip)
 	{
 		//유저 검색(포인트 추가를 위함)
-		$sql = "select sn from ".$this->db_qz."member
+		$sql = "select sn from ".$this->db_qz."people
 						where nick='".$author."' and logo='".$this->logo."'";
 		$rs = $this->db->exeSql($sql);
 		$memberSn = $rs[0]['sn'];
@@ -512,7 +512,7 @@ class BoardModel extends Lemon_Model
 			$content = str_replace("cafe","<font color=red>낚시글조심</font>",$content);
 			$rs[$i]['content'] = $content;
 			
-			$sql = "select uid from ".$this->db_qz."member 
+			$sql = "select uid from ".$this->db_qz."people 
 								where logo='".$this->logo."' and nick = '".$nick."'";
 			$rsi = $this->db->exeSql($sql);					
 			$mem_id = $rsi[0]['mem_id'];
@@ -551,7 +551,7 @@ class BoardModel extends Lemon_Model
 	function delReplyById($replySn, $uid)
 	{
 		//댓글 포인트 확인
-		$sql = "select sn, member_sn, point from ".$this->db_qz."member_board_point
+		$sql = "select sn, member_sn, point from ".$this->db_qz."people_board_point
 						where board_sn=".$replySn;
 		$rs = $this->db->exeSql($sql);
 		
@@ -564,7 +564,7 @@ class BoardModel extends Lemon_Model
 			$processModel = Lemon_Instance::getObject("ProcessModel",true);
 			$processModel->modifyMileageProcess($memberSn, -$amount, 11, "댓글 취소", 100);
 			
-			$sql = "delete from ".$this->db_qz."member_board_point
+			$sql = "delete from ".$this->db_qz."people_board_point
 							where sn=".$sn;
 			$this->db->exeSql($sql);
 		}
@@ -578,7 +578,7 @@ class BoardModel extends Lemon_Model
 	//▶ 댓글 목록
 	function getReplyList($id)
 	{
-		$sql = "select * from tb_content_reply a left join tb_member b on a.mem_id = b.uid where a.num ='".$id."' order by a.idx";				
+		$sql = "select * from tb_content_reply a left join tb_people b on a.mem_id = b.uid where a.num ='".$id."' order by a.idx";				
 		return $this->db->exeSql($sql);
 	}
 	
@@ -611,7 +611,7 @@ class BoardModel extends Lemon_Model
 		//유저 검색(활동포인트 추가를 위함)
 		if($memberSn!="")
 		{
-			$sql = "select sn from ".$this->db_qz."member
+			$sql = "select sn from ".$this->db_qz."people
 							where sn='".$memberSn."' and logo='".$this->logo."'";
 			$rs = $this->db->exeSql($sql);
 			if(count((array)$rs)>0)
@@ -639,7 +639,7 @@ class BoardModel extends Lemon_Model
 		//유저 검색(활동포인트 추가를 위함)
 		if($memberSn!="")
 		{
-			$sql = "select sn from ".$this->db_qz."member
+			$sql = "select sn from ".$this->db_qz."people
 							where sn='".$memberSn."' and logo='".$this->logo."'";
 			$rs = $this->db->exeSql($sql);
 			if(count((array)$rs)>0)
@@ -660,7 +660,7 @@ class BoardModel extends Lemon_Model
 	//▶ 글을 쓸수 있는지 권한을 검사
 	function enableBoardWrite($memberSn, $type/*1=게시글, 2=댓글, 3=고객센터*/)
 	{
-		$sql = "select memo from ".$this->db_qz."member where sn='".$memberSn."' and logo='".$this->logo."'";
+		$sql = "select memo from ".$this->db_qz."people where sn='".$memberSn."' and logo='".$this->logo."'";
 		$rs = $this->db->exeSql($sql);
 		
 		$enable = 1;
@@ -690,7 +690,7 @@ class BoardModel extends Lemon_Model
 		$boardSn = $this->req->request('hid');
 
 		//게시글 포인트 확인
-		$sql = "select sn, member_sn, point, type from ".$this->db_qz."member_board_point
+		$sql = "select sn, member_sn, point, type from ".$this->db_qz."people_board_point
 						where board_sn=".$boardSn;
 		$rs = $this->db->exeSql($sql);
 		
@@ -706,7 +706,7 @@ class BoardModel extends Lemon_Model
 			$processModel = Lemon_Instance::getObject("ProcessModel",true);
 			$processModel->modifyMileageProcess($memberSn, -$amount, 11, $message, 100);
 			
-			$sql = "delete from ".$this->db_qz."member_board_point
+			$sql = "delete from ".$this->db_qz."people_board_point
 							where sn=".$sn;
 			$this->db->exeSql($sql);
 		}
@@ -740,7 +740,7 @@ class BoardModel extends Lemon_Model
 	function getQuestion($sn)
 	{
 	    $logo = $this->logo;
-		$sql = "select a.regdate as question_regdate, a.*, b.*, (select lev_name from ".$this->db_qz."level_config where lev=b.mem_lev) as lev_name from ".$this->db_qz."question a, ".$this->db_qz."member b
+		$sql = "select a.regdate as question_regdate, a.*, b.*, (select lev_name from ".$this->db_qz."level_config where lev=b.mem_lev) as lev_name from ".$this->db_qz."question a, ".$this->db_qz."people b
 							where a.mem_id=b.uid and idx = '".$sn."' and a.logo='{$logo}'";
 		$rs = $this->db->exeSql($sql);
 
@@ -1018,7 +1018,7 @@ class BoardModel extends Lemon_Model
 		
 		$today = date("Y-m-d");
 		$sql = "select count(*) as cnt
-						from ".$this->db_qz."member_board_point
+						from ".$this->db_qz."people_board_point
 						where member_sn=".$memberSn." and type=".$type."
 						and regdate between '".$today." 00:00:00' and '".$today." 23:59:59'";
 		$rs = $this->db->exeSql($sql);
@@ -1029,7 +1029,7 @@ class BoardModel extends Lemon_Model
 		}
 		else
 		{
-			$sql = "insert into ".$this->db_qz."member_board_point(member_sn, regdate, type, point, board_sn, logo)
+			$sql = "insert into ".$this->db_qz."people_board_point(member_sn, regdate, type, point, board_sn, logo)
 							values(".$memberSn.", now(), ".$type.",".$point.",".$boardSn.", '".$this->logo."')";
 			$rs = $this->db->exeSql($sql);
 		}
@@ -1081,7 +1081,7 @@ class BoardModel extends Lemon_Model
 
 	function modifyAnswerAlarmFlag($idx = 0) {
 		$member_id = $this->getMemberIdByIdx($idx);
-		$sql = "update ".$this->db_qz."member set customer_answer_flag= customer_answer_flag + 1 where uid = '" . $member_id . "'";
+		$sql = "update ".$this->db_qz."people set customer_answer_flag= customer_answer_flag + 1 where uid = '" . $member_id . "'";
 		$this->db->exeSql($sql);	
 	}
 }

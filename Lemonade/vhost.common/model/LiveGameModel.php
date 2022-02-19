@@ -683,7 +683,7 @@ class LiveGameModel extends Lemon_Model
 						.$this->db_qz."live_game b, "
 						.$this->db_qz."live_game_detail c, "
 						.$this->db_qz."league d, "
-						.$this->db_qz."member e, "
+						.$this->db_qz."people e, "
 						.$this->db_qz."live_game_template f
 						where a.live_sn=b.sn and a.live_detail_sn=c.sn and b.league_sn=d.sn and c.template=f.template
 									and a.member_sn=e.sn and e.mem_status='N' ".$where." order by reg_time desc limit ".$page.",".$page_size;
@@ -709,7 +709,7 @@ class LiveGameModel extends Lemon_Model
 						.$this->db_qz."live_game b, "
 						.$this->db_qz."live_game_detail c, "
 						.$this->db_qz."league d, "
-						.$this->db_qz."member e
+						.$this->db_qz."people e
 						where a.live_sn=b.sn and a.live_detail_sn=c.sn and b.league_sn=d.sn and a.member_sn=e.sn".$where;
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['cnt'];
@@ -742,7 +742,7 @@ class LiveGameModel extends Lemon_Model
 	function position_betting_money($position, $detail_sn)
 	{
 		$sql = "select ifnull(sum(a.betting_money),0) as total
-						from tb_live_betting a, tb_member b
+						from tb_live_betting a, tb_people b
 						where a.member_sn=b.sn 
 									and b.mem_status='N'
 									and a.live_detail_sn=".$detail_sn." and a.betting_position='".$position."'";
@@ -754,7 +754,7 @@ class LiveGameModel extends Lemon_Model
 	function template_betting_money($detail_sn)
 	{
 		$sql = "select ifnull(sum(a.betting_money),0) as total
-						from tb_live_betting a, tb_member b
+						from tb_live_betting a, tb_people b
 						where a.member_sn=b.sn 
 									and b.mem_status='N'
 									and a.live_detail_sn=".$detail_sn;
@@ -1249,7 +1249,7 @@ class LiveGameModel extends Lemon_Model
 						.$this->db_qz."live_game b, "
 						.$this->db_qz."live_game_detail c, "
 						.$this->db_qz."league d, "
-						.$this->db_qz."member e, "
+						.$this->db_qz."people e, "
 						.$this->db_qz."live_game_template f
 						where a.live_sn=b.sn and a.live_detail_sn=c.sn and b.league_sn=d.sn and c.template=f.template
 									and a.member_sn=e.sn and a.visible='Y' and
@@ -1267,7 +1267,7 @@ class LiveGameModel extends Lemon_Model
 						.$this->db_qz."live_game b, "
 						.$this->db_qz."live_game_detail c, "
 						.$this->db_qz."league d, "
-						.$this->db_qz."member e, "
+						.$this->db_qz."people e, "
 						.$this->db_qz."live_game_template f
 						where a.live_sn=b.sn and a.live_detail_sn=c.sn and b.league_sn=d.sn and c.template=f.template
 									and a.member_sn=e.sn and a.visible='Y' and
@@ -1410,7 +1410,7 @@ class LiveGameModel extends Lemon_Model
 	function betting_position_detail($detail_sn, $betting_position)
 	{
 		$sql = "select a.sn as betting_sn, a.betting_no, a.member_sn, a.odd, a.betting_result, a.prize, a.reg_time, a.ip, a.betting_money, 
-								b.uid, b.nick from tb_live_betting a, tb_member b
+								b.uid, b.nick from tb_live_betting a, tb_people b
 						where a.member_sn=b.sn and
 									live_detail_sn=".$detail_sn." and betting_position='".$betting_position."'";
 		$rows = $this->db->exeSql($sql);

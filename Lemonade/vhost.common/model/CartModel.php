@@ -860,7 +860,7 @@ class CartModel extends Lemon_Model
 		}
 		
 		$sql = "select count(*) as cnt 
-						from ".$this->db_qz."game_cart a inner join ".$this->db_qz."member b
+						from ".$this->db_qz."game_cart a inner join ".$this->db_qz."people b
 						where a.member_sn=b.sn and a.logo='".$this->logo."' and a.kubun='Y' and a.is_account=1 ".$addWhere.$where;
 		
 		$rs = $this->db->exeSql($sql);
@@ -892,7 +892,7 @@ class CartModel extends Lemon_Model
 		
 		$sql = "select 	a.member_sn, a.betting_no, a.betting_money, a.betting_ip, a.regDate,
 										a.result_money, a.result_rate, a.result as aresult, a.betting_cnt, b.uid, b.nick, b.recommend_sn
-						from ".$this->db_qz."game_cart a,".$this->db_qz."member b
+						from ".$this->db_qz."game_cart a,".$this->db_qz."people b
 						where		a.betting_no in(
 										select betting_no from
 										(select betting_no from ".$this->db_qz."game_cart where logo='".$this->logo."' and kubun='Y' ".$addWhere."order by betting_no desc ".$limit.") as t)
@@ -929,7 +929,7 @@ class CartModel extends Lemon_Model
 	function getBet_Export()
 	{
 		$sql = "select a.member_sn,a.betting_no,a.betting_money,a.betting_ip, a.regDate,a.result_money,a.result_rate,a.result as aresult,a.betting_cnt,b.uid,b.nick,b.recommend_sn ";
-		$sql.= " from ".$this->db_qz."game_cart a inner join ".$this->db_qz."member b ";
+		$sql.= " from ".$this->db_qz."game_cart a inner join ".$this->db_qz."people b ";
 		$sql.= " where a.member_sn=b.sn and a.last_special_code < 3 and a.result = 0 and a.regdate between date_add(now(), interval -1 day) and now() order by a.regdate desc";
 		
 		$rs = $this->db->exeSql($sql);		
@@ -991,13 +991,13 @@ class CartModel extends Lemon_Model
 			$this->db->exeSql($sql);		
 
 			//-> 회원 현재 보유머니
-			$sql = "select g_money from tb_member where sn = '".$member_sn."'";
+			$sql = "select g_money from tb_people where sn = '".$member_sn."'";
 			$memInfo = $this->db->exeSql($sql);
 			$beforeMoney = $memInfo[0]["g_money"];
 
 			//-> 배팅금 될려줌.
 			if ( $betting_money > 0 ) {
-				$sql = "update tb_member set g_money = g_money + ".$betting_money." where sn = '".$member_sn."'";
+				$sql = "update tb_people set g_money = g_money + ".$betting_money." where sn = '".$member_sn."'";
 				$this->db->exeSql($sql);
 
 				//-> 머니로그 남기기.
@@ -1010,7 +1010,7 @@ class CartModel extends Lemon_Model
 
 			//-> 배당금이 있으면 회수함.
 			if ( $result_money > 0 ) {
-				$sql = "update tb_member set g_money = g_money - ".$result_money." where sn = '".$member_sn."'";
+				$sql = "update tb_people set g_money = g_money - ".$result_money." where sn = '".$member_sn."'";
 				$this->db->exeSql($sql);
 
 				//-> 머니로그 남기기.
@@ -1169,7 +1169,7 @@ class CartModel extends Lemon_Model
 			$member_sn = $res[0]["member_sn"];
 
 		if($cancel_id == "관리자") {
-			$sql = "UPDATE tb_member SET bet_cancel_cnt = bet_cancel_cnt + 1 WHERE sn = " . $member_sn;
+			$sql = "UPDATE tb_people SET bet_cancel_cnt = bet_cancel_cnt + 1 WHERE sn = " . $member_sn;
 			$this->db->exeSql($sql);
 		}
 
@@ -1470,7 +1470,7 @@ class CartModel extends Lemon_Model
 	function topWinnersList()
 	{
 		$sql = "select b.uid, a.result_money, a.result_rate  from 
-					".$this->db_qz."game_cart a, ".$this->db_qz."member b
+					".$this->db_qz."game_cart a, ".$this->db_qz."people b
 					where 	a.member_sn=b.sn 
 								and a.result_money>0
 								and b.mem_status='N'
@@ -1505,7 +1505,7 @@ class CartModel extends Lemon_Model
 	
 	function getLiveGameMemberBettingList($member_sn, $page=0, $page_size=0, $begin_date='', $end_date='')
 	{
-		$sql = "select * from ".$this->db_qz."member a,  ".$this->db_qz."live_game b,  ".$this->db_qz."live_betting c, ".$this->db_qz."live_game_detail d, ".$this->db_qz."live_game_template e
+		$sql = "select * from ".$this->db_qz."people a,  ".$this->db_qz."live_game b,  ".$this->db_qz."live_betting c, ".$this->db_qz."live_game_detail d, ".$this->db_qz."live_game_template e
 						where a.sn=c.member_sn and b.sn=c.live_sn and d.sn=c.live_detail_sn and d.template=e.template and a.sn =".$member_sn;
 	
 		if( $begin_date!="" && $end_date!="") 
@@ -1538,7 +1538,7 @@ class CartModel extends Lemon_Model
 	
 	function getLiveGameMemberBettingList($member_sn, $page=0, $page_size=0, $begin_date='', $end_date='')
 	{
-		$sql = "select * from ".$this->db_qz."member a,  ".$this->db_qz."live_game b,  ".$this->db_qz."live_betting c, ".$this->db_qz."live_game_detail d, ".$this->db_qz."live_game_template e
+		$sql = "select * from ".$this->db_qz."people a,  ".$this->db_qz."live_game b,  ".$this->db_qz."live_betting c, ".$this->db_qz."live_game_detail d, ".$this->db_qz."live_game_template e
 						where a.sn=c.member_sn and b.sn=c.live_sn and d.sn=c.live_detail_sn and d.template=e.template and a.sn =".$member_sn;
 	
 		if( $begin_date!="" && $end_date!="") 

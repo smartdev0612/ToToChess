@@ -140,12 +140,12 @@ class TexModel extends Lemon_Model
             //-> 입금 합계
             $sql = "select ifnull(sum(agree_amount),0) as total_charge
 						from tb_charge_log 
-						where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and 
+						where state = 1 and member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."') and 
 									regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
 
             /*$sql = "select ifnull(sum(agree_amount),0) as total_charge
 						from tb_charge_log 
-						where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and 
+						where state = 1 and member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."') and 
 									regdate > '".$beginDate."'";*/
 
             $res = $this->db->exeSql($sql);
@@ -154,11 +154,11 @@ class TexModel extends Lemon_Model
             //-> 출금 합계
             $sql = "select ifnull(sum(agree_amount),0) as total_exchange
 						from tb_exchange_log 
-						where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and
+						where state = 1 and member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."') and
 									regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
             /*$sql = "select ifnull(sum(agree_amount),0) as total_exchange
 						from tb_exchange_log 
-						where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and
+						where state = 1 and member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."') and
 									regdate > '".$beginDate."'";*/
 
             $res = $this->db->exeSql($sql);
@@ -168,14 +168,14 @@ class TexModel extends Lemon_Model
             $sql = "select ifnull(sum(amount),0) as total_mileage_charge
 						from tb_mileage_log
 						where state = 1 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-									member_sn in(select sn from tb_member where mem_status != 'G') and 
-									member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+									member_sn in(select sn from tb_people where mem_status != 'G') and 
+									member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";
 
             /*$sql = "select ifnull(sum(amount),0) as total_mileage_charge
 						from tb_mileage_log
 						where state = 1 and amount > 0 and regdate > '".$beginDate."' and 
-									member_sn in(select sn from tb_member where mem_status != 'G') and 
-									member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";*/
+									member_sn in(select sn from tb_people where mem_status != 'G') and 
+									member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";*/
 
             $res = $this->db->exeSql($sql);
             $total_mileage_charge = $res[0]["total_mileage_charge"];
@@ -184,14 +184,14 @@ class TexModel extends Lemon_Model
             $sql = "select ifnull(sum(amount),0) as total_mileage_recommend_lose
 						from tb_mileage_log
 						where state = 12 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-									member_sn in(select sn from tb_member where mem_status != 'G') and 
-									member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+									member_sn in(select sn from tb_people where mem_status != 'G') and 
+									member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";
 
             /*$sql = "select ifnull(sum(amount),0) as total_mileage_recommend_lose
 						from tb_mileage_log
 						where state = 12 and amount > 0 and regdate > '".$beginDate."' and 
-									member_sn in(select sn from tb_member where mem_status != 'G') and 
-									member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";*/
+									member_sn in(select sn from tb_people where mem_status != 'G') and 
+									member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";*/
 
             $res = $this->db->exeSql($sql);
             $total_mileage_recommend_lose = $res[0]["total_mileage_recommend_lose"];
@@ -200,14 +200,14 @@ class TexModel extends Lemon_Model
             $sql = "select ifnull(sum(amount),0) as total_mileage_multi_folder
 						from tb_mileage_log
 						where state = 3 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-									member_sn in(select sn from tb_member where mem_status != 'G') and 
-									member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+									member_sn in(select sn from tb_people where mem_status != 'G') and 
+									member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";
 
             /*$sql = "select ifnull(sum(amount),0) as total_mileage_multi_folder
 						from tb_mileage_log
 						where state = 3 and amount > 0 and regdate > '".$beginDate."' and 
-									member_sn in(select sn from tb_member where mem_status != 'G') and 
-									member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";*/
+									member_sn in(select sn from tb_people where mem_status != 'G') and 
+									member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";*/
 
             $res = $this->db->exeSql($sql);
             $total_mileage_multi_folder = $res[0]["total_mileage_multi_folder"];
@@ -217,14 +217,14 @@ class TexModel extends Lemon_Model
 						from tb_mileage_log a, tb_game_cart b 
 						where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt > 1 and 
 									a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-									a.member_sn in(select sn from tb_member where mem_status != 'G') and 
-									a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+									a.member_sn in(select sn from tb_people where mem_status != 'G') and 
+									a.member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";
             /*$sql = "select ifnull(sum(a.amount),0) as total_mileage_multi_folder_lose
 						from tb_mileage_log a, tb_game_cart b 
 						where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt > 1 and 
 									a.regdate > '".$beginDate."' and 
-									a.member_sn in(select sn from tb_member where mem_status != 'G') and 
-									a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";*/
+									a.member_sn in(select sn from tb_people where mem_status != 'G') and 
+									a.member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";*/
 
             $res = $this->db->exeSql($sql);
             $total_mileage_multi_folder_lose = $res[0]["total_mileage_multi_folder_lose"];
@@ -234,14 +234,14 @@ class TexModel extends Lemon_Model
 						from tb_mileage_log a, tb_game_cart b 
 						where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt = 1 and 
 									a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-									a.member_sn in(select sn from tb_member where mem_status != 'G') and 
-									a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+									a.member_sn in(select sn from tb_people where mem_status != 'G') and 
+									a.member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";
             /*$sql = "select ifnull(sum(a.amount),0) as total_mileage_one_folder_lose
 						from tb_mileage_log a, tb_game_cart b 
 						where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt = 1 and 
 									a.regdate > '".$beginDate."' and 
-									a.member_sn in(select sn from tb_member where mem_status != 'G') and 
-									a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";*/
+									a.member_sn in(select sn from tb_people where mem_status != 'G') and 
+									a.member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";*/
 
             $res = $this->db->exeSql($sql);
             $total_mileage_one_folder_lose = $res[0]["total_mileage_one_folder_lose"];
@@ -600,7 +600,7 @@ class TexModel extends Lemon_Model
             //-> 입금 합계
             $sql = "select ifnull(sum(agree_amount),0) as total_charge
                     from tb_charge_log 
-                    where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and 
+                    where state = 1 and member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."') and 
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
 
             $res = $this->db->exeSql($sql);
@@ -609,7 +609,7 @@ class TexModel extends Lemon_Model
             //-> 출금 합계
             $sql = "select ifnull(sum(agree_amount),0) as total_exchange
                     from tb_exchange_log 
-                    where state = 1 and member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."') and
+                    where state = 1 and member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."') and
                     regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
             
             $res = $this->db->exeSql($sql);
@@ -619,8 +619,8 @@ class TexModel extends Lemon_Model
             $sql = "select ifnull(sum(amount),0) as total_mileage_charge
                     from tb_mileage_log
                     where state = 1 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-                        member_sn in(select sn from tb_member where mem_status != 'G') and 
-                        member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+                        member_sn in(select sn from tb_people where mem_status != 'G') and 
+                        member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";
 
             $res = $this->db->exeSql($sql);
             $total_mileage_charge = $res[0]["total_mileage_charge"];
@@ -629,8 +629,8 @@ class TexModel extends Lemon_Model
             $sql = "select ifnull(sum(amount),0) as total_mileage_recommend_lose
                     from tb_mileage_log
                     where state = 12 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-                        member_sn in(select sn from tb_member where mem_status != 'G') and 
-                        member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+                        member_sn in(select sn from tb_people where mem_status != 'G') and 
+                        member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";
 
             $res = $this->db->exeSql($sql);
             $total_mileage_recommend_lose = $res[0]["total_mileage_recommend_lose"];
@@ -639,8 +639,8 @@ class TexModel extends Lemon_Model
             $sql = "select ifnull(sum(amount),0) as total_mileage_multi_folder
                     from tb_mileage_log
                     where state = 3 and amount > 0 and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-                        member_sn in(select sn from tb_member where mem_status != 'G') and 
-                        member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+                        member_sn in(select sn from tb_people where mem_status != 'G') and 
+                        member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";
 
             $res = $this->db->exeSql($sql);
             $total_mileage_multi_folder = $res[0]["total_mileage_multi_folder"];
@@ -650,8 +650,8 @@ class TexModel extends Lemon_Model
                     from tb_mileage_log a, tb_game_cart b 
                     where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt > 1 and 
                         a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-                        a.member_sn in(select sn from tb_member where mem_status != 'G') and 
-                        a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+                        a.member_sn in(select sn from tb_people where mem_status != 'G') and 
+                        a.member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";
             
             $res = $this->db->exeSql($sql);
             $total_mileage_multi_folder_lose = $res[0]["total_mileage_multi_folder_lose"];
@@ -661,8 +661,8 @@ class TexModel extends Lemon_Model
                     from tb_mileage_log a, tb_game_cart b 
                     where a.state = 4 and a.amount > 0 and a.betting_no = b.betting_no and b.betting_cnt = 1 and 
                         a.regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59' and 
-                        a.member_sn in(select sn from tb_member where mem_status != 'G') and 
-                        a.member_sn in(select sn from tb_member where recommend_sn = '".$recommendSn."')";
+                        a.member_sn in(select sn from tb_people where mem_status != 'G') and 
+                        a.member_sn in(select sn from tb_people where recommend_sn = '".$recommendSn."')";
             
             $res = $this->db->exeSql($sql);
             $total_mileage_one_folder_lose = $res[0]["total_mileage_one_folder_lose"];

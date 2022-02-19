@@ -229,7 +229,7 @@ class MatgoModel extends Lemon_Model
 				$item[$i]['current_date_name']	=$this->dateName($currentDate);
 				
 				// 관리자
-				$sql = "select sum(amount) as manager_amount from tb_mileage_log a, tb_member b
+				$sql = "select sum(amount) as manager_amount from tb_mileage_log a, tb_people b
 								where a.member_sn=b.sn and a.state=14 and b.mem_status='G'
 								and date(a.regdate)='".$item[$i]['current_date']."'";
 								
@@ -237,7 +237,7 @@ class MatgoModel extends Lemon_Model
 				$item[$i]['manager_amount'] = $rsi[0]['manager_amount'];
 				
 				// 유저
-				$sql = "select sum(amount) as user_amount from tb_mileage_log a, tb_member b
+				$sql = "select sum(amount) as user_amount from tb_mileage_log a, tb_people b
 								where a.member_sn=b.sn and a.state=14 and b.mem_status='N'
 								and date(a.regdate)='".$item[$i]['current_date']."'";
 								

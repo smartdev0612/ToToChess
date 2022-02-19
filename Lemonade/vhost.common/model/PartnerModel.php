@@ -42,7 +42,7 @@ class PartnerModel extends Lemon_Model
 	function getJoinRecommendBenefit($recommendSn)
 	{
 		$sql = "select sum(amount) as benefit from ".$this->db_qz."mileage_log where (state=2 or state=12) and status_message like('%추천인%') and 
-						member_sn IN (select a.member_sn from ".$this->db_qz."join_recommend a, ".$this->db_qz."member b where a.member_sn=b.sn and a.recommend_sn=".$recommendSn.")";
+						member_sn IN (select a.member_sn from ".$this->db_qz."join_recommend a, ".$this->db_qz."people b where a.member_sn=b.sn and a.recommend_sn=".$recommendSn.")";
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['benefit'];
 	}
@@ -50,7 +50,7 @@ class PartnerModel extends Lemon_Model
 	//▶ 추천인 하위 데이터
 	function getJoinRecommendSubList($recommendSn)
 	{
-		$sql = "select a.*, b.nick, b.uid, b.regdate from ".$this->db_qz."join_recommend a, ".$this->db_qz."member b
+		$sql = "select a.*, b.nick, b.uid, b.regdate from ".$this->db_qz."join_recommend a, ".$this->db_qz."people b
 						where a.member_sn=b.sn and a.recommend_sn=".$recommendSn;
 		$rs = $this->db->exeSql($sql);
 		
@@ -136,9 +136,9 @@ class PartnerModel extends Lemon_Model
 	function getPartnerMember($partnerSn)
 	{
 		$sql = "select 
-						(select count(*) from ".$this->db_qz."member b where a.idx=b.recommend_sn group by recommend_sn) as countmem,
-						(select sum(g_money) from ".$this->db_qz."member b where a.idx=b.recommend_sn) as countmoney,
-						(select count(*) from ".$this->db_qz."member b where a.idx=b.recommend_sn and b.regdate=date(now())) as countday 
+						(select count(*) from ".$this->db_qz."people b where a.idx=b.recommend_sn group by recommend_sn) as countmem,
+						(select sum(g_money) from ".$this->db_qz."people b where a.idx=b.recommend_sn) as countmoney,
+						(select count(*) from ".$this->db_qz."people b where a.idx=b.recommend_sn and b.regdate=date(now())) as countday 
 							from ".$this->db_qz."recommend a where rec_id='".$partnerSn."'";
 
 		$rs = $this->db->exeSql($sql); 		
@@ -152,9 +152,9 @@ class PartnerModel extends Lemon_Model
 
 //IN (select idx from tb_recommend where rec_parent_id = '".$partnerId."')
 		$sql = "select 
-						(select count(*) from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partnerId."')) as countmem,
-						(select sum(g_money) from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partnerId."')) as countmoney,
-						(select count(*) from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partnerId."') and regdate=date(now())) as countday 
+						(select count(*) from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partnerId."')) as countmem,
+						(select sum(g_money) from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partnerId."')) as countmoney,
+						(select count(*) from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partnerId."') and regdate=date(now())) as countday 
 							from ".$this->db_qz."recommend a where rec_id='".$partnerId."'";
 
 		$rs = $this->db->exeSql($sql); 		
@@ -165,7 +165,7 @@ class PartnerModel extends Lemon_Model
 	//▶ 파트너의 매장목록 
 	function getPartnerInStoreList($partner_sn, $where="", $page=0, $page_size=0)
 	{
-		$sql = "select sn, uid, nick, g_money, regdate, mem_ip, reg_ip, last_date, mem_status, mem_lev, bank_member, (select rec_id from ".$this->db_qz."recommend where Idx=recommend_sn) as recommend_uid from ".$this->db_qz."member where is_store=1 and recommend_sn='".$partner_sn."' ".$where." order by regdate desc ";
+		$sql = "select sn, uid, nick, g_money, regdate, mem_ip, reg_ip, last_date, mem_status, mem_lev, bank_member, (select rec_id from ".$this->db_qz."recommend where Idx=recommend_sn) as recommend_uid from ".$this->db_qz."people where is_store=1 and recommend_sn='".$partner_sn."' ".$where." order by regdate desc ";
 		
 		if($page_size!=0)	{$sql.= " limit ".$page.",".$page_size;}
 		$rs = $this->db->exeSql($sql);
@@ -209,7 +209,7 @@ class PartnerModel extends Lemon_Model
 	//▶ 파트너의 멤버목록 
 	function getPartnerInMemberList($partner_sn, $where="", $page=0, $page_size=0)
 	{
-		$sql = "select sn, uid, nick, g_money, regdate, mem_ip, reg_ip, last_date, mem_status, mem_lev, bank_member, recommend_sn  from ".$this->db_qz."member  where is_store=0 and recommend_sn=".$partner_sn.$where;
+		$sql = "select sn, uid, nick, g_money, regdate, mem_ip, reg_ip, last_date, mem_status, mem_lev, bank_member, recommend_sn  from ".$this->db_qz."people  where is_store=0 and recommend_sn=".$partner_sn.$where;
 		if($page_size!=0)	{$sql.= " limit ".$page.",".$page_size;}
 		$rs = $this->db->exeSql($sql);
 		if(is_array($rs) && count($rs) > 0) {
@@ -255,7 +255,7 @@ class PartnerModel extends Lemon_Model
 	{
 		$sql = "select sn, uid, nick, g_money, regdate, mem_ip, reg_ip, last_date, mem_status, mem_lev, bank_member,
 						(select rec_id from ".$this->db_qz."recommend where Idx=recommend_sn) as recommend_uid
-						from ".$this->db_qz."member 
+						from ".$this->db_qz."people 
 						where is_store=1 and recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partner_id."') ".$where." order by regdate desc ";
 		if($page_size!=0)	{$sql.= " limit ".$page.",".$page_size;}	
 		$rs = $this->db->exeSql($sql);
@@ -300,7 +300,7 @@ class PartnerModel extends Lemon_Model
 	//▶ 부본사 파트너의 멤버목록 
 	function getPartnerInMemberListTop($partner_id, $where="", $page=0, $page_size=0)
 	{
-		$sql = "select sn, uid, nick, g_money, regdate, mem_ip, reg_ip, last_date, mem_status, mem_lev, bank_member, recommend_sn from ".$this->db_qz."member where is_store=0 and recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partner_id."') ".$where." order by regdate desc ";
+		$sql = "select sn, uid, nick, g_money, regdate, mem_ip, reg_ip, last_date, mem_status, mem_lev, bank_member, recommend_sn from ".$this->db_qz."people where is_store=0 and recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partner_id."') ".$where." order by regdate desc ";
 				
 		if($page_size!=0)	{$sql.= " limit ".$page.",".$page_size;}	
 		$rs = $this->db->exeSql($sql);
@@ -350,7 +350,7 @@ class PartnerModel extends Lemon_Model
 	//▶ 파트너의 매장수 
 	function getPartnerInStoreTotal($partner_sn, $where)
 	{
-		$sql = "select count(*) as cnt from ".$this->db_qz."member 
+		$sql = "select count(*) as cnt from ".$this->db_qz."people 
 						where is_store=1 and recommend_sn = '".$partner_sn."' ".$where;
 					
 		$rs = $this->db->exeSql($sql);
@@ -360,7 +360,7 @@ class PartnerModel extends Lemon_Model
 	//▶ 파트너의 멤버수 
 	function getPartnerInMemberTotal($partner_sn, $where)
 	{
-		$sql = "select count(*) as cnt from ".$this->db_qz."member 
+		$sql = "select count(*) as cnt from ".$this->db_qz."people 
 						where recommend_sn = ".$partner_sn." ".$where;
 					
 		$rs = $this->db->exeSql($sql);
@@ -424,7 +424,7 @@ class PartnerModel extends Lemon_Model
 	//▶ 부본사 하위 매장수 
 	function getPartnerInStoreTotalTop($partner_id, $where)
 	{
-		$sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partner_id."') ".$where;
+		$sql = "select count(*) as cnt from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partner_id."') ".$where;
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['cnt'];
 	}
@@ -432,7 +432,7 @@ class PartnerModel extends Lemon_Model
 	//▶ 부본사 하위 멤버수 
 	function getPartnerInMemberTotalTop($partner_id, $where)
 	{
-		$sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn IN (select sn from ".$this->db_qz."member where is_store=0 and recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partner_id."')) ".$where;
+		$sql = "select count(*) as cnt from ".$this->db_qz."people where recommend_sn IN (select sn from ".$this->db_qz."people where is_store=0 and recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$partner_id."')) ".$where;
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['cnt'];
 	}
@@ -507,7 +507,7 @@ class PartnerModel extends Lemon_Model
 		$sql = "select sn, uid, nick, g_money, regdate, mem_ip, mem_status, mem_lev, bank_member,
 								(select rec_id from ".$this->db_qz."recommend where Idx=recommend_sn) as recommend_uid,
 								(select rec_id from ".$this->db_qz."recommend where Idx=rolling_sn) as rolling_uid
-						from ".$this->db_qz."member  
+						from ".$this->db_qz."people  
 						where logo='".$this->logo."'".$where." order by regdate desc ".$limit;
 		
 		$rs = $this->db->exeSql($sql);
@@ -558,7 +558,7 @@ class PartnerModel extends Lemon_Model
 			$where.= " and rolling_sn='".$recommendSn."'" ;
 			
 		$sql = "select count(*) as cnt
-						from ".$this->db_qz."member  
+						from ".$this->db_qz."people  
 						where logo='".$this->logo."'".$where." order by regdate desc";
 		
 		$rs = $this->db->exeSql($sql);
@@ -575,7 +575,7 @@ class PartnerModel extends Lemon_Model
 		$sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bonus,a.bank_owner, a.state,
 						(select rec_id from ".$this->db_qz."recommend where Idx=rolling_sn) as rolling_id,
 						b.uid, b.nick, b.g_money, b.bank_member, ifnull(c.rec_id, '무소속') as recommend_id
-						from ".$this->db_qz."charge_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+						from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
 						where a.member_sn=b.sn and b.recommend_sn='".$recommendSn."' and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' ".$where."
 						order by a.regdate desc ".$limit;
 		return $this->db->exeSql($sql);
@@ -584,7 +584,7 @@ class PartnerModel extends Lemon_Model
 	//-> 부본사 하부 회원 입금 합계
 	function getRecommendChargeTotalTop($recommendId, $startDate="", $endDate="", $where="")
 	{
-		$sql = "select count(*) as cnt, sum(agree_amount) as sum_amount from tb_charge_log a, tb_member b where a.member_sn = b.sn and b.recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommendId."') and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' ".$where;
+		$sql = "select count(*) as cnt, sum(agree_amount) as sum_amount from tb_charge_log a, tb_people b where a.member_sn = b.sn and b.recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommendId."') and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' ".$where;
 		$rs = $this->db->exeSql($sql);
 		return $rs[0];
 	}
@@ -597,7 +597,7 @@ class PartnerModel extends Lemon_Model
 		
 		$sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bonus,a.bank_owner, a.state,						
 						b.uid, b.nick, b.g_money, b.bank_member, (select rec_id from tb_recommend where idx=b.recommend_sn) as recommend_id
-						from ".$this->db_qz."charge_log a,".$this->db_qz."member b
+						from ".$this->db_qz."charge_log a,".$this->db_qz."people b
 						where a.member_sn=b.sn and b.recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommendId."') and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' ".$where." order by a.regdate desc ".$limit;
 		return $this->db->exeSql($sql);
 	}
@@ -606,7 +606,7 @@ class PartnerModel extends Lemon_Model
 	function getRecommendChargeTotal($recommendSn, $startDate="", $endDate="", $where="")
 	{		
 		$sql = "select count(*) as cnt, sum(agree_amount) as sum_amount
-						from ".$this->db_qz."charge_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+						from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
 						where a.member_sn=b.sn and b.recommend_sn='".$recommendSn."' and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59'";
 		$rs = $this->db->exeSql($sql);
 		return $rs[0];
@@ -620,7 +620,7 @@ class PartnerModel extends Lemon_Model
 		
 		$sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bank_owner, a.state,
 						b.uid, b.nick, b.g_money, b.bank_member, ifnull(c.rec_id, '무소속') as recommend_id
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
 						where a.member_sn=b.sn and b.recommend_sn='".$recommendSn."' and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' order by a.regdate desc ".$limit;						
 		return $this->db->exeSql($sql);
 	}
@@ -633,7 +633,7 @@ class PartnerModel extends Lemon_Model
 		
 		$sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bank_owner, a.state,						
 						b.uid, b.nick, b.g_money, b.bank_member, (select rec_id from tb_recommend where idx=b.recommend_sn) as recommend_id
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."member b
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b
 						where a.member_sn=b.sn and b.recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommendId."') and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' ".$where."
 						order by a.regdate desc ".$limit;
 		return $this->db->exeSql($sql);
@@ -642,7 +642,7 @@ class PartnerModel extends Lemon_Model
 	function getRecommendExchangeTotal($recommendSn, $startDate="", $endDate="")
 	{	
 		$sql = "select count(*) as cnt, sum(agree_amount) as sum_amount
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
 						where a.member_sn=b.sn and b.recommend_sn='".$recommendSn."' and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59'";
 		$rs = $this->db->exeSql($sql);		
 		return $rs[0];
@@ -651,14 +651,14 @@ class PartnerModel extends Lemon_Model
 	//-> 부본사 하위 회원 출금내역 합계
 	function getRecommendExchangeTotalTop($recommendId, $startDate="", $endDate="", $where="")
 	{
-		$sql = "select count(*) as cnt, sum(agree_amount) as sum_amount from tb_exchange_log a, tb_member b where a.member_sn = b.sn and b.recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommendId."') and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' ".$where;
+		$sql = "select count(*) as cnt, sum(agree_amount) as sum_amount from tb_exchange_log a, tb_people b where a.member_sn = b.sn and b.recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommendId."') and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' ".$where;
 		$rs = $this->db->exeSql($sql);	
 		return $rs[0];
 	}
 
 	//▶ 파트너 소속 회원 총 보유금액
 	function getTotalMemberMoney( $partnerSn='', $logo='') {
-		$sql = "select sum(g_money) as total_g_money from ".$this->db_qz."member where recommend_sn='".$partnerSn."'";		
+		$sql = "select sum(g_money) as total_g_money from ".$this->db_qz."people where recommend_sn='".$partnerSn."'";		
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['total_g_money'] + 0;
 	}
@@ -1031,7 +1031,7 @@ class PartnerModel extends Lemon_Model
 			$sql = "select sum(agree_amount) as charge_money
 							from ".$this->db_qz."charge_log 
 								where date(regdate)>='".$array['reg_date']."' and date(regdate)<='".$array['objdate']."' and state=1 
-									and member_sn in (select sn from ".$this->db_qz."member 
+									and member_sn in (select sn from ".$this->db_qz."people 
 										where  logo='".$this->logo."' and recommend_sn=".$partner_sn.") ";								
 			$rsi = $this->db->exeSql($sql);			
 			
@@ -1044,7 +1044,7 @@ class PartnerModel extends Lemon_Model
 			$sql = "select sum(agree_amount) as exchange_money
 							from ".$this->db_qz."exchange_log 
 								where date(regdate)>='".$array['reg_date']."' and date(regdate)<='".$array['objdate']."' and state=1 
-									and member_sn in (select sn from ".$this->db_qz."member 
+									and member_sn in (select sn from ".$this->db_qz."people 
 										where  logo='".$this->logo."' and recommend_sn='".$partner_sn."') ";
 			$rsi = $this->db->exeSql($sql);												
 			if( count((array)$rsi) > 0 )
@@ -1176,14 +1176,14 @@ class PartnerModel extends Lemon_Model
 			$recommend_sn = $rs[$i]['Idx'];
 			
 			//회원수
-			$sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn=".$recommend_sn;
+			$sql = "select count(*) as cnt from ".$this->db_qz."people where recommend_sn=".$recommend_sn;
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['member_count'] = $rsi[0]['cnt'];
 			
 			//매장입금금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_charge
 							from ".$this->db_qz."charge_log 
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.") and agree_amount > 0";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn=".$recommend_sn.") and agree_amount > 0";
 				
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['charge_count'] = $rsi[0]['cnt'];
@@ -1192,7 +1192,7 @@ class PartnerModel extends Lemon_Model
 			//회원입금금액	
 			// $sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_charge
 			// 				from ".$this->db_qz."charge_log 
-			// 				where member_sn in (select sn from ".$this->db_qz."member where recommend_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.")) and agree_amount > 0";
+			// 				where member_sn in (select sn from ".$this->db_qz."people where recommend_sn in (select sn from ".$this->db_qz."people where recommend_sn=".$recommend_sn.")) and agree_amount > 0";
 			
 			// $rsi = $this->db->exeSql($sql);
 			// $rs[$i]['charge_count'] = $rs[$i]['charge_count'] + $rsi[0]['cnt'];
@@ -1201,7 +1201,7 @@ class PartnerModel extends Lemon_Model
 			//출금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
 						from ".$this->db_qz."exchange_log 
-						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.") and agree_amount > 0";
+						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn=".$recommend_sn.") and agree_amount > 0";
 			$rsi = $this->db->exeSql($sql);
 			
 			$rs[$i]['exchange_count'] = $rsi[0]['cnt'];
@@ -1210,7 +1210,7 @@ class PartnerModel extends Lemon_Model
 			//회원출금횟수,금액
 			// $sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
 			// 			from ".$this->db_qz."exchange_log 
-			// 			where member_sn in (select sn from ".$this->db_qz."member where recommend_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.")) and agree_amount > 0";
+			// 			where member_sn in (select sn from ".$this->db_qz."people where recommend_sn in (select sn from ".$this->db_qz."people where recommend_sn=".$recommend_sn.")) and agree_amount > 0";
 			// $rsi = $this->db->exeSql($sql);
 			
 			// $rs[$i]['exchange_count'] = $rs[$i]['exchange_count'] + $rsi[0]['cnt'];
@@ -1220,11 +1220,11 @@ class PartnerModel extends Lemon_Model
 /*
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 						from ".$this->db_qz."game_cart
-						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.")";
+						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn=".$recommend_sn.")";
 */
 			//-> 위에 쿼리 튜닝
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result 
-							from ".$this->db_qz."game_cart a, ".$this->db_qz."member b 
+							from ".$this->db_qz."game_cart a, ".$this->db_qz."people b 
 							where a.member_sn = b.sn and b.recommend_sn = ".$recommend_sn;
 			//$rsi = $this->db->exeSql($sql);
 			
@@ -1262,14 +1262,14 @@ class PartnerModel extends Lemon_Model
 			$recommend_sn = $rs[$i]['Idx'];
 
 			//매장수
-			$sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')";
+			$sql = "select count(*) as cnt from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')";
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['member_count'] = $rsi[0]['cnt'];
 
 			//매장입금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_charge
 								from ".$this->db_qz."charge_log 
-								where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
+								where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
 
 			if($beginDate != '')
 			{
@@ -1288,7 +1288,7 @@ class PartnerModel extends Lemon_Model
 			//매장출금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
 							from ".$this->db_qz."exchange_log 
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
 
 			if($beginDate != '')
 			{
@@ -1307,7 +1307,7 @@ class PartnerModel extends Lemon_Model
 			//배팅금액, 당첨금액 스포츠
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 							from ".$this->db_qz."game_cart
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
 
 			if($beginDate != '')
 			{
@@ -1325,7 +1325,7 @@ class PartnerModel extends Lemon_Model
 			//배팅금액, 당첨금액 미니게임
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 							from ".$this->db_qz."game_cart
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
 
 			if($beginDate != '')
 			{
@@ -1386,14 +1386,14 @@ class PartnerModel extends Lemon_Model
 			$recommend_sn = $rs[$i]['Idx'];
 
 			//매장수
-			$sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')";
+			$sql = "select count(*) as cnt from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')";
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['member_count'] = $rsi[0]['cnt'];
 
 			//매장입금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_charge
 								from ".$this->db_qz."charge_log 
-								where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
+								where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
 
 			if($beginDate != '')
 			{
@@ -1412,7 +1412,7 @@ class PartnerModel extends Lemon_Model
 			//매장출금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
 							from ".$this->db_qz."exchange_log 
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
 
 			if($beginDate != '')
 			{
@@ -1431,7 +1431,7 @@ class PartnerModel extends Lemon_Model
 			//배팅금액, 당첨금액 스포츠
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 							from ".$this->db_qz."game_cart
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
 
 			if($beginDate != '')
 			{
@@ -1449,7 +1449,7 @@ class PartnerModel extends Lemon_Model
 			//배팅금액, 당첨금액 미니게임
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 							from ".$this->db_qz."game_cart
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
 
 			if($beginDate != '')
 			{
@@ -1507,14 +1507,14 @@ class PartnerModel extends Lemon_Model
 			$recommend_sn = $rs[$i]['Idx'];
 
 			//매장수
-			$sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')";
+			$sql = "select count(*) as cnt from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')";
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['member_count'] = $rsi[0]['cnt'];
 
 			//매장입금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_charge
 								from ".$this->db_qz."charge_log 
-								where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
+								where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
 
 			if($beginDate != '')
 			{
@@ -1533,7 +1533,7 @@ class PartnerModel extends Lemon_Model
 			//매장출금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
 							from ".$this->db_qz."exchange_log 
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and agree_amount > 0";
 
 			if($beginDate != '')
 			{
@@ -1552,7 +1552,7 @@ class PartnerModel extends Lemon_Model
 			//배팅금액, 당첨금액 스포츠
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 							from ".$this->db_qz."game_cart
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
 
 			if($beginDate != '')
 			{
@@ -1570,7 +1570,7 @@ class PartnerModel extends Lemon_Model
 			//배팅금액, 당첨금액 미니게임
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 							from ".$this->db_qz."game_cart
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
 
 			if($beginDate != '')
 			{
@@ -1624,19 +1624,19 @@ class PartnerModel extends Lemon_Model
 			$recommend_sn = $rs[$i]['Idx'];
 			
 			//매장수
-			$sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."')";
+			$sql = "select count(*) as cnt from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."')";
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['member_count'] = $rsi[0]['cnt'];
 			
 			//회원수
-			// $sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn IN ( SELECT sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))";
+			// $sql = "select count(*) as cnt from ".$this->db_qz."people where recommend_sn IN ( SELECT sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))";
 			// $rsi = $this->db->exeSql($sql);
 			// $rs[$i]['member_count'] = $rs[$i]['member_count'] + $rsi[0]['cnt'];
 
 			//매장입금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_charge
 							from ".$this->db_qz."charge_log 
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."')) and agree_amount > 0";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."')) and agree_amount > 0";
 
 							
 			$rsi = $this->db->exeSql($sql);
@@ -1646,7 +1646,7 @@ class PartnerModel extends Lemon_Model
 			//회원입금횟수,금액 (+매장)
 			// $sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_charge
 			// 				from ".$this->db_qz."charge_log 
-			// 				where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN ( SELECT sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))) and agree_amount > 0";
+			// 				where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN ( SELECT sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))) and agree_amount > 0";
 
 			// $rsi = $this->db->exeSql($sql);
 			// $rs[$i]['charge_count'] = $rs[$i]['charge_count'] + $rsi[0]['cnt'];
@@ -1655,7 +1655,7 @@ class PartnerModel extends Lemon_Model
 			//매장출금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
 						from ".$this->db_qz."exchange_log 
-						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."')) and agree_amount > 0";
+						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."')) and agree_amount > 0";
 			$rsi = $this->db->exeSql($sql);
 			
 			$rs[$i]['exchange_count'] = $rsi[0]['cnt'];
@@ -1664,7 +1664,7 @@ class PartnerModel extends Lemon_Model
 			//회원출금횟수,금액 (+매장)
 			// $sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
 			// 			from ".$this->db_qz."exchange_log 
-			// 			where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN ( SELECT sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))) and agree_amount > 0";
+			// 			where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN ( SELECT sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))) and agree_amount > 0";
 			
 			// $rsi = $this->db->exeSql($sql);
 			// $rs[$i]['exchange_count'] = $rs[$i]['exchange_count'] + $rsi[0]['cnt'];
@@ -1673,12 +1673,12 @@ class PartnerModel extends Lemon_Model
 			//배팅금액, 당첨금액
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 						from ".$this->db_qz."game_cart
-						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))";
+						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))";
 */
 			//-> 위에 쿼리 튜닝
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result 
-							from ".$this->db_qz."game_cart a, ".$this->db_qz."member b
-							where a.member_sn = b.sn and b.recommend_sn IN (select sn from ".$this->db_qz."member where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))";
+							from ".$this->db_qz."game_cart a, ".$this->db_qz."people b
+							where a.member_sn = b.sn and b.recommend_sn IN (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where rec_parent_id = '".$recommend_id."'))";
 			//$rsi = $this->db->exeSql($sql);
 			
 			$rs[$i]['betting_sum'] = $rsi[0]['total_betting'];
@@ -1703,14 +1703,14 @@ class PartnerModel extends Lemon_Model
 			$recommend_sn = $rs[$i]['Idx'];
 			
 			//회원수
-			$sql = "select count(*) as cnt from ".$this->db_qz."member where recommend_sn=".$recommend_sn;
+			$sql = "select count(*) as cnt from ".$this->db_qz."people where recommend_sn=".$recommend_sn;
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['member_count'] = $rsi[0]['cnt'];
 			
 			//입금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_charge
 							from ".$this->db_qz."charge_log 
-							where member_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.") and agree_amount > 0";
+							where member_sn in (select sn from ".$this->db_qz."people where recommend_sn=".$recommend_sn.") and agree_amount > 0";
 					
 			$rsi = $this->db->exeSql($sql);
 			$rs[$i]['charge_count'] = $rsi[0]['cnt'];
@@ -1719,7 +1719,7 @@ class PartnerModel extends Lemon_Model
 			//출금횟수,금액
 			$sql = "select count(distinct(member_sn)) as cnt, sum(agree_amount) as total_exchange
 						from ".$this->db_qz."exchange_log 
-						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.") and agree_amount > 0";
+						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn=".$recommend_sn.") and agree_amount > 0";
 			$rsi = $this->db->exeSql($sql);
 			
 			$rs[$i]['exchange_count'] = $rsi[0]['cnt'];
@@ -1729,7 +1729,7 @@ class PartnerModel extends Lemon_Model
 			//배팅금액, 당첨금액
 			$sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 						from ".$this->db_qz."game_cart
-						where member_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommend_sn.")";
+						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn=".$recommend_sn.")";
 			$rsi = $this->db->exeSql($sql);
 			
 			$rs[$i]['betting_sum'] = $rsi[0]['total_betting'];
@@ -1891,7 +1891,7 @@ class PartnerModel extends Lemon_Model
 		$rs = $this->db->exeSql($sql); 
 		
 		$sql = "select count(*) as member_count
-							from ".$this->db_qz."member 
+							from ".$this->db_qz."people 
 								where recommend_sn=".$recommendSn;
 		$rsi = $this->db->exeSql($sql); 
 		
@@ -1901,7 +1901,7 @@ class PartnerModel extends Lemon_Model
 		//입금횟수,금액
 		$sql = "select count(*) as cnt, sum(agree_amount) as total_charge
 					from ".$this->db_qz."charge_log 
-					where member_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommendSn.")";
+					where member_sn in (select sn from ".$this->db_qz."people where recommend_sn=".$recommendSn.")";
 		$rsi = $this->db->exeSql($sql);
 		$rs[0]['charge_count'] = $rsi[0]['cnt'];
 		$rs[0]['charge_sum'] = $rsi[0]['total_charge'];
@@ -1909,7 +1909,7 @@ class PartnerModel extends Lemon_Model
 			//출금횟수,금액
 		$sql = "select count(*) as cnt, sum(agree_amount) as total_exchange
 					from ".$this->db_qz."exchange_log 
-					where member_sn in (select sn from ".$this->db_qz."member where recommend_sn=".$recommendSn.")";
+					where member_sn in (select sn from ".$this->db_qz."people where recommend_sn=".$recommendSn.")";
 		$rsi = $this->db->exeSql($sql);
 		$rs[0]['exchange_count'] = $rsi[0]['cnt'];
 		$rs[0]['exchange_sum'] = $rsi[0]['total_exchange'];
@@ -1921,7 +1921,7 @@ class PartnerModel extends Lemon_Model
 		$rs[0]['charge_member_sum'] = $rsi[0]["charge_member_sum"];
 		
 		$sql = "select sum(a.resamount) as summoney,a.kubun 
-							from ".$this->db_qz."money a,".$this->db_qz."member b 
+							from ".$this->db_qz."money a,".$this->db_qz."people b 
 								where a.result=1 and a.mem_idx=b.sn and a.logo='".$this->logo."' and b.recommend_sn=".$recommendSn." group by a.kubun";	
 		$rsi = $this->db->exeSql($sql);
 		

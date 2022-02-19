@@ -192,7 +192,7 @@ class EtcModel extends Lemon_Model
 
 			//-> DB에 저장된 5분 미만 페이지 로딩한 회원들을 서버 세션과 비교해서 동접을 확인한다.
 			$ckTime = date("Y-m-d H:i:s",time()-600);
-			$sql = "select count(sn) as connect_cnt from tb_member where page_load_date > '{$ckTime}' and sessionid IN ({$sessionListStr})";
+			$sql = "select count(sn) as connect_cnt from tb_people where page_load_date > '{$ckTime}' and sessionid IN ({$sessionListStr})";
 			$rs = $this->db->exeSql($sql);			
 		}
 		$connectCnt = $rs[0]['connect_cnt']+0;
@@ -349,7 +349,7 @@ class EtcModel extends Lemon_Model
 	//▶ 유저잭팟 초기화
 	function clearJackpot()
 	{
-		$sql = "update ".$this->db_qz."member 
+		$sql = "update ".$this->db_qz."people 
 						set jackpot_num=0 
 						where logo='".$this->logo."'";
 		

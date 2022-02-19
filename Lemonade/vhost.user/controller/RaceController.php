@@ -735,7 +735,7 @@ class RaceController extends WebServiceController
 		}
 /*
 		//하루 배팅 취소 횟수 제한
-		$bet_cancel=$processModel->getRow("bet_cancel_flag", "tb_member", "sn='".$sn."'");
+		$bet_cancel=$processModel->getRow("bet_cancel_flag", "tb_people", "sn='".$sn."'");
 	
 		if(sizeof($bet_cancel) > 0)
 		{

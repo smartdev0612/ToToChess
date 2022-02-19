@@ -449,9 +449,7 @@ class GameListModel extends Lemon_Model
         $sql = "select a.sport_name,a.home_team,a.away_team, 
 			           a.gameDate,a.gameHour,a.gameTime, b.name as league_name, b.lg_img
                 from ".$this->db_qz."child a,".$this->db_qz."league b
-                where a.view_flag = 1 
-                and a.league_sn=b.sn 
-                and a.user_view_flag=1
+                where a.league_sn=b.sn
                 and a.kubun=0
 				and a.home_team not like '%보너스%'
                 and concat(a.gameDate,' ',a.gameHour, ':', a.gameTime, ':00') > NOW()
@@ -2090,7 +2088,7 @@ class GameListModel extends Lemon_Model
     {
         $sql = "select	a.betting_no, a.regdate, a.operdate, a.betting_cnt, a.result_rate, a.bet_date, a.logo,
 										a.before_money, a.betting_money, a.result, a.result_money, a.member_sn, a.betting_ip
-						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, ".$this->db_qz."member c, tb_child d, tb_subchild e
+						from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, ".$this->db_qz."people c, tb_child d, tb_subchild e
 						where a.is_new=1 and a.result != 4 and	a.betting_no=b.betting_no and a.member_sn=c.sn and b.sub_child_sn = e.sn and e.child_sn = d.sn
 										and a.kubun ='Y' ".$where." 
 						group by a.betting_no ".$orderby;
@@ -2183,7 +2181,7 @@ class GameListModel extends Lemon_Model
 		
 		$sql = "select	a.betting_no, a.regdate, a.operdate, a.betting_cnt, a.result_rate, a.bet_date, a.logo,
 							a.before_money, a.betting_money, a.result, a.result_money, a.member_sn, a.betting_ip, d.special
-				from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, ".$this->db_qz."member c, tb_child d, tb_subchild e
+				from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, ".$this->db_qz."people c, tb_child d, tb_subchild e
 				where 	a.betting_no=b.betting_no and a.member_sn=c.sn and b.sub_child_sn = e.sn and e.child_sn = d.sn
 							and a.kubun ='Y' ".$where." 
 				group by a.betting_no ".$orderby.$limit;
@@ -2264,7 +2262,7 @@ class GameListModel extends Lemon_Model
 		if($memberSn!="")
 			$where.= " and a.member_sn=".$memberSn;
 		
-		$sql = "select distinct(a.betting_no) from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, ".$this->db_qz."member c, tb_child d, tb_subchild e
+		$sql = "select distinct(a.betting_no) from ".$this->db_qz."game_cart a,".$this->db_qz."game_betting b, ".$this->db_qz."people c, tb_child d, tb_subchild e
 				where a.betting_no=b.betting_no and a.member_sn=c.sn and b.sub_child_sn = e.sn and e.child_sn = d.sn and a.kubun ='Y' ".$where;
 		
 		$rs = $this->db->exeSql($sql);
@@ -2438,7 +2436,7 @@ class GameListModel extends Lemon_Model
 			
 		$sql = "select	a.betting_no, a.regdate, a.operdate, a.betting_cnt, a.result_rate, a.bet_date, a.logo,
 						a.before_money, a.betting_money, a.result, a.result_money, a.member_sn, a.betting_ip, a.cancel_by
-				from ".$this->db_qz."game_cart_cancel a,".$this->db_qz."game_betting_cancel b, ".$this->db_qz."member c
+				from ".$this->db_qz."game_cart_cancel a,".$this->db_qz."game_betting_cancel b, ".$this->db_qz."people c
 				where 	a.betting_no=b.betting_no and a.member_sn=c.sn
 								and a.kubun ='Y' ".$where." 
 				group by a.betting_no ".$orderby.$limit;
@@ -2516,7 +2514,7 @@ class GameListModel extends Lemon_Model
 	public function getAdminBettingCancelListTotal($childSn="", $where="") 
 	{
 		$sql = "select count(distinct(a.betting_no)) as cnt
-							from ".$this->db_qz."game_cart_cancel a,".$this->db_qz."game_betting_cancel b, ".$this->db_qz."member c
+							from ".$this->db_qz."game_cart_cancel a,".$this->db_qz."game_betting_cancel b, ".$this->db_qz."people c
 						where a.betting_no=b.betting_no and a.member_sn=c.sn
 									and a.kubun ='Y' ".$where;
 		
@@ -2536,7 +2534,7 @@ class GameListModel extends Lemon_Model
 		$sql = "select 	count(*) as cnt
 				from "	.$this->db_qz."game_cart a,"
 						.$this->db_qz."game_betting b,"
-						.$this->db_qz."member e
+						.$this->db_qz."people e
 				where	a.betting_no=b.betting_no
 						and a.member_sn=e.sn
 						and a.is_account=1 and a.kubun='Y'
@@ -2563,7 +2561,7 @@ class GameListModel extends Lemon_Model
 						e.uid, e.nick, e.recommend_sn
 				from "	.$this->db_qz."game_cart a,"
 						.$this->db_qz."game_betting b,"
-						.$this->db_qz."member e
+						.$this->db_qz."people e
 				where	a.betting_no=b.betting_no
 						and a.member_sn=e.sn
 						and a.is_account=1 and a.kubun='Y'

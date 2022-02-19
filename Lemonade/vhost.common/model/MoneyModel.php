@@ -35,17 +35,17 @@ class MoneyModel extends Lemon_Model
 		$sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bank, a.bank_account, a.bank_owner, a.state, a.logo,
 						(select count(*) from ".$this->db_qz."exchange_log where state=1 and member_sn=a.member_sn and DATE_FORMAT(regdate,'%Y-%m-%d')=DATE_FORMAT(now(),'%Y-%m-%d')) as todaycount,
 						(select count(*) from ".$this->db_qz."exchange_log where state=1 and member_sn=a.member_sn) as totalcount,
-						(select count(*) from ".$this->db_qz."member_bank where member_sn=b.sn) as bank_count,
+						(select count(*) from ".$this->db_qz."people_bank where member_sn=b.sn) as bank_count,
 						b.uid, b.nick, b.g_money, b.bank_member,
 						ifnull(c.rec_id, '무소속') as recommendId
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
 						where a.member_sn=b.sn".$where."
 						order by a.regdate desc ".$limit;
 */
 		$sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bank, a.bank_account, a.bank_owner, a.state, a.logo,
 						b.uid, b.nick, b.g_money, b.bank_member, b.mem_lev,
 						ifnull(c.rec_id, '무소속') as recommendId
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
 						where a.member_sn=b.sn".$where."
 						order by {$orderby} ".$limit;
 		$rs = $this->db->exeSql($sql);
@@ -71,7 +71,7 @@ class MoneyModel extends Lemon_Model
 		if($state!="") $where.= " and a.state=".$state;
 		
 		$sql = "select count(*) as cnt
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
 						where a.member_sn=b.sn ".$where;
 				
 		$rs = $this->db->exeSql($sql);
@@ -138,18 +138,18 @@ class MoneyModel extends Lemon_Model
 		$sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bonus,a.bank_owner, a.state, a.logo,
 							(select count(*) from ".$this->db_qz."charge_log where state=1 and member_sn=a.member_sn and DATE_FORMAT(regdate,'%Y-%m-%d')=DATE_FORMAT(now(),'%Y-%m-%d')) as todaycount,
 							(select count(*) from ".$this->db_qz."charge_log where state=1 and member_sn=a.member_sn) as totalcount,
-							(select lev_name from ".$this->db_qz."level_config where lev=(select mem_lev from ".$this->db_qz."member where sn=a.member_sn)) as mem_lev,
+							(select lev_name from ".$this->db_qz."level_config where lev=(select mem_lev from ".$this->db_qz."people where sn=a.member_sn)) as mem_lev,
 							b.uid, b.nick, b.g_money, b.bank_member, b.bank_name,
 							ifnull(c.rec_id, '무소속') as recommendId
-				from ".$this->db_qz."charge_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+				from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
 				where a.member_sn=b.sn".$where."
 				order by a.regdate desc ".$limit;
 */
 		$sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bonus,a.bank_owner, a.state, a.logo,
-							(select lev_name from ".$this->db_qz."level_config where lev=(select mem_lev from ".$this->db_qz."member where sn=a.member_sn) and logo ='{$logo}') as mem_lev,
+							(select lev_name from ".$this->db_qz."level_config where lev=(select mem_lev from ".$this->db_qz."people where sn=a.member_sn) and logo ='{$logo}') as mem_lev,
 							b.uid, b.nick, b.g_money, b.bank_member, b.bank_name,
 							ifnull(c.rec_id, '무소속') as recommendId
-				from ".$this->db_qz."charge_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+				from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
 				where a.member_sn=b.sn".$where."
 				order by a.regdate desc ".$limit;
 		$rs = $this->db->exeSql($sql);
@@ -173,7 +173,7 @@ class MoneyModel extends Lemon_Model
 		if($state!="") $where.= " and a.state=".$state;
 		
 		$sql = "select count(*) as cnt
-				from ".$this->db_qz."charge_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+				from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
 				where a.member_sn=b.sn".$where;
 					
 		$rs = $this->db->exeSql($sql);
@@ -186,9 +186,9 @@ class MoneyModel extends Lemon_Model
         $sql = "select count(*) as mem_cnt, IFNULL(sum(amt),0) as amount, IFNULL(sum(cnt),0) as charge_cnt 
 				from 	(select member_sn, sum(amount) as amt, count(*) as cnt  
 						from tb_charge_log 
-							left join tb_member on tb_charge_log.member_sn = tb_member.sn
+							left join tb_people on tb_charge_log.member_sn = tb_people.sn
 						where state = 1
-							and tb_member.mem_status != 'G'
+							and tb_people.mem_status != 'G'
 							and operdate >= '{$beginDate}'
 							and operdate <= '{$endDate}' 
 						group by member_sn order by member_sn) a";
@@ -202,9 +202,9 @@ class MoneyModel extends Lemon_Model
         $sql = "select count(*) as mem_cnt, IFNULL(sum(amt),0) as amount, IFNULL(sum(cnt),0) as exchange_cnt 
 				from (select member_sn, sum(amount) as amt, count(*) as cnt  
 					from tb_exchange_log 
-						left join tb_member on tb_exchange_log.member_sn = tb_member.sn	
+						left join tb_people on tb_exchange_log.member_sn = tb_people.sn	
 					where state=1
-						and tb_member.mem_status != 'G'
+						and tb_people.mem_status != 'G'
 						and operdate >= '{$beginDate}'
 						and operdate <= '{$endDate}' 
 					group by member_sn order by member_sn) a";
@@ -248,7 +248,7 @@ class MoneyModel extends Lemon_Model
 	//▶ 충전 데이터
 	function getChargeRow($sn)
 	{
-		$sql = "select a.*, b.uid from ".$this->db_qz."charge_log a, ".$this->db_qz."member b where a.member_sn=b.sn and a.sn=".$sn;
+		$sql = "select a.*, b.uid from ".$this->db_qz."charge_log a, ".$this->db_qz."people b where a.member_sn=b.sn and a.sn=".$sn;
 		$rs = $this->db->exeSql($sql);
 		return $rs[0];
 	}
@@ -256,7 +256,7 @@ class MoneyModel extends Lemon_Model
 	//▶ 충전 데이터
 	function getExchangeRow($sn)
 	{
-		$sql = "select a.*, b.uid from ".$this->db_qz."exchange_log a, ".$this->db_qz."member b where a.member_sn=b.sn and a.sn=".$sn;
+		$sql = "select a.*, b.uid from ".$this->db_qz."exchange_log a, ".$this->db_qz."people b where a.member_sn=b.sn and a.sn=".$sn;
 		$rs = $this->db->exeSql($sql);
 		return $rs[0];
 	}
@@ -344,7 +344,7 @@ class MoneyModel extends Lemon_Model
 	function getMileageLogTotal($where='', $memberSn='', $type='', $beginDate='', $endDate='')
 	{
 		$sql = "select count(*) as cnt 
-						from ".$this->db_qz."mileage_log a,".$this->db_qz."member b
+						from ".$this->db_qz."mileage_log a,".$this->db_qz."people b
 						where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
 		
 		if($type!='') 		$sql.=" and a.state=".$type;
@@ -358,7 +358,7 @@ class MoneyModel extends Lemon_Model
 	function getMileageLogList($where='', $memberSn='', $page=0, $page_size=0, $type='', $beginDate='', $endDate='')
 	{
 		$sql = "select a.regdate as log_regdate, a.*, b.*
-						from ".$this->db_qz."mileage_log a,".$this->db_qz."member b
+						from ".$this->db_qz."mileage_log a,".$this->db_qz."people b
 						where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
 		
 		if($type!='') 		$sql.=" and a.state=".$type;
@@ -374,7 +374,7 @@ class MoneyModel extends Lemon_Model
 	function getMoneyLogTotal($where='', $memberSn='', $type='', $beginDate='', $endDate='')
 	{
 		$sql = "select count(*) as cnt 
-						from ".$this->db_qz."money_log a, ".$this->db_qz."member b
+						from ".$this->db_qz."money_log a, ".$this->db_qz."people b
 						where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
 		
 		if($type!='') 		$sql.=" and a.state=".$type;
@@ -396,7 +396,7 @@ class MoneyModel extends Lemon_Model
 		}
 		$where.=" order by a.operdate asc";  
 		if($page_size>0) 	$where.=" limit ".$page.",".$page_size;
-		$sql = "select a.*, b.*, c.rec_id from tb_charge_log a, tb_member b left outer join tb_recommend c on b.recommend_sn=c.Idx where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
+		$sql = "select a.*, b.*, c.rec_id from tb_charge_log a, tb_people b left outer join tb_recommend c on b.recommend_sn=c.Idx where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
 		return $this->db->exeSql($sql);
 	}
 
@@ -411,7 +411,7 @@ class MoneyModel extends Lemon_Model
 		}
 		$where.=" order by a.operdate asc";  
 		if($page_size>0) 	$where.=" limit ".$page.",".$page_size;
-		$sql = "select a.*, b.*, c.rec_id from tb_exchange_log a, tb_member b left outer join tb_recommend c on b.recommend_sn=c.Idx where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
+		$sql = "select a.*, b.*, c.rec_id from tb_exchange_log a, tb_people b left outer join tb_recommend c on b.recommend_sn=c.Idx where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
 		return $this->db->exeSql($sql);
 	}
 	
@@ -430,7 +430,7 @@ class MoneyModel extends Lemon_Model
 		if($page_size>0) 	$where.=" limit ".$page.",".$page_size;
 
 		$sql = "select (select count(*) from tb_charge_log z where z.member_sn=b.sn".$subParam.") as charge_cnt, a.regdate as log_regdate, a.*, b.*, c.rec_id, a.regdate as operdate
-						from ".$this->db_qz."money_log a,".$this->db_qz."member b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.Idx
+						from ".$this->db_qz."money_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.Idx
 						where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
 		return $this->db->exeSql($sql);
 	}
@@ -446,7 +446,7 @@ class MoneyModel extends Lemon_Model
 	{
 		$process_model = Lemon_Instance::getObject("ProcessModel",true);
 		
-		$sql = "select g_money from ".$this->db_qz."member where sn='".$sn."'";
+		$sql = "select g_money from ".$this->db_qz."people where sn='".$sn."'";
 		$rows = $this->db->exeSql($sql);
 		
 		if(count($rows)>0)
@@ -458,7 +458,7 @@ class MoneyModel extends Lemon_Model
 				$process_model->modifyMoneyProcess($sn, -$amount, '13', '마일리지전환');
 				$rs = $process_model->modifyMileageProcess($sn, $amount, '13', '마일리지전환', 100);
 				
-				$sql = "select g_money, point from ".$this->db_qz."member where sn='".$sn."'";
+				$sql = "select g_money, point from ".$this->db_qz."people where sn='".$sn."'";
 				$rs = $this->db->exeSql($sql);
 				
 				echo(json_encode($rs[0]));
@@ -478,14 +478,14 @@ class MoneyModel extends Lemon_Model
 	
 	function totalmemberMoney()
 	{
-		$sql = "select sum(g_money) as total_money from ".$this->db_qz."member where mem_status not in ('G','D','S')";
+		$sql = "select sum(g_money) as total_money from ".$this->db_qz."people where mem_status not in ('G','D','S')";
 		$rs=$this->db->exeSql($sql);
 		return $rs[0]["total_money"];
 	}
 	
 	function totalmemberMileage()
 	{
-		$sql = "select sum(point) as total_point from ".$this->db_qz."member where mem_status not in ('G','D','S')";
+		$sql = "select sum(point) as total_point from ".$this->db_qz."people where mem_status not in ('G','D','S')";
 		$rs=$this->db->exeSql($sql);
 		return $rs[0]["total_point"];
 	}
@@ -494,13 +494,13 @@ class MoneyModel extends Lemon_Model
 	function getExchangeTop10() {
 		$startDate = date("Y-m-d H:i:s",time()-(86400*7));
 		$endDate = date("Y-m-d H:i:s",time());
-		$sql = "select a.amount, a.regdate, b.uid, b.nick from tb_money_log a, tb_member b where a.member_sn = b.sn and a.regdate >= '{$startDate}' and a.regdate <= '{$endDate}' and a.state = 2 and a.status_message = '환전요청' and b.mem_status = 'N' order by a.amount asc limit 10";
+		$sql = "select a.amount, a.regdate, b.uid, b.nick from tb_money_log a, tb_people b where a.member_sn = b.sn and a.regdate >= '{$startDate}' and a.regdate <= '{$endDate}' and a.state = 2 and a.status_message = '환전요청' and b.mem_status = 'N' order by a.amount asc limit 10";
 		return $this->db->exeSql($sql);	
 	}
 
 	//-> 실시간 입/출금 최근 10개
 	function getMoneyInOutTop10() {
-		$sql = "select a.state, a.amount, a.regdate, b.uid, b.nick from tb_money_log a, tb_member b where a.member_sn = b.sn and (a.state = 1 or a.state = 2) and (a.status_message = '환전요청' or a.status_message = '충전') and b.mem_status = 'N' order by a.regdate desc limit 10";
+		$sql = "select a.state, a.amount, a.regdate, b.uid, b.nick from tb_money_log a, tb_people b where a.member_sn = b.sn and (a.state = 1 or a.state = 2) and (a.status_message = '환전요청' or a.status_message = '충전') and b.mem_status = 'N' order by a.regdate desc limit 10";
 		return $this->db->exeSql($sql);	
 	}
 

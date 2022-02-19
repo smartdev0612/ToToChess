@@ -65,8 +65,8 @@ class LoginModel extends Lemon_Model
 
         //$passwd = trim($passwd);
 		
-        //$sql = "select count(*) as cnt from tb_member where uid = '{$id}'";
-        $sql = "select count(*) as cnt from tb_member m where is_store=1 and uid = '{$id}'";
+        //$sql = "select count(*) as cnt from tb_people where uid = '{$id}'";
+        $sql = "select count(*) as cnt from tb_people m where is_store=1 and uid = '{$id}'";
         $rs = $this->db->exeSql($sql);
 
         if($rs[0]['cnt']<=0)
@@ -79,7 +79,7 @@ class LoginModel extends Lemon_Model
             return 0;
         }
 
-        $sql = "select * from tb_member where uid = '{$id}' and upass = '{$passwd}'";
+        $sql = "select * from tb_people where uid = '{$id}' and upass = '{$passwd}'";
         $rs = $this->db->exeSql($sql);
         if($rs[0]['uid']!='')
         {
@@ -100,7 +100,7 @@ class LoginModel extends Lemon_Model
                 $config = Lemon_Configure::readConfig('config');
                 $_SESSION['conf'] = $config ;
 
-                $sql = "update ".$this->db_qz."member 
+                $sql = "update ".$this->db_qz."people 
 								set last_date = now(), 
 										sessionid='".session_id()."', 
 										login_domain='".$_SERVER['HTTP_HOST']."',
@@ -180,7 +180,7 @@ class LoginModel extends Lemon_Model
 		$rs = $this->db->exeSql($sql);
 		if ( $rs[0]['cnt'] != 0 ) return 2;
 		
-		$sql = "select count(*) as cnt from tb_member where uid = '{$id}'";
+		$sql = "select count(*) as cnt from tb_people where uid = '{$id}'";
 		$rs = $this->db->exeSql($sql);
 		
 		/*등급에 설정된 도메인과 접속 도메인이 틀릴경우 회원 접속 제한
@@ -203,7 +203,7 @@ class LoginModel extends Lemon_Model
 			return 0;
 		}
 		
-		$sql = "select * from tb_member where uid = '{$id}' and upass = '{$passwd}'";
+		$sql = "select * from tb_people where uid = '{$id}' and upass = '{$passwd}'";
 		$rs = $this->db->exeSql($sql);
 		if($rs[0]['uid']!='')
 		{
@@ -224,7 +224,7 @@ class LoginModel extends Lemon_Model
 				$config = Lemon_Configure::readConfig('config');
 				$_SESSION['conf'] = $config ;
 				
-				$sql = "update ".$this->db_qz."member 
+				$sql = "update ".$this->db_qz."people 
 								set last_date = now(), 
 										sessionid='".session_id()."', 
 										login_domain='".$_SERVER['HTTP_HOST']."',
@@ -351,7 +351,7 @@ class LoginModel extends Lemon_Model
 		$rs = $this->db->exeSql($sql);
 		if ( $rs[0]['cnt'] != 0 ) return 2;
 		
-		$sql = "select count(*) as cnt from tb_member where uid = '{$id}'";
+		$sql = "select count(*) as cnt from tb_people where uid = '{$id}'";
 		$rs = $this->db->exeSql($sql);
 		
 		/*등급에 설정된 도메인과 접속 도메인이 틀릴경우 회원 접속 제한
@@ -374,7 +374,7 @@ class LoginModel extends Lemon_Model
 			return 0;
 		}
 		
-		$sql = "select * from tb_member where uid = '{$id}' and upass = '{$passwd}'";
+		$sql = "select * from tb_people where uid = '{$id}' and upass = '{$passwd}'";
 		$rs = $this->db->exeSql($sql);
 		if($rs[0]['uid']!='')
 		{
@@ -395,7 +395,7 @@ class LoginModel extends Lemon_Model
 				$config = Lemon_Configure::readConfig('config');
 				$_SESSION['conf'] = $config ;
 				
-				$sql = "update ".$this->db_qz."member 
+				$sql = "update ".$this->db_qz."people 
 								set last_date = now(), 
 										sessionid='".session_id()."', 
 										login_domain='".$_SERVER['HTTP_HOST']."',
@@ -449,7 +449,7 @@ class LoginModel extends Lemon_Model
 		$eModel = Lemon_Instance::getObject("EtcModel",true);
 		
 		$sql = "select a.logo, a.sn as aidx, a.nick,a.mem_lev,a.g_money, a.login_domain, a.bank_member, (select rec_id from ".$this->db_qz."recommend where Idx=a.recommend_sn) as recommend_id, b.member_id,b.idx,b.visit_date,b.visit_ip,b.result,b.status,b.device 
-				from ".$this->db_qz."member a right outer join ".$this->db_qz."visit b on a.uid=b.member_id 
+				from ".$this->db_qz."people a right outer join ".$this->db_qz."visit b on a.uid=b.member_id 
 				where a.mem_status<>'G'".$where." order by b.visit_date desc  limit ".$page.",".$page_size ;
 					
 		$rs = $this->db->exeSql($sql);
@@ -531,10 +531,10 @@ class LoginModel extends Lemon_Model
 
             //-> DB에 저장된 5분 미만 페이지 로딩한 회원들을 서버 세션과 비교해서 동접을 확인한다.
             $ckTime = date("Y-m-d H:i:s", time() - 300);
-            /*$sql = "select count(sn) as connect_cnt from tb_member where page_load_date > '{$ckTime}' and sessionid IN ({$sessionListStr})";
+            /*$sql = "select count(sn) as connect_cnt from tb_people where page_load_date > '{$ckTime}' and sessionid IN ({$sessionListStr})";
             $rs = $this->db->exeSql($sql);*/
 
-            $sql = "select * from ".$this->db_qz."member 
+            $sql = "select * from ".$this->db_qz."people 
 						where mem_status<>'G' and  page_load_date > '{$ckTime}' and sessionid IN ({$sessionListStr}) ";
 
             $rs = $this->db->exeSql($sql);
@@ -547,7 +547,7 @@ class LoginModel extends Lemon_Model
 	function getTotal($where)
 	{
 		$sql = "select count(*) as cnt
-				from ".$this->db_qz."member a right outer join ".$this->db_qz."visit b on a.uid=b.member_id 
+				from ".$this->db_qz."people a right outer join ".$this->db_qz."visit b on a.uid=b.member_id 
 					where 1=1 ".$where ;
 					
 		$rs = $this->db->exeSql($sql);

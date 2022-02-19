@@ -114,7 +114,7 @@ class PinnacleGameModel extends Lemon_Model
 	
 	function admin_betting_list_total($where='')
 	{
-		$sql = "select count(*) as cnt from tb_pinnacle_betting a, tb_pinnacle_game b, tb_pinnacle_game_detail c, tb_league d, tb_member e
+		$sql = "select count(*) as cnt from tb_pinnacle_betting a, tb_pinnacle_game b, tb_pinnacle_game_detail c, tb_league d, tb_people e
 						where a.game_sn=b.sn and a.game_detail_sn=c.sn and b.league_sn=d.sn and a.member_sn=e.sn".$where;
 		$rs = $this->db->exeSql($sql);
 		return $rs[0]['cnt'];
@@ -127,7 +127,7 @@ class PinnacleGameModel extends Lemon_Model
 						c.sn as detail_sn,
 						e.sn as member_sn, e.nick, e.uid, e.logo as logo,
 						f.alias as template_alias, f.period,
-						d.name as league_name from tb_pinnacle_betting a, tb_pinnacle_game b, tb_pinnacle_game_detail c, tb_league d, tb_member e, tb_pinnacle_template f
+						d.name as league_name from tb_pinnacle_betting a, tb_pinnacle_game b, tb_pinnacle_game_detail c, tb_league d, tb_people e, tb_pinnacle_template f
 						where a.game_sn=b.sn and a.game_detail_sn=c.sn and b.league_sn=d.sn and c.template=f.template
 									and a.member_sn=e.sn and e.mem_status='N' ".$where." order by reg_time desc limit ".$page.",".$page_size;
 		$rows = $this->db->exeSql($sql);
@@ -227,7 +227,7 @@ class PinnacleGameModel extends Lemon_Model
 	function position_betting_money($position, $detail_sn)
 	{
 		$sql = "select ifnull(sum(a.betting_money),0) as total
-						from tb_pinnacle_betting a, tb_member b
+						from tb_pinnacle_betting a, tb_people b
 						where a.member_sn=b.sn 
 									and b.mem_status='N'
 									and a.game_detail_sn=".$detail_sn." and a.betting_position='".$position."'";
@@ -541,7 +541,7 @@ class PinnacleGameModel extends Lemon_Model
 						e.sn as member_sn, e.nick, e.uid, e.logo as logo,
 						c.template as template, 
 						d.lg_img as league_image, d.name as league_name from 
-						tb_pinnacle_betting a, tb_pinnacle_game b, tb_pinnacle_game_detail c, tb_league d, tb_member e
+						tb_pinnacle_betting a, tb_pinnacle_game b, tb_pinnacle_game_detail c, tb_league d, tb_people e
 						where a.game_sn=b.sn and a.game_detail_sn=c.sn and b.league_sn=d.sn
 									and a.member_sn=e.sn and a.visible='Y' and
 									e.sn=".$member_sn.$where." limit ".$page.",".$page_size;
@@ -554,7 +554,7 @@ class PinnacleGameModel extends Lemon_Model
 	function betting_list_total($member_sn, $where='')
 	{
 		$sql = "select count(*) as cnt from 
-						tb_pinnacle_betting a, tb_pinnacle_game b, tb_pinnacle_game_detail c, tb_league d, tb_member e
+						tb_pinnacle_betting a, tb_pinnacle_game b, tb_pinnacle_game_detail c, tb_league d, tb_people e
 						where a.game_sn=b.sn and a.game_detail_sn=c.sn and b.league_sn=d.sn
 									and a.member_sn=e.sn and a.visible='Y' and
 									e.sn=".$member_sn.$where;

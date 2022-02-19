@@ -78,9 +78,9 @@ class MemoModel extends Lemon_Model
 	{
 		if($kewyword!="")
 		{
-			if($field=="uid")								{$where = " and toid in (select uid from ".$this->db_qz."member where uid like('%".$kewyword."%'))";}
-			else if($field=="nick")					{$where = " and toid in (select uid from ".$this->db_qz."member where nick like('%".$kewyword."%'))";}
-			else if($field=="bank_member")	{$where = " and toid in (select uid from ".$this->db_qz."member where bank_member like('%".$kewyword."%'))";}
+			if($field=="uid")								{$where = " and toid in (select uid from ".$this->db_qz."people where uid like('%".$kewyword."%'))";}
+			else if($field=="nick")					{$where = " and toid in (select uid from ".$this->db_qz."people where nick like('%".$kewyword."%'))";}
+			else if($field=="bank_member")	{$where = " and toid in (select uid from ".$this->db_qz."people where bank_member like('%".$kewyword."%'))";}
 		}
 		
 		$sql = "select count(*) as cnt from ".$this->db_qz."memoboard
@@ -96,11 +96,11 @@ class MemoModel extends Lemon_Model
 	{
 		if($kewyword!="")
 		{
-			if($field=="uid")								{$where = " and a.toid in (select uid from ".$this->db_qz."member where uid like('%".$kewyword."%'))";}
-			else if($field=="nick")					{$where = " and a.toid in (select uid from ".$this->db_qz."member where nick like('%".$kewyword."%'))";}
-			else if($field=="bank_member")	{$where = " and a.toid in (select uid from ".$this->db_qz."member where bank_member like('%".$kewyword."%'))";}
+			if($field=="uid")								{$where = " and a.toid in (select uid from ".$this->db_qz."people where uid like('%".$kewyword."%'))";}
+			else if($field=="nick")					{$where = " and a.toid in (select uid from ".$this->db_qz."people where nick like('%".$kewyword."%'))";}
+			else if($field=="bank_member")	{$where = " and a.toid in (select uid from ".$this->db_qz."people where bank_member like('%".$kewyword."%'))";}
 		}
-		$sql = "select a.*, b.nick, b.bank_member from ".$this->db_qz."memoboard a, ".$this->db_qz."member b
+		$sql = "select a.*, b.nick, b.bank_member from ".$this->db_qz."memoboard a, ".$this->db_qz."people b
 						where a.toid=b.uid and a.fromid='운영팀' and 1=1 ".$where."
 						order by writeday desc
 						limit ".$page.",".$page_size;
@@ -211,7 +211,7 @@ class MemoModel extends Lemon_Model
 	function getMemberNote($sn)
 	{
 		$sql = "select regdate, memo, sn
-						from ".$this->db_qz."member_note
+						from ".$this->db_qz."people_note
 						where member_sn='".$sn."' order by regdate desc";
 							
 		return $this->db->exeSql($sql);
@@ -229,7 +229,7 @@ class MemoModel extends Lemon_Model
 	//▶ 단체 쓰기
 	function writeGroupMemo($where="", $subject, $content)
 	{
-		$sql = "select sn, uid from ".$this->db_qz."member 
+		$sql = "select sn, uid from ".$this->db_qz."people 
 						where (mem_status='N' or mem_status='W') ".$where."";
 		$rs = $this->db->exeSql($sql);
 		for($i=0; $i<count((array)$rs); ++$i)

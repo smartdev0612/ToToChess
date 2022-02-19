@@ -599,7 +599,7 @@ class ConfigModel extends Lemon_Model
     {
         //$logo = $this->logo;
         $sql = "select b.lev_charge_mileage_rate, b.lev_first_charge_mileage_rate
-                from tb_member a, tb_level_config b
+                from tb_people a, tb_level_config b
                 where a.mem_lev = b.lev
                 and a.sn = ".$mem_sn;
 
