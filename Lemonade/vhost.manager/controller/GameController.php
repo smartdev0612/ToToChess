@@ -996,7 +996,7 @@ class GameController extends WebServiceController
 		if($mode == "edit")
 		{
 			$result = empty($this->request("result")) ? 0 : $this->request("result");
-			$bettingNo = $cartModel->modifyBetResult($sn, $result);
+			$bettingNo = $cartModel->changeBettingResult($sn, $result);
 			if ( $bettingNo > 0 ) {
 				$processModel->modifyResultMoneyProcess($bettingNo);
 				$this->requestRemoveBettingInfo($sn);
@@ -1037,9 +1037,9 @@ class GameController extends WebServiceController
 			if(count($cart_info) > 0) {
 				if($cart_info["result"] > 0) {
 					// 정산취소
-					$processModel->cancel_betting_result($betting_no, $sn, $cart_info["member_sn"], $cart_info["last_special_code"]);
+					$processModel->cancel_bet_result_process($betting_no, $sn, $cart_info["member_sn"], $cart_info["last_special_code"]);
 				} 
-				$bettingNo = $cartModel->modifyBetResult($sn, $result, $select_no);
+				$bettingNo = $cartModel->changeBettingResult($sn, $result, $select_no);
 				if ( $bettingNo > 0 ) {
 					$processModel->modifyResultMoneyProcess($bettingNo);
 				}

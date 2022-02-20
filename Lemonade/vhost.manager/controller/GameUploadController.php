@@ -462,7 +462,7 @@ class GameUploadController extends WebServiceController
 				$game_result = $gameSnList[$i]["game_result"];
 				if($subchildSn != "" && $game_result > 0)
 				{
-					$processModel->resultGameProcess($subchildSn, $game_result);
+					$processModel->resultGameProcessing($subchildSn, $game_result);
 				}
 			}
 			
@@ -706,7 +706,7 @@ class GameUploadController extends WebServiceController
 
 				$model->setFinishGame($childSn, $home_score, $away_score);
 				
-				$dataArray = $processModel->resultPreviewProcess($subchildSn, $game_result);
+				$dataArray = $processModel->resultPreviewProcessing($subchildSn, $game_result);
 				
 				$list_temp = $dataArray["list"];
 				$betData_temp = $dataArray["betData"];
@@ -947,7 +947,7 @@ class GameUploadController extends WebServiceController
 						exit;
 					}
 
-					$dataArray = $processModel->resultPreviewProcessMulti($subchildSn, $homeScore, $awayScore, $isCancel, $betData);
+					$dataArray = $processModel->resultPreviewProcessingMulti($subchildSn, $homeScore, $awayScore, $isCancel, $betData);
 				
 					$list_temp = $dataArray["list"];
 					$betData_temp = $dataArray["betData"];
@@ -1122,11 +1122,11 @@ class GameUploadController extends WebServiceController
 				$childRs = $model->getChildRow($childSn, '*');
 				//if ( $childRs['kubun'] == 1 ) {
 					// 정산취소모듈 추가
-					$processModel->cancel_resultGameProcessMulti($subchildSn);
+					$processModel->cancel_resultGameProcessingingMulti($subchildSn);
 				//}
 				
 				if ($game_result > 0) {
-					$dataArray = $processModel->resultPreviewProcess($subchildSn, $game_result);
+					$dataArray = $processModel->resultPreviewProcessing($subchildSn, $game_result);
 					$list_temp = $dataArray["list"];
 					$betData_temp = $dataArray["betData"];
 				} else {
@@ -1310,10 +1310,10 @@ class GameUploadController extends WebServiceController
                     $childRs = $model->getChildRowMulti($subchildSn, '*');
                     if ( $childRs['kubun'] == 1 ) {
                     	// 정산취소모듈 추가
-                        $processModel->cancel_resultGameProcessMulti($subchildSn, $homeScore, $awayScore);
+                        $processModel->cancel_resultGameProcessingingMulti($subchildSn, $homeScore, $awayScore);
                     }
 
-                    $dataArray = $processModel->resultPreviewProcessMulti($subchildSn, $homeScore, $awayScore, $isCancel, $betData);
+                    $dataArray = $processModel->resultPreviewProcessingMulti($subchildSn, $homeScore, $awayScore, $isCancel, $betData);
 
                     $list_temp = $dataArray["list"];
                     $betData_temp = $dataArray["betData"];
@@ -3925,7 +3925,7 @@ class GameUploadController extends WebServiceController
 			$where = " sn=".$childSn;
 			
 			$gModel->modifyChild($set, $where);
-			$pModel->resultGameProcess($childSn, $homeScore, $awayScore, $winTeam, $gameCancel);
+			$pModel->resultGameProcessing($childSn, $homeScore, $awayScore, $winTeam, $gameCancel);
 			*/
 			if($auto=="0") 	{$winTeam = Trim($this->request("winTeamauto"));}
 			else 						{$winTeam = Trim($this->request("winTeam"));}
@@ -3941,7 +3941,7 @@ class GameUploadController extends WebServiceController
 				$awayScore = $this->request("winPoint2");
 			}
 
-			$pModel->resultGameProcess($childSn, $homeScore, $awayScore, $gameCancel);
+			$pModel->resultGameProcessing($childSn, $homeScore, $awayScore, $gameCancel);
 		}
 			
 		throw new Lemon_ScriptException("","","script","alert('수정되었습니다.');opener.document.location.reload(); self.close();");							
@@ -4063,7 +4063,7 @@ class GameUploadController extends WebServiceController
 				$awayScore = $this->request("winPoint2");
 			}
 
-			$pModel->resultGameProcessMulti($subchildSn, $homeScore, $awayScore, $gameCancel);
+			$pModel->resultGameProcessingMulti($subchildSn, $homeScore, $awayScore, $gameCancel);
 		}
 			
 		throw new Lemon_ScriptException("","","script","alert('수정되었습니다.');opener.document.location.reload(); self.close();");							
@@ -4334,7 +4334,7 @@ class GameUploadController extends WebServiceController
 			if($homeScore != '' && $awayScore != '')
 			{
 				$pModel		= $this->getModel("ProcessModel");
-				$pModel->resultGameProcess($childSn, $homeScore, $awayScore, "");
+				$pModel->resultGameProcessing($childSn, $homeScore, $awayScore, "");
 			}*/
 		}
 
@@ -4504,7 +4504,7 @@ class GameUploadController extends WebServiceController
 			if($homeScore != $db_item['home_score'] || $awayScore != $db_item['away_score'])
 			{
 				$pModel		= $this->getModel("ProcessModel");
-				$pModel->resultGameProcess($childSn, $homeScore, $awayScore, "");
+				$pModel->resultGameProcessing($childSn, $homeScore, $awayScore, "");
 			}
 		}
 

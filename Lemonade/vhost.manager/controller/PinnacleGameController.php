@@ -555,7 +555,7 @@ class PinnacleGameController extends WebServiceController
 				$homeScore = $arrayHomeScore[$childSn];
 				$awayScore = $arrayAwayScore[$childSn];
 				
-				$dataArray = $processModel->resultPreviewProcess($childSn, $homeScore, $awayScore, $isCancel, $betData);
+				$dataArray = $processModel->resultPreviewProcessing($childSn, $homeScore, $awayScore, $isCancel, $betData);
 				
 				$list_temp 		= $dataArray["list"];
 				$betData_temp = $dataArray["betData"];

@@ -92,7 +92,7 @@ class CoinController extends WebServiceController
 				$home_score = '0';
 				$away_score = '1';
 			}
-			$process_model->resultGameProcess($edit_game["sn"], $home_score, $away_score);
+			$process_model->resultGameProcessing($edit_game["sn"], $home_score, $away_score);
 		}
 
 		//-> 좌/우
@@ -105,7 +105,7 @@ class CoinController extends WebServiceController
 				$home_score = '0';
 				$away_score = '1';
 			}
-			$process_model->resultGameProcess($edit_game["sn"], $home_score, $away_score);
+			$process_model->resultGameProcessing($edit_game["sn"], $home_score, $away_score);
 		}
 
 		//-> 앞/뒤
@@ -118,7 +118,7 @@ class CoinController extends WebServiceController
 				$home_score = '0';
 				$away_score = '1';
 			}
-			$process_model->resultGameProcess($edit_game["sn"], $home_score, $away_score);
+			$process_model->resultGameProcessing($edit_game["sn"], $home_score, $away_score);
 		}
 
 		$mis_game_list = $ladder_model->misGameList2(date("Y-m-d"));

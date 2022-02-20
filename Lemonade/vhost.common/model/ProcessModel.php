@@ -197,7 +197,7 @@ class ProcessModel extends Lemon_Model
  		}
  	}
  	
-	function resultPreviewProcess($subChildSn, $game_result)
+	function resultPreviewProcessing($subChildSn, $game_result)
  	{
  		if($subChildSn == "")
  			return;
@@ -236,7 +236,7 @@ class ProcessModel extends Lemon_Model
 	}
 
 	//다기준
-	function resultPreviewProcessMulti($subchildSn, $homeScore, $awayScore, $gameCancel="", $betData)
+	function resultPreviewProcessingMulti($subchildSn, $homeScore, $awayScore, $gameCancel="", $betData)
  	{
  		if($subchildSn=="")
  			return;
@@ -493,7 +493,7 @@ class ProcessModel extends Lemon_Model
 	}
 
     //▶ [수정] - 결과에 따른 정보 갱신
-    function resultGameProcess($subChildSn, $game_result)
+    function resultGameProcessing($subChildSn, $game_result)
     {
         ////////////////////////////////////////////////////////////////////////////////
         //modify total_betting
@@ -531,7 +531,7 @@ class ProcessModel extends Lemon_Model
 	}
 
 	//▶ [수정] - 결과에 따른 정보 갱신 (다기준)
-    function resultGameProcessMulti($subchildSn, $homeScore, $awayScore, $gameCancel="")
+    function resultGameProcessingMulti($subchildSn, $homeScore, $awayScore, $gameCancel="")
     {
         $sql = "select b.betting_type, a.special, b.draw_rate, b.sn as sub_child_sn from ".$this->db_qz."child_m a, ".$this->db_qz."subchild_m b where a.sn=b.child_sn and b.sn=".$subchildSn;
         $childRs = $this->db->exeSql($sql);
@@ -979,10 +979,10 @@ class ProcessModel extends Lemon_Model
     }
 
  	//▶ [수정] - 이미 정산된 결과를 취소한다.
- 	function cancel_resultGameProcess($childSn, $homeScore, $awayScore)
+ 	function cancel_resultGameProcessinging($childSn, $homeScore, $awayScore)
  	{
  	    // Money 정산전 상태로 복귀
-        $this->cancel_accountMoneyProcess($childSn);
+        $this->cancel_accountMoneyProcessing($childSn);
 
 
  	    $sql = "select a.type, a.special, b.draw_rate, b.sn as sub_child_sn from ".$this->db_qz."child a, ".$this->db_qz."subchild b where a.sn=b.child_sn and a.sn=".$childSn;
@@ -1148,7 +1148,7 @@ class ProcessModel extends Lemon_Model
 	}
 
 	//▶ 해당 배팅번호에 이미 정산된 결과를 취소한다.
-	function cancel_betting_result($bettingNo = "", $total_betting_sn = 0, $memberSn = 0, $specialCode = 0) {
+	function cancel_bet_result_process($bettingNo = "", $total_betting_sn = 0, $memberSn = 0, $specialCode = 0) {
 		// Money 정산전 상태로 복귀
 		$this->cancel_winMoneyProcess($bettingNo, $memberSn, $specialCode);
 
@@ -1267,10 +1267,10 @@ class ProcessModel extends Lemon_Model
 	}
 
 	//▶ [수정] - 이미 정산된 결과를 취소한다. (다기준)
-	function cancel_resultGameProcessMulti($subchildSn)
+	function cancel_resultGameProcessingingMulti($subchildSn)
 	{
 		// Money 정산전 상태로 복귀
-	    $this->cancel_accountMoneyProcessMulti($subchildSn);
+	    $this->cancel_accountMoneyProcessingMulti($subchildSn);
 
 		$sql = "update ".$this->db_qz."subchild set win=null, result=null where sn=".$subchildSn;
 		$this->db->exeSql($sql);
@@ -1292,7 +1292,7 @@ class ProcessModel extends Lemon_Model
    }
 	
 	//▶ [배당지급] - 결과에 따른 돈 지급 취소(팝업정산)
- 	function cancel_accountMoneyProcess($childSn)
+ 	function cancel_accountMoneyProcessing($childSn)
  	{
  		$rs = $this->gameModel->getChildRow($childSn, '*');
  		
@@ -1448,7 +1448,7 @@ class ProcessModel extends Lemon_Model
  	}
 
 	//▶ [배당지급] - 결과에 따른 돈 지급 취소(팝업정산) (다기준)
- 	function cancel_accountMoneyProcessMulti($subchildSn)
+ 	function cancel_accountMoneyProcessingMulti($subchildSn)
  	{
  		$rs = $this->gameModel->getChildRowMulti($subchildSn, '*');
  		

@@ -33,17 +33,17 @@ class LadderBallController extends WebServiceController
 		for ( $i = 0 ; $i < 5 ; $i++ ) {
 			$selectGame = $game_model->getRow('*', "tb_child", "league_sn = 4000 and kubun = 0 and home_score IS NOT NULL and win_team IS NOT NULL");
 			if ( is_array($selectGame) ) {
-				$process_model->resultGameProcess($selectGame["sn"], $selectGame["home_score"], $selectGame["away_score"]);
+				$process_model->resultGameProcessing($selectGame["sn"], $selectGame["home_score"], $selectGame["away_score"]);
 			}
 
 			$selectGame = $game_model->getRow('*', "tb_child", "league_sn = 4100 and kubun = 0 and home_score IS NOT NULL and win_team IS NOT NULL");
 			if ( is_array($selectGame) ) {
-				$process_model->resultGameProcess($selectGame["sn"], $selectGame["home_score"], $selectGame["away_score"]);
+				$process_model->resultGameProcessing($selectGame["sn"], $selectGame["home_score"], $selectGame["away_score"]);
 			}
 
 			$selectGame = $game_model->getRow('*', "tb_child", "league_sn = 4200 and kubun = 0 and home_score IS NOT NULL and win_team IS NOT NULL");
 			if ( is_array($selectGame) ) {
-				$process_model->resultGameProcess($selectGame["sn"], $selectGame["home_score"], $selectGame["away_score"]);
+				$process_model->resultGameProcessing($selectGame["sn"], $selectGame["home_score"], $selectGame["away_score"]);
 			}
 
 			if ( $selectGame["sn"] > 0 ) {

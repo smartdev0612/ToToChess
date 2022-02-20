@@ -1599,7 +1599,7 @@ class CartModel extends Lemon_Model
 	}
 
 	//-> 배팅수동처리 2021.08.10
-	function modifyBetResult($total_betting_sn = 0, $result = 0, $select_no = 0)
+	function changeBettingResult($total_betting_sn = 0, $result = 0, $select_no = 0)
 	{
 		$sql = "select * from tb_game_betting where sn=".$total_betting_sn;
 		$rs = $this->db->exeSql($sql);
