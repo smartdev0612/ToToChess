@@ -4,7 +4,7 @@ class LoginModel extends Lemon_Model
 	//▶ 파트너 로그인 
 	function Partner_login($id, $passwd, $rec_lev)
 	{
-		$sql = "select * from ".$this->db_qz."recommend where binary rec_id = '".$id."' and rec_psw='".$passwd."' and rec_lev = '".$rec_lev."'";
+		$sql = "select * from ".$this->db_qz."partner where binary rec_id = '".$id."' and rec_psw='".$passwd."' and rec_lev = '".$rec_lev."'";
 		$rs =  $this->db->exeSql($sql);				
 
 		/*
@@ -448,7 +448,7 @@ class LoginModel extends Lemon_Model
 	{
 		$eModel = Lemon_Instance::getObject("EtcModel",true);
 		
-		$sql = "select a.logo, a.sn as aidx, a.nick,a.mem_lev,a.g_money, a.login_domain, a.bank_member, (select rec_id from ".$this->db_qz."recommend where Idx=a.recommend_sn) as recommend_id, b.member_id,b.idx,b.visit_date,b.visit_ip,b.result,b.status,b.device 
+		$sql = "select a.logo, a.sn as aidx, a.nick,a.mem_lev,a.g_money, a.login_domain, a.bank_member, (select rec_id from ".$this->db_qz."partner where Idx=a.recommend_sn) as recommend_id, b.member_id,b.idx,b.visit_date,b.visit_ip,b.result,b.status,b.device 
 				from ".$this->db_qz."people a right outer join ".$this->db_qz."visit b on a.uid=b.member_id 
 				where a.mem_status<>'G'".$where." order by b.visit_date desc  limit ".$page.",".$page_size ;
 					

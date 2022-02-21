@@ -2660,22 +2660,6 @@ class ProcessModel extends Lemon_Model
 		$rs = $this->db->exeSql($sql);
 		return ($rs>0)? 1:0;
 	}
-
-	function insertChargeAgreeLog($chargeSn = 0, $nHeadId = 0, $strIp = "") {
-		$sql = "INSERT INTO tb_log_charge (
-					nChargeSn,
-					nHeadId,
-					strIP,
-					strTime
-				) VALUES (
-					" . $chargeSn . ",
-					" . $nHeadId . ",
-					'" . $strIp . "',
-					NOW()
-				)";
-		
-		$rs = $this->db->exeSql($sql);
-	}
 	
 	//▶ 추천인 마일리지
 	function recommendMileage($sn, $amount)

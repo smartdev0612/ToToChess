@@ -131,7 +131,7 @@ class EtcModel extends Lemon_Model
 		$agent_memo_cnt = $rs[0]['cnt'];
 
 		//-> 총판 출금 신청
-		$sql = "select count(sn) as cnt from tb_recommend_money_log where proc_flag = 0";
+		$sql = "select count(sn) as cnt from tb_partner_money_log where proc_flag = 0";
 		$rs = $this->db->exeSql($sql);
 		$recExchangeAlarm = $rs[0]['cnt']+0;
 	

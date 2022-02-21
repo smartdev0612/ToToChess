@@ -155,7 +155,7 @@ class MemberModel extends Lemon_Model
 								(select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn) as bet_total,
 								ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) - ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0) as benefit,
 								(select count(*) from ".$this->db_qz."visit where member_id=a.uid) as visit_count
-						from ".$this->db_qz."people a LEFT OUTER JOIN ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
+						from ".$this->db_qz."people a LEFT OUTER JOIN ".$this->db_qz."partner b on a.recommend_sn=b.idx 
 						where a.is_store=0 and a.sn>0".$logo.$where.$orderby."
 						limit ".$page.",".$page_size;
 		//echo $sql;
@@ -221,7 +221,7 @@ class MemberModel extends Lemon_Model
                     (select sum(betting_money) from ".$this->db_qz."game_cart where member_sn=a.sn) as bet_total,
                     ifnull((select sum(amount) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1), 0)-ifnull((select sum(amount) from ".$this->db_qz."exchange_log where member_sn=a.sn and state=1), 0) as benefit,
                     (select count(*) from ".$this->db_qz."visit where member_id=a.uid) as visit_count
-                from ".$this->db_qz."people a LEFT OUTER JOIN ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
+                from ".$this->db_qz."people a LEFT OUTER JOIN ".$this->db_qz."partner b on a.recommend_sn=b.idx 
                 where a.sn>0".$logo.$where.$orderby."
                 limit ".$page.",".$page_size;
 		//echo $sql;
@@ -260,7 +260,7 @@ class MemberModel extends Lemon_Model
 	//▶ 파티너 아이디
 	function getPartnerList($id, $where="")
 	{
-		$sql = "select idx from tb_recommend where rec_id='".$id."' and logo='".$this->logo."'".$where;
+		$sql = "select idx from tb_partner where rec_id='".$id."' and logo='".$this->logo."'".$where;
 		return $this->db->exeSql($sql);
 	}
 
@@ -510,7 +510,7 @@ class MemberModel extends Lemon_Model
 		$sql = "select a.*,b.rec_id, 
 						(select ifnull(sum(amount),0) from ".$this->db_qz."charge_log where member_sn=a.sn and state=1)-(select ifnull(sum(amount),0) from ".$this->db_qz."exchange_log 
 						where member_sn=a.sn and state=1) as benefit
-						from ".$this->db_qz."people a left outer join ".$this->db_qz."recommend b on a.recommend_sn=b.idx 
+						from ".$this->db_qz."people a left outer join ".$this->db_qz."partner b on a.recommend_sn=b.idx 
 						where a.sn=".$sn;
 		$rs = $this->db->exeSql($sql);
 	
@@ -552,12 +552,10 @@ class MemberModel extends Lemon_Model
 
 		//-> 해킹방지 bank 정보 업데이트 불가능.
 		//$where = str_replace("bank_","",$where);
-		// $sql = "update ".$this->db_qz."people 
-        //         set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
-        //         email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate." where uid='".$uid."'";
-        $sql = "update ".$this->db_qz."people 
-                set ".$where.", nick='".$nick."', phone='".$phone."', mem_lev='".$mem_lev."', 
-                email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate." where uid='".$uid."'";
+		$sql = "update ".$this->db_qz."people 
+                set ".$where.", nick='".$nick."', bank_name='".$bank_name."', bank_account='".$bank_account."', bank_member='".$bank_member."', phone='".$phone."', mem_lev='".$mem_lev."', 
+                email='".$email."', ".$set." memo='".$memo."', mem_status='".$memberStatus."', exchange_pass='".$exchangePwd."', balance_flag=".$balance_flag.", is_recommender=".$is_recommender." , upbet_rate=".$upbet_rate." where uid='".$uid."'";
+        
 		return $this->db->exeSql($sql);
     }
     
@@ -665,7 +663,7 @@ class MemberModel extends Lemon_Model
 	{
 		$sql = "
 			select *,
-	 			(select rec_id from ".$this->db_qz."recommend where idx=recommend_sn) as recommend_id,
+	 			(select rec_id from ".$this->db_qz."partner where idx=recommend_sn) as recommend_id,
 	 			(select sum(agree_amount) from ".$this->db_qz."charge_log where member_sn=a.sn) as tot_charge,
 	 			(select sum(agree_amount) from ".$this->db_qz."exchange_log where member_sn=a.sn) as tot_exchange
 			from ".$this->db_qz."people a order by regdate desc";
@@ -799,13 +797,13 @@ class MemberModel extends Lemon_Model
 
 	//▶ 총판아이디 확인
 	function getPartnerInfo($id) {
-		$sql = "select * from tb_recommend where rec_id='{$id}'";
+		$sql = "select * from tb_partner where rec_id='{$id}'";
 		return $this->db->exeSql($sql);
 	}
 
 	//->총판id를 sn으로 바꾸기 위한 쿼리. #1
 	function get_member_recommend() {
-		$sql = "select a.sn as mem_sn, b.Idx as rec_sn from tb_people a, tb_recommend b where a.recommend_sn = b.rec_id and b.rec_lev = 1 and a.sn > 9";
+		$sql = "select a.sn as mem_sn, b.Idx as rec_sn from tb_people a, tb_partner b where a.recommend_sn = b.rec_id and b.rec_lev = 1 and a.sn > 9";
 		$rs = $this->db->exeSql($sql);
 		return $rs;
 	}
@@ -1062,7 +1060,7 @@ class MemberModel extends Lemon_Model
 
     function getPartnerBySn($sn)
     {
-        $sql = "select * from tb_recommend where Idx=".$sn;
+        $sql = "select * from tb_partner where Idx=".$sn;
         return $this->db->exeSql($sql);
     }
 
@@ -1609,7 +1607,7 @@ class MemberModel extends Lemon_Model
     function getParentRate($member_sn)
     {
         $sql = "select m.recommend_sn, r.*
-                from tb_people m, tb_recommend r
+                from tb_people m, tb_partner r
                 where m.sn=".$member_sn." and m.recommend_sn = r.Idx;";
         $rs = $this->db->exeSql($sql);
         return $rs[0];
@@ -1749,7 +1747,7 @@ class MemberModel extends Lemon_Model
         return $this->getRow("*", "tb_people_odd", $where);
     }*/
     /*function getMembeOdd($member_sn) {
-        $sql = "select r3.rec_id, m.uid, ro.* from tb_people m, tb_recommend r1, tb_recommend r2, tb_recommend r3, tb_recommend_odd ro
+        $sql = "select r3.rec_id, m.uid, ro.* from tb_people m, tb_partner r1, tb_partner r2, tb_partner r3, tb_partner_odd ro
             where m.sn = ".$member_sn." and m.recommend_sn = r1.Idx
             and r1.rec_parent_id = r2.rec_id
             and r2.rec_parent_id = r3.rec_id
@@ -1780,7 +1778,7 @@ class MemberModel extends Lemon_Model
 
     function getTexDataTotal($store_sn, $startDate, $endDate) {
         $sql = "select count(*)  as cnt from (select a.rec_sn_top
-						from ".$this->db_qz."recommend_tex a, ".$this->db_qz."people b
+						from ".$this->db_qz."partner_tex a, ".$this->db_qz."people b
 							where b.is_store=1 and a.rec_sn = b.sn and (get_tex_money > 0 or money_to_exchange > 0 or money_to_charge > 0) ";
 
         if($store_sn != null && $store_sn != '')
@@ -1805,7 +1803,7 @@ class MemberModel extends Lemon_Model
     }
 
     function getTexDataList($rec_sn, $startDate, $endDate, $page, $page_size) {
-        $sql = "select a.*, b.g_money as rec_money from ".$this->db_qz."recommend_tex a, ".$this->db_qz."people b
+        $sql = "select a.*, b.g_money as rec_money from ".$this->db_qz."partner_tex a, ".$this->db_qz."people b
 							where b.is_store=1 and a.rec_sn = b.sn and (get_tex_money > 0 or money_to_exchange > 0 or money_to_charge > 0) ";
 
         if($rec_sn != null && $rec_sn != '') {
@@ -1895,7 +1893,7 @@ class MemberModel extends Lemon_Model
 							sum(a.get_tex_money) as get_tex_money,
 							sum(a.tex_money2) as tex_money2,
 							sum(a.get_tex_money2) as get_tex_money2
-				from " . $this->db_qz . "recommend_tex a, " . $this->db_qz . "people b, ".$this->db_qz."join_recommend c
+				from " . $this->db_qz."partner_tex a, " . $this->db_qz . "people b, ".$this->db_qz."join_recommend c
 				where a.rec_sn = b.sn and b.sn=c.member_sn";
 
         if($rec_sn != null && $rec_sn != '') {
@@ -1926,7 +1924,7 @@ class MemberModel extends Lemon_Model
 					   sum(betting_to_ready) as 	betting_to_ready,
 					   sum(get_tex_money) as get_tex_money,
 					   sum(get_tex_money2) as get_tex_money2
-				from ".$this->db_qz."recommend_tex
+				from ".$this->db_qz."partner_tex
 						where rec_sn = '".$recommendSn."' and  (betting_to_ready > 0 or money_to_charge > 0 or money_to_exchange > 0 or betting_to_win_mgame > 0 or betting_to_lose_mgame > 0) and regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59'";
         $rs = $this->db->exeSql($sql);
         return $rs[0];
@@ -1936,7 +1934,7 @@ class MemberModel extends Lemon_Model
         if($page_size > 0)
             $limit = " limit ".$page.",".$page_size;
 
-        $sql = "select * from ".$this->db_qz."recommend_tex
+        $sql = "select * from ".$this->db_qz."partner_tex
 						where rec_sn = '".$recommendSn."' and  (betting_to_ready > 0 or money_to_charge > 0 or money_to_exchange > 0 or betting_to_win_mgame > 0 or betting_to_lose_mgame > 0) and regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' 
 						order by regdate desc".$limit;
         return $this->db->exeSql($sql);
@@ -1957,7 +1955,7 @@ class MemberModel extends Lemon_Model
 							sum(mileage_to_multi_folder_lose) as mileage_to_multi_folder_lose,
 							sum(mileage_to_one_folder_lose) as mileage_to_one_folder_lose,
 							sum(get_tex_money_top) as get_tex_money_top
-						from ".$this->db_qz."recommend_tex
+						from ".$this->db_qz."partner_tex
 						where rec_sn_store = '".$recommendSn."' and regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' 
                         group by regdates order by regdate asc";
         
@@ -1967,7 +1965,7 @@ class MemberModel extends Lemon_Model
     //-> mg. 관리자가 정산금 관련해서 데이터를 조회	
 	function getTexData($texDate = "", $startDate = "", $endDate = "") {
 		if ( strlen($texDate) > 1 ) {
-			$sql = "select a.*, b.g_money, b.uid from ".$this->db_qz."recommend_tex a, ".$this->db_qz."people b
+			$sql = "select a.*, b.g_money, b.uid from ".$this->db_qz."partner_tex a, ".$this->db_qz."people b
 							where a.rec_sn_store = b.sn and a.regdate between '".$texDate." 00:00:00' and '".$texDate." 23:59:59' 
 							order by a.rec_id_store asc";
 			return $this->db->exeSql($sql);
@@ -1997,7 +1995,7 @@ class MemberModel extends Lemon_Model
 								sum(a.tex_money_store) as tex_money,
 								sum(a.get_tex_money_store) as get_tex_money,
 								sum(a.betting_to_ready) as betting_to_ready
-							from ".$this->db_qz."recommend_tex a, ".$this->db_qz."people b
+							from ".$this->db_qz."partner_tex a, ".$this->db_qz."people b
 							where a.rec_sn_store = b.sn and a.regdate between '".$startDate." 00:00:00' and '".$endDate." 23:59:59' 
 							group by a.rec_sn_store order by a.rec_id_store asc";
 			return $this->db->exeSql($sql);
@@ -2007,7 +2005,7 @@ class MemberModel extends Lemon_Model
     function getPartnerList2($beginDate, $endDate)
     {
         $field = 'rec_parent_id';
-        $sql = "select r2.rec_id as ttop_id, r1.rec_id as top_id, r1.Idx as top_sn from tb_recommend r1, tb_recommend r2 
+        $sql = "select r2.rec_id as ttop_id, r1.rec_id as top_id, r1.Idx as top_sn from tb_partner r1, tb_partner r2 
                 where r1.`status` != 2 and r1.rec_lev=1 and r1.rec_parent_id = r2.rec_id;";
 
         $rs = $this->db->exeSql($sql);
@@ -2020,7 +2018,7 @@ class MemberModel extends Lemon_Model
             //배팅금액, 당첨금액 스포츠
             $sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 						from ".$this->db_qz."game_cart
-						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
+						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_partner where {$field} = '".$recommend_id."')) and (last_special_code < 3 or last_special_code=50)";
 
             if($beginDate != '')
             {
@@ -2038,7 +2036,7 @@ class MemberModel extends Lemon_Model
             //배팅금액, 당첨금액 미니게임
             $sql = "select sum(betting_money) as total_betting, sum(result_money) as total_result
 						from ".$this->db_qz."game_cart
-						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_recommend where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
+						where member_sn in (select sn from ".$this->db_qz."people where recommend_sn IN (select idx from tb_partner where {$field} = '".$recommend_id."')) and (last_special_code > 3 and last_special_code!=50)";
 
             if($beginDate != '')
             {
@@ -2080,14 +2078,14 @@ class MemberModel extends Lemon_Model
     function getRecommenderList($recommender_sn, $beginDate, $endDate)
     {
         $sql = "select p2.rec_id as ttop_id, p.rec_id as top_id, m.sn as mem_sn, m.uid, m.nick, m.mem_lev, m.is_recommender, l.lev_name, m.recommend_limit, m.join_recommend_mileage_rate_type, m.join_recommend_mileage_rate    
-                from tb_people m, tb_level_config l, tb_recommend p, tb_recommend p2
+                from tb_people m, tb_level_config l, tb_partner p, tb_partner p2
                 where m.sn in (select recommend_sn from tb_join_recommend group by recommend_sn) 
                 and m.recommend_sn = p.Idx and p.rec_parent_id=p2.rec_id and m.mem_lev=l.lev order by m.uid;";
 
         if($recommender_sn != null && $recommender_sn != '')
         {
             $sql = "select p2.rec_id as ttop_id, p.rec_id as top_id, m.sn as mem_sn, m.uid, m.nick, m.mem_lev, m.is_recommender, l.lev_name, m.recommend_limit, m.join_recommend_mileage_rate_type, m.join_recommend_mileage_rate    
-                from tb_people m, tb_level_config l, tb_recommend p, tb_recommend p2 
+                from tb_people m, tb_level_config l, tb_partner p, tb_partner p2 
                 where m.sn in (select member_sn from tb_join_recommend where recommend_sn={$recommender_sn})
                 and m.recommend_sn = p.Idx and p.rec_parent_id=p2.rec_id and m.mem_lev=l.lev order by m.uid;";
         }

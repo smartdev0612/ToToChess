@@ -38,14 +38,14 @@ class MoneyModel extends Lemon_Model
 						(select count(*) from ".$this->db_qz."people_bank where member_sn=b.sn) as bank_count,
 						b.uid, b.nick, b.g_money, b.bank_member,
 						ifnull(c.rec_id, '무소속') as recommendId
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."partner c on b.recommend_sn=c.idx
 						where a.member_sn=b.sn".$where."
 						order by a.regdate desc ".$limit;
 */
 		$sql = "select a.sn, a.regdate, a.operdate, a.member_sn, a.amount, a.agree_amount, a.before_money, a.after_money, a.bank, a.bank_account, a.bank_owner, a.state, a.logo,
 						b.uid, b.nick, b.g_money, b.bank_member, b.mem_lev,
 						ifnull(c.rec_id, '무소속') as recommendId
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."partner c on b.recommend_sn=c.idx
 						where a.member_sn=b.sn".$where."
 						order by {$orderby} ".$limit;
 		$rs = $this->db->exeSql($sql);
@@ -71,7 +71,7 @@ class MoneyModel extends Lemon_Model
 		if($state!="") $where.= " and a.state=".$state;
 		
 		$sql = "select count(*) as cnt
-						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+						from ".$this->db_qz."exchange_log a,".$this->db_qz."people b left outer join ".$this->db_qz."partner c on b.recommend_sn=c.idx
 						where a.member_sn=b.sn ".$where;
 				
 		$rs = $this->db->exeSql($sql);
@@ -141,7 +141,7 @@ class MoneyModel extends Lemon_Model
 							(select lev_name from ".$this->db_qz."level_config where lev=(select mem_lev from ".$this->db_qz."people where sn=a.member_sn)) as mem_lev,
 							b.uid, b.nick, b.g_money, b.bank_member, b.bank_name,
 							ifnull(c.rec_id, '무소속') as recommendId
-				from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+				from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."partner c on b.recommend_sn=c.idx
 				where a.member_sn=b.sn".$where."
 				order by a.regdate desc ".$limit;
 */
@@ -149,7 +149,7 @@ class MoneyModel extends Lemon_Model
 							(select lev_name from ".$this->db_qz."level_config where lev=(select mem_lev from ".$this->db_qz."people where sn=a.member_sn) and logo ='{$logo}') as mem_lev,
 							b.uid, b.nick, b.g_money, b.bank_member, b.bank_name,
 							ifnull(c.rec_id, '무소속') as recommendId
-				from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+				from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."partner c on b.recommend_sn=c.idx
 				where a.member_sn=b.sn".$where."
 				order by a.regdate desc ".$limit;
 		$rs = $this->db->exeSql($sql);
@@ -173,7 +173,7 @@ class MoneyModel extends Lemon_Model
 		if($state!="") $where.= " and a.state=".$state;
 		
 		$sql = "select count(*) as cnt
-				from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.idx
+				from ".$this->db_qz."charge_log a,".$this->db_qz."people b left outer join ".$this->db_qz."partner c on b.recommend_sn=c.idx
 				where a.member_sn=b.sn".$where;
 					
 		$rs = $this->db->exeSql($sql);
@@ -396,7 +396,7 @@ class MoneyModel extends Lemon_Model
 		}
 		$where.=" order by a.operdate asc";  
 		if($page_size>0) 	$where.=" limit ".$page.",".$page_size;
-		$sql = "select a.*, b.*, c.rec_id from tb_charge_log a, tb_people b left outer join tb_recommend c on b.recommend_sn=c.Idx where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
+		$sql = "select a.*, b.*, c.rec_id from tb_charge_log a, tb_people b left outer join tb_partner c on b.recommend_sn=c.Idx where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
 		return $this->db->exeSql($sql);
 	}
 
@@ -411,7 +411,7 @@ class MoneyModel extends Lemon_Model
 		}
 		$where.=" order by a.operdate asc";  
 		if($page_size>0) 	$where.=" limit ".$page.",".$page_size;
-		$sql = "select a.*, b.*, c.rec_id from tb_exchange_log a, tb_people b left outer join tb_recommend c on b.recommend_sn=c.Idx where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
+		$sql = "select a.*, b.*, c.rec_id from tb_exchange_log a, tb_people b left outer join tb_partner c on b.recommend_sn=c.Idx where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
 		return $this->db->exeSql($sql);
 	}
 	
@@ -430,7 +430,7 @@ class MoneyModel extends Lemon_Model
 		if($page_size>0) 	$where.=" limit ".$page.",".$page_size;
 
 		$sql = "select (select count(*) from tb_charge_log z where z.member_sn=b.sn".$subParam.") as charge_cnt, a.regdate as log_regdate, a.*, b.*, c.rec_id, a.regdate as operdate
-						from ".$this->db_qz."money_log a,".$this->db_qz."people b left outer join ".$this->db_qz."recommend c on b.recommend_sn=c.Idx
+						from ".$this->db_qz."money_log a,".$this->db_qz."people b left outer join ".$this->db_qz."partner c on b.recommend_sn=c.Idx
 						where a.member_sn=b.sn and b.mem_status<>'G' ".$where;
 		return $this->db->exeSql($sql);
 	}

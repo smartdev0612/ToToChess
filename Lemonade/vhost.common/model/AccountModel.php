@@ -135,7 +135,7 @@ class AccountModel extends Lemon_Model
 	function accountPartner($beginDate, $endDate, &$partnerAccount)
 	{
 		$sql =	"select ifnull(sum(opt_money),0) as acc_partner 
-				from ".$this->db_qz."recommend_account
+				from ".$this->db_qz."partner_account
 					where logo='".$this->logo."' and status=1 and date(reg_date)>='".$beginDate."' and date(reg_date)<='".$endDate."'";
 
 		$rs = $this->db->exeSql($sql);

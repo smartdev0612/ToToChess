@@ -109,7 +109,7 @@ class StatModel extends Lemon_Model
 	
 	function getPartner($uid)
 	{
-		$sql = "select idx from ".$this->db_qz."recommend where rec_id='".$uid."' and logo='".$this->logo."'";				
+		$sql = "select idx from ".$this->db_qz."partner where rec_id='".$uid."' and logo='".$this->logo."'";				
 		return $this->db->exeSql($sql);
 	}
 	
@@ -239,7 +239,7 @@ class StatModel extends Lemon_Model
 				$item[$i]['one_folder_charge'] = $rsi[0]['one_folder_charge'];
 
 				//-> 총판정산금 회원에게 내려준 포인트
-				$sql = "select ifnull(sum(amount),0) as sum_tex_charge from ".$this->db_qz."recommend_money_log where state = 2 and amount > 0 and proc_flag = 1 
+				$sql = "select ifnull(sum(amount),0) as sum_tex_charge from ".$this->db_qz."partner_money_log where state = 2 and amount > 0 and proc_flag = 1 
 								and procdate between '".$currentDate." 00:00:00' and '".$currentDate." 23:59:59'";
 				$rsi = $this->db->exeSql($sql);
 				$item[$i]['admin_tex_charge'] = $rsi[0]['sum_tex_charge'];

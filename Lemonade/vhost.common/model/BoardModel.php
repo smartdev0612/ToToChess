@@ -44,7 +44,7 @@ class BoardModel extends Lemon_Model
 	function getCsList($where, $page, $page_size)
 	{
 		$sql = "select a.*, b.nick, b.uid, b.bank_member, b.bank_name, b.mem_lev, b.regdate as joindate, (select lev_name from ".$this->db_qz."level_config where id=b.mem_lev) as lev_name,
-						(select rec_id from ".$this->db_qz."recommend where idx=b.recommend_sn) as rec_id from ".$this->db_qz."question a, ".$this->db_qz."people b 
+						(select rec_id from ".$this->db_qz."partner where idx=b.recommend_sn) as rec_id from ".$this->db_qz."question a, ".$this->db_qz."people b 
 						where a.mem_id=b.uid ".$where." 
 						order by a.regdate desc limit ".$page.",".$page_size."";
 

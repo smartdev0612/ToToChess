@@ -29,7 +29,7 @@ class TexModel extends Lemon_Model
 
 	      /* 처리 로직 : 총판 기준으로 정산 데이터를 가져와서 부본사와 총판의 정산율을 계산*/
 
-        $sql = "SELECT * FROM tb_recommend WHERE rec_lev = 1 and status != 2 ORDER BY idx asc";
+        $sql = "SELECT * FROM tb_partner WHERE rec_lev = 1 and status != 2 ORDER BY idx asc";
         $recData = $this->db->exeSql($sql);
         $procCnt = 0;
         foreach($recData as $row){
@@ -51,7 +51,7 @@ class TexModel extends Lemon_Model
                 $one_folder_flag_top = 0;
             } else {
                 //-> 부본사 정산정보를 가져온다.
-                $sql = "SELECT * FROM tb_recommend WHERE rec_lev = 9 AND rec_id = '{$recommendId_top}'";
+                $sql = "SELECT * FROM tb_partner WHERE rec_lev = 9 AND rec_id = '{$recommendId_top}'";
                 $topRecData = $this->db->exeSql($sql);
                 if ( !count($topRecData) ) continue;
 
@@ -358,8 +358,8 @@ class TexModel extends Lemon_Model
             $add_tex_rate_top = $rate_sport_top." | ".$rate_minigame_top;
 
             //-> 이미 Insert 되었는지 확인, 있다면 Update
-            $sql = "select idx, get_tex_money, get_tex_money_top from tb_recommend_tex where rec_sn = '".$recommendSn."' and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
-            //$sql = "select idx, get_tex_money, get_tex_money_top from tb_recommend_tex where rec_sn = '".$recommendSn."' and regdate > '".$todayDate." 00:00:00' and '".$todayDate." 23:59:59'";
+            $sql = "select idx, get_tex_money, get_tex_money_top from tb_partner_tex where rec_sn = '".$recommendSn."' and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
+            //$sql = "select idx, get_tex_money, get_tex_money_top from tb_partner_tex where rec_sn = '".$recommendSn."' and regdate > '".$todayDate." 00:00:00' and '".$todayDate." 23:59:59'";
 
             $res = $this->db->exeSql($sql);
             $tex_log_idx = $res[0]["idx"];
@@ -394,7 +394,7 @@ class TexModel extends Lemon_Model
                     'tex_money' => $tex_money,
                     'updatedate' => $regdate
                 );
-                $update_res = $this->db->setUpdate("tb_recommend_tex", $param, "idx = '".$tex_log_idx."'");
+                $update_res = $this->db->setUpdate("tb_partner_tex", $param, "idx = '".$tex_log_idx."'");
                 $update_res = $this->db->exeSql();
                 if ( $update_res ) $procCnt++;
             } else {
@@ -427,7 +427,7 @@ class TexModel extends Lemon_Model
                     'updatedate' => $regdate,
                     'regdate' => $regdate
                 );
-                $tex_log_idx = $this->db->setInsert("tb_recommend_tex", $param);
+                $tex_log_idx = $this->db->setInsert("tb_partner_tex", $param);
                 $tex_log_idx = $this->db->exeSql();
                 if ( $tex_log_idx ) $procCnt++;
             }
@@ -440,16 +440,16 @@ class TexModel extends Lemon_Model
             //-> 결과대기 배팅금이 없으면 부본사와 총판에 정산금을 내린다.
             if ( ($update_res == true or $tex_log_idx ) and $total_betting_ready == 0 and $get_tex_money == 0 and $get_tex_money_top == 0 and ($tex_money != 0 or $tex_money_top != 0) ) {
                 //-> 현재 부본사 머니
-                $sql = "select rec_money from tb_recommend where Idx = '".$recommendSn_top."'";
+                $sql = "select rec_money from tb_partner where Idx = '".$recommendSn_top."'";
                 $res = $this->db->exeSql($sql);
                 $before_money_top = $res[0]["rec_money"];
                 $after_money_top = $res[0]["rec_money"] + $tex_money_top;
 
                 //-> 부본사 머니 업데이트
-                $sql = "update tb_recommend set rec_money = '".$after_money_top."' where Idx = '".$recommendSn_top."'";
+                $sql = "update tb_partner set rec_money = '".$after_money_top."' where Idx = '".$recommendSn_top."'";
                 if ( $res = $this->db->exeSql($sql) ) {
                     //-> 정산로그 [get_tex_money, texdate] Update
-                    $sql = "update tb_recommend_tex set get_tex_money_top = '".$tex_money_top."', texdate = '".$regdate."' where idx = '".$tex_log_idx."'";
+                    $sql = "update tb_partner_tex set get_tex_money_top = '".$tex_money_top."', texdate = '".$regdate."' where idx = '".$tex_log_idx."'";
                     $this->db->exeSql($sql);
 
                     //-> 총판 머니 로그 Insert
@@ -457,21 +457,21 @@ class TexModel extends Lemon_Model
                         'rec_sn' => $recommendSn_top, 'amount' => $tex_money_top, 'before_money' => $before_money_top, 'after_money' => $after_money_top,
                         'state' => 9, 'status_message' => '부본사 정산금 입금', 'proc_flag' => 1, 'is_read' => 1, 'procdate' => $regdate, 'regdate' => $regdate
                     );
-                    $this->db->setInsert("tb_recommend_money_log", $param);
+                    $this->db->setInsert("tb_partner_money_log", $param);
                     $this->db->exeSql();
                 }
 
                 //-> 현재 총판 머니
-                $sql = "select rec_money from tb_recommend where Idx = '".$recommendSn."'";
+                $sql = "select rec_money from tb_partner where Idx = '".$recommendSn."'";
                 $res = $this->db->exeSql($sql);
                 $before_money = $res[0]["rec_money"];
                 $after_money = $res[0]["rec_money"] + $tex_money;
 
                 //-> 총판 머니 업데이트
-                $sql = "update tb_recommend set rec_money = '".$after_money."' where Idx = '".$recommendSn."'";
+                $sql = "update tb_partner set rec_money = '".$after_money."' where Idx = '".$recommendSn."'";
                 if ( $res = $this->db->exeSql($sql) ) {
                     //-> 정산로그 [get_tex_money, texdate] Update
-                    $sql = "update tb_recommend_tex set get_tex_money = '".$tex_money."', texdate = '".$regdate."' where idx = '".$tex_log_idx."'";
+                    $sql = "update tb_partner_tex set get_tex_money = '".$tex_money."', texdate = '".$regdate."' where idx = '".$tex_log_idx."'";
                     $this->db->exeSql($sql);
 
                     //-> 총판 머니 로그 Insert
@@ -487,7 +487,7 @@ class TexModel extends Lemon_Model
                         'procdate' => $regdate,
                         'regdate' => $regdate
                     );
-                    $this->db->setInsert("tb_recommend_money_log", $param);
+                    $this->db->setInsert("tb_partner_money_log", $param);
                     $this->db->exeSql();
                 }
             }
@@ -507,7 +507,7 @@ class TexModel extends Lemon_Model
 
         /* 처리 로직 : 총판 기준으로 정산 데이터를 가져와서 부본사와 총판의 정산율을 계산*/
 
-        $sql = "SELECT * FROM tb_recommend WHERE rec_lev = 1 and status != 2 ORDER BY idx asc";
+        $sql = "SELECT * FROM tb_partner WHERE rec_lev = 1 and status != 2 ORDER BY idx asc";
 
         $recData = $this->db->exeSql($sql);
         $procCnt = 0;
@@ -530,7 +530,7 @@ class TexModel extends Lemon_Model
                 $one_folder_flag_top = 0;
             } else {
                 //-> 부본사 정산정보를 가져온다.
-                $sql = "SELECT * FROM tb_recommend WHERE rec_lev = 9 AND rec_id = '{$recommendId_top}'";
+                $sql = "SELECT * FROM tb_partner WHERE rec_lev = 9 AND rec_id = '{$recommendId_top}'";
                 $topRecData = $this->db->exeSql($sql);
                 if ( !count($topRecData) ) continue;
 
@@ -779,8 +779,8 @@ class TexModel extends Lemon_Model
             $add_tex_rate_top = $rate_sport_top." | ".$rate_minigame_top;
 
             //-> 이미 Insert 되었는지 확인, 있다면 Update
-            $sql = "select idx, get_tex_money, get_tex_money_top from tb_recommend_tex where rec_sn = '".$recommendSn."' and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
-            //$sql = "select idx, get_tex_money, get_tex_money_top from tb_recommend_tex where rec_sn = '".$recommendSn."' and regdate > '".$todayDate." 00:00:00' and '".$todayDate." 23:59:59'";
+            $sql = "select idx, get_tex_money, get_tex_money_top from tb_partner_tex where rec_sn = '".$recommendSn."' and regdate between '".$beginDate." 00:00:00' and '".$beginDate." 23:59:59'";
+            //$sql = "select idx, get_tex_money, get_tex_money_top from tb_partner_tex where rec_sn = '".$recommendSn."' and regdate > '".$todayDate." 00:00:00' and '".$todayDate." 23:59:59'";
             $res = $this->db->exeSql($sql);
             $tex_log_idx = $res[0]["idx"];
             $get_tex_money = $res[0]["get_tex_money"];
@@ -820,7 +820,7 @@ class TexModel extends Lemon_Model
                 $total_betting_ready = 0;
             }
 
-            $sql = "select rec_money from tb_recommend where rec_id = '".$recommendId."'";
+            $sql = "select rec_money from tb_partner where rec_id = '".$recommendId."'";
             $res = $this->db->exeSql($sql);
             $texData["rec_money"] = $res[0]["rec_money"];
 
