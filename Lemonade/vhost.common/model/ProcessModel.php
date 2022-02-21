@@ -2271,7 +2271,7 @@ class ProcessModel extends Lemon_Model
         {
 			$loginModel	= Lemon_Instance::getObject("LoginModel", true);
 			$isGhost = $loginModel->isGhostManger($_SESSION["member"]["sn"]);
-			if($isGhost == 0) {
+			if($isGhost == 0 || $status == 4) {
 				$this->moneyModel->addMoneyLog($sn, $amount, $before, $after, $status, $statusMessage, $memo);
 			}
         }
