@@ -556,7 +556,6 @@ class PartnerController extends WebServiceController
 				$pwd=md5($pwd);
 				$where="rec_psw='".$pwd."',";
 			}
-
 			$model->modifyMemberDetails2($where, $memo, $rec_lev, $rec_id, $rec_name, $rec_bankname, $rec_bankusername, $rec_banknum, $rec_email, $rec_phone, $tex_type, $tex_rate_sport, $tex_rate_minigame, $rec_one_folder_flag, $urlidx, $tex_get_member_id, $rec_parent_id);
 			echo "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' ><script>alert('수정 되였습니다.'); opener.location.reload(); window.close();</script>";			
 			echo "<META HTTP-EQUIV='Refresh' CONTENT='0;URL=/partner/memberDetails?idx=".$urlidx."'>";

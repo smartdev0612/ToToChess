@@ -1857,6 +1857,17 @@ class PartnerModel extends Lemon_Model
 	
 	function modifyMemberDetails($where, $memo, $rec_lev, $rec_name, $rec_bankname, $rec_bankusername, $rec_banknum, $rec_email, $rec_phone, $tex_type, $tex_rate_sport, $tex_rate_minigame, $rec_one_folder_flag, $idx, $tex_get_member_id, $rec_parent_id)
 	{
+		//뱅킹 정보 변경시 업데이트를 위해 데이터 변경을 확인한다.
+		$rs = $this->getPartnerBySn($idx);
+		if(Trim($rs['rec_bankname'])!=Trim($rec_bankname) ||
+			Trim($rs['rec_bankusername'])!=Trim($rec_bankusername) ||
+			Trim($rs['rec_banknum'])!=Trim($rec_banknum) )
+		{
+			$sql = "insert into ".$this->db_qz."partner_bank(partner_sn, strBankName, strBankUser, strBankAccount, regdate, strIP, logo)
+							values(".$idx.",'".$rec_bankname."','".$rec_bankusername."','".$rec_banknum."', now(), '" . $_SESSION["member"]["ip"] . "', '".$this->logo."')";
+			$this->db->exeSql($sql);
+		}
+
 		$sql = "update ".$this->db_qz."partner 
 						set ".$where." memo='".$memo."', rec_name='".$rec_name."',rec_bankname='".$rec_bankname."',rec_bankusername='".$rec_bankusername."',rec_banknum='".$rec_banknum."',
 						rec_email='".$rec_email."',rec_phone='".$rec_phone."',rec_tex_type='".$tex_type."',rec_rate_sport='".$tex_rate_sport."',rec_rate_minigame='".$tex_rate_minigame."',rec_one_folder_flag='".$rec_one_folder_flag."' ,tex_get_member_id='".$tex_get_member_id."',rec_parent_id='".$rec_parent_id."' where idx='".$idx."'";
@@ -1866,10 +1877,20 @@ class PartnerModel extends Lemon_Model
 
     function modifyMemberDetails2($where, $memo, $rec_lev, $rec_id, $rec_name, $rec_bankname, $rec_bankusername, $rec_banknum, $rec_email, $rec_phone, $tex_type, $tex_rate_sport, $tex_rate_minigame, $rec_one_folder_flag, $idx, $tex_get_member_id, $rec_parent_id)
     {
+		//뱅킹 정보 변경시 업데이트를 위해 데이터 변경을 확인한다.
+		$rs = $this->getPartnerBySn($idx);
+		if(Trim($rs['rec_bankname'])!=Trim($rec_bankname) ||
+			Trim($rs['rec_bankusername'])!=Trim($rec_bankusername) ||
+			Trim($rs['rec_banknum'])!=Trim($rec_banknum) )
+		{
+			$sql = "insert into ".$this->db_qz."partner_bank(partner_sn, strBankName, strBankUser, strBankAccount, regdate, strIP, logo)
+							values(".$idx.",'".$rec_bankname."','".$rec_bankusername."','".$rec_banknum."', now(), '" . $_SESSION["member"]["ip"] . "', '".$this->logo."')";
+			$this->db->exeSql($sql);
+		}
+		
         $sql = "update ".$this->db_qz."partner 
 						set ".$where." memo='".$memo."', rec_id='".$rec_id."', rec_name='".$rec_name."',rec_bankname='".$rec_bankname."',rec_bankusername='".$rec_bankusername."',rec_banknum='".$rec_banknum."',
 						rec_email='".$rec_email."',rec_phone='".$rec_phone."',rec_tex_type='".$tex_type."',rec_rate_sport='".$tex_rate_sport."',rec_rate_minigame='".$tex_rate_minigame."',rec_one_folder_flag='".$rec_one_folder_flag."' ,tex_get_member_id='".$tex_get_member_id."',rec_parent_id='".$rec_parent_id."' where idx='".$idx."'";
-
         return $this->db->exeSql($sql);
     }
 
