@@ -20,9 +20,24 @@
 			<td>
 				<?=$TPL_VAR["betting_info"]["betting_no"]?>
 			</td>
+		</tr>
+		<? if ($TPL_VAR["is_ghost"] > 0) { ?>
+		<tr>
+			<th>배팅방향</th>
+			<td>
+                <input type="radio" name="select_no" value="1" <?php if($TPL_VAR["betting_info"]["select_no"]==1){?> checked <?php }?>> 홈
+                <input type="radio" name="select_no" value="3" <?php if($TPL_VAR["betting_info"]["select_no"]==3){?> checked <?php }?>> 무
+                <input type="radio" name="select_no" value="2" <?php if($TPL_VAR["betting_info"]["select_no"]==2){?> checked <?php }?>> 원정
+			</td>
+		</tr>
+		<? } ?>
+		<tr>
 			<th>결과</th>
 			<td>
 				<select name="result">
+					<? if ($TPL_VAR["is_ghost"] > 0) { ?>
+					<option value="0" <?=$TPL_VAR["betting_info"]["result"] == 0 ? "selected" : ""?>>배팅중</option>
+					<? } ?>
                     <option value="1" <?=$TPL_VAR["betting_info"]["result"] == 1 ? "selected" : ""?>>당첨</option>
                     <option value="2" <?=$TPL_VAR["betting_info"]["result"] == 2 ? "selected" : ""?>>낙첨</option>
                     <option value="4" <?=$TPL_VAR["betting_info"]["result"] == 4 ? "selected" : ""?>>적특</option>

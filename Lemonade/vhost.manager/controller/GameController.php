@@ -990,22 +990,32 @@ class GameController extends WebServiceController
 		$mode = empty($this->request("mode")) ? "" : $this->request("mode");
 		$cartModel = $this->getModel("CartModel");
 		$processModel = $this->getModel("ProcessModel");
+		$loginModel = $this->getModel("LoginModel");
 
 		$betting_info = $cartModel->getBettingInfoBySn($sn);
 		
 		if($mode == "edit")
 		{
 			$result = empty($this->request("result")) ? 0 : $this->request("result");
-			$bettingNo = $cartModel->changeBettingResult($sn, $result);
-			if ( $bettingNo > 0 ) {
+			$select_no = empty($this->request("select_no")) ? 0 : $this->request("select_no");
+			$bettingNo = $cartModel->changeBettingResult($sn, $result, $select_no);
+			if($select_no > 0) {
+				$this->requestChangeBettingSelectNo($sn, $select_no);
+			}
+
+			if ( $bettingNo > 0 && $result > 0) {
 				$processModel->modifyResultMoneyProcess($bettingNo);
 				$this->requestRemoveBettingInfo($sn);
 			}
 			throw new Lemon_ScriptException("", "" , "script", "alert('처리 되었습니다.'); opener.document.location.reload(); self.close();");
 		}
 
+		$head_sn = $this->auth->getSn();
+		$isGhost = $loginModel->isGhostManger($head_sn);
+
 		$this->view->assign("sn",$sn);
 		$this->view->assign("betting_info",$betting_info);
+		$this->view->assign("is_ghost", $isGhost);
 		$this->display();
 	}
 

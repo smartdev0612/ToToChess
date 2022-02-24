@@ -363,6 +363,14 @@ class WebServiceController extends Lemon_Controller
 		file_get_contents($strUrl);
 	}
 
+	// 배팅방향 수정
+	public function requestChangeBettingSelectNo($sn, $select_no) {
+		$values = ["sn" => $sn, "select_no" => $select_no];
+		$strValue = json_encode($values);
+		$strUrl = "http://127.0.0.1:3001/api/betting?nCmd=3&strValue=$strValue";
+		file_get_contents($strUrl);
+	}
+
 	// 팀 수정
 	function updateServerTeam($teamSn = 0, $team_api_id = 0, $sport_sn, $nation_sn, $team_name, $team_name_en, $team_img) {
 		$values = ["sn" => $teamSn, "api_sn" => $team_api_id, "name" => $team_name, "name_en" => $team_name_en, "team_img" => $team_img, "sport_sn" => $sport_sn, "nation_sn" => $nation_sn];
