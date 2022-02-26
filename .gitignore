@@ -11,3 +11,6 @@ vhost.manager/upload/league/*
 vhost.user/upload/league/*
 cron_bet
 cron_bet.tar.gz
+Lemonade/_logs/betting/*
+Lemonade/_logs/system/*
+Lemonade/_logs/user/*
