@@ -130,7 +130,7 @@ class Lemon_Mysql
 		//-> 업데이트에 대한 쿼리 로그. (배팅뱡향 업데이트)
 		if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
 			if ( preg_match("/(vhost.user)/i",$selfUrl,$match) != 0 and preg_match("/(select_no)/i",$sql,$match) != 0 ) {
-				$fileName = "SQL_LOG _SELECTNO_".date("Ymd",time()).".log";
+				$fileName = "SQL_LOG_SELECTNO_".date("Ymd",time()).".log";
 				$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
 				if ( $logFile ) {
 					$logSql = str_replace("	","",$sql);
