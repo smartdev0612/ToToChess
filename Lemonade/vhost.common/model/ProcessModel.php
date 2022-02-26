@@ -2563,28 +2563,17 @@ class ProcessModel extends Lemon_Model
 	//▶ 충전요청
 	function chargeReqProcess($member_sn, $amount, $state = 0)
 	{
-		$charge_list = $this->getRows("*", $this->db_qz."charge_log", "member_sn=".$member_sn);
+		// 복호화된 은행정보
+		$strUserBankInfo = $this->memberModel->getPersonInfo($member_sn);
+		$arrUserBankInfo = explode("|", $strUserBankInfo);
 		
-		$rs = $this->memberModel->getMemberRow($member_sn, "bank_name,bank_account,bank_member");
-		
-		if(count((array)$charge_list)==0)	
-		{
-			$sql = "insert into ".$this->db_qz."charge_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
-							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
-			
-			$sql_bak = "insert into ".$this->db_qz."charge_log_bak(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
-							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
-		}
-		else
-		{
-			$sql = "insert into ".$this->db_qz."charge_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
-							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
-			
-			$sql_bak = "insert into ".$this->db_qz."charge_log_bak(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
-							values(".$member_sn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), ".$state.", 0, 0, '".$this->logo."')";
-		}
+		$sql_bak = "insert into ".$this->db_qz."charge_log_bak(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
+							values(".$member_sn.",".$amount.",'".$arrUserBankInfo[1]."','".$arrUserBankInfo[2]."','".$arrUserBankInfo[3]."', now(), ".$state.", 0, 0, '".$this->logo."')";
 		$this->db->exeSql($sql_bak);
-				
+
+		$sql = "insert into ".$this->db_qz."charge_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
+							values(".$member_sn.",".$amount.",'".$arrUserBankInfo[1]."','".$arrUserBankInfo[2]."','".$arrUserBankInfo[3]."', now(), ".$state.", 0, 0, '".$this->logo."')";
+			
 		return $this->db->exeSql($sql);
 	}
 
