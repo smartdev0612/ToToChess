@@ -199,6 +199,22 @@ class Lemon_Mysql
 			}
 		}
 
+		//-> 업데이트에 대한 쿼리 로그. (파트너정보 업데이트)
+		if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
+			if ( preg_match("/(tb_partner)/i",$sql,$match) != 0 ) {
+				if ( preg_match("/(id|name|phone|_bank)/i",$sql,$match) != 0 ) {
+					//-> 유저변경로그 file
+					$fileName = "SQL_LOG_PARTNER_".date("Ymd",time()).".log";
+					$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
+					if ( $logFile ) {
+						$logSql = str_replace("	","",$sql);					
+						@fwrite($logFile, "\{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
+						@fclose($logFile);
+					}
+				}
+			}
+		}
+
 		try {
 			if(!$result=mysqli_query($this->conn, $sql)){
 				$error = true;
