@@ -127,92 +127,101 @@ class Lemon_Mysql
 
 		$hDate = date("Y-m-d H:i:s",time());
 
-		//-> 업데이트에 대한 쿼리 로그. (SUB_CHILD_SN 업데이트)
-		if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
-			if ( preg_match("/(vhost.user)/i",$selfUrl,$match) != 0 and preg_match("/(sub_child_sn)/i",$sql,$match) != 0 ) {
-				$fileName = "SQL_LOG_SUBCHILD_".date("Ymd",time()).".log";
-				$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
-				if ( $logFile ) {
-					$logSql = str_replace("	","",$sql);
-					@fwrite($logFile, "\n{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n");
-					@fclose($logFile);
-				}
-				exit;
-			}
-		}
+		// //-> 업데이트에 대한 쿼리 로그. (SUB_CHILD_SN 업데이트)
+		// if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
+		// 	if ( preg_match("/(vhost.user)/i",$selfUrl,$match) != 0 and preg_match("/(sub_child_sn)/i",$sql,$match) != 0 ) {
+		// 		$fileName = "SQL_LOG_SUBCHILD_".date("Ymd",time()).".log";
+		// 		$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
+		// 		if ( $logFile ) {
+		// 			$logSql = str_replace("	","",$sql);
+		// 			@fwrite($logFile, "\n{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n");
+		// 			@fclose($logFile);
+		// 		}
+		// 		exit;
+		// 	}
+		// }
 
-		//-> 업데이트에 대한 쿼리 로그. (배팅뱡향 업데이트)
-		if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
-			if ( preg_match("/(vhost.user)/i",$selfUrl,$match) != 0 and preg_match("/(select_no)/i",$sql,$match) != 0 ) {
-				$fileName = "SQL_LOG_SELECTNO_".date("Ymd",time()).".log";
-				$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
-				if ( $logFile ) {
-					$logSql = str_replace("	","",$sql);
-					@fwrite($logFile, "\n{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
-					@fclose($logFile);
-				}
-				exit;
-			}
-		}
+		// //-> 업데이트에 대한 쿼리 로그. (배팅뱡향 업데이트)
+		// if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
+		// 	if ( preg_match("/(vhost.user)/i",$selfUrl,$match) != 0 and preg_match("/(select_no)/i",$sql,$match) != 0 ) {
+		// 		$fileName = "SQL_LOG_SELECTNO_".date("Ymd",time()).".log";
+		// 		$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
+		// 		if ( $logFile ) {
+		// 			$logSql = str_replace("	","",$sql);
+		// 			@fwrite($logFile, "\n{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
+		// 			@fclose($logFile);
+		// 		}
+		// 		exit;
+		// 	}
+		// }
 
-		//-> 업데이트에 대한 쿼리 로그. (배당 업데이트)
-		if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
-			if ( preg_match("/(home_rate)/i",$sql,$match) != 0 or preg_match("/(away_rate)/i",$sql,$match) != 0 or preg_match("/(draw_rate)/i",$sql,$match) != 0 ) {
+		// //-> 업데이트에 대한 쿼리 로그. (배당 업데이트)
+		// if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
+		// 	if ( preg_match("/(home_rate)/i",$sql,$match) != 0 or preg_match("/(away_rate)/i",$sql,$match) != 0 or preg_match("/(draw_rate)/i",$sql,$match) != 0 ) {
 				
-				$fileName = "SQL_LOG_RATE_".date("Ymd",time()).".log";
-				$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
-				if ( $logFile ) {
-					$logSql = str_replace("	","",$sql);
-					@fwrite($logFile, "\n{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
-					@fclose($logFile);
-				}
-			}
-		}
+		// 		$fileName = "SQL_LOG_RATE_".date("Ymd",time()).".log";
+		// 		$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
+		// 		if ( $logFile ) {
+		// 			$logSql = str_replace("	","",$sql);
+		// 			@fwrite($logFile, "\n{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
+		// 			@fclose($logFile);
+		// 		}
+		// 	}
+		// }
 
-		//-> 업데이트에 대한 쿼리 로그. (계좌답변 업데이트)
-		if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
-			if ( preg_match("/(qna_1)/i",$sql,$match) != 0 ) {
-				//-> 배팅로그 file
-				$fileName = "SQL_LOG_QUESTION_".date("Ymd",time()).".log";
-				$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
-				if ( $logFile ) {
-					$logSql = str_replace("	","",$sql);					
-					@fwrite($logFile, "\n{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
-					@fclose($logFile);
-				}
-			}
-		}
+		// //-> 업데이트에 대한 쿼리 로그. (계좌답변 업데이트)
+		// if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
+		// 	if ( preg_match("/(qna_1)/i",$sql,$match) != 0 ) {
+		// 		//-> 배팅로그 file
+		// 		$fileName = "SQL_LOG_QUESTION_".date("Ymd",time()).".log";
+		// 		$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
+		// 		if ( $logFile ) {
+		// 			$logSql = str_replace("	","",$sql);					
+		// 			@fwrite($logFile, "\n{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
+		// 			@fclose($logFile);
+		// 		}
+		// 	}
+		// }
 
-		//-> 업데이트에 대한 쿼리 로그. (유저정보 업데이트)
-		if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
-			if ( preg_match("/(tb_people)/i",$sql,$match) != 0 ) {
-				if ( preg_match("/(nick|name|phone|bank_)/i",$sql,$match) != 0 ) {
-					//-> 유저변경로그 file
-					$fileName = "SQL_LOG_USER_".date("Ymd",time()).".log";
-					$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
-					if ( $logFile ) {
-						$logSql = str_replace("	","",$sql);					
-						@fwrite($logFile, "\{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
-						@fclose($logFile);
-					}
-				}
-			}
-		}
+		// //-> 업데이트에 대한 쿼리 로그. (유저정보 업데이트)
+		// if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
+		// 	if ( preg_match("/(tb_people)/i",$sql,$match) != 0 ) {
+		// 		if ( preg_match("/(nick|name|phone|bank_)/i",$sql,$match) != 0 ) {
+		// 			//-> 유저변경로그 file
+		// 			$fileName = "SQL_LOG_USER_".date("Ymd",time()).".log";
+		// 			$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
+		// 			if ( $logFile ) {
+		// 				$logSql = str_replace("	","",$sql);					
+		// 				@fwrite($logFile, "\{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
+		// 				@fclose($logFile);
+		// 			}
+		// 		}
+		// 	}
+		// }
 
-		//-> 업데이트에 대한 쿼리 로그. (파트너정보 업데이트)
-		if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
-			if ( preg_match("/(tb_partner)/i",$sql,$match) != 0 ) {
-				if ( preg_match("/(id|name|phone|_bank)/i",$sql,$match) != 0 ) {
-					//-> 유저변경로그 file
-					$fileName = "SQL_LOG_PARTNER_".date("Ymd",time()).".log";
-					$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
-					if ( $logFile ) {
-						$logSql = str_replace("	","",$sql);					
-						@fwrite($logFile, "\{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
-						@fclose($logFile);
-					}
-				}
-			}
+		// //-> 업데이트에 대한 쿼리 로그. (파트너정보 업데이트)
+		// if ( preg_match("/(update )/i",$sql,$match) != 0 ) {
+		// 	if ( preg_match("/(tb_partner)/i",$sql,$match) != 0 ) {
+		// 		if ( preg_match("/(id|name|phone|_bank)/i",$sql,$match) != 0 ) {
+		// 			//-> 유저변경로그 file
+		// 			$fileName = "SQL_LOG_PARTNER_".date("Ymd",time()).".log";
+		// 			$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
+		// 			if ( $logFile ) {
+		// 				$logSql = str_replace("	","",$sql);					
+		// 				@fwrite($logFile, "\{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
+		// 				@fclose($logFile);
+		// 			}
+		// 		}
+		// 	}
+		// }
+
+		//-> 큐어리로그 file
+		$fileName = "SQL_LOG_QUERY_".date("Ymd",time()).".log";
+		$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
+		if ( $logFile ) {
+			$logSql = str_replace("	","",$sql);					
+			@fwrite($logFile, "\{$ips} {$hDate} [{$selfUrl}] [{$logSql}]\n\n");
+			@fclose($logFile);
 		}
 
 		try {
