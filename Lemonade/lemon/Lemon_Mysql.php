@@ -105,10 +105,24 @@ class Lemon_Mysql
 		$this->getDMLType($sql);
 		$error = false;
 
-		$ips = "[".array_key_exists('HTTP_X_REAL_IP', $_SERVER) ? $_SERVER["HTTP_X_REAL_IP"] : ''."|"
-            .array_key_exists('REMOTE_ADDR', $_SERVER) ? $_SERVER["REMOTE_ADDR"] : ''."|".array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : ''."|"
-            .array_key_exists('HTTP_INCAP_CLIENT_IP', $_SERVER) ? $_SERVER["HTTP_INCAP_CLIENT_IP"] : ''."]";
-
+		$ips = "";
+		if ( isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) && isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) ) {
+			$ips = $_SERVER["HTTP_INCAP_CLIENT_IP"];
+			//echo "HTTP_INCAP_CLIENT_IP";
+		} else if ( isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ) {
+			$ips = $_SERVER["HTTP_X_FORWARDED_FOR"];
+			//echo "HTTP_X_FORWARDED_FOR";
+		} else if ( isset($_SERVER["HTTP_X_REAL_IP"]) && isset($_SERVER["HTTP_X_REAL_IP"]) ) {
+			$ips = $_SERVER["HTTP_X_REAL_IP"];
+			//echo "HTTP_X_REAL_IP";
+		} else if ( isset($_SERVER["HTTP_CF_CONNECTING_IP"]) ) {
+			$ips = $_SERVER["HTTP_CF_CONNECTING_IP"];
+			//echo "HTTP_CF_CONNECTING_IP";
+		} else {
+			$ips = $_SERVER["REMOTE_ADDR"];
+			//echo "REMOTE_ADDR";
+		}
+		
 		$selfUrl = $_SERVER["PHP_SELF"];
 
 		$hDate = date("Y-m-d H:i:s",time());
