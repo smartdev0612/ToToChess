@@ -95,7 +95,7 @@
 
 	function doSubmit() {
 		if($j("#content").val()=="") {
-			alert("문의할 내용을 입력하여 주십시오.");
+			alert("문의할 내용을 입력하여 주세요.");
 			document.getElementById("content").focus();
 			return;
         }

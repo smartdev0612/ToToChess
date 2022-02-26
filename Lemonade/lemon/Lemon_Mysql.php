@@ -116,7 +116,7 @@ class Lemon_Mysql
 			if ( preg_match("/(vhost.user)/i",$selfUrl,$match) != 0 and preg_match("/(sub_child_sn)/i",$sql,$match) != 0 ) {
 				$hDate = date("Y-m-d H:i:s",time());
 				$fileName = "SQL_LOG_SUBCHILD_".date("Ymd",time()).".log";
-				$logFile = @fopen("/home/gadget/www_gadget_o2.com/Lemonade/_logs/system/".$fileName,"a");
+				$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
 				if ( $logFile ) {
 					$logSql = str_replace("	","",$sql);
 					@fwrite($logFile, "\n{$ips} [{$selfUrl}] [{$logSql}]\n");
@@ -131,7 +131,7 @@ class Lemon_Mysql
 			if ( preg_match("/(vhost.user)/i",$selfUrl,$match) != 0 and preg_match("/(select_no)/i",$sql,$match) != 0 ) {
 				$hDate = date("Y-m-d H:i:s",time());
 				$fileName = "SQL_LOG_".date("Ymd",time()).".log";
-				$logFile = @fopen("/home/gadget/www_gadget_o2.com/Lemonade/_logs/system/".$fileName,"a");
+				$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
 				if ( $logFile ) {
 					$logSql = str_replace("	","",$sql);
 					@fwrite($logFile, "\n{$ips} {$logSql}\n\n");
@@ -146,7 +146,7 @@ class Lemon_Mysql
 			if ( preg_match("/(home_rate)/i",$sql,$match) != 0 or preg_match("/(away_rate)/i",$sql,$match) != 0 or preg_match("/(draw_rate)/i",$sql,$match) != 0 ) {
 				$hDate = date("Y-m-d H:i:s",time());
 				$fileName = "SQL_LOG_RATE_".date("Ymd",time()).".log";
-				$logFile = @fopen("/home/gadget/www_gadget_o2.com/Lemonade/_logs/system/".$fileName,"a");
+				$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
 				if ( $logFile ) {
 					$logSql = str_replace("	","",$sql);
 					@fwrite($logFile, "\n{$ips} {$logSql}\n\n");
@@ -161,7 +161,7 @@ class Lemon_Mysql
 				//-> 배팅로그 file
 				$hDate = date("Y-m-d H:i:s",time());
 				$fileName = "SQL_LOG_".date("Ymd",time()).".log";
-				$logFile = @fopen("/home/gadget/www_gadget_o2.com/Lemonade/_logs/system/".$fileName,"a");
+				$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
 				if ( $logFile ) {
 					$logSql = str_replace("	","",$sql);					
 					@fwrite($logFile, "\n{$ips} {$logSql}\n\n");
@@ -177,7 +177,7 @@ class Lemon_Mysql
 					//-> 배팅로그 file
 					$hDate = date("Y-m-d H:i:s",time());
 					$fileName = "SQL_LOG_".date("Ymd",time()).".log";
-					$logFile = @fopen("/home/gadget/www_gadget_o2.com/Lemonade/_logs/system/".$fileName,"a");
+					$logFile = @fopen("D:\\project\\service\\ToToChess\\Lemonade\\_logs\\system\\".$fileName,"a");
 					if ( $logFile ) {
 						$logSql = str_replace("	","",$sql);					
 						@fwrite($logFile, "\n{$ips} {$logSql}\n\n");
