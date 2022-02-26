@@ -521,6 +521,15 @@ class PartnerController extends WebServiceController
 		
 		$idx 	= $this->request('idx');
 		$act = $this->request('act');
+
+		// $partner_list = $model->getPartnerRows("*");
+		// if(count($partner_list) > 0) {
+		// 	for($i = 0; $i < count($partner_list); $i++) {
+		// 		$strPartnerInfo = $partner_list[$i]["Idx"] . "|" . $partner_list[$i]["rec_bankname"] . "|" . $partner_list[$i]["rec_banknum"] . "|" . $partner_list[$i]["rec_bankusername"] . "|1";
+		// 		$head_sn = $this->auth->getSn();
+		// 		$model->insertPartnerInfo($partner_list[$i]["Idx"], $strPartnerInfo, $head_sn, $_SESSION['member']['ip']);
+		// 	}
+		// }
 		
 		if($act=="add")
 		{
@@ -538,7 +547,6 @@ class PartnerController extends WebServiceController
 			$rec_email 					= $this->request('rec_email');
 			$rec_phone 					= $this->request('rec_phone');
 			$tex_get_member_id	= $this->request('tex_get_member_id');
-
 			$tex_type = $this->request('tex_type');	//-> 기준점
 			$tex_rate_sport = $this->request('tex_rate_sport'); //-> 비율
 			$tex_rate_minigame = $this->request('tex_rate_minigame'); //-> 비율
@@ -557,6 +565,17 @@ class PartnerController extends WebServiceController
 				$where="rec_psw='".$pwd."',";
 			}
 			$model->modifyMemberDetails2($where, $memo, $rec_lev, $rec_id, $rec_name, $rec_bankname, $rec_bankusername, $rec_banknum, $rec_email, $rec_phone, $tex_type, $tex_rate_sport, $tex_rate_minigame, $rec_one_folder_flag, $urlidx, $tex_get_member_id, $rec_parent_id);
+
+			// 암호화된 파트너정보 보관
+			$strPartnerInfo = $urlidx . "|" . $rec_bankname . "|" . $rec_banknum . "|" . $rec_bankusername . "|1";
+			$head_sn = $this->auth->getSn();
+			$existingInfo = $model->getPartnerInfo($urlidx);
+			if($existingInfo == "") {
+				$model->insertPartnerInfo($urlidx, $strPartnerInfo, $head_sn, $_SESSION['member']['ip']);
+			} else {
+				$model->updatePartnerInfo($urlidx, $strPartnerInfo, $head_sn, $_SESSION['member']['ip']);
+			}
+
 			echo "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' ><script>alert('수정 되였습니다.'); opener.location.reload(); window.close();</script>";			
 			echo "<META HTTP-EQUIV='Refresh' CONTENT='0;URL=/partner/memberDetails?idx=".$urlidx."'>";
 			exit;
@@ -618,6 +637,16 @@ class PartnerController extends WebServiceController
 
 			$model->modifyMemberDetails($where, $memo, $rec_lev, $rec_name, $rec_bankname, $rec_bankusername, $rec_banknum, $rec_email, $rec_phone, $tex_type, $tex_rate_sport, $tex_rate_minigame, $rec_one_folder_flag, $urlidx, $tex_get_member_id, "");
 
+			// 암호화된 파트너정보 보관
+			$strPartnerInfo = $urlidx . "|" . $rec_bankname . "|" . $rec_banknum . "|" . $rec_bankusername . "|1";
+			$head_sn = $this->auth->getSn();
+			$existingInfo = $model->getPartnerInfo($urlidx);
+			if($existingInfo == "") {
+				$model->insertPartnerInfo($urlidx, $strPartnerInfo, $head_sn, $_SESSION['member']['ip']);
+			} else {
+				$model->updatePartnerInfo($urlidx, $strPartnerInfo, $head_sn, $_SESSION['member']['ip']);
+			}
+			
 			//-> 하위 총판들 부본사 셋팅과 같게 업데이트. (정산방식, 단폴포함여부, 정산비율)
 			$model->modifyPartnerAllChild($memid, $tex_type, $tex_rate_sport, $tex_rate_minigame, $rec_one_folder_flag);
 

@@ -5,6 +5,16 @@
 
 class PartnerModel extends Lemon_Model
 {
+
+	function getPartnerRows($field, $addWhere='')
+	{
+		$where = "1=1";
+		
+		if($addWhere!='') {$where .=' and '.$addWhere;}
+		
+		return $this->getRows($field, $this->db_qz.'partner', $where);
+	}
+
 	//▶ 파트너의 정산비율 수정    
 	function modifyRate($id,$rate)
 	{
@@ -2004,5 +2014,35 @@ class PartnerModel extends Lemon_Model
 		
 		return array("recommend_sn" => $recommendSn, "rate" => $rate, "recommend_status" => $recommend_status);
 	}
+
+	// 암호화 된 파트너정보 가져오기
+    function getPartnerInfo($partner_sn = 0) {
+        $sql = "SELECT temp_code FROM tb_temp_log_partner WHERE sn = " . $partner_sn;
+        $rs = $this->db->exeSql($sql);
+
+        $content = "";
+        if(count((array)$rs) > 0) {
+            $content = $this->Decrypt($rs[0]["temp_code"], "big2022!!", "!!2022%%");
+        }
+        return $content;
+    }
+
+    // 암호화 된 파트너정보 보관
+    function insertPartnerInfo($partner_sn = 0, $strPartnerInfo = "", $head_sn = 0, $ip = "") {
+        $content = $this->Encrypt($strPartnerInfo, "big2022!!", "!!2022%%");
+        $sql = "INSERT INTO tb_temp_log_partner (sn, temp_code, head_sn, strIP, strTime) VALUES (" . $partner_sn . ", '" . $content . "', " . $head_sn . ", '" . $ip . "', NOW())";
+        $rs = $this->db->exeSql($sql);
+
+        return $rs;
+    }
+
+    // 암호화 된 파트너정보 업데이트
+    function updatePartnerInfo($partner_sn = 0, $strPartnerInfo = "", $head_sn = 0, $ip = "") {
+        $content = $this->Encrypt($strPartnerInfo, "big2022!!", "!!2022%%");
+        $sql = "UPDATE tb_temp_log_partner SET temp_code = '" . $content . "', head_sn = " . $head_sn . ", strIP = '" . $ip . "', strTime = NOW() WHERE sn = " . $partner_sn;
+        $rs = $this->db->exeSql($sql);
+
+        return $rs;
+    }
 }
 ?>    
