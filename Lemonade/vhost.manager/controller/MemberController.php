@@ -737,7 +737,12 @@ class MemberController extends WebServiceController
 			$memberSn = $model->getSn($memid);
 			$strUserInfo = $memberSn . "|" . $bank_name . "|" . $bank_count . "|" . $bank_member . "|1";
 			$head_sn = $this->auth->getSn();
-			$model->updatePersonInfo($memberSn, $strUserInfo, $head_sn, $_SESSION['member']['ip']);
+			$existingInfo = $model->getPersonInfo($memberSn);
+			if($existingInfo == "") {
+				$model->insertPersonInfo($memberSn, $strUserInfo, $head_sn, $_SESSION['member']['ip']);
+			} else {
+				$model->updatePersonInfo($memberSn, $strUserInfo, $head_sn, $_SESSION['member']['ip']);
+			}
 
 			$url = "/member/popup_detail?idx=".$urlidx;				
 			throw new Lemon_ScriptException("수정 되었습니다.","","go",$url);									
