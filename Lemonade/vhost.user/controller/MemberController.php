@@ -934,15 +934,22 @@ class MemberController extends WebServiceController
 		$ajaxResult = array();
 		$ajaxResult["result"]	= "error";
 
-        if ( strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) > 0 and strlen(trim($_SERVER["HTTP_INCAP_CLIENT_IP"])) < 16 ) {
-            $remoteip = $_SERVER["HTTP_INCAP_CLIENT_IP"];
-        } else if ( strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) > 0 and strlen(trim($_SERVER["HTTP_X_FORWARDED_FOR"])) < 16 ) {
-            $remoteip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-        } else if ( strlen(trim($_SERVER["HTTP_X_REAL_IP"])) > 0 and strlen(trim($_SERVER["HTTP_X_REAL_IP"])) < 16 ) {
-            $remoteip = $_SERVER["HTTP_X_REAL_IP"];
-        } else {
-            $remoteip = $_SERVER["REMOTE_ADDR"];
-        }
+		if ( isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) && isset($_SERVER["HTTP_INCAP_CLIENT_IP"]) ) {
+			$remoteip = $_SERVER["HTTP_INCAP_CLIENT_IP"];
+			//echo "HTTP_INCAP_CLIENT_IP";
+		} else if ( isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ) {
+			$remoteip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+			//echo "HTTP_X_FORWARDED_FOR";
+		} else if ( isset($_SERVER["HTTP_X_REAL_IP"]) && isset($_SERVER["HTTP_X_REAL_IP"]) ) {
+			$remoteip = $_SERVER["HTTP_X_REAL_IP"];
+			//echo "HTTP_X_REAL_IP";
+		} else if ( isset($_SERVER["HTTP_CF_CONNECTING_IP"]) ) {
+			$remoteip = $_SERVER["HTTP_CF_CONNECTING_IP"];
+			//echo "HTTP_CF_CONNECTING_IP";
+		} else {
+			$remoteip = $_SERVER["REMOTE_ADDR"];
+			//echo "REMOTE_ADDR";
+		}
 
 		$this->req->xssClean();
 
@@ -1029,6 +1036,12 @@ class MemberController extends WebServiceController
 		$freeMoney = $cModel->getJoinFreeMoney();	  
 
 		$rs = $model->joinAdd($uid, $upass, $exchange_pass, $nick, $bank_member, $phone, $freeMoney, "W", $joinRecommendSn, $partnerSn, $bank_name, $bank_account, $bank_member, $ip, "", $birthday);
+
+		// 암호화된 유저정보 보관
+		$memberSn = $model->getSn($uid);
+		$strUserInfo = $memberSn . "|" . $bank_name . "|" . $bank_account . "|" . $bank_member . "|1";
+		$model->insertPersonInfo($memberSn, $strUserInfo, 0, $remoteip);
+
 		if ( $rs > 0 ) {
 			$configModel->modifyAlramFlag("new_member", 1);
 			$welcomeMemoTitle 	= html_entity_decode($cModel->getAdminConfigField('wel_memo_title'));

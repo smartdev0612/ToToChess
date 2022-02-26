@@ -2435,19 +2435,23 @@ class ProcessModel extends Lemon_Model
 	{
 		if($amount<=0) return -2;
 		
-		$rs = $this->memberModel->getMemberRow($memberSn,"g_money,bank_name,bank_account,bank_member,exchange_pass");
+		$rs = $this->memberModel->getMemberRow($memberSn,"g_money,exchange_pass");
 		if($rs['g_money'] < $amount) return -3;
 		
 		if($passwd!='' && $passwd!=$rs['exchange_pass']) {return -1;} //-> 출금비번 확인 함. 20170525....
 		
 		$this->modifyMoneyProcess($memberSn, -$amount, '2','환전요청');
+
+		// 복호화된 은행정보
+		$strUserBankInfo = $this->memberModel->getPersonInfo($memberSn);
+		$arrUserBankInfo = explode("|", $strUserBankInfo);
 		
 		$sql_bak = "insert into ".$this->db_qz."exchange_log_bak(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
-				values(".$memberSn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), 0, 0, 0,'".$this->logo."')";
+				values(".$memberSn.",".$amount.",'".$arrUserBankInfo[1]."','".$arrUserBankInfo[2]."','".$arrUserBankInfo[3]."', now(), 0, 0, 0,'".$this->logo."')";
 		$this->db->exeSql($sql_bak);
 
 		$sql = "insert into ".$this->db_qz."exchange_log(member_sn,amount,bank,bank_account,bank_owner, regdate, state, is_read, is_hidden, logo)
-				values(".$memberSn.",".$amount.",'".$rs['bank_name']."','".$rs['bank_account']."','".$rs['bank_member']."', now(), 0, 0, 0,'".$this->logo."')";
+				values(".$memberSn.",".$amount.",'".$arrUserBankInfo[1]."','".$arrUserBankInfo[2]."','".$arrUserBankInfo[3]."', now(), 0, 0, 0,'".$this->logo."')";
 				
 		return $this->db->exeSql($sql);
 	}

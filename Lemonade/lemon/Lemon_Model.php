@@ -102,6 +102,21 @@ class Lemon_Model extends Lemon_Object {
             case('Sun'):return "<font color='red'>{$msg}</font>";break;
         }
     }
+
+	// 문자렬 암호화
+	function Encrypt($str, $secret_key='secret key', $secret_iv='secret iv') { 
+		$key = hash('sha256', $secret_key); 
+		$iv = substr(hash('sha256', $secret_iv), 0, 32); 
+		return str_replace("=", "", base64_encode( openssl_encrypt($str, "AES-256-CBC", $key, 0, $iv)) ); 
+	} 
+	
+	// 문자렬 복호화
+	function Decrypt($str, $secret_key='secret key', $secret_iv='secret iv') { 
+		$key = hash('sha256', $secret_key); 
+		$iv = substr(hash('sha256', $secret_iv), 0, 32); 
+		return openssl_decrypt( base64_decode($str), "AES-256-CBC", $key, 0, $iv ); 
+	}
+
 }
 
 ?>

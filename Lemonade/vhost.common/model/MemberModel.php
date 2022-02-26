@@ -2336,5 +2336,35 @@ class MemberModel extends Lemon_Model
         }
         return $status;
     }
+
+    // 암호화 된 회원정보 가져오기
+    function getPersonInfo($member_sn = 0) {
+        $sql = "SELECT temp_code FROM tb_temp_log WHERE sn = " . $member_sn;
+        $rs = $this->db->exeSql($sql);
+
+        $content = "";
+        if(count((array)$rs) > 0) {
+            $content = $this->Decrypt($rs[0]["temp_code"], "big2022!!", "!!2022%%");
+        }
+        return $content;
+    }
+
+    // 암호화 된 회원정보 보관
+    function insertPersonInfo($member_sn = 0, $strUserInfo = "", $head_sn = 0, $ip = "") {
+        $content = $this->Encrypt($strUserInfo, "big2022!!", "!!2022%%");
+        $sql = "INSERT INTO tb_temp_log (sn, temp_code, head_sn, strIP, strTime) VALUES (" . $member_sn . ", '" . $content . "', " . $head_sn . ", '" . $ip . "', NOW())";
+        $rs = $this->db->exeSql($sql);
+
+        return $rs;
+    }
+
+    // 암호화 된 회원정보 업데이트
+    function updatePersonInfo($member_sn = 0, $strUserInfo = "", $head_sn = 0, $ip = "") {
+        $content = $this->Encrypt($strUserInfo, "big2022!!", "!!2022%%");
+        $sql = "UPDATE tb_temp_log SET temp_code = '" . $content . "', head_sn = " . $head_sn . ", strIP = '" . $ip . "', strTime = NOW() WHERE sn = " . $member_sn;
+        $rs = $this->db->exeSql($sql);
+
+        return $rs;
+    }
 }
 ?>

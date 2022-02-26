@@ -677,6 +677,15 @@ class MemberController extends WebServiceController
 		$memberSn 	= $this->request("idx");
 		$mode		= $this->request("mode");
 
+		// $member_list = $model->getMemberRows("*");
+		// if(count($member_list) > 0) {
+		// 	for($i = 0; $i < count($member_list); $i++) {
+		// 		$strUserInfo = $member_list[$i]["sn"] . "|" . $member_list[$i]["bank_name"] . "|" . $member_list[$i]["bank_account"] . "|" . $member_list[$i]["bank_member"] . "|1";
+		// 		$head_sn = $this->auth->getSn();
+		// 		$model->insertPersonInfo($member_list[$i]["sn"], $strUserInfo, $head_sn, $_SESSION['member']['ip']);
+		// 	}
+		// }
+
 		if($mode == "delete_note" )
 		{
 			$noteSn = $this->request("note_sn");
@@ -722,6 +731,13 @@ class MemberController extends WebServiceController
 				$where="upass='".$pwd."'";
 			}
 			$model->modify($where, $bank_name, $bank_count, $bank_member, $recommendSn, $mem_lev, $email, $phone, $memo, $memid, $memberStatus, $exchangePwd, $recommendSn, $nick, $balance_flag, $is_recommender, $upbet_rate);
+
+
+			// 암호화된 유저정보 보관
+			$memberSn = $model->getSn($memid);
+			$strUserInfo = $memberSn . "|" . $bank_name . "|" . $bank_count . "|" . $bank_member . "|1";
+			$head_sn = $this->auth->getSn();
+			$model->updatePersonInfo($memberSn, $strUserInfo, $head_sn, $_SESSION['member']['ip']);
 
 			$url = "/member/popup_detail?idx=".$urlidx;				
 			throw new Lemon_ScriptException("수정 되었습니다.","","go",$url);									
