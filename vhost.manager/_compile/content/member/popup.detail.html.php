@@ -63,6 +63,29 @@ $TPL_memoList_1=empty($TPL_VAR["memoList"])||!is_array($TPL_VAR["memoList"])?0:c
 		content = $('#content_'+note_sn).val();
 		location.href="/member/noteProcess?act=modify&member_sn="+member_sn+"&content="+content+"&note_sn="+note_sn;
 	}
+
+	// 강제로그아웃
+	function onLogout(member_sn) {
+		$.ajax({
+            url: "/member/forceLogout",
+            type: "GET",
+            data: {
+                "member_sn": member_sn
+            },
+            success: function(res){ 
+				console.log(res);
+				if(res === "1") {
+					alert("성공적으로 처리되였습니다.");
+				} else {
+					alert("처리중 오류가 발생하였습니다.");
+				}
+            },
+            error: function(xhr,status,error) {
+                alert("처리중 오류가 발생 되었습니다. 관리자에게 문의해주세요.");
+            }
+        });
+	}
+	
 	</script>
 </head>
 <body>
@@ -228,6 +251,14 @@ $TPL_memoList_1=empty($TPL_VAR["memoList"])||!is_array($TPL_VAR["memoList"])?0:c
                 <td>
                     <input type="text" name="upbet_rate" value="<?php echo $TPL_VAR["list"]["upbet_rate"]?>" class="w50" style="width: 50px">%
                 </td>
+            </tr>
+			<tr>
+                <th>강제로그아웃</th>
+                <td>
+					<input type="button" class="btnStyle3" style="cursor: pointer" value="적용" onclick="onLogout(<?php echo $TPL_VAR['list']['sn']?>);"/>
+                </td>
+                <th></th>
+                <td></td>
             </tr>
 			<tr>
 			  <th>메모</th>
