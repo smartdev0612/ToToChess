@@ -30,7 +30,7 @@ $j().ready(function(){
         betCancel_popup_close();
     });
 
-    if(session_length > 0) {
+    if(isExistSession > 0) {
         setInterval(getUserInfo, 5000);
     }
 

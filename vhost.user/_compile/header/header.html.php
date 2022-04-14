@@ -19,7 +19,7 @@
     <script type="text/javascript" src="/10bet/js/10bet/pub.js?v=1610345806"></script>
     <script type="text/javascript" src="/include/js/common.js?v=1"></script>
     <script type="text/javascript" src="/include/js/constant.js?v=1"></script>
-    <script type="text/javascript" src="/include/js/include.js?v=4"></script>
+    <script type="text/javascript" src="/include/js/include.js?v=5"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
     <script type="text/javascript" src="/10bet/js/jquery.lazyload.min.js"></script>
 
@@ -39,11 +39,15 @@
             echo "<script type=\"text/javascript\" src=\"/include/js/sport.js?v={$vTime}\"></script>";
         }
         $isApi = isset($TPL_VAR["api"]) ? $TPL_VAR["api"] : "";
+        $isExistSession = 0;
+        if(count($_SESSION) > 0 && isset($_SESSION["member"])) {
+            $isExistSession = 1;
+        }
     ?> 
 </head>
 
 <script type="text/javascript">
-    var session_length = "<?=count($_SESSION)?>";
+    var isExistSession = <?=$isExistSession?>;
     var member_sn = "<?=$TPL_VAR["member_sn"]?>";
     var style_type = <?=$TPL_VAR["style_type"]?>;
     var api = '<?=$TPL_VAR["api"]?>';
