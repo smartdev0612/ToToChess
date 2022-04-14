@@ -62,6 +62,28 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 		$('#filter_domain').val(filter);
 		//document.form2.submit();
 	}
+
+	// 강제로그아웃
+	function onLogout(member_sn) {
+		$.ajax({
+            url: "/member/forceLogout",
+            type: "GET",
+            data: {
+                "member_sn": member_sn
+            },
+            success: function(res){ 
+				console.log(res);
+				if(res === "1") {
+					alert("성공적으로 처리되였습니다.");
+				} else {
+					alert("처리중 오류가 발생하였습니다.");
+				}
+            },
+            error: function(xhr,status,error) {
+                alert("처리중 오류가 발생 되었습니다. 관리자에게 문의해주세요.");
+            }
+        });
+	}
 	
 	//유저의 등급, 상태, 단폴배팅 변경시 호출
 	function onMemberModifyState(member_sn, state)
@@ -303,6 +325,7 @@ $TPL_list_1=empty($TPL_VAR["list"])||!is_array($TPL_VAR["list"])?0:count($TPL_VA
 			<th scope="col">진상관리</th>
 			<th scope="col">단폴배팅</th>
 			<th scope="col">두폴더배팅</th>
+			<th scope="col">강제로그아웃</th>
 <?php
 	if ( $_SESSION['member']['sn'] < 1000 ) {
 ?>
@@ -375,10 +398,13 @@ $TPL_permit_domain_list_2=empty($TPL_V1["permit_domain_list"])||!is_array($TPL_V
 							<option style="color:blue" value="1" <?php if($TPL_V1["two_folder_betting"]=='1'){?> selected <?php }?>>가능</option>
 						</select>
 					</td>
+					<td rowspan="2">
+						<input type="button" class="btnStyle3" style="cursor: pointer" value="적용" onclick="onLogout(<?php echo $TPL_V1["sn"]?>);"/>
+					</td>
 <?php
 	if ( $_SESSION['member']['sn'] < 1000 ) {
 ?>
-					<td rowspan="2"><input type="button" class="btnStyle3" value="적용" onclick="onSave(<?php echo $TPL_V1["sn"]?>);"/></a></td>
+					<td rowspan="2"><input type="button" class="btnStyle3" value="적용" onclick="onSave(<?php echo $TPL_V1['sn']?>);"/></td>
 <?
 	}
 ?>

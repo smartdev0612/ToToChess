@@ -1331,6 +1331,21 @@ class MemberController extends WebServiceController
 		
 		$this->display();
 	}
+
+	// 유저 강제 로그아웃
+	function forceLogoutAction() {
+		if(!$this->auth->isLogin())
+		{
+			$this->redirect("/login");
+			exit;
+		}
+		$model 	= Lemon_Instance::getObject("MemberModel", true);
+		$member_sn = $this->request("member_sn");
+		$session_id = $model->getSessionID($member_sn);
+		$path = "D:\\project\\service\\ToToChess\\vhost.user\\session\\sess_" . $session_id;
+		unlink($path);
+		echo "1";
+	}
 }
 
 ?>

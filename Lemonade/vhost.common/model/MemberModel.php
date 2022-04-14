@@ -2366,5 +2366,16 @@ class MemberModel extends Lemon_Model
 
         return $rs;
     }
+
+    // 회원세션정보 가져오기
+    function getSessionID($member_sn = 0) {
+        $sql = "SELECT sessionid FROM tb_people WHERE sn = '" . $member_sn . "'";
+        $rs = $this->db->exeSql($sql);
+        $sessionid = 0;
+        if(count((array)$rs) > 0) {
+            $sessionid = $rs[0]["sessionid"];
+        }
+        return $sessionid;
+    }
 }
 ?>

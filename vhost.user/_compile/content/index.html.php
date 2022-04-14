@@ -1,4 +1,4 @@
-	<div class="mask"></div>
+<div class="mask"></div>
 	<div id="container">
 
 <script type="text/javascript" src="/10bet/js/left.js?1610338639"></script>
