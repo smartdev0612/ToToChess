@@ -19,7 +19,7 @@
     <script type="text/javascript" src="/10bet/js/10bet/pub.js?v=1610345806"></script>
     <script type="text/javascript" src="/include/js/common.js?v=1"></script>
     <script type="text/javascript" src="/include/js/constant.js?v=1"></script>
-    <script type="text/javascript" src="/include/js/include.js?v=2"></script>
+    <script type="text/javascript" src="/include/js/include.js?v=4"></script>
     <script type="text/javascript" src="/10bet/js/common.js"></script>
     <script type="text/javascript" src="/10bet/js/jquery.lazyload.min.js"></script>
 
@@ -43,6 +43,7 @@
 </head>
 
 <script type="text/javascript">
+    var session_length = "<?=count($_SESSION)?>";
     var member_sn = "<?=$TPL_VAR["member_sn"]?>";
     var style_type = <?=$TPL_VAR["style_type"]?>;
     var api = '<?=$TPL_VAR["api"]?>';

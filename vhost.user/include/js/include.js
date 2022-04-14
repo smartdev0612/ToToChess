@@ -30,7 +30,9 @@ $j().ready(function(){
         betCancel_popup_close();
     });
 
-    var userInfo = setInterval(getUserInfo, 5000);
+    if(session_length > 0) {
+        setInterval(getUserInfo, 5000);
+    }
 
     $j(".confirmBetting").on("click", function(){
         confirm_popup_close();
@@ -413,9 +415,10 @@ function getUserInfo() {
 
     $j.get("/member/getUserInfo", function(result) {
         var json = JSON.parse(result);
-        if(json.length == 0) 
-            return;
-        
+        if(json.length == 0) {
+            window.location.reload();
+        }
+            
         VarMoney = json.member.g_money;
         $j(".member_inmoney").html(addCommas(json.member.g_money));
         $j(".member_mileage").html(addCommas(json.member.point));
