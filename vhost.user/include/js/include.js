@@ -50,7 +50,7 @@ $j().ready(function(){
 
     // 축구
     $j(".soc").on( "click", function() {
-        console.log("축구");
+        
         var submenu = $j(".li-soccer");
         var submenu1 = $j(".ul-soccer");
 
@@ -319,7 +319,6 @@ function sports_popup(text) {
 }
 
 function confirm_popup(text) {
-    console.log(text);
     $j("#confirm_popup .pop_message").html(text);
     $j("#confirm_popup").slideDown('fast');
     $j("#coverBG").fadeIn('fast');
@@ -499,9 +498,8 @@ function sportsSocket() {
     ws = new WebSocket(WS_SPORTS_ADDRESS);
 
     ws.onopen = function (event) {
-        console.log("WebSocket Opened");
+        // console.log("WebSocket Opened");
         if(socketError == 1) {
-            console.log(packet);
             onSendReqListPacket(packet);
         }
 
@@ -509,7 +507,7 @@ function sportsSocket() {
     };
     
     ws.onerror = function (event) {
-        console.log("WebSocket Error");
+        // console.log("WebSocket Error");
         socketError = 1;
         nSendType = 0;
         packet.m_nSendType = nSendType;
@@ -517,7 +515,7 @@ function sportsSocket() {
     }
 
     ws.onclose = function (event) {
-        console.log("WebSocket Closed");
+        // console.log("WebSocket Closed");
         sportsSocket();
     }
     
@@ -564,16 +562,16 @@ function miniSocket() {
     wsMini = new WebSocket(WS_MINI_ADDRESS);
 
     wsMini.onopen = function (event) {
-        console.log("Minigame WebSocket Opened");
+        // console.log("Minigame WebSocket Opened");
     };
     
     wsMini.onerror = function (event) {
-        console.log("Minigame WebSocket Error");
+        // console.log("Minigame WebSocket Error");
         miniSocket();
     }
 
     wsMini.onclose = function (event) {
-        console.log("Minigame WebSocket closed");
+        /// console.log("Minigame WebSocket closed");
     }
     
     wsMini.onmessage = function (event) {
@@ -607,7 +605,7 @@ function sendPacket(nPacketCode, strPacket) {
 }
 
 function onSendReqListPacket(param) {
-	console.log("Send initial packet");
+	// console.log("Send initial packet");
     clearInterval(ajaxInterval);
 	if(ws.readyState === WebSocket.OPEN) {
 		onLoadingScreen();
@@ -618,7 +616,7 @@ function onSendReqListPacket(param) {
             ajaxInterval = setInterval(function(){ sendPacket(PACKET_SPORT_AJAX, JSON.stringify(param)); }, 1500);
         }
 	} else {
-        console.log("delay");
+        // console.log("delay");
         setTimeout(() => {
             sendPacket(PACKET_SPORT_LIST, JSON.stringify(param));
             if(param.m_nLive != 2) {
@@ -631,7 +629,7 @@ function onSendReqListPacket(param) {
 }
 
 function sendMiniPacket(nPacketCode, strPacket) {
-    console.log("Send Mini Packet");
+    // console.log("Send Mini Packet");
     var packet = {
         "m_nPacketCode"     :   nPacketCode,
         "m_strPacket"       :   strPacket
